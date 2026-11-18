@@ -153,5 +153,5 @@
     }
   ],
   "preservation": "cenarios.json e mecanicas.csv anteriores preservados em historico-catalogos-2026-11-18",
-  "coverage": "148 testes aprovados após integração PAR-02; perfil encerrado, famílias futuras não implementadas"
+  "coverage": "155 testes aprovados após COM-02; interface textual Battle 3x3 disponível, sem menus dos modos PvE; famílias futuras não implementadas"
 }

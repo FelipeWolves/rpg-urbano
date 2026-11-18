@@ -44,7 +44,7 @@ Uma entrega por vez. Ordem por área, criticidade e dependências, conforme PLAN
 
 ## 3. Uso, habilidades ampliadas e persistência
 
-- [ ] COM-02 — Após os modos prioritários: entrada de ações e reinício interativo no protótipo textual, reutilizando as regras do motor; sem UI gráfica obrigatória.
+- [x] COM-02 — Interação textual de ações/alvos, resposta básica do time B, estado/resultado e reinício. 155 testes totais, 7 novos; app/jogar.cpp e scripts/jogar.ps1. Perfil Battle 3x3 AP, sem menu dos coordenadores ou UI gráfica; docs/batalhas/COM-02.md.
 - [ ] HAB-01 — Habilidades distintas, recurso e primeiros efeitos de estado; especificar e testar antes de expandir conteúdo.
 - [ ] CIC-01 — Seleção de equipe, recompensa mínima e salvamento local versionado.
 
@@ -61,7 +61,7 @@ Uma entrega por vez. Ordem por área, criticidade e dependências, conforme PLAN
 
 ## Próximo bloco executável
 
-COM-02: planejar e implementar interação textual de ações/alvos e reinício, reutilizando o núcleo. PAR-02 encerrado no perfil documentado; famílias futuras não estão implementadas. Não iniciar engine/UI gráfica/score junto.
+HAB-01: especificar e implementar uma família adicional de habilidade/recurso por incremento, sem reescrever recarga/status já existentes. COM-02 encerrado; ler COM-02.md. Não iniciar engine/UI gráfica/score junto.
 
 ## Encerramento de cada entrega
 
@@ -85,4 +85,4 @@ Atualizar ESTADO.md com implementação, testes efetivos, limites e próxima aç
 - [ ] Detalhar chefe dos Milagres (PVE-07); retorno cíclico (PVE-08) só vira requisito confirmado com exemplo. Não presumir que os três cenários usem o mesmo coordenador.
 - [ ] Habilidades comuns de área, seletores dinâmicos do chefe e efeitos entre times: especificar alcance e ampliar os seletores em bloco próprio.
 
-Essas famílias não são funcionalidades prontas por SEQ-01/PAR-01/PAR-02 estarem encerrados em seus perfis. Detalhes e procedência em MODOS-PVE.md e PENDENCIAS.md. A fila executável continua COM-02; novas prioridades dependem de escopo explícito.
+Essas famílias não são funcionalidades prontas por SEQ-01/PAR-01/PAR-02 estarem encerrados em seus perfis. Detalhes e procedência em MODOS-PVE.md e PENDENCIAS.md. A fila executável passa a HAB-01; novas prioridades dependem de escopo explícito.

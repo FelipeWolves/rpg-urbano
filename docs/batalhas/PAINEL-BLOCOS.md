@@ -1,6 +1,6 @@
 # Painel de blocos — estado consolidado
 
-Atualizado em 18/11/2026 após PAR-02 parte 3. Fonte de resultados: COMBATE.json e COMBATE-PAR-02-FINAL.json. Este painel substitui marcações antigas; relatórios anteriores permanecem preservados.
+Atualizado em 18/11/2026 após COM-02. Fonte de resultados: COMBATE.json e COMBATE-COM-02-FINAL.json. Este painel substitui marcações antigas; relatórios anteriores permanecem preservados.
 
 ## Legenda das siglas e marcações
 
@@ -46,9 +46,10 @@ As siglas são identificadores internos das áreas do projeto, não nomes de fer
 | ✅ SEQ-01 | Três times sucessivos e chefe por etapa | 17 grupos; três partes concluídas; A/A/B e A/A/A |
 | ✅ PAR-01 | Três frentes independentes coordenadas, orçamento global e cancelamento | 16 grupos; três partes concluídas, integração R04/replay/falha técnica |
 | ✅ PAR-02 — perfil HP único | HP/AP globais, skills de alvo único, R04, limites e replay | 17 grupos; sem fases autônomas de kit, área comum ou score |
+| ✅ COM-02 | Entrada textual, alvo, time B básico, estado/resultado e reinício | 7 grupos; 3x3 AP em jogar.exe, sem menu de modos |
 | ✅ Contrato R04 e revisões R01–R03 | Decisões e pesquisa recebida | Fechamento documental; implementação mínima em RES-01 |
 
-Total atual: **148 testes aprovados**, além das matrizes, isolamento intercalado, 1000 simulações funcionais e demonstração. Não é benchmark de servidor ou renderização.
+Total atual: **155 testes aprovados**, além das matrizes, isolamento intercalado, 1000 simulações funcionais e demonstração. Não é benchmark de servidor ou renderização.
 
 ## ⚠️ Implementado que ainda exige revisão obrigatória
 
@@ -60,14 +61,13 @@ Classificação pelo roteiro documentado, sem inferir datas pela criação do re
 
 | Ordem posterior aos modos críticos | Bloco | Falta |
 |---|---|---|
-| 1 | ⚠️ COM-02 | Entrada interativa de ações e reinício textual |
-| 2 | ⚠️ HAB-01 | Famílias ampliadas de habilidades, recursos e efeitos |
-| 3 | ⚠️ CIC-01 | Equipe, recompensa e save local versionado |
-| 4 | ⚠️ ENG-01 | Escolha e teste de compatibilidade da engine |
-| 5 | ⚠️ VIS-01 | Arena visual integrada ao núcleo |
-| 6 | ⚠️ ART-01 | Direção artística original e personagem representativo |
-| 7 | ⚠️ AUD-01 | Áudio próprio/licenciado e integração |
-| 8 | ⚠️ EXP-01 | Delimitar campanha/minijogo rítmico antes de implementar |
+| 1 | ⚠️ HAB-01 | Famílias ampliadas de habilidades, recursos e efeitos |
+| 2 | ⚠️ CIC-01 | Equipe, recompensa e save local versionado |
+| 3 | ⚠️ ENG-01 | Escolha e teste de compatibilidade da engine |
+| 4 | ⚠️ VIS-01 | Arena visual integrada ao núcleo |
+| 5 | ⚠️ ART-01 | Direção artística original e personagem representativo |
+| 6 | ⚠️ AUD-01 | Áudio próprio/licenciado e integração |
+| 7 | ⚠️ EXP-01 | Delimitar campanha/minijogo rítmico antes de implementar |
 
 ## ⚠️ Acrescentados durante o projeto — ainda por implementar e validar
 
@@ -84,7 +84,7 @@ Também acrescentados durante o percurso, mas já encerrados: COM-01A, TIME-01, 
 
 ⚠️ Não implementados nesta entrega: skills comuns de área e redirecionamento dinâmico do chefe, paralelismo real, servidor, IA completa, score, fases por limiar de HP, catálogo completo de habilidades, ATB opcional, lojas e produção multiplataforma. Sem aceites completos de implementação não são blocos fechados. Arte, áudio e escolha da engine terão validação apropriada, não necessariamente testes unitários.
 
-Ordem atual: **COM-02 → HAB-01 → CIC-01 → ENG-01 → VIS-01 → ART-01 → AUD-01 → EXP-01**. Uma entrega por vez. Priorização por risco/dependências e menor esforço útil dentro da área, sem estimativa de prazo ou consumo.
+Ordem atual: **HAB-01 → CIC-01 → ENG-01 → VIS-01 → ART-01 → AUD-01 → EXP-01**. Uma entrega por vez. Priorização por risco/dependências e menor esforço útil dentro da área, sem estimativa de prazo ou consumo.
 
 
 ## Comparação complementar — concluída

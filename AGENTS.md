@@ -109,3 +109,6 @@ PAR-02 parte 2 concluída: 142 testes, 11 grupos compartilhados. Self/OwnSquad/B
 
 
 PAR-02 perfil HP/AP único encerrado: 148 testes totais, 17 grupos compartilhados, nenhuma mudança de produção na parte 3. Próximo COM-02 interação textual. Não dizer que fases por HP/turno ou kit global foram implementadas: lacuna histórica separada nas tarefas futuras/PVE-09; área/dinâmica/score também pendentes. Falha na cadeia precede timeout; limite futuro de agendamento não é falha retroativa. Relatório PAR-02.md; matrizes e arquivos anteriores preservados.
+
+
+COM-02 concluído, 155 testes totais/7 grupos textuais. .\scripts\jogar.ps1 executa binário próprio build/combate/jogar.exe; compilado por testar-combate.ps1. Controle A/AI básica B, default 3x3 AP teto200, sem skills equipadas/menu SEQ/PAR. Skills via comando integradas/testadas em configs de sessão. Kernel inalterado. Próximo HAB-01: uma família adicional por incremento. Contrato docs/batalhas/COM-02.md.

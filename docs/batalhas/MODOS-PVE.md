@@ -1,6 +1,6 @@
 # Catálogo de exemplos e famílias PvE
 
-18/11/2026. Organização documental, sem alteração de mecânicas ou nova execução de testes. Cobertura atual: **148 testes aprovados** após PAR-02 parte 3; o catálogo continua evidência dos contratos próprios, não paridade externa. Este catálogo não é uma lista completa dos chefes/modos atuais do Dislyte.
+18/11/2026. Catálogo atualizado após COM-02; a edição documental não executa testes adicionais. Cobertura atual: **155 testes aprovados** após COM-02; o catálogo continua evidência dos contratos próprios, não paridade externa. Este catálogo não é uma lista completa dos chefes/modos atuais do Dislyte.
 
 Objetivo: preservar todos os exemplos e pistas já registrados, separar suas regras e evitar que implementar uma família seja interpretado como cobertura de todas as outras. Referência estruturada: modos-pve.csv e modos-pve.json. Foram preservadas as versões anteriores de cenarios.json e mecanicas.csv em historico-catalogos-2026-11-18/; IDs antigos e seus exemplos continuam existentes.
 
@@ -61,4 +61,4 @@ Não houve nova pesquisa online nesta entrega: referências históricas não for
 
 ## Próximo passo
 
-Próximo bloco: COM-02, interação textual; PAR-02 encerrado no perfil de alvo único, sem implicar fases autônomas. Pontuação/sobrevivência e fases autônomas permanecem requisitos separados a especificar; não entram silenciosamente na implementação de habilidades. Blocos concluídos não precisam de revisão sem mudança pertinente.
+COM-02 permite experimentar Battle 3x3 por texto, sem menus para os coordenadores. Próximo bloco: HAB-01; PAR-02 encerrado no perfil de alvo único, sem implicar fases autônomas. Pontuação/sobrevivência e fases autônomas permanecem requisitos separados a especificar; não entram silenciosamente na implementação de habilidades. Blocos concluídos não precisam de revisão sem mudança pertinente.

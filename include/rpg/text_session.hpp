@@ -1,0 +1,19 @@
+#pragma once
+#include "rpg/battle.hpp"
+#include <iosfwd>
+
+namespace rpg::presentation {
+enum class TextExit { Quit, InputClosed, AutomaticSafetyStop };
+struct TextReport {
+    Snapshot final_state;
+    TextExit exit;
+    std::uint64_t player_actions;
+    std::uint64_t automatic_actions;
+    std::uint64_t rejected_commands;
+    std::uint64_t restarts;
+};
+[[nodiscard]] BattleRules text_reference_rules();
+// Presentation only; streams support terminal use and deterministic scripted checks.
+[[nodiscard]] TextReport run_text_session(std::istream& input,std::ostream& output,
+    std::vector<Definition> roster=reference_roster(),BattleRules rules=text_reference_rules());
+} // namespace rpg::presentation

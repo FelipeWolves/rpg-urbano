@@ -182,3 +182,8 @@ SharedBoss exige mapeamento 1:1 skill/escopo compatível: Self, OwnSquad, Boss, 
 ## DEC-035 — Encerramento do perfil compartilhado e fronteira técnica
 
 PAR-02 encerra apenas HP/AP único e skills de alvo direto único com escopos/R04, orçamento e replay: 17 grupos, 148 testes totais. Falha ocorrida dentro da cadeia precede timeout; limite de agendamento futuro não substitui timeout que já impede nova oportunidade. Sem alteração de produção nesta parte. Aceite histórico de skill-phase não foi implementado: transições por HP/turno ficam explicitamente nas famílias futuras/PVE-09, sem declaração de aprovação. Área, dinâmica do chefe e score também pendentes. Próximo COM-02.
+
+
+## DEC-036 — Apresentação textual separada
+
+COM-02 usa streams e Battle para input/estado/eventos, sem regras duplicadas. Usuário controla A, B usa política básica existente. Default 3x3 AP, orçamento de 200/empate; comando exige alvo explícito. Reinício reconstrói dados/regras originais, EOF/sair não simulam vitória. Proteção de 256 ações automáticas encerra apresentação sem mudar resultado. Sete grupos de interação e 155 testes totais aprovados; sem engine/menu de modos ou novas mecânicas. Próximo HAB-01.

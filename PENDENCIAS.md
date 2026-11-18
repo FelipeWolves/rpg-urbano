@@ -192,3 +192,8 @@ PEN-08 parcialmente atendida: alvo direto único por próprio time, chefe ou fre
 ## PAR-02 parte 3 — perfil encerrado
 
 148 testes/17 grupos compartilhados aprovados; ordem de cadeias, overkill, reações, revive, falha técnica e timeout/replay validados. PEN-06/08 continuam parcialmente abertas para fases por HP/turno, área e eventos entre times, não abrangidos pelo perfil final. PEN-10/12 mantêm score/sobrevivência e contadores externos desconhecidos. Regra técnica distingue falha já detectada de limite de oportunidade futura: não gera erro após timeout impedir agendamento. Próximo COM-02; catálogo futuro preservado.
+
+
+## COM-02 — interação textual concluída
+
+Entrada de ações/alvos e reinício de Battle disponíveis e validados. Não é save/checkpoint nem menu de todos os modos; PEN-14 mantém persistência futura. 155 testes totais, sete de apresentação; núcleo inalterado. Próximo HAB-01 mantém famílias PvE por score/fases separadas.

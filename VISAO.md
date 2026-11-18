@@ -12,7 +12,7 @@ Offline/PC é uma hipótese inicial reversível para reduzir dependências; plat
 
 Uma arena, duas equipes de três posições e recursos visuais provisórios. Selecionar um alvo e uma ação; observar o turno, a mudança de vida e a condição de vitória. Poder reiniciar a batalha. A apresentação final e seis personagens únicos vêm depois da validação das regras.
 
-Três posições são o cenário inicial, não um limite estrutural. COM-01A verificou formações de 1–5 de cada lado e sondagens com seis. O usuário acrescentou requisitos de confrontos consecutivos, limites, três times sucessivos com chefe por etapa e frentes paralelas independentes ou compartilhando chefe. Contratos em docs/batalhas/CONTRATOS.md; esses sistemas ainda não estão implementados. Analisá-los antes da entrada interativa, sem confundir referências históricas com regras finais deste jogo.
+Três posições são o cenário inicial, não um limite estrutural. COM-01A verificou formações de 1–5 de cada lado e sondagens com seis. O usuário acrescentou requisitos de confrontos consecutivos, limites, três times sucessivos com chefe por etapa e frentes paralelas independentes ou compartilhando chefe. Contratos e perfis implementados em WAVE-01/SEQ-01/PAR-01/PAR-02; cobertura vigente em docs/batalhas/PAINEL-BLOCOS.md. COM-02 adiciona interação textual 3x3, ainda sem menus desses coordenadores. Famílias futuras em MODOS-PVE.md não são funcionalidades prontas; não confundir referências históricas com regras finais deste jogo.
 
 ## Regras provisórias do primeiro combate
 

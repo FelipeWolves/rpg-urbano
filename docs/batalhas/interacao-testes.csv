@@ -1,0 +1,8 @@
+test,status,scope
+input_atomics,pass,text_session_player_A_basic_AI_B
+target_enemy,pass,text_session_player_A_basic_AI_B
+guard_restart,pass,text_session_player_A_basic_AI_B
+victory_restart,pass,text_session_player_A_basic_AI_B
+skill_skip_clock,pass,text_session_player_A_basic_AI_B
+eof_timeout,pass,text_session_player_A_basic_AI_B
+safety_technical,pass,text_session_player_A_basic_AI_B

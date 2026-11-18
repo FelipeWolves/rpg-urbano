@@ -4,7 +4,7 @@ Atualizado: 18/11/2026.
 
 ## Situação
 
-FUN-01, FUN-02, AMB-01, COM-01, COM-01A, TIME-01, WAVE-01, TIME-02, TIME-03, RES-01, SEQ-01, PAR-01 e perfil PAR-02 concluídos. Núcleo C++20 com perfis fixo/AP, turnos extras, contra-ataques, status/recargas mínimos, guarda opcional, fases consecutivas e limites locais/globais. COM-02 segue em espera. Engine não escolhida nem aberta. Dúvidas/limitações futuras centralizadas em PENDENCIAS.md a pedido do usuário.
+FUN-01, FUN-02, AMB-01, COM-01, COM-01A, TIME-01, WAVE-01, TIME-02, TIME-03, RES-01, SEQ-01, PAR-01 e perfil PAR-02 concluídos. Núcleo C++20 com perfis fixo/AP, turnos extras, contra-ataques, status/recargas mínimos, guarda opcional, fases consecutivas e limites locais/globais. COM-02 concluído: sessão textual jogável, controle do time A e resposta automática básica do time B. Engine não escolhida nem aberta. Dúvidas/limitações futuras centralizadas em PENDENCIAS.md a pedido do usuário.
 
 Pasta do projeto: este diretório. Não usar a pasta do laboratório como diretório de trabalho de desenvolvimento. Git na branch main, agora com commit inicial do usuário e remoto origin cadastrado. A árvore estava limpa no início desta entrega. Pushes ficam com o usuário; nenhum servidor remoto foi consultado e nenhuma configuração/identidade Git foi alterada.
 
@@ -19,15 +19,15 @@ Pasta do projeto: este diretório. Não usar a pasta do laboratório como diret�
 
 ## Verificação desta entrega
 
-PAR-02 concluído no perfil de HP/AP únicos e skills de alvo direto único com escopo. Seis grupos novos validam Counter antes de timeout, overkill, interrupção por reflexão sem derrota global indevida, revive na última ação, falhas técnicas durante a cadeia, extras e replay/reset. Sem alteração de código de produção. A expectativa inicial sobre limite futuro de extras foi corrigida: timeout impede abrir a próxima oportunidade, não declara falha futura.
+COM-02 concluído: apresentação textual com comandos de ação/alvo, guarda, skill disponível, Skip, ajuda/estado, reinício/saída. Time A do jogador, B automático; usa Battle sem alterar kernel. Cenário padrão 3x3 AP e orçamento de 200 ações/empate, sem habilidades especiais equipadas. Comando de skills testado em configuração própria, sem catálogo/editor. Proteção de apresentação não inventa resultado.
 
-148 testes totais, 17 grupos compartilhados, MSVC /W4 /WX aprovado; matrizes 168 e 25 AP/replays, lote funcional 1000 e demo preservados. Evidências: docs/batalhas/PAR-02.md, COMBATE-PAR-02-FINAL.json e chefe-compartilhado-testes.csv.
+155 testes totais aprovados em MSVC /W4 /WX, sete novos de interação. Matrizes e demo preservadas. Jogar.exe compilado, verificação de saída e roteiro ataque/guarda/reinício/saída aprovados. Evidências: docs/batalhas/COM-02.md, COMBATE-COM-02-FINAL.json e interacao-testes.csv. Executar .\scripts\jogar.ps1 na raiz; se binário ausente, compilar antes com testar-combate.ps1.
 
-Fechamento não inclui skill-phase por HP/turno: lacuna histórica explicitamente mantida nas tarefas futuras/PVE-09. Também não inclui área comum/dinâmica do chefe, score, retorno cíclico, IA completa ou modos Treva Fluxo/Milagres. Não afirmar todas as famílias PvE validadas.
+Sem menus dos coordenadores SEQ/PAR, UI gráfica, salvamento, engine, rede ou recursos externos. Catálogo PvE futuro preservado; não declarar todos os modos jogáveis pela interface textual.
 
 ## Próximo passo executável
 
-COM-02: interação textual para ações/alvos e reinício, reutilizando regras do núcleo. Ler COMBATE.md e TAREFAS.md; definir aceite pequeno antes de expandir. Sem engine/UI gráfica/score/servidor junto. Pesquisa de famílias PvE continua disponível pelo roteiro separado; pushes com o usuário.
+HAB-01: definir uma família adicional de habilidade/recurso por incremento; reutilizar efeitos/recargas existentes e testar comportamento. Ler TAREFAS.md e COM-02.md; não iniciar engine/UI gráfica/score junto. Pushes com o usuário.
 
 ## Novas restrições e fatos úteis
 

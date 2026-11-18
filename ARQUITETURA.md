@@ -91,3 +91,6 @@ PAR-02 parte 2 habilita skills via SharedSkillScope (Self/OwnSquad/Boss/Rotating
 
 
 PAR-02 parte 3 concluiu integração do perfil HP/AP único/alvo direto único: 17 grupos, 148 testes totais. Não alterou kernel/coordenador. Fechamento não inclui troca de kit por HP/turno, habilidades comuns de área, score ou thread. Famílias futuras registradas em MODOS-PVE.md/TAREFAS.md. Próximo COM-02 utiliza o núcleo existente para entrada textual e reinício.
+
+
+COM-02: rpg::presentation::run_text_session adapta streams/comandos a Battle e eventos a texto; app/jogar.cpp é a entrada terminal. Sem mutação direta de HP ou duplicação de dano/vitória. Time B usa choose_basic_attack; execução automática limitada na apresentação, sem fabricar resultado. Configuração default 3x3 AP, teto 200, sem menu de coordenadores. 155 testes totais; próximo HAB-01.

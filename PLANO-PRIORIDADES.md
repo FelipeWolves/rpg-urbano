@@ -43,7 +43,7 @@ Usar habilidades originais mínimas já disponíveis para validar cada modo. Nã
 
 | Ordem | Bloco | Esforço relativo | Primeira entrega menor |
 |---|---|---|---|
-| 6 | COM-02 | Baixo/médio | Escolher ação/alvo e reiniciar no protótipo textual, reutilizando regras do motor |
+| 6 | ✅ COM-02 concluído | Baixo/médio | Escolher ação/alvo e reiniciar no protótipo textual, reutilizando regras do motor |
 | 7 | HAB-01 | Médio/alto, variável | Uma família adicional de habilidade/recurso por entrega, com configuração e teste próprios |
 | 8 | CIC-01 | Médio/alto | Separar composição/seleção, conclusão/recompensa e save versionado em entregas incrementais |
 
@@ -74,4 +74,4 @@ ATB opcional, backend/multiplayer, publicação em lojas/launcher e produção m
 
 ## Próxima ação concreta
 
-COM-02: interação textual de ações/alvos e reinício. PAR-02 encerrado no perfil de alvo único com 148 testes aprovados; fases por HP/turno e demais famílias PvE seguem nas tarefas futuras, sem implementação. Não iniciar engine/UI gráfica/score/servidor junto.
+HAB-01: uma família adicional de habilidades/recurso por incremento, com contrato e testes. COM-02 encerrado, 155 testes aprovados. Não iniciar engine/UI gráfica/score/servidor junto.

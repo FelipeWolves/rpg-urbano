@@ -56,3 +56,8 @@ Atualização: o usuário pediu análise de formações/fases/paralelismo antes 
 
 Matriz adicional: 150 cenários para os 25 pares de tamanhos 1–5, mais 18 sondagens com seis, repetidos com entrada invertida. Três contextos 5x1 independentes intercalados sem interferência. Lote de 1000 batalhas é ensaio funcional local. Limite local foi implementado; demais capacidades/decisões estão em PENDENCIAS.md. CSV em docs/batalhas/formacoes-testadas.csv.
 
+
+
+## Atualização vigente — COM-02
+
+Interação textual concluída em app/jogar.cpp e rpg::presentation, sem alterar regras do motor. Executar .\scripts\jogar.ps1; default 3x3 AP com teto 200/empate. As seções anteriores sobre falta de input e espera são históricas, superadas por docs/batalhas/COM-02.md. Demo fixa continua preservada. Sete grupos de interação e 155 testes totais aprovados; próximo HAB-01.

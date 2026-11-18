@@ -20,7 +20,7 @@ O script descobre o compilador instalado, compila código próprio, executa test
 
 No perfil de equipes: `1 B3` usa a básica; `2 B3` usa a segunda posição ativa; `3 A3` usa a proteção de emergência quando A3 age e está com até 50% da vida. `ajuda`, `estado`, `reiniciar` e `sair` orientam a sessão. A2/B2 têm a passiva Preparação; A3/B3 têm Golpe duplo preparado, com ataque ativo e escudo passivo de abertura. Notas sem definição executável continuam informativas. O time B de equipes escolhe especiais por prioridade configurada (padrão 3, depois 2) e usa a básica quando necessário; o log identifica a escolha. O time A continua manual. O clássico mantém ataque e defesa e a automação básica histórica.
 
-Conclusões agora registram recompensa provisória: +10 créditos de teste por vitória A por eliminação; demais finais concedem zero. Estado mostra tentativa/saldo, e reiniciar mantém o saldo dentro da mesma sessão. Ao sair, o progresso é perdido: ainda não há save. [Contrato da recompensa](docs/projeto/CIC-01-RECOMPENSA-R01.md).
+Conclusões agora registram recompensa provisória: +10 créditos de teste por vitória A por eliminação; demais finais concedem zero. Estado mostra tentativa/saldo, e reiniciar mantém o saldo dentro da mesma sessão. Use `salvar` para gravar equipe/progresso. Depois abra `.\Jogar.cmd --continuar` ou `.\Jogar-Classico.cmd --continuar`. A continuação começa outra batalha; não retoma HP/turnos. Sem salvar, avanços desde o último checkpoint são perdidos. Slots em `build/saves`, ignorados pelo Git. [Contrato do save](docs/projeto/CIC-01-SAVE-R01.md). [Contrato da recompensa](docs/projeto/CIC-01-RECOMPENSA-R01.md).
 
 ## Organização
 
@@ -42,7 +42,7 @@ A estrutura C++ atual já separa interfaces, implementação e aplicação. Não
 
 ## Verificação e limites
 
-A última entrega funcional aprovou **203/203 testes**; consulte o [resultado vigente](docs/relatorios/atuais/COMBATE.json) e o [aceite final HAB-01](docs/batalhas/HAB-01-FINAL.md). O protótipo não comprova servidor, desempenho gráfico ou equivalência a outro jogo. Próximo bloco funcional: CIC-01 parte 3, save local versionado e restauração validada.
+A última entrega funcional aprovou **211/211 testes**; consulte o [resultado vigente](docs/relatorios/atuais/COMBATE.json) e o [aceite final HAB-01](docs/batalhas/HAB-01-FINAL.md). O protótipo não comprova servidor, desempenho gráfico ou equivalência a outro jogo. Próximo bloco funcional: ENG-01, avaliação da engine e compatibilidade; sem instalação ou escolha definitiva automática.
 
 [Guia de contribuição](CONTRIBUTING.md) · [Segurança e dados](SECURITY.md) · [Índice da documentação](docs/README.md) · [Histórico de organização](CHANGELOG.md).
 

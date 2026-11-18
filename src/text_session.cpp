@@ -10,7 +10,7 @@ void help(std::ostream& out,CombatProfile profile){
         <<"Posicoes passivas nao sao selecionaveis. Defesa generica nao disponivel.\n";}
     else{out<<"Perfil: CLASSICO | Comandos: atacar ALVO | defesa | habilidade ID ALVO | passar\n";}
     out
-       <<"          estado | ajuda | reiniciar | sair\n"
+       <<"          estado | ajuda | reiniciar | salvar | sair\n"
        <<"Voce controla o time A. O time B age automaticamente.\n";
 }
 const char* error_message(ActionError error){
@@ -104,24 +104,28 @@ BattleRules text_reference_rules(){
     BattleRules rules;rules.timing=TimingProfile::ActionBar;rules.action_budget=ActionBudget{200,LimitOutcome::Draw};return rules;
 }
 TextReport run_text_session(std::istream& input,std::ostream& output,std::vector<Definition> roster,BattleRules rules,
-    CombatProfile profile,std::vector<CharacterLoadout> loadouts){
+    CombatProfile profile,std::vector<CharacterLoadout> loadouts,TextSessionOptions options){
     LocalSession local(std::move(roster),std::move(rules),profile,std::move(loadouts));
+    if(options.restored){local.restore_progress(*options.restored);}
     const auto& session=local.battle();
+    if(options.selected.empty()){
+        for(const auto& f:session.battle().fighters()){if(f.definition.team==Team::A){options.selected.push_back(f.definition.id);}}
+    }
     opening_passives(session,output);
     std::uint64_t players=0,automatic=0,rejected=0,restarts=0;
     TextExit exit=TextExit::InputClosed;
-    std::size_t shown_completions=0;
+    std::size_t shown_completions=local.progress().completions.size();
     auto show_rewards=[&](){
         const auto& progress=local.progress();
         while(shown_completions<progress.completions.size()){
             const auto& completion=progress.completions[shown_completions++];
             output<<"Conclusao #"<<completion.attempt<<": +"<<completion.credits
-                <<" creditos de teste | saldo "<<progress.credits<<" (somente nesta sessao).\n";
+                <<" creditos de teste | saldo "<<progress.credits<<" (use salvar para preservar).\n";
         }
     };
     auto show_state=[&](){
         profile_state(session,output);
-        output<<"Tentativa #"<<local.progress().attempt<<" | Saldo local: "<<local.progress().credits<<" creditos de teste (sem save).\n";
+        output<<"Tentativa #"<<local.progress().attempt<<" | Saldo local: "<<local.progress().credits<<" creditos de teste.\n";
     };
     auto advance_enemy=[&](){
         const auto& battle=session.battle();
@@ -152,6 +156,13 @@ TextReport run_text_session(std::istream& input,std::ostream& output,std::vector
         if(tokens.size()==1 && command=="sair"){exit=TextExit::Quit;output<<"Sessao encerrada.\n";break;}
         if(tokens.size()==1 && command=="ajuda"){help(output,profile);continue;}
         if(tokens.size()==1 && command=="estado"){show_state();continue;}
+        if(tokens.size()==1 && command=="salvar"){
+            if(!options.save_path){output<<"Salvamento nao configurado nesta sessao.\n";continue;}
+            try{write_save(*options.save_path,SavedGame{1,profile,options.selected,local.progress()});
+                output<<"Progresso salvo. Ao continuar sera iniciada uma nova batalha.\n";
+            }catch(const std::exception&){output<<"Falha ao salvar; arquivo anterior preservado.\n";}
+            continue;
+        }
         if(tokens.size()==1 && command=="reiniciar"){
             local.reset();++restarts;output<<"Batalha reiniciada. Tentativa #"<<local.progress().attempt<<".\n";
             opening_passives(session,output);
@@ -203,11 +214,11 @@ TeamReferenceSetup team_reference_setup(){
     }
     return {std::move(roster),std::move(rules),std::move(sets)};
 }
-TextReport run_team_reference_session(std::istream& input,std::ostream& output){
+TextReport run_team_reference_session(std::istream& input,std::ostream& output,TextSessionOptions options){
     auto setup=team_reference_setup();
-    return run_text_session(input,output,std::move(setup.roster),std::move(setup.rules),CombatProfile::Team,std::move(setup.loadouts));
+    return run_text_session(input,output,std::move(setup.roster),std::move(setup.rules),CombatProfile::Team,std::move(setup.loadouts),std::move(options));
 }
-TextReport run_selected_team_reference_session(std::istream& input,std::ostream& output,std::vector<std::string> selected){
+TextReport run_selected_team_reference_session(std::istream& input,std::ostream& output,std::vector<std::string> selected,TextSessionOptions options){
     TeamSelection selection(team_reference_setup());
     const auto error=selection.select(std::move(selected));
     if(error!=SelectionError::None){
@@ -219,6 +230,7 @@ TextReport run_selected_team_reference_session(std::istream& input,std::ostream&
         }
     }
     auto setup=selection.compose();
-    return run_text_session(input,output,std::move(setup.roster),std::move(setup.rules),CombatProfile::Team,std::move(setup.loadouts));
+    options.selected=selection.snapshot().selected;
+    return run_text_session(input,output,std::move(setup.roster),std::move(setup.rules),CombatProfile::Team,std::move(setup.loadouts),std::move(options));
 }
 } // namespace rpg::presentation

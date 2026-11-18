@@ -1,6 +1,12 @@
 # Tarefas
 
-## CIC-01 parte 2 — estado vigente (18/11/2026)
+## CIC-01 — concluído no escopo mínimo (18/11/2026)
+
+✅ Três partes concluídas: seleção 1–5 em memória, recompensa por conclusão única e save v1 de equipe/progresso entre batalhas. Salvar é manual; continuar valida arquivo/catálogo e abre outra tentativa sem reapurar conclusões antigas. **211/211 testes aprovados**, incluindo 7 de persistência e 18 textuais. Executável validado em cópia isolada, sem tocar slots de jogador.
+
+Contratos: docs/projeto/CIC-01.md e CIC-01-SAVE-R01.md. Aceites: COMBATE-CIC-01-FINAL.json, SAVE-CLI-CIC-01.json e saves-testes.csv em docs/batalhas. ⚠️ Sem save de batalha em andamento, antifraude, concorrência de escritores ou migração automática. Próximo: ENG-01, avaliação de engine/compatibilidade; nenhuma escolha definitiva, instalação ou download autorizado implicitamente.
+
+## CIC-01 parte 2 — histórico da entrega (18/11/2026)
 
 ✅ Resultado e recompensa mínima em memória concluídos. LocalSession atribui tentativa sequencial e registra cada conclusão uma vez. Vitória A por eliminação: +10 créditos de teste; demais desfechos: zero. Reiniciar mantém saldo/registro, abre nova tentativa e conserva a equipe. Estado mostra saldo sem reapurar recompensa. **203/203 testes aprovados** (7 de recompensa e 17 textuais, mais regressões).
 
@@ -94,10 +100,10 @@ Uma entrega por vez. Ordem por área, criticidade e dependências, conforme docs
   - [x] Parte 3 — Condição adicional e primeiros kits próprios, uma família por entrega.
   - [x] Parte 4 — Manual/automático com validação única e prioridade explícita.
   - [x] Parte 5 — Integrar poucos kits ao protótipo, preservar clássico e validar reset/replay.
-- [ ] CIC-01 — Ciclo local em três partes; docs/projeto/CIC-01.md.
+- [x] CIC-01 — Ciclo local em três partes; docs/projeto/CIC-01.md.
   - [x] Parte 1 — Composição/seleção em memória, 1–5 membros e encontro filtrado; 195 testes totais.
   - [x] Parte 2 — Resultado/recompensa mínima em memória, com concessão única; 203 testes totais.
-  - [ ] Parte 3 — Save versionado, validação e restauração.
+  - [x] Parte 3 — Save v1 de progresso entre batalhas, validação/restauração e escrita por substituição; 211 testes totais.
 
 ## 4. Engine e apresentação funcional
 
@@ -112,7 +118,7 @@ Uma entrega por vez. Ordem por área, criticidade e dependências, conforme docs
 
 ## Próximo bloco executável
 
-CIC-01 parte 3: fechar contrato de save versionado e restauração validada, mantendo identidade de tentativas e impedindo nova concessão de resultado já contabilizado. Não tratar Snapshot como save completo.
+ENG-01: avaliação de engine e compatibilidade com núcleo/toolchain. Ler requisitos e evidências locais; escolha definitiva, instalações/downloads e abertura de engine exigem decisão específica. CIC-01 concluído no escopo de progresso entre batalhas.
 
 ## Encerramento de cada entrega
 

@@ -37,3 +37,7 @@ Seleção de 1–5 membros por ID, com validação atômica e composição filtr
 ## 2026-11-18 — CIC-01 parte 2
 
 Resultado com ID por tentativa e recompensa única em memória: +10 por vitória A/eliminação, zero nos demais finais. Reset mantém saldo, consultas não concedem novamente. Estado mostra progresso local; sem save. 203/203 testes aprovados.
+
+## 2026-11-18 — CIC-01 encerrado
+
+Save manual v1 de seleção/progresso em build/saves; continuar valida e abre nova tentativa, sem restaurar batalha nem pagar conclusões antigas. Escrita temporária/flush/substituição e recusa de arquivos inválidos/futuros. 211/211 testes e verificação isolada do executável. Próximo ENG-01.

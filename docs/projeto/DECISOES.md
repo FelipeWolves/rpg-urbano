@@ -234,3 +234,7 @@ TeamSelection possui catálogo e seleção por IDs, de 1 a 5, recusando mudança
 ## DEC-047 — Conclusão e recompensa com autoridade da sessão
 
 LocalSession possui ProfileBattle, tentativa monotônica e ledger em memória. Não recebe IDs/resultados externos. Vitória A por Elimination concede 10 créditos provisórios, outros finais zero; cada tentativa registra no máximo uma conclusão. Reset conserva saldo, troca ID e refaz runtime/equipe. Sem transação durável ou promessa de identidade global; persistência é próxima parte.
+
+## DEC-048 — Save v1 entre batalhas
+
+Persistir seleção, saldo e ledger em formato textual próprio limitado, sem dependências nem runtime de combate. Carregar somente em sessão nova, validando esquema/semântica/catálogo/perfil; avançar tentativa e não reapurar histórico. Slot manual por perfil em build/saves. Temporário exclusivo e substituição Windows; inválido/futuro preservado. Sem autenticação, escritores concorrentes ou migração implícita. 211 testes; CIC-01 mínimo encerrado.

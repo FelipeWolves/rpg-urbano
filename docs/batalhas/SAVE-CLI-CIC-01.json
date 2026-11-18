@@ -1,0 +1,12 @@
+{
+  "Status": "passed",
+  "Scope": "own executable in isolated ignored build root; player slots untouched",
+  "TeamSelection": [
+    "A1",
+    "A3"
+  ],
+  "RestoreNewAttempt": 2,
+  "LoadDidNotRewrite": true,
+  "ClassicRestore": true,
+  "FutureVersionRefused": true
+}

@@ -1,6 +1,12 @@
 # Prioridades por área
 
-## CIC-01 parte 2 — estado vigente (18/11/2026)
+## CIC-01 — concluído no escopo mínimo (18/11/2026)
+
+✅ Três partes concluídas: seleção 1–5 em memória, recompensa por conclusão única e save v1 de equipe/progresso entre batalhas. Salvar é manual; continuar valida arquivo/catálogo e abre outra tentativa sem reapurar conclusões antigas. **211/211 testes aprovados**, incluindo 7 de persistência e 18 textuais. Executável validado em cópia isolada, sem tocar slots de jogador.
+
+Contratos: docs/projeto/CIC-01.md e CIC-01-SAVE-R01.md. Aceites: COMBATE-CIC-01-FINAL.json, SAVE-CLI-CIC-01.json e saves-testes.csv em docs/batalhas. ⚠️ Sem save de batalha em andamento, antifraude, concorrência de escritores ou migração automática. Próximo: ENG-01, avaliação de engine/compatibilidade; nenhuma escolha definitiva, instalação ou download autorizado implicitamente.
+
+## CIC-01 parte 2 — histórico da entrega (18/11/2026)
 
 ✅ Resultado e recompensa mínima em memória concluídos. LocalSession atribui tentativa sequencial e registra cada conclusão uma vez. Vitória A por eliminação: +10 créditos de teste; demais desfechos: zero. Reiniciar mantém saldo/registro, abre nova tentativa e conserva a equipe. Estado mostra saldo sem reapurar recompensa. **203/203 testes aprovados** (7 de recompensa e 17 textuais, mais regressões).
 
@@ -110,7 +116,7 @@ ATB opcional, backend/multiplayer, publicação em lojas/launcher e produção m
 
 ## Próxima ação concreta
 
-CIC-01 parte 3: contrato de save local versionado e restauração, com validação e idempotência das recompensas após carregar. Partes 1–2 concluídas; formato/migração ainda não definidos.
+ENG-01: avaliar engine/compatibilidade com núcleo e toolchain; escolha, downloads e instalações exigem decisão explícita. HAB-01/CIC-01 mínimos concluídos, 211 testes. Não presumir compatibilidade só pelo compilador ser recente.
 
 ## HAB-01 parte 1 — histórico da entrega (18/11/2026)
 

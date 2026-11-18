@@ -127,3 +127,7 @@ EncounterSetup move dados compartilhados da apresentação para o núcleo de com
 ## Resultado local — CIC-01 parte 2
 
 LocalSession coordena ProfileBattle e LocalProgress, executa comandos e apura conclusão uma vez. Progressão não entra no kernel de dano/tempo. TextReport inclui cópia do progresso; interface exibe novas conclusões uma vez e consultas não concedem créditos. Ledger/IDs são internos à instância, sem save/restauração ou resultados externos.
+
+## Persistência — CIC-01 parte 3
+
+SavedGame encapsula versão, perfil, IDs e LocalProgress, sem Snapshot de combate. Codec valida limites/gramática; validate_progress verifica ledger e créditos antes de LocalSession::restore_progress importar em sessão intacta com novo ID. Aplicativo verifica perfil/catálogo e usa slots ancorados na localização do executável; TextSession recebe opções de persistência explícitas. I/O atual é Windows, separado por funções de load/write; futura plataforma exige adaptador e testes. Sem dados da engine serializados.

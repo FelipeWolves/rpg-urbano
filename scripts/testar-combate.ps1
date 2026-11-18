@@ -86,13 +86,19 @@ cl.exe %FLAGS% /I"$root\include" "$root\tests\local_session_tests.cpp" "$build\b
 if errorlevel 1 exit /b 60
 "$build\local_session_tests.exe" "$build\recompensas-testes.csv"
 if errorlevel 1 exit /b 61
+cl.exe %FLAGS% /I"$root\include" /c "$root\src\save_game.cpp" /Fo"$build\save_game.obj"
+if errorlevel 1 exit /b 62
+cl.exe %FLAGS% /I"$root\include" "$root\tests\save_game_tests.cpp" "$build\battle.obj" "$build\ability_profile.obj" "$build\local_session.obj" "$build\save_game.obj" /Fo"$build\save_game_tests.obj" /Fe"$build\save_game_tests.exe" /link /INCREMENTAL:NO
+if errorlevel 1 exit /b 63
+"$build\save_game_tests.exe" "$build\saves-testes.csv"
+if errorlevel 1 exit /b 64
 cl.exe %FLAGS% /I"$root\include" /c "$root\src\text_session.cpp" /Fo"$build\text_session.obj"
 if errorlevel 1 exit /b 48
-cl.exe %FLAGS% /I"$root\include" "$root\tests\text_session_tests.cpp" "$build\battle.obj" "$build\ability_profile.obj" "$build\team_selection.obj" "$build\local_session.obj" "$build\text_session.obj" /Fo"$build\text_session_tests.obj" /Fe"$build\text_session_tests.exe" /link /INCREMENTAL:NO
+cl.exe %FLAGS% /I"$root\include" "$root\tests\text_session_tests.cpp" "$build\battle.obj" "$build\ability_profile.obj" "$build\team_selection.obj" "$build\local_session.obj" "$build\save_game.obj" "$build\text_session.obj" /Fo"$build\text_session_tests.obj" /Fe"$build\text_session_tests.exe" /link /INCREMENTAL:NO
 if errorlevel 1 exit /b 49
 "$build\text_session_tests.exe" "$build\interacao-testes.csv"
 if errorlevel 1 exit /b 50
-cl.exe %FLAGS% /I"$root\include" "$root\app\jogar.cpp" "$build\battle.obj" "$build\ability_profile.obj" "$build\team_selection.obj" "$build\local_session.obj" "$build\text_session.obj" /Fo"$build\jogar.obj" /Fe"$build\jogar.exe" /link /INCREMENTAL:NO
+cl.exe %FLAGS% /I"$root\include" "$root\app\jogar.cpp" "$build\battle.obj" "$build\ability_profile.obj" "$build\team_selection.obj" "$build\local_session.obj" "$build\save_game.obj" "$build\text_session.obj" /Fo"$build\jogar.obj" /Fe"$build\jogar.exe" /link /INCREMENTAL:NO
 if errorlevel 1 exit /b 51
 "$build\jogar.exe" < "$build\jogar-smoke.txt" > "$build\jogar-smoke.log"
 if errorlevel 1 exit /b 52
@@ -187,6 +193,13 @@ if ($rewardMatch.Groups[1].Value -ne $rewardMatch.Groups[2].Value) { throw 'Test
 $rewardCsv = @(Import-Csv -LiteralPath (Join-Path $build 'recompensas-testes.csv'))
 if ($rewardCsv.Count -ne [int]$rewardMatch.Groups[2].Value -or @($rewardCsv | Where-Object status -ne 'pass').Count) { throw 'Matriz de recompensas inconsistente.' }
 Copy-Item -LiteralPath (Join-Path $build 'recompensas-testes.csv') -Destination (Join-Path $root 'docs\batalhas\recompensas-testes.csv')
+$saveResult = @($messages | Where-Object { $_ -match '^SAVE_TESTS_RESULT passed=(\d+) total=(\d+)$' })
+if ($saveResult.Count -ne 1) { throw 'Resultado de saves ausente.' }
+$saveMatch = [regex]::Match($saveResult[0], '^SAVE_TESTS_RESULT passed=(\d+) total=(\d+)$')
+if ($saveMatch.Groups[1].Value -ne $saveMatch.Groups[2].Value) { throw 'Testes de saves reprovados.' }
+$saveCsv = @(Import-Csv -LiteralPath (Join-Path $build 'saves-testes.csv'))
+if ($saveCsv.Count -ne [int]$saveMatch.Groups[2].Value -or @($saveCsv | Where-Object status -ne 'pass').Count) { throw 'Matriz de saves inconsistente.' }
+Copy-Item -LiteralPath (Join-Path $build 'saves-testes.csv') -Destination (Join-Path $root 'docs\batalhas\saves-testes.csv')
 $scenario = @($messages | Where-Object { $_ -match '^SCENARIOS_OK cases=168 replays=168 ' })
 $isolation = @($messages | Where-Object { $_ -match '^ISOLATION_OK ' })
 $batchResult = @($messages | Where-Object { $_ -match '^BATCH_OK battles=1000 ' })
@@ -226,6 +239,8 @@ Copy-Item -LiteralPath (Join-Path $build 'sequencia-testes.csv') -Destination (J
     TextTestsPassed = [int]$textMatch.Groups[1].Value
     TextTestsTotal = [int]$textMatch.Groups[2].Value
     TextExecutableSmoke = 'quit_ok'
+    SaveTestsPassed = [int]$saveMatch.Groups[1].Value
+    SaveTestsTotal = [int]$saveMatch.Groups[2].Value
     RewardTestsPassed = [int]$rewardMatch.Groups[1].Value
     RewardTestsTotal = [int]$rewardMatch.Groups[2].Value
     SelectionTestsPassed = [int]$selectionMatch.Groups[1].Value
@@ -239,5 +254,5 @@ Copy-Item -LiteralPath (Join-Path $build 'sequencia-testes.csv') -Destination (J
     IsolationResult = $isolation[0]
     LocalBatchResult = $batchResult[0]
     ExitCode = $code
-    Scope = 'Own combat core with action identities/multi-hit/skill guard and fixed/AP timing, skills/status clocks, extras/reactions, optional guard, consecutive stages, three successive squads with stable/phased boss kits and classified states/shields and local/global action budgets; formation/replay matrix; three coordinated independent cooperative fronts with global action budget and cancellation; independent interleaved contexts; bounded local functional batch; single-HP shared boss with scoped single-target skills, global clocks and R04; team/classic profiles, validated ability slots with canonical basic, informational declarations and one-shot self-shield BattleStart passives with activation records and exact owner-health prerequisites for non-basic active slots; text session with player A commands, configurable deterministic skill-priority AI B with validated fallback, restart and scripted integration tests; atomic in-memory team selection with 1..5 members and filtered encounter composition; session-scoped attempt identities and one-time in-memory laboratory rewards; no broad shared-boss catalog/multithreading/server validation'
+    Scope = 'Own combat core with action identities/multi-hit/skill guard and fixed/AP timing, skills/status clocks, extras/reactions, optional guard, consecutive stages, three successive squads with stable/phased boss kits and classified states/shields and local/global action budgets; formation/replay matrix; three coordinated independent cooperative fronts with global action budget and cancellation; independent interleaved contexts; bounded local functional batch; single-HP shared boss with scoped single-target skills, global clocks and R04; team/classic profiles, validated ability slots with canonical basic, informational declarations and one-shot self-shield BattleStart passives with activation records and exact owner-health prerequisites for non-basic active slots; text session with player A commands, configurable deterministic skill-priority AI B with validated fallback, restart and scripted integration tests; atomic in-memory team selection with 1..5 members and filtered encounter composition; session-scoped attempt identities and one-time laboratory rewards with bounded versioned progress saves and between-battle restoration; no broad shared-boss catalog/multithreading/server validation'
 } | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $root 'docs/relatorios/atuais/COMBATE.json') -Encoding utf8

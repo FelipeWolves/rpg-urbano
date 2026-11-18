@@ -7,7 +7,7 @@
 - [Ferramentas](projeto/FERRAMENTAS.md), [fundação do combate](projeto/COMBATE.md) e [painel consolidado](batalhas/PAINEL-BLOCOS.md).
 - [Ambiente vigente](relatorios/atuais/AMBIENTE.json) e [combate vigente](relatorios/atuais/COMBATE.json).
 
-- [CIC-01: composição e ciclo local](projeto/CIC-01.md).
+- [CIC-01: ciclo local concluído](projeto/CIC-01.md) e [contrato do save v1](projeto/CIC-01-SAVE-R01.md).
 
 ## Preservação e caminhos antigos
 

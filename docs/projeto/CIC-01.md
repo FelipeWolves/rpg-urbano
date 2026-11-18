@@ -1,6 +1,6 @@
 # CIC-01 — ciclo local: composição, resultado e persistência
 
-18/11/2026. Partes 1–2 concluídas: composição de equipe e resultado/recompensa em memória. Parte 3 de persistência ainda pendente. Contratos históricos preservados por seção; não há save, inventário ou conta.
+18/11/2026. Três partes concluídas no escopo mínimo: composição, recompensa e save v1 entre batalhas. 211/211 testes aprovados. Contratos históricos preservados por seção; não há save de batalha em andamento, inventário ou conta.
 
 ## Etapas do bloco
 
@@ -8,7 +8,7 @@
 |---|---|---|
 | 1 | Catálogo disponível, seleção válida e composição de encontro | ✅ Concluída, 195 testes acumulados |
 | 2 | Resultado/recompensa mínima em memória, com concessão única | ✅ Concluída, 203 testes acumulados |
-| 3 | Save local versionado, validação e restauração | Planejada; formato e migração ainda a fechar |
+| 3 | Save local versionado, validação e restauração | ✅ Concluída, 211 testes acumulados; v1, sem migração automática |
 
 ## Contrato da parte 1
 
@@ -52,3 +52,9 @@ Próxima parte: fechar o resultado/recompensa mínima em memória, especialmente
 Contrato [CIC-01-RECOMPENSA-R01.md](CIC-01-RECOMPENSA-R01.md). LocalSession mantém tentativas e conclusões, credita 10 somente por vitória A por eliminação e não aceita resultados externos. Sete grupos novos de recompensa e uma integração textual nova; 203/203 testes (17 textuais). Reapuração, consulta e comando pós-fim não duplicam crédito; reset conserva saldo em memória e muda o ID. Identidades e saldo não sobrevivem ao encerramento da sessão/programa.
 
 Lançadores confirmaram saldo/tentativa, seleção e defesa clássica com dano 12. Evidência COMBATE-CIC-01-PARTE-2.json e recompensas-testes.csv em docs/batalhas. Próxima parte 3: contrato de persistência antes de escrever saves, incluindo validação de versão e resultado já contabilizado.
+
+## Parte 3 — aceite final de persistência
+
+Contrato [CIC-01-SAVE-R01.md](CIC-01-SAVE-R01.md). Saves manuais em build/saves, slots separados por perfil e ignorados pelo Git. Continuar carrega equipe/saldo/histórico validado e abre tentativa nova, sem restaurar combate ou pagar resultado anterior. Arquivo inválido/futuro é recusado e preservado. Escrita temporária exclusiva, flush e substituição somente após conclusão da escrita.
+
+211/211 testes aprovados (7 de saves, 18 textuais e regressões anteriores). Executável real em raiz isolada validou equipe/restauração, leitura sem reescrita, clássico e recusa de versão futura; slots de jogador não foram tocados. Aceites docs/batalhas/COMBATE-CIC-01-FINAL.json, SAVE-CLI-CIC-01.json e saves-testes.csv. CIC-01 encerrado neste escopo; próximo ENG-01, sem escolha/instalação automática.

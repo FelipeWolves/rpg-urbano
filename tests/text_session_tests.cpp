@@ -1,5 +1,6 @@
 #include "rpg/text_session.hpp"
 #include <algorithm>
+#include <chrono>
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -235,6 +236,20 @@ void local_reward_session(){
     std::istringstream eof;std::ostringstream silent;const auto abandoned=run_text_session(eof,silent,roster,rules());
     check(abandoned.progress.credits==0 && abandoned.progress.completions.empty(),"EOF rewarded unfinished battle");
 }
+void progress_save_session(){
+    const auto path=std::filesystem::path{"build"}/("text-save-"+std::to_string(std::chrono::steady_clock::now().time_since_epoch().count())+".save");
+    auto roster=duel();roster[0].attack=10;TextSessionOptions options;options.save_path=path;
+    std::istringstream first("atacar B\nsalvar\nestado\nsalvar\nsair\n");std::ostringstream out;
+    const auto one=run_text_session(first,out,roster,rules(),CombatProfile::Classic,{},options);const auto saved=load_save(path);
+    check(one.player_actions==1 && saved.progress.credits==10 && saved.progress.completions.size()==1 && saved.selected==std::vector<std::string>{"A"},"save command altered reward/action");
+    options.restored=saved.progress;std::istringstream second("estado\natacar B\nsalvar\nsair\n");std::ostringstream resumed;
+    const auto two=run_text_session(second,resumed,roster,rules(),CombatProfile::Classic,{},options);
+    check(two.progress.credits==20 && two.progress.attempt==2 && load_save(path).progress==two.progress &&
+        resumed.str().find("Conclusao #1:")==std::string::npos && resumed.str().find("Conclusao #2:")!=std::string::npos,"loaded completion granted/displayed again");
+    std::istringstream unknown("sair\n");std::ostringstream none;bool caught=false;
+    try{const auto ignored=run_selected_team_reference_session(unknown,none,{"unknown"},options);static_cast<void>(ignored);}
+    catch(const std::invalid_argument&){caught=true;}check(caught && none.str().empty(),"unknown saved team started battle");
+}
 }
 int main(int argc,char** argv){
     const std::pair<const char*,void(*)()> tests[]={{"input_atomics",input_and_invalid_atomics},{"target_enemy",selected_target_and_enemy},
@@ -242,7 +257,7 @@ int main(int argc,char** argv){
         {"skill_skip_clock",skill_block_skip_and_clock},{"eof_timeout",eof_and_timeout},{"safety_technical",safety_and_technical_result},
         {"team_profile",team_profile_session},{"opening_passive_session",opening_passive_session},{"conditional_skill_session",conditional_skill_session},{"automatic_special_session",automatic_special_session},
         {"integrated_reference_kits",integrated_reference_kits},{"integrated_full_text_battle",integrated_full_text_battle},
-        {"integrated_full_reset",integrated_full_reset},{"integrated_reference_matrix",integrated_reference_matrix},{"selected_team_session",selected_team_session},{"local_reward_session",local_reward_session}};
+        {"integrated_full_reset",integrated_full_reset},{"integrated_reference_matrix",integrated_reference_matrix},{"selected_team_session",selected_team_session},{"local_reward_session",local_reward_session},{"progress_save_session",progress_save_session}};
     int passed=0;for(const auto& [name,test]:tests){try{test();++passed;std::cout<<"PASS text "<<name<<'\n';}
         catch(const std::exception& e){std::cerr<<"FAIL text "<<name<<": "<<e.what()<<'\n';}}
     std::cout<<"TEXT_TESTS_RESULT passed="<<passed<<" total="<<std::size(tests)<<'\n';

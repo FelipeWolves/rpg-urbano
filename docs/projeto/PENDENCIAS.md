@@ -245,3 +245,7 @@ Composição 1–5 validada em memória e integrada por --equipe; 195/195 testes
 ## CIC-01 parte 2 concluída
 
 Identidade de tentativa e apuração única de recompensa em memória resolvidas, 203/203 testes. Próximo contrato: save versionado, escopo persistido, validação/restauração e como manter concessão única após carregar. Não assumir que o snapshot do kernel ou IDs locais já resolvem persistência.
+
+## CIC-01 encerrado no escopo mínimo
+
+Save v1 de equipe/progresso entre batalhas validado, 211/211 testes; sem nova concessão ao carregar. Save de runtime, versões futuras/migrações, backup, concorrência, autenticação e economia real permanecem extensões. Próximo ENG-01: avaliar compatibilidade antes de escolher/instalar engine.

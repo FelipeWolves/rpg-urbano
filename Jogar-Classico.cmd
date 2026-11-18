@@ -6,7 +6,7 @@ if not exist "%RPG_EXECUTABLE%" (
     pause
     exit /b 1
 )
-"%RPG_EXECUTABLE%" --classico
+"%RPG_EXECUTABLE%" --classico %*
 set "RPG_EXIT=%ERRORLEVEL%"
 if not "%RPG_EXIT%"=="0" (
     echo A sessao encerrou com codigo %RPG_EXIT%.

@@ -16,6 +16,7 @@ struct LocalProgress {
     std::vector<LocalCompletion> completions;
     bool operator==(const LocalProgress&) const = default;
 };
+void validate_progress(const LocalProgress& progress);
 // Owns attempts and their in-memory ledger; accepts no external result or claim ID.
 class LocalSession {
 public:
@@ -27,6 +28,8 @@ public:
     [[nodiscard]] ActionResult apply_slot(std::uint32_t position,std::string target);
     [[nodiscard]] bool settle();
     void reset();
+    // Only on a pristine session; resumes BETWEEN battles with a fresh attempt ID.
+    void restore_progress(const LocalProgress& progress);
 private:
     ProfileBattle battle_;
     LocalProgress progress_;

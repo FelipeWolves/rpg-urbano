@@ -1,6 +1,12 @@
 # Painel de blocos — estado consolidado
 
-## CIC-01 parte 2 — estado vigente (18/11/2026)
+## CIC-01 — concluído no escopo mínimo (18/11/2026)
+
+✅ Três partes concluídas: seleção 1–5 em memória, recompensa por conclusão única e save v1 de equipe/progresso entre batalhas. Salvar é manual; continuar valida arquivo/catálogo e abre outra tentativa sem reapurar conclusões antigas. **211/211 testes aprovados**, incluindo 7 de persistência e 18 textuais. Executável validado em cópia isolada, sem tocar slots de jogador.
+
+Contratos: docs/projeto/CIC-01.md e CIC-01-SAVE-R01.md. Aceites: COMBATE-CIC-01-FINAL.json, SAVE-CLI-CIC-01.json e saves-testes.csv em docs/batalhas. ⚠️ Sem save de batalha em andamento, antifraude, concorrência de escritores ou migração automática. Próximo: ENG-01, avaliação de engine/compatibilidade; nenhuma escolha definitiva, instalação ou download autorizado implicitamente.
+
+## CIC-01 parte 2 — histórico da entrega (18/11/2026)
 
 ✅ Resultado e recompensa mínima em memória concluídos. LocalSession atribui tentativa sequencial e registra cada conclusão uma vez. Vitória A por eliminação: +10 créditos de teste; demais desfechos: zero. Reiniciar mantém saldo/registro, abre nova tentativa e conserva a equipe. Estado mostra saldo sem reapurar recompensa. **203/203 testes aprovados** (7 de recompensa e 17 textuais, mais regressões).
 
@@ -90,9 +96,10 @@ As siglas são identificadores internos das áreas do projeto, não nomes de fer
 | ✅ PAR-02 — perfil HP único | HP/AP globais, skills de alvo único, R04, limites e replay | 17 grupos; sem fases autônomas de kit, área comum ou score |
 | ✅ COM-02 | Entrada textual, alvo, estado/resultado e reinício | Base de 7 grupos; 15 textuais após integração HAB-01; sem menu SEQ/PAR |
 | ✅ HAB-01 | Perfis/posições, passiva, condição, automação e kits integrados | Cinco partes concluídas; 24 grupos de perfis e 15 textuais acumulados; HAB-01-FINAL.md |
+| ✅ CIC-01 | Seleção de equipe, recompensa única e save v1 entre batalhas | Três partes concluídas; seleção 7, recompensa 7, save 7 e interação 18 grupos acumulados; CIC-01-SAVE-R01.md |
 | ✅ Contrato R04 e revisões R01–R03 | Decisões e pesquisa recebida | Fechamento documental; implementação mínima em RES-01 |
 
-Total atual: **203 testes aprovados**, além das matrizes, isolamento intercalado, 1000 simulações funcionais e demonstração. Não é benchmark de servidor ou renderização.
+Total atual: **211 testes aprovados**, além das matrizes, isolamento intercalado, 1000 simulações funcionais e demonstração. Não é benchmark de servidor ou renderização.
 
 ## ⚠️ Implementado que ainda exige revisão obrigatória
 
@@ -104,12 +111,11 @@ Classificação pelo roteiro documentado, sem inferir datas pela criação do re
 
 | Ordem posterior aos modos críticos | Bloco | Falta |
 |---|---|---|
-| 2 | ⚠️ CIC-01 | Partes 1 equipe e 2 recompensa em memória validadas; parte 3 save pendente; docs/projeto/CIC-01.md |
-| 3 | ⚠️ ENG-01 | Escolha e teste de compatibilidade da engine |
-| 4 | ⚠️ VIS-01 | Arena visual integrada ao núcleo |
-| 5 | ⚠️ ART-01 | Direção artística original e personagem representativo |
-| 6 | ⚠️ AUD-01 | Áudio próprio/licenciado e integração |
-| 7 | ⚠️ EXP-01 | Delimitar campanha/minijogo rítmico antes de implementar |
+| 1 | ⚠️ ENG-01 | Escolha e teste de compatibilidade da engine |
+| 2 | ⚠️ VIS-01 | Arena visual integrada ao núcleo |
+| 3 | ⚠️ ART-01 | Direção artística original e personagem representativo |
+| 4 | ⚠️ AUD-01 | Áudio próprio/licenciado e integração |
+| 5 | ⚠️ EXP-01 | Delimitar campanha/minijogo rítmico antes de implementar |
 
 ## ⚠️ Acrescentados durante o projeto — ainda por implementar e validar
 
@@ -126,7 +132,7 @@ Também acrescentados durante o percurso, mas já encerrados: COM-01A, TIME-01, 
 
 ⚠️ Não implementados nesta entrega: skills comuns de área e redirecionamento dinâmico do chefe, paralelismo real, servidor, IA completa, score, fases por limiar de HP, catálogo completo de habilidades, ATB opcional, lojas e produção multiplataforma. Sem aceites completos de implementação não são blocos fechados. Arte, áudio e escolha da engine terão validação apropriada, não necessariamente testes unitários.
 
-Ordem atual: **CIC-01 → ENG-01 → VIS-01 → ART-01 → AUD-01 → EXP-01**. Uma entrega por vez. Priorização por risco/dependências e menor esforço útil dentro da área, sem estimativa de prazo ou consumo.
+Ordem atual: **ENG-01 → VIS-01 → ART-01 → AUD-01 → EXP-01**. Uma entrega por vez. Priorização por risco/dependências e menor esforço útil dentro da área, sem estimativa de prazo ou consumo.
 
 
 ## Comparação complementar — concluída

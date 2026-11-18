@@ -25,7 +25,7 @@ Painel marca PAR-01 encerrado e mantém legenda. Sem threads, HP compartilhado, 
 
 ## Próximo passo executável
 
-PAR-02: fechar contrato do chefe compartilhado, PEN-05, escopos e ordem global antes de implementar. HP único, partes e avatares/score são opções ainda não escolhidas. Não iniciar UI/engine/servidor junto. Pushes ficam com o usuário.
+PAR-02 iniciado documentalmente: proposta em docs/batalhas/PAR-02.md. Aguardam respostas sobre modelo do chefe e cadência; recomendados HP único e uma barra global, ainda não adotados. PEN-05 aberta. Fechar contrato antes de implementar; não iniciar UI/engine/servidor junto. Pushes ficam com o usuário.
 
 ## Novas restrições e fatos úteis
 
@@ -59,3 +59,8 @@ Matriz de 24 áreas em docs/batalhas/comparacao-dislyte-2026-11-18/comparacao.md
 ## Organização por áreas aprovada
 
 ARQUITETURA.md registra separação de combate, dados, aplicação, apresentação, áudio, persistência/diagnóstico e ferramentas. Avaliar plugins somente por necessidade concreta e compatibilidade; nenhuma engine/dependência adotada ou instalada. Mudança documental, sem nova execução dos 131 testes. Próximo PAR-02/PEN-05 permanece.
+
+
+## PAR-02 — preparação documental
+
+Proposta compara HP único, partes e avatares/score; distingue cadência do chefe e alcance de habilidades. Inclui autoridade, fronteiras R04, integração e 12 casos de aceite ainda não executados. Nenhuma mudança de código ou execução dos 131 testes; escolhas pendentes não foram inferidas como aprovadas.

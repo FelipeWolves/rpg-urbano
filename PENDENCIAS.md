@@ -167,3 +167,8 @@ PEN-02 resolvida no perfil cooperativo de frentes independentes: orçamento glob
 ## PAR-01 encerrado — integração final (18/11/2026)
 
 Integração pendente das partes 1/2 concluída: habilidades/R04, Skip, reações, extra cancelado e falha técnica coincidente com timeout. 16 grupos PAR-01, 131 testes totais aprovados. PEN-02 encerrada no perfil independente documentado. PEN-05 permanece aberta para escolha do modelo compartilhado antes de PAR-02; esta entrega não altera essa decisão nem valida servidor/threads/score.
+
+
+## PAR-02 — proposta inicial
+
+PEN-05 permanece aberta. Proposta docs/batalhas/PAR-02.md detalha três modelos e duas cadências. Perguntas enviadas ao usuário; recomendação de HP único/barra global não é decisão. Alcance de habilidades, relógios e retirada de frentes devem constar do contrato escolhido antes da implementação. Matriz de 12 casos planejada, não executada.

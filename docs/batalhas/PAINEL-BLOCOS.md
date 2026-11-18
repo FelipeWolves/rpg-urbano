@@ -72,7 +72,7 @@ Classificação pelo roteiro documentado, sem inferir datas pela criação do re
 
 | Prioridade | Bloco | Falta |
 |---|---|---|
-| 1 — próximo | ⚠️ PAR-02 | Definir e implementar chefe compartilhado; HP autoritativo, ordem causal e efeitos globais únicos |
+| 1 — próximo | ⚠️ PAR-02 | Proposta documental pronta em PAR-02.md; aguardam modelo/cadência. Contrato, implementação e testes ainda pendentes |
 
 Também acrescentados durante o percurso, mas já encerrados: COM-01A, TIME-01, WAVE-01, TIME-PESQ, TIME-02, TIME-03, RES-01, SEQ-01 e PAR-01. AMB-01 formalizou a validação após instalação manual.
 

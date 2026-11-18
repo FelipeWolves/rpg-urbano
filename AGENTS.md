@@ -94,3 +94,6 @@ PAR-01 encerrado nas três partes: 131 testes, 16 grupos de frentes; integraçã
 
 
 Comparação de 18/11/2026 concluída por autorização explícita e pontual do usuário para leitura de analise-dislyte e cópia de testes. Nenhuma execução de componentes, extração, rede ou escrita na origem. Matriz docs/batalhas/comparacao-dislyte-2026-11-18/; 8 metadados coincidentes e 36 referências de plugins. Não repetir investigação sem motivo; autorização pontual não muda o escopo independente do projeto. Próximo PAR-02/PEN-05; 131 testes preservados sem reexecução.
+
+
+PAR-02: proposta documental em docs/batalhas/PAR-02.md, sem código/testes novos. Usuário recebeu perguntas sobre modelo (HP único/partes/avatares) e cadência (global/por frente). HP único + barra global são recomendações, não decisões. Não implementar até respostas/contrato; PEN-05 aberta. Preservar 131 testes aprovados.

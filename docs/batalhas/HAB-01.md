@@ -138,3 +138,14 @@ Aceite automatizado: seis novos grupos de perfil (abertura/identidade, absorçã
 Próximo: parte 3, contrato de uma habilidade ativa com condição de disponibilidade além de recarga, separando motivo de bloqueio, consumo e básica como alternativa. Automação avançada e integração geral permanecem nas partes 4–5.
 
 Validação da parte 2: 169/169 testes aprovados (12 grupos de perfis, 9 textuais e regressões anteriores), 168 cenários/replays e 25 formações AP preservados. Jogar.cmd confirmou ativações A2/B2 e reset; Jogar-Classico.cmd confirmou defesa com dano 12. Aceite arquivado em docs/batalhas/COMBATE-HAB-01-PARTE-2.json. Nenhum componente externo instalado ou acessado.
+## HAB-01 parte 3 — condição adicional concluída (18/11/2026)
+
+✅ Requisito de vida do dono implementado em ativas não básicas: comparação exata e inclusiva por percentual, sem custo ou estado acumulado. Proteção de emergência de A3/B3, posição 3, exige vida <= 50%; efeito e recarga continuam os existentes. Básica não admite condição, permanece alternativa quando apto a agir.
+
+Validação central no ProfileBattle para comandos por posição/ID. Recusa sem mutação; disponibilidade separa recarga, condição e incapacidade, preservando os motivos simultâneos. Contrato detalhado em HAB-01-CONDICAO-VIDA-R01.md.
+
+**176/176 testes aprovados**: 18 grupos de perfil e 10 de sessão textual, mais regressões anteriores. Seis grupos novos cobrem rejeição/básica, limites exatos e ímpares, configurações, recarga + requisito após revive, incapacidade/vez/alvo e replay/reset/fim; integração textual valida bloqueio, liberação e uso com recarga. 168 cenários/replays e 25 formações AP preservados. Jogar.cmd confirmou bloqueio inicial sem consumir ação; clássico manteve defesa com dano 12. Aceite: COMBATE-HAB-01-PARTE-3.json e matrizes CSV atualizadas.
+
+⚠️ Sem energia, custos de vida, condições de alvo, combinações lógicas, silêncio/supressão, nova política de IA ou adaptação SEQ/PAR. A habilidade é exemplo autoral provisório, não kit externo. Kernel Battle isolado não valida contratos do perfil; usar ProfileBattle como entrada para essas regras.
+
+Próximo: HAB-01 parte 4 — seleção automática mínima de especiais válidas, com prioridades e fallback pela mesma validação do controle manual. Parte 5 mantém integração/regressão geral. HAB-01 ainda aberto.

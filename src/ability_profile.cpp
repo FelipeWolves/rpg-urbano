@@ -27,6 +27,9 @@ ProfileBattle::ProfileBattle(std::vector<Definition> roster,BattleRules rules,Co
                 if(entry.position<1 || entry.position>3 || entry.position==previous || entry.name.empty() ||
                    (!entry.active_skill && !entry.passive && entry.passive_note.empty())){throw std::invalid_argument("Invalid ability slot");}
                 previous=entry.position;
+                if(entry.requirement && (!entry.active_skill || entry.position==1 ||
+                   entry.requirement->at_most_percent<1 || entry.requirement->at_most_percent>100)){
+                    throw std::invalid_argument("Health requirement needs a non-basic active slot and percentage 1..100");}
                 if(entry.passive){
                     const auto& passive=*entry.passive;
                     if(passive.id.empty() || passive.trigger!=PassiveTrigger::BattleStart || passive.shield<=0 ||
@@ -86,6 +89,9 @@ std::vector<AbilityView> ProfileBattle::abilities(std::string_view fighter) cons
     std::vector<AbilityView> views;const auto* set=loadout(fighter);const auto* unit=battle_->find(fighter);
     if(!set || !unit){return views;}
     for(const auto& entry:set->slots){
+        const bool condition_met=!entry.requirement ||
+            static_cast<std::int64_t>(unit->health)*100 <=
+            static_cast<std::int64_t>(unit->definition.max_health)*entry.requirement->at_most_percent;
         int cd=0;if(entry.active_skill){for(const auto& known:unit->cooldowns){if(known.skill==*entry.active_skill){cd=known.remaining;}}}
         auto availability=entry.active_skill?AbilityAvailability::Ready:AbilityAvailability::PassiveOnly;
         if(entry.active_skill){
@@ -93,8 +99,9 @@ std::vector<AbilityView> ProfileBattle::abilities(std::string_view fighter) cons
             else if(unit->health==0 || std::ranges::any_of(unit->statuses,[](const Status& s){return s.kind==EffectKind::Block;})){
                 availability=AbilityAvailability::Incapacitated;
             }else if(cd>0){availability=AbilityAvailability::Cooldown;}
+            else if(!condition_met){availability=AbilityAvailability::ConditionBlocked;}
         }
-        views.push_back({entry,availability,cd,entry.passive.has_value()});
+        views.push_back({entry,availability,cd,entry.passive.has_value(),condition_met});
     }
     return views;
 }
@@ -111,6 +118,13 @@ ActionResult ProfileBattle::apply(const Action& action){
         if(!set){return reject(ActionError::UnknownActor);}
         if(!std::ranges::any_of(set->slots,[&](const AbilitySlot& entry){return entry.active_skill==action.skill;})){
             return reject(ActionError::UnknownSkill);}
+        const auto* actor=battle_->current_actor();
+        if(actor && actor->definition.id==action.actor){
+            for(const auto& view:abilities(action.actor)){
+                if(view.slot.active_skill==action.skill && view.availability==AbilityAvailability::ConditionBlocked){
+                    return reject(ActionError::SkillConditionNotMet);}
+            }
+        }
     }
     return battle_->apply(action);
 }

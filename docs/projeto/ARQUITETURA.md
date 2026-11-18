@@ -107,3 +107,7 @@ ProfileBattle compõe Battle: configuração validada de slots, tradução de at
 ## Passivas de abertura — HAB-01 parte 2
 
 AbilitySlot pode apontar PassiveDefinition validada. ProfileBattle resolve BattleStart na montagem inicial, antes de comandos, e registra PassiveActivation no snapshot. Efeito escudo reutiliza InitialRuntime e o kernel existente. Apresentação mostra ativações e escudo; não dispara efeitos. Somente esse gatilho foi implementado, sem integração de eventos entre hits.
+
+## Condição de seleção — HAB-01 parte 3
+
+HealthRequirement pertence a AbilitySlot. ProfileBattle calcula condição na consulta e a valida antes de delegar ação ao Battle. AbilityView conserva condition_met e cooldown separadamente. SkillConditionNotMet não produz eventos nem mutação. Battle isolado continua sem configuração de loadout/requisito; consumidores do perfil devem usar ProfileBattle.

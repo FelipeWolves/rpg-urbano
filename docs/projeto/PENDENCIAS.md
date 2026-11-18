@@ -225,3 +225,7 @@ Perfis/posições concluídos (162/162 testes). Próxima pendência: contrato e 
 ## HAB-01 após parte 2 — estado atual
 
 Resolvida a pendência de primeiro gatilho: BattleStart/escudo próprio com limite de uma ativação por combate. Gatilhos por impacto/morte, supressão, recarga interna e transporte entre coordenadores permanecem futuros. Próximo incremento parte 3: contrato de condição de habilidade; não reabrir R04 nem ampliar o catálogo implicitamente.
+
+## HAB-01 após parte 3
+
+Primeira condição adicional resolvida: vida do dono <= percentual, sem consumo. Contrato HAB-01-CONDICAO-VIDA-R01.md, 176/176 testes. Próximo parte 4: escolher política mínima de prioridades/fallback para especiais sob a mesma validação. Recursos/condições compostas e supressão seguem futuros.

@@ -28,7 +28,7 @@ Git local com origin cadastrado pelo usuário. Ele faz os pushes; não alterar i
 
 ## Estado funcional vigente
 
-HAB-01 partes 1–2 concluídas, 169/169 testes aprovados: perfis equipe/clássico e slots 1–3, básica canônica sem CD, defesa apenas no clássico. Preparação é passiva funcional de escudo BattleStart, uma vez por combate, registrada no snapshot; outras notas sem definição continuam informativas. Contrato HAB-01-PASSIVA-ABERTURA-R01.md. Próximo: parte 3, fechar uma primeira condição adicional de habilidade antes de implementar. Silêncio/supressão, condições especiais e itens ainda não implementados. Block não é silêncio; FreezeCooldowns não é congelamento da unidade.
+HAB-01 partes 1–3 concluídas, 176/176 testes aprovados: perfis equipe/clássico e slots 1–3, básica canônica sem CD, defesa apenas no clássico. Preparação é passiva funcional de escudo BattleStart, uma vez por combate, registrada no snapshot; outras notas sem definição continuam informativas. Contrato HAB-01-PASSIVA-ABERTURA-R01.md. Condição de vida do dono <= percentual implementada em ativa não básica, com rejeição atômica e motivo independente de recarga; contrato HAB-01-CONDICAO-VIDA-R01.md. Próximo: parte 4, política mínima de automação com prioridades e fallback. Silêncio/supressão, condições compostas e itens ainda não implementados. Block não é silêncio; FreezeCooldowns não é congelamento da unidade.
 
 Contratos TIME/RES/SEQ/PAR permanecem válidos no escopo de cada relatório. R04 é contrato próprio, não paridade oficial. Não confundir intercalação cooperativa com threads/servidor, nem perfil experimental de chefe compartilhado com todos os modos PvE. Área/dinâmica/score/fases autônomas por HP continuam lacunas explícitas. Defesa atual arredonda dano/2 para baixo por hit.
 

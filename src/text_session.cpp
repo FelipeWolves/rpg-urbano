@@ -21,6 +21,7 @@ const char* error_message(ActionError error){
     case ActionError::GuardDisabled:return "Defesa desabilitada neste perfil.";
     case ActionError::UnknownSkill:return "Habilidade desconhecida para o personagem atual.";
     case ActionError::SkillOnCooldown:return "A habilidade ainda esta em recarga.";
+    case ActionError::SkillConditionNotMet:return "Condicao da habilidade nao satisfeita. Consulte o requisito em estado.";
     case ActionError::InvalidSkillTarget:return "Alvo invalido para a habilidade.";
     case ActionError::ActorBlocked:return "Personagem bloqueado: use passar.";
     case ActionError::NotBlocked:return "Passar so e permitido quando o personagem esta bloqueado.";
@@ -64,8 +65,11 @@ void profile_state(const ProfileBattle& session,std::ostream& out){
         case AbilityAvailability::PassiveOnly:out<<(view.passive_implemented?"PASSIVA AUTOMATICA":"PASSIVA INFORMATIVA - gatilho ainda nao implementado");break;
         case AbilityAvailability::Incapacitated:out<<"SEM ACAO: impedimento de agir";break;
         case AbilityAvailability::Finished:out<<"BATALHA ENCERRADA";break;
+        case AbilityAvailability::ConditionBlocked:out<<"BLOQUEADA: condicao nao satisfeita";break;
         }
         if(view.cooldown>0 && view.availability!=AbilityAvailability::Cooldown){out<<" | RECARGA: "<<view.cooldown;}
+        if(view.slot.requirement){out<<" | requisito: vida <= "<<view.slot.requirement->at_most_percent<<"%"
+            <<(view.condition_met?" [atendido]":" [nao atendido]");}
         if(view.slot.active_skill){for(const auto& skill:rules.skills){if(skill.id==*view.slot.active_skill){
             out<<" | alvo "<<(skill.target==TargetRule::Self?"proprio":skill.target==TargetRule::Ally?"aliado":"inimigo");}}}
         if(!view.slot.passive_note.empty() && view.slot.active_skill && !view.passive_implemented){out<<" | componente passivo ainda nao implementado";}
@@ -170,7 +174,9 @@ TextReport run_team_reference_session(std::istream& input,std::ostream& output){
             set.slots.push_back({2,"Golpe duplo",special,unit.id.back()=='3'?"Componente hibrido reservado; sem gatilho passivo.":""});
         }
         rules.skills.push_back({third,unit.id,3,TargetRule::Self,{{EffectKind::Shield,10,2}}});
-        set.slots.push_back({3,"Protecao",third,{}});sets.push_back(std::move(set));
+        AbilitySlot protection{3,"Protecao",third,{}};
+        if(unit.id.back()=='3'){protection.name="Protecao de emergencia";protection.requirement=HealthRequirement{50};}
+        set.slots.push_back(std::move(protection));sets.push_back(std::move(set));
     }
     return run_text_session(input,output,std::move(roster),std::move(rules),CombatProfile::Team,std::move(sets));
 }

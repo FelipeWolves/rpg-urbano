@@ -17,3 +17,7 @@ Validação da reorganização: compilação completa aprovada, 162/162 testes, 
 ## 2026-11-18 — HAB-01 parte 2
 
 Primeira passiva funcional: Preparação concede escudo de abertura em A2/B2, sem ação e com ativação registrada. Reset, rejeição de seleção, absorção, expiração e replay cobertos; híbridas informativas preservadas.
+
+## 2026-11-18 — HAB-01 parte 3
+
+Proteção de emergência exige até 50% de vida em A3/B3. Condição exata, básica incondicional, recusa sem custo e indicadores separados de CD/controle. 176/176 testes; relatório e contrato específicos preservados.

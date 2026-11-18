@@ -143,13 +143,82 @@ void opening_lethal_limit(){
           std::ranges::count(result.events,EventType::BattleFinished,&Event::type)==1 && s.passive_activations().size()==1,
           "opening passive interfered with victory");
 }
+Setup conditional_setup(int max_health=100,int incoming=50){
+    Setup d;d.roster[0].max_health=max_health;d.roster[1].attack=incoming;
+    d.rules.skills[1].target=TargetRule::Self;d.rules.skills[1].effects={{EffectKind::Shield,10,2}};
+    d.sets[0].slots[2].requirement=HealthRequirement{50};return d;
+}
+void condition_atomic_and_basic(){
+    auto s=conditional_setup().make();const auto before=s.snapshot();
+    const auto views=s.abilities("A");
+    check(views[2].availability==AbilityAvailability::ConditionBlocked && views[2].cooldown==0 &&
+          !views[2].condition_met && views[0].availability==AbilityAvailability::Ready,"condition confused with cooldown/basic");
+    check(s.apply_slot(3,"A").error==ActionError::SkillConditionNotMet && s.snapshot()==before,"blocked slot consumed state");
+    check(s.apply({"A",ActionType::Skill,"A","special-a"}).error==ActionError::SkillConditionNotMet &&
+          s.snapshot()==before,"skill-ID command bypassed condition");
+    check(s.apply(*s.choose_basic_action()).accepted(),"AI basic fallback blocked");
+}
+void condition_boundaries(){
+    for(const auto [maximum,incoming]:{std::pair{100,50},std::pair{101,50},std::pair{101,51}}){
+        auto s=conditional_setup(maximum,incoming).make();
+        check(s.apply_slot(1,"B").accepted() && s.apply_slot(1,"A").accepted(),"boundary damage setup failed");
+        const bool expected=maximum-incoming<=50;
+        const auto view=s.abilities("A")[2];check(view.condition_met==expected,"percentage rounded incorrectly");
+        const auto before=s.snapshot();const auto result=s.apply_slot(3,"A");
+        check(result.accepted()==expected,"threshold acceptance wrong");
+        if(!expected){check(s.snapshot()==before,"threshold rejection mutated state");}
+        else{check(s.battle().find("A")->cooldowns[1].remaining==2,"valid condition lost ordinary cooldown");}
+    }
+}
+void condition_validation(){
+    auto d=conditional_setup();d.sets[0].slots[2].requirement=HealthRequirement{0};invalid([&]{auto s=d.make();});
+    d=conditional_setup();d.sets[0].slots[2].requirement=HealthRequirement{101};invalid([&]{auto s=d.make();});
+    d=conditional_setup();d.sets[0].slots[0].requirement=HealthRequirement{50};invalid([&]{auto s=d.make();});
+    d=conditional_setup();d.sets[0].slots[1].requirement=HealthRequirement{50};invalid([&]{auto s=d.make();});
+}
+void condition_cooldown_after_revive(){
+    auto d=conditional_setup();d.rules.skills[1].effects={{EffectKind::AutoRevive,100,5}};auto s=d.make();
+    check(s.apply_slot(1,"B").accepted() && s.apply_slot(1,"A").accepted() && s.apply_slot(3,"A").accepted() &&
+          s.apply_slot(1,"A").accepted(),"revive setup failed");
+    const auto view=s.abilities("A")[2];const auto before=s.snapshot();
+    check(s.battle().find("A")->health==100 && view.availability==AbilityAvailability::Cooldown &&
+          view.cooldown==2 && !view.condition_met,"cooldown and condition not kept independently");
+    check(s.apply_slot(3,"A").error==ActionError::SkillOnCooldown && s.snapshot()==before,"cooldown precedence changed");
+}
+void condition_control_and_targets(){
+    auto d=conditional_setup();d.rules.skills.push_back({"block","B",0,TargetRule::Enemy,{{EffectKind::Block,0,1}}});
+    d.sets[1].slots.push_back({2,"Block","block",{}});auto s=d.make();
+    check(s.apply({"B",ActionType::Skill,"A","basic-b"}).error==ActionError::NotActorsTurn,"condition masked actor order");
+    check(s.apply_slot(1,"B").accepted() && s.apply_slot(2,"A").accepted(),"control setup failed");
+    const auto before=s.snapshot();check(s.apply_slot(3,"A").error==ActionError::ActorBlocked && s.snapshot()==before,
+                                       "condition masked incapacitation");
+    auto ready=conditional_setup().make();
+    check(ready.apply_slot(1,"B").accepted() && ready.apply_slot(1,"A").accepted(),"target setup failed");
+    const auto old=ready.snapshot();check(ready.apply_slot(3,"B").error==ActionError::InvalidSkillTarget && ready.snapshot()==old,
+                                        "condition ignored target validation");
+}
+void condition_replay_reset(){
+    auto d=conditional_setup();d.rules.action_budget=ActionBudget{5,LimitOutcome::Draw};auto a=d.make(),b=d.make();
+    const auto initial=a.snapshot();
+    const Action commands[]={{"A",ActionType::Skill,"A","special-a"},{"A",ActionType::Attack,"B"},
+        {"B",ActionType::Attack,"A"},{"A",ActionType::Skill,"A","special-a"},{"B",ActionType::Attack,"A"},
+        {"A",ActionType::Attack,"B"}};
+    for(const auto& command:commands){check(a.apply(command)==b.apply(command) && a.snapshot()==b.snapshot(),"conditional replay diverged");}
+    const auto ended=b.snapshot();check(a.battle().phase()==Phase::Finished && !a.apply_slot(3,"A").accepted() &&
+        a.snapshot()==ended,"post-finish conditional command changed state");
+    a.reset();check(a.snapshot()==initial && b.snapshot()==ended &&
+        a.abilities("A")[2].availability==AbilityAvailability::ConditionBlocked,"reset did not relock condition");
+}
 }
 int main(int argc,char** argv){
     const std::pair<const char*,void(*)()> tests[]={{"configuration",configuration},{"canonical_basic",canonical_basic_no_defense},
         {"passive_hybrid",passive_and_hybrid},{"cooldown_basic",cooldown_and_basic_fallback},
         {"action_block",action_block_is_separate},{"replay_classic",reset_replay_and_classic},{"opening_contract",opening_contract},
         {"opening_absorption_expiry",opening_absorption_expiry},{"opening_validation",opening_validation},
-        {"opening_hybrid_replay_reset",opening_hybrid_replay_reset},{"opening_reflection",opening_reflection},{"opening_lethal_limit",opening_lethal_limit}};
+        {"opening_hybrid_replay_reset",opening_hybrid_replay_reset},{"opening_reflection",opening_reflection},{"opening_lethal_limit",opening_lethal_limit},
+        {"condition_atomic_basic",condition_atomic_and_basic},{"condition_boundaries",condition_boundaries},
+        {"condition_validation",condition_validation},{"condition_cooldown_revive",condition_cooldown_after_revive},
+        {"condition_control_targets",condition_control_and_targets},{"condition_replay_reset",condition_replay_reset}};
     int passed=0;for(const auto& [name,test]:tests){try{test();++passed;std::cout<<"PASS ability_profile "<<name<<'\n';}
         catch(const std::exception& e){std::cerr<<"FAIL ability_profile "<<name<<": "<<e.what()<<'\n';}}
     std::cout<<"PROFILE_TESTS_RESULT passed="<<passed<<" total="<<std::size(tests)<<'\n';

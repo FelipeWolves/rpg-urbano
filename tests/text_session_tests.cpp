@@ -102,12 +102,27 @@ void opening_passive_session(){
     check(text.find("PASSIVA AUTOMATICA")!=std::string::npos && text.find("ESCUDO 10")!=std::string::npos,
           "functional passive or shield not visible");
 }
+void conditional_skill_session(){
+    auto r=rules();r.skills={{"a","A",0,TargetRule::Enemy,{{EffectKind::Damage}}},
+        {"shield","A",3,TargetRule::Self,{{EffectKind::Shield,10,2}}},
+        {"b","B",0,TargetRule::Enemy,{{EffectKind::Damage}}}};
+    std::vector<CharacterLoadout> sets{{"A",{{1,"Basica","a",{}},{3,"Emergencia","shield",{}}}},
+        {"B",{{1,"Basica","b",{}}}}};sets[0].slots[1].requirement=HealthRequirement{50};
+    auto roster=duel();roster[1].attack=5;
+    std::istringstream in("3 A\nhabilidade shield A\n1 B\n3 A\nestado\nsair\n");std::ostringstream out;
+    const auto report=run_text_session(in,out,roster,r,CombatProfile::Team,sets);
+    check(report.rejected_commands==2 && report.player_actions==2 && report.automatic_actions==2,
+          "condition rejection consumed action or valid shield failed");
+    const auto text=out.str();check(text.find("BLOQUEADA: condicao nao satisfeita")!=std::string::npos &&
+        text.find("vida <= 50% [nao atendido]")!=std::string::npos && text.find("vida <= 50% [atendido]")!=std::string::npos &&
+        text.find("RECARGA: 2")!=std::string::npos && text.find("ESCUDO 5")!=std::string::npos,"condition/CD/output unclear");
+}
 }
 int main(int argc,char** argv){
     const std::pair<const char*,void(*)()> tests[]={{"input_atomics",input_and_invalid_atomics},{"target_enemy",selected_target_and_enemy},
         {"guard_restart",guard_and_restart},{"victory_restart",victory_postfinish_restart},
         {"skill_skip_clock",skill_block_skip_and_clock},{"eof_timeout",eof_and_timeout},{"safety_technical",safety_and_technical_result},
-        {"team_profile",team_profile_session},{"opening_passive_session",opening_passive_session}};
+        {"team_profile",team_profile_session},{"opening_passive_session",opening_passive_session},{"conditional_skill_session",conditional_skill_session}};
     int passed=0;for(const auto& [name,test]:tests){try{test();++passed;std::cout<<"PASS text "<<name<<'\n';}
         catch(const std::exception& e){std::cerr<<"FAIL text "<<name<<": "<<e.what()<<'\n';}}
     std::cout<<"TEXT_TESTS_RESULT passed="<<passed<<" total="<<std::size(tests)<<'\n';

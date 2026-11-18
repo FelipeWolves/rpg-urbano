@@ -17,6 +17,10 @@ struct PassiveActivation {
     PassiveDefinition passive;
     bool operator==(const PassiveActivation&) const = default;
 };
+struct HealthRequirement {
+    int at_most_percent;
+    bool operator==(const HealthRequirement&) const = default;
+};
 struct AbilitySlot {
     std::uint32_t position;
     std::string name;
@@ -24,6 +28,7 @@ struct AbilitySlot {
     // Notes without an executable definition remain informational.
     std::string passive_note;
     std::optional<PassiveDefinition> passive = std::nullopt;
+    std::optional<HealthRequirement> requirement = std::nullopt;
     bool operator==(const AbilitySlot&) const = default;
 };
 struct CharacterLoadout {
@@ -31,12 +36,13 @@ struct CharacterLoadout {
     std::vector<AbilitySlot> slots;
     bool operator==(const CharacterLoadout&) const = default;
 };
-enum class AbilityAvailability { Ready, Cooldown, PassiveOnly, Incapacitated, Finished };
+enum class AbilityAvailability { Ready, Cooldown, PassiveOnly, Incapacitated, Finished, ConditionBlocked };
 struct AbilityView {
     AbilitySlot slot;
     AbilityAvailability availability;
     int cooldown;
     bool passive_implemented=false;
+    bool condition_met=true;
 };
 struct ProfileSnapshot {
     CombatProfile profile;

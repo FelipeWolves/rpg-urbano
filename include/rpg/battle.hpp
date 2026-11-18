@@ -98,7 +98,8 @@ struct BattleRules {
 enum class ActionError {
     None, BattleFinished, UnknownActor, ActorDefeated, NotActorsTurn,
     UnknownAction, UnexpectedGuardTarget, UnknownTarget, FriendlyTarget, TargetDefeated,
-    GuardDisabled, UnknownSkill, SkillOnCooldown, InvalidSkillTarget, ActorBlocked, NotBlocked
+    GuardDisabled, UnknownSkill, SkillOnCooldown, InvalidSkillTarget, ActorBlocked, NotBlocked,
+    SkillConditionNotMet
 };
 enum class EventType {
     Attack, GuardSet, GuardConsumed, FighterDefeated,

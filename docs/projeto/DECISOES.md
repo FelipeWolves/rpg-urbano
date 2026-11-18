@@ -214,3 +214,7 @@ Preservar layout C++ existente, reunir planejamento em docs/projeto e JSON vigen
 ## DEC-042 — Primeira passiva de abertura
 
 Primeiro gatilho autoral é BattleStart, escudo próprio temporário, uma vez por combate. Usa preparação de runtime sem consumir ação e sem reordenar R04. Registro no snapshot identifica dono/posição/definição. Não confundir mecanismo de abertura com event bus durante combate nem reaplicar automaticamente em etapas SEQ/PAR. Contrato HAB-01-PASSIVA-ABERTURA-R01.md.
+
+## DEC-043 — Condição de vida sem custo
+
+Primeiro requisito adicional é vida do dono <= percentual inclusivo exato (64 bits), somente ativa não básica. Não consome HP/recurso. ProfileBattle centraliza checagem por posição/ID, com incapacidade e CD prioritários, requisito visível independentemente. Nova família de custo/condição exige contrato próprio; IA estratégica permanece parte 4.

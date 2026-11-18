@@ -72,12 +72,12 @@
     {
       "id": "PAR-02",
       "descricao": "Três frentes simultâneas contra o mesmo chefe",
-      "estado": "partes_1_2_implementadas_e_testadas",
+      "estado": "perfil_HP_AP_unico_encerrado_e_testado",
       "fontes": [
         "U01"
       ],
-      "cobertura": "11 grupos; único Battle, HP/AP globais, skills com escopos e R04",
-      "limite": "Perfil autoral; integração final pendente; sem skills comuns de área, dinâmica do chefe, score ou paridade externa"
+      "cobertura": "17 grupos; único Battle, skills de alvo único com escopo/R04, fronteiras de resultado e replay",
+      "limite": "Perfil autoral; fases HP/turno, area comum, dinamica do chefe e score nao implementados"
     },
     {
       "id": "LOAD-01",

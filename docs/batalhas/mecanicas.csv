@@ -15,7 +15,7 @@
 "M14","Uma fase com ate cinco confrontos","U01","WAVE01_testado","Restaurar vida ao reconstruir Battle","WAVE-01.md"
 "M15","Tres times sucessivos e perfis do chefe","U01","SEQ01_testado","Perfil ou score herdado indevidamente","SEQ-01.md"
 "M16","Tres chefes independentes","U01+L01","PAR01_testado","Compartilhar estado por ID local repetido","PAR-01.md"
-"M17","Mesmo chefe em tres frentes","U01","PAR02_partes1_2_skills_R04_testadas","Triplicar HP efeitos ou mortes","PAR-02.md"
+"M17","Mesmo chefe em tres frentes","U01","PAR02_perfil_HP_AP_unico_testado_fases_area_score_pendentes","Triplicar HP efeitos ou mortes","PAR-02.md"
 "M18","Partes versus avatares de chefe","proposta_de_engenharia","nao_implementado","Modelo visual confundido com entidade","Definir grafo de entidades e vida"
 "M19","Limites por confronto e fase","U01+L01","locais_globais_testados_perfis_documentados","Erro de uma acao e budget global triplicado","TIME-01.md; WAVE-01.md; PAR-01.md; PAR-02.md"
 "M20","Pontuacao e condicoes de resultado","proposta_de_engenharia","nao_implementado","Overkill pontuado e premio duplicado","Score separado e conclusao idempotente"

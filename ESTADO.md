@@ -4,7 +4,7 @@ Atualizado: 18/11/2026.
 
 ## Situação
 
-FUN-01, FUN-02, AMB-01, COM-01, COM-01A, TIME-01, WAVE-01, TIME-02, TIME-03, RES-01, SEQ-01 e PAR-01 concluídas. Núcleo C++20 com perfis fixo/AP, turnos extras, contra-ataques, status/recargas mínimos, guarda opcional, fases consecutivas e limites locais/globais. COM-02 segue em espera. Engine não escolhida nem aberta. Dúvidas/limitações futuras centralizadas em PENDENCIAS.md a pedido do usuário.
+FUN-01, FUN-02, AMB-01, COM-01, COM-01A, TIME-01, WAVE-01, TIME-02, TIME-03, RES-01, SEQ-01, PAR-01 e perfil PAR-02 concluídos. Núcleo C++20 com perfis fixo/AP, turnos extras, contra-ataques, status/recargas mínimos, guarda opcional, fases consecutivas e limites locais/globais. COM-02 segue em espera. Engine não escolhida nem aberta. Dúvidas/limitações futuras centralizadas em PENDENCIAS.md a pedido do usuário.
 
 Pasta do projeto: este diretório. Não usar a pasta do laboratório como diretório de trabalho de desenvolvimento. Git na branch main, agora com commit inicial do usuário e remoto origin cadastrado. A árvore estava limpa no início desta entrega. Pushes ficam com o usuário; nenhum servidor remoto foi consultado e nenhuma configuração/identidade Git foi alterada.
 
@@ -19,15 +19,15 @@ Pasta do projeto: este diretório. Não usar a pasta do laboratório como diret�
 
 ## Verificação desta entrega
 
-PAR-02 partes 1/2 concluídas. Habilidades exigem escopo Self/OwnSquad/Boss/RotatingFront compatível, alvo único e rejeição atômica fora da frente. Estados e recargas pertencem ao único Battle; escudos/prevenção/revive consomem uma carga, relógios do chefe não avançam por ações dos três times. R04 e explosão global do chefe testados com término causal único. Chefe bloqueado escolhe Skip. Sem mudança do kernel.
+PAR-02 concluído no perfil de HP/AP únicos e skills de alvo direto único com escopo. Seis grupos novos validam Counter antes de timeout, overkill, interrupção por reflexão sem derrota global indevida, revive na última ação, falhas técnicas durante a cadeia, extras e replay/reset. Sem alteração de código de produção. A expectativa inicial sobre limite futuro de extras foi corrigida: timeout impede abrir a próxima oportunidade, não declara falha futura.
 
-Seis grupos novos, 11 de chefe compartilhado e 142 testes totais aprovados em MSVC /W4 /WX; matrizes e demo preservados. Evidências: docs/batalhas/PAR-02.md, COMBATE-PAR-02-PARTE-2.json e chefe-compartilhado-testes.csv. Um cenário foi ajustado para não inserir guarda extra antes do ataque; não houve correção de produção por esse ajuste.
+148 testes totais, 17 grupos compartilhados, MSVC /W4 /WX aprovado; matrizes 168 e 25 AP/replays, lote funcional 1000 e demo preservados. Evidências: docs/batalhas/PAR-02.md, COMBATE-PAR-02-FINAL.json e chefe-compartilhado-testes.csv.
 
-PAR-02 segue aberto. Não há skill comum de área, redirecionamento dinâmico do chefe, efeitos diretos entre times, kit por HP/turno, score, IA completa ou modo Treva Fluxo/Milagres implementado. Modelo experimental permanece separado em MODOS-PVE.md.
+Fechamento não inclui skill-phase por HP/turno: lacuna histórica explicitamente mantida nas tarefas futuras/PVE-09. Também não inclui área comum/dinâmica do chefe, score, retorno cíclico, IA completa ou modos Treva Fluxo/Milagres. Não afirmar todas as famílias PvE validadas.
 
 ## Próximo passo executável
 
-PAR-02 parte 3: integração nas fronteiras de orçamento/falha técnica, reações, extras, overkill, morte global e término único/replay. Ler PAR-02.md e MODOS-PVE.md. Não ampliar silenciosamente para score, fases por HP, UI/engine/servidor. Pushes com o usuário.
+COM-02: interação textual para ações/alvos e reinício, reutilizando regras do núcleo. Ler COMBATE.md e TAREFAS.md; definir aceite pequeno antes de expandir. Sem engine/UI gráfica/score/servidor junto. Pesquisa de famílias PvE continua disponível pelo roteiro separado; pushes com o usuário.
 
 ## Novas restrições e fatos úteis
 

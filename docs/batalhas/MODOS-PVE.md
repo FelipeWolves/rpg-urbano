@@ -1,6 +1,6 @@
 # Catálogo de exemplos e famílias PvE
 
-18/11/2026. Organização documental, sem alteração de mecânicas ou nova execução de testes. Cobertura atual: **142 testes aprovados** após PAR-02 parte 2; o catálogo continua evidência dos contratos próprios, não paridade externa. Este catálogo não é uma lista completa dos chefes/modos atuais do Dislyte.
+18/11/2026. Organização documental, sem alteração de mecânicas ou nova execução de testes. Cobertura atual: **148 testes aprovados** após PAR-02 parte 3; o catálogo continua evidência dos contratos próprios, não paridade externa. Este catálogo não é uma lista completa dos chefes/modos atuais do Dislyte.
 
 Objetivo: preservar todos os exemplos e pistas já registrados, separar suas regras e evitar que implementar uma família seja interpretado como cobertura de todas as outras. Referência estruturada: modos-pve.csv e modos-pve.json. Foram preservadas as versões anteriores de cenarios.json e mecanicas.csv em historico-catalogos-2026-11-18/; IDs antigos e seus exemplos continuam existentes.
 
@@ -28,7 +28,7 @@ Esses eixos podem se combinar. Ter três times não determina se há simultaneid
 | PVE-02 | Mesmo time em até cinco confrontos | WAVE-01 testado; persistência particular de cada modo ainda precisa de descrição |
 | PVE-03 | Três times sucessivos, cada um entra uma vez | SEQ-01 testado; sem retorno repetido, score ou todas as fases por HP/turno |
 | PVE-04 | Season 0: três frentes contra três chefes | PAR-01 testado no perfil independente cooperativo, não a arquitetura original |
-| PVE-05 | Season 0: três frentes contra o mesmo chefe | PAR-02 partes 1/2 testadas: HP único, skills com escopo e R04; escolhas do nosso projeto |
+| PVE-05 | Season 0: três frentes contra o mesmo chefe | PAR-02 perfil encerrado: 17 grupos, HP único, skills com escopo/R04 e fronteiras; escolhas próprias |
 | PVE-06 | Treva Fluxo, nome informado pelo usuário | Relato de até três equipes, limite/sobrevivência e dano influindo nos ganhos; modo completo não implementado |
 | PVE-07 | Chefes dos Milagres, exemplo específico a identificar | Relato de fases e até três grupos com até cinco integrantes; SEQ-01 cobre parte da estrutura, não certifica esse modo |
 | PVE-08 | Rodízio com retorno de um time | Extensão possível, não existência confirmada; não inferir de relato em que cada time entra uma vez |
@@ -51,7 +51,7 @@ Limites locais/globais e eventos de dano existentes são peças úteis, mas não
 
 HP único, uma barra global e ataques comuns alternados entre times vivos continuam aprovados **para o perfil experimental do PAR-02**. Não são regra universal dos chefes atuais ou dos modos por pontuação. O chefe ignora times **sem sobreviventes**; não ignora os times vivos. Não revogar a escolha, nem aplicá-la automaticamente ao Treva Fluxo ou ao exemplo dos Milagres.
 
-PAR-02 partes 1/2: único estado/AP, inscrição, skills de alvo único com escopos e R04. Parte 3 ainda deve validar fronteiras integradas. Skills comuns de área e dinâmica do chefe não estão incluídas. SEQ-01 permanece o coordenador sucessivo; PAR-01 o independente. Nenhuma mudança desses contratos nesta reorganização.
+PAR-02 partes 1/2: único estado/AP, inscrição, skills de alvo único com escopos e R04. Parte 3 validou as fronteiras integradas, encerrando apenas esse perfil. Skills comuns de área e dinâmica do chefe não estão incluídas. SEQ-01 permanece o coordenador sucessivo; PAR-01 o independente. Nenhuma mudança desses contratos nesta reorganização.
 
 ## Pesquisa complementar
 
@@ -61,4 +61,4 @@ Não houve nova pesquisa online nesta entrega: referências históricas não for
 
 ## Próximo passo
 
-Retomar PAR-02 parte 2 dentro do perfil escolhido, usando este catálogo para conferir escopos. Pontuação/sobrevivência e fases autônomas permanecem requisitos separados a especificar; não entram silenciosamente na implementação de habilidades. Blocos concluídos não precisam de revisão sem mudança pertinente.
+Próximo bloco: COM-02, interação textual; PAR-02 encerrado no perfil de alvo único, sem implicar fases autônomas. Pontuação/sobrevivência e fases autônomas permanecem requisitos separados a especificar; não entram silenciosamente na implementação de habilidades. Blocos concluídos não precisam de revisão sem mudança pertinente.

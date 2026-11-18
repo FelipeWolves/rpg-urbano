@@ -35,12 +35,12 @@ Uma entrega por vez. Ordem por área, criticidade e dependências, conforme PLAN
   - [x] Parte 1 — Coordenador, alternância determinística, isolamento, resultado agregado e replay/reset; 120 testes totais aprovados. Relatório docs/batalhas/PAR-01.md.
   - [x] Parte 2 — Orçamento global, precedência local/global e cancelamento coordenado; 125 testes totais aprovados.
   - [x] Parte 3 — Integração R04/habilidades, Skip, reações, extras, falha técnica e fronteiras finais; 131 testes totais aprovados.
-- [ ] PAR-02 — Após decidir o modelo, investigar chefe em três frentes: HP autoritativo, partes ou avatares/score. Aceite: mortes simultâneas, overkill, efeitos/skill-phase globais uma vez, orçamento e ordem total. Não substituir essa implementação por clones independentes do chefe.
+- [x] PAR-02 — Perfil HP único/barra global escolhido: composição, skills de alvo único com escopo, estado/R04, overkill, orçamento e conclusão única testados. Partes/avatares e troca de kit por HP/turno ficam separados nas famílias futuras abaixo; não alegar esse aceite histórico concluído para skill-phase.
   - [x] Preparar proposta de modelo/cadência, impactos e matriz de aceite em docs/batalhas/PAR-02.md (documental).
   - [x] Receber escolhas: HP único + barra global; PEN-05 resolvida no perfil inicial, contrato da parte 1 em PAR-02.md.
   - [x] Parte 1 — Composição, único estado/AP, rotação entre times vivos e ataques básicos; 136 testes totais aprovados.
   - [x] Parte 2 — Skills de alvo único com escopos, estados/recargas e R04 compartilhados; 142 testes totais aprovados.
-  - [ ] Parte 3 — Integração final, limites técnicos, overkill e conclusão/replay nas fronteiras.
+  - [x] Parte 3 — Integração final, limites técnicos, overkill e conclusão/replay; 148 testes totais aprovados.
 
 ## 3. Uso, habilidades ampliadas e persistência
 
@@ -61,7 +61,7 @@ Uma entrega por vez. Ordem por área, criticidade e dependências, conforme PLAN
 
 ## Próximo bloco executável
 
-PAR-02 parte 3: integração de skills/R04 nas fronteiras de orçamento, falha técnica, reações/overkill e conclusão única. Partes 1/2 concluídas; ler PAR-02.md e MODOS-PVE.md. Não iniciar score/UI/engine/servidor junto.
+COM-02: planejar e implementar interação textual de ações/alvos e reinício, reutilizando o núcleo. PAR-02 encerrado no perfil documentado; famílias futuras não estão implementadas. Não iniciar engine/UI gráfica/score junto.
 
 ## Encerramento de cada entrega
 
@@ -77,3 +77,12 @@ Atualizar ESTADO.md com implementação, testes efetivos, limites e próxima aç
 
 
 - [x] Organizar famílias/exemplos PvE em MODOS-PVE.md e CSV/JSON; preservar 8 cenários/26 mecânicas e versões anteriores; roteiro para pesquisa complementar. Sem implementação de score, retorno cíclico ou fases autônomas nesta tarefa. Próximo PAR-02 parte 2 permanece.
+
+## Famílias PvE futuras — acrescidas durante o projeto, sem implementação
+
+- [ ] Fases autônomas do chefe por HP/turno/outro gatilho (PVE-09): fechar contrato, transição e eventos de kit globais únicos. Lacuna explícita do aceite histórico de PAR-02; não coberta pelo perfil encerrado.
+- [ ] Sobrevivência/pontuação/recompensas (PVE-06, Treva Fluxo relatado): identificar modo, unidade do contador, dano/overkill e fórmula de resultado antes de implementar.
+- [ ] Detalhar chefe dos Milagres (PVE-07); retorno cíclico (PVE-08) só vira requisito confirmado com exemplo. Não presumir que os três cenários usem o mesmo coordenador.
+- [ ] Habilidades comuns de área, seletores dinâmicos do chefe e efeitos entre times: especificar alcance e ampliar os seletores em bloco próprio.
+
+Essas famílias não são funcionalidades prontas por SEQ-01/PAR-01/PAR-02 estarem encerrados em seus perfis. Detalhes e procedência em MODOS-PVE.md e PENDENCIAS.md. A fila executável continua COM-02; novas prioridades dependem de escopo explícito.

@@ -1,6 +1,6 @@
 # PAR-02 — Proposta de chefe compartilhado
 
-18/11/2026. **HP único e barra global escolhidos pelo usuário. Partes 1/2 implementadas e validadas; PAR-02 ainda aberto.** PAR-01 permanece encerrado. As alternativas abaixo preservam o planejamento; o contrato vigente da parte 1 está ao final.
+18/11/2026. **HP único e barra global escolhidos pelo usuário. Três partes concluídas no perfil HP único/AP global e habilidades de alvo único. Extensões de fases/área/score permanecem pendentes.** PAR-01 permanece encerrado. As alternativas abaixo preservam o planejamento; o contrato vigente da parte 1 está ao final.
 
 ## Objetivo e limites
 
@@ -160,4 +160,35 @@ A primeira montagem de shared_survival permitia guarda adicional antes do multi-
 
 ### Limites e próxima entrega
 
-PAR-02 permanece aberto. Parte 3: integração nas fronteiras de orçamento/falha técnica, reações, overkill, morte do chefe com outros times vivos, extras e término único/replay. Fases de kit por HP/turno exigem contrato separado; não estão prontas nesta entrega. Sem habilidades comuns de área, ataques entre times, seleção dinâmica do chefe, score/recompensas ou modos Treva Fluxo/Milagres completos. Nenhuma engine/plugin, rede ou thread introduzida.
+Estado histórico ao encerrar parte 2: a integração final descrita a seguir ainda estava pendente; foi concluída na parte 3 abaixo. Fases de kit por HP/turno exigem contrato separado; não estão prontas nesta entrega. Sem habilidades comuns de área, ataques entre times, seleção dinâmica do chefe, score/recompensas ou modos Treva Fluxo/Milagres completos. Nenhuma engine/plugin, rede ou thread introduzida.
+
+## Parte 3 — Validação integrada final
+
+18/11/2026. Seis grupos novos, sem alteração do kernel ou do coordenador:
+
+| Grupo | Confirmação |
+|---|---|
+| counter_timeout | Counter do chefe acerta o autor A1, mesmo com rotação comum apontando para A0; reação resolve antes do timeout, não avança oportunidade nem consome comando principal adicional |
+| lethal_overkill | Ataque 1000 contra HP 3 registra perda efetiva 3; multi-hit para no primeiro golpe; uma morte/conclusão. Vitória prevalece na última ação global, outros times vivos não podem atacar novamente |
+| reflected_actor_death | Reflexão mata o autor no primeiro hit e interrompe o restante; perda de um time não encerra enquanto os outros vivem. Outra equipe age antes do timeout |
+| revive_last_action | Auto-revive restaura o chefe antes da avaliação de vitória/timeout; não retoma hits; última ação termina por limite, sem falsa eliminação |
+| technical_priority_replay | Estouro de fila de extras e estouro de consequências durante a cadeia têm precedência sobre timeout/eliminação. Replay idêntico, uma conclusão, reset isolado e comandos pós-fim sem mutação |
+| extra_timeout | Extra concedido não permite ação após teto; reset limpa estado. Limite técnico que só seria consultado ao abrir a próxima oportunidade não substitui timeout já ocorrido |
+
+### Fronteira importante: falha ocorrida versus oportunidade futura
+
+Falha técnica efetivamente detectada durante a cadeia encerra sem vencedor antes do timeout. Se a cadeia termina normalmente e esgota o orçamento, o motor encerra por limite sem abrir a próxima oportunidade. Um limite técnico que só seria consultado nesse agendamento futuro não é declarado retroativamente.
+
+A primeira expectativa do teste técnico confundia esses casos. A inspeção do resolvedor mostrou a fronteira já existente; testes separados passaram a cobrir tanto estouro durante a ação quanto timeout antes do próximo extra. Não foi alterada a regra de produção para satisfazer a expectativa inicial.
+
+### Resultado e escopo de encerramento
+
+**148/148 testes aprovados**, incluindo **17/17 grupos do chefe compartilhado**, MSVC /W4 /WX. Preservados 168 cenários/replays, 25 formações AP/replays, 1000 simulações funcionais e demo de 40 ações/14 rodadas. Evidências: COMBATE-PAR-02-FINAL.json, COMBATE.json e chefe-compartilhado-testes.csv; relatórios anteriores preservados.
+
+**PAR-02 encerrado somente no perfil escolhido e implementado:** três times, um chefe/HP/AP autoritativo, rotação, skills de alvo direto único com escopo, status/recargas, consequências R04 e orçamento global. Não exige nova revisão/teste agora, salvo mudança relevante.
+
+O aceite histórico mencionava skill-phase global: troca automática de kit por HP/turno não foi implementada nem validada. Essa família foi separada explicitamente no catálogo PVE-09 e nas tarefas futuras; não está incluída na marcação de perfil concluído. Nenhum teste desta entrega demonstra troca de fase/kit do chefe. Não interpretar o fechamento como implementação de todas as famílias PvE.
+
+Continuam pendentes: fases autônomas e seus eventos únicos; habilidades comuns de área; redirecionamento dinâmico do chefe; efeitos diretos entre times; rodízio de retorno; modos por pontuação/sobrevivência/recompensas; partes/avatares; IA completa, UI, threads e servidor. Exemplos Treva Fluxo/Milagres permanecem relatados, não reproduzidos.
+
+Próximo bloco executável da fila: COM-02, interação textual de ações/reinício. A pesquisa complementar pode detalhar as famílias PvE futuras em paralelo ao planejamento do produto, sem reabrir automaticamente contratos concluídos.

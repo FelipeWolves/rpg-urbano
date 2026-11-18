@@ -106,3 +106,6 @@ Famílias PvE organizadas em MODOS-PVE.md e modos-pve.csv/json (12 entradas). Di
 
 
 PAR-02 parte 2 concluída: 142 testes, 11 grupos compartilhados. Self/OwnSquad/Boss/RotatingFront explícitos, apenas alvo direto único; dinâmica do chefe rejeitada. DeathExplosion mantém escopo de lado do kernel e pode atingir três times a partir de um gatilho. Relógios/cargas únicos, Skip não gira alvo. Próxima parte 3 integração orçamento/falha técnica/reações/overkill/fim/replay. Sem score/UI/engine, kernel inalterado. Contrato PAR-02.md.
+
+
+PAR-02 perfil HP/AP único encerrado: 148 testes totais, 17 grupos compartilhados, nenhuma mudança de produção na parte 3. Próximo COM-02 interação textual. Não dizer que fases por HP/turno ou kit global foram implementadas: lacuna histórica separada nas tarefas futuras/PVE-09; área/dinâmica/score também pendentes. Falha na cadeia precede timeout; limite futuro de agendamento não é falha retroativa. Relatório PAR-02.md; matrizes e arquivos anteriores preservados.

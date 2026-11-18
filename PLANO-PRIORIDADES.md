@@ -35,7 +35,7 @@ Não misturar implementação de coordenadores de vários times com essa mudanç
 |---|---|---|---|
 | 3 | ✅ SEQ-01 concluído | Médio/alto | Sequência de três times aproveita a base atual e antecede coordenação entre frentes |
 | 4 | ✅ PAR-01 concluído | Médio/alto | Aproveita o isolamento já testado; fecha resultado, orçamento e cancelamento de frentes independentes |
-| 5 | PAR-02 | Alto | Compartilha estado/efeitos e exige a coordenação anterior; maior risco de duplicidade e ordem incorreta |
+| 5 | ✅ PAR-02 perfil concluído | Alto | Compartilha estado/efeitos e exige a coordenação anterior; maior risco de duplicidade e ordem incorreta |
 
 Usar habilidades originais mínimas já disponíveis para validar cada modo. Não esperar um catálogo completo. Incluir apenas os atributos/contadores de score necessários aos aceites de cada bloco, com tipos/limites explícitos; economia/recompensa persistente pertence a CIC-01.
 
@@ -74,4 +74,4 @@ ATB opcional, backend/multiplayer, publicação em lojas/launcher e produção m
 
 ## Próxima ação concreta
 
-PAR-02 parte 3: integração nas fronteiras de orçamento/falha técnica, reações/overkill e conclusão única/replay. Partes 1/2 concluídas, 142 testes aprovados. Não iniciar score/UI/engine/servidor junto.
+COM-02: interação textual de ações/alvos e reinício. PAR-02 encerrado no perfil de alvo único com 148 testes aprovados; fases por HP/turno e demais famílias PvE seguem nas tarefas futuras, sem implementação. Não iniciar engine/UI gráfica/score/servidor junto.

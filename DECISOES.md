@@ -177,3 +177,8 @@ Separar formação, participação dos times, autoridade de HP, fases, relógios
 ## DEC-034 — Habilidades compartilhadas com alvo explícito
 
 SharedBoss exige mapeamento 1:1 skill/escopo compatível: Self, OwnSquad, Boss, RotatingFront. Alvo direto único; efeitos de morte/reflect/reação conservam semântica do resolvedor. Boss dynamic retargeting rejeitado até seletor limitado à frente. Self/guarda/Skip não giram rotação; skill RotatingFront aceita gira uma vez. Único Battle conserva relógios/cargas sem triplicar por time. 142 testes aprovados; parte 3 segue pendente.
+
+
+## DEC-035 — Encerramento do perfil compartilhado e fronteira técnica
+
+PAR-02 encerra apenas HP/AP único e skills de alvo direto único com escopos/R04, orçamento e replay: 17 grupos, 148 testes totais. Falha ocorrida dentro da cadeia precede timeout; limite de agendamento futuro não substitui timeout que já impede nova oportunidade. Sem alteração de produção nesta parte. Aceite histórico de skill-phase não foi implementado: transições por HP/turno ficam explicitamente nas famílias futuras/PVE-09, sem declaração de aprovação. Área, dinâmica do chefe e score também pendentes. Próximo COM-02.

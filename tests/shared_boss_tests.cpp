@@ -171,6 +171,100 @@ void scoped_skill_replay_reset(){
     const auto final=b.snapshot();check(finishes==1 && final.battle.accepted_actions==12,"skill global budget wrong");
     a.reset();check(a.snapshot()==initial && b.snapshot()==final,"scope/clock/status reset leaked");
 }
+void counter_before_timeout(){
+    auto d=setup();d.rules.action_budget=ActionBudget{2,LimitOutcome::DefeatA};
+    d.rules.skills={{"arm","A0",0,TargetRule::Enemy,{{EffectKind::Counter,0,10}}}};
+    d.skill_scopes={{"arm",SharedSkillTarget::Boss}};SharedBoss s(d);
+    act(s,{"A0",ActionType::Skill,"boss","arm"});const auto r=act(s,{"A1",ActionType::Attack,"boss"});
+    check(count(r,EventType::Reaction)==1 && s.battle().find("A1")->health==7 && s.battle().find("A0")->health==10 &&
+          s.battle().snapshot().derived_actions==1 && s.battle().accepted_actions()==2 &&
+          s.battle().end_reason()==EndReason::ActionLimit && s.battle().winner()==Team::B,
+          "counter missed author, spent primary budget or failed timeout precedence");
+    // The reaction targets its attacker even though the ordinary rotation still points at team-0.
+    for(const auto& e:r.action.events){if(e.type==EventType::Reaction){check(e.target=="A1","counter used ordinary rotation");}}
+}
+void lethal_overkill_single_finish(){
+    auto d=setup();d.boss.max_health=3;d.squads[0].members[0].fighter.attack=1000;
+    d.rules.action_budget=ActionBudget{1,LimitOutcome::DefeatA};EffectDefinition multi{EffectKind::Damage};multi.hit_count=3;
+    d.rules.skills={{"multi","A0",0,TargetRule::Enemy,{multi}}};d.skill_scopes={{"multi",SharedSkillTarget::Boss}};
+    SharedBoss s(d);const auto r=act(s,{"A0",ActionType::Skill,"boss","multi"});
+    check(r.stage_finished && count(r,EventType::Attack)==1 && count(r,EventType::FighterDefeated)==1 &&
+          count(r,EventType::BattleFinished)==1 && s.battle().find("boss")->health==0 &&
+          s.battle().winner()==Team::A && s.battle().end_reason()==EndReason::Elimination &&
+          s.snapshot().active_squads==std::vector<bool>(3,true),"overkill duplicated damage/death or lost final-action victory");
+    for(const auto& e:r.action.events){if(e.type==EventType::Attack){check(e.amount==3,"overkill reported as effective HP loss");}}
+    const auto final=s.snapshot();for(const auto* actor:{"A1","A2"}){
+        const auto rejected=s.apply({actor,ActionType::Attack,"boss"});
+        check(!rejected.accepted() && !rejected.stage_finished && rejected.action.events.empty() && s.snapshot()==final,
+              "another team damaged or concluded dead boss again");}
+}
+void reflected_actor_death_not_global_defeat(){
+    auto d=setup();d.squads[0].members[0].fighter.max_health=1;d.rules.action_budget=ActionBudget{5,LimitOutcome::Draw};
+    EffectDefinition multi{EffectKind::Damage};multi.hit_count=3;
+    d.rules.skills={{"reflect","A0",0,TargetRule::Enemy,{{EffectKind::Reflect,1,10}}},
+        {"multi","A0",0,TargetRule::Enemy,{multi}}};
+    d.skill_scopes={{"reflect",SharedSkillTarget::Boss},{"multi",SharedSkillTarget::Boss}};SharedBoss s(d);
+    act(s,{"A0",ActionType::Skill,"boss","reflect"});act(s,{"A1",ActionType::Guard,{}});act(s,{"A2",ActionType::Guard,{}});
+    const auto r=act(s,{"A0",ActionType::Skill,"boss","multi"});
+    check(count(r,EventType::Attack)==1 && count(r,EventType::ReflectedDamage)==1 && !r.stage_finished &&
+          s.battle().find("boss")->health==28 && s.snapshot().active_squads==std::vector<bool>{false,true,true},
+          "reflect did not stop hits or isolated death ended global phase");
+    const auto last=step(s);check(last.stage_finished && s.battle().end_reason()==EndReason::ActionLimit &&
+        !s.battle().winner() && s.battle().find("boss")->health==26,"remaining team could not act before timeout");
+}
+void revive_on_last_global_action(){
+    auto d=setup();d.boss.speed=301;d.boss.max_health=2;d.rules.action_budget=ActionBudget{2,LimitOutcome::Draw};
+    EffectDefinition multi{EffectKind::Damage};multi.hit_count=3;
+    d.rules.skills={{"revive","boss",0,TargetRule::Self,{{EffectKind::AutoRevive,2,10}}},
+        {"multi","A0",0,TargetRule::Enemy,{multi}}};
+    d.skill_scopes={{"revive",SharedSkillTarget::Self},{"multi",SharedSkillTarget::Boss}};SharedBoss s(d);
+    act(s,{"boss",ActionType::Skill,"boss","revive"});const auto r=act(s,{"A0",ActionType::Skill,"boss","multi"});
+    check(count(r,EventType::Attack)==1 && count(r,EventType::FighterRevived)==1 && count(r,EventType::BattleFinished)==1 &&
+          s.battle().find("boss")->health==2 && !s.battle().winner() && s.battle().end_reason()==EndReason::ActionLimit,
+          "revive lost to victory/timeout or resumed cancelled hits");
+}
+void technical_failure_priority_replay(){
+    for(const bool consequence:{false,true}){
+        auto d=setup();d.rules.action_budget=ActionBudget{consequence?4:1,LimitOutcome::DefeatA};
+        std::vector<Action> commands;
+        if(consequence){d.boss.max_health=2;d.rules.max_consequence_events=1;
+            d.rules.skills={{"blast","A0",0,TargetRule::Enemy,{{EffectKind::DeathExplosion,30,10}}}};
+            d.skill_scopes={{"blast",SharedSkillTarget::Boss}};
+            commands={{"A0",ActionType::Skill,"boss","blast"},{"A1",ActionType::Guard,{}},
+                {"A2",ActionType::Guard,{}},{"A0",ActionType::Attack,"boss"}};
+        }else{d.boss.speed=900;d.rules.max_derived_actions=1;
+            d.rules.skills={{"loop","boss",0,TargetRule::Self,{{EffectKind::ExtraTurn},{EffectKind::ExtraTurn}}}};
+            d.skill_scopes={{"loop",SharedSkillTarget::Self}};
+            commands={{"boss",ActionType::Skill,"boss","loop"}};
+        }
+        SharedBoss a(d),b(d);const auto initial=a.snapshot();int finishes=0;
+        for(const auto& cmd:commands){const auto x=act(a,cmd),y=act(b,cmd);finishes+=x.stage_finished?1:0;
+            check(x.action==y.action && a.snapshot()==b.snapshot(),"technical shared replay diverged");}
+        check(finishes==1 && a.battle().end_reason()==EndReason::TechnicalLimit && !a.battle().winner() &&
+              a.battle().accepted_actions()==commands.size(),"technical failure lost to timeout/elimination or repeated finish");
+        const auto final=b.snapshot();check(!a.apply(commands.back()).accepted() && a.snapshot()==final,"post-technical mutation");
+        a.reset();check(a.snapshot()==initial && b.snapshot()==final,"technical reset leaked state");
+    }
+}
+void extra_turn_timeout_no_followup(){
+    auto d=setup();d.rules.action_budget=ActionBudget{1,LimitOutcome::Draw};
+    d.rules.skills={{"extra","A0",3,TargetRule::Self,{{EffectKind::ExtraTurn},{EffectKind::Marker,0,5}}}};
+    d.skill_scopes={{"extra",SharedSkillTarget::Self}};SharedBoss s(d);const auto initial=s.snapshot();
+    const auto r=act(s,{"A0",ActionType::Skill,"A0","extra"});
+    check(r.stage_finished && count(r,EventType::BattleFinished)==1 && s.battle().accepted_actions()==1 &&
+          s.battle().end_reason()==EndReason::ActionLimit && s.snapshot().next_boss_front==std::nullopt,
+          "extra bypassed global deadline");
+    const auto final=s.snapshot();check(!s.apply({"A0",ActionType::Attack,"boss"}).accepted() && s.snapshot()==final,
+                                      "extra executed after terminal action");
+    s.reset();check(s.snapshot()==initial,"extra/status/cooldown retained after reset");
+    // A future scheduling cap is not a failure of the chain that already completed.
+    d=setup();d.boss.speed=900;d.rules.max_derived_actions=1;d.rules.action_budget=ActionBudget{2,LimitOutcome::DefeatA};
+    d.rules.skills={{"loop","boss",0,TargetRule::Self,{{EffectKind::ExtraTurn}}}};
+    d.skill_scopes={{"loop",SharedSkillTarget::Self}};SharedBoss scheduled(d);
+    act(scheduled,{"boss",ActionType::Skill,"boss","loop"});const auto last=act(scheduled,{"boss",ActionType::Skill,"boss","loop"});
+    check(last.stage_finished && scheduled.battle().end_reason()==EndReason::ActionLimit && scheduled.battle().winner()==Team::B,
+          "future extra scheduling cap replaced completed-action timeout");
+}
 }
 int main(int argc,char** argv){
     const std::pair<const char*,void(*)()> tests[]={{"composition",composition},{"one_hp_cadence",one_hp_and_cadence},
@@ -178,7 +272,10 @@ int main(int argc,char** argv){
         {"victory_budget_replay_reset",victory_budget_replay_reset},{"scope_validation",skill_scope_validation},
         {"squad_rotating_skills",squad_and_rotating_skills},{"boss_clock_skip",one_boss_clock_and_blocked_skip},
         {"shared_survival",shared_survival_charges},{"global_death_consequences",shared_global_death_consequences},
-        {"scoped_replay_reset",scoped_skill_replay_reset}};
+        {"scoped_replay_reset",scoped_skill_replay_reset},{"counter_timeout",counter_before_timeout},
+        {"lethal_overkill",lethal_overkill_single_finish},{"reflected_actor_death",reflected_actor_death_not_global_defeat},
+        {"revive_last_action",revive_on_last_global_action},{"technical_priority_replay",technical_failure_priority_replay},
+        {"extra_timeout",extra_turn_timeout_no_followup}};
     int passed=0;for(const auto& [name,test]:tests){try{test();++passed;std::cout<<"PASS shared_boss "<<name<<'\n';}
         catch(const std::exception& e){std::cerr<<"FAIL shared_boss "<<name<<": "<<e.what()<<'\n';}}
     std::cout<<"SHARED_BOSS_TESTS_RESULT passed="<<passed<<" total="<<std::size(tests)<<'\n';

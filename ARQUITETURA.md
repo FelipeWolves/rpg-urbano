@@ -88,3 +88,6 @@ HP único/barra global escolhidos pelo usuário. SharedBoss possui um Battle com
 
 
 PAR-02 parte 2 habilita skills via SharedSkillScope (Self/OwnSquad/Boss/RotatingFront), mantendo um Battle e kernel inalterado. Seletores limitam alvo direto; reação/reflexão/explosão mantêm semântica causal e de lado do resolvedor. Dinâmica do chefe rejeitada para não cruzar frente. Snapshot conserva mapeamento; 142 testes aprovados. Contrato PAR-02.md; próxima parte 3 integração final.
+
+
+PAR-02 parte 3 concluiu integração do perfil HP/AP único/alvo direto único: 17 grupos, 148 testes totais. Não alterou kernel/coordenador. Fechamento não inclui troca de kit por HP/turno, habilidades comuns de área, score ou thread. Famílias futuras registradas em MODOS-PVE.md/TAREFAS.md. Próximo COM-02 utiliza o núcleo existente para entrada textual e reinício.

@@ -142,3 +142,8 @@ Kits podem repetir entre etapas sem impedir mudança de perfil. Integração val
 ## DEC-027 — Coordenação independente inicial
 
 PAR-01 usa três Battle isolados e ordem cíclica configurável, uma ação principal aceita por frente. Conclusão apenas após todas terminarem; vitória A exige três vitórias, qualquer vitória B derrota A, demais casos empate, falha técnica prevalece sem vencedor. IDs locais se repetem apenas em escopos distintos. Sem threads/HP compartilhado/orçamento global nesta parte; orçamento e cancelamento entram na parte 2. 120 testes aprovados.
+
+
+## DEC-028 — Orçamento e cancelamento entre frentes
+
+Contador único de comandos principais aceitos; cadeias derivadas resolvem antes da fronteira. Falha técnica prevalece, conclusão de todas por eliminação precede timeout; nos demais casos teto global precede limites locais. Cancelar congela o coordenador sem fabricar resultado local: FrontState é separado de Battle.phase. Cancelamento explícito não tem vencedor e é idempotente. 125 testes aprovados; integração técnica/R04 dedicada na parte 3.

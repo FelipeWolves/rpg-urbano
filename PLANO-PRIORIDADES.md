@@ -74,4 +74,4 @@ ATB opcional, backend/multiplayer, publicação em lojas/launcher e produção m
 
 ## Próxima ação concreta
 
-PAR-01 parte 2: orçamento global, precedência e cancelamento. Parte 1 concluída com 120 testes totais aprovados; bloco permanece aberto. Não iniciar PAR-02, UI ou engine junto.
+PAR-01 parte 3: integração R04/habilidades, Skip, falha técnica e fronteiras de cancelamento. Partes 1/2 concluídas; 125 testes aprovados. Não iniciar PAR-02, UI ou engine junto.

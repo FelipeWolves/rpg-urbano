@@ -157,3 +157,8 @@ A/A/B e A/A/A, cargas permanentes consumidas antes da troca, limite final, concl
 ## PAR-01 parte 1 (18/11/2026)
 
 Coordenação, resultado agregado e replay de três frentes independentes implementados. PEN-02 continua aberta para orçamento entre frentes: parte 2 tratará contador global, precedência e cancelamento. PAR-01 permanece parcial; chefe compartilhado pertence a PAR-02. Integração de falha técnica e habilidades/R04 reservada à parte 3.
+
+
+## PAR-01 parte 2 — PEN-02 (18/11/2026)
+
+PEN-02 resolvida no perfil cooperativo de frentes independentes: orçamento global único, políticas explícitas, limites locais independentes, precedência e cancelamento validados sem reset/triplicação. Não se estende a chefe compartilhado ou servidor. Parte 3 mantém integração pendente de R04/habilidades/Skip e falhas técnicas. 125 testes totais aprovados.

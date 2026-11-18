@@ -19,13 +19,13 @@ Pasta do projeto: este diretório. Não usar a pasta do laboratório como diret�
 
 ## Verificação desta entrega
 
-PAR-01 parte 1 concluída: três frentes independentes coordenadas por alternância determinística, rejeição atômica, IDs de fase/frente/ação, resultado agregado após todas terminarem e replay/reset. Cinco grupos novos; 120 testes totais aprovados em MSVC /W4 /WX. Preservados 168 cenários/replays, 25 formações AP/replays, 1000 simulações funcionais e demo. Evidências: docs/batalhas/PAR-01.md, COMBATE-PAR-01-PARTE-1.json e frentes-testes.csv.
+PAR-01 partes 1/2 concluídas. Orçamento global único por comando principal aceito; três políticas de timeout, precedência local/global, eliminação final prioritária, cancelamento explícito idempotente e estados Running/Finished/Cancelled sem adulterar batalhas interrompidas. Cinco grupos novos: 125 testes totais, 10 grupos PAR-01, MSVC /W4 /WX aprovado. Matrizes 168 e 25 AP/replays, lote funcional 1000 e demo preservados. Evidências: docs/batalhas/PAR-01.md, COMBATE-PAR-01-PARTE-2.json e frentes-testes.csv.
 
-Painel consolidado agora inclui legenda das siglas. PAR-01 permanece aberto: sem orçamento global/cancelamento, threads, chefe compartilhado, servidor ou score nesta parte. Resultado técnico agregado ainda exige integração dedicada. Não repetir a bateria sem mudança pertinente.
+PAR-01 permanece aberto para integração dedicada de R04/habilidades, Skip, falhas técnicas e cancelamento nas fronteiras. Não há threads, chefe compartilhado, servidor ou score. Painel com legenda preservada e partes 1/2 marcadas concluídas. Não repetir testes sem mudança pertinente.
 
 ## Próximo passo executável
 
-PAR-01 parte 2: orçamento global autoritativo, precedência com limites locais e cancelamento coordenado. Ler docs/batalhas/PAR-01.md. Não iniciar PAR-02, UI ou engine junto. Pushes ficam com o usuário.
+PAR-01 parte 3: integração final de habilidades/R04, Skip, limites técnicos e fronteiras de conclusão/cancelamento. Ler docs/batalhas/PAR-01.md. Não iniciar PAR-02, UI ou engine junto. Pushes ficam com o usuário.
 
 ## Novas restrições e fatos úteis
 

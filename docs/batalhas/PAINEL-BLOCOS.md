@@ -1,6 +1,6 @@
 # Painel de blocos — estado consolidado
 
-Atualizado em 18/11/2026 após PAR-01 parte 1. Fonte de resultados: COMBATE.json e COMBATE-PAR-01-PARTE-1.json. Este painel substitui marcações antigas; relatórios anteriores permanecem preservados.
+Atualizado em 18/11/2026 após PAR-01 parte 2. Fonte de resultados: COMBATE.json e COMBATE-PAR-01-PARTE-2.json. Este painel substitui marcações antigas; relatórios anteriores permanecem preservados.
 
 ## Legenda das siglas e marcações
 
@@ -46,11 +46,11 @@ As siglas são identificadores internos das áreas do projeto, não nomes de fer
 | ✅ SEQ-01 | Três times sucessivos e chefe por etapa | 17 grupos; três partes concluídas; A/A/B e A/A/A |
 | ✅ Contrato R04 e revisões R01–R03 | Decisões e pesquisa recebida | Fechamento documental; implementação mínima em RES-01 |
 
-Total atual: **120 testes aprovados**, além das matrizes, isolamento intercalado, 1000 simulações funcionais e demonstração. Não é benchmark de servidor ou renderização.
+Total atual: **125 testes aprovados**, além das matrizes, isolamento intercalado, 1000 simulações funcionais e demonstração. Não é benchmark de servidor ou renderização.
 
 ## ⚠️ Implementado que ainda exige revisão obrigatória
 
-**Nenhum bloco encerrado com revisão obrigatória identificada.** PAR-01 está parcialmente implementado e ainda exige as partes 2/3 indicadas abaixo. As revisões antes exigidas de TIME-02 foram atendidas por TIME-03 e RES-01. SEQ-01 concluiu a integração. Famílias novas e modos ainda ausentes seguem abaixo; não representam reprovação dos contratos encerrados.
+**Nenhum bloco encerrado com revisão obrigatória identificada.** PAR-01 está parcialmente implementado e ainda exige a parte 3 indicada abaixo. As revisões antes exigidas de TIME-02 foram atendidas por TIME-03 e RES-01. SEQ-01 concluiu a integração. Famílias novas e modos ainda ausentes seguem abaixo; não representam reprovação dos contratos encerrados.
 
 ## ⚠️ Previstos desde a estrutura inicial — ainda por implementar e validar
 
@@ -71,7 +71,7 @@ Classificação pelo roteiro documentado, sem inferir datas pela criação do re
 
 | Prioridade | Bloco | Falta |
 |---|---|---|
-| 1 — próximo | ⚠️ PAR-01 | ✅ Parte 1 concluída: coordenador, alternância, resultado agregado e replay (5 grupos). Parte 2: orçamento global/cancelamento; parte 3: integração final |
+| 1 — próximo | ⚠️ PAR-01 | ✅ Partes 1/2 concluídas: coordenador, orçamento global e cancelamento (10 grupos). ⚠️ Parte 3: integração R04/habilidades, falha técnica e fronteiras finais |
 | 2 | ⚠️ PAR-02 | Definir e implementar chefe compartilhado; HP autoritativo, ordem causal e efeitos globais únicos |
 
 Também acrescentados durante o percurso, mas já encerrados: COM-01A, TIME-01, WAVE-01, TIME-PESQ, TIME-02, TIME-03, RES-01 e SEQ-01. AMB-01 formalizou a validação após instalação manual.

@@ -85,3 +85,6 @@ SEQ-01 encerrado nas três partes: 115 testes, 17 sequenciais; A/A/B e A/A/A, ca
 
 
 PAR-01 parte 1 concluída: 120 testes, cinco grupos de frentes; alternância cooperativa determinística, isolamento e agregado/replay. Bloco aberto. Próximo parte 2 orçamento global/cancelamento; parte 3 integração técnica/R04. Relatório docs/batalhas/PAR-01.md. Painel contém legenda das siglas.
+
+
+PAR-01 parte 2 concluída: 125 testes, 10 grupos de frentes. Orçamento global independente dos locais, eliminação final antes de timeout, cancelamento idempotente preserva Battle e expõe FrontState. Próximo parte 3: integração R04/habilidades/Skip/falha técnica; não marcar bloco concluído ainda. Relatório docs/batalhas/PAR-01.md.

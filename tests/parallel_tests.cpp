@@ -66,10 +66,79 @@ void aggregate_outcomes(){
     ParallelFronts draw(d);run(draw);check(!draw.snapshot().winner && draw.battle(1).end_reason()==EndReason::ActionLimit,
                                         "draw plus victories aggregated incorrectly");
 }
+void global_budget_validation_and_atomicity(){
+    auto d=setup();d.global_budget=ActionBudget{1,LimitOutcome::Draw};
+    d.global_budget->max_actions=0;invalid([&]{ParallelFronts p(d);});
+    d.global_budget->max_actions=-1;invalid([&]{ParallelFronts p(d);});
+    d.global_budget=ActionBudget{1,static_cast<LimitOutcome>(99)};invalid([&]{ParallelFronts p(d);});
+    for(const auto policy:{LimitOutcome::Draw,LimitOutcome::DefeatA,LimitOutcome::DefeatB}){
+        d=setup();d.global_budget=ActionBudget{1,policy};ParallelFronts p(d);const auto before=p.snapshot();
+        check(!p.apply("front-1",{"A",ActionType::Attack,"boss"}).accepted() && p.snapshot()==before &&
+              p.remaining_actions()==1,"invalid action consumed global budget");
+        const auto r=step(p);const auto final=p.snapshot();
+        check(r.stage_finished && r.cancelled_fronts.size()==3 && final.accepted_actions==1 && p.remaining_actions()==0 &&
+              final.end_reason==ParallelEndReason::GlobalActionLimit,"global budget tripled or failed cancellation");
+        const std::optional<Team> expected=policy==LimitOutcome::Draw?std::nullopt:
+            std::optional<Team>{policy==LimitOutcome::DefeatA?Team::B:Team::A};
+        check(final.winner==expected && final.fronts[1]==before.fronts[1] && final.fronts[2]==before.fronts[2],
+              "timeout changed idle battle or wrong winner");
+        check(!p.apply("front-0",{"A",ActionType::Attack,"boss"}).accepted() && !p.cancel() && p.snapshot()==final,
+              "post-timeout mutation accepted");
+    }
+}
+void local_global_boundaries(){
+    auto d=setup();d.global_budget=ActionBudget{2,LimitOutcome::DefeatA};
+    d.fronts[0].rules.action_budget=ActionBudget{1,LimitOutcome::Draw};ParallelFronts p(d);
+    check(step(p).front_finished && p.current_front()==1 && p.remaining_actions()==1,"local limit ended global phase");
+    const auto r=step(p);check(r.stage_finished && r.cancelled_fronts.size()==2 &&
+        p.snapshot().front_states[0]==FrontState::Finished && p.snapshot().front_states[1]==FrontState::Cancelled,
+        "finished front cancelled or global counter reset");
+    d=setup();for(auto& f:d.fronts){f.rules.action_budget=ActionBudget{1,LimitOutcome::Draw};}
+    d.global_budget=ActionBudget{3,LimitOutcome::DefeatA};ParallelFronts equal(d);run(equal);
+    check(equal.snapshot().end_reason==ParallelEndReason::GlobalActionLimit && equal.snapshot().winner==Team::B &&
+          equal.snapshot().front_states==std::vector<FrontState>(3,FrontState::Finished),"global tie did not precede local draws");
+}
+void last_action_elimination_priority(){
+    auto d=setup();for(auto& f:d.fronts){f.fighters[1].max_health=4;}
+    d.global_budget=ActionBudget{3,LimitOutcome::DefeatA};ParallelFronts p(d);run(p);
+    check(p.snapshot().end_reason==ParallelEndReason::AllFrontsFinished && p.snapshot().winner==Team::A &&
+          p.remaining_actions()==0,"final elimination lost to global timeout");
+    d.global_budget=ActionBudget{1,LimitOutcome::DefeatA};ParallelFronts partial(d);const auto r=step(partial);
+    check(r.front_finished && r.cancelled_fronts.size()==2 && partial.snapshot().winner==Team::B &&
+          partial.snapshot().end_reason==ParallelEndReason::GlobalActionLimit,"one local kill granted global victory");
+}
+void manual_cancel_and_reset(){
+    ParallelFronts p(setup());step(p);const auto before=p.snapshot();
+    check(p.cancel(),"running cancellation rejected");const auto after=p.snapshot();
+    check(after.fronts==before.fronts && after.accepted_actions==before.accepted_actions && !after.winner &&
+          after.end_reason==ParallelEndReason::Cancelled && after.front_states==std::vector<FrontState>(3,FrontState::Cancelled),
+          "cancel altered battle evidence or fabricated winner");
+    check(!p.cancel() && p.snapshot()==after && !p.apply("front-1",{"A",ActionType::Attack,"boss"}).accepted(),
+          "cancellation not idempotent");
+    p.reset();ParallelFronts fresh(setup());check(p.snapshot()==fresh.snapshot(),"reset retained cancellation");
+    auto d=setup();d.fronts[0].fighters[1].max_health=4;ParallelFronts finished(d);step(finished);
+    check(finished.cancel() && finished.snapshot().front_states[0]==FrontState::Finished,"cancel erased local completion");
+}
+void bounded_replay_schedules(){
+    for(const auto order:{std::array<std::size_t,3>{0,1,2},std::array<std::size_t,3>{2,1,0}}){
+        auto d=setup();d.schedule=order;d.global_budget=ActionBudget{5,LimitOutcome::Draw};
+        ParallelFronts a(d),b(d);int finishes=0;
+        while(a.current_front()){
+            const auto x=step(a),y=step(b);finishes+=x.stage_finished?1:0;
+            check(x.action==y.action && x.cancelled_fronts==y.cancelled_fronts && a.snapshot()==b.snapshot(),"bounded replay diverged");
+        }
+        check(finishes==1 && a.snapshot().accepted_actions==5 && a.remaining_actions()==0,"bounded schedule exceeded budget");
+        const auto final=b.snapshot();a.reset();ParallelFronts fresh(d);
+        check(a.snapshot()==fresh.snapshot() && b.snapshot()==final,"bounded reset leaked");
+    }
+}
 }
 int main(int argc,char** argv){
     const std::pair<const char*,void(*)()> tests[]={{"configuration",configuration},{"atomicity_isolation",atomicity_and_isolation},
-        {"fairness_completion",fairness_and_completion},{"schedule_replay_reset",schedule_independence_and_reset},{"aggregate_outcomes",aggregate_outcomes}};
+        {"fairness_completion",fairness_and_completion},{"schedule_replay_reset",schedule_independence_and_reset},{"aggregate_outcomes",aggregate_outcomes},
+        {"global_validation_atomics",global_budget_validation_and_atomicity},{"local_global_boundaries",local_global_boundaries},
+        {"last_elimination_priority",last_action_elimination_priority},{"manual_cancel_reset",manual_cancel_and_reset},
+        {"bounded_replay_schedules",bounded_replay_schedules}};
     int passed=0;
     for(const auto& [name,test]:tests){try{test();++passed;std::cout<<"PASS parallel "<<name<<'\n';}
         catch(const std::exception& e){std::cerr<<"FAIL parallel "<<name<<": "<<e.what()<<'\n';}}

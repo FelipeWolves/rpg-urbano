@@ -152,3 +152,8 @@ PEN-04: kit por etapa na troca de time, KeepMatching/ResetAll/MapExplicit e cate
 ## Atualização — SEQ-01 encerrado (18/11/2026)
 
 A/A/B e A/A/A, cargas permanentes consumidas antes da troca, limite final, conclusão única e replay/reset validados. 17 grupos sequenciais e 115 testes totais. Coordenação entre frentes pertence a PAR-01/PAR-02; score, IA completa e limiares de HP permanecem fora desta entrega. Registros históricos não reabrem SEQ-01.
+
+
+## PAR-01 parte 1 (18/11/2026)
+
+Coordenação, resultado agregado e replay de três frentes independentes implementados. PEN-02 continua aberta para orçamento entre frentes: parte 2 tratará contador global, precedência e cancelamento. PAR-01 permanece parcial; chefe compartilhado pertence a PAR-02. Integração de falha técnica e habilidades/R04 reservada à parte 3.

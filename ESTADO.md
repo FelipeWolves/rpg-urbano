@@ -19,15 +19,13 @@ Pasta do projeto: este diretório. Não usar a pasta do laboratório como diret�
 
 ## Verificação desta entrega
 
-SEQ-01 concluído nas três partes. Kits A/A/B e A/A/A, recargas compartilhadas, cargas permanentes consumidas antes da troca, limite final, conclusão única e replay/reset isolado.
+PAR-01 parte 1 concluída: três frentes independentes coordenadas por alternância determinística, rejeição atômica, IDs de fase/frente/ação, resultado agregado após todas terminarem e replay/reset. Cinco grupos novos; 120 testes totais aprovados em MSVC /W4 /WX. Preservados 168 cenários/replays, 25 formações AP/replays, 1000 simulações funcionais e demo. Evidências: docs/batalhas/PAR-01.md, COMBATE-PAR-01-PARTE-1.json e frentes-testes.csv.
 
-MSVC /W4 /WX: 13 básicos + 11 limites + 9 fases + 34 tempo + 31 resolução + 17 sequenciais = 115 aprovados. Preservados 168 cenários/replays, 25 formações AP/replays, 1000 batalhas funcionais e demo 40 ações/14 rodadas. Evidências: COMBATE.json e docs/batalhas/COMBATE-SEQ-01-FINAL.json. Não repetir sem mudança pertinente.
-
-Ainda sem fases por limiar de HP, pilhas/modificadores de atributo, IA completa ou score. As habilidades dos perfis são invocadas explicitamente nos testes; a política automática básica permanece ataque/Skip.
+Painel consolidado agora inclui legenda das siglas. PAR-01 permanece aberto: sem orçamento global/cancelamento, threads, chefe compartilhado, servidor ou score nesta parte. Resultado técnico agregado ainda exige integração dedicada. Não repetir a bateria sem mudança pertinente.
 
 ## Próximo passo executável
 
-PAR-01: três frentes independentes, resultado global, limites/cancelamento e replay. Não iniciar PAR-02, UI ou engine junto. Commit local autorizado nesta entrega; pushes ficam com o usuário.
+PAR-01 parte 2: orçamento global autoritativo, precedência com limites locais e cancelamento coordenado. Ler docs/batalhas/PAR-01.md. Não iniciar PAR-02, UI ou engine junto. Pushes ficam com o usuário.
 
 ## Novas restrições e fatos úteis
 

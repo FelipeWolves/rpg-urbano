@@ -1,7 +1,31 @@
 # Painel de blocos — estado consolidado
 
-Atualizado em 18/11/2026 após SEQ-01 parte 3. Fonte de resultados: COMBATE.json e COMBATE-SEQ-01-FINAL.json. Este painel substitui marcações antigas; relatórios anteriores permanecem preservados.
+Atualizado em 18/11/2026 após PAR-01 parte 1. Fonte de resultados: COMBATE.json e COMBATE-PAR-01-PARTE-1.json. Este painel substitui marcações antigas; relatórios anteriores permanecem preservados.
 
+## Legenda das siglas e marcações
+
+As siglas são identificadores internos das áreas do projeto, não nomes de ferramentas ou engines. O número identifica o bloco; um sufixo, como A em COM-01A, identifica um complemento.
+
+| Sigla | Significado | Área |
+|---|---|---|
+| FUN | Fundação | Visão, organização e decisões iniciais |
+| AMB | Ambiente | Compilador, SDK e ferramentas locais |
+| COM | Combate | Motor básico, análises e interação textual |
+| TIME | Tempo (inglês) | Relógios, ordem de ação, recargas e extras; não significa equipe |
+| PESQ | Pesquisa | Sufixo de investigação, como TIME-PESQ |
+| WAVE | Onda (inglês) | Confrontos consecutivos com o mesmo time |
+| RES | Resolução | Causalidade de dano, mortes e reações |
+| SEQ | Sequência | Times sucessivos contra chefe persistente |
+| PAR | Paralelo | Coordenação de frentes; nesta etapa usa intercalação local, sem threads |
+| HAB | Habilidades | Ações, recursos e efeitos ampliados |
+| CIC | Ciclo | Equipe, recompensa e persistência |
+| ENG | Engine | Escolha e integração do motor gráfico |
+| VIS | Visual | Arena e apresentação funcional |
+| ART | Arte | Direção artística e recursos originais |
+| AUD | Áudio | Sons e identidade musical |
+| EXP | Expansão | Campanha e experiências adicionais |
+
+✅ indica encerramento no escopo descrito; ⚠️ indica trabalho ou validação ainda pendente. Parte concluída não encerra automaticamente o bloco inteiro. R01–R04 identificam revisões/contratos documentais, e PEN identifica uma pendência em PENDENCIAS.md.
 ## ✅ Encerrados no escopo entregue
 
 **Não precisam de novos testes nem de revisão agora, salvo mudança relevante no bloco ou nas suas dependências.** Entrega documental não equivale a funcionalidade implementada. Regressão pertinente continua válida quando o núcleo mudar.
@@ -22,11 +46,11 @@ Atualizado em 18/11/2026 após SEQ-01 parte 3. Fonte de resultados: COMBATE.json
 | ✅ SEQ-01 | Três times sucessivos e chefe por etapa | 17 grupos; três partes concluídas; A/A/B e A/A/A |
 | ✅ Contrato R04 e revisões R01–R03 | Decisões e pesquisa recebida | Fechamento documental; implementação mínima em RES-01 |
 
-Total atual: **115 testes aprovados**, além das matrizes, isolamento intercalado, 1000 simulações funcionais e demonstração. Não é benchmark de servidor ou renderização.
+Total atual: **120 testes aprovados**, além das matrizes, isolamento intercalado, 1000 simulações funcionais e demonstração. Não é benchmark de servidor ou renderização.
 
 ## ⚠️ Implementado que ainda exige revisão obrigatória
 
-**Nenhum bloco atual identificado.** As revisões antes exigidas de TIME-02 foram atendidas por TIME-03 e RES-01. SEQ-01 concluiu a integração. Famílias novas e modos ainda ausentes seguem abaixo; não representam reprovação dos contratos encerrados.
+**Nenhum bloco encerrado com revisão obrigatória identificada.** PAR-01 está parcialmente implementado e ainda exige as partes 2/3 indicadas abaixo. As revisões antes exigidas de TIME-02 foram atendidas por TIME-03 e RES-01. SEQ-01 concluiu a integração. Famílias novas e modos ainda ausentes seguem abaixo; não representam reprovação dos contratos encerrados.
 
 ## ⚠️ Previstos desde a estrutura inicial — ainda por implementar e validar
 
@@ -47,7 +71,7 @@ Classificação pelo roteiro documentado, sem inferir datas pela criação do re
 
 | Prioridade | Bloco | Falta |
 |---|---|---|
-| 1 — próximo | ⚠️ PAR-01 | Coordenar três frentes independentes; resultado global, budgets, cancelamento e replay em duas ordens |
+| 1 — próximo | ⚠️ PAR-01 | ✅ Parte 1 concluída: coordenador, alternância, resultado agregado e replay (5 grupos). Parte 2: orçamento global/cancelamento; parte 3: integração final |
 | 2 | ⚠️ PAR-02 | Definir e implementar chefe compartilhado; HP autoritativo, ordem causal e efeitos globais únicos |
 
 Também acrescentados durante o percurso, mas já encerrados: COM-01A, TIME-01, WAVE-01, TIME-PESQ, TIME-02, TIME-03, RES-01 e SEQ-01. AMB-01 formalizou a validação após instalação manual.

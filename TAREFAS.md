@@ -32,6 +32,9 @@ Uma entrega por vez. Ordem por área, criticidade e dependências, conforme PLAN
   - [x] Parte 2 — Perfis, conservação/reset/mapa de recarga, categorias e escudos funcionais; 112 testes totais aprovados.
   - [x] Parte 3 — Integração encerrada: A/A/B e A/A/A, cargas permanentes, limite final e replay; 115 testes totais aprovados.
 - [ ] PAR-01 — Coordenador de três frentes independentes; ampliar a prova de isolamento para condições de vitória/derrota da fase, budgets e cancelamento. Não requer threads por padrão. Aceite: sem starvation ou vazamento de estado; duas ordens de escalonamento; replay por frente e resultado global.
+  - [x] Parte 1 — Coordenador, alternância determinística, isolamento, resultado agregado e replay/reset; 120 testes totais aprovados. Relatório docs/batalhas/PAR-01.md.
+  - [ ] Parte 2 — Orçamento global, precedência local/global e cancelamento coordenado.
+  - [ ] Parte 3 — Integração R04/habilidades, limites técnicos e fronteiras finais.
 - [ ] PAR-02 — Após decidir o modelo, investigar chefe em três frentes: HP autoritativo, partes ou avatares/score. Aceite: mortes simultâneas, overkill, efeitos/skill-phase globais uma vez, orçamento e ordem total. Não substituir essa implementação por clones independentes do chefe.
 
 ## 3. Uso, habilidades ampliadas e persistência
@@ -53,7 +56,7 @@ Uma entrega por vez. Ordem por área, criticidade e dependências, conforme PLAN
 
 ## Próximo bloco executável
 
-PAR-01: coordenador de três frentes independentes, resultado global, limites/cancelamento e replay. SEQ-01 encerrado. Uma entrega por vez.
+PAR-01 parte 2: orçamento global, precedência local/global e cancelamento coordenado. Parte 1 concluída; ler docs/batalhas/PAR-01.md. Uma entrega por vez.
 
 ## Encerramento de cada entrega
 

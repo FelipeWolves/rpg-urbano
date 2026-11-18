@@ -55,6 +55,12 @@ cl.exe %FLAGS% /I"$root\include" "$root\tests\sequential_tests.cpp" "$build\batt
 if errorlevel 1 exit /b 40
 "$build\sequential_tests.exe" "$build\sequencia-testes.csv"
 if errorlevel 1 exit /b 41
+cl.exe %FLAGS% /I"$root\include" /c "$root\src\parallel.cpp" /Fo"$build\parallel.obj"
+if errorlevel 1 exit /b 42
+cl.exe %FLAGS% /I"$root\include" "$root\tests\parallel_tests.cpp" "$build\battle.obj" "$build\parallel.obj" /Fo"$build\parallel_tests.obj" /Fe"$build\parallel_tests.exe" /link /INCREMENTAL:NO
+if errorlevel 1 exit /b 43
+"$build\parallel_tests.exe" "$build\frentes-testes.csv"
+if errorlevel 1 exit /b 44
 cl.exe %FLAGS% /I"$root\include" "$root\tests\scenario_tests.cpp" "$build\battle.obj" /Fo"$build\scenario_tests.obj" /Fe"$build\scenario_tests.exe" /link /INCREMENTAL:NO
 if errorlevel 1 exit /b 23
 "$build\scenario_tests.exe" "$build\formacoes.csv"
@@ -102,6 +108,13 @@ $sequentialMatch = [regex]::Match($sequentialResult[0], '^SEQUENTIAL_TESTS_RESUL
 if ($sequentialMatch.Groups[1].Value -ne $sequentialMatch.Groups[2].Value) { throw 'Testes de times sucessivos reprovados.' }
 $sequentialCsv = @(Import-Csv -LiteralPath (Join-Path $build 'sequencia-testes.csv'))
 if ($sequentialCsv.Count -ne [int]$sequentialMatch.Groups[2].Value -or @($sequentialCsv | Where-Object status -ne 'pass').Count) { throw 'Matriz sequencial inconsistente.' }
+$parallelResult = @($messages | Where-Object { $_ -match '^PARALLEL_TESTS_RESULT passed=(\d+) total=(\d+)$' })
+if ($parallelResult.Count -ne 1) { throw 'Resultado de frentes ausente.' }
+$parallelMatch = [regex]::Match($parallelResult[0], '^PARALLEL_TESTS_RESULT passed=(\d+) total=(\d+)$')
+if ($parallelMatch.Groups[1].Value -ne $parallelMatch.Groups[2].Value) { throw 'Testes de frentes reprovados.' }
+$parallelCsv = @(Import-Csv -LiteralPath (Join-Path $build 'frentes-testes.csv'))
+if ($parallelCsv.Count -ne [int]$parallelMatch.Groups[2].Value -or @($parallelCsv | Where-Object status -ne 'pass').Count) { throw 'Matriz de frentes inconsistente.' }
+Copy-Item -LiteralPath (Join-Path $build 'frentes-testes.csv') -Destination (Join-Path $root 'docs\batalhas\frentes-testes.csv')
 $scenario = @($messages | Where-Object { $_ -match '^SCENARIOS_OK cases=168 replays=168 ' })
 $isolation = @($messages | Where-Object { $_ -match '^ISOLATION_OK ' })
 $batchResult = @($messages | Where-Object { $_ -match '^BATCH_OK battles=1000 ' })
@@ -134,6 +147,8 @@ Copy-Item -LiteralPath (Join-Path $build 'sequencia-testes.csv') -Destination (J
     ResolutionTestsTotal = [int]$resolutionMatch.Groups[2].Value
     SequentialTestsPassed = [int]$sequentialMatch.Groups[1].Value
     SequentialTestsTotal = [int]$sequentialMatch.Groups[2].Value
+    ParallelTestsPassed = [int]$parallelMatch.Groups[1].Value
+    ParallelTestsTotal = [int]$parallelMatch.Groups[2].Value
     APFormationCases = 25
     Simulation = $simulation[0]
     FormationCases = $csv.Count
@@ -141,5 +156,5 @@ Copy-Item -LiteralPath (Join-Path $build 'sequencia-testes.csv') -Destination (J
     IsolationResult = $isolation[0]
     LocalBatchResult = $batchResult[0]
     ExitCode = $code
-    Scope = 'Own combat core with action identities/multi-hit/skill guard and fixed/AP timing, skills/status clocks, extras/reactions, optional guard, consecutive stages, three successive squads with stable/phased boss kits and classified states/shields and local/global action budgets; formation/replay matrix; independent interleaved contexts; bounded local functional batch; not shared-boss/multithreading/server validation'
+    Scope = 'Own combat core with action identities/multi-hit/skill guard and fixed/AP timing, skills/status clocks, extras/reactions, optional guard, consecutive stages, three successive squads with stable/phased boss kits and classified states/shields and local/global action budgets; formation/replay matrix; three coordinated independent cooperative fronts (no global budget/cancellation yet); independent interleaved contexts; bounded local functional batch; not shared-boss/multithreading/server validation'
 } | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $root 'COMBATE.json') -Encoding utf8

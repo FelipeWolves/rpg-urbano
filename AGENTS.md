@@ -82,3 +82,6 @@ Git passou a ter commit inicial do usuário e origin. Pushes ficam com ele; não
 
 
 SEQ-01 encerrado nas três partes: 115 testes, 17 sequenciais; A/A/B e A/A/A, cargas persistentes, término único e replay. Próximo PAR-01, uma entrega por vez. Usuário autorizou commit local desta entrega; não fazer push. Painel consolidado em docs/batalhas/PAINEL-BLOCOS.md.
+
+
+PAR-01 parte 1 concluída: 120 testes, cinco grupos de frentes; alternância cooperativa determinística, isolamento e agregado/replay. Bloco aberto. Próximo parte 2 orçamento global/cancelamento; parte 3 integração técnica/R04. Relatório docs/batalhas/PAR-01.md. Painel contém legenda das siglas.

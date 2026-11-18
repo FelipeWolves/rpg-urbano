@@ -1,0 +1,6 @@
+test,status,scope
+configuration,pass,independent_cooperative_fronts
+atomicity_isolation,pass,independent_cooperative_fronts
+fairness_completion,pass,independent_cooperative_fronts
+schedule_replay_reset,pass,independent_cooperative_fronts
+aggregate_outcomes,pass,independent_cooperative_fronts

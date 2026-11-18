@@ -74,4 +74,4 @@ ATB opcional, backend/multiplayer, publicação em lojas/launcher e produção m
 
 ## Próxima ação concreta
 
-PAR-01: três frentes independentes, resultado global, limites/cancelamento e replay. TIME-03, RES-01 e SEQ-01 encerrados; 115 testes aprovados. Uma entrega por vez; não iniciar PAR-02, UI ou engine junto.
+PAR-01 parte 2: orçamento global, precedência e cancelamento. Parte 1 concluída com 120 testes totais aprovados; bloco permanece aberto. Não iniciar PAR-02, UI ou engine junto.

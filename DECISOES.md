@@ -137,3 +137,8 @@ Git agora tem commit inicial do usuário e origin; ausência de commit é inform
 ## DEC-026 — Encerramento integrado de SEQ-01
 
 Kits podem repetir entre etapas sem impedir mudança de perfil. Integração valida recargas, revive persistente, limite final, conclusão única e replay/reset. 115 testes aprovados; nenhuma nova família de mecânicas nesta parte. Próximo PAR-01; commit local autorizado e pushes com usuário.
+
+
+## DEC-027 — Coordenação independente inicial
+
+PAR-01 usa três Battle isolados e ordem cíclica configurável, uma ação principal aceita por frente. Conclusão apenas após todas terminarem; vitória A exige três vitórias, qualquer vitória B derrota A, demais casos empate, falha técnica prevalece sem vencedor. IDs locais se repetem apenas em escopos distintos. Sem threads/HP compartilhado/orçamento global nesta parte; orçamento e cancelamento entram na parte 2. 120 testes aprovados.

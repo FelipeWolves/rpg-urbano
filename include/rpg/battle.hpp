@@ -20,9 +20,10 @@ enum class TurnKind { Natural, Extra };
 enum class TickPolicy { NaturalOnly, EveryTurn };
 enum class TargetRule { Enemy, Ally, Self };
 enum class EffectKind { Damage, ChangeAP, SetSpeed, ExtraTurn, Block, Marker, Counter, FreezeCooldowns,
-                        Reflect, DeathExplosion, PreventDeath, AutoRevive };
+                        Reflect, DeathExplosion, PreventDeath, AutoRevive, Shield, StructuralShield };
 enum class ExtraOrigin { Ability, Equipment, Custom };
 enum class HitSelection { FixedTarget, LowestHealthEnemy };
+enum class StatusCategory { Temporary, Permanent, Structural };
 
 struct ExtraTurnSource {
     std::string id;
@@ -64,6 +65,7 @@ struct EffectDefinition {
     std::uint32_t hit_count = 1;
     HitSelection hit_selection = HitSelection::FixedTarget;
     std::uint32_t charges = 1;
+    StatusCategory category = StatusCategory::Temporary;
     bool operator==(const EffectDefinition&) const = default;
 };
 struct SkillDefinition {
@@ -102,7 +104,8 @@ enum class EventType {
     Attack, GuardSet, GuardConsumed, FighterDefeated,
     RoundStarted, TurnStarted, GuardExpired, BattleFinished,
     SkillUsed, EffectApplied, EffectExpired, Reaction, TurnSkipped, TurnEnded, ExtraTurnSuppressed,
-    ReflectedDamage, DeathExplosion, DeathEffectTriggered, DeathPrevented, ReviveScheduled, FighterRevived
+    ReflectedDamage, DeathExplosion, DeathEffectTriggered, DeathPrevented, ReviveScheduled, FighterRevived,
+    ShieldAbsorbed, ShieldBroken
 };
 
 struct Definition {
@@ -121,6 +124,7 @@ struct Status {
     std::uint64_t applied_turn;
     int magnitude = 0;
     std::uint32_t charges = 1;
+    StatusCategory category = StatusCategory::Temporary;
     bool operator==(const Status&) const = default;
 };
 
@@ -190,6 +194,7 @@ struct Event {
     std::optional<ActionContext> action_context;
     std::uint32_t hit_index = 0;
     std::uint32_t planned_hits = 0;
+    std::optional<EffectKind> status_kind;
     bool operator==(const Event&) const = default;
 };
 

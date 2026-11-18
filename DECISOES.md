@@ -126,3 +126,14 @@ PreventDeath mantém 1 HP em dano letal e consome carga sem confirmar morte. Aut
 
 SequentialSquads separa personagem, instância e time; valida inscrição inteira (três times de 1–5, sem repetição). Mantém HP e max_health do chefe, troca por eliminação/limite local, aplica orçamento global único e respeita R04 antes da troca. Política base explícita conserva cooldowns ou reinicia runtime, limpando todos os status; categorias refinadas e kits por etapa entram na parte 2. 103 testes aprovados e matrizes preservadas; SEQ-01 ainda aberto. Relatório docs/batalhas/SEQ-01.md.
 
+
+## DEC-025 — Perfis e estados classificados
+
+SEQ-01 parte 2 vincula três perfis aos três times, mantendo HP/identidade. Perfil escolhe cooldown por ID, reset ou mapa um-para-um. Temporary expira/limpa; Permanent/Structural usam remaining 0 e persistem. Modo classificado conserva cargas e capacidades sem reaplicar estado inicial. Shield e StructuralShield coexistem e absorvem após guarda, antes de HP/prevenção. 112 testes aprovados; próxima validação integrada. Relatório docs/batalhas/SEQ-01.md.
+
+Git agora tem commit inicial do usuário e origin; ausência de commit é informação histórica superada. Pushes ficam com o usuário.
+
+
+## DEC-026 — Encerramento integrado de SEQ-01
+
+Kits podem repetir entre etapas sem impedir mudança de perfil. Integração valida recargas, revive persistente, limite final, conclusão única e replay/reset. 115 testes aprovados; nenhuma nova família de mecânicas nesta parte. Próximo PAR-01; commit local autorizado e pushes com usuário.

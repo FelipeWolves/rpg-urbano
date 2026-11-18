@@ -15,6 +15,10 @@ bool valid_clock(TickPolicy clock) {
 bool ticks(TickPolicy clock, TurnKind kind) {
     return kind == TurnKind::Natural || clock == TickPolicy::EveryTurn;
 }
+bool valid_duration(StatusCategory category,int remaining) {
+    if(category==StatusCategory::Temporary){return remaining>=1 && remaining<=1000000;}
+    return (category==StatusCategory::Permanent || category==StatusCategory::Structural) && remaining==0;
+}
 }
 
 Battle::Battle(std::vector<Definition> definitions, BattleRules rules,
@@ -112,17 +116,25 @@ Battle::Battle(std::vector<Definition> definitions, BattleRules rules,
                 break;
             case EffectKind::Block: case EffectKind::Marker: case EffectKind::Counter: case EffectKind::FreezeCooldowns:
             case EffectKind::Reflect: case EffectKind::DeathExplosion: case EffectKind::PreventDeath: case EffectKind::AutoRevive:
-                if (effect.duration < 1 || effect.duration > 1000000) { throw std::invalid_argument("Invalid duration"); }
+            case EffectKind::Shield: case EffectKind::StructuralShield:
+                if (!valid_duration(effect.category,effect.duration)) { throw std::invalid_argument("Invalid duration/category"); }
                 if ((effect.kind == EffectKind::Reflect || effect.kind == EffectKind::DeathExplosion ||
-                     effect.kind == EffectKind::AutoRevive) && effect.amount <= 0) {
+                     effect.kind == EffectKind::AutoRevive || effect.kind == EffectKind::Shield ||
+                     effect.kind == EffectKind::StructuralShield) && effect.amount <= 0) {
                     throw std::invalid_argument("Consequence damage must be positive");
                 }
                 if ((effect.kind == EffectKind::PreventDeath || effect.kind == EffectKind::AutoRevive) &&
                     (effect.charges == 0 || effect.charges > 1024)) { throw std::invalid_argument("Invalid survival charges"); }
                 break;
-            case EffectKind::ExtraTurn: case EffectKind::Damage: break;
+            case EffectKind::ExtraTurn: case EffectKind::Damage:
+                if(effect.category!=StatusCategory::Temporary){throw std::invalid_argument("Instant effect cannot persist");}
+                break;
             default: throw std::invalid_argument("Unknown effect");
             }
+            if ((effect.kind==EffectKind::Shield && effect.category!=StatusCategory::Temporary) ||
+                (effect.kind==EffectKind::StructuralShield && effect.category!=StatusCategory::Structural) ||
+                ((effect.kind==EffectKind::SetSpeed || effect.kind==EffectKind::ChangeAP) &&
+                 effect.category!=StatusCategory::Temporary)) { throw std::invalid_argument("Invalid category for effect"); }
             if (effect.kind == EffectKind::Damage && skill.target != TargetRule::Enemy) {
                 throw std::invalid_argument("Damage requires enemy target in this profile");
             }
@@ -165,20 +177,26 @@ Battle::Battle(std::vector<Definition> definitions, BattleRules rules,
                 throw std::invalid_argument("Invalid cooldown state");
             }
         }
-        if (state.statuses.size() > 8) { throw std::invalid_argument("Too many status types"); }
+        if (state.statuses.size() > 10) { throw std::invalid_argument("Too many status types"); }
         auto statuses = state.statuses;
         for (std::size_t j = 0; j < statuses.size(); ++j) {
             auto& status = statuses[j];
             if ((status.kind != EffectKind::Block && status.kind != EffectKind::Marker && status.kind != EffectKind::Counter &&
                  status.kind != EffectKind::FreezeCooldowns && status.kind != EffectKind::Reflect &&
                  status.kind != EffectKind::DeathExplosion && status.kind != EffectKind::PreventDeath &&
-                 status.kind != EffectKind::AutoRevive) ||
-                status.remaining < 1 || status.remaining > 1000000 || !valid_clock(status.clock)) {
+                 status.kind != EffectKind::AutoRevive && status.kind != EffectKind::Shield &&
+                 status.kind != EffectKind::StructuralShield) ||
+                !valid_duration(status.category,status.remaining) || !valid_clock(status.clock)) {
                 throw std::invalid_argument("Invalid status state");
             }
             if ((status.kind == EffectKind::Reflect || status.kind == EffectKind::DeathExplosion ||
-                 status.kind == EffectKind::AutoRevive) && status.magnitude <= 0) {
+                 status.kind == EffectKind::AutoRevive || status.kind==EffectKind::Shield ||
+                 status.kind==EffectKind::StructuralShield) && status.magnitude <= 0) {
                 throw std::invalid_argument("Invalid consequence magnitude");
+            }
+            if ((status.kind==EffectKind::Shield && status.category!=StatusCategory::Temporary) ||
+                (status.kind==EffectKind::StructuralShield && status.category!=StatusCategory::Structural)) {
+                throw std::invalid_argument("Invalid shield category");
             }
             if ((status.kind == EffectKind::PreventDeath || status.kind == EffectKind::AutoRevive) &&
                 (status.charges == 0 || status.charges > 1024)) { throw std::invalid_argument("Invalid survival state"); }
@@ -351,6 +369,20 @@ void Battle::apply_damage(std::size_t emitter, std::size_t target_index, int pow
     auto& target=fighters_[target_index];
     if (target.health==0 || phase_!=Phase::Running) {return;}
     const auto begin=events.size();
+    // Guard has already mitigated the hit. Ordinary shield precedes the structural layer.
+    for(const auto kind:{EffectKind::Shield,EffectKind::StructuralShield}) {
+        auto shield=std::ranges::find(target.statuses,kind,&Status::kind);
+        if(shield==target.statuses.end() || power==0){continue;}
+        const int absorbed=std::min(power,shield->magnitude);
+        power-=absorbed;shield->magnitude-=absorbed;
+        events.push_back(Event{EventType::ShieldAbsorbed,target.definition.id,target.definition.id,absorbed,round_,{}});
+        events.back().status_kind=kind;
+        if(shield->magnitude==0){
+            target.statuses.erase(shield);
+            events.push_back(Event{EventType::ShieldBroken,target.definition.id,target.definition.id,0,round_,{}});
+            events.back().status_kind=kind;
+        }
+    }
     auto prevention=std::ranges::find(target.statuses,EffectKind::PreventDeath,&Status::kind);
     const bool prevented=power>=target.health && prevention!=target.statuses.end();
     if (prevented && !spend_consequence(context,events)) {return;}
@@ -452,10 +484,10 @@ void Battle::end_turn(std::vector<Event>& events) {
     }
     for (auto& status : actor.statuses) {
         const bool advance = source ? source->advances_effect_durations : ticks(status.clock, turn_kind_);
-        if (status.applied_turn != turn_id_ && advance) { --status.remaining; }
+        if (status.category==StatusCategory::Temporary && status.applied_turn != turn_id_ && advance) { --status.remaining; }
     }
     std::erase_if(actor.statuses, [&events, this, &actor](const Status& status) {
-        if (status.remaining > 0) { return false; }
+        if (status.category!=StatusCategory::Temporary || status.remaining > 0) { return false; }
         events.push_back(Event{EventType::EffectExpired, actor.definition.id, {}, static_cast<int>(status.kind), round_, {}});
         return true;
     });
@@ -573,9 +605,10 @@ ActionResult Battle::apply(const Action& action) {
                 break;
             }
             case EffectKind::Block: case EffectKind::Marker: case EffectKind::Counter: case EffectKind::FreezeCooldowns:
-            case EffectKind::Reflect: case EffectKind::DeathExplosion: case EffectKind::PreventDeath: case EffectKind::AutoRevive: {
+            case EffectKind::Reflect: case EffectKind::DeathExplosion: case EffectKind::PreventDeath: case EffectKind::AutoRevive:
+            case EffectKind::Shield: case EffectKind::StructuralShield: {
                 const auto old = std::ranges::find(target.statuses, effect.kind, &Status::kind);
-                const Status status{effect.kind, effect.duration, effect.clock, turn_id_, effect.amount, effect.charges};
+                const Status status{effect.kind, effect.duration, effect.clock, turn_id_, effect.amount, effect.charges,effect.category};
                 if (old == target.statuses.end()) { target.statuses.push_back(status); } else { *old = status; }
                 break;
             }

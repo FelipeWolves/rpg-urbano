@@ -159,11 +159,163 @@ void technical_reset_and_replay(){
     check(a.snapshot().phase==Phase::Finished,"replay incomplete");a.reset();check(a.snapshot()==start,"completed reset failed");
     step(a);a.reset();check(a.snapshot()==start && b.snapshot().phase==Phase::Finished,"running reset leaked to other instance");
 }
+SkillDefinition boss_skill(std::string id,int cooldown=0){return {std::move(id),"boss",cooldown,TargetRule::Self,{{EffectKind::Marker,0,5}}};}
+SequentialDefinition profiles(){
+    auto d=setup(30,BossRuntimeCarry::PreserveClassifiedStates);d.boss.speed=600;
+    for(auto& squad:d.squads){squad.rules.action_budget=ActionBudget{2,LimitOutcome::Draw};}
+    d.boss_phases={
+        {"phase-one",{boss_skill("shared",6),{"old","boss",0,TargetRule::Enemy,{{EffectKind::Damage}}}},BossCooldownTransition::KeepMatching},
+        {"phase-two",{boss_skill("shared",6),{"new","boss",0,TargetRule::Enemy,{{EffectKind::Damage}}}},BossCooldownTransition::KeepMatching},
+        {"phase-three",{boss_skill("shared",6),{"final","boss",0,TargetRule::Enemy,{{EffectKind::Damage}}}},BossCooldownTransition::ResetAll}};
+    return d;
+}
+void profile_kit_boundary(){
+    SequentialSquads stage(profiles());
+    const auto initial=stage.snapshot();const auto inactive=stage.apply({"boss",ActionType::Skill,"A1","new"});
+    check(inactive.action.error==ActionError::UnknownSkill && stage.snapshot()==initial,"inactive kit executable");
+    check(stage.apply({"boss",ActionType::Skill,"boss","shared"}).action.accepted(),"shared setup rejected");
+    const auto switched=stage.apply({"boss",ActionType::Attack,"A1"});
+    check(switched.squad_advanced && switched.boss_phase_changed && switched.boss_phase_id=="phase-one" &&
+          switched.next_boss_phase_id=="phase-two" && stage.snapshot().boss_phase_id=="phase-two" &&
+          cd(stage,"shared")==4,"phase boundary or matching cooldown wrong");
+    const auto before=stage.snapshot();const auto retired=stage.apply({"boss",ActionType::Skill,"A2","old"});
+    check(retired.action.error==ActionError::UnknownSkill && stage.snapshot()==before,"retired skill executable");
+    const auto third=stage.apply({"boss",ActionType::Skill,"A2","new"});
+    check(third.boss_phase_changed && stage.snapshot().boss_phase_id=="phase-three" && cd(stage,"shared")==0,
+          "reset policy retained old kit cooldown");
+    check(stage.apply({"boss",ActionType::Skill,"A3","final"}).stage_finished,"final kit not executable");
+}
+void profile_cooldown_mapping(){
+    auto d=profiles();d.boss_phases[1].skills[0].id="renamed";
+    d.boss_phases[1].cooldowns=BossCooldownTransition::MapExplicit;
+    d.boss_phases[1].mappings={{"shared","renamed"}};
+    SequentialSquads stage(d);
+    check(stage.apply({"boss",ActionType::Skill,"boss","shared"}).action.accepted(),"mapping setup rejected");
+    check(stage.apply({"boss",ActionType::Attack,"A1"}).squad_advanced,"mapping transition missing");
+    check(cd(stage,"renamed")==4 && cd(stage,"new")==0,"mapping did not transfer exact balance");
+    const auto before=stage.snapshot();const auto attempted=stage.apply({"boss",ActionType::Skill,"boss","renamed"});
+    check(attempted.action.error==ActionError::SkillOnCooldown && stage.snapshot()==before,"mapped cooldown bypassed");
+}
+void classified_state_and_partial_shield(){
+    auto d=profiles();d.boss.speed=100;
+    d.boss_initial_statuses={{EffectKind::Marker,20,TickPolicy::NaturalOnly,0},
+        {EffectKind::Shield,20,TickPolicy::NaturalOnly,0,1},
+        {EffectKind::PreventDeath,0,TickPolicy::NaturalOnly,0,0,2,StatusCategory::Permanent},
+        {EffectKind::StructuralShield,0,TickPolicy::NaturalOnly,0,12,1,StatusCategory::Structural}};
+    SequentialSquads stage(d);const auto initial=stage.snapshot();
+    for(int index=0;index<3;++index){
+        step(stage);const auto result=step(stage);const auto& statuses=stage.battle().find("boss")->statuses;
+        const auto shield=std::ranges::find(statuses,EffectKind::StructuralShield,&Status::kind);
+        const auto permanent=std::ranges::find(statuses,EffectKind::PreventDeath,&Status::kind);
+        check(shield!=statuses.end() && shield->magnitude==9-index*4 && permanent!=statuses.end() && permanent->charges==2 &&
+              stage.battle().find("boss")->health==30,"shield recharged, HP changed or permanent lost");
+        if(index<2){check(result.boss_phase_changed && std::ranges::find(statuses,EffectKind::Marker,&Status::kind)==statuses.end(),
+                         "temporary state survived transition");}
+    }
+    stage.reset();check(stage.snapshot()==initial,"reset failed to restore initial categories");
+    d.boss_initial_statuses={{EffectKind::StructuralShield,0,TickPolicy::NaturalOnly,0,3,1,StatusCategory::Structural}};
+    SequentialSquads broken(d);step(broken);step(broken);
+    check(broken.battle().find("boss")->health==29 && broken.battle().find("boss")->statuses.empty(),"broken shield reapplied at phase entry");
+    step(broken);check(broken.battle().find("boss")->health==27,"next phase silently restored shield");
+}
+void profile_validation(){
+    auto d=profiles();d.boss_phases.pop_back();invalid([&]{SequentialSquads stage(d);});
+    d=profiles();d.boss_phases[2].id=d.boss_phases[0].id;invalid([&]{SequentialSquads stage(d);});
+    d=profiles();d.boss_phases[1].skills[0].owner="A2";invalid([&]{SequentialSquads stage(d);});
+    d=profiles();d.boss_phases[1].cooldowns=BossCooldownTransition::MapExplicit;
+    d.boss_phases[1].mappings={{"missing","shared"}};invalid([&]{SequentialSquads stage(d);});
+    d=profiles();d.boss_phases[1].cooldowns=BossCooldownTransition::MapExplicit;
+    d.boss_phases[1].mappings={{"shared","shared"},{"shared","new"}};invalid([&]{SequentialSquads stage(d);});
+    d=profiles();d.squads[1].rules.skills={boss_skill("illegal")};invalid([&]{SequentialSquads stage(d);});
+    d=profiles();d.boss_initial_statuses={{EffectKind::StructuralShield,1,TickPolicy::NaturalOnly,0,5}};
+    invalid([&]{SequentialSquads stage(d);});
+    d=profiles();d.boss_carry=BossRuntimeCarry::ResetRuntime;invalid([&]{SequentialSquads stage(d);});
+}
+void profile_replay_and_reset(){
+    auto d=profiles();SequentialSquads a(d),b(d);const auto initial=a.snapshot();
+    for(int i=0;i<100 && a.snapshot().phase==Phase::Running;++i){
+        const auto* actor=a.battle().current_actor();check(actor!=nullptr,"no profile actor");
+        Action command;
+        if(actor->definition.id=="boss" && cd(a,"shared")==0){command={"boss",ActionType::Skill,"boss","shared"};}
+        else{const auto basic=choose_basic_attack(a.battle());check(basic.has_value(),"no profile command");command=*basic;}
+        const auto first=a.apply(command),second=b.apply(command);
+        check(first.action==second.action && first.boss_phase_id==second.boss_phase_id &&
+              first.next_boss_phase_id==second.next_boss_phase_id && a.snapshot()==b.snapshot(),"profile replay diverged");
+    }
+    check(a.snapshot().phase==Phase::Finished && a.snapshot().boss_phase_id=="phase-three","profile replay skipped phases");
+    a.reset();check(a.snapshot()==initial && b.snapshot().phase==Phase::Finished,"profile reset leaked or retained phase");
+}
+void mixed_and_stable_kits(){
+    for(const bool change_last:{false,true}){
+        auto d=profiles();d.boss_phases[1].skills=d.boss_phases[0].skills;
+        d.boss_phases[2].skills=change_last?d.boss_phases[2].skills:d.boss_phases[0].skills;
+        d.boss_phases[2].cooldowns=BossCooldownTransition::KeepMatching;
+        SequentialSquads stage(d);
+        check(stage.apply({"boss",ActionType::Skill,"boss","shared"}).action.accepted(),"stable kit setup rejected");
+        const auto first=stage.apply({"boss",ActionType::Skill,"A1","old"});
+        check(first.boss_phase_changed && first.squad_advanced && cd(stage,"shared")==4,"same kit lost phase or cooldown");
+        const auto second=stage.apply({"boss",ActionType::Skill,"A2","old"});
+        check(second.boss_phase_changed && cd(stage,"shared")==3,"mixed kit transition lost balance");
+        const auto before=stage.snapshot();
+        if(change_last){check(!stage.apply({"boss",ActionType::Skill,"A3","old"}).action.accepted() &&
+            stage.snapshot()==before,"retired mixed-kit skill mutated state");}
+        const auto last=stage.apply({"boss",ActionType::Skill,"A3",change_last?"final":"old"});
+        check(last.stage_finished && !last.boss_phase_changed && !last.next_boss_phase_id,"stable/mixed final entered fourth phase");
+        stage.reset();SequentialSquads fresh(d);check(stage.snapshot()==fresh.snapshot(),"mixed-kit reset retained state");
+    }
+}
+void permanent_revive_across_phases(){
+    auto d=profiles();d.boss.speed=100;d.boss.max_health=2;
+    for(auto& squad:d.squads){squad.rules.action_budget=ActionBudget{1,LimitOutcome::Draw};}
+    d.boss_initial_statuses={{EffectKind::AutoRevive,0,TickPolicy::NaturalOnly,0,2,2,StatusCategory::Permanent}};
+    SequentialSquads stage(d);const auto initial=stage.snapshot();
+    for(int i=0;i<2;++i){const auto result=step(stage);
+        check(result.squad_advanced && !result.stage_finished && stage.battle().find("boss")->health==2,
+              "revive did not precede squad transition");
+        const auto& statuses=stage.battle().find("boss")->statuses;
+        const auto revive=std::ranges::find(statuses,EffectKind::AutoRevive,&Status::kind);
+        check(i==0?(revive!=statuses.end() && revive->charges==1):revive==statuses.end(),"revive charges restored or lost");
+    }
+    const auto last=step(stage);check(last.stage_finished && stage.snapshot().end_reason==SequentialEndReason::BossDefeated,
+                                    "exhausted revive prevented final victory");
+    stage.reset();check(stage.snapshot()==initial,"revive reset did not restore initial charges");
+}
+void integrated_final_budget_replay(){
+    auto d=profiles();d.global_budget=ActionBudget{4,LimitOutcome::DefeatA};
+    SequentialSquads a(d),b(d);int advances=0,finishes=0;
+    const Action commands[]={{"boss",ActionType::Skill,"boss","shared"},{"boss",ActionType::Attack,"A1"},
+        {"boss",ActionType::Skill,"A2","new"},{"boss",ActionType::Skill,"A3","final"}};
+    for(const auto& command:commands){const auto first=a.apply(command),second=b.apply(command);
+        check(first.action.accepted() && first.action==second.action && a.snapshot()==b.snapshot() &&
+              first.next_boss_phase_id==second.next_boss_phase_id,"integrated replay diverged");
+        advances+=first.squad_advanced?1:0;finishes+=first.stage_finished?1:0;
+    }
+    const auto final=a.snapshot();check(advances==2 && finishes==1 && final.accepted_actions==4 &&
+        final.end_reason==SequentialEndReason::GlobalActionLimit && final.squad_index==2,"final boundary duplicated or exceeded budget");
+    check(!a.apply(commands[3]).action.accepted() && a.snapshot()==final,"finished sequence accepted mutation");
+    a.reset();check(b.snapshot()==final && a.snapshot().accepted_actions==0,"reset leaked across instances");
+}
+void profile_deadline_and_early_win(){
+    auto d=profiles();d.global_budget=ActionBudget{1,LimitOutcome::DefeatA};SequentialSquads limited(d);
+    const auto ended=limited.apply({"boss",ActionType::Skill,"boss","shared"});
+    check(ended.stage_finished && !ended.boss_phase_changed && !ended.next_boss_phase_id &&
+          limited.snapshot().boss_phase_id=="phase-one" && limited.snapshot().end_reason==SequentialEndReason::GlobalActionLimit,
+          "global deadline entered new phase");
+    d=profiles();d.boss.speed=100;d.squads[0].members[0].fighter.attack=40;d.global_budget=ActionBudget{1,LimitOutcome::DefeatA};
+    SequentialSquads win(d);const auto done=win.apply({"A1",ActionType::Attack,"boss"});
+    check(done.stage_finished && !done.boss_phase_changed && win.snapshot().end_reason==SequentialEndReason::BossDefeated,
+          "last-action victory changed phase or lost to timeout");
+}
 }
 int main(int argc,char** argv){
     const std::pair<const char*,void(*)()> tests[]={{"composition",composition},{"wipe_order",wipes_in_order},
         {"early_win",early_victory},{"budgets",local_and_global_budgets},{"boss_runtime",boss_runtime_policy},
-        {"fresh_squad",fresh_squad_state},{"r04_transition",r04_before_transition},{"technical_reset_replay",technical_reset_and_replay}};
+        {"fresh_squad",fresh_squad_state},{"r04_transition",r04_before_transition},{"technical_reset_replay",technical_reset_and_replay},
+        {"profile_kit_boundary",profile_kit_boundary},{"profile_cd_map",profile_cooldown_mapping},
+        {"classified_partial_shield",classified_state_and_partial_shield},{"profile_validation",profile_validation},
+        {"profile_replay_reset",profile_replay_and_reset},{"profile_deadline_win",profile_deadline_and_early_win},
+        {"mixed_stable_kits",mixed_and_stable_kits},{"permanent_revive_phases",permanent_revive_across_phases},
+        {"integrated_final_budget_replay",integrated_final_budget_replay}};
     int passed=0;
     for(const auto& [name,test]:tests){try{test();++passed;std::cout<<"PASS sequential "<<name<<'\n';}
         catch(const std::exception& e){std::cerr<<"FAIL sequential "<<name<<": "<<e.what()<<'\n';}}

@@ -33,7 +33,7 @@ Não misturar implementação de coordenadores de vários times com essa mudanç
 
 | Ordem | Bloco | Esforço relativo | Por que nesta posição |
 |---|---|---|---|
-| 3 | SEQ-01 | Médio/alto | Sequência de três times aproveita a base atual e antecede coordenação entre frentes |
+| 3 | ✅ SEQ-01 concluído | Médio/alto | Sequência de três times aproveita a base atual e antecede coordenação entre frentes |
 | 4 | PAR-01 | Médio/alto | Aproveita o isolamento já testado; fecha resultado, orçamento e cancelamento de frentes independentes |
 | 5 | PAR-02 | Alto | Compartilha estado/efeitos e exige a coordenação anterior; maior risco de duplicidade e ordem incorreta |
 
@@ -74,19 +74,4 @@ ATB opcional, backend/multiplayer, publicação em lojas/launcher e produção m
 
 ## Próxima ação concreta
 
-**SEQ-01, parte 2: perfis do chefe por etapa e passagem de estado por categoria.** Parte 1 de composição/identidade/coordenador concluída (103 testes totais); TIME-03/RES-01 encerrados. Depois validação integrada. Não iniciar PAR, UI ou engine junto.
-
-## Avanço registrado — TIME-03 parte 1
-
-Recarga concluída e validada (53 testes e matrizes preservadas). Próxima ação passa a ser TIME-03 parte 2, origem/flags dos extras. A seção anterior de próxima ação fica como histórico da ordem executada. Não marcar TIME-03 inteiro concluído.
-
-
-## Avanço registrado — TIME-03 parte 2
-
-Origem/flags de extras concluídas e testadas (60 testes totais). Próxima ação agora é parte 3: controle/congelamento e integração. As partes 1/2 não devem ser reabertas sem mudança pertinente. TIME-03 ainda aberto.
-
-
-
-
-
-
+PAR-01: três frentes independentes, resultado global, limites/cancelamento e replay. TIME-03, RES-01 e SEQ-01 encerrados; 115 testes aprovados. Uma entrega por vez; não iniciar PAR-02, UI ou engine junto.

@@ -12,7 +12,21 @@ struct SquadDefinition {
     BattleRules rules;
 };
 // Both base policies clear statuses and reset AP/guard/effective speed at a squad boundary.
-enum class BossRuntimeCarry { KeepCooldownsClearStatuses, ResetRuntime };
+enum class BossRuntimeCarry { KeepCooldownsClearStatuses, ResetRuntime, PreserveClassifiedStates };
+enum class BossCooldownTransition { KeepMatching, ResetAll, MapExplicit };
+struct CooldownMapping {
+    std::string from_skill;
+    std::string to_skill;
+};
+struct BossPhaseDefinition {
+    std::string id;
+    std::vector<SkillDefinition> skills;
+    BossCooldownTransition cooldowns;
+    std::vector<CooldownMapping> mappings;
+    BossPhaseDefinition(std::string phase_id,std::vector<SkillDefinition> kit,BossCooldownTransition policy,
+                        std::vector<CooldownMapping> remap = {})
+        :id(std::move(phase_id)),skills(std::move(kit)),cooldowns(policy),mappings(std::move(remap)) {}
+};
 enum class SequentialEndReason { BossDefeated, SquadsExhausted, GlobalActionLimit, TechnicalLimit, MutualElimination };
 struct SequentialDefinition {
     std::string id;
@@ -21,9 +35,12 @@ struct SequentialDefinition {
     Definition boss;
     BossRuntimeCarry boss_carry;
     std::optional<ActionBudget> global_budget;
+    std::vector<BossPhaseDefinition> boss_phases;
+    std::vector<Status> boss_initial_statuses;
     SequentialDefinition(std::string stage_id, std::uint32_t version, std::vector<SquadDefinition> teams,
                          Definition boss_definition, BossRuntimeCarry carry,
-                         std::optional<ActionBudget> budget = std::nullopt);
+                         std::optional<ActionBudget> budget = std::nullopt,
+                         std::vector<BossPhaseDefinition> phases = {}, std::vector<Status> initial_statuses = {});
 };
 struct SequentialSnapshot {
     std::string stage_id;
@@ -37,6 +54,7 @@ struct SequentialSnapshot {
     std::optional<SequentialEndReason> end_reason;
     BossRuntimeCarry boss_carry;
     Snapshot battle;
+    std::string boss_phase_id;
     bool operator==(const SequentialSnapshot&) const = default;
 };
 struct SequentialActionResult {
@@ -46,6 +64,9 @@ struct SequentialActionResult {
     std::size_t squad_index;
     bool squad_advanced = false;
     bool stage_finished = false;
+    std::string boss_phase_id;
+    bool boss_phase_changed = false;
+    std::optional<std::string> next_boss_phase_id;
 };
 class SequentialSquads {
 public:
@@ -65,5 +86,7 @@ private:
     std::optional<SequentialEndReason> reason_;
     void start_squad(const Fighter* previous_boss);
     void finish(SequentialEndReason reason, std::optional<Team> winner);
+    [[nodiscard]] BattleRules effective_rules(std::size_t index) const;
+    [[nodiscard]] std::string phase_id(std::size_t index) const;
 };
 } // namespace rpg

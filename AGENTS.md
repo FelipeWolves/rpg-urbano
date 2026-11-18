@@ -77,3 +77,8 @@ RES-01 concluído nas três partes (95 testes totais, matrizes preservadas); pr�
 
 SEQ-01 parte 1 concluída (103 testes): SequentialSquads, três times de 1–5, HP do chefe conservado, kit estável, política obrigatória de recargas/limpeza total de status. Próxima parte 2: perfis/estados do chefe por categoria. Não alegar matriz final de estados estruturais/permanentes nem score implementados. Relatório docs/batalhas/SEQ-01.md.
 
+
+Git passou a ter commit inicial do usuário e origin. Pushes ficam com ele; não alterar identidade/configuração/histórico nem executar push automaticamente. Avisar sobre conflitos que afetem a entrega. SEQ-01 parte 2 concluída (112 testes): perfis, mapa de cooldown, categorias e escudos. Próxima parte 3, validação integrada sem novas famílias. Relatório SEQ-01.md.
+
+
+SEQ-01 encerrado nas três partes: 115 testes, 17 sequenciais; A/A/B e A/A/A, cargas persistentes, término único e replay. Próximo PAR-01, uma entrega por vez. Usuário autorizou commit local desta entrega; não fazer push. Painel consolidado em docs/batalhas/PAINEL-BLOCOS.md.

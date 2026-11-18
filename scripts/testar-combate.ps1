@@ -141,10 +141,5 @@ Copy-Item -LiteralPath (Join-Path $build 'sequencia-testes.csv') -Destination (J
     IsolationResult = $isolation[0]
     LocalBatchResult = $batchResult[0]
     ExitCode = $code
-    Scope = 'Own combat core with action identities/multi-hit/skill guard and fixed/AP timing, skills/status clocks, extras/reactions, optional guard, consecutive stages, three successive squads with stable boss kit and local/global action budgets; formation/replay matrix; independent interleaved contexts; bounded local functional batch; not shared-boss/multithreading/server validation'
+    Scope = 'Own combat core with action identities/multi-hit/skill guard and fixed/AP timing, skills/status clocks, extras/reactions, optional guard, consecutive stages, three successive squads with stable/phased boss kits and classified states/shields and local/global action budgets; formation/replay matrix; independent interleaved contexts; bounded local functional batch; not shared-boss/multithreading/server validation'
 } | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $root 'COMBATE.json') -Encoding utf8
-
-
-
-
-

@@ -143,3 +143,12 @@ PEN-06/PEN-09/PEN-10: cinco invariantes R04 testados no perfil mínimo original,
 
 PEN-03/PEN-11: CharacterId, FighterId e SquadId separados; três times de 1–5, unicidade em toda inscrição validada. PEN-02/PEN-04: troca por derrota/limite local, HP persistente e política base de recarga testados, sem reconstruir max_health; kit ainda estável, status todos limpos no perfil explícito. PEN-06/PEN-10: resultado R04/auto-revive antecede transição, conclusão única em memória; sem score/economia. Próxima parte 2 define kit por etapa e categorias temporárias/permanentes/estruturais. 103 testes totais aprovados, detalhes SEQ-01.md.
 
+
+## SEQ-01 parte 2 implementada
+
+PEN-04: kit por etapa na troca de time, KeepMatching/ResetAll/MapExplicit e categorias Temporary/Permanent/Structural implementados. Escudo estrutural conserva capacidade; quebrado não reaparece; estado inicial só no começo/reset. 112 testes totais aprovados. Parte 3 valida combinações integradas. Ainda sem fases por HP, pilhas de atributo, IA completa ou score. Git do usuário não causou conflito; pushes continuam com ele.
+
+
+## Atualização — SEQ-01 encerrado (18/11/2026)
+
+A/A/B e A/A/A, cargas permanentes consumidas antes da troca, limite final, conclusão única e replay/reset validados. 17 grupos sequenciais e 115 testes totais. Coordenação entre frentes pertence a PAR-01/PAR-02; score, IA completa e limiares de HP permanecem fora desta entrega. Registros históricos não reabrem SEQ-01.

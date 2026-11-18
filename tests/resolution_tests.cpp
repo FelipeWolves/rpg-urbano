@@ -428,6 +428,51 @@ void survival_replay(){
     check(a.phase()==Phase::Finished && a.end_reason()==EndReason::Elimination && prevented && revived && reflected,
           "survival replay did not exercise contract or did not terminate");
 }
+Status barrier(EffectKind kind,int power){
+    return {kind,kind==EffectKind::Shield?10:0,TickPolicy::NaturalOnly,0,power,1,
+            kind==EffectKind::Shield?StatusCategory::Temporary:StatusCategory::Structural};
+}
+void shield_layers_and_guard(){
+    auto defs=roster();defs[0].speed=100;defs[1].speed=90;auto r=rules();r.timing=TimingProfile::FixedRounds;
+    Battle b(defs,r,{},{{"A",100,{barrier(EffectKind::Shield,4),barrier(EffectKind::StructuralShield,6)}, {}}});
+    act(b,{"A",ActionType::Guard,{}});const auto result=act(b,{"B",ActionType::Skill,"A","multi"});
+    const auto& statuses=b.find("A")->statuses;
+    const auto structural=std::ranges::find(statuses,EffectKind::StructuralShield,&Status::kind);
+    check(b.find("A")->health==100 && structural!=statuses.end() && structural->magnitude==1 &&
+          std::ranges::find(statuses,EffectKind::Shield,&Status::kind)==statuses.end() &&
+          event_count(result,EventType::ShieldAbsorbed)==4 && event_count(result,EventType::ShieldBroken)==1 &&
+          event_count(result,EventType::GuardConsumed)==1,"guard/shield layers order wrong");
+    for(const auto& e:hits(result)){check(e.amount==0,"full absorption lost HP");}
+    defs=roster();defs[0].attack=std::numeric_limits<int>::max();defs[1].max_health=1;
+    Battle extreme(defs,rules("A",64),{},{{"B",100,{barrier(EffectKind::Shield,std::numeric_limits<int>::max()),
+          barrier(EffectKind::StructuralShield,std::numeric_limits<int>::max())}, {}}});
+    const auto ended=act(extreme,{"A",ActionType::Skill,"B","multi"});
+    check(hits(ended).size()==3 && event_count(ended,EventType::ShieldBroken)==2 && extreme.winner()==Team::A,
+          "shield totals overflowed or bypassed layers");
+}
+void shields_before_survival(){
+    auto defs=roster();defs[1].max_health=5;
+    Battle b(defs,rules("A"),{},{{"B",100,{barrier(EffectKind::Shield,3),barrier(EffectKind::StructuralShield,2),
+        survival(EffectKind::PreventDeath),survival(EffectKind::AutoRevive,3),consequence(EffectKind::Reflect,2)}, {}}});
+    const auto result=act(b,{"A",ActionType::Skill,"B","multi"});const auto attacks=hits(result);
+    check(attacks.size()==3 && attacks[0].amount==0 && attacks[1].amount==4 && attacks[2].amount==1 &&
+          event_count(result,EventType::DeathPrevented)==1 && event_count(result,EventType::FighterRevived)==1 &&
+          b.find("B")->health==3 && b.find("A")->health==94 && b.phase()==Phase::Running,
+          "shields consumed survival too early or changed R04 order");
+}
+void categories_validation_and_expiration(){
+    auto permanent=consequence(EffectKind::Reflect,2);permanent.category=StatusCategory::Permanent;permanent.remaining=0;
+    Status structural{EffectKind::Counter,0,TickPolicy::NaturalOnly,0,0,1,StatusCategory::Structural};
+    Battle b(roster(),rules("A"),{},{{"A",200,{permanent,structural,{EffectKind::Marker,1,TickPolicy::NaturalOnly,0}},{{"multi",0}}}});
+    const auto result=act(b,{"A",ActionType::Guard,{}});
+    check(b.find("A")->statuses.size()==2 && event_count(result,EventType::EffectExpired)==1,"persistent category expired with turns");
+    auto r=rules("A");r.skills[0].target=TargetRule::Self;r.skills[0].effects={{EffectKind::StructuralShield,5,1}};
+    invalid([&]{Battle bad(roster(),r);});
+    auto bad=permanent;bad.remaining=1;invalid([&]{Battle x(roster(),rules("A"),{},{{"B",100,{bad}, {}}});});
+    bad=barrier(EffectKind::Shield,2);bad.category=StatusCategory::Structural;bad.remaining=0;
+    invalid([&]{Battle x(roster(),rules("A"),{},{{"B",100,{bad}, {}}});});
+    bad=barrier(EffectKind::StructuralShield,0);invalid([&]{Battle x(roster(),rules("A"),{},{{"B",100,{bad}, {}}});});
+}
 }
 int main(int argc,char** argv){
     const std::pair<const char*,void(*)()> tests[]={
@@ -444,7 +489,9 @@ int main(int argc,char** argv){
         {"revive_author_no_resume",author_revive_does_not_resume_hits},{"fifo_before_revive",fifo_before_all_revives},
         {"dynamic_wait_revive",dynamic_dead_target_waits_for_revive},{"revive_cancelled_work",revival_never_restores_cancelled_work},
         {"revive_victory_timeout",revive_changes_result_and_timeout},{"survival_validation_budget",survival_validation_and_technical_budget},
-        {"survival_stage_carry",survival_persists_across_stage},{"survival_replay",survival_replay}};
+        {"survival_stage_carry",survival_persists_across_stage},{"survival_replay",survival_replay},
+        {"shield_layers_guard",shield_layers_and_guard},{"shield_survival",shields_before_survival},
+        {"categories_expiration",categories_validation_and_expiration}};
     int passed=0;
     for(const auto& [name,test]:tests){try{test();++passed;std::cout<<"PASS resolution "<<name<<'\n';}
         catch(const std::exception& e){std::cerr<<"FAIL resolution "<<name<<": "<<e.what()<<'\n';}}

@@ -1,5 +1,11 @@
 # Painel de blocos — estado consolidado
 
+## ENG-01 parte 1 — avaliação concluída (18/11/2026)
+
+✅ Inventário seletivo e avaliação documental em docs/projeto/ENG-01.md; matriz CSV/JSON em docs/relatorios/atuais. Usuário confirmou editor não instalado. Candidata para decisão: UE5.8.4 Windows; 5.9 é Preview na consulta. VS2026/SDK têm respaldo documental, mas MSVC14.52, UBT e integração ainda precisam de teste real.
+
+⚠️ ENG-01 segue aberto. Nenhum editor/launcher aberto, download, instalação, projeto Unreal ou alteração do núcleo. Próximo: decisão da versão e instalação em destino aprovado; depois requisitos locais e teste mínimo separado. Os 211 testes anteriores foram reaproveitados, sem repetição documental.
+
 ## CIC-01 — concluído no escopo mínimo (18/11/2026)
 
 ✅ Três partes concluídas: seleção 1–5 em memória, recompensa por conclusão única e save v1 de equipe/progresso entre batalhas. Salvar é manual; continuar valida arquivo/catálogo e abre outra tentativa sem reapurar conclusões antigas. **211/211 testes aprovados**, incluindo 7 de persistência e 18 textuais. Executável validado em cópia isolada, sem tocar slots de jogador.
@@ -111,7 +117,7 @@ Classificação pelo roteiro documentado, sem inferir datas pela criação do re
 
 | Ordem posterior aos modos críticos | Bloco | Falta |
 |---|---|---|
-| 1 | ⚠️ ENG-01 | Escolha e teste de compatibilidade da engine |
+| 1 | ⚠️ ENG-01 | Avaliação documental concluída; candidata UE5.8.4 pendente de decisão/instalação e teste de integração; ENG-01.md |
 | 2 | ⚠️ VIS-01 | Arena visual integrada ao núcleo |
 | 3 | ⚠️ ART-01 | Direção artística original e personagem representativo |
 | 4 | ⚠️ AUD-01 | Áudio próprio/licenciado e integração |

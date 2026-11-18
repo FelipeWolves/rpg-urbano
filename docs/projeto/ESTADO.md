@@ -1,5 +1,11 @@
 # Estado do projeto
 
+## ENG-01 parte 1 — avaliação concluída (18/11/2026)
+
+✅ Inventário seletivo e avaliação documental em docs/projeto/ENG-01.md; matriz CSV/JSON em docs/relatorios/atuais. Usuário confirmou editor não instalado. Candidata para decisão: UE5.8.4 Windows; 5.9 é Preview na consulta. VS2026/SDK têm respaldo documental, mas MSVC14.52, UBT e integração ainda precisam de teste real.
+
+⚠️ ENG-01 segue aberto. Nenhum editor/launcher aberto, download, instalação, projeto Unreal ou alteração do núcleo. Próximo: decisão da versão e instalação em destino aprovado; depois requisitos locais e teste mínimo separado. Os 211 testes anteriores foram reaproveitados, sem repetição documental.
+
 ## CIC-01 — concluído no escopo mínimo (18/11/2026)
 
 ✅ Três partes concluídas: seleção 1–5 em memória, recompensa por conclusão única e save v1 de equipe/progresso entre batalhas. Salvar é manual; continuar valida arquivo/catálogo e abre outra tentativa sem reapurar conclusões antigas. **211/211 testes aprovados**, incluindo 7 de persistência e 18 textuais. Executável validado em cópia isolada, sem tocar slots de jogador.
@@ -156,3 +162,7 @@ Validação da reorganização: compilação completa aprovada, 162/162 testes, 
 
 
 Validação da parte 2: 169/169 testes aprovados (12 grupos de perfis, 9 textuais e regressões anteriores), 168 cenários/replays e 25 formações AP preservados. Jogar.cmd confirmou ativações A2/B2 e reset; Jogar-Classico.cmd confirmou defesa com dano 12. Aceite arquivado em docs/batalhas/COMBATE-HAB-01-PARTE-2.json. Nenhum componente externo instalado ou acessado.
+
+## Instalação manual escolhida pelo usuário
+
+Usuário informou que fará pessoalmente a instalação do editor. Não abrir launcher, iniciar download/instalador, aceitar termos ou modificar componentes por conta própria. Após conclusão, conferir apenas a versão e a pasta fornecidas, sem abrir editor; teste de compilação/abertura permanece etapa específica autorizada. Recomenda-se candidata UE5.8.4 Windows para o experimento; adoção final depende do teste.

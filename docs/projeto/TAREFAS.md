@@ -1,5 +1,11 @@
 # Tarefas
 
+## ENG-01 parte 1 — avaliação concluída (18/11/2026)
+
+✅ Inventário seletivo e avaliação documental em docs/projeto/ENG-01.md; matriz CSV/JSON em docs/relatorios/atuais. Usuário confirmou editor não instalado. Candidata para decisão: UE5.8.4 Windows; 5.9 é Preview na consulta. VS2026/SDK têm respaldo documental, mas MSVC14.52, UBT e integração ainda precisam de teste real.
+
+⚠️ ENG-01 segue aberto. Nenhum editor/launcher aberto, download, instalação, projeto Unreal ou alteração do núcleo. Próximo: decisão da versão e instalação em destino aprovado; depois requisitos locais e teste mínimo separado. Os 211 testes anteriores foram reaproveitados, sem repetição documental.
+
 ## CIC-01 — concluído no escopo mínimo (18/11/2026)
 
 ✅ Três partes concluídas: seleção 1–5 em memória, recompensa por conclusão única e save v1 de equipe/progresso entre batalhas. Salvar é manual; continuar valida arquivo/catálogo e abre outra tentativa sem reapurar conclusões antigas. **211/211 testes aprovados**, incluindo 7 de persistência e 18 textuais. Executável validado em cópia isolada, sem tocar slots de jogador.
@@ -107,7 +113,7 @@ Uma entrega por vez. Ordem por área, criticidade e dependências, conforme docs
 
 ## 4. Engine e apresentação funcional
 
-- [ ] ENG-01 — Escolher engine estável e validar compatibilidade com o núcleo e hardware. Teste pequeno de integração; instalação/download e escolha definitiva exigem decisão específica.
+- [ ] ENG-01 — Avaliação documental concluída (ENG-01.md); candidata UE5.8.4 pendente de decisão, instalação e teste real. Validar compatibilidade com núcleo/hardware. Teste pequeno de integração; instalação/download e escolha definitiva exigem decisão específica.
 - [ ] VIS-01 — Integrar núcleo à primeira arena visual com placeholders. Aceite: selecionar ação/alvo, ver turno/vida/resultado e reiniciar; nenhuma regra duplicada na UI. Sem qualidade artística final.
 
 ## 5. Identidade e conteúdo
@@ -118,7 +124,7 @@ Uma entrega por vez. Ordem por área, criticidade e dependências, conforme docs
 
 ## Próximo bloco executável
 
-ENG-01: avaliação de engine e compatibilidade com núcleo/toolchain. Ler requisitos e evidências locais; escolha definitiva, instalações/downloads e abertura de engine exigem decisão específica. CIC-01 concluído no escopo de progresso entre batalhas.
+ENG-01 parte 2: após decisão específica da versão/destino, instalar editor Windows ou conferir instalação feita pelo usuário; ler requisitos reais e só então realizar experimento C++ isolado autorizado. Não abrir engine nem instalar por inferência.
 
 ## Encerramento de cada entrega
 

@@ -238,3 +238,7 @@ LocalSession possui ProfileBattle, tentativa monotônica e ledger em memória. N
 ## DEC-048 — Save v1 entre batalhas
 
 Persistir seleção, saldo e ledger em formato textual próprio limitado, sem dependências nem runtime de combate. Carregar somente em sessão nova, validando esquema/semântica/catálogo/perfil; avançar tentativa e não reapurar histórico. Slot manual por perfil em build/saves. Temporário exclusivo e substituição Windows; inválido/futuro preservado. Sem autenticação, escritores concorrentes ou migração implícita. 211 testes; CIC-01 mínimo encerrado.
+
+## DEC-049 — Candidata de engine sem adoção implícita
+
+Avaliação propõe UE5.8.4 estável para Windows; usuário confirma editor não instalado. Não usar Preview5.9 como base inicial. Ferramentas recentes não substituem build de compatibilidade: MSVC14.52 versus referência14.50 segue pendente. Sem instalação/abertura/escolha definitiva. Fonte única do núcleo preservada, adaptador isolado, sem reaproveitar objetos /MT cegamente. Roteiro e evidências ENG-01.md.

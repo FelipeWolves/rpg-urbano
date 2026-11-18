@@ -9,6 +9,8 @@
 
 - [CIC-01: ciclo local concluído](projeto/CIC-01.md) e [contrato do save v1](projeto/CIC-01-SAVE-R01.md).
 
+- [ENG-01: avaliação da engine e roteiro de integração](projeto/ENG-01.md).
+
 ## Preservação e caminhos antigos
 
 Os nove documentos de planejamento antes na raiz estão agora em `docs/projeto/`. AMBIENTE.json e COMBATE.json da raiz estão em `docs/relatorios/atuais/`. Os scripts usam esses novos destinos.

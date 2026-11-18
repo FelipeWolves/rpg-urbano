@@ -249,3 +249,7 @@ Identidade de tentativa e apuração única de recompensa em memória resolvidas
 ## CIC-01 encerrado no escopo mínimo
 
 Save v1 de equipe/progresso entre batalhas validado, 211/211 testes; sem nova concessão ao carregar. Save de runtime, versões futuras/migrações, backup, concorrência, autenticação e economia real permanecem extensões. Próximo ENG-01: avaliar compatibilidade antes de escolher/instalar engine.
+
+## ENG-01 — avaliação e decisões pendentes
+
+Candidata UE5.8.4, não adotada. Falta decidir versão/destino, instalar editor, confirmar toolset aceito por UBT e executar teste isolado de módulo/editor. Ajustes previstos: exceções/C++20, runtime de compilação, fronteira de I/O Windows e saves. Não modificar compilador/engine para ignorar incompatibilidade. 211 testes standalone não provam integração UE.

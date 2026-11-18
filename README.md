@@ -42,7 +42,7 @@ A estrutura C++ atual já separa interfaces, implementação e aplicação. Não
 
 ## Verificação e limites
 
-A última entrega funcional aprovou **211/211 testes**; consulte o [resultado vigente](docs/relatorios/atuais/COMBATE.json) e o [aceite final HAB-01](docs/batalhas/HAB-01-FINAL.md). O protótipo não comprova servidor, desempenho gráfico ou equivalência a outro jogo. Próximo bloco funcional: ENG-01, avaliação da engine e compatibilidade; sem instalação ou escolha definitiva automática.
+A última entrega funcional aprovou **211/211 testes**; consulte o [resultado vigente](docs/relatorios/atuais/COMBATE.json) e o [aceite final HAB-01](docs/batalhas/HAB-01-FINAL.md). O protótipo não comprova servidor, desempenho gráfico ou equivalência a outro jogo. ENG-01 tem [avaliação documental concluída](docs/projeto/ENG-01.md): candidata UE5.8.4, pendente de decisão, instalação e teste real. Sem escolha definitiva ou instalação automática.
 
 [Guia de contribuição](CONTRIBUTING.md) · [Segurança e dados](SECURITY.md) · [Índice da documentação](docs/README.md) · [Histórico de organização](CHANGELOG.md).
 

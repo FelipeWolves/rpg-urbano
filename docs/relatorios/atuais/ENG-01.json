@@ -1,0 +1,142 @@
+{
+  "Data": "2026-11-18",
+  "Escopo": "ENG-01 parte1 avaliacao somente; sem instalacao/editor/build engine",
+  "Status": "avaliacao_documental_concluida_integracao_pendente",
+  "Candidata": "Unreal Engine5.8.4",
+  "DecisaoDefinitiva": false,
+  "EditorInstaladoConfirmadoPeloUsuario": false,
+  "Toolchain": {
+    "DotnetSDK": "11.0.100",
+    "VS": "18.12.12412.261",
+    "DotnetRuntime10": "10.0.15",
+    "MSVC": [
+      "14.29.30133",
+      "14.52.37025"
+    ],
+    "WindowsSDK": "10.0.26100.0"
+  },
+  "DiscoLivreGiB": 212.1,
+  "Hardware": "Reutilizado de FERRAMENTAS.md; CIM indisponivel nesta verificacao",
+  "Sondagem": "Locais padrao e registros especificos; sem busca global ou leitura de jogos/contas",
+  "TestesStandalone": 211,
+  "TestesEngineExecutados": 0,
+  "Matriz": [
+    {
+      "Area": "Engine",
+      "Local": "Editor nao instalado, confirmado pelo usuario",
+      "Referencia": "UE 5.8.4 hotfix publicada",
+      "Estado": "Candidata para avaliacao, nao adotada",
+      "Proxima": "Decisao do usuario antes de instalar"
+    },
+    {
+      "Area": "Preview",
+      "Local": "Nenhuma preview executada",
+      "Referencia": "UE 5.9 MegaJam Preview",
+      "Estado": "Excluir da base inicial",
+      "Proxima": "Reavaliar em copia quando houver motivo"
+    },
+    {
+      "Area": "VisualStudio",
+      "Local": "2026 18.12.12412.261",
+      "Referencia": "VS2026 recomendado nas notas 5.8",
+      "Estado": "Compativel documentalmente",
+      "Proxima": "Confirmar geracao e build reais"
+    },
+    {
+      "Area": "MSVC",
+      "Local": "14.52.37025 e 14.29.30133 presentes",
+      "Referencia": "14.50 recomendado",
+      "Estado": "14.52 ainda nao validado por UBT",
+      "Proxima": "Ler versoes aceitas da engine; nao forcar compilador rejeitado"
+    },
+    {
+      "Area": "WindowsSDK",
+      "Local": "10.0.26100.0",
+      "Referencia": "10.0.26100.0 padrao",
+      "Estado": "Alinhado documentalmente",
+      "Proxima": "Confirmar SDK efetivamente usado"
+    },
+    {
+      "Area": "Dotnet",
+      "Local": "SDK11; runtimes10.0.15 e11.0.0",
+      "Referencia": ".NET10 para VS2026",
+      "Estado": "Runtime10 presente; execucao UBT pendente",
+      "Proxima": "Verificar runtime empacotado antes de instalar SDK adicional"
+    },
+    {
+      "Area": "C++",
+      "Local": "C++20; excecoes; /MT no console",
+      "Referencia": "Configuracao do modulo precisa corresponder ao UBT",
+      "Estado": "Adaptacao necessaria",
+      "Proxima": "Compilar fonte com runtime da engine, sem reutilizar objetos /MT"
+    },
+    {
+      "Area": "Persistencia",
+      "Local": "Codec e I/O Windows em save_game.cpp",
+      "Referencia": "Ambiente UE tem diretorios e APIs proprios",
+      "Estado": "Adaptador de armazenamento pendente",
+      "Proxima": "Nao incluir app/main nem substituir save do console"
+    },
+    {
+      "Area": "Hardware",
+      "Local": "Historico: 32GB classe, RTX3060,16 threads; VRAM nao confirmada",
+      "Referencia": "Referencia oficial: 32GB RAM,8GB VRAM",
+      "Estado": "Candidato a prototipo leve; sem benchmark",
+      "Proxima": "Confirmar VRAM e medir editor depois de autorizado"
+    },
+    {
+      "Area": "Disco",
+      "Local": "212.1 GiB livres na unidade do projeto",
+      "Referencia": "Tamanho depende dos componentes escolhidos",
+      "Estado": "Nao reservar nem prometer capacidade final",
+      "Proxima": "Conferir tamanho no instalador e destino aprovado"
+    },
+    {
+      "Area": "Windows",
+      "Local": "Registro build26300.9711,26H2; ProductName legado Windows10Pro",
+      "Referencia": "Historico anterior identifica Windows11Pro",
+      "Estado": "Nome do registro divergente; nao concluir canal",
+      "Proxima": "Validar ambiente efetivo no teste do editor"
+    },
+    {
+      "Area": "Integracao",
+      "Local": "211 testes standalone aprovados",
+      "Referencia": "Nenhuma compilacao UE executada",
+      "Estado": "ENG-01 parcial",
+      "Proxima": "Criar experimento separado apos aprovacao"
+    }
+  ],
+  "Fontes": [
+    {
+      "Id": "E1",
+      "URL": "https://forums.unrealengine.com/t/5-8-4-hotfix-released/2842775",
+      "Uso": "Hotfix estavel e correcao integracao VS2026"
+    },
+    {
+      "Id": "E2",
+      "URL": "https://forums.unrealengine.com/t/unreal-engine-5-9-megajam-preview/2852840",
+      "Uso": "Preview e necessidade de copia isolada"
+    },
+    {
+      "Id": "E3",
+      "URL": "https://dev.epicgames.com/documentation/unreal-engine/unreal-engine-5-8-release-notes?lang=es-ES",
+      "Uso": "Requisitos Windows em resultado oficial indexado; abertura direta sem corpo"
+    },
+    {
+      "Id": "E4",
+      "URL": "https://dev.epicgames.com/documentation/unreal-engine/hardware-and-software-specifications-for-unreal-engine",
+      "Uso": "Referencia de hardware e VS2026"
+    },
+    {
+      "Id": "E5",
+      "URL": "https://dev.epicgames.com/documentation/en-us/unreal-engine/module-properties-in-unreal-engine",
+      "Uso": "Propriedades de modulo; pagina atual resolveu para5.9, reconferir na5.8 instalada"
+    },
+    {
+      "Id": "E6",
+      "URL": "https://dev.epicgames.com/documentation/en-us/unreal-engine/integrating-third-party-libraries-into-unreal-engine",
+      "Uso": "Fronteira de fontes/bibliotecas; pagina atual5.9, nao prova ABI da5.8"
+    }
+  ],
+  "InstalacaoManualPeloUsuario": true
+}

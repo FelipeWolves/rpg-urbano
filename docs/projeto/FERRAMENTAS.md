@@ -78,3 +78,7 @@ Esse plano foi executado em AMB-01 por verificar-ambiente.ps1, descrito no iníc
 ## Resultado histórico de FUN-02
 
 Na conclusão de FUN-02 o ambiente ainda não compilava. Essa condição foi resolvida pela instalação manual e AMB-01 descritas no início. COM-01 ainda não começou.
+
+## Atualização seletiva ENG-01 — 18/11/2026
+
+VS18.12.12412.261; toolsets14.29 e14.52; SDK26100.0; SDK.NET11 e runtime.NET10.0.15; CMake empacotado no VS presente, não executado. Usuário confirma editor UE não instalado. Sondagens padrão não confirmaram editor; CIM de hardware indisponível, sem repetir inventário global. Dados estruturados em ENG-01.json. Relatório ENG-01.md distingue compatibilidade documental de teste real.

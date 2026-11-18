@@ -1,5 +1,11 @@
 # Prioridades por área
 
+## ENG-01 parte 1 — avaliação concluída (18/11/2026)
+
+✅ Inventário seletivo e avaliação documental em docs/projeto/ENG-01.md; matriz CSV/JSON em docs/relatorios/atuais. Usuário confirmou editor não instalado. Candidata para decisão: UE5.8.4 Windows; 5.9 é Preview na consulta. VS2026/SDK têm respaldo documental, mas MSVC14.52, UBT e integração ainda precisam de teste real.
+
+⚠️ ENG-01 segue aberto. Nenhum editor/launcher aberto, download, instalação, projeto Unreal ou alteração do núcleo. Próximo: decisão da versão e instalação em destino aprovado; depois requisitos locais e teste mínimo separado. Os 211 testes anteriores foram reaproveitados, sem repetição documental.
+
 ## CIC-01 — concluído no escopo mínimo (18/11/2026)
 
 ✅ Três partes concluídas: seleção 1–5 em memória, recompensa por conclusão única e save v1 de equipe/progresso entre batalhas. Salvar é manual; continuar valida arquivo/catálogo e abre outra tentativa sem reapurar conclusões antigas. **211/211 testes aprovados**, incluindo 7 de persistência e 18 textuais. Executável validado em cópia isolada, sem tocar slots de jogador.
@@ -116,7 +122,7 @@ ATB opcional, backend/multiplayer, publicação em lojas/launcher e produção m
 
 ## Próxima ação concreta
 
-ENG-01: avaliar engine/compatibilidade com núcleo e toolchain; escolha, downloads e instalações exigem decisão explícita. HAB-01/CIC-01 mínimos concluídos, 211 testes. Não presumir compatibilidade só pelo compilador ser recente.
+ENG-01 parte 2: decisão sobre candidata UE5.8.4 e destino de instalação, depois verificação de requisitos reais e build/editor isolados explicitamente autorizados. Inventário/relatório concluídos; não repetir 211 testes por documentação.
 
 ## HAB-01 parte 1 — histórico da entrega (18/11/2026)
 

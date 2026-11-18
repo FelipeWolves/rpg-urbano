@@ -41,3 +41,7 @@ Resultado com ID por tentativa e recompensa única em memória: +10 por vitória
 ## 2026-11-18 — CIC-01 encerrado
 
 Save manual v1 de seleção/progresso em build/saves; continuar valida e abre nova tentativa, sem restaurar batalha nem pagar conclusões antigas. Escrita temporária/flush/substituição e recusa de arquivos inválidos/futuros. 211/211 testes e verificação isolada do executável. Próximo ENG-01.
+
+## 2026-11-18 — ENG-01 avaliação documental
+
+Inventário seletivo, fontes oficiais, candidata UE5.8.4 e matriz de compatibilidade/roteiro registrados em Markdown/CSV/JSON. Editor ainda não instalado, nenhuma execução/instalação de engine ou mudança de gameplay. 211 testes anteriores reaproveitados.

@@ -112,3 +112,6 @@ PAR-02 perfil HP/AP único encerrado: 148 testes totais, 17 grupos compartilhado
 
 
 COM-02 concluído, 155 testes totais/7 grupos textuais. .\scripts\jogar.ps1 executa binário próprio build/combate/jogar.exe; compilado por testar-combate.ps1. Controle A/AI básica B, default 3x3 AP teto200, sem skills equipadas/menu SEQ/PAR. Skills via comando integradas/testadas em configs de sessão. Kernel inalterado. Próximo HAB-01: uma família adicional por incremento. Contrato docs/batalhas/COM-02.md.
+
+
+Entrada recomendada para usuário Windows: Jogar.cmd na raiz (ou build/combate/jogar.exe direto). Windows PowerShell comum bloqueou .ps1 por política; não alterar segurança nem usar bypass. CMD e executável direto via Windows PowerShell validados. Alteração somente de entrada/documentos, sem repetir 155 testes. Próximo HAB-01.

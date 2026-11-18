@@ -95,3 +95,6 @@ Ordem atual: **HAB-01 → CIC-01 → ENG-01 → VIS-01 → ART-01 → AUD-01 →
 ## Organização complementar PvE — concluída
 
 ✅ [MODOS-PVE.md](MODOS-PVE.md): 12 entradas distinguindo exemplos relatados, pistas históricas, decisões autorais e cobertura. Treva Fluxo/sobrevivência/pontuação e chefes dos Milagres separados de PAR-02. Checklist antigo atualizado, histórico preservado. [ROTEIRO-PVE-CHEFES.md](ROTEIRO-PVE-CHEFES.md) orienta pesquisa adicional. Não é catálogo completo atual; nenhum teste novo. PAR-02 continua parcial, próximo parte 2.
+
+
+✅ Abertura COM-02 corrigida: usar Jogar.cmd ou executável direto. Bloqueio de .ps1 reproduzido no Windows PowerShell; nenhuma política alterada. Verificações pontuais de abertura aprovadas; os 155 testes de motor/interação não foram repetidos.

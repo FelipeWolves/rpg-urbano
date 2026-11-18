@@ -4,13 +4,13 @@
 
 ## Como usar
 
-Na pasta rpg-urbano, abra um terminal PowerShell e execute:
+Entrada recomendada: dê dois cliques em **Jogar.cmd** na raiz rpg-urbano. Também funciona no PowerShell comum:
 
 ```powershell
-.\scripts\jogar.ps1
+.\Jogar.cmd
 ```
 
-O executável já foi compilado nesta entrega em build/combate/jogar.exe. Em uma cópia recém-obtida pelo Git, os binários ignorados não existem: compile e verifique primeiro com ` .\scripts\testar-combate.ps1 ` e depois execute jogar.ps1. O wrapper não instala ferramentas, não baixa arquivos, não compila automaticamente nem abre outra janela.
+O executável já foi compilado nesta entrega em build/combate/jogar.exe. Em uma cópia recém-obtida pelo Git, os binários ignorados não existem: compile e verifique primeiro com ` .\scripts\testar-combate.ps1 ` e depois execute jogar.ps1. Jogar.cmd localiza o executável a partir da própria pasta, inclusive quando o terminal está em outro diretório. Não instala, baixa ou compila. scripts/jogar.ps1 continua disponível nos ambientes que permitem scripts PowerShell.
 
 Time A controlado pelo jogador; time B usa ataque/Skip automático existente. Perfil padrão: seis combatentes 3x3 do reference_roster, AP/SPD e orçamento explícito de 200 comandos principais aceitos, empate por limite. Não equivale ao contador universal de um modo do Dislyte. A demo automática simular.exe e sua referência fixa foram preservadas.
 
@@ -60,3 +60,11 @@ Evidências: COMBATE.json, COMBATE-COM-02-FINAL.json e interacao-testes.csv. A e
 ## Próximo bloco
 
 HAB-01: escolher uma família adicional de habilidades/recurso por incremento, com contrato e testes próprios, aproveitando recargas/status existentes. Fases autônomas de chefes e modos por score permanecem no catálogo PvE; não foram implementados implicitamente ao adicionar interação.
+
+## Correção de abertura no Windows PowerShell
+
+Erro de autorização reproduzido ao executar scripts/jogar.ps1 no Windows PowerShell comum: scripts desabilitados. O executável próprio existe e funcionou. Nenhuma política de execução, perfil ou configuração de segurança foi alterada.
+
+Adicionado Jogar.cmd, que chama diretamente build/combate/jogar.exe com caminho relativo ao próprio lançador. Falta de binário ou saída de erro fica visível antes de fechar. Validado com entrada sair via cmd.exe e executável direto via Windows PowerShell, ambos saída zero. Não houve recompilação nem nova execução dos 155 testes por esta correção de entrada.
+
+Alternativa no terminal, já dentro de rpg-urbano: ` .\build\combate\jogar.exe `. Não é necessário executar o .ps1 nem liberar scripts para experimentar o binário compilado.

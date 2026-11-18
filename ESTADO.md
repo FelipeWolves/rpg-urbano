@@ -21,7 +21,7 @@ Pasta do projeto: este diretório. Não usar a pasta do laboratório como diret�
 
 COM-02 concluído: apresentação textual com comandos de ação/alvo, guarda, skill disponível, Skip, ajuda/estado, reinício/saída. Time A do jogador, B automático; usa Battle sem alterar kernel. Cenário padrão 3x3 AP e orçamento de 200 ações/empate, sem habilidades especiais equipadas. Comando de skills testado em configuração própria, sem catálogo/editor. Proteção de apresentação não inventa resultado.
 
-155 testes totais aprovados em MSVC /W4 /WX, sete novos de interação. Matrizes e demo preservadas. Jogar.exe compilado, verificação de saída e roteiro ataque/guarda/reinício/saída aprovados. Evidências: docs/batalhas/COM-02.md, COMBATE-COM-02-FINAL.json e interacao-testes.csv. Executar .\scripts\jogar.ps1 na raiz; se binário ausente, compilar antes com testar-combate.ps1.
+155 testes totais aprovados em MSVC /W4 /WX, sete novos de interação. Matrizes e demo preservadas. Jogar.exe compilado, verificação de saída e roteiro ataque/guarda/reinício/saída aprovados. Evidências: docs/batalhas/COM-02.md, COMBATE-COM-02-FINAL.json e interacao-testes.csv. Entrada recomendada Jogar.cmd na raiz, ou build/combate/jogar.exe diretamente; se binário ausente, preparar compilação conforme COM-02.md. Windows PowerShell comum bloqueou .ps1, sem mudança de política.
 
 Sem menus dos coordenadores SEQ/PAR, UI gráfica, salvamento, engine, rede ou recursos externos. Catálogo PvE futuro preservado; não declarar todos os modos jogáveis pela interface textual.
 
@@ -72,3 +72,8 @@ Proposta compara HP único, partes e avatares/score; distingue cadência do chef
 MODOS-PVE.md e modos-pve.csv/json preservam os exemplos em 12 entradas, com evidência, participação dos times, HP, término e score separados. Treva Fluxo e chefes dos Milagres são relatos ainda a detalhar, não implementações comprovadas. O perfil HP único/barra global/rotação do PAR-02 é experimental e autoral; não é regra universal dos chefes atuais. “Ignorar times” significa apenas times sem sobreviventes. Contrato básico vigente mantido; próximo parte 2, sem incluir score/recompensas por antecipação.
 
 Catálogos cenarios.json/mecanicas.csv atualizados sem excluir IDs; versões anteriores preservadas em docs/batalhas/historico-catalogos-2026-11-18/. Roteiro de pesquisa ROTEIRO-PVE-CHEFES.md. Nenhuma pesquisa online, alteração de código ou nova execução dos 136 testes nesta entrega.
+
+
+## Correção de entrada COM-02
+
+Reproduzido bloqueio de scripts no Windows PowerShell. Adicionado Jogar.cmd, independente de .ps1 e do diretório atual; binário direto e lançador CMD validados com saída zero. Segurança do Windows preservada. Motor inalterado, 155 testes anteriores não repetidos. Próximo HAB-01 permanece.

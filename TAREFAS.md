@@ -86,3 +86,6 @@ Atualizar ESTADO.md com implementação, testes efetivos, limites e próxima aç
 - [ ] Habilidades comuns de área, seletores dinâmicos do chefe e efeitos entre times: especificar alcance e ampliar os seletores em bloco próprio.
 
 Essas famílias não são funcionalidades prontas por SEQ-01/PAR-01/PAR-02 estarem encerrados em seus perfis. Detalhes e procedência em MODOS-PVE.md e PENDENCIAS.md. A fila executável passa a HAB-01; novas prioridades dependem de escopo explícito.
+
+
+- [x] Corrigir acesso COM-02 no Windows PowerShell comum: Jogar.cmd chama binário direto sem política de scripts; validado CMD/Windows PowerShell, sem mudar segurança nem motor.

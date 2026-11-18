@@ -118,3 +118,6 @@ Entrada recomendada para usuário Windows: Jogar.cmd na raiz (ou build/combate/j
 
 
 Plano HAB-01 atualizado após direção do usuário: padrão de equipes com até três posições e clássico preservado; separar menu/AP-SPD/manual-auto. Passivas e componentes híbridos precisam de gatilhos reais, sem rótulo fictício. Cinco partes em docs/batalhas/HAB-01.md; próxima parte 1 perfis/posições/contrato. Esta entrega só documental, sem mexer em Jogar.cmd ou repetir 155 testes. Pesquisa oficial pública limitada não certifica regras atuais completas; pedir amostras pontuais só quando necessárias.
+
+
+Relatório de habilidades recebido: revisão docs/batalhas/REVISAO-HABILIDADES-USUARIO-R01.md. Usar como referência recebida, sem assumir patches/fichas verificados ou copiar roster pessoal. Suficiente para HAB-01 parte 1; passivas podem ter recarga interna e componentes híbridos. Não retomar busca extensa no outro chat (usuário interrompeu para economizar limite), nem pedir extração completa. Protótipo e 155 testes inalterados.

@@ -202,3 +202,8 @@ Entrada de ações/alvos e reinício de Battle disponíveis e validados. Não é
 ## HAB-01 — dúvidas por etapa
 
 HAB-01.md concentra decisões próximas: posições e básica sem bypass; primeiro gatilho de passiva, dono da janela/limite de proc; condições de ultimate e seleção automática. Recursos universais, prioridade A3>A2>A1 e regras atuais de todas as passivas do Dislyte não estão confirmados. Não perguntar tudo de uma vez nem reabrir R04; pedir amostras atuais de poucos personagens quando a etapa depender delas. Perfil clássico preservado; implementação dos perfis ainda pendente.
+
+
+## HAB-01 — relatório de habilidades R01
+
+Revisão em REVISAO-HABILIDADES-USUARIO-R01.md. Separar posição passiva de recarga interna, decrementar naturalmente de alterar CD externamente, dono do limite de proc e ficha-base de progressão. Algumas fichas declaradas incompletas/divergentes; fonte pontual necessária antes de paridade. Não confundir AutoRevive próprio com revive de aliados ou Counter genérico com cast de habilidade. Próximo parte 1; sem nova pesquisa ampla.

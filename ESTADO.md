@@ -82,3 +82,8 @@ Reproduzido bloqueio de scripts no Windows PowerShell. Adicionado Jogar.cmd, ind
 ## Planejamento HAB-01 após observações do usuário
 
 Direção recebida: perfil padrão de equipe com até três posições, componentes ativos/passivos/híbridos e clássico preservado. AP/SPD, menu e manual/automático são eixos separados. Roteiro em HAB-01.md, cinco partes pequenas com preparação documental concluída. Consulta oficial pública limitada, sem certificar catálogo atual. Nenhum código/launcher alterado ou nova execução dos 155 testes.
+
+
+## Habilidades recebidas — R01
+
+Relatório externo recebido, sem nova pesquisa ampla: revisão em docs/batalhas/REVISAO-HABILIDADES-USUARIO-R01.md. Modelo ativo/passivo/híbrido, recarga interna/protegida, dono de gatilho e progressão precisam de dimensões separadas. Patches/fichas são alegações recebidas não verificadas independentemente. Sem código ou testes novos; 155 prévios preservados. Próximo HAB-01 parte 1, sem exigir extração integral do outro chat.

@@ -99,3 +99,7 @@ Nomes do Dislyte ficam somente como referência de pesquisa. Conteúdo jogável 
 Após HAB-01 no escopo aprovado: CIC-01 (equipe, resultado/recompensa mínima e save), ENG-01 (escolha/compatibilidade da engine), VIS-01 (arena visual), ART-01/AUD-01 (conteúdo e identidade), EXP-01 (expansões avaliadas). Pesquisa de famílias PvE pode detalhar requisitos durante esse percurso; prioridade muda somente por decisão explícita, não por cada exceção encontrada.
 
 Próxima entrega executável: HAB-01 parte 1, contrato de perfis/posições e primeira implementação delimitada. Nesta entrega só foram atualizados documentos, sem alterar Jogar.cmd ou o comportamento clássico atual. Os 155 testes prévios permanecem como evidência datada, sem nova execução.
+
+## Material recebido após o planejamento — R01
+
+Relatório de habilidades recebido e analisado em REVISAO-HABILIDADES-USUARIO-R01.md. Reforça componentes ativo/passivo/híbrido e a separação entre gatilho, recarga interna, alterações externas e progressão. Afirmações de patch e fichas são recebidas, sem URLs individualizadas verificadas nesta entrega; não promovê-las a confirmação atual automaticamente. AutoRevive/Counter/Shield genéricos não reproduzem kits completos de personagens. Não precisa extrair todo o chat: material suficiente para orientar parte 1, com fontes pontuais somente quando necessárias. Nenhum código/teste alterado nesta revisão.

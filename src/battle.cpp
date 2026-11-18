@@ -426,7 +426,7 @@ void Battle::hit(std::size_t attacker, std::size_t target_index, bool derived, c
     const auto& actor=fighters_[attacker];
     const auto begin=events.size();
     const int power=actor.definition.attack;
-    const int damage=target.guarding?power/2+power%2:power;
+    const int damage=target.guarding?power/2:power;
     int reflection=0;
     for(const auto& status:target.statuses) {if(status.kind==EffectKind::Reflect){reflection=status.magnitude;}}
     if(target.guarding && std::ranges::find(guarded,target_index)==guarded.end()){guarded.push_back(target_index);}

@@ -66,3 +66,8 @@ Recompiladas somente apresentação, seus sete testes, jogar.exe e simular.exe u
 ## Próxima entrega
 
 HAB-01 parte 1: implementar perfis e posições conforme este contrato, com validação de básica obrigatória e componentes selecionáveis/informativos. Não tratar registro de passiva como gatilho funcional. Silêncio/supressão/ícones/itens seguem com seu próprio aceite de implementação, não implícitos nesta aprovação.
+
+
+## Atualização — arredondamento clássico
+
+Usuário definiu metade arredondada para baixo para a defesa genérica existente. Sem defesa genérica no perfil padrão contratado. Melhorias/amplificações/perfuração e outros cálculos futuros do clássico ficam separados, sem implementação antecipada; DEFESA-PADRAO.md. Este ajuste não implementa perfis/posições do HAB-01.

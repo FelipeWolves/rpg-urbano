@@ -98,3 +98,6 @@ Essas famílias não são funcionalidades prontas por SEQ-01/PAR-01/PAR-02 estar
 
 
 - [x] Fechar contrato padrão de equipes HAB-01-PERFIL-EQUIPE-R01.md e trocar terminologia do protótipo para defesa; sete testes textuais revalidados. Novo perfil/posições e controles específicos ainda pendentes na parte 1/famílias correspondentes.
+
+
+- [x] Defesa genérica arredondada para baixo por padrão; regressão completa 155/155 e protótipo com 25->12. Extensões futuras clássicas anotadas em DEFESA-PADRAO.md, separadas do perfil padrão. HAB-01 parte 1 continua próxima.

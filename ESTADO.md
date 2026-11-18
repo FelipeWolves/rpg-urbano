@@ -92,3 +92,8 @@ Relatório externo recebido, sem nova pesquisa ampla: revisão em docs/batalhas/
 ## Contrato de equipes e defesa
 
 Usuário fechou perfil até 3 posições, básica A1 não silenciável/disponível se apto, passivas informativas e recarga/inatividade/condição distintas. HAB-01-PERFIL-EQUIPE-R01.md; perfil não implementado ainda. Congelamento/petrificação/supressão exigem matriz futura; motor só tem Block e FreezeCooldowns de recarga. Clássico segue disponível. Terminologia alterada para defesa nos executáveis, guardar alias oculto. Recompilação localizada: 7/7 testes textuais e demo aprovados; 155 anteriores não repetidos integralmente. Próximo HAB-01 parte 1.
+
+
+## Defesa genérica — arredondamento para baixo concluído
+
+Pedido retomado após retorno do usuário: 25->12, 5->2 e 1->0 por hit, sem alterar consumo/expiração/escudos. Kernel e expectativas afetadas atualizados; 155/155 testes aprovados na regressão completa. Executável revalidado com defesa e dano 12; demo 40 ações/14 rodadas. Evidência COMBATE-DEFESA-BAIXO.json. Futuras amplificações/mitigações clássicas registradas em DEFESA-PADRAO.md, não implementadas. Perfil padrão segue sem defesa genérica; próximo HAB-01 parte 1.

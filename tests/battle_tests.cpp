@@ -114,16 +114,21 @@ void round_and_one_action_per_actor() {
     require(has_event(last, EventType::RoundStarted) && has_event(last, EventType::GuardExpired), "missing round/expiry event");
 }
 
-void guard_rounds_up_and_only_one_hit() {
+void guard_rounds_down_and_only_one_hit() {
     Battle battle({{"A1", Team::A, 100, 1, 30}, {"B1", Team::B, 100, 5, 20}, {"B2", Team::B, 100, 5, 10}});
     accepted(battle, {"A1", ActionType::Guard, {}});
     rejected_unchanged(battle, {"B1", ActionType::Attack, "B2"}, ActionError::FriendlyTarget);
     require(battle.find("A1")->guarding, "invalid command consumed guard");
     const auto first_hit = accepted(battle, {"B1", ActionType::Attack, "A1"});
-    require(battle.find("A1")->health == 97 && !battle.find("A1")->guarding, "guard odd rounding/consumption wrong");
+    require(battle.find("A1")->health == 98 && !battle.find("A1")->guarding, "guard odd rounding/consumption wrong");
     require(has_event(first_hit, EventType::GuardConsumed), "missing guard consumed event");
     accepted(battle, {"B2", ActionType::Attack, "A1"});
-    require(battle.find("A1")->health == 92, "guard applied more than once");
+    require(battle.find("A1")->health == 93, "guard applied more than once");
+    Battle minimal({{"A",Team::A,100,1,2},{"B",Team::B,100,1,1}});
+    accepted(minimal,{"A",ActionType::Guard,{}});
+    const auto zero=accepted(minimal,{"B",ActionType::Attack,"A"});
+    require(minimal.find("A")->health==100 && !minimal.find("A")->guarding &&
+            has_event(zero,EventType::GuardConsumed),"floor-to-zero damage lost health or retained guard");
 }
 
 void guard_even_damage() {
@@ -173,7 +178,7 @@ void max_integer_damage_without_overflow() {
     Battle battle({{"A", Team::A, maximum, 1, 2}, {"B", Team::B, maximum, maximum, 1}});
     accepted(battle, {"A", ActionType::Guard, {}});
     accepted(battle, {"B", ActionType::Attack, "A"});
-    require(battle.find("A")->health == maximum / 2, "INT_MAX guard rounding overflow");
+    require(battle.find("A")->health == maximum - maximum / 2, "INT_MAX guard rounding overflow");
     invariants(battle);
 }
 
@@ -221,7 +226,7 @@ int main() {
         {"invalid_actions_are_atomic", invalid_actions_are_atomic},
         {"basic_attack_event_and_next_turn", basic_attack_event_and_next_turn},
         {"round_and_one_action_per_actor", round_and_one_action_per_actor},
-        {"guard_rounds_up_and_only_one_hit", guard_rounds_up_and_only_one_hit},
+        {"guard_rounds_down_and_only_one_hit", guard_rounds_down_and_only_one_hit},
         {"guard_even_damage", guard_even_damage},
         {"guard_expires_at_next_turn", guard_expires_at_next_turn},
         {"defeat_clamp_skip_and_invalid_dead_target", defeat_clamp_skip_and_invalid_dead_target},

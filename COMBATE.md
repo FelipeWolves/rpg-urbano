@@ -26,7 +26,7 @@ Depois de compilar, a demonstração pode ser repetida sem recompilar:
 
 - Equipes, definições e estado próprios por combatente; IDs únicos, atributos positivos e duas equipes obrigatórias.
 - Ordem por velocidade, desempate ordinal por ID e rodadas. Estado inicial canônico, independente da ordem dos dados de entrada.
-- Ataque básico, vida limitada a zero e guarda de um acerto, com metade do dano arredondada para cima. Guarda não atingida expira no início do próximo turno do defensor.
+- Ataque básico, vida limitada a zero e guarda de um acerto, com metade do dano arredondada para baixo (decisão atual do usuário). Guarda não atingida expira no início do próximo turno do defensor.
 - Derrotados não agem e não podem ser atacados. Vitória é imediata ao eliminar adversários; não há ação ou novo turno depois dela.
 - Validação antes de mutação: comando inválido não muda vida, guarda, rodada, turno ou resultado e não emite eventos.
 - Eventos de ataque, guarda, consumo/expiração, derrota, turno, rodada e vitória. O dano do evento é o efetivamente aplicado, limitado à vida restante.
@@ -61,3 +61,8 @@ Matriz adicional: 150 cenários para os 25 pares de tamanhos 1–5, mais 18 sond
 ## Atualização vigente — COM-02
 
 Interação textual concluída em app/jogar.cpp e rpg::presentation, sem alterar regras do motor. Executar .\scripts\jogar.ps1; default 3x3 AP com teto 200/empate. As seções anteriores sobre falta de input e espera são históricas, superadas por docs/batalhas/COM-02.md. Demo fixa continua preservada. Sete grupos de interação e 155 testes totais aprovados; próximo HAB-01.
+
+
+## Arredondamento atual da defesa genérica
+
+Metade do dano por hit, arredondada para baixo; 25 vira 12 e 1 vira 0. Sem mudança de consumo/expiração ou ordem dos escudos. Contrato e anotações de extensões clássicas em docs/batalhas/DEFESA-PADRAO.md. Arquivos históricos anteriores podem conter a regra antiga para cima.

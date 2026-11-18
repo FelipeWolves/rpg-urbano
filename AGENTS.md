@@ -124,3 +124,6 @@ Relatório de habilidades recebido: revisão docs/batalhas/REVISAO-HABILIDADES-U
 
 
 Contrato HAB-01-PERFIL-EQUIPE-R01.md recebido: padrão até3posições, básica A1 não silenciável/disponível se apto, passivas não clicáveis. CD/inatividade/condição separados. FreezeCooldowns não é congelar personagem; matriz silêncio/passivas/petrificar pendente, não inferir. Só terminologia defesa implementada no texto/demo, guardar alias oculto; 7 testes locais e demo aprovados sem repetir155. Clássico/itens/especial não ampliados. Próximo implementar HAB-01 parte1 com contrato fechado.
+
+
+Defesa genérica agora floor(power/2), não ceil. Pedido do usuário implementado com regressão completa155/155, mínimo1->0 e demo40/14 preservada. Protótipo confirma25->12. DEFESA-PADRAO.md guarda extensões clássicas futuras, sem alterar contrato padrão de equipe sem defesa genérica. Próximo HAB-01 parte1.

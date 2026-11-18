@@ -37,7 +37,7 @@ void guarded_whole_skill(){
     auto r=rules();r.timing=TimingProfile::FixedRounds;
     Battle b(defs,r);act(b,{"A",ActionType::Guard,{}});
     const auto result=act(b,{"B",ActionType::Skill,"A","multi"});const auto attacks=hits(result);
-    check(attacks.size()==3 && b.find("A")->health==91 && !b.find("A")->guarding,"guard did not protect all hits");
+    check(attacks.size()==3 && b.find("A")->health==94 && !b.find("A")->guarding,"guard did not protect all hits");
     int consumed=0;std::size_t last_damage=0,consume_index=0;
     for(std::size_t i=0;i<result.events.size();++i){
         if(result.events[i].type==EventType::Attack){last_damage=i;}
@@ -45,7 +45,7 @@ void guarded_whole_skill(){
     }
     check(consumed==1 && consume_index>last_damage,"guard consumed before skill finished or twice");
     for(std::size_t i=0;i<attacks.size();++i){
-        check(attacks[i].amount==3 && attacks[i].hit_index==i+1 && attacks[i].planned_hits==3 &&
+        check(attacks[i].amount==2 && attacks[i].hit_index==i+1 && attacks[i].planned_hits==3 &&
               attacks[i].action_context==result.action_context,"hit lost action identity/index");
     }
 }
@@ -71,7 +71,7 @@ void derived_identity_and_guards(){
     Battle b(defs,r,{},{{"A",100,{{EffectKind::Counter,5,TickPolicy::NaturalOnly,0}}, {}}});
     act(b,{"A",ActionType::Guard,{}});const auto result=act(b,{"B",ActionType::Skill,"A","multi"});
     const auto reactions=hits(result,EventType::Reaction);
-    check(reactions.size()==3 && b.find("A")->health==91 && b.find("B")->health==85 &&
+    check(reactions.size()==3 && b.find("A")->health==94 && b.find("B")->health==85 &&
           b.accepted_actions()==2 && b.snapshot().next_action_id==6,"reaction counted as primary or skipped");
     for(std::size_t i=0;i<reactions.size();++i){
         const auto& ctx=*reactions[i].action_context;
@@ -84,7 +84,7 @@ void derived_identity_and_guards(){
     act(other,{"A",ActionType::Guard,{}});act(other,{"B",ActionType::Guard,{}});
     // A's next natural opportunity expires its own guard. Its guarded target remains B.
     act(other,{"A",ActionType::Skill,"B","multi"});
-    check(other.find("B")->health==91,"offensive action consumed actor guard rather than target guard");
+    check(other.find("B")->health==94,"offensive action consumed actor guard rather than target guard");
 }
 void reaction_ancestry(){
     auto r=rules("A");r.max_derived_actions=3;
@@ -438,9 +438,9 @@ void shield_layers_and_guard(){
     act(b,{"A",ActionType::Guard,{}});const auto result=act(b,{"B",ActionType::Skill,"A","multi"});
     const auto& statuses=b.find("A")->statuses;
     const auto structural=std::ranges::find(statuses,EffectKind::StructuralShield,&Status::kind);
-    check(b.find("A")->health==100 && structural!=statuses.end() && structural->magnitude==1 &&
+    check(b.find("A")->health==100 && structural!=statuses.end() && structural->magnitude==4 &&
           std::ranges::find(statuses,EffectKind::Shield,&Status::kind)==statuses.end() &&
-          event_count(result,EventType::ShieldAbsorbed)==4 && event_count(result,EventType::ShieldBroken)==1 &&
+          event_count(result,EventType::ShieldAbsorbed)==3 && event_count(result,EventType::ShieldBroken)==1 &&
           event_count(result,EventType::GuardConsumed)==1,"guard/shield layers order wrong");
     for(const auto& e:hits(result)){check(e.amount==0,"full absorption lost HP");}
     defs=roster();defs[0].attack=std::numeric_limits<int>::max();defs[1].max_health=1;

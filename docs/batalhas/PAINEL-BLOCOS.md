@@ -1,6 +1,6 @@
 # Painel de blocos — estado consolidado
 
-Atualizado em 18/11/2026 após COM-02. Fonte de resultados: COMBATE.json e COMBATE-COM-02-FINAL.json. Este painel substitui marcações antigas; relatórios anteriores permanecem preservados.
+Atualizado em 18/11/2026 após COM-02. Fonte atual de resultados: COMBATE.json e COMBATE-DEFESA-BAIXO.json; COMBATE-COM-02-FINAL.json preserva a entrega anterior. Este painel substitui marcações antigas; relatórios anteriores permanecem preservados.
 
 ## Legenda das siglas e marcações
 
@@ -101,3 +101,6 @@ Ordem atual: **HAB-01 → CIC-01 → ENG-01 → VIS-01 → ART-01 → AUD-01 →
 
 
 ✅ Contrato padrão de equipes R01 documentado; terminologia defesa aplicada no protótipo. ⚠️ HAB-01 continua aberto: posições/perfil, silêncio e passivas funcionais ainda exigem implementação. Matriz de congelamento/petrificação/supressão não confirmada. Verificação localizada 7/7, sem nova bateria integral; COM-02-DEFESA.json.
+
+
+✅ Defesa genérica atualizada: metade arredondada para baixo por acerto. Regressão pertinente dos blocos afetados concluída,155/155; executável confirmou25->12. COMBATE-DEFESA-BAIXO.json. ⚠️ Outras regras de dano/defesa do clássico são possibilidades futuras em DEFESA-PADRAO.md, não funcionalidades do padrão de equipes.

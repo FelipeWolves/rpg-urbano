@@ -197,3 +197,8 @@ Observação do usuário orienta padrão de equipe com até três posições e c
 ## DEC-038 — Contrato padrão de equipe e defesa
 
 Usuário definiu até três posições, básica A1 sem silêncio nem indisponibilidade voluntária quando apto, passivas informativas e indicadores separados de CD/inatividade/condição. Sem defesa genérica nesse perfil. Matriz de supressão e congelar/petrificar ainda incerta. Clássico preservado, quatro categorias propostas para contrato posterior. Termo visível defesa aplicado agora, mesmo Guard interno; guardar alias oculto. Perfil novo ainda não implementado. Sete testes textuais e demo revalidados, sem bateria completa.
+
+
+## DEC-039 — Defesa com arredondamento inferior
+
+Usuário escolheu floor(dano/2) por hit como padrão da defesa genérica; 1 pode virar0. Não muda consumo/expiração nem precedência de escudos. Possibilidades futuras de amplificar/reduzir dano no clássico ficam anotadas, sem implementação ou imposição ao padrão de equipes. 155 testes aprovados e protótipo confirmado25->12; arquivos históricos preservados.

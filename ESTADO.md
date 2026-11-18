@@ -4,7 +4,7 @@ Atualizado: 18/11/2026.
 
 ## Situação
 
-FUN-01, FUN-02, AMB-01, COM-01, COM-01A, TIME-01, WAVE-01, TIME-02, TIME-03, RES-01 e SEQ-01 concluídas. Núcleo C++20 com perfis fixo/AP, turnos extras, contra-ataques, status/recargas mínimos, guarda opcional, fases consecutivas e limites locais/globais. COM-02 segue em espera. Engine não escolhida nem aberta. Dúvidas/limitações futuras centralizadas em PENDENCIAS.md a pedido do usuário.
+FUN-01, FUN-02, AMB-01, COM-01, COM-01A, TIME-01, WAVE-01, TIME-02, TIME-03, RES-01, SEQ-01 e PAR-01 concluídas. Núcleo C++20 com perfis fixo/AP, turnos extras, contra-ataques, status/recargas mínimos, guarda opcional, fases consecutivas e limites locais/globais. COM-02 segue em espera. Engine não escolhida nem aberta. Dúvidas/limitações futuras centralizadas em PENDENCIAS.md a pedido do usuário.
 
 Pasta do projeto: este diretório. Não usar a pasta do laboratório como diretório de trabalho de desenvolvimento. Git na branch main, agora com commit inicial do usuário e remoto origin cadastrado. A árvore estava limpa no início desta entrega. Pushes ficam com o usuário; nenhum servidor remoto foi consultado e nenhuma configuração/identidade Git foi alterada.
 
@@ -19,13 +19,13 @@ Pasta do projeto: este diretório. Não usar a pasta do laboratório como diret�
 
 ## Verificação desta entrega
 
-PAR-01 partes 1/2 concluídas. Orçamento global único por comando principal aceito; três políticas de timeout, precedência local/global, eliminação final prioritária, cancelamento explícito idempotente e estados Running/Finished/Cancelled sem adulterar batalhas interrompidas. Cinco grupos novos: 125 testes totais, 10 grupos PAR-01, MSVC /W4 /WX aprovado. Matrizes 168 e 25 AP/replays, lote funcional 1000 e demo preservados. Evidências: docs/batalhas/PAR-01.md, COMBATE-PAR-01-PARTE-2.json e frentes-testes.csv.
+PAR-01 concluído nas três partes. Integração final aprovada sem mudanças de mecânicas/coordenador: reflexão/explosão inline, morte dupla pelo autor, revive antes do timeout, Skip, reações sem cobrança adicional, extras cancelados e falha técnica antes do timeout. Seis grupos novos; 16 PAR-01 e 131 testes totais, MSVC /W4 /WX aprovado. Preservados 168 cenários/replays, 25 formações AP/replays, lote funcional de 1000 e demo. Evidências: docs/batalhas/PAR-01.md, COMBATE-PAR-01-FINAL.json e frentes-testes.csv.
 
-PAR-01 permanece aberto para integração dedicada de R04/habilidades, Skip, falhas técnicas e cancelamento nas fronteiras. Não há threads, chefe compartilhado, servidor ou score. Painel com legenda preservada e partes 1/2 marcadas concluídas. Não repetir testes sem mudança pertinente.
+Painel marca PAR-01 encerrado e mantém legenda. Sem threads, HP compartilhado, servidor ou score. Alternância é por comando aceito, não por tempo de CPU. Não repetir testes sem mudança pertinente.
 
 ## Próximo passo executável
 
-PAR-01 parte 3: integração final de habilidades/R04, Skip, limites técnicos e fronteiras de conclusão/cancelamento. Ler docs/batalhas/PAR-01.md. Não iniciar PAR-02, UI ou engine junto. Pushes ficam com o usuário.
+PAR-02: fechar contrato do chefe compartilhado, PEN-05, escopos e ordem global antes de implementar. HP único, partes e avatares/score são opções ainda não escolhidas. Não iniciar UI/engine/servidor junto. Pushes ficam com o usuário.
 
 ## Novas restrições e fatos úteis
 

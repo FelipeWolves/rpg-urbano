@@ -1,12 +1,12 @@
 # PAR-01 — Três frentes independentes
 
-18/11/2026. **Partes 1/2 concluídas; bloco ainda aberto para integração final.**
+18/11/2026. **Três partes concluídas e validadas; PAR-01 encerrado no perfil cooperativo independente.**
 
 ## Divisão e aceite
 
 1. Coordenador determinístico, identidade, isolamento, resultados locais/agregado, alternância e replay/reset — concluído.
 2. Orçamento global autoritativo, precedência com limites locais e cancelamento coordenado — concluído.
-3. Integração com habilidades/R04, limites técnicos e término único nas fronteiras — pendente.
+3. Integração com habilidades/R04, limites técnicos e término único nas fronteiras — concluído.
 
 ## Contrato da parte 1 — histórico, complementado pela parte 2
 
@@ -16,7 +16,7 @@ O escalonador oferece uma ação principal aceita por frente em cada ciclo, na o
 
 Cada resposta identifica StageId, FrontId e StageActionId global monotônico por comando aceito. Eventos internos mantêm suas identidades locais de Battle; para consumo externo usar o escopo fase + frente + ação. Snapshot captura as três batalhas, ordem, frente agendada, contador e conclusão. Views são constantes; não se modifica uma frente por fora do coordenador.
 
-Nesta parte todas as frentes terminam antes da conclusão agregada; não há encerramento antecipado. Todas vencidas por A: vitória de A. Qualquer vitória de B: vitória de B. Sem vitória de B, mas com empate local: empate agregado. Qualquer limite técnico: resultado agregado técnico sem vencedor, com precedência sobre resultados competitivos. Esse último caminho receberá integração dedicada na parte 3. Não existe score implementado.
+Nesta parte todas as frentes terminam antes da conclusão agregada; não há encerramento antecipado. Todas vencidas por A: vitória de A. Qualquer vitória de B: vitória de B. Sem vitória de B, mas com empate local: empate agregado. Qualquer limite técnico: resultado agregado técnico sem vencedor, com precedência sobre resultados competitivos. Esse último caminho foi validado na parte 3. Não existe score implementado.
 
 Limites locais já funcionam por Battle. Orçamento global e cancelamento ainda não existem nesta parte. Reset reconstrói todos os contextos e restaura a ordem/contadores; snapshots não são formato de save.
 
@@ -42,7 +42,7 @@ Cada comando principal aceito, inclusive Skip, consome exatamente uma unidade gl
 
 Precedência após a cadeia aceita:
 
-1. Falha técnica de qualquer frente: encerra a fase sem vencedor e cancela as demais frentes abertas. A integração dedicada de falhas/habilidades é da parte 3.
+1. Falha técnica de qualquer frente: encerra a fase sem vencedor e cancela as demais frentes abertas. A integração dedicada de falhas/habilidades foi validada na parte 3.
 2. Todas as frentes encerradas por eliminação: resultado agregado normal, mesmo na última ação global.
 3. Teto global esgotado: aplica política global, inclusive quando coincide com encerramento local por limite. Uma vitória local isolada não constitui vitória da fase.
 4. Sem teto esgotado, limites locais encerram só a frente; as demais continuam alternando. Quando todas terminam, aplica-se agregado normal da parte 1.
@@ -65,4 +65,23 @@ Cinco grupos novos, dez grupos PAR-01 acumulados:
 
 **125/125 testes aprovados**, incluindo 10/10 grupos PAR-01, em MSVC /W4 /WX. Preservados 168 cenários/replays, 25 formações AP/replays, 1000 simulações funcionais e demo. Evidências: COMBATE-PAR-01-PARTE-2.json, COMBATE.json e frentes-testes.csv. Arquivos anteriores preservados.
 
-Próxima entrega: parte 3, integração com habilidades/R04, Skip, falha técnica, limites e cancelamento nas fronteiras. Não marcar PAR-01 inteiro concluído ainda; sem threads, chefe compartilhado, servidor ou pontuação.
+Próxima entrega prevista ao encerrar a parte 2: integração final, concluída abaixo. Sem threads, chefe compartilhado, servidor ou pontuação.
+
+## Parte 3 — Validação integrada final
+
+18/11/2026. Seis grupos novos, sem alteração das mecânicas ou do coordenador:
+
+| Grupo | Comportamento confirmado |
+|---|---|
+| r04_final_replay | Três frentes recebem reflexão/explosão/Counter e ataque multi-hit. Cada golpe letal causa morte dupla, vence o autor A, cancela hits restantes e Counter do morto. Consequências ficam na frente correta. Duas ordens de escalonamento com replay comando a comando; conclusão única por eliminação na ação global 9, antes do timeout |
+| revive_before_timeout | Auto-revive resolve antes do limite global; alvo retorna com 2 HP, sem retomar golpes cancelados. A frente continua localmente viva e é cancelada pelo coordenador, sem vitória local artificial |
+| skip_global | Comando de ataque de unidade bloqueada é rejeitado sem mutação; Skip aceito consome uma unidade local/global. Nove ações totais encerram por limite |
+| reaction_global_boundary | Contra-ataque de sobrevivente resolve dentro da cadeia mesmo na última ação global. Uma reação derivada por frente; seis comandos principais, sem cobrança global adicional |
+| technical_priority_reset | Loop de extras excede limite técnico na ação 6, tanto sem orçamento quanto coincidindo com timeout. Falha técnica encerra sem vencedor, preserva frente já concluída e cancela somente a ainda aberta; comandos/cancelamento após fim não mudam estado, reset restaura tudo |
+| extra_cancel_boundary | Ação concede extra e status antes do timeout; estado local fica preservado e o extra não pode executar após cancelamento. Reset limpa extra, status e recarga |
+
+**16/16 grupos PAR-01 e 131/131 testes totais aprovados**, MSVC /W4 /WX. Preservados 168 cenários/replays, 25 formações AP/replays, lote de 1000 batalhas funcionais e demo de 40 ações/14 rodadas. Evidências: COMBATE-PAR-01-FINAL.json, COMBATE.json e frentes-testes.csv. Arquivos das partes anteriores preservados.
+
+PAR-01 encerrado no escopo documentado; não precisa de novos testes/revisão agora, salvo mudanças relevantes. Fairness significa alternância por comando principal aceito; uma cadeia inteira de reações permanece atômica e não se promete justiça por tempo de CPU ou simultaneidade física. O catálogo mínimo R04 não equivale à reprodução de todas as habilidades de um jogo externo.
+
+Próximo bloco: PAR-02. Antes de implementar, fechar PEN-05/modelo autoritativo do chefe compartilhado (HP único, partes ou avatares/score), escopos e ordem global. A aprovação de PAR-01 não escolhe esse modelo. Não iniciar UI, engine ou servidor por antecipação.

@@ -1,6 +1,6 @@
 # Painel de blocos — estado consolidado
 
-Atualizado em 18/11/2026 após PAR-01 parte 2. Fonte de resultados: COMBATE.json e COMBATE-PAR-01-PARTE-2.json. Este painel substitui marcações antigas; relatórios anteriores permanecem preservados.
+Atualizado em 18/11/2026 após PAR-01 parte 3. Fonte de resultados: COMBATE.json e COMBATE-PAR-01-FINAL.json. Este painel substitui marcações antigas; relatórios anteriores permanecem preservados.
 
 ## Legenda das siglas e marcações
 
@@ -44,13 +44,14 @@ As siglas são identificadores internos das áreas do projeto, não nomes de fer
 | ✅ TIME-03 | Recarga, extras e controle separado | 34 grupos de tempo acumulados |
 | ✅ RES-01 | Resolução causal R04 e sobrevivência | 31 grupos acumulados, incluindo escudos/categorias |
 | ✅ SEQ-01 | Três times sucessivos e chefe por etapa | 17 grupos; três partes concluídas; A/A/B e A/A/A |
+| ✅ PAR-01 | Três frentes independentes coordenadas, orçamento global e cancelamento | 16 grupos; três partes concluídas, integração R04/replay/falha técnica |
 | ✅ Contrato R04 e revisões R01–R03 | Decisões e pesquisa recebida | Fechamento documental; implementação mínima em RES-01 |
 
-Total atual: **125 testes aprovados**, além das matrizes, isolamento intercalado, 1000 simulações funcionais e demonstração. Não é benchmark de servidor ou renderização.
+Total atual: **131 testes aprovados**, além das matrizes, isolamento intercalado, 1000 simulações funcionais e demonstração. Não é benchmark de servidor ou renderização.
 
 ## ⚠️ Implementado que ainda exige revisão obrigatória
 
-**Nenhum bloco encerrado com revisão obrigatória identificada.** PAR-01 está parcialmente implementado e ainda exige a parte 3 indicada abaixo. As revisões antes exigidas de TIME-02 foram atendidas por TIME-03 e RES-01. SEQ-01 concluiu a integração. Famílias novas e modos ainda ausentes seguem abaixo; não representam reprovação dos contratos encerrados.
+**Nenhum bloco encerrado com revisão obrigatória identificada.** As revisões antes exigidas de TIME-02 foram atendidas por TIME-03 e RES-01. SEQ-01 e PAR-01 concluíram suas integrações. Famílias novas e modos ainda ausentes seguem abaixo; não representam reprovação dos contratos encerrados.
 
 ## ⚠️ Previstos desde a estrutura inicial — ainda por implementar e validar
 
@@ -71,13 +72,12 @@ Classificação pelo roteiro documentado, sem inferir datas pela criação do re
 
 | Prioridade | Bloco | Falta |
 |---|---|---|
-| 1 — próximo | ⚠️ PAR-01 | ✅ Partes 1/2 concluídas: coordenador, orçamento global e cancelamento (10 grupos). ⚠️ Parte 3: integração R04/habilidades, falha técnica e fronteiras finais |
-| 2 | ⚠️ PAR-02 | Definir e implementar chefe compartilhado; HP autoritativo, ordem causal e efeitos globais únicos |
+| 1 — próximo | ⚠️ PAR-02 | Definir e implementar chefe compartilhado; HP autoritativo, ordem causal e efeitos globais únicos |
 
-Também acrescentados durante o percurso, mas já encerrados: COM-01A, TIME-01, WAVE-01, TIME-PESQ, TIME-02, TIME-03, RES-01 e SEQ-01. AMB-01 formalizou a validação após instalação manual.
+Também acrescentados durante o percurso, mas já encerrados: COM-01A, TIME-01, WAVE-01, TIME-PESQ, TIME-02, TIME-03, RES-01, SEQ-01 e PAR-01. AMB-01 formalizou a validação após instalação manual.
 
 ## Limitações e extensões
 
 ⚠️ Não implementados nesta entrega: chefe compartilhado, paralelismo real, servidor, IA completa, score, fases por limiar de HP, catálogo completo de habilidades, ATB opcional, lojas e produção multiplataforma. Sem aceites completos de implementação não são blocos fechados. Arte, áudio e escolha da engine terão validação apropriada, não necessariamente testes unitários.
 
-Ordem atual: **PAR-01 → PAR-02 → COM-02 → HAB-01 → CIC-01 → ENG-01 → VIS-01 → ART-01 → AUD-01 → EXP-01**. Uma entrega por vez. Priorização por risco/dependências e menor esforço útil dentro da área, sem estimativa de prazo ou consumo.
+Ordem atual: **PAR-02 → COM-02 → HAB-01 → CIC-01 → ENG-01 → VIS-01 → ART-01 → AUD-01 → EXP-01**. Uma entrega por vez. Priorização por risco/dependências e menor esforço útil dentro da área, sem estimativa de prazo ou consumo.

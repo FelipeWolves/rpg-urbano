@@ -162,3 +162,8 @@ Coordenação, resultado agregado e replay de três frentes independentes implem
 ## PAR-01 parte 2 — PEN-02 (18/11/2026)
 
 PEN-02 resolvida no perfil cooperativo de frentes independentes: orçamento global único, políticas explícitas, limites locais independentes, precedência e cancelamento validados sem reset/triplicação. Não se estende a chefe compartilhado ou servidor. Parte 3 mantém integração pendente de R04/habilidades/Skip e falhas técnicas. 125 testes totais aprovados.
+
+
+## PAR-01 encerrado — integração final (18/11/2026)
+
+Integração pendente das partes 1/2 concluída: habilidades/R04, Skip, reações, extra cancelado e falha técnica coincidente com timeout. 16 grupos PAR-01, 131 testes totais aprovados. PEN-02 encerrada no perfil independente documentado. PEN-05 permanece aberta para escolha do modelo compartilhado antes de PAR-02; esta entrega não altera essa decisão nem valida servidor/threads/score.

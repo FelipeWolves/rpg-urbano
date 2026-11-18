@@ -88,3 +88,6 @@ PAR-01 parte 1 concluída: 120 testes, cinco grupos de frentes; alternância coo
 
 
 PAR-01 parte 2 concluída: 125 testes, 10 grupos de frentes. Orçamento global independente dos locais, eliminação final antes de timeout, cancelamento idempotente preserva Battle e expõe FrontState. Próximo parte 3: integração R04/habilidades/Skip/falha técnica; não marcar bloco concluído ainda. Relatório docs/batalhas/PAR-01.md.
+
+
+PAR-01 encerrado nas três partes: 131 testes, 16 grupos de frentes; integração R04, Skip, reações, extras e falha técnica antes de timeout. Próximo PAR-02: fechar modelo compartilhado/PEN-05 antes de implementar; PAR-01 não escolhe HP único/partes/avatares. Não iniciar UI/engine/servidor junto. Relatório docs/batalhas/PAR-01.md.

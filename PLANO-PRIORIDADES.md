@@ -34,7 +34,7 @@ Não misturar implementação de coordenadores de vários times com essa mudanç
 | Ordem | Bloco | Esforço relativo | Por que nesta posição |
 |---|---|---|---|
 | 3 | ✅ SEQ-01 concluído | Médio/alto | Sequência de três times aproveita a base atual e antecede coordenação entre frentes |
-| 4 | PAR-01 | Médio/alto | Aproveita o isolamento já testado; fecha resultado, orçamento e cancelamento de frentes independentes |
+| 4 | ✅ PAR-01 concluído | Médio/alto | Aproveita o isolamento já testado; fecha resultado, orçamento e cancelamento de frentes independentes |
 | 5 | PAR-02 | Alto | Compartilha estado/efeitos e exige a coordenação anterior; maior risco de duplicidade e ordem incorreta |
 
 Usar habilidades originais mínimas já disponíveis para validar cada modo. Não esperar um catálogo completo. Incluir apenas os atributos/contadores de score necessários aos aceites de cada bloco, com tipos/limites explícitos; economia/recompensa persistente pertence a CIC-01.
@@ -74,4 +74,4 @@ ATB opcional, backend/multiplayer, publicação em lojas/launcher e produção m
 
 ## Próxima ação concreta
 
-PAR-01 parte 3: integração R04/habilidades, Skip, falha técnica e fronteiras de cancelamento. Partes 1/2 concluídas; 125 testes aprovados. Não iniciar PAR-02, UI ou engine junto.
+PAR-02: definir modelo autoritativo de chefe compartilhado e resolver PEN-05 antes de implementar. PAR-01 encerrado com 131 testes totais aprovados. Não iniciar UI/engine/servidor junto.

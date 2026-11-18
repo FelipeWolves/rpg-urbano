@@ -147,3 +147,8 @@ PAR-01 usa três Battle isolados e ordem cíclica configurável, uma ação prin
 ## DEC-028 — Orçamento e cancelamento entre frentes
 
 Contador único de comandos principais aceitos; cadeias derivadas resolvem antes da fronteira. Falha técnica prevalece, conclusão de todas por eliminação precede timeout; nos demais casos teto global precede limites locais. Cancelar congela o coordenador sem fabricar resultado local: FrontState é separado de Battle.phase. Cancelamento explícito não tem vencedor e é idempotente. 125 testes aprovados; integração técnica/R04 dedicada na parte 3.
+
+
+## DEC-029 — Encerramento integrado de PAR-01
+
+Perfil cooperativo independente aprovado com 16 grupos e 131 testes totais. R04 resolve antes da fronteira global; cadeias não atravessam frentes, Skip conta uma vez, reações não gastam orçamento primário, extras cancelados não executam, falha técnica precede timeout. Nenhuma mudança de mecânica nesta parte. PAR-02 exige definir modelo de chefe compartilhado; não inferir HP único nem score da implementação isolada.

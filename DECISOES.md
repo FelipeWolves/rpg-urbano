@@ -152,3 +152,8 @@ Contador único de comandos principais aceitos; cadeias derivadas resolvem antes
 ## DEC-029 — Encerramento integrado de PAR-01
 
 Perfil cooperativo independente aprovado com 16 grupos e 131 testes totais. R04 resolve antes da fronteira global; cadeias não atravessam frentes, Skip conta uma vez, reações não gastam orçamento primário, extras cancelados não executam, falha técnica precede timeout. Nenhuma mudança de mecânica nesta parte. PAR-02 exige definir modelo de chefe compartilhado; não inferir HP único nem score da implementação isolada.
+
+
+## DEC-030 — Comparação por nível de evidência
+
+A pedido do usuário, consulta excepcional somente leitura aos relatórios irmãos e à cópia de testes, sem reutilizar código/ativos ou mudar escopo de execução. Separar relatório histórico, conferência local pontual, pesquisa/relato e contrato autoral. Metadados não validam payload ou regras; 131 testes validam nosso contrato, não superioridade externa. Matriz de 24 áreas em docs/batalhas/comparacao-dislyte-2026-11-18/. PEN-05 não resolvida por arquivos acessíveis.

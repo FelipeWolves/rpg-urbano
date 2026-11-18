@@ -1,0 +1,370 @@
+{
+  "GeneratedUtc": "2026-11-18T17:27:39.1794096Z",
+  "Scope": "Comparação documental e conferência pontual somente leitura; sem execução de jogo ou rede",
+  "HistoricalGeneratedUtc": "2026-11-10T18:30:34.6620618Z",
+  "HistoricalFiles": 6572,
+  "HistoricalPakCount": 5576,
+  "HistoricalEncryptedIndices": [
+    {
+      "Name": "1",
+      "Count": 5576
+    }
+  ],
+  "OurTestTotal": 131,
+  "OurTestTimestamp": "2026-11-18T17:17:17.602873Z",
+  "LocalChecks": [
+    {
+      "Path": "Dislyte\\Dislyte Game\\game\\Dislyte.exe",
+      "Present": true,
+      "SameBytes": true,
+      "SameModifiedUtc": true
+    },
+    {
+      "Path": "Dislyte\\Dislyte Game\\game\\ver.dat",
+      "Present": true,
+      "SameBytes": true,
+      "SameModifiedUtc": true
+    },
+    {
+      "Path": "Dislyte\\Dislyte Game\\game\\XGame\\Binaries\\Win64\\XGame-Win64-Shipping.exe",
+      "Present": true,
+      "SameBytes": true,
+      "SameModifiedUtc": true
+    },
+    {
+      "Path": "Dislyte\\Dislyte Game\\game\\XGame\\Config\\DefaultXGameCustom.ini",
+      "Present": true,
+      "SameBytes": true,
+      "SameModifiedUtc": true
+    },
+    {
+      "Path": "Dislyte\\Dislyte Game\\game\\XGame\\Saved\\Config\\WindowsNoEditor\\Engine.ini",
+      "Present": true,
+      "SameBytes": true,
+      "SameModifiedUtc": true
+    },
+    {
+      "Path": "Dislyte\\Dislyte Game\\game\\XGame\\Saved\\InstallPaks\\chunk_info",
+      "Present": true,
+      "SameBytes": true,
+      "SameModifiedUtc": true
+    },
+    {
+      "Path": "Dislyte\\Dislyte Game\\game\\XGame\\Saved\\PatchPaks\\patch_info",
+      "Present": true,
+      "SameBytes": true,
+      "SameModifiedUtc": true
+    },
+    {
+      "Path": "Dislyte\\Dislyte Game\\game\\XGame\\Saved\\PatchPaks\\upgrade_info",
+      "Present": true,
+      "SameBytes": true,
+      "SameModifiedUtc": true
+    }
+  ],
+  "ContentPathReferences": 38,
+  "PluginContentReferences": 36,
+  "L01": "Somente nomes de caminhos Paths= do Engine.ini foram lidos; referências não comprovam plugins ativos nem código disponível",
+  "Sources": [
+    {
+      "Id": "A01",
+      "Path": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\analise-dislyte\\relatorio.md",
+      "SHA256": "862D5A7A1A473FE2ABC831EFCFFFA372AF366B0A43D3CD02B67CD16AA25E38EF"
+    },
+    {
+      "Id": "A02",
+      "Path": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\analise-dislyte\\etapa-final-01\\relatorio-final.md",
+      "SHA256": "1355F1D69E21BB649D02239966A7BA4BF89A65C16817627CE882855330D0C44E"
+    },
+    {
+      "Id": "A03",
+      "Path": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\analise-dislyte\\resumo.json",
+      "SHA256": "FD5EE165107DE19F051FB79BE0376184991B52D3E17A9DAC5126DA02003EF672"
+    },
+    {
+      "Id": "A04",
+      "Path": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\analise-dislyte\\etapa-final-01\\plugins.csv",
+      "SHA256": "A75E52791DEB96A3249475B49CE9F076CB6117C900A134007091C01F14D2EFB9"
+    },
+    {
+      "Id": "A05",
+      "Path": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\analise-dislyte\\fase-1\\relatorio-preparatorio.md",
+      "SHA256": "FA904A439626B61CA27D5EE61B3783EAE6EE05D3DF5A47E1A9AEA74355C80CDE"
+    },
+    {
+      "Id": "P01",
+      "Path": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\COMBATE.json",
+      "SHA256": "8E2A41D3DCBDCC35EE3FEC555D0C5DF611703F9BBFCD45BD40280B4BACD6485A"
+    },
+    {
+      "Id": "P02",
+      "Path": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\docs\\batalhas\\ANALISE.md",
+      "SHA256": "A0D3B57BCE2A85C3467E9081E96B0D5DED1293D706B699CB041E942F086333E0"
+    },
+    {
+      "Id": "P03",
+      "Path": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\docs\\batalhas\\TEMPO-PESQUISA.md",
+      "SHA256": "23137B1BA1B7748CB4E79A44F8921BB1845CA983CCCB8F731A3CF8D152F1CF7D"
+    },
+    {
+      "Id": "P04",
+      "Path": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\docs\\batalhas\\REVISAO-PESQUISA-USUARIO-R03.md",
+      "SHA256": "87CC9B807DA9917927F2AA7C5EE38970127D803DB82386F5CD7D632F2731DB7A"
+    },
+    {
+      "Id": "P05",
+      "Path": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\docs\\batalhas\\CONTRATO-CAUSALIDADE-R04.md",
+      "SHA256": "4FC817259680EE75118177BF3D6E7D8AB0C49A3D663A9C46E5BE37220741CEA3"
+    }
+  ],
+  "Matrix": [
+    {
+      "Id": "C01",
+      "Area": "Engine e arquitetura",
+      "DislyteEvidence": "UE4.24.3 Shipping segundo log histórico; cliente empacotado",
+      "OurEvidence": "Núcleo original C++20 sem engine gráfica escolhida",
+      "OurStatus": "Implementado no núcleo",
+      "Parity": "Arquiteturas diferentes; superioridade não mensurável",
+      "Sources": "A01; A02; P01; ESTADO.md",
+      "NextEvidence": "ENG-01: integração e medições comparáveis"
+    },
+    {
+      "Id": "C02",
+      "Area": "Integridade e distribuição",
+      "DislyteEvidence": "Histórico: 5576 PAKs, índices criptografados; dois chunks e referência XGame.exe ausentes",
+      "OurEvidence": "Fontes e evidências de testes versionados; sem distribuição comercial",
+      "OurStatus": "Entrega parcial de produto",
+      "Parity": "Não comparável diretamente",
+      "Sources": "A01; A02; A03",
+      "NextEvidence": "Não usar divergências de manifestos para atribuir bugs ou qualidade do combate"
+    },
+    {
+      "Id": "C03",
+      "Area": "Formações 1 a 5",
+      "DislyteEvidence": "Relato do usuário e pesquisa histórica de formações; arquivos não revelam contrato",
+      "OurEvidence": "168 cenários/replays; pares 1x1 até 5x5 e sondagens de seis",
+      "OurStatus": "Validado no perfil próprio",
+      "Parity": "Paridade de tamanho parcial; regras não verificadas",
+      "Sources": "P01; P02; tests/scenario_tests.cpp",
+      "NextEvidence": "Casos observáveis equivalentes, mesmos atributos e ações"
+    },
+    {
+      "Id": "C04",
+      "Area": "SPD e barra de ação",
+      "DislyteEvidence": "Pesquisa histórica registra mecânicas AP/SPD; fórmula completa não acessível",
+      "OurEvidence": "Perfis fixo/AP, alterações de velocidade e 25 formações AP/replays",
+      "OurStatus": "Validado no perfil próprio",
+      "Parity": "Sem equivalência de fórmula demonstrada",
+      "Sources": "P01; P03; docs/batalhas/TIME-02.md",
+      "NextEvidence": "Traços observados de AP, arredondamento e desempates"
+    },
+    {
+      "Id": "C05",
+      "Area": "Recargas e turnos extras",
+      "DislyteEvidence": "Pesquisa e respostas do usuário; regras específicas variam por habilidade",
+      "OurEvidence": "Recarga no uso, flags por origem e congelamento separado de bloqueio",
+      "OurStatus": "Validado no perfil próprio",
+      "Parity": "Contrato próprio; paridade completa não verificada",
+      "Sources": "P03; P04; docs/batalhas/TIME-03.md",
+      "NextEvidence": "Exemplos reproduzíveis por habilidade e versão"
+    },
+    {
+      "Id": "C06",
+      "Area": "Turno geral e limites",
+      "DislyteEvidence": "Limites relatados por modo; contagem universal não estabelecida",
+      "OurEvidence": "Orçamentos opcionais por comando principal aceito; derivados separados",
+      "OurStatus": "Validado no perfil próprio",
+      "Parity": "Não chamar orçamento de ações de contador universal do Dislyte",
+      "Sources": "P01; P03; docs/batalhas/TIME-01.md; docs/batalhas/PAR-01.md",
+      "NextEvidence": "Identificar regra observada de cada modo, extras e Skip"
+    },
+    {
+      "Id": "C07",
+      "Area": "Multi-hit e alvos dinâmicos",
+      "DislyteEvidence": "Ordem interna e seleção protegidas; contrato vindo da pesquisa do usuário",
+      "OurEvidence": "Interrupção entre hits; seleção LowestHealthEnemy determinística",
+      "OurStatus": "Validado no perfil próprio",
+      "Parity": "Bounce aleatório não implementado; equivalência não verificada",
+      "Sources": "P04; P05; docs/batalhas/RES-01.md",
+      "NextEvidence": "Catálogo de seletores e RNG próprio antes de alegar fidelidade"
+    },
+    {
+      "Id": "C08",
+      "Area": "Reflexão, explosão e FIFO",
+      "DislyteEvidence": "Arquivos acessíveis não demonstram ordem causal; R04 é decisão do projeto",
+      "OurEvidence": "Consequências inline e FIFO testadas, inclusive entre frentes independentes",
+      "OurStatus": "Validado no perfil próprio",
+      "Parity": "R04 não é especificação oficial comprovada do Dislyte",
+      "Sources": "P04; P05; docs/batalhas/RES-01.md; docs/batalhas/PAR-01.md",
+      "NextEvidence": "Observação de fronteiras em gravações controladas"
+    },
+    {
+      "Id": "C09",
+      "Area": "Prevenção, revive e vitória",
+      "DislyteEvidence": "Exemplos recebidos do usuário; implementação interna não acessível",
+      "OurEvidence": "Cargas finitas, janela de revive e desempate pelo autor da ação",
+      "OurStatus": "Validado no perfil próprio",
+      "Parity": "Decisão autoral fechada; equivalência externa não certificada",
+      "Sources": "P04; P05; P01",
+      "NextEvidence": "Validar casos observáveis sem reabrir contrato próprio automaticamente"
+    },
+    {
+      "Id": "C10",
+      "Area": "Escudos, dano e atributos",
+      "DislyteEvidence": "Sem fórmulas ou tabelas de habilidades acessíveis",
+      "OurEvidence": "Guarda, duas camadas de escudo e dano mínimo; sem catálogo completo de DEF/CRIT/elementos",
+      "OurStatus": "Implementação parcial",
+      "Parity": "Não comparável em balanceamento",
+      "Sources": "A02; include/rpg/battle.hpp; docs/batalhas/SEQ-01.md",
+      "NextEvidence": "HAB-01: especificar fórmulas, RNG e famílias adicionais"
+    },
+    {
+      "Id": "C11",
+      "Area": "Guarda voluntária",
+      "DislyteEvidence": "Usuário informa ausência de ação equivalente no contexto de referência",
+      "OurEvidence": "Ação opcional controlada por perfil",
+      "OurStatus": "Diferença por decisão",
+      "Parity": "Extensão própria; não prova vantagem de experiência",
+      "Sources": "COMBATE.md; docs/batalhas/TIME-02.md",
+      "NextEvidence": "Avaliar utilidade e balanceamento em protótipo interativo"
+    },
+    {
+      "Id": "C12",
+      "Area": "Confrontos consecutivos",
+      "DislyteEvidence": "Relato de até cinco confrontos na mesma fase",
+      "OurEvidence": "Stage com 1/2/5 confrontos, políticas de conservação e orçamento global",
+      "OurStatus": "Validado no perfil próprio",
+      "Parity": "Cobertura estrutural; paridade de conteúdo não verificada",
+      "Sources": "P02; docs/batalhas/WAVE-01.md; P01",
+      "NextEvidence": "Casos observados de persistência e efeitos entre confrontos"
+    },
+    {
+      "Id": "C13",
+      "Area": "Três times sucessivos",
+      "DislyteEvidence": "Relato de chefe mudando habilidades entre três times",
+      "OurEvidence": "SEQ-01: HP persistente, kits A/A/A e A/A/B, categorias e mapa de recargas",
+      "OurStatus": "Validado no perfil próprio",
+      "Parity": "Estrutura testada; habilidades e balanceamento distintos",
+      "Sources": "P02; docs/batalhas/SEQ-01.md; P01",
+      "NextEvidence": "Mapear regras específicas de um modo sem copiar fórmulas protegidas"
+    },
+    {
+      "Id": "C14",
+      "Area": "Três frentes independentes",
+      "DislyteEvidence": "Relato Season 0 e referências históricas; arquitetura original desconhecida",
+      "OurEvidence": "PAR-01: alternância, isolamento, agregado, limites e cancelamento; 16 grupos",
+      "OurStatus": "Validado no perfil próprio",
+      "Parity": "Não demonstra threads nem equivalência à simultaneidade original",
+      "Sources": "P02; docs/batalhas/PAR-01.md; P01",
+      "NextEvidence": "Apresentação simultânea e medição futura de carga real"
+    },
+    {
+      "Id": "C15",
+      "Area": "Chefe compartilhado",
+      "DislyteEvidence": "Relato de três frentes no mesmo chefe; HP único/partes/score não estabelecidos",
+      "OurEvidence": "PAR-02 pendente; clones independentes não resolvem estado compartilhado",
+      "OurStatus": "Não implementado",
+      "Parity": "Sem evidência suficiente para escolher modelo por arquivos",
+      "Sources": "P02; PENDENCIAS.md PEN-05",
+      "NextEvidence": "Definir autoridade de HP, efeitos globais e ordem causal"
+    },
+    {
+      "Id": "C16",
+      "Area": "Segurança de cadeias",
+      "DislyteEvidence": "Limites internos do Dislyte não acessíveis; causa de mudanças de eventos desconhecida",
+      "OurEvidence": "Limites técnicos de extras, derivados e consequências; interrupção sem vencedor",
+      "OurStatus": "Validado no perfil próprio",
+      "Parity": "Proteção demonstrada apenas no nosso motor",
+      "Sources": "P01; docs/batalhas/RES-01.md; docs/batalhas/PAR-01.md",
+      "NextEvidence": "Calibrar limites com catálogo legítimo; não atribuir problemas ao concorrente"
+    },
+    {
+      "Id": "C17",
+      "Area": "Reprodutibilidade e desempenho",
+      "DislyteEvidence": "Sem execução ou benchmark comparável do cliente",
+      "OurEvidence": "Replays e lote funcional de 1000 sem render, build Od",
+      "OurStatus": "Validação funcional",
+      "Parity": "Nenhuma prova de maior desempenho ou estabilidade geral",
+      "Sources": "P01; P02",
+      "NextEvidence": "Benchmark comparável após apresentação; não extrapolar para servidor/mobile"
+    },
+    {
+      "Id": "C18",
+      "Area": "IA e catálogo de habilidades",
+      "DislyteEvidence": "Referências SkillConfig/SkillEditor em INI; nenhum catálogo interno acessado",
+      "OurEvidence": "Escolha automática básica ataque/Skip; habilidades explícitas nos testes",
+      "OurStatus": "Implementação parcial",
+      "Parity": "Cobertura própria limitada; catálogo original não comparado",
+      "Sources": "A02; L01; docs/batalhas/SEQ-01.md",
+      "NextEvidence": "HAB-01 e política de decisão própria"
+    },
+    {
+      "Id": "C19",
+      "Area": "Personagens 3D e animações",
+      "DislyteEvidence": "Nenhum modelo/rig/animação editável solto identificado na coleta histórica",
+      "OurEvidence": "Sem arena visual, personagens ou animações finais",
+      "OurStatus": "Não implementado",
+      "Parity": "Recursos protegidos não avaliados nem reaproveitados",
+      "Sources": "A02; docs/batalhas/PAINEL-BLOCOS.md",
+      "NextEvidence": "VIS-01 e ART-01 com recursos próprios/licenciados"
+    },
+    {
+      "Id": "C20",
+      "Area": "Artes 2D e interface",
+      "DislyteEvidence": "Imagens/XML/traduções do launcher acessíveis historicamente; UI interna não catalogada",
+      "OurEvidence": "Demo textual automatizada; COM-02/VIS-01 pendentes",
+      "OurStatus": "Não implementado como interface jogável",
+      "Parity": "Não há comparação de experiência ou qualidade visual",
+      "Sources": "A02; P01; TAREFAS.md",
+      "NextEvidence": "Interface própria, acessibilidade e testes de usabilidade"
+    },
+    {
+      "Id": "C21",
+      "Area": "Músicas e áudio",
+      "DislyteEvidence": "FMODStudio presente; nenhum áudio/bank solto identificado no histórico",
+      "OurEvidence": "AUD-01 pendente",
+      "OurStatus": "Não implementado",
+      "Parity": "DLL de áudio não demonstra trilha, latência ou qualidade musical",
+      "Sources": "A02; A04; TAREFAS.md",
+      "NextEvidence": "Áudio próprio/licenciado e medições de reprodução"
+    },
+    {
+      "Id": "C22",
+      "Area": "DJ Contest",
+      "DislyteEvidence": "Nenhum chart, regra ou temporização acessível; nomes de DLL não comprovam função",
+      "OurEvidence": "EXP-01 pendente; nenhum minijogo rítmico",
+      "OurStatus": "Não implementado",
+      "Parity": "Sem base de comparação funcional",
+      "Sources": "A02; TAREFAS.md",
+      "NextEvidence": "Regras, charts e avaliação de sincronismo originais"
+    },
+    {
+      "Id": "C23",
+      "Area": "Progressão e persistência",
+      "DislyteEvidence": "Saves não examinados; economia e autoridade desconhecidas",
+      "OurEvidence": "CIC-01 pendente; snapshot/reset não é save versionado",
+      "OurStatus": "Não implementado",
+      "Parity": "Sem comparação de economia/progressão",
+      "Sources": "A02; docs/batalhas/PAR-01.md; TAREFAS.md",
+      "NextEvidence": "Save próprio, versão e ciclo mínimo de recompensas"
+    },
+    {
+      "Id": "C24",
+      "Area": "Offline, serviços e plataformas",
+      "DislyteEvidence": "Modo oficial offline não demonstrado; cliente não executado na investigação",
+      "OurEvidence": "Testes e demo próprios funcionam localmente sem serviços; sem produto distribuído",
+      "OurStatus": "Laboratório local validado",
+      "Parity": "Vantagem de controle do nosso código, não superioridade do jogo completo",
+      "Sources": "A05; P01; ESTADO.md",
+      "NextEvidence": "ENG-01 e futura distribuição; sem usar cliente original como SDK"
+    }
+  ],
+  "Limits": [
+    "8 arquivos conferidos por presença/tamanho/mtime, não inventário completo novo nem prova bit a bit",
+    "Sem hash de arquivos do jogo; hashes somente de relatórios pequenos para proveniência",
+    "Sem leitura de PAKs, EXEs, DLLs, logs, dumps, saves, cookies ou credenciais",
+    "R04 é contrato do projeto; não especificação oficial comprovada do Dislyte",
+    "Sem novas pesquisas online nem reexecução de testes; evidências existentes datadas",
+    "Nenhum código, mídia ou recurso do jogo copiado; análise não concede permissão de reutilização"
+  ]
+}

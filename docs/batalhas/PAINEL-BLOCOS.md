@@ -81,3 +81,8 @@ Também acrescentados durante o percurso, mas já encerrados: COM-01A, TIME-01, 
 ⚠️ Não implementados nesta entrega: chefe compartilhado, paralelismo real, servidor, IA completa, score, fases por limiar de HP, catálogo completo de habilidades, ATB opcional, lojas e produção multiplataforma. Sem aceites completos de implementação não são blocos fechados. Arte, áudio e escolha da engine terão validação apropriada, não necessariamente testes unitários.
 
 Ordem atual: **PAR-02 → COM-02 → HAB-01 → CIC-01 → ENG-01 → VIS-01 → ART-01 → AUD-01 → EXP-01**. Uma entrega por vez. Priorização por risco/dependências e menor esforço útil dentro da área, sem estimativa de prazo ou consumo.
+
+
+## Comparação complementar — concluída
+
+✅ Matriz de 24 áreas em [comparacao-dislyte-2026-11-18/comparacao.md](comparacao-dislyte-2026-11-18/comparacao.md), com CSV/JSON. Reaproveita os 131 testes; não executa bateria nova nem reabre blocos encerrados. Oito arquivos da cópia local coincidem por tamanho/mtime com inventário anterior. R04 é contrato próprio; cobertura de testes não comprova paridade ou superioridade ao Dislyte. Próximo bloco continua PAR-02.

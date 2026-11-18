@@ -91,3 +91,6 @@ PAR-01 parte 2 concluída: 125 testes, 10 grupos de frentes. Orçamento global i
 
 
 PAR-01 encerrado nas três partes: 131 testes, 16 grupos de frentes; integração R04, Skip, reações, extras e falha técnica antes de timeout. Próximo PAR-02: fechar modelo compartilhado/PEN-05 antes de implementar; PAR-01 não escolhe HP único/partes/avatares. Não iniciar UI/engine/servidor junto. Relatório docs/batalhas/PAR-01.md.
+
+
+Comparação de 18/11/2026 concluída por autorização explícita e pontual do usuário para leitura de analise-dislyte e cópia de testes. Nenhuma execução de componentes, extração, rede ou escrita na origem. Matriz docs/batalhas/comparacao-dislyte-2026-11-18/; 8 metadados coincidentes e 36 referências de plugins. Não repetir investigação sem motivo; autorização pontual não muda o escopo independente do projeto. Próximo PAR-02/PEN-05; 131 testes preservados sem reexecução.

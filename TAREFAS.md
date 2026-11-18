@@ -61,3 +61,8 @@ PAR-02: definir contrato do chefe compartilhado e resolver PEN-05 antes da imple
 ## Encerramento de cada entrega
 
 Atualizar ESTADO.md com implementação, testes efetivos, limites e próxima ação. Não repetir bateria/pesquisa sem mudança pertinente. Não interpretar esta fila como execução de todos os blocos em uma única tarefa.
+
+
+## Análise complementar concluída
+
+- [x] Comparação documental Dislyte/RPG Urbano: 24 áreas, fontes históricas identificadas e conferência pontual de 8 arquivos somente em leitura; Markdown/CSV/JSON em docs/batalhas/comparacao-dislyte-2026-11-18/. Sem mudança de regras nem novos testes; próximo bloco PAR-02 permanece.

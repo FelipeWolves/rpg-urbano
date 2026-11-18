@@ -74,4 +74,4 @@ ATB opcional, backend/multiplayer, publicação em lojas/launcher e produção m
 
 ## Próxima ação concreta
 
-PAR-02: proposta pronta em docs/batalhas/PAR-02.md; fechar escolhas de modelo/cadência e PEN-05 antes de implementar. PAR-01 encerrado com 131 testes aprovados. Não iniciar UI/engine/servidor junto.
+PAR-02 parte 2: habilidades, seletores e R04 compartilhados. HP único/barra global escolhidos; parte 1 concluída, 136 testes aprovados. Não iniciar UI/engine/servidor junto.

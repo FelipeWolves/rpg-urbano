@@ -1,0 +1,6 @@
+test,status,scope
+composition,pass,single_hp_basic_shared_boss
+one_hp_cadence,pass,single_hp_basic_shared_boss
+target_atomics_guard,pass,single_hp_basic_shared_boss
+dead_fronts_defeat,pass,single_hp_basic_shared_boss
+victory_budget_replay_reset,pass,single_hp_basic_shared_boss

@@ -1,6 +1,6 @@
 # PAR-02 — Proposta de chefe compartilhado
 
-18/11/2026. **Planejamento iniciado; decisões de modelo e cadência aguardam resposta. Não implementado.** PAR-01 permanece encerrado; nenhum teste anterior reexecutado.
+18/11/2026. **HP único e barra global escolhidos pelo usuário. Parte 1 implementada e validada; PAR-02 ainda aberto.** PAR-01 permanece encerrado. As alternativas abaixo preservam o planejamento; o contrato vigente da parte 1 está ao final.
 
 ## Objetivo e limites
 
@@ -14,7 +14,7 @@ Três times enfrentando o mesmo chefe, com identidade, autoridade de estado e re
 | Partes vinculadas | HP de partes e regra central de vínculo | Exige definir destruição de partes, transferência de dano e condição de vitória |
 | Avatares com placar | Instâncias distintas e agregado de resultado | Precisa de fórmula/condição de placar; não equivale a HP compartilhado em combate |
 
-**PEN-05 ainda aberta.** Recomendação não significa decisão do usuário. Não generalizar os três modelos no primeiro incremento; suportar o escolhido e manter os outros como extensões separadas.
+**PEN-05 resolvida para o perfil inicial: usuário escolheu HP único compartilhado.** As alternativas não foram adotadas. Não generalizar os três modelos no primeiro incremento; suportar o escolhido e manter os outros como extensões separadas.
 
 ## Escolha 2 — Cadência do chefe
 
@@ -27,7 +27,7 @@ O alcance de uma habilidade é diferente da sua cadência: um turno global pode 
 
 ## Contrato técnico proposto para HP único + barra global
 
-Esta seção é **proposta**, dependente das escolhas acima. Não muda R04 nem fecha regras silenciosamente.
+Modelo e cadência foram escolhidos. Os demais itens desta seção são propostas de evolução; consultar o contrato implementado ao final para distinguir o que já existe. R04 permanece vigente.
 
 - Um estado autoritativo do chefe para HP/maxHP, estados, recargas, cargas de sobrevivência e identidade. Representações por frente são referências, não cópias mutáveis reconciliadas depois.
 - Times mantêm identidade e instâncias distintas. Formação inicial proposta: exatamente três times de 1–5; inscrição sem repetição de personagem, como SEQ-01. Conferir se essa regra atende ao modo ao fechar o contrato.
@@ -74,6 +74,42 @@ As divisões de implementação serão ajustadas após a avaliação do passo 2,
 | Reset/replay e entradas em ordens equivalentes | Estado inicial íntegro; ordem lógica explícita e reproduzível |
 | Limite técnico e cancelamento | Interrupção única, sem vencedor artificial nem reaplicação |
 
-## Estado da entrega
+## Estado ao preparar a proposta — histórico
 
 Documento criado; nenhuma mecânica, plugin ou dependência alterada. Permanecem 131 testes anteriormente aprovados, sem nova execução. Próximo passo depende das respostas sobre modelo e cadência; não iniciar o código compartilhado antes delas. Demais itens acima são propostas para fechar o contrato, não fatos implementados.
+
+## Decisão recebida e parte 1 — contrato implementado
+
+18/11/2026. Usuário escolheu **HP único compartilhado e uma barra global**, ataques comuns alternando entre frentes vivas. PEN-05 resolvida para este perfil; partes e avatares/placar ficam fora do primeiro modo.
+
+### Arquitetura efetivamente adotada
+
+`SharedBoss` possui um único `Battle` autoritativo, com os três times do lado A e exatamente um chefe do lado B. Não utiliza três Battle nem reconcilia cópias de HP. Reutiliza o resolvedor e AP existentes sem alterar o kernel. Identidade de fase/versão/time/personagem/instância fica explícita no novo coordenador.
+
+Inscrição exige exatamente três times de 1–5, IDs de time e instância únicos e personagens não repetidos. Nenhuma instância colide com o chefe; A para jogadores, B para chefe. A inscrição inteira é validada, incluindo terceiro time. Perfil ActionBar obrigatório; habilidades são rejeitadas na configuração nesta parte para não aparentar suporte a seletores compartilhados ainda não validados.
+
+Um único scheduler AP/SPD governa todos os integrantes e o chefe. Não há round-robin por frente para oportunidades dos jogadores: velocidade individual continua relevante. O chefe tem uma barra e um turno lógico por oportunidade; não uma cópia de turno por time.
+
+Ataque comum aceito do chefe avança seleção cíclica para o próximo time; mortos são ignorados. Guarda não avança a rotação de ataques. Tentativa contra outra frente é rejeitada sem alterar HP/AP/contadores/cursor. Dentro do time autorizado, alvo vivo pode ser escolhido pelo comando; a escolha automática usa menor HP e desempate por ID. Aliados atacam o único chefe conforme validação de Battle. Guarda opcional permanece disponível. Skip usa regras do kernel; sem habilidades/Block iniciais, não é gerado pelo fluxo básico desta parte.
+
+Snapshot inclui membros, times com sobreviventes, próximo time-alvo e o único snapshot de Battle. Resultado identifica fase e time do ator ou time atacado pelo chefe; término é emitido apenas na ação aceita que encerrou. Battle é exposto somente em leitura.
+
+Time eliminado deixa de ser alvo, mas a partida só termina por eliminação de todo o lado A ou do chefe. HP nunca é transferido entre três chefes; existe apenas um. O orçamento opcional de Battle é global para esta batalha conjunta, contando ambos os lados; vitória na última ação prevalece. Não existem limites locais por time nesta parte. Reset reconstrói a composição e restaura HP, AP e cursor de alvo. Snapshot ainda não é save.
+
+### Verificação efetiva
+
+Cinco grupos novos:
+
+- `composition`: formações 1–5 e único chefe; rejeições de inscrição incompleta, personagens/IDs repetidos, equipe vazia, dados inválidos na terceira equipe e habilidades ainda fora do perfil.
+- `one_hp_cadence`: três times reduzem o mesmo HP, sem alterar maxHP; três ataques comuns do chefe atingem times diferentes sem triplicar dano.
+- `target_atomics_guard`: alvo de frente incorreta e comandos inválidos sem mutação; guarda não muda rotação.
+- `dead_fronts_defeat`: derrota de um time não encerra; rotação ignora o time morto e derrota global ocorre uma vez após perder todos.
+- `victory_budget_replay_reset`: vitória por eliminação na última ação global, timeout por empate, replay, imutabilidade após fim e reset sem vazamento entre instâncias.
+
+**136/136 testes aprovados**, incluindo 5/5 grupos de chefe compartilhado, MSVC /W4 /WX. Preservados 168 cenários/replays, 25 formações AP/replays, 1000 simulações funcionais e demo 40 ações/14 rodadas. Evidências: COMBATE-PAR-02-PARTE-1.json, COMBATE.json e chefe-compartilhado-testes.csv. Os 131 anteriores passaram como regressão após adição do coordenador.
+
+### O que ainda falta
+
+Parte 2: habilidades com seletores explícitos de time/chefe, status, recargas e consequências R04 compartilhadas; testar que cargas/eventos não triplicam. Não apenas remover a restrição de skills sem validar alcance e contexto.
+
+Parte 3: integração de mortes/overkill/limites técnicos, término único e replay nas fronteiras; avaliar mudanças de kit por fase conforme contrato definido, sem alegar feature pronta antecipadamente. Limites locais, score, recompensas, partes do chefe, UI, threads e servidor não foram implementados. O bloco inteiro permanece aberto.

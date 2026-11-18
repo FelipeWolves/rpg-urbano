@@ -97,3 +97,6 @@ Comparação de 18/11/2026 concluída por autorização explícita e pontual do 
 
 
 PAR-02: proposta documental em docs/batalhas/PAR-02.md, sem código/testes novos. Usuário recebeu perguntas sobre modelo (HP único/partes/avatares) e cadência (global/por frente). HP único + barra global são recomendações, não decisões. Não implementar até respostas/contrato; PEN-05 aberta. Preservar 131 testes aprovados.
+
+
+Escolhas recebidas: HP único + barra global, ataques comuns alternando frentes vivas. PAR-02 parte 1 implementada SharedBoss (um Battle autoritativo, 3 times de 1–5, AP/SPD, rotação e fluxo básico). 136 testes, 5 grupos novos. Habilidades rejeitadas neste perfil até parte 2: seletores/status/recargas/R04 compartilhados. PEN-05 resolvida; não perguntar de novo. Parte 3 integração final. PAR-02 segue aberto; não iniciar UI/engine/servidor junto.

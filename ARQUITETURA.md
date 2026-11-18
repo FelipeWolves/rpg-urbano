@@ -80,3 +80,8 @@ Referências oficiais consultadas para esta explicação:
 - https://dev.epicgames.com/documentation/en-us/unreal-engine/unreal-engine-modules
 
 Organização documental aprovada; não muda mecânicas nem exige nova bateria de combate. Próximo bloco permanece PAR-02/PEN-05.
+
+
+## PAR-02 parte 1 — integração autoritativa
+
+HP único/barra global escolhidos pelo usuário. SharedBoss possui um Battle com todos os integrantes e um chefe; times são metadados de inscrição/alvo. Reutiliza AP/SPD e resolvedor sem alteração. Ataques comuns do chefe respeitam rotação entre times vivos; não há três contextos com HP reconciliado depois. Habilidades ainda rejeitadas até seletores e estados compartilhados serem integrados/testados na parte 2. Contrato atual em docs/batalhas/PAR-02.md; 136 testes aprovados.

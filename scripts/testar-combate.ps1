@@ -61,6 +61,12 @@ cl.exe %FLAGS% /I"$root\include" "$root\tests\parallel_tests.cpp" "$build\battle
 if errorlevel 1 exit /b 43
 "$build\parallel_tests.exe" "$build\frentes-testes.csv"
 if errorlevel 1 exit /b 44
+cl.exe %FLAGS% /I"$root\include" /c "$root\src\shared_boss.cpp" /Fo"$build\shared_boss.obj"
+if errorlevel 1 exit /b 45
+cl.exe %FLAGS% /I"$root\include" "$root\tests\shared_boss_tests.cpp" "$build\battle.obj" "$build\shared_boss.obj" /Fo"$build\shared_boss_tests.obj" /Fe"$build\shared_boss_tests.exe" /link /INCREMENTAL:NO
+if errorlevel 1 exit /b 46
+"$build\shared_boss_tests.exe" "$build\chefe-compartilhado-testes.csv"
+if errorlevel 1 exit /b 47
 cl.exe %FLAGS% /I"$root\include" "$root\tests\scenario_tests.cpp" "$build\battle.obj" /Fo"$build\scenario_tests.obj" /Fe"$build\scenario_tests.exe" /link /INCREMENTAL:NO
 if errorlevel 1 exit /b 23
 "$build\scenario_tests.exe" "$build\formacoes.csv"
@@ -115,6 +121,13 @@ if ($parallelMatch.Groups[1].Value -ne $parallelMatch.Groups[2].Value) { throw '
 $parallelCsv = @(Import-Csv -LiteralPath (Join-Path $build 'frentes-testes.csv'))
 if ($parallelCsv.Count -ne [int]$parallelMatch.Groups[2].Value -or @($parallelCsv | Where-Object status -ne 'pass').Count) { throw 'Matriz de frentes inconsistente.' }
 Copy-Item -LiteralPath (Join-Path $build 'frentes-testes.csv') -Destination (Join-Path $root 'docs\batalhas\frentes-testes.csv')
+$sharedResult = @($messages | Where-Object { $_ -match '^SHARED_BOSS_TESTS_RESULT passed=(\d+) total=(\d+)$' })
+if ($sharedResult.Count -ne 1) { throw 'Resultado de chefe compartilhado ausente.' }
+$sharedMatch = [regex]::Match($sharedResult[0], '^SHARED_BOSS_TESTS_RESULT passed=(\d+) total=(\d+)$')
+if ($sharedMatch.Groups[1].Value -ne $sharedMatch.Groups[2].Value) { throw 'Testes de chefe compartilhado reprovados.' }
+$sharedCsv = @(Import-Csv -LiteralPath (Join-Path $build 'chefe-compartilhado-testes.csv'))
+if ($sharedCsv.Count -ne [int]$sharedMatch.Groups[2].Value -or @($sharedCsv | Where-Object status -ne 'pass').Count) { throw 'Matriz de chefe compartilhado inconsistente.' }
+Copy-Item -LiteralPath (Join-Path $build 'chefe-compartilhado-testes.csv') -Destination (Join-Path $root 'docs\batalhas\chefe-compartilhado-testes.csv')
 $scenario = @($messages | Where-Object { $_ -match '^SCENARIOS_OK cases=168 replays=168 ' })
 $isolation = @($messages | Where-Object { $_ -match '^ISOLATION_OK ' })
 $batchResult = @($messages | Where-Object { $_ -match '^BATCH_OK battles=1000 ' })
@@ -149,6 +162,8 @@ Copy-Item -LiteralPath (Join-Path $build 'sequencia-testes.csv') -Destination (J
     SequentialTestsTotal = [int]$sequentialMatch.Groups[2].Value
     ParallelTestsPassed = [int]$parallelMatch.Groups[1].Value
     ParallelTestsTotal = [int]$parallelMatch.Groups[2].Value
+    SharedBossTestsPassed = [int]$sharedMatch.Groups[1].Value
+    SharedBossTestsTotal = [int]$sharedMatch.Groups[2].Value
     APFormationCases = 25
     Simulation = $simulation[0]
     FormationCases = $csv.Count
@@ -156,5 +171,5 @@ Copy-Item -LiteralPath (Join-Path $build 'sequencia-testes.csv') -Destination (J
     IsolationResult = $isolation[0]
     LocalBatchResult = $batchResult[0]
     ExitCode = $code
-    Scope = 'Own combat core with action identities/multi-hit/skill guard and fixed/AP timing, skills/status clocks, extras/reactions, optional guard, consecutive stages, three successive squads with stable/phased boss kits and classified states/shields and local/global action budgets; formation/replay matrix; three coordinated independent cooperative fronts with global action budget and cancellation; independent interleaved contexts; bounded local functional batch; not shared-boss/multithreading/server validation'
+    Scope = 'Own combat core with action identities/multi-hit/skill guard and fixed/AP timing, skills/status clocks, extras/reactions, optional guard, consecutive stages, three successive squads with stable/phased boss kits and classified states/shields and local/global action budgets; formation/replay matrix; three coordinated independent cooperative fronts with global action budget and cancellation; independent interleaved contexts; bounded local functional batch; basic single-HP shared boss with global AP and rotating targets; no shared-boss skill integration/multithreading/server validation'
 } | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $root 'COMBATE.json') -Encoding utf8

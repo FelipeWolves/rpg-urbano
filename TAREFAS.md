@@ -37,8 +37,10 @@ Uma entrega por vez. Ordem por área, criticidade e dependências, conforme PLAN
   - [x] Parte 3 — Integração R04/habilidades, Skip, reações, extras, falha técnica e fronteiras finais; 131 testes totais aprovados.
 - [ ] PAR-02 — Após decidir o modelo, investigar chefe em três frentes: HP autoritativo, partes ou avatares/score. Aceite: mortes simultâneas, overkill, efeitos/skill-phase globais uma vez, orçamento e ordem total. Não substituir essa implementação por clones independentes do chefe.
   - [x] Preparar proposta de modelo/cadência, impactos e matriz de aceite em docs/batalhas/PAR-02.md (documental).
-  - [ ] Receber escolhas do usuário e fechar contrato; PEN-05 ainda aberta.
-  - [ ] Implementar e validar incrementos após o contrato; divisão final depende da avaliação técnica.
+  - [x] Receber escolhas: HP único + barra global; PEN-05 resolvida no perfil inicial, contrato da parte 1 em PAR-02.md.
+  - [x] Parte 1 — Composição, único estado/AP, rotação entre times vivos e ataques básicos; 136 testes totais aprovados.
+  - [ ] Parte 2 — Habilidades, seletores, estados/recargas e R04 compartilhados.
+  - [ ] Parte 3 — Integração final, limites técnicos, overkill e conclusão/replay nas fronteiras.
 
 ## 3. Uso, habilidades ampliadas e persistência
 
@@ -59,7 +61,7 @@ Uma entrega por vez. Ordem por área, criticidade e dependências, conforme PLAN
 
 ## Próximo bloco executável
 
-PAR-02: proposta preparada em docs/batalhas/PAR-02.md; aguardam escolhas de modelo e cadência. Fechar contrato/PEN-05 antes de implementar. PAR-01 encerrado; não iniciar UI/engine/servidor junto.
+PAR-02 parte 2: integrar habilidades com seletores explícitos, estados/recargas e R04 compartilhados. Parte 1 concluída, HP único/barra global escolhidos. Ler PAR-02.md; não iniciar UI/engine/servidor junto.
 
 ## Encerramento de cada entrega
 

@@ -19,13 +19,13 @@ Pasta do projeto: este diretório. Não usar a pasta do laboratório como diret�
 
 ## Verificação desta entrega
 
-PAR-01 concluído nas três partes. Integração final aprovada sem mudanças de mecânicas/coordenador: reflexão/explosão inline, morte dupla pelo autor, revive antes do timeout, Skip, reações sem cobrança adicional, extras cancelados e falha técnica antes do timeout. Seis grupos novos; 16 PAR-01 e 131 testes totais, MSVC /W4 /WX aprovado. Preservados 168 cenários/replays, 25 formações AP/replays, lote funcional de 1000 e demo. Evidências: docs/batalhas/PAR-01.md, COMBATE-PAR-01-FINAL.json e frentes-testes.csv.
+PAR-02 parte 1 concluída após escolhas explícitas: HP único e barra global, ataques comuns alternando entre times vivos. SharedBoss usa um Battle autoritativo com 3 times de 1–5 e um chefe, AP/SPD global, identidade/inscrição, restrição de alvos por frente, sobrevivência global, orçamento único e reset/replay. Nenhuma alteração no kernel. Cinco grupos novos, 136 testes totais aprovados em MSVC /W4 /WX; matrizes e demo preservados. Evidências: docs/batalhas/PAR-02.md, COMBATE-PAR-02-PARTE-1.json e chefe-compartilhado-testes.csv.
 
-Painel marca PAR-01 encerrado e mantém legenda. Sem threads, HP compartilhado, servidor ou score. Alternância é por comando aceito, não por tempo de CPU. Não repetir testes sem mudança pertinente.
+Habilidades são rejeitadas na configuração do primeiro perfil: alcance/status/recargas/R04 compartilhados ainda serão integrados. Não declarar PAR-02 inteiro concluído. Sem partes/avatares, score, limites locais por time, UI, threads ou servidor.
 
 ## Próximo passo executável
 
-PAR-02 iniciado documentalmente: proposta em docs/batalhas/PAR-02.md. Aguardam respostas sobre modelo do chefe e cadência; recomendados HP único e uma barra global, ainda não adotados. PEN-05 aberta. Fechar contrato antes de implementar; não iniciar UI/engine/servidor junto. Pushes ficam com o usuário.
+PAR-02 parte 2: integrar habilidades, seletores explícitos e estado/recargas/R04 compartilhados; provar efeitos/cargas únicos. PEN-05 resolvida para HP único/barra global; outras propostas não são automaticamente decisões. Ler PAR-02.md, uma entrega por vez. Pushes ficam com o usuário.
 
 ## Novas restrições e fatos úteis
 

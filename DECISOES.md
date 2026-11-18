@@ -162,3 +162,8 @@ A pedido do usuário, consulta excepcional somente leitura aos relatórios irmã
 ## DEC-031 — Separação por áreas e plugins conforme necessidade
 
 Usuário aprovou manter combate, dados, aplicação, apresentação, áudio, persistência/diagnóstico e ferramentas separados. Plugin é opção de implementação após pesquisa e pequeno teste de integração, não exigência para cada área. Priorizar adequação, manutenção, licença, compatibilidade e substituição; engine ainda não escolhida, sem downloads/instalações/compras. Diretriz em ARQUITETURA.md. Sem mudança de código/testes; PAR-02 continua próximo.
+
+
+## DEC-032 — HP único e barra global
+
+Usuário escolheu HP único compartilhado pelos três times e uma barra global do chefe, ataques alternando entre frentes vivas. Parte 1 usa um único Battle com identidade de time na camada SharedBoss, sem clones de chefe ou mudanças no resolvedor. Composição 3x1–5, AP/SPD global e rotação somente após ataque comum aceito. Habilidades fora do primeiro perfil; integração posterior exige seletores/estado únicos e testes. 136 testes aprovados. PEN-05 resolvida para este modelo.

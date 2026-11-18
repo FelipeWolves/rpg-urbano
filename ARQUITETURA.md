@@ -94,3 +94,8 @@ PAR-02 parte 3 concluiu integração do perfil HP/AP único/alvo direto único: 
 
 
 COM-02: rpg::presentation::run_text_session adapta streams/comandos a Battle e eventos a texto; app/jogar.cpp é a entrada terminal. Sem mutação direta de HP ou duplicação de dano/vitória. Time B usa choose_basic_attack; execução automática limitada na apresentação, sem fabricar resultado. Configuração default 3x3 AP, teto 200, sem menu de coordenadores. 155 testes totais; próximo HAB-01.
+
+
+## Direção HAB-01 — perfis e habilidades
+
+Separar perfil de escolhas, relógio AP/SPD e controle manual/automático. Perfil inicial de equipe com até três posições por personagem, que podem conter componentes ativos/passivos/híbridos; básica pertence ao conjunto, sem bypass por ataque alternativo. Clássico preserva opções configuradas como guarda. Passivas exigem gatilhos reais antes de anunciadas funcionais. Planejamento em docs/batalhas/HAB-01.md, ainda não implementado; sem vínculo obrigatório entre mundo aberto e perfil clássico.

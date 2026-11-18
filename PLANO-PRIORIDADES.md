@@ -44,7 +44,7 @@ Usar habilidades originais mínimas já disponíveis para validar cada modo. Nã
 | Ordem | Bloco | Esforço relativo | Primeira entrega menor |
 |---|---|---|---|
 | 6 | ✅ COM-02 concluído | Baixo/médio | Escolher ação/alvo e reiniciar no protótipo textual, reutilizando regras do motor |
-| 7 | HAB-01 | Médio/alto, variável | Uma família adicional de habilidade/recurso por entrega, com configuração e teste próprios |
+| 7 | HAB-01 | Médio/alto, variável | Perfis padrão/clássico e posições; depois passivas, condições e automação em partes |
 | 8 | CIC-01 | Médio/alto | Separar composição/seleção, conclusão/recompensa e save versionado em entregas incrementais |
 
 COM-02 sai da espera quando a área 2 estiver entregue; não pressupõe interface gráfica. HAB-01 amplia o mínimo existente, sem reimplementar o que TIME/RES já forneceram. CIC-01 deve validar dados em memória antes de gravar saves e não tratar log de comandos como snapshot completo.
@@ -74,4 +74,4 @@ ATB opcional, backend/multiplayer, publicação em lojas/launcher e produção m
 
 ## Próxima ação concreta
 
-HAB-01: uma família adicional de habilidades/recurso por incremento, com contrato e testes. COM-02 encerrado, 155 testes aprovados. Não iniciar engine/UI gráfica/score/servidor junto.
+HAB-01 parte 1: perfis/posições de habilidade, preservando clássico e AP/SPD. Plano HAB-01.md separa passivas, condições, automação e integração. COM-02 encerrado, 155 testes prévios; não iniciar engine/UI gráfica/score/servidor junto.

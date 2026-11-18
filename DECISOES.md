@@ -187,3 +187,8 @@ PAR-02 encerra apenas HP/AP único e skills de alvo direto único com escopos/R0
 ## DEC-036 — Apresentação textual separada
 
 COM-02 usa streams e Battle para input/estado/eventos, sem regras duplicadas. Usuário controla A, B usa política básica existente. Default 3x3 AP, orçamento de 200/empate; comando exige alvo explícito. Reinício reconstrói dados/regras originais, EOF/sair não simulam vitória. Proteção de 256 ações automáticas encerra apresentação sem mudar resultado. Sete grupos de interação e 155 testes totais aprovados; sem engine/menu de modos ou novas mecânicas. Próximo HAB-01.
+
+
+## DEC-037 — Roteiro de perfis e conjuntos de habilidades
+
+Observação do usuário orienta padrão de equipe com até três posições e clássico preservado. Organização documental separa menu, AP/SPD e controle. Habilidades podem ser ações de suporte ou conter componente passivo; passivas não viram botões. HAB-01 dividido em perfis/posições, primeira passiva, condições/kits, automação e integração. Detalhes são propostas de contrato, não regras já implementadas ou equivalência oficial ao Dislyte. Pesquisa pública limitada registrada em HAB-01.md; 155 testes não reexecutados.

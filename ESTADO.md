@@ -27,7 +27,7 @@ Sem menus dos coordenadores SEQ/PAR, UI gráfica, salvamento, engine, rede ou re
 
 ## Próximo passo executável
 
-HAB-01: definir uma família adicional de habilidade/recurso por incremento; reutilizar efeitos/recargas existentes e testar comportamento. Ler TAREFAS.md e COM-02.md; não iniciar engine/UI gráfica/score junto. Pushes com o usuário.
+HAB-01 parte 1: contrato de perfis padrão/clássico e posições de habilidade conforme docs/batalhas/HAB-01.md. Plano atualizado com dúvidas por etapa; pesquisa oficial pública não expôs especificação atual completa. Nenhuma implementação nova nesta entrega. Reutilizar recargas/efeitos; sem engine/UI gráfica/score junto. Pushes com o usuário.
 
 ## Novas restrições e fatos úteis
 
@@ -77,3 +77,8 @@ Catálogos cenarios.json/mecanicas.csv atualizados sem excluir IDs; versões ant
 ## Correção de entrada COM-02
 
 Reproduzido bloqueio de scripts no Windows PowerShell. Adicionado Jogar.cmd, independente de .ps1 e do diretório atual; binário direto e lançador CMD validados com saída zero. Segurança do Windows preservada. Motor inalterado, 155 testes anteriores não repetidos. Próximo HAB-01 permanece.
+
+
+## Planejamento HAB-01 após observações do usuário
+
+Direção recebida: perfil padrão de equipe com até três posições, componentes ativos/passivos/híbridos e clássico preservado. AP/SPD, menu e manual/automático são eixos separados. Roteiro em HAB-01.md, cinco partes pequenas com preparação documental concluída. Consulta oficial pública limitada, sem certificar catálogo atual. Nenhum código/launcher alterado ou nova execução dos 155 testes.

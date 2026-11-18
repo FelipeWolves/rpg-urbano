@@ -45,7 +45,13 @@ Uma entrega por vez. Ordem por área, criticidade e dependências, conforme PLAN
 ## 3. Uso, habilidades ampliadas e persistência
 
 - [x] COM-02 — Interação textual de ações/alvos, resposta básica do time B, estado/resultado e reinício. 155 testes totais, 7 novos; app/jogar.cpp e scripts/jogar.ps1. Perfil Battle 3x3 AP, sem menu dos coordenadores ou UI gráfica; docs/batalhas/COM-02.md.
-- [ ] HAB-01 — Habilidades distintas, recurso e primeiros efeitos de estado; especificar e testar antes de expandir conteúdo.
+- [ ] HAB-01 — Perfis padrão de equipes/clássico, posições de habilidade, passivas e condições, preservando AP/SPD e regras existentes. Recurso somente se necessário. Plano em docs/batalhas/HAB-01.md.
+  - [x] Preparação — Plano, dúvidas por etapa e pesquisa pública com limites; sem mudança funcional.
+  - [ ] Parte 1 — Perfis/posições, básica vinculada ao conjunto e distinção ativa/passiva/híbrida, sem comportamento fictício.
+  - [ ] Parte 2 — Primeira passiva autoral com gatilho, limite e janela de resolução.
+  - [ ] Parte 3 — Condição adicional e primeiros kits próprios, uma família por entrega.
+  - [ ] Parte 4 — Manual/automático com validação única e prioridade explícita.
+  - [ ] Parte 5 — Integrar poucos kits ao protótipo, preservar clássico e validar reset/replay.
 - [ ] CIC-01 — Seleção de equipe, recompensa mínima e salvamento local versionado.
 
 ## 4. Engine e apresentação funcional
@@ -61,7 +67,7 @@ Uma entrega por vez. Ordem por área, criticidade e dependências, conforme PLAN
 
 ## Próximo bloco executável
 
-HAB-01: especificar e implementar uma família adicional de habilidade/recurso por incremento, sem reescrever recarga/status já existentes. COM-02 encerrado; ler COM-02.md. Não iniciar engine/UI gráfica/score junto.
+HAB-01 parte 1: fechar contrato de perfis/posições e implementar incremento delimitado conforme HAB-01.md. Preservar clássico, separar AP/SPD de menu e controle. Não reescrever recargas/status nem iniciar engine/UI gráfica/score junto.
 
 ## Encerramento de cada entrega
 

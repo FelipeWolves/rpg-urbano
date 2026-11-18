@@ -115,3 +115,6 @@ COM-02 concluído, 155 testes totais/7 grupos textuais. .\scripts\jogar.ps1 exec
 
 
 Entrada recomendada para usuário Windows: Jogar.cmd na raiz (ou build/combate/jogar.exe direto). Windows PowerShell comum bloqueou .ps1 por política; não alterar segurança nem usar bypass. CMD e executável direto via Windows PowerShell validados. Alteração somente de entrada/documentos, sem repetir 155 testes. Próximo HAB-01.
+
+
+Plano HAB-01 atualizado após direção do usuário: padrão de equipes com até três posições e clássico preservado; separar menu/AP-SPD/manual-auto. Passivas e componentes híbridos precisam de gatilhos reais, sem rótulo fictício. Cinco partes em docs/batalhas/HAB-01.md; próxima parte 1 perfis/posições/contrato. Esta entrega só documental, sem mexer em Jogar.cmd ou repetir 155 testes. Pesquisa oficial pública limitada não certifica regras atuais completas; pedir amostras pontuais só quando necessárias.

@@ -61,7 +61,7 @@ Classificação pelo roteiro documentado, sem inferir datas pela criação do re
 
 | Ordem posterior aos modos críticos | Bloco | Falta |
 |---|---|---|
-| 1 | ⚠️ HAB-01 | Famílias ampliadas de habilidades, recursos e efeitos |
+| 1 | ⚠️ HAB-01 | Preparação documental concluída; partes 1–5 pendentes: perfis/posições, passiva, condições, automação e integração; HAB-01.md |
 | 2 | ⚠️ CIC-01 | Equipe, recompensa e save local versionado |
 | 3 | ⚠️ ENG-01 | Escolha e teste de compatibilidade da engine |
 | 4 | ⚠️ VIS-01 | Arena visual integrada ao núcleo |

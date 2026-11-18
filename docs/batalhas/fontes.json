@@ -1,0 +1,76 @@
+{
+  "consultadoEm": "2026-11-18",
+  "escopo": "Pesquisa pública seletiva; sem cliente, contas, arquivos de jogo, datamining ou APIs privadas. Não é arquivo histórico exaustivo.",
+  "fontes": [
+    {
+      "id": "U01",
+      "tipo": "relato_do_usuario",
+      "origem": "Conversa de 18/11/2026",
+      "informacao": "Identificou Celestial Anomaly Season 0 e descreveu três confrontos paralelos contra três chefes ou o mesmo chefe; também descreveu até cinco batalhas por fase e três times em sequência com habilidades de chefe diferentes.",
+      "limite": "Aceito como requisito de projeto e experiência relatada; não determina estado interno, regras exatas ou motivo de alteração do modo."
+    },
+    {
+      "id": "P01",
+      "tipo": "publicacao_do_desenvolvedor_na_loja",
+      "url": "https://apps.apple.com/pl/app/dislyte/id1590319959?platform=ipad",
+      "informacao": "Histórico publicado pelo fornecedor contém mudanças de AP/SPD, gatilhos, recargas, efeitos, imunidade, cura, múltiplos acertos e temporadas.",
+      "limite": "Notas de versões, não especificação completa nem prova do comportamento atual de todos os modos. Não publica arquitetura do servidor."
+    },
+    {
+      "id": "P02",
+      "tipo": "site_oficial",
+      "url": "https://dislyte.farlightgames.com/",
+      "informacao": "Página oficial e acesso a notícias/canais públicos.",
+      "limite": "Não forneceu nesta consulta especificação histórica completa dos confrontos ou diagnóstico de desempenho."
+    },
+    {
+      "id": "C01",
+      "tipo": "arquivo_comunitario_secundario",
+      "url": "https://dislyte.fandom.com/wiki/Withering_Flame",
+      "informacao": "Identifica Withering Flame como Season 0, relacionando Raging Lion, Soaring Goat e Sunken Viper às fases de 2023.",
+      "limite": "Pista de identificação histórica; fonte secundária, não documentação técnica primária."
+    },
+    {
+      "id": "C02",
+      "tipo": "notas_reproduzidas_por_comunidade",
+      "url": "https://dislyte.fandom.com/wiki/Version/3.3.3",
+      "informacao": "Reprodução de notas descreve formações de cinco e seis integrantes, Falsetto com três times e Calamity com limites por confronto.",
+      "limite": "Não tratada como prova independente da implementação; sem inferência de arquitetura ou justificativa de design."
+    },
+    {
+      "id": "V01",
+      "tipo": "registro_de_gameplay_candidato_a_fonte_primaria",
+      "url": "https://www.youtube.com/watch?v=E31v-_yt-sA",
+      "informacao": "AuhseyTV, 27/05/2023, vídeo sobre Wither Messenger; descrição aponta segmento de equipe Chimera em 14:28.",
+      "limite": "Somente título/data/descrição consultados; vídeo não foi assistido quadro a quadro. Sem validação visual dos três confrontos."
+    },
+    {
+      "id": "V02",
+      "tipo": "registro_de_gameplay_candidato_a_fonte_primaria",
+      "url": "https://www.youtube.com/watch?v=6znav5l50Po",
+      "informacao": "Registro de 16/06/2023 sobre a segunda fase e equipe Chimera.",
+      "limite": "Somente metadados públicos consultados; não valida regras de sincronização ou vida compartilhada."
+    },
+    {
+      "id": "C03",
+      "tipo": "transcricao_atribuida_a_desenvolvedores_sem_original_verificado",
+      "url": "https://www.reddit.com/r/Dislyte/comments/15oas8w/",
+      "informacao": "Post de 11/08/2023 reproduz comunicado atribuído ao Discord da equipe, mencionando adiamento de Shademother por questões de desempenho em combate multiplayer.",
+      "limite": "Origem original não autenticada nesta consulta. Modo diferente; não prova causa de mudança em Celestial Anomaly, problema de servidor ou limite da Unreal."
+    },
+    {
+      "id": "C04",
+      "tipo": "relatos_comunitarios_sem_verificacao_tecnica",
+      "url": "https://www.reddit.com/r/Dislyte/comments/1584qk3/",
+      "informacao": "Discussão de julho/2023 relata percepções de sincronização e fluxo de ações em Chimera.",
+      "limite": "Não comprova bug, regra de contador, causa ou números exatos; serve somente para levantar cenários de teste."
+    },
+    {
+      "id": "L01",
+      "tipo": "evidencia_local_primaria",
+      "origem": "tests/scenario_tests.cpp, COMBATE.json e formacoes-testadas.csv",
+      "informacao": "Matriz de formações/replay, invariantes, isolamento de contextos independentes e lote funcional do nosso código.",
+      "limite": "Não representa código do Dislyte, chefe compartilhado, engine gráfica, simultaneidade real ou servidor."
+    }
+  ]
+}

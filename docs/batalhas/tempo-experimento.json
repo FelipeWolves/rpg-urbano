@@ -1,0 +1,71 @@
+{
+  "CheckedUtc": "2026-11-18T13:41:32.3441742Z",
+  "Scope": "Proposed isolated clock experiment; not Dislyte parity or Battle integration",
+  "ModelVersion": 1,
+  "Threshold": 1000000,
+  "Passed": 11,
+  "Total": 11,
+  "Tests": [
+    {
+      "Id": "spd_frequency",
+      "Status": "pass",
+      "Error": null
+    },
+    {
+      "Id": "ordinal_tie_and_replay",
+      "Status": "pass",
+      "Error": null
+    },
+    {
+      "Id": "ap_push",
+      "Status": "pass",
+      "Error": null
+    },
+    {
+      "Id": "ap_down_clamp",
+      "Status": "pass",
+      "Error": null
+    },
+    {
+      "Id": "speed_change",
+      "Status": "pass",
+      "Error": null
+    },
+    {
+      "Id": "extra_turn_separate_clocks",
+      "Status": "pass",
+      "Error": null
+    },
+    {
+      "Id": "reaction_not_turn",
+      "Status": "pass",
+      "Error": null
+    },
+    {
+      "Id": "owner_only_ticks",
+      "Status": "pass",
+      "Error": null
+    },
+    {
+      "Id": "dead_not_scheduled",
+      "Status": "pass",
+      "Error": null
+    },
+    {
+      "Id": "invalid_speed",
+      "Status": "pass",
+      "Error": null
+    },
+    {
+      "Id": "cooldown_saturation",
+      "Status": "pass",
+      "Error": null
+    }
+  ],
+  "Policies": {
+    "GlobalExample": "natural_opportunities_only_not_official_rule",
+    "Overflow": "discard_on_natural_turn",
+    "Precision": "integer_discrete_tick_proposal_not_official_formula",
+    "Tie": "AP_desc_SPD_desc_ordinal_ID"
+  }
+}

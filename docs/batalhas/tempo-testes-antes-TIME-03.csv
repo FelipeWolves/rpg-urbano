@@ -1,0 +1,17 @@
+test,status,scope
+configuration,pass,own_cpp_timing_profile
+frequency_replay,pass,own_cpp_timing_profile
+ap_speed,pass,own_cpp_timing_profile
+extras_lifetimes,pass,own_cpp_timing_profile
+blocking_skip,pass,own_cpp_timing_profile
+guard_toggle,pass,own_cpp_timing_profile
+reaction_clocks,pass,own_cpp_timing_profile
+reaction_lethal,pass,own_cpp_timing_profile
+technical_limits,pass,own_cpp_timing_profile
+skill_atomics,pass,own_cpp_timing_profile
+stage_runtime,pass,own_cpp_timing_profile
+stage_budgets_replay,pass,own_cpp_timing_profile
+formations_25,pass,own_cpp_timing_profile
+fixed_extras,pass,own_cpp_timing_profile
+pending_death_block,pass,own_cpp_timing_profile
+deadline_edges,pass,own_cpp_timing_profile

@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "natureza": "Catálogo de requisitos e cobertura; não é configuração carregada pelo motor",
+  "atualizadoEm": "2026-11-18",
+  "cenarios": [
+    {"id":"FORM-01","descricao":"Todos os tamanhos de 1 a 5 contra 1 a 5","estado":"verificado_no_nucleo_atual","fontes":["U01","L01"],"cobertura":"25 pares x 3 perfis de ataque x 2 políticas; replay com ordem de entrada invertida","limite":"Atributos sintéticos; sem habilidades extras, AP ou balanceamento final"},
+    {"id":"FORM-02","descricao":"Exceções de formação 1x6, 6x1, 6x6","estado":"sondagem_verificada","fontes":["C02","L01"],"cobertura":"18 cenários e 18 replays","limite":"Não define tamanho padrão do jogador nem prova capacidade ilimitada"},
+    {"id":"TIME-01","descricao":"Orçamento de ações principais por confronto","estado":"limite_local_implementado_e_testado","fontes":["U01","L01"],"cobertura":"11 testes de orçamento local; regra de vitória prioritária; empate ou derrota configurável","limite":"Global consecutivo implementado em WAVE-01; outras unidades pendentes; 4096 é proteção técnica"},
+    {"id":"WAVE-01","descricao":"Um time em até cinco confrontos consecutivos na mesma fase","estado":"implementado_e_testado","fontes":["U01","L01"],"cobertura":"9 testes: 1/2/5 confrontos, vida, mortos, reset, replay e limites locais/globais","limite":"Ataque e guarda; sem recargas, save ou recompensa persistente"},
+    {"id":"SEQ-01","descricao":"Três times sucessivos contra um chefe com habilidades por etapa","estado":"requisito_registrado_nao_implementado","fontes":["U01","C02"],"cobertura":"Contrato de identidade, habilidades, vida e troca pendente de implementação","limite":"Mesma identidade não determina se vida/efeitos são compartilhados ou reiniciados"},
+    {"id":"PAR-01","descricao":"Três confrontos paralelos contra chefes independentes","estado":"isolamento_intercalado_verificado_sem_modo_completo","fontes":["U01","L01"],"cobertura":"3 contextos 5x1, 2 escalas de intercalação, comparados à execução individual","limite":"Uma thread, sem relógio global, visual, rede ou eventos entre confrontos"},
+    {"id":"PAR-02","descricao":"Três frentes simultâneas contra o mesmo chefe","estado":"requisito_registrado_nao_implementado","fontes":["U01"],"cobertura":"Alternativas de HP compartilhado, avatar/partes e pontuação em CONTRATOS.md","limite":"Não identificado o modelo interno usado pelo jogo de referência"},
+    {"id":"LOAD-01","descricao":"Lote funcional local de mil batalhas 5x5","estado":"verificado_sem_benchmark_de_servidor","fontes":["L01"],"cobertura":"1000 simulações sequenciais, invariantes ativos, build Od","limite":"Sem metas de latência, medição de memória, GPU, rede ou usuários concorrentes"}
+  ],
+  "incertezas": [
+    "Não há evidência primária verificada de que Season 0 fosse teste de estresse de servidor.",
+    "Motivo de mudança/retirada de modos não foi estabelecido.",
+    "Um chefe aparente pode ser uma entidade com HP único, partes ou instâncias com pontuação conjunta.",
+    "Contagem exata de turnos e persistência por modo devem ser confirmadas antes de reproduzir um comportamento específico.",
+    "Este catálogo não cobre todas as versões, personagens ou regras históricas."
+  ]
+}
+

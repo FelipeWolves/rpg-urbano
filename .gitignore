@@ -1,0 +1,25 @@
+# Unreal generated files; source Config/Content/Plugins remain trackable.
+/Binaries/
+/DerivedDataCache/
+/Intermediate/
+/Saved/
+/Plugins/**/Binaries/
+/Plugins/**/Intermediate/
+/.vs/
+/.idea/
+*.sln
+*.suo
+*.VC.db
+*.VC.opendb
+
+# Local build/test output and temporary files.
+/build/
+/out/
+/TestResults/
+*.tmp
+*.log
+
+# Local secrets; never store account credentials in the repository.
+.env
+.env.*
+!.env.example

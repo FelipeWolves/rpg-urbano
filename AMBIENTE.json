@@ -1,0 +1,21 @@
+{
+  "CheckedUtc": "2026-11-18T12:29:17.9636162Z",
+  "VisualStudio": "Visual Studio Community 2026",
+  "VisualStudioDisplayVersion": "18.12.1",
+  "VisualStudioInstallationVersion": "18.12.12412.261",
+  "MSVCToolset": "14.52.37025",
+  "WindowsSDK": "10.0.26100.0",
+  "Architecture": "x64",
+  "Standard": "C++20",
+  "Flags": "/std:c++20 /permissive- /Zc:__cplusplus /EHsc /W4 /WX /utf-8 /Od /MT",
+  "Result": "TOOLCHAIN_OK cxx=202002 msvc=195237029 pointer_bits=64 sum=17",
+  "ExitCode": 0,
+  "Checks": [
+    "C++20 concepts/span/ranges",
+    "x64 pointers",
+    "standard library sort and sum",
+    "Windows SDK header/link and GetNativeSystemInfo call"
+  ],
+  "Scope": "Own diagnostic only; no gameplay, engine, downloads or installations",
+  "Command": ".\\scripts\\verificar-ambiente.ps1"
+}

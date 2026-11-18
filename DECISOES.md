@@ -1,0 +1,128 @@
+# Decisões
+
+## DEC-001 — Projeto independente
+
+Estado: confirmado. Novo jogo autoral, em diretório separado do laboratório. Nenhuma leitura ou reutilização de instalações, contas, launchers ou recursos protegidos. Inspiração de gênero não define personagens, regras ou identidade final.
+
+## DEC-002 — Entregas pequenas
+
+Estado: confirmado. Uma entrega verificável por bloco. Histórico e estado concisos no repositório. Processamento repetitivo automatizado localmente quando útil; nenhuma obrigação de produzir longos relatórios a cada ajuste.
+
+## DEC-003 — Consumo de Codex
+
+Estado: preferência confirmada. Usuário acompanha o painel; reserva desejada de 30%. Não há acesso automático ao saldo nem previsão garantida por tarefa. Calibrar o tamanho dos blocos a partir de consumo observado. Não iniciar paralelismo por padrão.
+
+## DEC-004 — Engine e atualização
+
+Estado: em aberto. Unreal moderna é candidata, não instalada ou escolhida neste bloco. Começar em versão estável compatível com os recursos disponíveis. Atualizações testadas em ramificação/cópia; sem garantia de migração automática para futuras gerações. Código-fonte e recursos editáveis devem ser preservados.
+
+## DEC-005 — Primeira batalha
+
+Estado: hipótese de trabalho reversível. Arena 3x3, seis instâncias provisórias, ataque e guarda, adversário determinístico e vitória por eliminação. Estatísticas e regras detalhadas em VISAO.md. Primeiro avaliar as regras; depois produzir personagens e arte final.
+
+## DEC-006 — Plataforma e conectividade
+
+Estado: hipótese de trabalho. Protótipo offline para PC, sem contas, servidor ou loja. Confirmar plataforma final antes de decisões gráficas caras. Mobile e serviços online não fazem parte do primeiro ciclo.
+
+## DEC-007 — Linguagem do núcleo
+
+Estado: definida em FUN-02 e viabilizada em AMB-01. C++20 independente da Unreal, build direto MSVC x64, biblioteca padrão e sem CMake/framework de testes externo no primeiro motor. A proposta VS2022 foi substituída pela escolha do usuário por Visual Studio 2026, instalado manualmente e validado pelo diagnóstico. Ponte e compatibilidade com Unreal serão avaliadas ao escolher a engine.
+
+## DEC-008 — Limite do bloco atual
+
+Estado: confirmado. Fundação documental e repositório local, sem desenvolvimento de gameplay, instalação de engine, chamadas de API pagas ou publicação. Próximo bloco proposto: FUN-02.
+
+## DEC-009 — Encerramento de FUN-02
+
+Estado: diagnóstico concluído em 18/11/2026. GPU identificada como RTX 3060; aproximadamente 31,8 GiB de RAM. .NET disponível é runtime, sem SDK. Engine/compilador utilizáveis não foram confirmados nas buscas seletivas. Não inferir ausência de instalações em caminhos personalizados, nem VRAM pelo campo AdapterRAM do WMI. Detalhes e fontes em FERRAMENTAS.md.
+
+Próxima entrega proposta: AMB-01, somente instalação aprovada das ferramentas mínimas e programa diagnóstico próprio. Sem aprovação, não instalar ou trocar linguagem como atalho. COM-01 permanece pendente.
+
+## DEC-010 — Visual Studio 2026 validado
+
+Estado: confirmado em 18/11/2026. O usuário escolheu e instalou manualmente VS Community 2026. vswhere identificou 18.12.1 (instalação 18.12.12412.261), estável, completa e sem reinicialização requerida. VsDevCmd selecionou MSVC 14.52.37025 e Windows SDK 10.0.26100.0.
+
+Diagnóstico próprio C++20/x64 validou concepts, span, ranges, biblioteca padrão e chamada Windows SDK. Compilação /W4 /WX sem avisos, link e execução com saída zero. Comando em AGENTS.md; evidência em AMBIENTE.json. Não instalar VS2022 por causa da proposta superada. Nenhuma engine ou gameplay executado; compatibilidade futura da engine não certificada. Próximo bloco: COM-01.
+
+## DEC-011 — Primeiro motor textual entregue
+
+Estado: confirmado em 18/11/2026. Núcleo C++20 sem dependências de Unreal, Windows ou rede, com definições próprias, consultas constantes, comandos validados e eventos de domínio. As regras de VISAO.md foram mantidas. Aceita qualquer formação com ambas as equipes e pelo menos um combatente vivo inicial por equipe; o cenário de referência é 3x3.
+
+IDs ordenam canonicamente a entrada e desempates; velocidade é imutável nesta versão. Dano dos eventos é o dano aplicado, limitado à vida restante. Guarda arredonda para cima sem overflow de INT_MAX, consome em um acerto ou expira no início do próximo turno do defensor. Comando inválido não consome turno nem produz eventos.
+
+13 testes de comportamento aprovados com /W4 /WX. Referência sempre-atacar: A vence em 35 ações/12 rodadas, A2 com 50 de vida; replay com entrada invertida tem estado/eventos idênticos. Demo automática usa uma guarda inicial para mostrar a regra e termina em 40 ações/14 rodadas. Não há input interativo ou reinício nesta entrega; COM-02 os adicionará. Detalhes e limites em COMBATE.md.
+
+## DEC-012 — Investigar formatos antes da interface
+
+Estado: confirmado em 18/11/2026, por solicitação do usuário. COM-02 em espera. COM-01A analisou formações 1–5, confrontos consecutivos, limites, três times sucessivos com habilidades de chefe por etapa e confrontos paralelos. Usuário identificou Celestial Anomaly Season 0 como referência histórica; isso não revela o código interno ou causa de mudança do modo.
+
+168 cenários e 168 replays aprovados; 13 testes anteriores mantidos. Três contextos independentes intercalados foram comparados a execuções individuais. Lote funcional local de 1000 simulações não é benchmark de servidor. Nenhuma mudança de regra do núcleo foi necessária para essa matriz; modos coordenados seguem pendentes.
+
+Não fixar cinco como constante global, confundir AP com rodada fixa, nem clonar chefe em três HPs e chamá-lo de estado compartilhado. Contratos propostos em docs/batalhas/CONTRATOS.md; fontes classificadas em fontes.json. Causas de retirada e desempenho do Dislyte não foram verificadas em fonte técnica primária. Próxima entrega: TIME-01, depois WAVE-01, SEQ-01 e PAR-01/PAR-02 em blocos.
+
+## DEC-013 — Limite local e registro central de pendências
+
+Estado: confirmado em TIME-01, 18/11/2026. Contar ações principais aceitas de ambos os lados, incluindo guarda. Orçamento local opcional, inteiro positivo; política explícita de empate/derrota A/derrota B. Sem configuração, preservar comportamento sem limite. Eliminação na última ação prevalece; não avançar turno após esgotamento.
+
+Adicionar EndReason e contador/regras ao estado/eventos: Finished não significa necessariamente vitória por eliminação. Global de fase, score e ações derivadas não foram implementados. 11 testes novos e regressão anterior aprovados; detalhes em docs/batalhas/TIME-01.md.
+
+Por solicitação do usuário, PENDENCIAS.md passa a ser o registro central de dúvidas e capacidades não validadas; cada item tem ID e momento de resolução. Referenciar sem repetir todas as ressalvas em cada entrega. Próximo bloco WAVE-01, consultar PEN-01/PEN-02; COM-02 segue em espera.
+
+## DEC-014 — Fase consecutiva com estado e orçamento explícitos
+
+WAVE-01 concluída em 18/11/2026: Stage para 1–5 confrontos, políticas obrigatórias PreserveHealth/RestoreTeam, guarda limpa e ordem reiniciada; vida inicial validada sem alterar atributos. Limites locais/globais contam ações aceitas; empate de limites usa política global. Vitória final por eliminação na última ação prevalece; vitória intermediária sem saldo não inicia nova onda. Eliminação de A não é anulada pela política global. Detalhes e fronteiras em docs/batalhas/WAVE-01.md.
+
+9 testes novos aprovados, 24 anteriores e 168 cenários preservados. Identidade/versão e evento de conclusão únicos em memória; sem economia, save ou habilidades. Próximo bloco SEQ-01. Questões futuras permanecem em PENDENCIAS.md.
+
+## DEC-015 — Pesquisa e perfil de tempo antes de chefes por etapa
+
+Usuário pediu pesquisa ampla e aproximação das mecânicas gerais do Dislyte, preservando guarda como opção extra e outros sistemas de tempo como possibilidade. TIME-02 passa à frente de SEQ-01. Evidência oficial histórica distingue AP, turno adicional e ações auxiliares; detalhes naturais/contadores têm lacunas ou apenas fontes secundárias. Não declarar paridade com o cliente.
+
+Experimento PowerShell isolado: 11/11 verificações, sem alteração de Battle/Stage. Relatório docs/batalhas/TEMPO-PESQUISA.md; JSON/CSV próprios. Perfil AP será integrado e validado em C++ no próximo bloco. ATB permanece extensão planejada; efeitos e recargas reais não foram implementados por este experimento.
+
+## DEC-016 — Perfis fixo/AP e fronteiras explícitas de turno
+
+TIME-02 integrada em C++ em 18/11/2026. Perfil ActionBar prioritário para experimentos, FixedRounds mantido para regressão. Turno natural/extra e reação não são intercambiáveis. Guarda é opção configurável. Habilidades originais mínimas declarativas fornecem dano básico, AP/SPD, extras, bloqueio, marcador e contra-ataque; sem catálogo proprietário.
+
+Relógios do dono são NaturalOnly ou EveryTurn; nova recarga/status não é reduzida no mesmo uso/aplicação. Skip bloqueado conta como comando principal; reação não. Erro de cadeia tem TechnicalLimit sem vencedor. Fases AP/habilidades exigem política de runtime: Preserve ou Reset, com AP/guarda/filas locais reiniciados. Contrato completo em docs/batalhas/TIME-02.md.
+
+49 testes aprovados, 168 cenários anteriores e 25 formações AP/replays. Não há equivalência comprovada ao Dislyte nem ATB implementado. Próximo bloco SEQ-01; demais lacunas em PENDENCIAS.md.
+
+## DEC-017 — Opção B: reflexão e explosões entre acertos
+
+Decisão explícita do usuário em 18/11/2026: reflexão de cada hit antecede drenagem FIFO de pendingDeaths; explosões em cadeia resolvem antes do hit seguinte. Auto-revive após loop; Victory Lock depois das consequências obrigatórias. Em 0 × 0, vence o lado de CurrentActionActor da ação em resolução, inclusive contra-ataque, sem trocar esse papel pelo emissor de reflexão/explosão ou pelo lado ofensivo fixo do modo. Referência completa e cinco invariantes em docs/batalhas/CONTRATO-CAUSALIDADE-R04.md. Contrato autoral; não é paridade externa comprovada nem implementação já testada.
+
+## DEC-018 — Primeiro ajuste TIME-03: ciclo de recarga
+
+Implementado e validado: uso elegível já reduz sua nova recarga no encerramento, até zero. Exemplo N=3 reutiliza no turno 4. Status mantêm regra anterior; extras ainda seguem relógios por habilidade até a parte 2. 53 testes e matrizes aprovados; relatório incremental docs/batalhas/TIME-03.md. Bloco TIME-03 ainda aberto.
+
+
+## DEC-019 — Fonte explícita e contexto do turno extra
+
+TIME-03 parte 2: ExtraTurnSource declara categoria/flags/teto; ExtraTurnContext preserva proveniência e oportunidade natural originadora na fila/eventos/snapshots. Flags explícitas governam recarga/duração nessa oportunidade; ausência preserva relógio legado. Limite por (concedente, beneficiário, fonte) na cadeia natural suprime concessão sem erro técnico. 60 testes aprovados; contrato em docs/batalhas/TIME-03.md. Próxima parte: controle/congelamento.
+
+
+## DEC-020 — Encerramento TIME-03: bloqueio e congelamento separados
+
+Block impede escolha de ação; FreezeCooldowns impede decremento final. Combinação configura controle com congelamento. Avaliar congelamento antes de expirar status: o último turno congelado não reduz recarga. Flag de extra não contorna congelamento; duração permanece independente. 67 testes aprovados, 168 cenários/replays e 25 formações/replays AP preservados. Contrato em docs/batalhas/TIME-03.md. TIME-03 encerrado; próxima entrega RES-01/identidade e multi-hit/guarda por habilidade.
+
+
+## DEC-021 — Instância de ação e guarda em múltiplos acertos
+
+RES-01 parte 1 implementada: ActionContext captura autor/lado/ID/raiz/pai; cada contra-ataque executado tem ID próprio, com pai imediato. Acertos de uma habilidade compartilham contexto e numeração. Guarda protege todos os acertos dessa instância e consome uma vez ao fechar ação, antes de reações. Teto 64 por bloco Damage/256 por habilidade, sem multiplicar dano int. 76 testes aprovados; R04 completo permanece para partes 2/3. Relatório docs/batalhas/RES-01.md.
+
+
+## DEC-022 — Reflexão e FIFO entre acertos no perfil mínimo
+
+RES-01 parte 2 implementa Reflect e DeathExplosion com magnitude fixa positiva, reflexão antes da drenagem e explosões FIFO sem recursão profunda. Consequências não disparam novas reflexões/Counter nem usam guarda; mortes podem gerar novas explosões. Limite técnico por trabalho, distinto de orçamento de turnos. LowestHealthEnemy é seleção dinâmica determinística de teste. Morte dupla usa autor da ação em resolução, sem janela de revive ainda. Fase PreserveHealth sem sobreviventes encerra NoSurvivors, enquanto RestoreTeam permite transição explícita. 84 testes aprovados; próxima parte prevenção/revive/vitória. Detalhes em docs/batalhas/RES-01.md.
+
+
+## DEC-023 — Encerramento RES-01 e janela de sobrevivência
+
+PreventDeath mantém 1 HP em dano letal e consome carga sem confirmar morte. AutoRevive consome carga na morte, é processado após golpes/FIFO e antes do resultado, limitado ao HP máximo; AP/guarda reiniciam sem retomar trabalho cancelado. Prevenção/revive gastam orçamento técnico. Cinco invariantes R04 validados no conjunto mínimo; sem catálogo ou revive aliado de área. 95 testes aprovados e matrizes preservadas; próximo SEQ-01. Contrato incremental docs/batalhas/RES-01.md.
+
+
+## DEC-024 — Coordenador de três times sucessivos
+
+SequentialSquads separa personagem, instância e time; valida inscrição inteira (três times de 1–5, sem repetição). Mantém HP e max_health do chefe, troca por eliminação/limite local, aplica orçamento global único e respeita R04 antes da troca. Política base explícita conserva cooldowns ou reinicia runtime, limpando todos os status; categorias refinadas e kits por etapa entram na parte 2. 103 testes aprovados e matrizes preservadas; SEQ-01 ainda aberto. Relatório docs/batalhas/SEQ-01.md.
+

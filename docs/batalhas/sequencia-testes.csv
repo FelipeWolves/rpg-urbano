@@ -1,0 +1,9 @@
+test,status,scope
+composition,pass,three_sequential_squads_base
+wipe_order,pass,three_sequential_squads_base
+early_win,pass,three_sequential_squads_base
+budgets,pass,three_sequential_squads_base
+boss_runtime,pass,three_sequential_squads_base
+fresh_squad,pass,three_sequential_squads_base
+r04_transition,pass,three_sequential_squads_base
+technical_reset_replay,pass,three_sequential_squads_base

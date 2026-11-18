@@ -104,3 +104,9 @@ Ordem atual: **HAB-01 → CIC-01 → ENG-01 → VIS-01 → ART-01 → AUD-01 →
 
 
 ✅ Defesa genérica atualizada: metade arredondada para baixo por acerto. Regressão pertinente dos blocos afetados concluída,155/155; executável confirmou25->12. COMBATE-DEFESA-BAIXO.json. ⚠️ Outras regras de dano/defesa do clássico são possibilidades futuras em DEFESA-PADRAO.md, não funcionalidades do padrão de equipes.
+
+## HAB-01 parte 1 — estado atual (18/11/2026)
+
+✅ Perfis equipe/clássico, posições 1–3, básica canônica sem recarga, defesa restrita ao clássico e metadados passivos não selecionáveis implementados. 162/162 testes; dois lançadores conferidos. Este estado substitui indicações históricas de perfil ainda não implementado.
+
+⚠️ HAB-01 continua aberto: passivas funcionais, silêncio e condições especiais não implementados. Próximo: parte 2, contrato do primeiro gatilho passivo autoral e implementação delimitada. Relatório completo e limites: docs/batalhas/HAB-01.md; evidência COMBATE-HAB-01-PARTE-1.json. Jogar.cmd abre equipes; Jogar-Classico.cmd preserva o clássico.

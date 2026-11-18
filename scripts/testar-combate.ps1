@@ -67,13 +67,19 @@ cl.exe %FLAGS% /I"$root\include" "$root\tests\shared_boss_tests.cpp" "$build\bat
 if errorlevel 1 exit /b 46
 "$build\shared_boss_tests.exe" "$build\chefe-compartilhado-testes.csv"
 if errorlevel 1 exit /b 47
+cl.exe %FLAGS% /I"$root\include" /c "$root\src\ability_profile.cpp" /Fo"$build\ability_profile.obj"
+if errorlevel 1 exit /b 53
+cl.exe %FLAGS% /I"$root\include" "$root\tests\ability_profile_tests.cpp" "$build\battle.obj" "$build\ability_profile.obj" /Fo"$build\ability_profile_tests.obj" /Fe"$build\ability_profile_tests.exe" /link /INCREMENTAL:NO
+if errorlevel 1 exit /b 54
+"$build\ability_profile_tests.exe" "$build\perfis-testes.csv"
+if errorlevel 1 exit /b 55
 cl.exe %FLAGS% /I"$root\include" /c "$root\src\text_session.cpp" /Fo"$build\text_session.obj"
 if errorlevel 1 exit /b 48
-cl.exe %FLAGS% /I"$root\include" "$root\tests\text_session_tests.cpp" "$build\battle.obj" "$build\text_session.obj" /Fo"$build\text_session_tests.obj" /Fe"$build\text_session_tests.exe" /link /INCREMENTAL:NO
+cl.exe %FLAGS% /I"$root\include" "$root\tests\text_session_tests.cpp" "$build\battle.obj" "$build\ability_profile.obj" "$build\text_session.obj" /Fo"$build\text_session_tests.obj" /Fe"$build\text_session_tests.exe" /link /INCREMENTAL:NO
 if errorlevel 1 exit /b 49
 "$build\text_session_tests.exe" "$build\interacao-testes.csv"
 if errorlevel 1 exit /b 50
-cl.exe %FLAGS% /I"$root\include" "$root\app\jogar.cpp" "$build\battle.obj" "$build\text_session.obj" /Fo"$build\jogar.obj" /Fe"$build\jogar.exe" /link /INCREMENTAL:NO
+cl.exe %FLAGS% /I"$root\include" "$root\app\jogar.cpp" "$build\battle.obj" "$build\ability_profile.obj" "$build\text_session.obj" /Fo"$build\jogar.obj" /Fe"$build\jogar.exe" /link /INCREMENTAL:NO
 if errorlevel 1 exit /b 51
 "$build\jogar.exe" < "$build\jogar-smoke.txt" > "$build\jogar-smoke.log"
 if errorlevel 1 exit /b 52
@@ -147,6 +153,13 @@ $textCsv = @(Import-Csv -LiteralPath (Join-Path $build 'interacao-testes.csv'))
 if ($textCsv.Count -ne [int]$textMatch.Groups[2].Value -or @($textCsv | Where-Object status -ne 'pass').Count) { throw 'Matriz textual inconsistente.' }
 if ((Get-Content -LiteralPath (Join-Path $build 'jogar-smoke.log') -Raw) -notmatch 'Sessao encerrada\.') { throw 'Verificação do aplicativo interativo falhou.' }
 Copy-Item -LiteralPath (Join-Path $build 'interacao-testes.csv') -Destination (Join-Path $root 'docs\batalhas\interacao-testes.csv')
+$profileResult = @($messages | Where-Object { $_ -match '^PROFILE_TESTS_RESULT passed=(\d+) total=(\d+)$' })
+if ($profileResult.Count -ne 1) { throw 'Resultado de perfis ausente.' }
+$profileMatch = [regex]::Match($profileResult[0], '^PROFILE_TESTS_RESULT passed=(\d+) total=(\d+)$')
+if ($profileMatch.Groups[1].Value -ne $profileMatch.Groups[2].Value) { throw 'Testes de perfis reprovados.' }
+$profileCsv = @(Import-Csv -LiteralPath (Join-Path $build 'perfis-testes.csv'))
+if ($profileCsv.Count -ne [int]$profileMatch.Groups[2].Value -or @($profileCsv | Where-Object status -ne 'pass').Count) { throw 'Matriz de perfis inconsistente.' }
+Copy-Item -LiteralPath (Join-Path $build 'perfis-testes.csv') -Destination (Join-Path $root 'docs\batalhas\perfis-testes.csv')
 $scenario = @($messages | Where-Object { $_ -match '^SCENARIOS_OK cases=168 replays=168 ' })
 $isolation = @($messages | Where-Object { $_ -match '^ISOLATION_OK ' })
 $batchResult = @($messages | Where-Object { $_ -match '^BATCH_OK battles=1000 ' })
@@ -186,6 +199,8 @@ Copy-Item -LiteralPath (Join-Path $build 'sequencia-testes.csv') -Destination (J
     TextTestsPassed = [int]$textMatch.Groups[1].Value
     TextTestsTotal = [int]$textMatch.Groups[2].Value
     TextExecutableSmoke = 'quit_ok'
+    ProfileTestsPassed = [int]$profileMatch.Groups[1].Value
+    ProfileTestsTotal = [int]$profileMatch.Groups[2].Value
     APFormationCases = 25
     Simulation = $simulation[0]
     FormationCases = $csv.Count
@@ -193,5 +208,5 @@ Copy-Item -LiteralPath (Join-Path $build 'sequencia-testes.csv') -Destination (J
     IsolationResult = $isolation[0]
     LocalBatchResult = $batchResult[0]
     ExitCode = $code
-    Scope = 'Own combat core with action identities/multi-hit/skill guard and fixed/AP timing, skills/status clocks, extras/reactions, optional guard, consecutive stages, three successive squads with stable/phased boss kits and classified states/shields and local/global action budgets; formation/replay matrix; three coordinated independent cooperative fronts with global action budget and cancellation; independent interleaved contexts; bounded local functional batch; single-HP shared boss with scoped single-target skills, global clocks and R04; text session with player A commands, basic AI B, restart and scripted integration tests; no broad shared-boss catalog/multithreading/server validation'
+    Scope = 'Own combat core with action identities/multi-hit/skill guard and fixed/AP timing, skills/status clocks, extras/reactions, optional guard, consecutive stages, three successive squads with stable/phased boss kits and classified states/shields and local/global action budgets; formation/replay matrix; three coordinated independent cooperative fronts with global action budget and cancellation; independent interleaved contexts; bounded local functional batch; single-HP shared boss with scoped single-target skills, global clocks and R04; team/classic profiles, validated ability slots with canonical basic and informational passive declarations; text session with player A commands, basic AI B, restart and scripted integration tests; no broad shared-boss catalog/multithreading/server validation'
 } | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $root 'COMBATE.json') -Encoding utf8

@@ -75,3 +75,9 @@ ATB opcional, backend/multiplayer, publicação em lojas/launcher e produção m
 ## Próxima ação concreta
 
 HAB-01 parte 1: perfis/posições de habilidade, preservando clássico e AP/SPD. Plano HAB-01.md separa passivas, condições, automação e integração. COM-02 encerrado, 155 testes prévios; não iniciar engine/UI gráfica/score/servidor junto.
+
+## HAB-01 parte 1 — estado atual (18/11/2026)
+
+✅ Perfis equipe/clássico, posições 1–3, básica canônica sem recarga, defesa restrita ao clássico e metadados passivos não selecionáveis implementados. 162/162 testes; dois lançadores conferidos. Este estado substitui indicações históricas de perfil ainda não implementado.
+
+⚠️ HAB-01 continua aberto: passivas funcionais, silêncio e condições especiais não implementados. Próximo: parte 2, contrato do primeiro gatilho passivo autoral e implementação delimitada. Relatório completo e limites: docs/batalhas/HAB-01.md; evidência COMBATE-HAB-01-PARTE-1.json. Jogar.cmd abre equipes; Jogar-Classico.cmd preserva o clássico.

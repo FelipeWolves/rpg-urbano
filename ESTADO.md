@@ -97,3 +97,9 @@ Usuário fechou perfil até 3 posições, básica A1 não silenciável/disponív
 ## Defesa genérica — arredondamento para baixo concluído
 
 Pedido retomado após retorno do usuário: 25->12, 5->2 e 1->0 por hit, sem alterar consumo/expiração/escudos. Kernel e expectativas afetadas atualizados; 155/155 testes aprovados na regressão completa. Executável revalidado com defesa e dano 12; demo 40 ações/14 rodadas. Evidência COMBATE-DEFESA-BAIXO.json. Futuras amplificações/mitigações clássicas registradas em DEFESA-PADRAO.md, não implementadas. Perfil padrão segue sem defesa genérica; próximo HAB-01 parte 1.
+
+## HAB-01 parte 1 — estado atual (18/11/2026)
+
+✅ Perfis equipe/clássico, posições 1–3, básica canônica sem recarga, defesa restrita ao clássico e metadados passivos não selecionáveis implementados. 162/162 testes; dois lançadores conferidos. Este estado substitui indicações históricas de perfil ainda não implementado.
+
+⚠️ HAB-01 continua aberto: passivas funcionais, silêncio e condições especiais não implementados. Próximo: parte 2, contrato do primeiro gatilho passivo autoral e implementação delimitada. Relatório completo e limites: docs/batalhas/HAB-01.md; evidência COMBATE-HAB-01-PARTE-1.json. Jogar.cmd abre equipes; Jogar-Classico.cmd preserva o clássico.

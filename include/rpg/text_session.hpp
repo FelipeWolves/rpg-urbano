@@ -1,5 +1,5 @@
 #pragma once
-#include "rpg/battle.hpp"
+#include "rpg/ability_profile.hpp"
 #include <iosfwd>
 
 namespace rpg::presentation {
@@ -15,5 +15,7 @@ struct TextReport {
 [[nodiscard]] BattleRules text_reference_rules();
 // Presentation only; streams support terminal use and deterministic scripted checks.
 [[nodiscard]] TextReport run_text_session(std::istream& input,std::ostream& output,
-    std::vector<Definition> roster=reference_roster(),BattleRules rules=text_reference_rules());
+    std::vector<Definition> roster=reference_roster(),BattleRules rules=text_reference_rules(),
+    CombatProfile profile=CombatProfile::Classic,std::vector<CharacterLoadout> loadouts={});
+[[nodiscard]] TextReport run_team_reference_session(std::istream& input,std::ostream& output);
 } // namespace rpg::presentation

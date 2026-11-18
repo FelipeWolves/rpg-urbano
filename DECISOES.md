@@ -202,3 +202,7 @@ Usuário definiu até três posições, básica A1 sem silêncio nem indisponibi
 ## DEC-039 — Defesa com arredondamento inferior
 
 Usuário escolheu floor(dano/2) por hit como padrão da defesa genérica; 1 pode virar0. Não muda consumo/expiração nem precedência de escudos. Possibilidades futuras de amplificar/reduzir dano no clássico ficam anotadas, sem implementação ou imposição ao padrão de equipes. 155 testes aprovados e protótipo confirmado25->12; arquivos históricos preservados.
+
+## DEC-040 — Perfis e posições HAB-01 parte 1
+
+Perfil de equipe usa até três posições, básica canônica sem recarga e sem defesa genérica; clássico permanece em lançador próprio. Passivas declaradas não executam efeitos neste incremento. Kernel de batalha reutilizado por composição, com validação de loadouts e comandos no ProfileBattle. Aceite 162/162; próxima parte exige contrato do primeiro gatilho passivo.

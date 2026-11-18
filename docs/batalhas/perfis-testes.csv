@@ -1,0 +1,7 @@
+test,status,scope
+configuration,pass,team_slots_classic_preserved
+canonical_basic,pass,team_slots_classic_preserved
+passive_hybrid,pass,team_slots_classic_preserved
+cooldown_basic,pass,team_slots_classic_preserved
+action_block,pass,team_slots_classic_preserved
+replay_classic,pass,team_slots_classic_preserved

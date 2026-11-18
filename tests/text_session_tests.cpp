@@ -77,11 +77,20 @@ void safety_and_technical_result(){
     check(ended.final_state.end_reason==EndReason::TechnicalLimit && !ended.final_state.winner &&
           out.str().find("limite tecnico, sem vencedor")!=std::string::npos,"technical stop printed competitive winner");
 }
+void team_profile_session(){
+    std::istringstream input("defesa\n2 B3\nreiniciar\natacar B3\nsair\n");std::ostringstream out;
+    const auto r=run_team_reference_session(input,out);
+    check(r.player_actions==2 && r.rejected_commands==1 && r.restarts==1 && !r.final_state.rules.guard_enabled &&
+          out.str().find("Perfil: EQUIPES")!=std::string::npos && out.str().find("componente passivo ainda nao implementado")!=std::string::npos,
+          "team UI allowed defense, lost aliases/reset or claimed implemented passive");
+    check(out.str().find("1 - Ataque basico | DISPONIVEL")!=std::string::npos,"basic slot not shown");
+}
 }
 int main(int argc,char** argv){
     const std::pair<const char*,void(*)()> tests[]={{"input_atomics",input_and_invalid_atomics},{"target_enemy",selected_target_and_enemy},
         {"guard_restart",guard_and_restart},{"victory_restart",victory_postfinish_restart},
-        {"skill_skip_clock",skill_block_skip_and_clock},{"eof_timeout",eof_and_timeout},{"safety_technical",safety_and_technical_result}};
+        {"skill_skip_clock",skill_block_skip_and_clock},{"eof_timeout",eof_and_timeout},{"safety_technical",safety_and_technical_result},
+        {"team_profile",team_profile_session}};
     int passed=0;for(const auto& [name,test]:tests){try{test();++passed;std::cout<<"PASS text "<<name<<'\n';}
         catch(const std::exception& e){std::cerr<<"FAIL text "<<name<<": "<<e.what()<<'\n';}}
     std::cout<<"TEXT_TESTS_RESULT passed="<<passed<<" total="<<std::size(tests)<<'\n';

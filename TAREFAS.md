@@ -101,3 +101,9 @@ Essas famílias não são funcionalidades prontas por SEQ-01/PAR-01/PAR-02 estar
 
 
 - [x] Defesa genérica arredondada para baixo por padrão; regressão completa 155/155 e protótipo com 25->12. Extensões futuras clássicas anotadas em DEFESA-PADRAO.md, separadas do perfil padrão. HAB-01 parte 1 continua próxima.
+
+## HAB-01 parte 1 — estado atual (18/11/2026)
+
+✅ Perfis equipe/clássico, posições 1–3, básica canônica sem recarga, defesa restrita ao clássico e metadados passivos não selecionáveis implementados. 162/162 testes; dois lançadores conferidos. Este estado substitui indicações históricas de perfil ainda não implementado.
+
+⚠️ HAB-01 continua aberto: passivas funcionais, silêncio e condições especiais não implementados. Próximo: parte 2, contrato do primeiro gatilho passivo autoral e implementação delimitada. Relatório completo e limites: docs/batalhas/HAB-01.md; evidência COMBATE-HAB-01-PARTE-1.json. Jogar.cmd abre equipes; Jogar-Classico.cmd preserva o clássico.

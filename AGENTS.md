@@ -127,3 +127,9 @@ Contrato HAB-01-PERFIL-EQUIPE-R01.md recebido: padrão até3posições, básica 
 
 
 Defesa genérica agora floor(power/2), não ceil. Pedido do usuário implementado com regressão completa155/155, mínimo1->0 e demo40/14 preservada. Protótipo confirma25->12. DEFESA-PADRAO.md guarda extensões clássicas futuras, sem alterar contrato padrão de equipe sem defesa genérica. Próximo HAB-01 parte1.
+
+## HAB-01 parte 1 — estado atual (18/11/2026)
+
+✅ Perfis equipe/clássico, posições 1–3, básica canônica sem recarga, defesa restrita ao clássico e metadados passivos não selecionáveis implementados. 162/162 testes; dois lançadores conferidos. Este estado substitui indicações históricas de perfil ainda não implementado.
+
+⚠️ HAB-01 continua aberto: passivas funcionais, silêncio e condições especiais não implementados. Próximo: parte 2, contrato do primeiro gatilho passivo autoral e implementação delimitada. Relatório completo e limites: docs/batalhas/HAB-01.md; evidência COMBATE-HAB-01-PARTE-1.json. Jogar.cmd abre equipes; Jogar-Classico.cmd preserva o clássico.

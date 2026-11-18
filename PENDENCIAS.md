@@ -217,3 +217,7 @@ Básica A1 não silenciável e sempre disponível quando unidade apta/alvo legal
 ## Defesa clássica — extensões futuras
 
 Arredondamento padrão para baixo decidido e implementado. Modificadores de dano recebido/defendido, perfuração, itens/atributos e ordem/limites futuros do clássico são possibilidades a especificar antes de codificar. Não se aplicam automaticamente ao padrão de equipes sem defesa genérica. DEFESA-PADRAO.md; regressão atual155 aprovada.
+
+## HAB-01 após parte 1
+
+Perfis/posições concluídos (162/162 testes). Próxima pendência: contrato e implementação do primeiro gatilho passivo; definir janela, dono do limite, vivos/bloqueados/revive e integração R04. Silêncio/supressão e condições especiais seguem futuros; não declarar esses efeitos testados.

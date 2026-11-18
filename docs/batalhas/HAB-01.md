@@ -1,6 +1,6 @@
 # HAB-01 — Plano de habilidades e perfis de batalha
 
-18/11/2026. **Contrato de equipes R01 fechado; implementação do perfil ainda não iniciada.** Proposta baseada no relato do usuário e no código atual; nenhuma regra atual completa do Dislyte foi certificada. Os 155 testes existentes não foram repetidos por esta tarefa documental.
+18/11/2026. **Parte 1 implementada e validada: perfis e posições. Partes 2–5 pendentes.** Proposta baseada no relato do usuário e no código atual; nenhuma regra atual completa do Dislyte foi certificada. Histórico documental preservado abaixo; aceite atual: 162/162 testes, conforme entrega ao final.
 
 ## Direção recebida
 
@@ -108,3 +108,19 @@ Relatório de habilidades recebido e analisado em REVISAO-HABILIDADES-USUARIO-R0
 ## Contrato recebido — perfil padrão de equipes R01
 
 HAB-01-PERFIL-EQUIPE-R01.md fecha até três posições, básica A1 não silenciável e disponível quando apto, passivas informativas, defesa genérica ausente e indicadores distintos de recarga/silêncio/condição. Silêncio de passivas é suportabilidade a definir por efeito; congelar/petrificar permanecem dúvida explícita. Clássico preservado, itens/estamina/especial só propostas futuras. Nesta entrega apenas terminologia defesa foi aplicada no protótipo; próxima parte 1 é implementação dos perfis/posições.
+
+## HAB-01 parte 1 — entregue em 18/11/2026
+
+Esta atualização prevalece sobre os estados históricos acima que indicam perfil ainda não implementado.
+
+✅ Perfis de equipe/clássico e até três posições validadas; básica obrigatória na posição 1, ativa e sem recarga. Comando legado de ataque e IA usam a mesma habilidade básica, sem desvio de validação. Defesa genérica bloqueada no perfil de equipes e preservada no clássico. AP/SPD e resolução de dano mantidos.
+
+✅ Recarga numérica separada de incapacidade de agir; posições passivas não selecionáveis e componentes passivos de habilidades híbridas explicitamente informativos. Reset, replay, rejeições sem mutação e compatibilidade clássica cobertos.
+
+Validação: 162/162 testes (155 anteriores mais seis grupos de perfis e um grupo textual), 168 cenários com replay, 25 formações AP e lote funcional local de 1.000 batalhas. Abertura dos dois lançadores conferida com saída normal; defesa clássica confirmou 25->12. Evidências: COMBATE-HAB-01-PARTE-1.json, perfis-testes.csv e interacao-testes.csv. Esses números não medem servidor, renderização ou mobile.
+
+Entrada padrão: Jogar.cmd; comandos 1 ALVO, 2 ALVO, 3 ALVO. Exemplo: 1 B3; proteção própria: 3 A3 quando A3 estiver agindo. Jogar-Classico.cmd mantém ataque/defesa/habilidade. Skills são exemplos autorais provisórios de dano e escudo.
+
+⚠️ HAB-01 permanece aberto. Passivas ainda NÃO produzem efeitos; apenas sua declaração e apresentação foram implementadas. Silêncio, supressão de passivas, condições especiais, itens e quarta habilidade não implementados. A imunidade da básica a silêncio é contrato futuro, não teste funcional de um efeito inexistente. Block impede agir e continua distinto de silêncio e de FreezeCooldowns.
+
+Próximo: HAB-01 parte 2, definir um primeiro gatilho passivo autoral com janela, elegibilidade, limite e interação com R04 antes de implementá-lo. Partes 3–5 permanecem planejadas; não iniciar engine ou interface gráfica neste incremento. Nenhuma instalação do jogo foi acessada ou alterada.

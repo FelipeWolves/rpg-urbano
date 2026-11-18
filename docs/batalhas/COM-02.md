@@ -73,3 +73,9 @@ Alternativa no terminal, já dentro de rpg-urbano: ` .\build\combate\jogar.exe `
 ## Terminologia atualizada
 
 Comando recomendado defesa; ajuda/estado/eventos usam defesa. guardar permanece alias oculto de compatibilidade. Sete testes textuais e executáveis próprios revalidados sem repetir a bateria integral; evidência COM-02-DEFESA.json. Novo perfil de equipes definido em HAB-01-PERFIL-EQUIPE-R01.md, ainda não implementado.
+
+## HAB-01 parte 1 — estado atual (18/11/2026)
+
+✅ Perfis equipe/clássico, posições 1–3, básica canônica sem recarga, defesa restrita ao clássico e metadados passivos não selecionáveis implementados. 162/162 testes; dois lançadores conferidos. Este estado substitui indicações históricas de perfil ainda não implementado.
+
+⚠️ HAB-01 continua aberto: passivas funcionais, silêncio e condições especiais não implementados. Próximo: parte 2, contrato do primeiro gatilho passivo autoral e implementação delimitada. Relatório completo e limites: docs/batalhas/HAB-01.md; evidência COMBATE-HAB-01-PARTE-1.json. Jogar.cmd abre equipes; Jogar-Classico.cmd preserva o clássico.

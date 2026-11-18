@@ -99,3 +99,7 @@ COM-02: rpg::presentation::run_text_session adapta streams/comandos a Battle e e
 ## Direção HAB-01 — perfis e habilidades
 
 Separar perfil de escolhas, relógio AP/SPD e controle manual/automático. Perfil inicial de equipe com até três posições por personagem, que podem conter componentes ativos/passivos/híbridos; básica pertence ao conjunto, sem bypass por ataque alternativo. Clássico preserva opções configuradas como guarda. Passivas exigem gatilhos reais antes de anunciadas funcionais. Planejamento em docs/batalhas/HAB-01.md, ainda não implementado; sem vínculo obrigatório entre mundo aberto e perfil clássico.
+
+## Perfis de habilidades — HAB-01 parte 1
+
+ProfileBattle compõe Battle: configuração validada de slots, tradução de ataque básico/IA e bloqueio de skills não equipadas. Battle permanece responsável por tempo, efeitos e dano. Perfis não alteram AP/SPD. Passive_note é somente metadado e nunca dispara efeito. Apresentação textual consulta disponibilidade sem executar ações.

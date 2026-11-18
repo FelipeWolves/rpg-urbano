@@ -4,8 +4,11 @@
 
 namespace rpg::presentation {
 namespace {
-void help(std::ostream& out){
-    out<<"Comandos: atacar ALVO | defesa | habilidade ID ALVO | passar\n"
+void help(std::ostream& out,CombatProfile profile){
+    if(profile==CombatProfile::Team){out<<"Perfil: EQUIPES | Comandos: 1 ALVO | 2 ALVO | 3 ALVO | passar\n"
+        <<"Posicoes passivas sao informativas. Defesa generica nao disponivel.\n";}
+    else{out<<"Perfil: CLASSICO | Comandos: atacar ALVO | defesa | habilidade ID ALVO | passar\n";}
+    out
        <<"          estado | ajuda | reiniciar | sair\n"
        <<"Voce controla o time A. O time B ataca automaticamente.\n";
 }
@@ -24,7 +27,7 @@ const char* error_message(ActionError error){
     default:return "Acao recusada pelo motor. Consulte estado.";
     }
 }
-void state(const Battle& battle,std::ostream& out){
+void state(const Battle& battle,std::ostream& out,bool show_skills=true){
     out<<"\n--- Estado | acoes "<<battle.accepted_actions()<<" ---\n";
     for(const auto& fighter:battle.fighters()){
         out<<fighter.definition.id<<" ["<<(fighter.definition.team==Team::A?'A':'B')<<"] vida "
@@ -40,12 +43,33 @@ void state(const Battle& battle,std::ostream& out){
     }
     const auto* actor=battle.current_actor();
     if(actor){out<<"Vez de "<<actor->definition.id;if(battle.current_actor_blocked()){out<<" [bloqueado: passar]";}out<<'\n';
-        for(const auto& skill:battle.snapshot().rules.skills){if(skill.owner==actor->definition.id){
+        if(show_skills){for(const auto& skill:battle.snapshot().rules.skills){if(skill.owner==actor->definition.id){
             out<<"Habilidade "<<skill.id<<" | alvo "<<(skill.target==TargetRule::Self?"proprio":skill.target==TargetRule::Ally?"aliado":"inimigo");
             for(const auto& cd:actor->cooldowns){if(cd.skill==skill.id){out<<" | recarga "<<cd.remaining;}}
-            out<<'\n';}}
+            out<<'\n';}}}
     }
     if(const auto remaining=battle.remaining_actions()){out<<"Acoes restantes da batalha: "<<*remaining<<'\n';}
+}
+void profile_state(const ProfileBattle& session,std::ostream& out){
+    state(session.battle(),out,session.profile()==CombatProfile::Classic);const auto* actor=session.battle().current_actor();
+    if(session.profile()!=CombatProfile::Team || !actor){return;}
+    const auto rules=session.battle().snapshot().rules;
+    for(const auto& view:session.abilities(actor->definition.id)){
+        out<<view.slot.position<<" - "<<view.slot.name<<" | ";
+        switch(view.availability){
+        case AbilityAvailability::Ready:out<<"DISPONIVEL";break;
+        case AbilityAvailability::Cooldown:out<<"RECARGA: "<<view.cooldown;break;
+        case AbilityAvailability::PassiveOnly:out<<"PASSIVA INFORMATIVA - gatilho ainda nao implementado";break;
+        case AbilityAvailability::Incapacitated:out<<"SEM ACAO: impedimento de agir";break;
+        case AbilityAvailability::Finished:out<<"BATALHA ENCERRADA";break;
+        }
+        if(view.cooldown>0 && view.availability!=AbilityAvailability::Cooldown){out<<" | RECARGA: "<<view.cooldown;}
+        if(view.slot.active_skill){for(const auto& skill:rules.skills){if(skill.id==*view.slot.active_skill){
+            out<<" | alvo "<<(skill.target==TargetRule::Self?"proprio":skill.target==TargetRule::Ally?"aliado":"inimigo");}}}
+        if(!view.slot.passive_note.empty() && view.slot.active_skill){out<<" | componente passivo ainda nao implementado";}
+        if(!view.slot.passive_note.empty()){out<<" | "<<view.slot.passive_note;}
+        out<<'\n';
+    }
 }
 void events(const ActionResult& result,std::ostream& out){
     for(const auto& e:result.events){switch(e.type){
@@ -65,24 +89,27 @@ void events(const ActionResult& result,std::ostream& out){
 BattleRules text_reference_rules(){
     BattleRules rules;rules.timing=TimingProfile::ActionBar;rules.action_budget=ActionBudget{200,LimitOutcome::Draw};return rules;
 }
-TextReport run_text_session(std::istream& input,std::ostream& output,std::vector<Definition> roster,BattleRules rules){
-    Battle battle(roster,rules);std::uint64_t players=0,automatic=0,rejected=0,restarts=0;
+TextReport run_text_session(std::istream& input,std::ostream& output,std::vector<Definition> roster,BattleRules rules,
+    CombatProfile profile,std::vector<CharacterLoadout> loadouts){
+    ProfileBattle session(std::move(roster),std::move(rules),profile,std::move(loadouts));
+    std::uint64_t players=0,automatic=0,rejected=0,restarts=0;
     TextExit exit=TextExit::InputClosed;
     auto advance_enemy=[&](){
+        const auto& battle=session.battle();
         std::uint32_t burst=0;
         while(battle.phase()==Phase::Running && battle.current_actor()->definition.team==Team::B){
             if(burst++==256){output<<"Apresentacao interrompida por excesso de acoes automaticas; nenhum resultado inventado.\n";return false;}
-            const auto action=choose_basic_attack(battle);
+            const auto action=session.choose_basic_action();
             if(!action){output<<"Apresentacao interrompida: nenhuma acao automatica disponivel.\n";return false;}
-            const auto result=battle.apply(*action);
+            const auto result=session.apply(*action);
             if(!result.accepted()){output<<"Apresentacao interrompida: acao automatica recusada.\n";return false;}
             ++automatic;events(result,output);
         }
         return true;
     };
-    output<<"RPG Urbano - laboratorio textual\n";help(output);
-    if(!advance_enemy()){return {battle.snapshot(),TextExit::AutomaticSafetyStop,players,automatic,rejected,restarts};}
-    state(battle,output);
+    output<<"RPG Urbano - laboratorio textual\n";help(output,profile);
+    if(!advance_enemy()){return {session.battle().snapshot(),TextExit::AutomaticSafetyStop,players,automatic,rejected,restarts};}
+    profile_state(session,output);
     std::string line;
     for(;;){
         output<<"> "<<std::flush;
@@ -92,24 +119,48 @@ TextReport run_text_session(std::istream& input,std::ostream& output,std::vector
         if(tokens.empty()){continue;}
         const auto& command=tokens[0];
         if(tokens.size()==1 && command=="sair"){exit=TextExit::Quit;output<<"Sessao encerrada.\n";break;}
-        if(tokens.size()==1 && command=="ajuda"){help(output);continue;}
-        if(tokens.size()==1 && command=="estado"){state(battle,output);continue;}
+        if(tokens.size()==1 && command=="ajuda"){help(output,profile);continue;}
+        if(tokens.size()==1 && command=="estado"){profile_state(session,output);continue;}
         if(tokens.size()==1 && command=="reiniciar"){
-            battle=Battle(roster,rules);++restarts;output<<"Batalha reiniciada.\n";
-            if(!advance_enemy()){exit=TextExit::AutomaticSafetyStop;break;}state(battle,output);continue;
+            session.reset();++restarts;output<<"Batalha reiniciada.\n";
+            if(!advance_enemy()){exit=TextExit::AutomaticSafetyStop;break;}profile_state(session,output);continue;
         }
-        Action action;const auto* actor=battle.current_actor();action.actor=actor?actor->definition.id:std::string{};
+        if(profile==CombatProfile::Team && (command=="1" || command=="2" || command=="3") && tokens.size()==2){
+            const auto result=session.apply_slot(static_cast<std::uint32_t>(command[0]-'0'),tokens[1]);
+            if(!result.accepted()){++rejected;output<<"Posicao indisponivel, informativa ou alvo invalido: "<<error_message(result.error)<<'\n';continue;}
+            ++players;events(result,output);if(!advance_enemy()){exit=TextExit::AutomaticSafetyStop;break;}
+            profile_state(session,output);continue;
+        }
+        Action action;const auto* actor=session.battle().current_actor();action.actor=actor?actor->definition.id:std::string{};
         if(command=="atacar" && tokens.size()==2){action.type=ActionType::Attack;action.target=tokens[1];}
         else if((command=="defesa" || command=="guardar") && tokens.size()==1){action.type=ActionType::Guard;}
         else if(command=="passar" && tokens.size()==1){action.type=ActionType::Skip;}
         else if(command=="habilidade" && tokens.size()==3){action.type=ActionType::Skill;action.skill=tokens[1];action.target=tokens[2];}
         else{++rejected;output<<"Comando invalido. Use ajuda.\n";continue;}
-        const auto result=battle.apply(action);
+        const auto result=session.apply(action);
         if(!result.accepted()){++rejected;output<<error_message(result.error)<<'\n';continue;}
         ++players;events(result,output);
         if(!advance_enemy()){exit=TextExit::AutomaticSafetyStop;break;}
-        state(battle,output);
+        profile_state(session,output);
     }
-    return {battle.snapshot(),exit,players,automatic,rejected,restarts};
+    return {session.battle().snapshot(),exit,players,automatic,rejected,restarts};
+}
+TextReport run_team_reference_session(std::istream& input,std::ostream& output){
+    auto roster=reference_roster();auto rules=text_reference_rules();std::vector<CharacterLoadout> sets;
+    for(const auto& unit:roster){
+        const auto basic=unit.id+"-basica",special=unit.id+"-especial",third=unit.id+"-terceira";
+        rules.skills.push_back({basic,unit.id,0,TargetRule::Enemy,{{EffectKind::Damage}}});
+        CharacterLoadout set{unit.id,{{1,"Ataque basico",basic,{}}}};
+        EffectDefinition double_hit{EffectKind::Damage};double_hit.hit_count=2;
+        if(unit.id.back()=='2'){
+            set.slots.push_back({2,"Instinto (modelo de passiva)",std::nullopt,"Exemplo reservado; sem efeito nesta versao."});
+        }else{
+            rules.skills.push_back({special,unit.id,2,TargetRule::Enemy,{double_hit}});
+            set.slots.push_back({2,"Golpe duplo",special,unit.id.back()=='3'?"Componente hibrido reservado; sem gatilho passivo.":""});
+        }
+        rules.skills.push_back({third,unit.id,3,TargetRule::Self,{{EffectKind::Shield,10,2}}});
+        set.slots.push_back({3,"Protecao",third,{}});sets.push_back(std::move(set));
+    }
+    return run_text_session(input,output,std::move(roster),std::move(rules),CombatProfile::Team,std::move(sets));
 }
 } // namespace rpg::presentation

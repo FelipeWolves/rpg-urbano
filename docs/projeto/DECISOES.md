@@ -230,3 +230,7 @@ Fechar conjunto mínimo com kits ativo/passivo/híbrido reais; híbrida reutiliz
 ## DEC-046 — Composição antes do runtime
 
 TeamSelection possui catálogo e seleção por IDs, de 1 a 5, recusando mudanças inválidas atomicamente. EncounterSetup é cópia de configuração filtrada, sem runtime/save; skills e loadouts excluídos não seguem para batalha. Ordem da seleção não altera iniciativa. Catálogo demo continua três opções; tamanhos até cinco testados com fixtures próprias. Próximo resultado/recompensa em memória antes de persistência.
+
+## DEC-047 — Conclusão e recompensa com autoridade da sessão
+
+LocalSession possui ProfileBattle, tentativa monotônica e ledger em memória. Não recebe IDs/resultados externos. Vitória A por Elimination concede 10 créditos provisórios, outros finais zero; cada tentativa registra no máximo uma conclusão. Reset conserva saldo, troca ID e refaz runtime/equipe. Sem transação durável ou promessa de identidade global; persistência é próxima parte.

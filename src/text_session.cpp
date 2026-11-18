@@ -105,10 +105,24 @@ BattleRules text_reference_rules(){
 }
 TextReport run_text_session(std::istream& input,std::ostream& output,std::vector<Definition> roster,BattleRules rules,
     CombatProfile profile,std::vector<CharacterLoadout> loadouts){
-    ProfileBattle session(std::move(roster),std::move(rules),profile,std::move(loadouts));
+    LocalSession local(std::move(roster),std::move(rules),profile,std::move(loadouts));
+    const auto& session=local.battle();
     opening_passives(session,output);
     std::uint64_t players=0,automatic=0,rejected=0,restarts=0;
     TextExit exit=TextExit::InputClosed;
+    std::size_t shown_completions=0;
+    auto show_rewards=[&](){
+        const auto& progress=local.progress();
+        while(shown_completions<progress.completions.size()){
+            const auto& completion=progress.completions[shown_completions++];
+            output<<"Conclusao #"<<completion.attempt<<": +"<<completion.credits
+                <<" creditos de teste | saldo "<<progress.credits<<" (somente nesta sessao).\n";
+        }
+    };
+    auto show_state=[&](){
+        profile_state(session,output);
+        output<<"Tentativa #"<<local.progress().attempt<<" | Saldo local: "<<local.progress().credits<<" creditos de teste (sem save).\n";
+    };
     auto advance_enemy=[&](){
         const auto& battle=session.battle();
         std::uint32_t burst=0;
@@ -116,17 +130,17 @@ TextReport run_text_session(std::istream& input,std::ostream& output,std::vector
             if(burst++==256){output<<"Apresentacao interrompida por excesso de acoes automaticas; nenhum resultado inventado.\n";return false;}
             const auto action=session.choose_automatic_action();
             if(!action){output<<"Apresentacao interrompida: nenhuma acao automatica disponivel.\n";return false;}
-            const auto result=session.apply(*action);
+            const auto result=local.apply(*action);
             if(!result.accepted()){output<<"Apresentacao interrompida: acao automatica recusada.\n";return false;}
             if(profile==CombatProfile::Team && action->type==ActionType::Skill){
                 output<<"Auto "<<action->actor<<": "<<action->skill<<" -> "<<action->target<<'\n';}
             ++automatic;events(result,output);
         }
-        return true;
+        show_rewards();return true;
     };
     output<<"RPG Urbano - laboratorio textual\n";help(output,profile);
-    if(!advance_enemy()){return {session.battle().snapshot(),TextExit::AutomaticSafetyStop,players,automatic,rejected,restarts};}
-    profile_state(session,output);
+    if(!advance_enemy()){return {session.battle().snapshot(),TextExit::AutomaticSafetyStop,players,automatic,rejected,restarts,local.progress()};}
+    show_state();
     std::string line;
     for(;;){
         output<<"> "<<std::flush;
@@ -137,17 +151,17 @@ TextReport run_text_session(std::istream& input,std::ostream& output,std::vector
         const auto& command=tokens[0];
         if(tokens.size()==1 && command=="sair"){exit=TextExit::Quit;output<<"Sessao encerrada.\n";break;}
         if(tokens.size()==1 && command=="ajuda"){help(output,profile);continue;}
-        if(tokens.size()==1 && command=="estado"){profile_state(session,output);continue;}
+        if(tokens.size()==1 && command=="estado"){show_state();continue;}
         if(tokens.size()==1 && command=="reiniciar"){
-            session.reset();++restarts;output<<"Batalha reiniciada.\n";
+            local.reset();++restarts;output<<"Batalha reiniciada. Tentativa #"<<local.progress().attempt<<".\n";
             opening_passives(session,output);
-            if(!advance_enemy()){exit=TextExit::AutomaticSafetyStop;break;}profile_state(session,output);continue;
+            if(!advance_enemy()){exit=TextExit::AutomaticSafetyStop;break;}show_state();continue;
         }
         if(profile==CombatProfile::Team && (command=="1" || command=="2" || command=="3") && tokens.size()==2){
-            const auto result=session.apply_slot(static_cast<std::uint32_t>(command[0]-'0'),tokens[1]);
+            const auto result=local.apply_slot(static_cast<std::uint32_t>(command[0]-'0'),tokens[1]);
             if(!result.accepted()){++rejected;output<<"Acao recusada: "<<(result.error==ActionError::UnknownSkill?"Posicao sem habilidade ativa selecionavel.":error_message(result.error))<<'\n';continue;}
             ++players;events(result,output);if(!advance_enemy()){exit=TextExit::AutomaticSafetyStop;break;}
-            profile_state(session,output);continue;
+            show_state();continue;
         }
         Action action;const auto* actor=session.battle().current_actor();action.actor=actor?actor->definition.id:std::string{};
         if(command=="atacar" && tokens.size()==2){action.type=ActionType::Attack;action.target=tokens[1];}
@@ -155,13 +169,13 @@ TextReport run_text_session(std::istream& input,std::ostream& output,std::vector
         else if(command=="passar" && tokens.size()==1){action.type=ActionType::Skip;}
         else if(command=="habilidade" && tokens.size()==3){action.type=ActionType::Skill;action.skill=tokens[1];action.target=tokens[2];}
         else{++rejected;output<<"Comando invalido. Use ajuda.\n";continue;}
-        const auto result=session.apply(action);
+        const auto result=local.apply(action);
         if(!result.accepted()){++rejected;output<<error_message(result.error)<<'\n';continue;}
         ++players;events(result,output);
         if(!advance_enemy()){exit=TextExit::AutomaticSafetyStop;break;}
-        profile_state(session,output);
+        show_state();
     }
-    return {session.battle().snapshot(),exit,players,automatic,rejected,restarts};
+    return {session.battle().snapshot(),exit,players,automatic,rejected,restarts,local.progress()};
 }
 TeamReferenceSetup team_reference_setup(){
     auto roster=reference_roster();auto rules=text_reference_rules();std::vector<CharacterLoadout> sets;

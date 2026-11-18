@@ -1,6 +1,12 @@
 # Tarefas
 
-## CIC-01 parte 1 — estado vigente (18/11/2026)
+## CIC-01 parte 2 — estado vigente (18/11/2026)
+
+✅ Resultado e recompensa mínima em memória concluídos. LocalSession atribui tentativa sequencial e registra cada conclusão uma vez. Vitória A por eliminação: +10 créditos de teste; demais desfechos: zero. Reiniciar mantém saldo/registro, abre nova tentativa e conserva a equipe. Estado mostra saldo sem reapurar recompensa. **203/203 testes aprovados** (7 de recompensa e 17 textuais, mais regressões).
+
+Contrato: docs/projeto/CIC-01-RECOMPENSA-R01.md. Aceite: docs/batalhas/COMBATE-CIC-01-PARTE-2.json e recompensas-testes.csv. ⚠️ CIC-01 segue aberto: saldo/IDs são locais à sessão, não duráveis. Próximo parte 3: contrato de save versionado, validação/restauração e prevenção de nova concessão após carregar; nenhum save escrito nesta parte.
+
+## CIC-01 parte 1 — histórico da entrega (18/11/2026)
 
 ✅ Composição/seleção de equipe em memória concluída: 1–5 IDs disponíveis e distintos, recusa sem mutação, encontros com dependências filtradas e isolamento de batalhas já iniciadas. Demo aceita Jogar.cmd --equipe A1 A3; catálogo atual A1/A2/A3, adversários B1/B2/B3 fixos. Reinício preserva a seleção. **195/195 testes aprovados**, incluindo sete grupos de seleção e uma integração textual adicional.
 
@@ -90,7 +96,7 @@ Uma entrega por vez. Ordem por área, criticidade e dependências, conforme docs
   - [x] Parte 5 — Integrar poucos kits ao protótipo, preservar clássico e validar reset/replay.
 - [ ] CIC-01 — Ciclo local em três partes; docs/projeto/CIC-01.md.
   - [x] Parte 1 — Composição/seleção em memória, 1–5 membros e encontro filtrado; 195 testes totais.
-  - [ ] Parte 2 — Resultado/recompensa mínima em memória, com concessão única.
+  - [x] Parte 2 — Resultado/recompensa mínima em memória, com concessão única; 203 testes totais.
   - [ ] Parte 3 — Save versionado, validação e restauração.
 
 ## 4. Engine e apresentação funcional
@@ -106,7 +112,7 @@ Uma entrega por vez. Ordem por área, criticidade e dependências, conforme docs
 
 ## Próximo bloco executável
 
-CIC-01 parte 2: fechar identidade de conclusão e recompensa mínima em memória com concessão única, antes de gravar saves. Parte 1 concluída, contrato CIC-01.md.
+CIC-01 parte 3: fechar contrato de save versionado e restauração validada, mantendo identidade de tentativas e impedindo nova concessão de resultado já contabilizado. Não tratar Snapshot como save completo.
 
 ## Encerramento de cada entrega
 

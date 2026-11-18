@@ -241,3 +241,7 @@ Cinco partes do conjunto mínimo concluídas, 187/187 testes. Híbrida funcional
 ## CIC-01 parte 1 concluída
 
 Composição 1–5 validada em memória e integrada por --equipe; 195/195 testes. Próxima pendência: identidade de conclusão e concessão única da recompensa mínima. Formato de save/migração permanece parte 3; seleção não transporta HP/status de batalhas anteriores.
+
+## CIC-01 parte 2 concluída
+
+Identidade de tentativa e apuração única de recompensa em memória resolvidas, 203/203 testes. Próximo contrato: save versionado, escopo persistido, validação/restauração e como manter concessão única após carregar. Não assumir que o snapshot do kernel ou IDs locais já resolvem persistência.

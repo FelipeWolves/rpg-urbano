@@ -223,6 +223,18 @@ void selected_team_session(){
     catch(const std::invalid_argument&){caught=true;}
     check(caught && errors.str().empty(),"invalid selection started battle");
 }
+void local_reward_session(){
+    auto roster=duel();roster[0].attack=10;
+    std::istringstream in("atacar B\nestado\najuda\natacar B\nreiniciar\natacar B\nestado\nsair\n");std::ostringstream out;
+    const auto report=run_text_session(in,out,roster,rules());
+    check(report.progress.credits==20 && report.progress.attempt==2 && report.progress.completions.size()==2 &&
+        report.rejected_commands==1 && report.restarts==1,"text reward duplicated or reset lost wallet");
+    const auto text=out.str();const auto first=text.find("Conclusao #1:"),second=text.find("Conclusao #2:");
+    check(first!=std::string::npos && second!=std::string::npos && text.find("Conclusao #1:",first+1)==std::string::npos &&
+        text.find("Conclusao #2:",second+1)==std::string::npos && text.find("Saldo local: 20")!=std::string::npos,"reward display duplicated or absent");
+    std::istringstream eof;std::ostringstream silent;const auto abandoned=run_text_session(eof,silent,roster,rules());
+    check(abandoned.progress.credits==0 && abandoned.progress.completions.empty(),"EOF rewarded unfinished battle");
+}
 }
 int main(int argc,char** argv){
     const std::pair<const char*,void(*)()> tests[]={{"input_atomics",input_and_invalid_atomics},{"target_enemy",selected_target_and_enemy},
@@ -230,7 +242,7 @@ int main(int argc,char** argv){
         {"skill_skip_clock",skill_block_skip_and_clock},{"eof_timeout",eof_and_timeout},{"safety_technical",safety_and_technical_result},
         {"team_profile",team_profile_session},{"opening_passive_session",opening_passive_session},{"conditional_skill_session",conditional_skill_session},{"automatic_special_session",automatic_special_session},
         {"integrated_reference_kits",integrated_reference_kits},{"integrated_full_text_battle",integrated_full_text_battle},
-        {"integrated_full_reset",integrated_full_reset},{"integrated_reference_matrix",integrated_reference_matrix},{"selected_team_session",selected_team_session}};
+        {"integrated_full_reset",integrated_full_reset},{"integrated_reference_matrix",integrated_reference_matrix},{"selected_team_session",selected_team_session},{"local_reward_session",local_reward_session}};
     int passed=0;for(const auto& [name,test]:tests){try{test();++passed;std::cout<<"PASS text "<<name<<'\n';}
         catch(const std::exception& e){std::cerr<<"FAIL text "<<name<<": "<<e.what()<<'\n';}}
     std::cout<<"TEXT_TESTS_RESULT passed="<<passed<<" total="<<std::size(tests)<<'\n';

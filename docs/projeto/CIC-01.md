@@ -1,13 +1,13 @@
-# CIC-01 — ciclo local, parte 1: composição em memória
+# CIC-01 — ciclo local: composição, resultado e persistência
 
-18/11/2026. Contrato desta entrega: selecionar a equipe antes de criar o combate. Não há recompensa, inventário, conta, desbloqueio ou gravação de save.
+18/11/2026. Partes 1–2 concluídas: composição de equipe e resultado/recompensa em memória. Parte 3 de persistência ainda pendente. Contratos históricos preservados por seção; não há save, inventário ou conta.
 
 ## Etapas do bloco
 
 | Parte | Entrega delimitada | Situação |
 |---|---|---|
-| 1 | Catálogo disponível, seleção válida e composição de encontro | Implementação e aceite nesta entrega |
-| 2 | Resultado/recompensa mínima em memória, com concessão única | Planejada; contrato ainda a fechar |
+| 1 | Catálogo disponível, seleção válida e composição de encontro | ✅ Concluída, 195 testes acumulados |
+| 2 | Resultado/recompensa mínima em memória, com concessão única | ✅ Concluída, 203 testes acumulados |
 | 3 | Save local versionado, validação e restauração | Planejada; formato e migração ainda a fechar |
 
 ## Contrato da parte 1
@@ -46,3 +46,9 @@ Próxima parte: fechar o resultado/recompensa mínima em memória, especialmente
 ## Resultado da validação
 
 ✅ Parte 1 concluída: 195/195 testes aprovados, incluindo 7/7 grupos de seleção e 16/16 textuais. Mantidas matrizes/replays anteriores. Lançador com A1/A3 abriu sem A2; executável recusou B1 com código 1 antes de iniciar combate; clássico manteve defesa com dano 12. Evidência COMBATE-CIC-01-PARTE-1.json e equipes-testes.csv em docs/batalhas; log local ignorado em build/combate/verificacao-equipe.log. Não houve escrita de save.
+
+## Parte 2 — resultado/recompensa validada
+
+Contrato [CIC-01-RECOMPENSA-R01.md](CIC-01-RECOMPENSA-R01.md). LocalSession mantém tentativas e conclusões, credita 10 somente por vitória A por eliminação e não aceita resultados externos. Sete grupos novos de recompensa e uma integração textual nova; 203/203 testes (17 textuais). Reapuração, consulta e comando pós-fim não duplicam crédito; reset conserva saldo em memória e muda o ID. Identidades e saldo não sobrevivem ao encerramento da sessão/programa.
+
+Lançadores confirmaram saldo/tentativa, seleção e defesa clássica com dano 12. Evidência COMBATE-CIC-01-PARTE-2.json e recompensas-testes.csv em docs/batalhas. Próxima parte 3: contrato de persistência antes de escrever saves, incluindo validação de versão e resultado já contabilizado.

@@ -1,6 +1,12 @@
 # Prioridades por área
 
-## CIC-01 parte 1 — estado vigente (18/11/2026)
+## CIC-01 parte 2 — estado vigente (18/11/2026)
+
+✅ Resultado e recompensa mínima em memória concluídos. LocalSession atribui tentativa sequencial e registra cada conclusão uma vez. Vitória A por eliminação: +10 créditos de teste; demais desfechos: zero. Reiniciar mantém saldo/registro, abre nova tentativa e conserva a equipe. Estado mostra saldo sem reapurar recompensa. **203/203 testes aprovados** (7 de recompensa e 17 textuais, mais regressões).
+
+Contrato: docs/projeto/CIC-01-RECOMPENSA-R01.md. Aceite: docs/batalhas/COMBATE-CIC-01-PARTE-2.json e recompensas-testes.csv. ⚠️ CIC-01 segue aberto: saldo/IDs são locais à sessão, não duráveis. Próximo parte 3: contrato de save versionado, validação/restauração e prevenção de nova concessão após carregar; nenhum save escrito nesta parte.
+
+## CIC-01 parte 1 — histórico da entrega (18/11/2026)
 
 ✅ Composição/seleção de equipe em memória concluída: 1–5 IDs disponíveis e distintos, recusa sem mutação, encontros com dependências filtradas e isolamento de batalhas já iniciadas. Demo aceita Jogar.cmd --equipe A1 A3; catálogo atual A1/A2/A3, adversários B1/B2/B3 fixos. Reinício preserva a seleção. **195/195 testes aprovados**, incluindo sete grupos de seleção e uma integração textual adicional.
 
@@ -104,7 +110,7 @@ ATB opcional, backend/multiplayer, publicação em lojas/launcher e produção m
 
 ## Próxima ação concreta
 
-CIC-01 parte 2: contrato de resultado/recompensa mínima em memória com concessão única. Composição de equipe concluída (parte 1); não iniciar save/engine junto.
+CIC-01 parte 3: contrato de save local versionado e restauração, com validação e idempotência das recompensas após carregar. Partes 1–2 concluídas; formato/migração ainda não definidos.
 
 ## HAB-01 parte 1 — histórico da entrega (18/11/2026)
 

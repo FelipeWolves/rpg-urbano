@@ -123,3 +123,7 @@ team_reference_setup fornece roster/regras/loadouts reutilizados pela sessão e 
 ## Composição em memória — CIC-01 parte 1
 
 EncounterSetup move dados compartilhados da apresentação para o núcleo de composição. TeamSelection valida catálogo e seleção antes de criar encontros; mantém cópias sem acesso a disco. Cada compose remove membros não selecionados e suas dependências, preservando cenário/regras. A sessão pode receber seleção por argumentos e o reset mantém o encontro configurado; escolhas posteriores não editam batalhas já criadas. Não é inventário nem save.
+
+## Resultado local — CIC-01 parte 2
+
+LocalSession coordena ProfileBattle e LocalProgress, executa comandos e apura conclusão uma vez. Progressão não entra no kernel de dano/tempo. TextReport inclui cópia do progresso; interface exibe novas conclusões uma vez e consultas não concedem créditos. Ledger/IDs são internos à instância, sem save/restauração ou resultados externos.

@@ -1,5 +1,6 @@
 #pragma once
 #include "rpg/team_selection.hpp"
+#include "rpg/local_session.hpp"
 #include <iosfwd>
 
 namespace rpg::presentation {
@@ -11,6 +12,7 @@ struct TextReport {
     std::uint64_t automatic_actions;
     std::uint64_t rejected_commands;
     std::uint64_t restarts;
+    LocalProgress progress={};
 };
 using TeamReferenceSetup = EncounterSetup;
 [[nodiscard]] TeamReferenceSetup team_reference_setup();

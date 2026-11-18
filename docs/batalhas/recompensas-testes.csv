@@ -1,0 +1,8 @@
+test,status,scope
+victory_once,pass,session_scoped_one_time_rewards
+other_outcomes,pass,session_scoped_one_time_rewards
+technical_zero,pass,session_scoped_one_time_rewards
+reset_abandon,pass,session_scoped_one_time_rewards
+running_invalid,pass,session_scoped_one_time_rewards
+team_causal,pass,session_scoped_one_time_rewards
+replay_isolation,pass,session_scoped_one_time_rewards

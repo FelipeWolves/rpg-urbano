@@ -1,6 +1,12 @@
 # Painel de blocos — estado consolidado
 
-## CIC-01 parte 1 — estado vigente (18/11/2026)
+## CIC-01 parte 2 — estado vigente (18/11/2026)
+
+✅ Resultado e recompensa mínima em memória concluídos. LocalSession atribui tentativa sequencial e registra cada conclusão uma vez. Vitória A por eliminação: +10 créditos de teste; demais desfechos: zero. Reiniciar mantém saldo/registro, abre nova tentativa e conserva a equipe. Estado mostra saldo sem reapurar recompensa. **203/203 testes aprovados** (7 de recompensa e 17 textuais, mais regressões).
+
+Contrato: docs/projeto/CIC-01-RECOMPENSA-R01.md. Aceite: docs/batalhas/COMBATE-CIC-01-PARTE-2.json e recompensas-testes.csv. ⚠️ CIC-01 segue aberto: saldo/IDs são locais à sessão, não duráveis. Próximo parte 3: contrato de save versionado, validação/restauração e prevenção de nova concessão após carregar; nenhum save escrito nesta parte.
+
+## CIC-01 parte 1 — histórico da entrega (18/11/2026)
 
 ✅ Composição/seleção de equipe em memória concluída: 1–5 IDs disponíveis e distintos, recusa sem mutação, encontros com dependências filtradas e isolamento de batalhas já iniciadas. Demo aceita Jogar.cmd --equipe A1 A3; catálogo atual A1/A2/A3, adversários B1/B2/B3 fixos. Reinício preserva a seleção. **195/195 testes aprovados**, incluindo sete grupos de seleção e uma integração textual adicional.
 
@@ -86,7 +92,7 @@ As siglas são identificadores internos das áreas do projeto, não nomes de fer
 | ✅ HAB-01 | Perfis/posições, passiva, condição, automação e kits integrados | Cinco partes concluídas; 24 grupos de perfis e 15 textuais acumulados; HAB-01-FINAL.md |
 | ✅ Contrato R04 e revisões R01–R03 | Decisões e pesquisa recebida | Fechamento documental; implementação mínima em RES-01 |
 
-Total atual: **195 testes aprovados**, além das matrizes, isolamento intercalado, 1000 simulações funcionais e demonstração. Não é benchmark de servidor ou renderização.
+Total atual: **203 testes aprovados**, além das matrizes, isolamento intercalado, 1000 simulações funcionais e demonstração. Não é benchmark de servidor ou renderização.
 
 ## ⚠️ Implementado que ainda exige revisão obrigatória
 
@@ -98,7 +104,7 @@ Classificação pelo roteiro documentado, sem inferir datas pela criação do re
 
 | Ordem posterior aos modos críticos | Bloco | Falta |
 |---|---|---|
-| 2 | ⚠️ CIC-01 | Parte 1 de equipe validada (1–5 membros); partes 2 recompensa e 3 save pendentes; docs/projeto/CIC-01.md |
+| 2 | ⚠️ CIC-01 | Partes 1 equipe e 2 recompensa em memória validadas; parte 3 save pendente; docs/projeto/CIC-01.md |
 | 3 | ⚠️ ENG-01 | Escolha e teste de compatibilidade da engine |
 | 4 | ⚠️ VIS-01 | Arena visual integrada ao núcleo |
 | 5 | ⚠️ ART-01 | Direção artística original e personagem representativo |

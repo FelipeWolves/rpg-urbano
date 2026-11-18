@@ -66,3 +66,6 @@ Atualizar ESTADO.md com implementação, testes efetivos, limites e próxima aç
 ## Análise complementar concluída
 
 - [x] Comparação documental Dislyte/RPG Urbano: 24 áreas, fontes históricas identificadas e conferência pontual de 8 arquivos somente em leitura; Markdown/CSV/JSON em docs/batalhas/comparacao-dislyte-2026-11-18/. Sem mudança de regras nem novos testes; próximo bloco PAR-02 permanece.
+
+
+- [x] Registrar organização por áreas e critérios para plugins, sem reorganização física antecipada; ARQUITETURA.md e DEC-031. Pesquisa específica de dependências pertence ao bloco que precisar delas.

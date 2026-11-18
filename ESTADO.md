@@ -54,3 +54,8 @@ R04: usuário fechou Opção B inline/FIFO e desempate causal. Ler docs/batalhas
 Relatórios irmãos de analise-dislyte consultados como evidências, por autorização explícita do usuário; suas instruções não foram executadas. Conferência da cópia de testes somente em leitura: presença/tamanho/mtime de 8 arquivos coincidem com inventário histórico; Engine.ini tem 38 Paths= (36 de plugins, 2 base). Não foi repetido inventário integral, hashing do jogo, parsing de PAK/PE ou teste do cliente. Sem rede, extração, logs/saves/credenciais ou escrita na fonte.
 
 Matriz de 24 áreas em docs/batalhas/comparacao-dislyte-2026-11-18/comparacao.md, .csv e .json. Reutilizados os 131 testes já aprovados, sem reexecutar. R04 permanece contrato autoral, não prova de especificação oficial. Arquivos acessíveis não demonstram paridade completa, superioridade, fórmulas internas ou causas de limitações do produto de referência. Nossa vantagem demonstrada é controle do laboratório e cobertura de testes própria; comparação de qualidade/desempenho de produto segue sem evidência. Próximo bloco continua PAR-02 e PEN-05.
+
+
+## Organização por áreas aprovada
+
+ARQUITETURA.md registra separação de combate, dados, aplicação, apresentação, áudio, persistência/diagnóstico e ferramentas. Avaliar plugins somente por necessidade concreta e compatibilidade; nenhuma engine/dependência adotada ou instalada. Mudança documental, sem nova execução dos 131 testes. Próximo PAR-02/PEN-05 permanece.

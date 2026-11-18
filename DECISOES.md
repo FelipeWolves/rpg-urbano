@@ -157,3 +157,8 @@ Perfil cooperativo independente aprovado com 16 grupos e 131 testes totais. R04 
 ## DEC-030 — Comparação por nível de evidência
 
 A pedido do usuário, consulta excepcional somente leitura aos relatórios irmãos e à cópia de testes, sem reutilizar código/ativos ou mudar escopo de execução. Separar relatório histórico, conferência local pontual, pesquisa/relato e contrato autoral. Metadados não validam payload ou regras; 131 testes validam nosso contrato, não superioridade externa. Matriz de 24 áreas em docs/batalhas/comparacao-dislyte-2026-11-18/. PEN-05 não resolvida por arquivos acessíveis.
+
+
+## DEC-031 — Separação por áreas e plugins conforme necessidade
+
+Usuário aprovou manter combate, dados, aplicação, apresentação, áudio, persistência/diagnóstico e ferramentas separados. Plugin é opção de implementação após pesquisa e pequeno teste de integração, não exigência para cada área. Priorizar adequação, manutenção, licença, compatibilidade e substituição; engine ainda não escolhida, sem downloads/instalações/compras. Diretriz em ARQUITETURA.md. Sem mudança de código/testes; PAR-02 continua próximo.

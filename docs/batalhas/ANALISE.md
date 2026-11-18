@@ -2,7 +2,7 @@
 
 Análise e execução local em 18/11/2026. Antecede COM-02 por solicitação do usuário.
 
-**Nota de atualização:** este documento registra a pesquisa de COM-01A. TIME-01 posteriormente implementou orçamento local de ações, descrito em TIME-01.md. Todas as dúvidas/decisões em aberto passaram para [PENDENCIAS.md](../../PENDENCIAS.md); usar esse registro para o estado vigente.
+**Nota de atualização:** este documento registra a pesquisa de COM-01A. TIME-01 posteriormente implementou orçamento local de ações, descrito em TIME-01.md. Todas as dúvidas/decisões em aberto passaram para [PENDENCIAS.md](../projeto/PENDENCIAS.md); usar esse registro para o estado vigente.
 
 ## Conclusão
 

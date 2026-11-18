@@ -52,7 +52,7 @@ Detalhes de implementação e aceites: docs/batalhas/TIME-01.md. Os contratos de
 - PEN-14: reset e conclusão única em memória testados. Retomada por save, migração de versão e recompensa persistente não implementadas.
 - VAL-01: validada para 1/2/5 confrontos com ataque/guarda, passagem de vida e orçamento global. Outros estados só serão validados quando implementados.
 
-Evidência: docs/batalhas/WAVE-01.md e COMBATE.json (9/9 testes de fase). Este registro atualiza o estado das linhas acima sem descartar seu histórico de questões.
+Evidência: docs/batalhas/WAVE-01.md e docs/relatorios/atuais/COMBATE.json (9/9 testes de fase). Este registro atualiza o estado das linhas acima sem descartar seu histórico de questões.
 
 ## Pesquisa de tempo — atualização de prioridades
 
@@ -73,7 +73,7 @@ TIME-02 agora precede SEQ-01. Evidências e experimento (11/11) em docs/batalhas
 - Durações/recargas mínimas do dono: NaturalOnly ou EveryTurn. Nova aplicação não perde duração no mesmo turno; habilidade usada não reduz a nova recarga nesse encerramento. Block consome oportunidade via Skip e reduz relógios correspondentes. Relógio do aplicador/global, congelamento por petrificação, modificadores externos de recarga e pilhas/dispels são futuras famílias.
 - VAL-01 ampliada: fases AP 1/2/5, políticas de runtime, reset, fronteiras e replay testados. VAL-02/03/04/05/06 permanecem conforme suas fronteiras, sem novas alegações.
 
-Evidências: docs/batalhas/TIME-02.md, tempo-testes.csv e COMBATE.json. 16 novos grupos e 25 formações AP; 33 testes e 168 cenários anteriores preservados. Próximo bloco SEQ-01, sem reabrir todas as pendências futuras.
+Evidências: docs/batalhas/TIME-02.md, tempo-testes.csv e docs/relatorios/atuais/COMBATE.json. 16 novos grupos e 25 formações AP; 33 testes e 168 cenários anteriores preservados. Próximo bloco SEQ-01, sem reabrir todas as pendências futuras.
 
 ## Roteiro para pesquisa do usuário
 

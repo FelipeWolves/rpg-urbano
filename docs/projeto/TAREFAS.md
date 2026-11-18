@@ -1,15 +1,21 @@
 # Tarefas
 
-Uma entrega por vez. Ordem por área, criticidade e dependências, conforme PLANO-PRIORIDADES.md. Esforço relativo não é estimativa de prazo ou consumo.
+## Organização do repositório — 18/11/2026
+
+✅ Organização documental e colaboração concluídas: documentos de planejamento em docs/projeto; resultados vigentes em docs/relatorios/atuais; estrutura C++ preservada. README/CONTRIBUTING/SECURITY, EditorConfig, atributos Git e modelos de issue/PR adicionados. Histórico de orientações preservado; AGENTS atualizado para o estado vigente.
+
+Scripts ajustados aos novos caminhos. Não foram instaladas dependências, adotada engine, definida licença pública ou configurada execução automática em serviços externos. Fontes/recursos de terceiros continuam sujeitos a autorização própria. Próximo bloco funcional permanece HAB-01 parte 2.
+
+Uma entrega por vez. Ordem por área, criticidade e dependências, conforme docs/projeto/PLANO-PRIORIDADES.md. Esforço relativo não é estimativa de prazo ou consumo.
 
 ## Entregas encerradas — histórico preservado
 
 - [x] FUN-01 — Criar visão, arquitetura, regras de trabalho, decisões e estado; definir batalha inicial. Aceite: documentos consistentes, escopo independente e próxima tarefa executável.
-- [x] FUN-02 — Verificar ferramentas existentes e definir como compilar o núcleo. Resultado: RTX 3060 identificada; compilador/SDK e editor Unreal utilizáveis não encontrados nas buscas seletivas. C++20/MSVC definido como caminho mínimo; proposta em FERRAMENTAS.md. Nenhuma instalação ou compilação realizada.
-- [x] AMB-01 — Usuário escolheu e instalou manualmente Visual Studio 2026. Validado VS Community 2026 18.12.1, MSVC 14.52.37025 e Windows SDK 10.0.26100.0: diagnóstico próprio C++20 compilado, vinculado e executado em x64, com /W4 /WX, sem avisos e com saída zero. Comando repetível em AGENTS.md e evidência em AMBIENTE.json. Nenhuma instalação pelo agente; sem gameplay ou engine.
-- [x] COM-01 — Núcleo C++20 independente implementado: simulação 3x3, ataque/guarda, rodadas, derrota e vitória; comandos inválidos sem mutação. 13/13 testes aprovados; referência determinística de 35 ações/12 rodadas e demo com guarda de 40 ações/14 rodadas. Build/teste via scripts/testar-combate.ps1; resultado em COMBATE.json, limites em COMBATE.md. Sem UI interativa, engine, artes ou progressão.
+- [x] FUN-02 — Verificar ferramentas existentes e definir como compilar o núcleo. Resultado: RTX 3060 identificada; compilador/SDK e editor Unreal utilizáveis não encontrados nas buscas seletivas. C++20/MSVC definido como caminho mínimo; proposta em docs/projeto/FERRAMENTAS.md. Nenhuma instalação ou compilação realizada.
+- [x] AMB-01 — Usuário escolheu e instalou manualmente Visual Studio 2026. Validado VS Community 2026 18.12.1, MSVC 14.52.37025 e Windows SDK 10.0.26100.0: diagnóstico próprio C++20 compilado, vinculado e executado em x64, com /W4 /WX, sem avisos e com saída zero. Comando repetível em AGENTS.md e evidência em docs/relatorios/atuais/AMBIENTE.json. Nenhuma instalação pelo agente; sem gameplay ou engine.
+- [x] COM-01 — Núcleo C++20 independente implementado: simulação 3x3, ataque/guarda, rodadas, derrota e vitória; comandos inválidos sem mutação. 13/13 testes aprovados; referência determinística de 35 ações/12 rodadas e demo com guarda de 40 ações/14 rodadas. Build/teste via scripts/testar-combate.ps1; resultado em docs/relatorios/atuais/COMBATE.json, limites em docs/projeto/COMBATE.md. Sem UI interativa, engine, artes ou progressão.
 - [x] COM-01A — Antes da interface, analisar formações/fases/modos e ampliar testes. 168 cenários + 168 replays aprovados, matriz completa de tamanhos 1–5, sondagens de seis, três contextos 5x1 intercalados e 1000 simulações funcionais locais. Pesquisa pública com procedência e limites; contratos de fases/chefes em docs/batalhas/. Nenhuma implementação desses coordenadores ou mudança do núcleo de produção.
-- [x] TIME-01 — Orçamento local opcional de ações principais de ambos os lados implementado; empate ou derrota de lado escolhido, motivo de término e contador no snapshot/eventos. Vitória na última ação prevalece. 11/11 testes novos + 13 anteriores e matriz aprovados. Contrato global documentado, não implementado. Detalhes em docs/batalhas/TIME-01.md; dúvidas futuras centralizadas em PENDENCIAS.md.
+- [x] TIME-01 — Orçamento local opcional de ações principais de ambos os lados implementado; empate ou derrota de lado escolhido, motivo de término e contador no snapshot/eventos. Vitória na última ação prevalece. 11/11 testes novos + 13 anteriores e matriz aprovados. Contrato global documentado, não implementado. Detalhes em docs/batalhas/TIME-01.md; dúvidas futuras centralizadas em docs/projeto/PENDENCIAS.md.
 - [x] WAVE-01 — Orquestrar um time em 1/2/5 confrontos com passagem de estado explicitamente configurada. Aceite: vida máxima não adulterada, sem cura/reanimação implícitas, contadores locais/globais corretos, derrota intermediária, vitória final única e reset limpo.
 - [x] TIME-PESQ — Pesquisa oficial/comunitária de AP, extras, recargas e contadores; experimento isolado com 11/11 verificações. Evidências e limitações em docs/batalhas/TEMPO-PESQUISA.md.
 - [x] TIME-02 — Perfis fixo/AP, guarda opcional, habilidades/status/recargas mínimos, extras/contra-ataques e preservação explícita em fases. 16 novos grupos aprovados + 33 anteriores; 25 formações/replays AP e 168 cenários anteriores. Detalhes em docs/batalhas/TIME-02.md; ATB/contador geral de modos continuam futuros.
@@ -71,7 +77,7 @@ HAB-01 parte 1: implementar incremento delimitado de perfis/posições conforme 
 
 ## Encerramento de cada entrega
 
-Atualizar ESTADO.md com implementação, testes efetivos, limites e próxima ação. Não repetir bateria/pesquisa sem mudança pertinente. Não interpretar esta fila como execução de todos os blocos em uma única tarefa.
+Atualizar docs/projeto/ESTADO.md com implementação, testes efetivos, limites e próxima ação. Não repetir bateria/pesquisa sem mudança pertinente. Não interpretar esta fila como execução de todos os blocos em uma única tarefa.
 
 
 ## Análise complementar concluída
@@ -79,7 +85,7 @@ Atualizar ESTADO.md com implementação, testes efetivos, limites e próxima aç
 - [x] Comparação documental Dislyte/RPG Urbano: 24 áreas, fontes históricas identificadas e conferência pontual de 8 arquivos somente em leitura; Markdown/CSV/JSON em docs/batalhas/comparacao-dislyte-2026-11-18/. Sem mudança de regras nem novos testes; próximo bloco PAR-02 permanece.
 
 
-- [x] Registrar organização por áreas e critérios para plugins, sem reorganização física antecipada; ARQUITETURA.md e DEC-031. Pesquisa específica de dependências pertence ao bloco que precisar delas.
+- [x] Registrar organização por áreas e critérios para plugins, sem reorganização física antecipada; docs/projeto/ARQUITETURA.md e DEC-031. Pesquisa específica de dependências pertence ao bloco que precisar delas.
 
 
 - [x] Organizar famílias/exemplos PvE em MODOS-PVE.md e CSV/JSON; preservar 8 cenários/26 mecânicas e versões anteriores; roteiro para pesquisa complementar. Sem implementação de score, retorno cíclico ou fases autônomas nesta tarefa. Próximo PAR-02 parte 2 permanece.
@@ -91,7 +97,7 @@ Atualizar ESTADO.md com implementação, testes efetivos, limites e próxima aç
 - [ ] Detalhar chefe dos Milagres (PVE-07); retorno cíclico (PVE-08) só vira requisito confirmado com exemplo. Não presumir que os três cenários usem o mesmo coordenador.
 - [ ] Habilidades comuns de área, seletores dinâmicos do chefe e efeitos entre times: especificar alcance e ampliar os seletores em bloco próprio.
 
-Essas famílias não são funcionalidades prontas por SEQ-01/PAR-01/PAR-02 estarem encerrados em seus perfis. Detalhes e procedência em MODOS-PVE.md e PENDENCIAS.md. A fila executável passa a HAB-01; novas prioridades dependem de escopo explícito.
+Essas famílias não são funcionalidades prontas por SEQ-01/PAR-01/PAR-02 estarem encerrados em seus perfis. Detalhes e procedência em MODOS-PVE.md e docs/projeto/PENDENCIAS.md. A fila executável passa a HAB-01; novas prioridades dependem de escopo explícito.
 
 
 - [x] Corrigir acesso COM-02 no Windows PowerShell comum: Jogar.cmd chama binário direto sem política de scripts; validado CMD/Windows PowerShell, sem mudar segurança nem motor.

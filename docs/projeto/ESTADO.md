@@ -1,17 +1,23 @@
 # Estado do projeto
 
+## Organização do repositório — 18/11/2026
+
+✅ Organização documental e colaboração concluídas: documentos de planejamento em docs/projeto; resultados vigentes em docs/relatorios/atuais; estrutura C++ preservada. README/CONTRIBUTING/SECURITY, EditorConfig, atributos Git e modelos de issue/PR adicionados. Histórico de orientações preservado; AGENTS atualizado para o estado vigente.
+
+Scripts ajustados aos novos caminhos. Não foram instaladas dependências, adotada engine, definida licença pública ou configurada execução automática em serviços externos. Fontes/recursos de terceiros continuam sujeitos a autorização própria. Próximo bloco funcional permanece HAB-01 parte 2.
+
 Atualizado: 18/11/2026.
 
 ## Situação
 
-FUN-01, FUN-02, AMB-01, COM-01, COM-01A, TIME-01, WAVE-01, TIME-02, TIME-03, RES-01, SEQ-01, PAR-01 e perfil PAR-02 concluídos. Núcleo C++20 com perfis fixo/AP, turnos extras, contra-ataques, status/recargas mínimos, guarda opcional, fases consecutivas e limites locais/globais. COM-02 concluído: sessão textual jogável, controle do time A e resposta automática básica do time B. Engine não escolhida nem aberta. Dúvidas/limitações futuras centralizadas em PENDENCIAS.md a pedido do usuário.
+FUN-01, FUN-02, AMB-01, COM-01, COM-01A, TIME-01, WAVE-01, TIME-02, TIME-03, RES-01, SEQ-01, PAR-01 e perfil PAR-02 concluídos. Núcleo C++20 com perfis fixo/AP, turnos extras, contra-ataques, status/recargas mínimos, guarda opcional, fases consecutivas e limites locais/globais. COM-02 concluído: sessão textual jogável, controle do time A e resposta automática básica do time B. Engine não escolhida nem aberta. Dúvidas/limitações futuras centralizadas em docs/projeto/PENDENCIAS.md a pedido do usuário.
 
 Pasta do projeto: este diretório. Não usar a pasta do laboratório como diretório de trabalho de desenvolvimento. Git na branch main, agora com commit inicial do usuário e remoto origin cadastrado. A árvore estava limpa no início desta entrega. Pushes ficam com o usuário; nenhum servidor remoto foi consultado e nenhuma configuração/identidade Git foi alterada.
 
 ## O que está definido
 
 - Entregas pequenas, uma tarefa de implementação por bloco.
-- Batalha inicial 3x3 com ataque/guarda e dados provisórios de VISAO.md implementada; contrato e limites em COMBATE.md.
+- Batalha inicial 3x3 com ataque/guarda e dados provisórios de docs/projeto/VISAO.md implementada; contrato e limites em docs/projeto/COMBATE.md.
 - Núcleo C++20 separado da apresentação; build direto MSVC x64 e biblioteca padrão, sem CMake para o primeiro motor.
 - PC offline é hipótese inicial; sem contas, servidores ou loja no primeiro ciclo.
 - Engine permanece pendente; integração/compatibilidade com o toolset será validada ao escolhê-la. Não instalar VS2022: proposta superada pelo VS2026 escolhido pelo usuário.
@@ -31,11 +37,11 @@ HAB-01 parte 1: implementar posições e perfil de equipes conforme contrato fec
 
 ## Novas restrições e fatos úteis
 
-PENDENCIAS.md concentra dúvidas, capacidades não validadas e critério de resolução. Evitar repetir a lista a cada bloco. TIME-01 usa BattleRules/ActionBudget opcional e EndReason (Elimination/ActionLimit); empate tem winner vazio, derrota por limite pode ter os dois lados vivos. Stage agora controla um orçamento global próprio, sem reiniciá-lo nas transições. Pesquisa histórica em docs/batalhas/ permanece como referência, sem novas buscas necessárias para WAVE-01.
+docs/projeto/PENDENCIAS.md concentra dúvidas, capacidades não validadas e critério de resolução. Evitar repetir a lista a cada bloco. TIME-01 usa BattleRules/ActionBudget opcional e EndReason (Elimination/ActionLimit); empate tem winner vazio, derrota por limite pode ter os dois lados vivos. Stage agora controla um orçamento global próprio, sem reiniciá-lo nas transições. Pesquisa histórica em docs/batalhas/ permanece como referência, sem novas buscas necessárias para WAVE-01.
 
 ## Perguntas abertas, sem bloquear a fundação
 
-Questões de combate estão em PENDENCIAS.md. Nome, arte, engine/plataforma e recursos autorais serão decididos nos blocos correspondentes; não bloqueiam o próximo núcleo textual.
+Questões de combate estão em docs/projeto/PENDENCIAS.md. Nome, arte, engine/plataforma e recursos autorais serão decididos nos blocos correspondentes; não bloqueiam o próximo núcleo textual.
 
 
 
@@ -60,7 +66,7 @@ Matriz de 24 áreas em docs/batalhas/comparacao-dislyte-2026-11-18/comparacao.md
 
 ## Organização por áreas aprovada
 
-ARQUITETURA.md registra separação de combate, dados, aplicação, apresentação, áudio, persistência/diagnóstico e ferramentas. Avaliar plugins somente por necessidade concreta e compatibilidade; nenhuma engine/dependência adotada ou instalada. Mudança documental, sem nova execução dos 131 testes. Próximo PAR-02/PEN-05 permanece.
+docs/projeto/ARQUITETURA.md registra separação de combate, dados, aplicação, apresentação, áudio, persistência/diagnóstico e ferramentas. Avaliar plugins somente por necessidade concreta e compatibilidade; nenhuma engine/dependência adotada ou instalada. Mudança documental, sem nova execução dos 131 testes. Próximo PAR-02/PEN-05 permanece.
 
 
 ## PAR-02 — preparação documental
@@ -103,3 +109,6 @@ Pedido retomado após retorno do usuário: 25->12, 5->2 e 1->0 por hit, sem alte
 ✅ Perfis equipe/clássico, posições 1–3, básica canônica sem recarga, defesa restrita ao clássico e metadados passivos não selecionáveis implementados. 162/162 testes; dois lançadores conferidos. Este estado substitui indicações históricas de perfil ainda não implementado.
 
 ⚠️ HAB-01 continua aberto: passivas funcionais, silêncio e condições especiais não implementados. Próximo: parte 2, contrato do primeiro gatilho passivo autoral e implementação delimitada. Relatório completo e limites: docs/batalhas/HAB-01.md; evidência COMBATE-HAB-01-PARTE-1.json. Jogar.cmd abre equipes; Jogar-Classico.cmd preserva o clássico.
+
+Validação da reorganização: compilação completa aprovada, 162/162 testes, scripts PowerShell sem erros de sintaxe, links Markdown locais válidos e abertura dos dois lançadores confirmada. Nenhuma regra de combate modificada. Evidência vigente em docs/relatorios/atuais/COMBATE.json; log local ignorado build/combate/verificacao-organizacao.log.
+

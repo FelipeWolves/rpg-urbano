@@ -18,7 +18,7 @@ Estado: em aberto. Unreal moderna é candidata, não instalada ou escolhida nest
 
 ## DEC-005 — Primeira batalha
 
-Estado: hipótese de trabalho reversível. Arena 3x3, seis instâncias provisórias, ataque e guarda, adversário determinístico e vitória por eliminação. Estatísticas e regras detalhadas em VISAO.md. Primeiro avaliar as regras; depois produzir personagens e arte final.
+Estado: hipótese de trabalho reversível. Arena 3x3, seis instâncias provisórias, ataque e guarda, adversário determinístico e vitória por eliminação. Estatísticas e regras detalhadas em docs/projeto/VISAO.md. Primeiro avaliar as regras; depois produzir personagens e arte final.
 
 ## DEC-006 — Plataforma e conectividade
 
@@ -34,7 +34,7 @@ Estado: confirmado. Fundação documental e repositório local, sem desenvolvime
 
 ## DEC-009 — Encerramento de FUN-02
 
-Estado: diagnóstico concluído em 18/11/2026. GPU identificada como RTX 3060; aproximadamente 31,8 GiB de RAM. .NET disponível é runtime, sem SDK. Engine/compilador utilizáveis não foram confirmados nas buscas seletivas. Não inferir ausência de instalações em caminhos personalizados, nem VRAM pelo campo AdapterRAM do WMI. Detalhes e fontes em FERRAMENTAS.md.
+Estado: diagnóstico concluído em 18/11/2026. GPU identificada como RTX 3060; aproximadamente 31,8 GiB de RAM. .NET disponível é runtime, sem SDK. Engine/compilador utilizáveis não foram confirmados nas buscas seletivas. Não inferir ausência de instalações em caminhos personalizados, nem VRAM pelo campo AdapterRAM do WMI. Detalhes e fontes em docs/projeto/FERRAMENTAS.md.
 
 Próxima entrega proposta: AMB-01, somente instalação aprovada das ferramentas mínimas e programa diagnóstico próprio. Sem aprovação, não instalar ou trocar linguagem como atalho. COM-01 permanece pendente.
 
@@ -42,15 +42,15 @@ Próxima entrega proposta: AMB-01, somente instalação aprovada das ferramentas
 
 Estado: confirmado em 18/11/2026. O usuário escolheu e instalou manualmente VS Community 2026. vswhere identificou 18.12.1 (instalação 18.12.12412.261), estável, completa e sem reinicialização requerida. VsDevCmd selecionou MSVC 14.52.37025 e Windows SDK 10.0.26100.0.
 
-Diagnóstico próprio C++20/x64 validou concepts, span, ranges, biblioteca padrão e chamada Windows SDK. Compilação /W4 /WX sem avisos, link e execução com saída zero. Comando em AGENTS.md; evidência em AMBIENTE.json. Não instalar VS2022 por causa da proposta superada. Nenhuma engine ou gameplay executado; compatibilidade futura da engine não certificada. Próximo bloco: COM-01.
+Diagnóstico próprio C++20/x64 validou concepts, span, ranges, biblioteca padrão e chamada Windows SDK. Compilação /W4 /WX sem avisos, link e execução com saída zero. Comando em AGENTS.md; evidência em docs/relatorios/atuais/AMBIENTE.json. Não instalar VS2022 por causa da proposta superada. Nenhuma engine ou gameplay executado; compatibilidade futura da engine não certificada. Próximo bloco: COM-01.
 
 ## DEC-011 — Primeiro motor textual entregue
 
-Estado: confirmado em 18/11/2026. Núcleo C++20 sem dependências de Unreal, Windows ou rede, com definições próprias, consultas constantes, comandos validados e eventos de domínio. As regras de VISAO.md foram mantidas. Aceita qualquer formação com ambas as equipes e pelo menos um combatente vivo inicial por equipe; o cenário de referência é 3x3.
+Estado: confirmado em 18/11/2026. Núcleo C++20 sem dependências de Unreal, Windows ou rede, com definições próprias, consultas constantes, comandos validados e eventos de domínio. As regras de docs/projeto/VISAO.md foram mantidas. Aceita qualquer formação com ambas as equipes e pelo menos um combatente vivo inicial por equipe; o cenário de referência é 3x3.
 
 IDs ordenam canonicamente a entrada e desempates; velocidade é imutável nesta versão. Dano dos eventos é o dano aplicado, limitado à vida restante. Guarda arredonda para cima sem overflow de INT_MAX, consome em um acerto ou expira no início do próximo turno do defensor. Comando inválido não consome turno nem produz eventos.
 
-13 testes de comportamento aprovados com /W4 /WX. Referência sempre-atacar: A vence em 35 ações/12 rodadas, A2 com 50 de vida; replay com entrada invertida tem estado/eventos idênticos. Demo automática usa uma guarda inicial para mostrar a regra e termina em 40 ações/14 rodadas. Não há input interativo ou reinício nesta entrega; COM-02 os adicionará. Detalhes e limites em COMBATE.md.
+13 testes de comportamento aprovados com /W4 /WX. Referência sempre-atacar: A vence em 35 ações/12 rodadas, A2 com 50 de vida; replay com entrada invertida tem estado/eventos idênticos. Demo automática usa uma guarda inicial para mostrar a regra e termina em 40 ações/14 rodadas. Não há input interativo ou reinício nesta entrega; COM-02 os adicionará. Detalhes e limites em docs/projeto/COMBATE.md.
 
 ## DEC-012 — Investigar formatos antes da interface
 
@@ -66,13 +66,13 @@ Estado: confirmado em TIME-01, 18/11/2026. Contar ações principais aceitas de 
 
 Adicionar EndReason e contador/regras ao estado/eventos: Finished não significa necessariamente vitória por eliminação. Global de fase, score e ações derivadas não foram implementados. 11 testes novos e regressão anterior aprovados; detalhes em docs/batalhas/TIME-01.md.
 
-Por solicitação do usuário, PENDENCIAS.md passa a ser o registro central de dúvidas e capacidades não validadas; cada item tem ID e momento de resolução. Referenciar sem repetir todas as ressalvas em cada entrega. Próximo bloco WAVE-01, consultar PEN-01/PEN-02; COM-02 segue em espera.
+Por solicitação do usuário, docs/projeto/PENDENCIAS.md passa a ser o registro central de dúvidas e capacidades não validadas; cada item tem ID e momento de resolução. Referenciar sem repetir todas as ressalvas em cada entrega. Próximo bloco WAVE-01, consultar PEN-01/PEN-02; COM-02 segue em espera.
 
 ## DEC-014 — Fase consecutiva com estado e orçamento explícitos
 
 WAVE-01 concluída em 18/11/2026: Stage para 1–5 confrontos, políticas obrigatórias PreserveHealth/RestoreTeam, guarda limpa e ordem reiniciada; vida inicial validada sem alterar atributos. Limites locais/globais contam ações aceitas; empate de limites usa política global. Vitória final por eliminação na última ação prevalece; vitória intermediária sem saldo não inicia nova onda. Eliminação de A não é anulada pela política global. Detalhes e fronteiras em docs/batalhas/WAVE-01.md.
 
-9 testes novos aprovados, 24 anteriores e 168 cenários preservados. Identidade/versão e evento de conclusão únicos em memória; sem economia, save ou habilidades. Próximo bloco SEQ-01. Questões futuras permanecem em PENDENCIAS.md.
+9 testes novos aprovados, 24 anteriores e 168 cenários preservados. Identidade/versão e evento de conclusão únicos em memória; sem economia, save ou habilidades. Próximo bloco SEQ-01. Questões futuras permanecem em docs/projeto/PENDENCIAS.md.
 
 ## DEC-015 — Pesquisa e perfil de tempo antes de chefes por etapa
 
@@ -86,7 +86,7 @@ TIME-02 integrada em C++ em 18/11/2026. Perfil ActionBar prioritário para exper
 
 Relógios do dono são NaturalOnly ou EveryTurn; nova recarga/status não é reduzida no mesmo uso/aplicação. Skip bloqueado conta como comando principal; reação não. Erro de cadeia tem TechnicalLimit sem vencedor. Fases AP/habilidades exigem política de runtime: Preserve ou Reset, com AP/guarda/filas locais reiniciados. Contrato completo em docs/batalhas/TIME-02.md.
 
-49 testes aprovados, 168 cenários anteriores e 25 formações AP/replays. Não há equivalência comprovada ao Dislyte nem ATB implementado. Próximo bloco SEQ-01; demais lacunas em PENDENCIAS.md.
+49 testes aprovados, 168 cenários anteriores e 25 formações AP/replays. Não há equivalência comprovada ao Dislyte nem ATB implementado. Próximo bloco SEQ-01; demais lacunas em docs/projeto/PENDENCIAS.md.
 
 ## DEC-017 — Opção B: reflexão e explosões entre acertos
 
@@ -161,7 +161,7 @@ A pedido do usuário, consulta excepcional somente leitura aos relatórios irmã
 
 ## DEC-031 — Separação por áreas e plugins conforme necessidade
 
-Usuário aprovou manter combate, dados, aplicação, apresentação, áudio, persistência/diagnóstico e ferramentas separados. Plugin é opção de implementação após pesquisa e pequeno teste de integração, não exigência para cada área. Priorizar adequação, manutenção, licença, compatibilidade e substituição; engine ainda não escolhida, sem downloads/instalações/compras. Diretriz em ARQUITETURA.md. Sem mudança de código/testes; PAR-02 continua próximo.
+Usuário aprovou manter combate, dados, aplicação, apresentação, áudio, persistência/diagnóstico e ferramentas separados. Plugin é opção de implementação após pesquisa e pequeno teste de integração, não exigência para cada área. Priorizar adequação, manutenção, licença, compatibilidade e substituição; engine ainda não escolhida, sem downloads/instalações/compras. Diretriz em docs/projeto/ARQUITETURA.md. Sem mudança de código/testes; PAR-02 continua próximo.
 
 
 ## DEC-032 — HP único e barra global
@@ -206,3 +206,7 @@ Usuário escolheu floor(dano/2) por hit como padrão da defesa genérica; 1 pode
 ## DEC-040 — Perfis e posições HAB-01 parte 1
 
 Perfil de equipe usa até três posições, básica canônica sem recarga e sem defesa genérica; clássico permanece em lançador próprio. Passivas declaradas não executam efeitos neste incremento. Kernel de batalha reutilizado por composição, com validação de loadouts e comandos no ProfileBattle. Aceite 162/162; próxima parte exige contrato do primeiro gatilho passivo.
+
+## DEC-041 — Estrutura e colaboração
+
+Preservar layout C++ existente, reunir planejamento em docs/projeto e JSON vigente em docs/relatorios/atuais. Histórico de contratos permanece em docs/batalhas. README e guias são entradas para colaboradores; AGENTS concentra regras atuais, com histórico separado. Sem engine, dependências, licença aberta ou CI externa implícitos.

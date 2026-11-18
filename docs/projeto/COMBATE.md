@@ -14,7 +14,7 @@ Na raiz do projeto, pelo PowerShell:
 
 O comando descobre o Visual Studio instalado, inicializa o ambiente x64 somente no processo filho, compila o núcleo uma vez, executa testes e então compila/executa a demonstração. Não instala nem baixa ferramentas. Falha com erro se compilação, teste ou demonstração falhar. Usa /std:c++20 /permissive- /Zc:__cplusplus /EHsc /W4 /WX e /MT.
 
-Saídas temporárias: build/combate/; ignoradas pelo Git. Resultado resumido da última execução bem-sucedida: COMBATE.json, com horário. Ao falhar, consultar a saída atual e build/combate/resultado.log; um JSON de sucesso anterior não comprova uma tentativa posterior.
+Saídas temporárias: build/combate/; ignoradas pelo Git. Resultado resumido da última execução bem-sucedida: docs/relatorios/atuais/COMBATE.json, com horário. Ao falhar, consultar a saída atual e build/combate/resultado.log; um JSON de sucesso anterior não comprova uma tentativa posterior.
 
 Depois de compilar, a demonstração pode ser repetida sem recompilar:
 
@@ -44,7 +44,7 @@ Demonstração: A3 usa guarda primeiro; depois ambos os lados seguem a política
 
 ## Limites conhecidos
 
-Atualização TIME-01: orçamento opcional local implementado; motivo de término é Elimination ou ActionLimit. Política por esgotamento escolhida explicitamente: empate, derrota de A ou de B. Vitória na última ação prevalece. API e testes em docs/batalhas/TIME-01.md. A demo continua sem orçamento para preservar o cenário de referência. Dúvidas de próximas etapas ficam exclusivamente em PENDENCIAS.md.
+Atualização TIME-01: orçamento opcional local implementado; motivo de término é Elimination ou ActionLimit. Política por esgotamento escolhida explicitamente: empate, derrota de A ou de B. Vitória na última ação prevalece. API e testes em docs/batalhas/TIME-01.md. A demo continua sem orçamento para preservar o cenário de referência. Dúvidas de próximas etapas ficam exclusivamente em docs/projeto/PENDENCIAS.md.
 
 Sem input do usuário, reinício interativo, UI, câmera, animação, som, habilidades extras, progressão ou salvamento. Estatísticas simétricas e desempate por ID favorecem a equipe A neste cenário; nenhum balanceamento competitivo foi validado. O limite de 256 ações é proteção do aplicativo/teste, não uma regra de empate do núcleo. Uma política que só guarda pode prolongar indefinidamente o combate; regra de empate não faz parte desta versão.
 
@@ -54,7 +54,7 @@ Não foi avaliada integração com Unreal/mobile. Snapshot serve para leitura/te
 
 Atualização: o usuário pediu análise de formações/fases/paralelismo antes da entrada interativa. COM-02 fica em espera; TIME-01 local concluída e próxima entrega WAVE-01. O script executa 13 testes originais, 11 de limite, matriz e lote funcional. O núcleo recebeu as regras de orçamento de TIME-01; a descrição de COM-01A em ANALISE.md é histórica.
 
-Matriz adicional: 150 cenários para os 25 pares de tamanhos 1–5, mais 18 sondagens com seis, repetidos com entrada invertida. Três contextos 5x1 independentes intercalados sem interferência. Lote de 1000 batalhas é ensaio funcional local. Limite local foi implementado; demais capacidades/decisões estão em PENDENCIAS.md. CSV em docs/batalhas/formacoes-testadas.csv.
+Matriz adicional: 150 cenários para os 25 pares de tamanhos 1–5, mais 18 sondagens com seis, repetidos com entrada invertida. Três contextos 5x1 independentes intercalados sem interferência. Lote de 1000 batalhas é ensaio funcional local. Limite local foi implementado; demais capacidades/decisões estão em docs/projeto/PENDENCIAS.md. CSV em docs/batalhas/formacoes-testadas.csv.
 
 
 

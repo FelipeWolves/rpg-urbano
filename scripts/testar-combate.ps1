@@ -1,5 +1,6 @@
 # Build the own combat core once, then run behavior tests and an automated demo.
 $ErrorActionPreference = 'Stop'
+New-Item -ItemType Directory -Force -Path (Join-Path (Split-Path $PSScriptRoot -Parent) 'docs/relatorios/atuais') | Out-Null
 $root = Split-Path $PSScriptRoot -Parent
 $build = Join-Path $root 'build\combate'
 $vswhere = Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio\Installer\vswhere.exe'
@@ -209,4 +210,4 @@ Copy-Item -LiteralPath (Join-Path $build 'sequencia-testes.csv') -Destination (J
     LocalBatchResult = $batchResult[0]
     ExitCode = $code
     Scope = 'Own combat core with action identities/multi-hit/skill guard and fixed/AP timing, skills/status clocks, extras/reactions, optional guard, consecutive stages, three successive squads with stable/phased boss kits and classified states/shields and local/global action budgets; formation/replay matrix; three coordinated independent cooperative fronts with global action budget and cancellation; independent interleaved contexts; bounded local functional batch; single-HP shared boss with scoped single-target skills, global clocks and R04; team/classic profiles, validated ability slots with canonical basic and informational passive declarations; text session with player A commands, basic AI B, restart and scripted integration tests; no broad shared-boss catalog/multithreading/server validation'
-} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $root 'COMBATE.json') -Encoding utf8
+} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $root 'docs/relatorios/atuais/COMBATE.json') -Encoding utf8

@@ -40,7 +40,7 @@ Dados de referência: A1/B1 (vida 100, ataque 20, velocidade 12); A2/B2 (140, 15
 
 ## Fora do primeiro ciclo
 
-Mundo aberto, multiplayer, contas, gacha, loja, servidor, dezenas de personagens, músicas finais, cinematics, produção artística final, minijogo rítmico e migração para engine futura. Não exigidos para avaliar uma batalha. Ideias permanecem em TAREFAS.md, sem iniciar implementação antecipada.
+Mundo aberto, multiplayer, contas, gacha, loja, servidor, dezenas de personagens, músicas finais, cinematics, produção artística final, minijogo rítmico e migração para engine futura. Não exigidos para avaliar uma batalha. Ideias permanecem em docs/projeto/TAREFAS.md, sem iniciar implementação antecipada.
 
 ## Validação humana
 

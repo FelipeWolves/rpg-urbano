@@ -1,5 +1,6 @@
 # Compile and run only the project's own C++20 diagnostic. Never install tools.
 $ErrorActionPreference = 'Stop'
+New-Item -ItemType Directory -Force -Path (Join-Path (Split-Path $PSScriptRoot -Parent) 'docs/relatorios/atuais') | Out-Null
 $projectRoot = Split-Path $PSScriptRoot -Parent
 $source = Join-Path $projectRoot 'tools\diagnostico.cpp'
 $buildRoot = Join-Path $projectRoot 'build\diagnostico'
@@ -78,5 +79,5 @@ $evidence = [ordered]@{
     Scope = 'Own diagnostic only; no gameplay, engine, downloads or installations'
     Command = '.\scripts\verificar-ambiente.ps1'
 }
-$evidence | ConvertTo-Json -Depth 4 | Set-Content -LiteralPath (Join-Path $projectRoot 'AMBIENTE.json') -Encoding utf8
+$evidence | ConvertTo-Json -Depth 4 | Set-Content -LiteralPath (Join-Path $projectRoot 'docs/relatorios/atuais/AMBIENTE.json') -Encoding utf8
 Write-Output 'AMBIENTE_OK: compilação, link e execução do diagnóstico confirmados.'

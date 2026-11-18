@@ -2,7 +2,7 @@
 
 Atualização TIME-02: BattleRules seleciona perfil fixo/AP; eventos distinguem oportunidade e reação, SkillDefinition declara efeitos/recarga e RuntimeCarry rege passagem nas fases estendidas. Contrato atual em docs/batalhas/TIME-02.md; demais seções iniciais são base histórica quando superadas.
 
-Estado: núcleo C++20 e matriz de formações; TIME-01 adicionou orçamento local de ações e resultado explícito de encerramento. MSVC x64 validado; engine não escolhida. WAVE-01 adicionou Stage com passagem explícita de vida, reset e orçamento global consecutivo (docs/batalhas/WAVE-01.md). Chefes por etapa/compartilhados, entrada do jogador e apresentação gráfica seguem pendentes em PENDENCIAS.md.
+Estado: núcleo C++20 e matriz de formações; TIME-01 adicionou orçamento local de ações e resultado explícito de encerramento. MSVC x64 validado; engine não escolhida. WAVE-01 adicionou Stage com passagem explícita de vida, reset e orçamento global consecutivo (docs/batalhas/WAVE-01.md). Chefes por etapa/compartilhados, entrada do jogador e apresentação gráfica seguem pendentes em docs/projeto/PENDENCIAS.md.
 
 ## Módulos previstos
 

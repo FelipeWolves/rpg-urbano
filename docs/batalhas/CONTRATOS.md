@@ -1,6 +1,6 @@
 # Contratos de combate e fases — análise antes da COM-02
 
-Estado: contratos por família, **não implementados** salvo onde indicado. TIME-01 implementou orçamento local de ações descrito abaixo; WAVE-01 implementou o coordenador consecutivo descrito em WAVE-01.md; demais coordenadores permanecem propostos. Motor com duas equipes e uma ação por vivo por rodada; ataque e guarda. Regras do nosso projeto, sem alegar reproduzir internamente outro jogo. Dúvidas e decisões em aberto estão centralizadas em [PENDENCIAS.md](../../PENDENCIAS.md).
+Estado: contratos por família, **não implementados** salvo onde indicado. TIME-01 implementou orçamento local de ações descrito abaixo; WAVE-01 implementou o coordenador consecutivo descrito em WAVE-01.md; demais coordenadores permanecem propostos. Motor com duas equipes e uma ação por vivo por rodada; ataque e guarda. Regras do nosso projeto, sem alegar reproduzir internamente outro jogo. Dúvidas e decisões em aberto estão centralizadas em [PENDENCIAS.md](../projeto/PENDENCIAS.md).
 
 ## 1. Formação não é lado de combate
 

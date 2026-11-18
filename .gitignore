@@ -23,3 +23,22 @@
 .env
 .env.*
 !.env.example
+
+# C++/IDE outputs outside the standard build directory.
+*.obj
+*.o
+*.pch
+*.pdb
+*.ilk
+*.exe
+*.dll
+*.lib
+*.a
+*.so
+*.dylib
+CMakeUserPresets.json
+/CMakeFiles/
+/CMakeCache.txt
+/.vscode/
+.DS_Store
+Thumbs.db

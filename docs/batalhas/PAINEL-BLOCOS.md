@@ -1,5 +1,11 @@
 # Painel de blocos — estado consolidado
 
+## Organização do repositório — 18/11/2026
+
+✅ Organização documental e colaboração concluídas: documentos de planejamento em docs/projeto; resultados vigentes em docs/relatorios/atuais; estrutura C++ preservada. README/CONTRIBUTING/SECURITY, EditorConfig, atributos Git e modelos de issue/PR adicionados. Histórico de orientações preservado; AGENTS atualizado para o estado vigente.
+
+Scripts ajustados aos novos caminhos. Não foram instaladas dependências, adotada engine, definida licença pública ou configurada execução automática em serviços externos. Fontes/recursos de terceiros continuam sujeitos a autorização própria. Próximo bloco funcional permanece HAB-01 parte 2.
+
 Atualizado em 18/11/2026 após COM-02. Fonte atual de resultados: COMBATE.json e COMBATE-DEFESA-BAIXO.json; COMBATE-COM-02-FINAL.json preserva a entrega anterior. Este painel substitui marcações antigas; relatórios anteriores permanecem preservados.
 
 ## Legenda das siglas e marcações

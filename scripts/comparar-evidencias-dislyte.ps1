@@ -7,7 +7,7 @@ $output = Join-Path $project 'docs\batalhas\comparacao-dislyte-2026-11-18'
 if (Test-Path -LiteralPath $output) { throw 'Relatório já existe; preservar a entrega anterior antes de planejar novo incremento.' }
 $inventory = @(Import-Csv -LiteralPath (Join-Path $analysis 'inventario.csv'))
 $historical = Get-Content -LiteralPath (Join-Path $analysis 'resumo.json') -Raw | ConvertFrom-Json
-$combat = Get-Content -LiteralPath (Join-Path $project 'COMBATE.json') -Raw | ConvertFrom-Json
+$combat = Get-Content -LiteralPath (Join-Path $project 'docs/relatorios/atuais/COMBATE.json') -Raw | ConvertFrom-Json
 $selected = @($inventory | Where-Object { $_.Path -match '(game\\Dislyte\.exe|XGame-Win64-Shipping\.exe|WindowsNoEditor\\Engine\.ini|Saved\\InstallPaks\\chunk_info|Saved\\PatchPaks\\(patch_info|upgrade_info)|game\\ver\.dat|Config\\DefaultXGameCustom\.ini)$' })
 if ($selected.Count -ne 8) { throw 'Conjunto pontual inesperado; revisar escopo antes de continuar.' }
 $rootPrefix = [IO.Path]::GetFullPath($source).TrimEnd('\') + '\'
@@ -57,7 +57,7 @@ Row C24 'Offline, serviços e plataformas' 'Modo oficial offline não demonstrad
 $sourceMap = [ordered]@{
     A01=(Join-Path $analysis 'relatorio.md'); A02=(Join-Path $analysis 'etapa-final-01\relatorio-final.md')
     A03=(Join-Path $analysis 'resumo.json'); A04=(Join-Path $analysis 'etapa-final-01\plugins.csv')
-    A05=(Join-Path $analysis 'fase-1\relatorio-preparatorio.md'); P01=(Join-Path $project 'COMBATE.json')
+    A05=(Join-Path $analysis 'fase-1\relatorio-preparatorio.md'); P01=(Join-Path $project 'docs/relatorios/atuais/COMBATE.json')
     P02=(Join-Path $project 'docs\batalhas\ANALISE.md'); P03=(Join-Path $project 'docs\batalhas\TEMPO-PESQUISA.md')
     P04=(Join-Path $project 'docs\batalhas\REVISAO-PESQUISA-USUARIO-R03.md')
     P05=(Join-Path $project 'docs\batalhas\CONTRATO-CAUSALIDADE-R04.md')

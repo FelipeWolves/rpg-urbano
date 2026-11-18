@@ -15,9 +15,9 @@ O usuário escolheu e instalou manualmente **Visual Studio Community 2026**. A p
 
 tools/diagnostico.cpp compilou, vinculou e executou com sucesso. Verificou concepts, std::span, std::ranges, ordenação/soma, ponteiros de 64 bits e chamada de API do Windows via SDK. Resultado: `TOOLCHAIN_OK cxx=202002 msvc=195237029 pointer_bits=64 sum=17`; código de saída zero. /W4 /WX ativos, sem avisos ou erros. Isso valida as ferramentas, não um motor de combate.
 
-AMBIENTE.json contém versões/resultado. Objetos, executável, wrapper .cmd, temporários e log ficam em build/diagnostico/, ignorado pelo Git. Ambiente x64 inicializado pelo VsDevCmd em processo filho; sem alteração de PATH global. Compilação com runtime estático /MT. Não foi aberta ou instalada engine, nem escrito gameplay.
+docs/relatorios/atuais/AMBIENTE.json contém versões/resultado. Objetos, executável, wrapper .cmd, temporários e log ficam em build/diagnostico/, ignorado pelo Git. Ambiente x64 inicializado pelo VsDevCmd em processo filho; sem alteração de PATH global. Compilação com runtime estático /MT. Não foi aberta ou instalada engine, nem escrito gameplay.
 
-Próximo bloco vigente em ESTADO.md; COM-01 e TIME-01 já usam este ambiente. Não repetir o diagnóstico sem mudança de ambiente ou falha relevante. Validar compatibilidade com a engine quando escolhida.
+Próximo bloco vigente em docs/projeto/ESTADO.md; COM-01 e TIME-01 já usam este ambiente. Não repetir o diagnóstico sem mudança de ambiente ou falha relevante. Validar compatibilidade com a engine quando escolhida.
 
 ---
 

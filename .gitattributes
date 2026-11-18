@@ -1,0 +1,23 @@
+# Normalize text in Git; keep Windows launchers with CRLF on checkout.
+* text=auto
+*.cpp text eol=lf
+*.hpp text eol=lf
+*.ps1 text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.csv text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.cmd text eol=crlf
+*.bat text eol=crlf
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.wav binary
+*.ogg binary
+*.mp3 binary
+*.fbx binary
+*.glb binary
+*.uasset binary
+*.umap binary

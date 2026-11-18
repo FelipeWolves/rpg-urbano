@@ -237,3 +237,7 @@ Política mínima de automação resolvida: prioridades configuradas, disponibil
 ## HAB-01 encerrado — estado atual
 
 Cinco partes do conjunto mínimo concluídas, 187/187 testes. Híbrida funcional integrada. Pendências futuras de silêncio/supressão, gatilhos durante combate, recarga interna, recursos/requisitos compostos e adaptação SEQ/PAR não foram declaradas implementadas. Próximo CIC-01 parte 1: contrato e composição/seleção em memória; recompensa e save em partes posteriores.
+
+## CIC-01 parte 1 concluída
+
+Composição 1–5 validada em memória e integrada por --equipe; 195/195 testes. Próxima pendência: identidade de conclusão e concessão única da recompensa mínima. Formato de save/migração permanece parte 3; seleção não transporta HP/status de batalhas anteriores.

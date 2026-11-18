@@ -1,6 +1,7 @@
 #include "rpg/text_session.hpp"
 #include <iostream>
 #include <sstream>
+#include <stdexcept>
 
 namespace rpg::presentation {
 namespace {
@@ -190,6 +191,20 @@ TeamReferenceSetup team_reference_setup(){
 }
 TextReport run_team_reference_session(std::istream& input,std::ostream& output){
     auto setup=team_reference_setup();
+    return run_text_session(input,output,std::move(setup.roster),std::move(setup.rules),CombatProfile::Team,std::move(setup.loadouts));
+}
+TextReport run_selected_team_reference_session(std::istream& input,std::ostream& output,std::vector<std::string> selected){
+    TeamSelection selection(team_reference_setup());
+    const auto error=selection.select(std::move(selected));
+    if(error!=SelectionError::None){
+        switch(error){
+        case SelectionError::Empty:throw std::invalid_argument("Escolha de 1 a 5 personagens.");
+        case SelectionError::TooMany:throw std::invalid_argument("Equipe excede o limite de 5 personagens.");
+        case SelectionError::DuplicateMember:throw std::invalid_argument("Personagem repetido na equipe.");
+        default:throw std::invalid_argument("Personagem indisponivel. Catalogo atual: A1 A2 A3.");
+        }
+    }
+    auto setup=selection.compose();
     return run_text_session(input,output,std::move(setup.roster),std::move(setup.rules),CombatProfile::Team,std::move(setup.loadouts));
 }
 } // namespace rpg::presentation

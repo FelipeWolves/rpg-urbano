@@ -1,5 +1,11 @@
 # Prioridades por área
 
+## CIC-01 parte 1 — estado vigente (18/11/2026)
+
+✅ Composição/seleção de equipe em memória concluída: 1–5 IDs disponíveis e distintos, recusa sem mutação, encontros com dependências filtradas e isolamento de batalhas já iniciadas. Demo aceita Jogar.cmd --equipe A1 A3; catálogo atual A1/A2/A3, adversários B1/B2/B3 fixos. Reinício preserva a seleção. **195/195 testes aprovados**, incluindo sete grupos de seleção e uma integração textual adicional.
+
+Contrato/relatório: docs/projeto/CIC-01.md. Aceite: docs/batalhas/COMBATE-CIC-01-PARTE-1.json; matriz equipes-testes.csv. ⚠️ CIC-01 permanece aberto. Próximo: parte 2, fechar identidade do resultado e recompensa mínima em memória com concessão única; save versionado somente na parte 3. Nenhum save ou recurso externo nesta entrega.
+
 ## HAB-01 — concluído no escopo mínimo (18/11/2026)
 
 ✅ Cinco partes entregues: perfis/posições, passiva de abertura, condição adicional, automação e integração de kits ativo/passivo/híbrido. **187/187 testes aprovados**; lançadores e clássico conferidos. Aceite consolidado: docs/batalhas/HAB-01-FINAL.md e COMBATE-HAB-01-FINAL.json. Não há revisão pendente desse escopo sem mudança/falha pertinente.
@@ -98,7 +104,7 @@ ATB opcional, backend/multiplayer, publicação em lojas/launcher e produção m
 
 ## Próxima ação concreta
 
-CIC-01 parte 1: contrato e validação da composição de equipe em memória. HAB-01 encerrado no escopo mínimo, 187 testes; recompensa/save em entregas posteriores.
+CIC-01 parte 2: contrato de resultado/recompensa mínima em memória com concessão única. Composição de equipe concluída (parte 1); não iniciar save/engine junto.
 
 ## HAB-01 parte 1 — histórico da entrega (18/11/2026)
 

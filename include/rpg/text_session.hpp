@@ -1,5 +1,5 @@
 #pragma once
-#include "rpg/ability_profile.hpp"
+#include "rpg/team_selection.hpp"
 #include <iosfwd>
 
 namespace rpg::presentation {
@@ -12,11 +12,7 @@ struct TextReport {
     std::uint64_t rejected_commands;
     std::uint64_t restarts;
 };
-struct TeamReferenceSetup {
-    std::vector<Definition> roster;
-    BattleRules rules;
-    std::vector<CharacterLoadout> loadouts;
-};
+using TeamReferenceSetup = EncounterSetup;
 [[nodiscard]] TeamReferenceSetup team_reference_setup();
 [[nodiscard]] BattleRules text_reference_rules();
 // Presentation only; streams support terminal use and deterministic scripted checks.
@@ -24,4 +20,6 @@ struct TeamReferenceSetup {
     std::vector<Definition> roster=reference_roster(),BattleRules rules=text_reference_rules(),
     CombatProfile profile=CombatProfile::Classic,std::vector<CharacterLoadout> loadouts={});
 [[nodiscard]] TextReport run_team_reference_session(std::istream& input,std::ostream& output);
+[[nodiscard]] TextReport run_selected_team_reference_session(std::istream& input,std::ostream& output,
+    std::vector<std::string> selected);
 } // namespace rpg::presentation

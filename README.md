@@ -14,7 +14,9 @@ Protótipo original de RPG por turnos com identidade urbana e musical. Núcleo e
 
 O script descobre o compilador instalado, compila código próprio, executa testes e gera `build/combate/`. Não instala dependências nem muda a política de segurança. Se o Windows bloquear scripts, use um ambiente permitido pelo administrador; não use bypass. Os executáveis já compilados podem ser abertos normalmente.
 
-4. Abra **Jogar.cmd** para equipes ou **Jogar-Classico.cmd** para o clássico. Binários são locais e não acompanham o Git; uma cópia nova precisa ser compilada.
+4. Opcionalmente escolha a equipe com `.\Jogar.cmd --equipe A1 A3` (catálogo atual: A1/A2/A3, sem repetições). Abertura sem argumentos mantém os três; reiniciar mantém a seleção. Contrato em [CIC-01](docs/projeto/CIC-01.md).
+
+5. Abra **Jogar.cmd** para equipes ou **Jogar-Classico.cmd** para o clássico. Binários são locais e não acompanham o Git; uma cópia nova precisa ser compilada.
 
 No perfil de equipes: `1 B3` usa a básica; `2 B3` usa a segunda posição ativa; `3 A3` usa a proteção de emergência quando A3 age e está com até 50% da vida. `ajuda`, `estado`, `reiniciar` e `sair` orientam a sessão. A2/B2 têm a passiva Preparação; A3/B3 têm Golpe duplo preparado, com ataque ativo e escudo passivo de abertura. Notas sem definição executável continuam informativas. O time B de equipes escolhe especiais por prioridade configurada (padrão 3, depois 2) e usa a básica quando necessário; o log identifica a escolha. O time A continua manual. O clássico mantém ataque e defesa e a automação básica histórica.
 
@@ -38,7 +40,7 @@ A estrutura C++ atual já separa interfaces, implementação e aplicação. Não
 
 ## Verificação e limites
 
-A última entrega funcional aprovou **187/187 testes**; consulte o [resultado vigente](docs/relatorios/atuais/COMBATE.json) e o [aceite final HAB-01](docs/batalhas/HAB-01-FINAL.md). O protótipo não comprova servidor, desempenho gráfico ou equivalência a outro jogo. Próximo bloco funcional: CIC-01 parte 1, composição/seleção da equipe em memória.
+A última entrega funcional aprovou **195/195 testes**; consulte o [resultado vigente](docs/relatorios/atuais/COMBATE.json) e o [aceite final HAB-01](docs/batalhas/HAB-01-FINAL.md). O protótipo não comprova servidor, desempenho gráfico ou equivalência a outro jogo. Próximo bloco funcional: CIC-01 parte 2, resultado e recompensa mínima em memória com concessão única.
 
 [Guia de contribuição](CONTRIBUTING.md) · [Segurança e dados](SECURITY.md) · [Índice da documentação](docs/README.md) · [Histórico de organização](CHANGELOG.md).
 

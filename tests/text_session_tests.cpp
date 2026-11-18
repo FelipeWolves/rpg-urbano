@@ -209,6 +209,20 @@ void integrated_reference_matrix(){
         a.reset();check(a.snapshot()==initial,"matrix reset mismatch");
     }
 }
+void selected_team_session(){
+    std::istringstream in("1 B3\nreiniciar\nsair\n");std::ostringstream out;
+    const auto report=run_selected_team_reference_session(in,out,{"A3"});
+    check(report.player_actions==1 && report.restarts==1 && report.final_state.fighters.size()==4 &&
+        !std::ranges::any_of(report.final_state.fighters,[](const Fighter& f){return f.definition.id=="A1" || f.definition.id=="A2";}),
+        "selection not reflected in session/reset");
+    const auto d=team_reference_setup();TeamSelection selection(d);check(selection.select({"A3"})==SelectionError::None,"expected selection failed");
+    const auto setup=selection.compose();ProfileBattle expected(setup.roster,setup.rules,CombatProfile::Team,setup.loadouts);
+    check(report.final_state==expected.battle().snapshot(),"selected reset differs from fresh encounter");
+    std::istringstream bad("sair\n");std::ostringstream errors;bool caught=false;
+    try{const auto ignored=run_selected_team_reference_session(bad,errors,{"B1"});static_cast<void>(ignored);}
+    catch(const std::invalid_argument&){caught=true;}
+    check(caught && errors.str().empty(),"invalid selection started battle");
+}
 }
 int main(int argc,char** argv){
     const std::pair<const char*,void(*)()> tests[]={{"input_atomics",input_and_invalid_atomics},{"target_enemy",selected_target_and_enemy},
@@ -216,7 +230,7 @@ int main(int argc,char** argv){
         {"skill_skip_clock",skill_block_skip_and_clock},{"eof_timeout",eof_and_timeout},{"safety_technical",safety_and_technical_result},
         {"team_profile",team_profile_session},{"opening_passive_session",opening_passive_session},{"conditional_skill_session",conditional_skill_session},{"automatic_special_session",automatic_special_session},
         {"integrated_reference_kits",integrated_reference_kits},{"integrated_full_text_battle",integrated_full_text_battle},
-        {"integrated_full_reset",integrated_full_reset},{"integrated_reference_matrix",integrated_reference_matrix}};
+        {"integrated_full_reset",integrated_full_reset},{"integrated_reference_matrix",integrated_reference_matrix},{"selected_team_session",selected_team_session}};
     int passed=0;for(const auto& [name,test]:tests){try{test();++passed;std::cout<<"PASS text "<<name<<'\n';}
         catch(const std::exception& e){std::cerr<<"FAIL text "<<name<<": "<<e.what()<<'\n';}}
     std::cout<<"TEXT_TESTS_RESULT passed="<<passed<<" total="<<std::size(tests)<<'\n';

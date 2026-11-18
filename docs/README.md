@@ -7,6 +7,8 @@
 - [Ferramentas](projeto/FERRAMENTAS.md), [fundação do combate](projeto/COMBATE.md) e [painel consolidado](batalhas/PAINEL-BLOCOS.md).
 - [Ambiente vigente](relatorios/atuais/AMBIENTE.json) e [combate vigente](relatorios/atuais/COMBATE.json).
 
+- [CIC-01: composição e ciclo local](projeto/CIC-01.md).
+
 ## Preservação e caminhos antigos
 
 Os nove documentos de planejamento antes na raiz estão agora em `docs/projeto/`. AMBIENTE.json e COMBATE.json da raiz estão em `docs/relatorios/atuais/`. Os scripts usam esses novos destinos.

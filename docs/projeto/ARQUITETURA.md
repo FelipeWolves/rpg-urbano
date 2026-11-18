@@ -119,3 +119,7 @@ CharacterLoadout inclui automatic_priority; ProfileBattle::choose_automatic_acti
 ## Demo integrada — HAB-01 encerrado
 
 team_reference_setup fornece roster/regras/loadouts reutilizados pela sessão e testes. Não é banco de personagens nem serialização; separa configuração de exemplo da execução textual. Híbrida usa uma ativa e a mesma preparação passiva suportada, com estados e relógios independentes. Aceite HAB-01-FINAL.md.
+
+## Composição em memória — CIC-01 parte 1
+
+EncounterSetup move dados compartilhados da apresentação para o núcleo de composição. TeamSelection valida catálogo e seleção antes de criar encontros; mantém cópias sem acesso a disco. Cada compose remove membros não selecionados e suas dependências, preservando cenário/regras. A sessão pode receber seleção por argumentos e o reset mantém o encontro configurado; escolhas posteriores não editam batalhas já criadas. Não é inventário nem save.

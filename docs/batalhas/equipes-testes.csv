@@ -1,0 +1,8 @@
+test,status,scope
+default_detached,pass,in_memory_selection_1_to_5
+invalid_atomic,pass,in_memory_selection_1_to_5
+sizes_playability,pass,in_memory_selection_1_to_5
+order_initiative,pass,in_memory_selection_1_to_5
+prune_rules,pass,in_memory_selection_1_to_5
+isolation_later_selection,pass,in_memory_selection_1_to_5
+invalid_catalog_side,pass,in_memory_selection_1_to_5

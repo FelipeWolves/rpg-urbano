@@ -1,5 +1,11 @@
 # Tarefas
 
+## CIC-01 parte 1 — estado vigente (18/11/2026)
+
+✅ Composição/seleção de equipe em memória concluída: 1–5 IDs disponíveis e distintos, recusa sem mutação, encontros com dependências filtradas e isolamento de batalhas já iniciadas. Demo aceita Jogar.cmd --equipe A1 A3; catálogo atual A1/A2/A3, adversários B1/B2/B3 fixos. Reinício preserva a seleção. **195/195 testes aprovados**, incluindo sete grupos de seleção e uma integração textual adicional.
+
+Contrato/relatório: docs/projeto/CIC-01.md. Aceite: docs/batalhas/COMBATE-CIC-01-PARTE-1.json; matriz equipes-testes.csv. ⚠️ CIC-01 permanece aberto. Próximo: parte 2, fechar identidade do resultado e recompensa mínima em memória com concessão única; save versionado somente na parte 3. Nenhum save ou recurso externo nesta entrega.
+
 ## HAB-01 — concluído no escopo mínimo (18/11/2026)
 
 ✅ Cinco partes entregues: perfis/posições, passiva de abertura, condição adicional, automação e integração de kits ativo/passivo/híbrido. **187/187 testes aprovados**; lançadores e clássico conferidos. Aceite consolidado: docs/batalhas/HAB-01-FINAL.md e COMBATE-HAB-01-FINAL.json. Não há revisão pendente desse escopo sem mudança/falha pertinente.
@@ -82,7 +88,10 @@ Uma entrega por vez. Ordem por área, criticidade e dependências, conforme docs
   - [x] Parte 3 — Condição adicional e primeiros kits próprios, uma família por entrega.
   - [x] Parte 4 — Manual/automático com validação única e prioridade explícita.
   - [x] Parte 5 — Integrar poucos kits ao protótipo, preservar clássico e validar reset/replay.
-- [ ] CIC-01 — Seleção de equipe, recompensa mínima e salvamento local versionado.
+- [ ] CIC-01 — Ciclo local em três partes; docs/projeto/CIC-01.md.
+  - [x] Parte 1 — Composição/seleção em memória, 1–5 membros e encontro filtrado; 195 testes totais.
+  - [ ] Parte 2 — Resultado/recompensa mínima em memória, com concessão única.
+  - [ ] Parte 3 — Save versionado, validação e restauração.
 
 ## 4. Engine e apresentação funcional
 
@@ -97,7 +106,7 @@ Uma entrega por vez. Ordem por área, criticidade e dependências, conforme docs
 
 ## Próximo bloco executável
 
-CIC-01 parte 1: fechar contrato e validar composição/seleção de equipe em memória, antes de recompensa/save. HAB-01 concluído; aceite em docs/batalhas/HAB-01-FINAL.md.
+CIC-01 parte 2: fechar identidade de conclusão e recompensa mínima em memória com concessão única, antes de gravar saves. Parte 1 concluída, contrato CIC-01.md.
 
 ## Encerramento de cada entrega
 

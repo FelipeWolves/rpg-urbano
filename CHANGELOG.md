@@ -29,3 +29,7 @@ Time B de equipes usa especiais por prioridade configurada e básica como fallba
 ## 2026-11-18 — HAB-01 encerrado
 
 Demo integra kits ativo/passivo/híbrido funcionais, com configuração única, indicação de componentes automáticos e erros de comando específicos. Quatro grupos de integração adicionais: batalha completa, reset e matriz de oito configurações com replay/limite. 187/187 testes aprovados; próximo CIC-01.
+
+## 2026-11-18 — CIC-01 parte 1
+
+Seleção de 1–5 membros por ID, com validação atômica e composição filtrada independente. Jogar.cmd --equipe A1 A3 usa o catálogo autoral atual de três opções. Reinício preserva seleção; sem recompensas ou save. 195/195 testes aprovados.

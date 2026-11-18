@@ -82,11 +82,74 @@ void reset_replay_and_classic(){
     const Action commands[]={{"A",ActionType::Guard,{}},{"B",ActionType::Attack,"A"},{"A",ActionType::Skill,"B","special-a"}};
     for(const auto& cmd:commands){check(classic.apply(cmd)==direct.apply(cmd) && classic.battle().snapshot()==direct.snapshot(),"classic contract changed");}
 }
+Setup opening_setup(){
+    Setup d;d.sets[0].slots[1].passive=PassiveDefinition{"opening-a"};return d;
+}
+void opening_contract(){
+    auto d=opening_setup();auto s=d.make();auto plain=Setup{}.make();
+    const auto snap=s.snapshot();const auto* unit=s.battle().find("A");
+    check(snap.passive_activations.size()==1 && snap.passive_activations[0].owner=="A" &&
+          snap.passive_activations[0].position==2,"activation lost identity");
+    check(unit->statuses.size()==1 && unit->statuses[0].magnitude==10 && unit->statuses[0].remaining==2 &&
+          unit->statuses[0].clock==TickPolicy::NaturalOnly,"opening effect missing");
+    check(s.battle().accepted_actions()==0 && s.battle().current_actor()->definition.id==plain.battle().current_actor()->definition.id &&
+          unit->ap==plain.battle().find("A")->ap && unit->health==100,"passive consumed action or changed initiative");
+    check(s.abilities("A")[1].passive_implemented,"functional passive labeled as placeholder");
+    check(!s.apply_slot(2,"B").accepted() && s.snapshot()==snap,"passive became selectable");
+}
+void opening_absorption_expiry(){
+    auto s=opening_setup().make();
+    check(s.apply_slot(1,"B").accepted(),"first basic failed");
+    check(s.battle().find("A")->statuses[0].remaining==1,"owner natural clock did not tick");
+    auto hit=s.apply_slot(1,"A");
+    check(hit.accepted() && s.battle().find("A")->health==100 && s.battle().find("A")->statuses[0].magnitude==7 &&
+          s.battle().find("A")->statuses[0].remaining==1,"enemy action ticked or ignored shield");
+    check(s.apply_slot(1,"B").accepted() && s.battle().find("A")->statuses.empty(),"opening shield did not expire");
+    check(s.apply_slot(1,"A").accepted() && s.battle().find("A")->health==97 && s.passive_activations().size()==1,
+          "opening shield retriggered");
+}
+void opening_validation(){
+    auto d=opening_setup();d.sets[0].slots[1].passive->shield=0;invalid([&]{auto s=d.make();});
+    d=opening_setup();d.sets[0].slots[1].passive->duration=0;invalid([&]{auto s=d.make();});
+    d=opening_setup();d.sets[0].slots[1].passive->id.clear();invalid([&]{auto s=d.make();});
+    d=opening_setup();d.sets[0].slots[1].passive->trigger=static_cast<PassiveTrigger>(99);invalid([&]{auto s=d.make();});
+    d=opening_setup();d.sets[0].slots[2].passive=PassiveDefinition{"second"};invalid([&]{auto s=d.make();});
+    d=opening_setup();d.sets[1].slots[0].passive=PassiveDefinition{"opening-a"};invalid([&]{auto s=d.make();});
+}
+void opening_hybrid_replay_reset(){
+    auto d=opening_setup();d.sets[0].slots[2].passive=d.sets[0].slots[1].passive;d.sets[0].slots[1].passive.reset();
+    d.rules.action_budget=ActionBudget{6,LimitOutcome::Draw};auto a=d.make(),b=d.make();const auto initial=a.snapshot();
+    check(a.abilities("A")[2].passive_implemented && a.abilities("A")[2].availability==AbilityAvailability::Ready,"hybrid lost active");
+    check(a.apply_slot(3,"B")==b.apply_slot(3,"B"),"hybrid command diverged");
+    while(a.battle().phase()==Phase::Running){const auto cmd=*a.choose_basic_action();
+        check(a.apply(cmd)==b.apply(cmd) && a.snapshot()==b.snapshot(),"opening replay diverged");}
+    const auto ended=b.snapshot();check(!a.apply_slot(1,"B").accepted() && a.snapshot()==ended,"opening retriggered after end");
+    a.reset();check(a.snapshot()==initial && b.snapshot()==ended,"reset failed to rearm once or leaked across battles");
+}
+void opening_reflection(){
+    auto d=opening_setup();d.rules.skills.push_back({"reflect-b","B",0,TargetRule::Self,{{EffectKind::Reflect,3,3}}});
+    d.sets[1].slots.push_back({2,"Reflect","reflect-b",{}});auto s=d.make();
+    check(s.apply_slot(1,"B").accepted() && s.apply_slot(2,"B").accepted(),"reflection setup failed");
+    auto result=s.apply_slot(1,"B");
+    check(result.accepted() && s.battle().find("A")->health==100 &&
+          std::ranges::any_of(result.events,[](const Event& e){return e.type==EventType::ShieldAbsorbed && e.amount==3;}),
+          "reflection bypassed opening shield");
+    check(s.passive_activations().size()==1,"reflection retriggered opening passive");
+}
+void opening_lethal_limit(){
+    auto d=opening_setup();d.roster[1].attack=200;auto s=d.make();
+    check(s.apply_slot(1,"B").accepted(),"lethal setup failed");auto result=s.apply_slot(1,"A");
+    check(result.accepted() && s.battle().phase()==Phase::Finished && s.battle().winner()==Team::B &&
+          std::ranges::count(result.events,EventType::BattleFinished,&Event::type)==1 && s.passive_activations().size()==1,
+          "opening passive interfered with victory");
+}
 }
 int main(int argc,char** argv){
     const std::pair<const char*,void(*)()> tests[]={{"configuration",configuration},{"canonical_basic",canonical_basic_no_defense},
         {"passive_hybrid",passive_and_hybrid},{"cooldown_basic",cooldown_and_basic_fallback},
-        {"action_block",action_block_is_separate},{"replay_classic",reset_replay_and_classic}};
+        {"action_block",action_block_is_separate},{"replay_classic",reset_replay_and_classic},{"opening_contract",opening_contract},
+        {"opening_absorption_expiry",opening_absorption_expiry},{"opening_validation",opening_validation},
+        {"opening_hybrid_replay_reset",opening_hybrid_replay_reset},{"opening_reflection",opening_reflection},{"opening_lethal_limit",opening_lethal_limit}};
     int passed=0;for(const auto& [name,test]:tests){try{test();++passed;std::cout<<"PASS ability_profile "<<name<<'\n';}
         catch(const std::exception& e){std::cerr<<"FAIL ability_profile "<<name<<": "<<e.what()<<'\n';}}
     std::cout<<"PROFILE_TESTS_RESULT passed="<<passed<<" total="<<std::size(tests)<<'\n';

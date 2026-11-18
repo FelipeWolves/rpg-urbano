@@ -210,3 +210,7 @@ Perfil de equipe usa até três posições, básica canônica sem recarga e sem 
 ## DEC-041 — Estrutura e colaboração
 
 Preservar layout C++ existente, reunir planejamento em docs/projeto e JSON vigente em docs/relatorios/atuais. Histórico de contratos permanece em docs/batalhas. README e guias são entradas para colaboradores; AGENTS concentra regras atuais, com histórico separado. Sem engine, dependências, licença aberta ou CI externa implícitos.
+
+## DEC-042 — Primeira passiva de abertura
+
+Primeiro gatilho autoral é BattleStart, escudo próprio temporário, uma vez por combate. Usa preparação de runtime sem consumir ação e sem reordenar R04. Registro no snapshot identifica dono/posição/definição. Não confundir mecanismo de abertura com event bus durante combate nem reaplicar automaticamente em etapas SEQ/PAR. Contrato HAB-01-PASSIVA-ABERTURA-R01.md.

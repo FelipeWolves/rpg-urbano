@@ -6,7 +6,7 @@ namespace rpg::presentation {
 namespace {
 void help(std::ostream& out,CombatProfile profile){
     if(profile==CombatProfile::Team){out<<"Perfil: EQUIPES | Comandos: 1 ALVO | 2 ALVO | 3 ALVO | passar\n"
-        <<"Posicoes passivas sao informativas. Defesa generica nao disponivel.\n";}
+        <<"Posicoes passivas nao sao selecionaveis. Defesa generica nao disponivel.\n";}
     else{out<<"Perfil: CLASSICO | Comandos: atacar ALVO | defesa | habilidade ID ALVO | passar\n";}
     out
        <<"          estado | ajuda | reiniciar | sair\n"
@@ -33,6 +33,8 @@ void state(const Battle& battle,std::ostream& out,bool show_skills=true){
         out<<fighter.definition.id<<" ["<<(fighter.definition.team==Team::A?'A':'B')<<"] vida "
            <<fighter.health<<'/'<<fighter.definition.max_health<<" SPD "<<fighter.effective_speed;
         if(fighter.health==0){out<<" DERROTADO";}else if(fighter.guarding){out<<" DEFESA";}
+        for(const auto& status:fighter.statuses){if(status.kind==EffectKind::Shield){
+            out<<" ESCUDO "<<status.magnitude<<" ("<<status.remaining<<" turnos naturais proprios)";}}
         out<<'\n';
     }
     if(battle.phase()==Phase::Finished){
@@ -59,16 +61,22 @@ void profile_state(const ProfileBattle& session,std::ostream& out){
         switch(view.availability){
         case AbilityAvailability::Ready:out<<"DISPONIVEL";break;
         case AbilityAvailability::Cooldown:out<<"RECARGA: "<<view.cooldown;break;
-        case AbilityAvailability::PassiveOnly:out<<"PASSIVA INFORMATIVA - gatilho ainda nao implementado";break;
+        case AbilityAvailability::PassiveOnly:out<<(view.passive_implemented?"PASSIVA AUTOMATICA":"PASSIVA INFORMATIVA - gatilho ainda nao implementado");break;
         case AbilityAvailability::Incapacitated:out<<"SEM ACAO: impedimento de agir";break;
         case AbilityAvailability::Finished:out<<"BATALHA ENCERRADA";break;
         }
         if(view.cooldown>0 && view.availability!=AbilityAvailability::Cooldown){out<<" | RECARGA: "<<view.cooldown;}
         if(view.slot.active_skill){for(const auto& skill:rules.skills){if(skill.id==*view.slot.active_skill){
             out<<" | alvo "<<(skill.target==TargetRule::Self?"proprio":skill.target==TargetRule::Ally?"aliado":"inimigo");}}}
-        if(!view.slot.passive_note.empty() && view.slot.active_skill){out<<" | componente passivo ainda nao implementado";}
+        if(!view.slot.passive_note.empty() && view.slot.active_skill && !view.passive_implemented){out<<" | componente passivo ainda nao implementado";}
         if(!view.slot.passive_note.empty()){out<<" | "<<view.slot.passive_note;}
         out<<'\n';
+    }
+}
+void opening_passives(const ProfileBattle& session,std::ostream& out){
+    for(const auto& event:session.passive_activations()){
+        out<<event.owner<<" ativou passiva "<<event.passive.id<<" na abertura: ESCUDO "<<event.passive.shield
+           <<" por "<<event.passive.duration<<" turnos naturais proprios.\n";
     }
 }
 void events(const ActionResult& result,std::ostream& out){
@@ -92,6 +100,7 @@ BattleRules text_reference_rules(){
 TextReport run_text_session(std::istream& input,std::ostream& output,std::vector<Definition> roster,BattleRules rules,
     CombatProfile profile,std::vector<CharacterLoadout> loadouts){
     ProfileBattle session(std::move(roster),std::move(rules),profile,std::move(loadouts));
+    opening_passives(session,output);
     std::uint64_t players=0,automatic=0,rejected=0,restarts=0;
     TextExit exit=TextExit::InputClosed;
     auto advance_enemy=[&](){
@@ -123,6 +132,7 @@ TextReport run_text_session(std::istream& input,std::ostream& output,std::vector
         if(tokens.size()==1 && command=="estado"){profile_state(session,output);continue;}
         if(tokens.size()==1 && command=="reiniciar"){
             session.reset();++restarts;output<<"Batalha reiniciada.\n";
+            opening_passives(session,output);
             if(!advance_enemy()){exit=TextExit::AutomaticSafetyStop;break;}profile_state(session,output);continue;
         }
         if(profile==CombatProfile::Team && (command=="1" || command=="2" || command=="3") && tokens.size()==2){
@@ -153,7 +163,8 @@ TextReport run_team_reference_session(std::istream& input,std::ostream& output){
         CharacterLoadout set{unit.id,{{1,"Ataque basico",basic,{}}}};
         EffectDefinition double_hit{EffectKind::Damage};double_hit.hit_count=2;
         if(unit.id.back()=='2'){
-            set.slots.push_back({2,"Instinto (modelo de passiva)",std::nullopt,"Exemplo reservado; sem efeito nesta versao."});
+            set.slots.push_back({2,"Preparacao",std::nullopt,"Escudo de abertura; uma vez por combate.",
+                PassiveDefinition{unit.id+"-preparacao"}});
         }else{
             rules.skills.push_back({special,unit.id,2,TargetRule::Enemy,{double_hit}});
             set.slots.push_back({2,"Golpe duplo",special,unit.id.back()=='3'?"Componente hibrido reservado; sem gatilho passivo.":""});

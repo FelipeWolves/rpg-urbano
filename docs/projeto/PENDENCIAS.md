@@ -221,3 +221,7 @@ Arredondamento padrão para baixo decidido e implementado. Modificadores de dano
 ## HAB-01 após parte 1
 
 Perfis/posições concluídos (162/162 testes). Próxima pendência: contrato e implementação do primeiro gatilho passivo; definir janela, dono do limite, vivos/bloqueados/revive e integração R04. Silêncio/supressão e condições especiais seguem futuros; não declarar esses efeitos testados.
+
+## HAB-01 após parte 2 — estado atual
+
+Resolvida a pendência de primeiro gatilho: BattleStart/escudo próprio com limite de uma ativação por combate. Gatilhos por impacto/morte, supressão, recarga interna e transporte entre coordenadores permanecem futuros. Próximo incremento parte 3: contrato de condição de habilidade; não reabrir R04 nem ampliar o catálogo implicitamente.

@@ -13,3 +13,7 @@ Perfis equipe/clássico, posições de habilidade e básica canônica; 162/162 t
 
 Validação da reorganização: compilação completa aprovada, 162/162 testes, scripts PowerShell sem erros de sintaxe, links Markdown locais válidos e abertura dos dois lançadores confirmada. Nenhuma regra de combate modificada. Evidência vigente em docs/relatorios/atuais/COMBATE.json; log local ignorado build/combate/verificacao-organizacao.log.
 
+
+## 2026-11-18 — HAB-01 parte 2
+
+Primeira passiva funcional: Preparação concede escudo de abertura em A2/B2, sem ação e com ativação registrada. Reset, rejeição de seleção, absorção, expiração e replay cobertos; híbridas informativas preservadas.

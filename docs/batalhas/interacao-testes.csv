@@ -7,3 +7,4 @@ skill_skip_clock,pass,text_session_player_A_basic_AI_B
 eof_timeout,pass,text_session_player_A_basic_AI_B
 safety_technical,pass,text_session_player_A_basic_AI_B
 team_profile,pass,text_session_player_A_basic_AI_B
+opening_passive_session,pass,text_session_player_A_basic_AI_B

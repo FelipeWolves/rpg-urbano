@@ -15,17 +15,26 @@ ProfileBattle::ProfileBattle(std::vector<Definition> roster,BattleRules rules,Co
     }else{
         rules_.guard_enabled=false;
         if(loadouts_.size()!=roster_.size()){throw std::invalid_argument("Every fighter requires a loadout");}
-        std::vector<std::string> owners,assigned;
+        std::vector<std::string> owners,assigned,passive_ids;
         for(auto& set:loadouts_){
             if(std::ranges::find(roster_,set.fighter_id,&Definition::id)==roster_.end() ||
                std::ranges::find(owners,set.fighter_id)!=owners.end() || set.slots.empty() || set.slots.size()>3){
                 throw std::invalid_argument("Invalid loadout");}
             owners.push_back(set.fighter_id);std::ranges::sort(set.slots,{},&AbilitySlot::position);
             std::uint32_t previous=0;
+            bool opening_shield=false;
             for(const auto& entry:set.slots){
                 if(entry.position<1 || entry.position>3 || entry.position==previous || entry.name.empty() ||
-                   (!entry.active_skill && entry.passive_note.empty())){throw std::invalid_argument("Invalid ability slot");}
+                   (!entry.active_skill && !entry.passive && entry.passive_note.empty())){throw std::invalid_argument("Invalid ability slot");}
                 previous=entry.position;
+                if(entry.passive){
+                    const auto& passive=*entry.passive;
+                    if(passive.id.empty() || passive.trigger!=PassiveTrigger::BattleStart || passive.shield<=0 ||
+                       passive.duration<1 || passive.duration>1000 || opening_shield ||
+                       std::ranges::find(passive_ids,passive.id)!=passive_ids.end()){
+                        throw std::invalid_argument("Invalid or conflicting opening passive");}
+                    opening_shield=true;passive_ids.push_back(passive.id);
+                }
                 if(entry.active_skill){
                     const auto skill=std::ranges::find(rules_.skills,*entry.active_skill,&SkillDefinition::id);
                     if(skill==rules_.skills.end() || skill->owner!=set.fighter_id ||
@@ -53,8 +62,26 @@ const AbilitySlot* ProfileBattle::slot(std::string_view fighter,std::uint32_t po
     const auto found=std::ranges::find(set->slots,position,&AbilitySlot::position);
     return found==set->slots.end()?nullptr:&*found;
 }
-void ProfileBattle::reset(){battle_.emplace(roster_,rules_);}
-ProfileSnapshot ProfileBattle::snapshot() const {return {profile_,loadouts_,battle_->snapshot()};}
+void ProfileBattle::reset(){
+    // Opening passives become initial runtime, before the first opportunity. No action is synthesized.
+    Battle fresh(roster_,rules_);
+    std::vector<InitialRuntime> runtime;
+    std::vector<PassiveActivation> activations;
+    for(const auto& fighter:fresh.fighters()){
+        InitialRuntime state{fighter.definition.id,fighter.effective_speed,{},fighter.cooldowns};
+        if(const auto* set=loadout(fighter.definition.id)){
+            for(const auto& entry:set->slots){if(entry.passive){
+                const auto& passive=*entry.passive;
+                state.statuses.push_back({EffectKind::Shield,passive.duration,TickPolicy::NaturalOnly,0,passive.shield});
+                activations.push_back({set->fighter_id,entry.position,passive});
+            }}
+        }
+        runtime.push_back(std::move(state));
+    }
+    if(!activations.empty()){fresh=Battle(roster_,rules_,{},std::move(runtime));}
+    battle_=std::move(fresh);passive_activations_=std::move(activations);
+}
+ProfileSnapshot ProfileBattle::snapshot() const {return {profile_,loadouts_,battle_->snapshot(),passive_activations_};}
 std::vector<AbilityView> ProfileBattle::abilities(std::string_view fighter) const {
     std::vector<AbilityView> views;const auto* set=loadout(fighter);const auto* unit=battle_->find(fighter);
     if(!set || !unit){return views;}
@@ -67,7 +94,7 @@ std::vector<AbilityView> ProfileBattle::abilities(std::string_view fighter) cons
                 availability=AbilityAvailability::Incapacitated;
             }else if(cd>0){availability=AbilityAvailability::Cooldown;}
         }
-        views.push_back({entry,availability,cd,false});
+        views.push_back({entry,availability,cd,entry.passive.has_value()});
     }
     return views;
 }

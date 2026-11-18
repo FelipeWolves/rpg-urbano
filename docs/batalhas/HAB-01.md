@@ -124,3 +124,18 @@ Entrada padrão: Jogar.cmd; comandos 1 ALVO, 2 ALVO, 3 ALVO. Exemplo: 1 B3; prot
 ⚠️ HAB-01 permanece aberto. Passivas ainda NÃO produzem efeitos; apenas sua declaração e apresentação foram implementadas. Silêncio, supressão de passivas, condições especiais, itens e quarta habilidade não implementados. A imunidade da básica a silêncio é contrato futuro, não teste funcional de um efeito inexistente. Block impede agir e continua distinto de silêncio e de FreezeCooldowns.
 
 Próximo: HAB-01 parte 2, definir um primeiro gatilho passivo autoral com janela, elegibilidade, limite e interação com R04 antes de implementá-lo. Partes 3–5 permanecem planejadas; não iniciar engine ou interface gráfica neste incremento. Nenhuma instalação do jogo foi acessada ou alterada.
+
+## HAB-01 parte 2 — primeira passiva funcional (18/11/2026)
+
+✅ Preparação implementada: escudo comum de abertura, configurável, aplicado uma única vez por combate. Demo: posição 2 de A2/B2, 10 pontos e dois turnos naturais próprios. Não selecionável, sem consumo de ação/AP/orçamento. Reset reabre o gatilho uma vez; consulta de estado e comandos recusados não o repetem.
+
+Contrato e limites em HAB-01-PASSIVA-ABERTURA-R01.md. Implementação em ProfileBattle reutiliza runtime inicial e resolução de escudos do Battle, sem alterar a cadeia R04. Snapshot do perfil preserva registro com dono, posição e definição; não é persistência de combate em disco. Híbridas podem ter configuração executável, mas os exemplos híbridos da demo continuam informativos.
+
+Aceite automatizado: seis novos grupos de perfil (abertura/identidade, absorção/expiração, configurações inválidas/conflitos, híbrida/replay/reset/isolamento, reflexão e término letal) e uma integração textual (passiva não selecionável, visualização, reset sem duplicação). Resultados consolidados em ../relatorios/atuais/COMBATE.json e arquivo de aceite COMBATE-HAB-01-PARTE-2.json.
+
+⚠️ HAB-01 continua aberto. Este incremento não implementa gatilhos durante combate, supressão/silêncio, recarga interna de passiva, novas regras de ressuscitar ou transporte de passivas entre coordenadores SEQ/PAR. Não comprova catálogo ou comportamento oficial de outro jogo.
+
+Próximo: parte 3, contrato de uma habilidade ativa com condição de disponibilidade além de recarga, separando motivo de bloqueio, consumo e básica como alternativa. Automação avançada e integração geral permanecem nas partes 4–5.
+
+Validação da parte 2: 169/169 testes aprovados (12 grupos de perfis, 9 textuais e regressões anteriores), 168 cenários/replays e 25 formações AP preservados. Jogar.cmd confirmou ativações A2/B2 e reset; Jogar-Classico.cmd confirmou defesa com dano 12. Aceite arquivado em docs/batalhas/COMBATE-HAB-01-PARTE-2.json. Nenhum componente externo instalado ou acessado.
+

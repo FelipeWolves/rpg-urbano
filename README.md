@@ -16,7 +16,7 @@ O script descobre o compilador instalado, compila código próprio, executa test
 
 4. Abra **Jogar.cmd** para equipes ou **Jogar-Classico.cmd** para o clássico. Binários são locais e não acompanham o Git; uma cópia nova precisa ser compilada.
 
-No perfil de equipes: `1 B3` usa a básica; `2 B3` usa a segunda posição ativa; `3 A3` usa a proteção própria quando A3 age. `ajuda`, `estado`, `reiniciar` e `sair` orientam a sessão. Passivas são informativas, ainda sem gatilhos funcionais. O clássico mantém ataque e defesa.
+No perfil de equipes: `1 B3` usa a básica; `2 B3` usa a segunda posição ativa; `3 A3` usa a proteção própria quando A3 age. `ajuda`, `estado`, `reiniciar` e `sair` orientam a sessão. A2/B2 têm a passiva Preparação, que concede escudo na abertura; outras notas de passivas continuam informativas. O clássico mantém ataque e defesa.
 
 ## Organização
 
@@ -38,7 +38,7 @@ A estrutura C++ atual já separa interfaces, implementação e aplicação. Não
 
 ## Verificação e limites
 
-A última entrega funcional aprovou **162/162 testes**; consulte o [resultado vigente](docs/relatorios/atuais/COMBATE.json) e o [relatório HAB-01](docs/batalhas/HAB-01.md). O protótipo não comprova servidor, desempenho gráfico ou equivalência a outro jogo. Próximo bloco funcional: HAB-01 parte 2, primeiro gatilho passivo autoral.
+A última entrega funcional aprovou **169/169 testes**; consulte o [resultado vigente](docs/relatorios/atuais/COMBATE.json) e o [relatório HAB-01](docs/batalhas/HAB-01.md). O protótipo não comprova servidor, desempenho gráfico ou equivalência a outro jogo. Próximo bloco funcional: HAB-01 parte 3, primeira condição adicional de habilidade.
 
 [Guia de contribuição](CONTRIBUTING.md) · [Segurança e dados](SECURITY.md) · [Índice da documentação](docs/README.md) · [Histórico de organização](CHANGELOG.md).
 

@@ -1,5 +1,11 @@
 # Prioridades por área
 
+## HAB-01 parte 2 — estado vigente (18/11/2026)
+
+✅ Primeira passiva funcional: Preparação aplica escudo na abertura, uma vez por combate, sem consumir ação; A2/B2 da demo já a utilizam. Posição passiva continua não selecionável, e o efeito/registro são verificáveis. Contrato: docs/batalhas/HAB-01-PASSIVA-ABERTURA-R01.md; relatório: docs/batalhas/HAB-01.md.
+
+⚠️ Gatilhos durante combate, supressão e recarga interna não implementados. HAB-01 continua aberto. Próximo: parte 3, fechar a primeira condição adicional de habilidade, com motivo de bloqueio separado de recarga e básica preservada.
+
 Decisão do usuário em 18/11/2026: primeiro revisar o que já foi implementado e recebeu requisitos novos; depois ordenar por criticidade e, respeitadas as dependências, pelo menor esforço para entregar valor verificável.
 
 Esforço é relativo (baixo, médio, alto), não prazo nem previsão de consumo de Codex. Uma entrega por vez. Alterações de requisito ou resultados de testes podem justificar reordenação documentada.

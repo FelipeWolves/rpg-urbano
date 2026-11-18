@@ -85,12 +85,29 @@ void team_profile_session(){
           "team UI allowed defense, lost aliases/reset or claimed implemented passive");
     check(out.str().find("1 - Ataque basico | DISPONIVEL")!=std::string::npos,"basic slot not shown");
 }
+void opening_passive_session(){
+    auto r=rules();r.skills={{"a","A",0,TargetRule::Enemy,{{EffectKind::Damage}}},
+        {"b","B",0,TargetRule::Enemy,{{EffectKind::Damage}}}};
+    std::vector<CharacterLoadout> sets{{"A",{{1,"Basica","a",{}},
+        {2,"Preparacao",std::nullopt,"Escudo de abertura",PassiveDefinition{"opening-a"}}}},
+        {"B",{{1,"Basica","b",{}}}}};
+    std::istringstream in("2 B\nestado\n1 B\nreiniciar\nsair\n");std::ostringstream out;
+    const auto report=run_text_session(in,out,duel(),r,CombatProfile::Team,sets);
+    const auto text=out.str();const auto first=text.find("ativou passiva opening-a");
+    const auto second=text.find("ativou passiva opening-a",first+1);
+    check(report.rejected_commands==1 && report.player_actions==1 && report.restarts==1 &&
+          report.final_state.accepted_actions==0,"passive command or reset counted incorrectly");
+    check(first!=std::string::npos && second!=std::string::npos &&
+          text.find("ativou passiva opening-a",second+1)==std::string::npos,"opening log duplicated or lost reset");
+    check(text.find("PASSIVA AUTOMATICA")!=std::string::npos && text.find("ESCUDO 10")!=std::string::npos,
+          "functional passive or shield not visible");
+}
 }
 int main(int argc,char** argv){
     const std::pair<const char*,void(*)()> tests[]={{"input_atomics",input_and_invalid_atomics},{"target_enemy",selected_target_and_enemy},
         {"guard_restart",guard_and_restart},{"victory_restart",victory_postfinish_restart},
         {"skill_skip_clock",skill_block_skip_and_clock},{"eof_timeout",eof_and_timeout},{"safety_technical",safety_and_technical_result},
-        {"team_profile",team_profile_session}};
+        {"team_profile",team_profile_session},{"opening_passive_session",opening_passive_session}};
     int passed=0;for(const auto& [name,test]:tests){try{test();++passed;std::cout<<"PASS text "<<name<<'\n';}
         catch(const std::exception& e){std::cerr<<"FAIL text "<<name<<": "<<e.what()<<'\n';}}
     std::cout<<"TEXT_TESTS_RESULT passed="<<passed<<" total="<<std::size(tests)<<'\n';

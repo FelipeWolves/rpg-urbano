@@ -103,3 +103,7 @@ Separar perfil de escolhas, relógio AP/SPD e controle manual/automático. Perfi
 ## Perfis de habilidades — HAB-01 parte 1
 
 ProfileBattle compõe Battle: configuração validada de slots, tradução de ataque básico/IA e bloqueio de skills não equipadas. Battle permanece responsável por tempo, efeitos e dano. Perfis não alteram AP/SPD. Passive_note é somente metadado e nunca dispara efeito. Apresentação textual consulta disponibilidade sem executar ações.
+
+## Passivas de abertura — HAB-01 parte 2
+
+AbilitySlot pode apontar PassiveDefinition validada. ProfileBattle resolve BattleStart na montagem inicial, antes de comandos, e registra PassiveActivation no snapshot. Efeito escudo reutiliza InitialRuntime e o kernel existente. Apresentação mostra ativações e escudo; não dispara efeitos. Somente esse gatilho foi implementado, sem integração de eventos entre hits.

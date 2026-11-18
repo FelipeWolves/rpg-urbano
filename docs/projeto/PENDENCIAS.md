@@ -229,3 +229,7 @@ Resolvida a pendência de primeiro gatilho: BattleStart/escudo próprio com limi
 ## HAB-01 após parte 3
 
 Primeira condição adicional resolvida: vida do dono <= percentual, sem consumo. Contrato HAB-01-CONDICAO-VIDA-R01.md, 176/176 testes. Próximo parte 4: escolher política mínima de prioridades/fallback para especiais sob a mesma validação. Recursos/condições compostas e supressão seguem futuros.
+
+## HAB-01 após parte 4
+
+Política mínima de automação resolvida: prioridades configuradas, disponibilidade comum e básica como alternativa, com alvos determinísticos. 183/183 testes. Próximo parte 5: integração/regressão do pequeno conjunto e limites. IA estratégica, toggle/editor do time A e condições/custos adicionais permanecem futuros.

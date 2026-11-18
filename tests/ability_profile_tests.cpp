@@ -209,6 +209,71 @@ void condition_replay_reset(){
     a.reset();check(a.snapshot()==initial && b.snapshot()==ended &&
         a.abilities("A")[2].availability==AbilityAvailability::ConditionBlocked,"reset did not relock condition");
 }
+void automatic_policy_validation(){
+    for(const auto& priority:std::vector<std::vector<std::uint32_t>>{{1},{0},{4},{3,3}}){
+        Setup d;d.sets[0].automatic_priority=priority;invalid([&]{auto s=d.make();});}
+    Setup d;d.sets[0].automatic_priority.clear();auto s=d.make();
+    check(s.choose_automatic_action()==s.choose_basic_action(),"empty policy not basic-only");
+}
+void automatic_priority_and_parity(){
+    Setup d;d.rules.skills.push_back({"second-a","A",2,TargetRule::Enemy,{{EffectKind::Damage}}});
+    d.sets[0].slots[1].active_skill="second-a";auto a=d.make(),b=d.make();const auto before=a.snapshot();
+    const auto choice=a.choose_automatic_action();check(choice && choice->skill=="special-a" && a.snapshot()==before,
+        "default priority or pure selection failed");
+    check(a.apply(*choice)==b.apply_slot(3,choice->target) && a.snapshot()==b.snapshot(),"manual/auto state or events differ");
+    d.sets[0].automatic_priority={2,3};auto reversed=d.make();
+    check(reversed.choose_automatic_action()->skill=="second-a","configured priority ignored");
+}
+void automatic_fallbacks(){
+    auto s=conditional_setup().make();
+    check(s.choose_automatic_action()==s.choose_basic_action(),"AI used unmet condition or passive");
+    check(s.apply(*s.choose_automatic_action()).accepted() && s.apply(*s.choose_automatic_action()).accepted(),"fallback setup failed");
+    const auto ready=s.choose_automatic_action();check(ready && ready->skill=="special-a" && ready->target=="A", "AI failed newly met self condition");
+    check(s.apply(*ready).accepted() && s.apply(*s.choose_automatic_action()).accepted(),"cooldown setup failed");
+    check(s.choose_automatic_action()==s.choose_basic_action(),"AI ignored cooldown");
+}
+void automatic_targets(){
+    Setup d;d.roster.push_back({"B0",Team::B,100,3,90});
+    d.rules.skills.push_back({"basic-b0","B0",0,TargetRule::Enemy,{{EffectKind::Damage}}});
+    d.sets.push_back({"B0",{{1,"Basica","basic-b0",{}}}});auto enemy=d.make();
+    check(enemy.choose_automatic_action()->target=="B","enemy tie did not use stable ID");
+    d.rules.skills[1].target=TargetRule::Ally;d.rules.skills[1].effects={{EffectKind::Shield,10,2}};
+    d.roster.push_back({"A0",Team::A,10,1,10});d.rules.skills.push_back({"basic-a0","A0",0,TargetRule::Enemy,{{EffectKind::Damage}}});
+    d.sets.push_back({"A0",{{1,"Basica","basic-a0",{}}}});auto ally=d.make();const auto chosen=ally.choose_automatic_action();
+    check(chosen && chosen->target=="A0" && ally.apply(*chosen).accepted(),"ally targeting invalid");
+    d=Setup{};d.roster[1].max_health=5;d.roster.push_back({"B0",Team::B,100,1,90});
+    d.rules.skills.push_back({"basic-b0","B0",0,TargetRule::Enemy,{{EffectKind::Damage}}});
+    d.sets.push_back({"B0",{{1,"Basica","basic-b0",{}}}});auto dead=d.make();
+    check(dead.apply_slot(1,"B").accepted() && dead.apply(*dead.choose_basic_action()).accepted(),"dead target setup failed");
+    check(dead.choose_automatic_action()->target=="B0","AI selected defeated target");
+}
+void automatic_control_stale_classic(){
+    Setup d;auto stale=d.make();const auto chosen=*stale.choose_automatic_action();
+    check(stale.apply_slot(1,"B").accepted(),"stale setup failed");const auto before=stale.snapshot();
+    check(stale.apply(chosen).error==ActionError::NotActorsTurn && stale.snapshot()==before,"stale choice bypassed revalidation");
+    d.rules.skills[1].target=TargetRule::Self;d.rules.skills[1].effects={{EffectKind::Block,0,1}};auto blocked=d.make();
+    check(blocked.apply_slot(3,"A").accepted() && blocked.apply(*blocked.choose_basic_action()).accepted(),"block setup failed");
+    const auto skip=blocked.choose_automatic_action();check(skip && skip->type==ActionType::Skip && blocked.apply(*skip).accepted(),"AI did not skip blocked actor");
+    ProfileBattle classic(d.roster,d.rules);check(classic.choose_automatic_action()==classic.choose_basic_action(),"classic behavior changed");
+}
+void automatic_replay_reset_budget(){
+    for(int i=0;i<16;++i){
+        Setup d;d.rules.action_budget=ActionBudget{8,LimitOutcome::Draw};
+        if(i%2){d.rules.timing=TimingProfile::ActionBar;}
+        if(i%4==0){d.sets[0].automatic_priority.clear();}
+        if(i%3==0){d.rules.skills[1].target=TargetRule::Self;d.rules.skills[1].effects={{EffectKind::Shield,10,2}};d.rules.skills[1].cooldown=0;}
+        auto a=d.make(),b=d.make();const auto initial=a.snapshot();int finishes=0;
+        while(a.battle().phase()==Phase::Running){
+            const auto before=a.snapshot();const auto choice=a.choose_automatic_action();
+            check(choice && a.snapshot()==before,"selection mutated state or missed live actor");
+            const auto x=a.apply(*choice),y=b.apply(*b.choose_automatic_action());
+            check(x.accepted() && x==y && a.snapshot()==b.snapshot(),"automatic choice rejected or replay diverged");
+            finishes+=static_cast<int>(std::ranges::count(x.events,EventType::BattleFinished,&Event::type));
+        }
+        check(finishes==1 && !a.choose_automatic_action() && a.battle().accepted_actions()<=8,"automation ignored terminal/budget");
+        a.reset();check(a.snapshot()==initial && a.choose_automatic_action()==d.make().choose_automatic_action(),"reset lost policy/state");
+    }
+}
 }
 int main(int argc,char** argv){
     const std::pair<const char*,void(*)()> tests[]={{"configuration",configuration},{"canonical_basic",canonical_basic_no_defense},
@@ -218,7 +283,10 @@ int main(int argc,char** argv){
         {"opening_hybrid_replay_reset",opening_hybrid_replay_reset},{"opening_reflection",opening_reflection},{"opening_lethal_limit",opening_lethal_limit},
         {"condition_atomic_basic",condition_atomic_and_basic},{"condition_boundaries",condition_boundaries},
         {"condition_validation",condition_validation},{"condition_cooldown_revive",condition_cooldown_after_revive},
-        {"condition_control_targets",condition_control_and_targets},{"condition_replay_reset",condition_replay_reset}};
+        {"condition_control_targets",condition_control_and_targets},{"condition_replay_reset",condition_replay_reset},
+        {"automatic_policy_validation",automatic_policy_validation},{"automatic_priority_parity",automatic_priority_and_parity},
+        {"automatic_fallbacks",automatic_fallbacks},{"automatic_targets",automatic_targets},
+        {"automatic_control_stale_classic",automatic_control_stale_classic},{"automatic_replay_reset_budget",automatic_replay_reset_budget}};
     int passed=0;for(const auto& [name,test]:tests){try{test();++passed;std::cout<<"PASS ability_profile "<<name<<'\n';}
         catch(const std::exception& e){std::cerr<<"FAIL ability_profile "<<name<<": "<<e.what()<<'\n';}}
     std::cout<<"PROFILE_TESTS_RESULT passed="<<passed<<" total="<<std::size(tests)<<'\n';

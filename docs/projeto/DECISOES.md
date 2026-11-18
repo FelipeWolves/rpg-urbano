@@ -218,3 +218,7 @@ Primeiro gatilho autoral é BattleStart, escudo próprio temporário, uma vez po
 ## DEC-043 — Condição de vida sem custo
 
 Primeiro requisito adicional é vida do dono <= percentual inclusivo exato (64 bits), somente ativa não básica. Não consome HP/recurso. ProfileBattle centraliza checagem por posição/ID, com incapacidade e CD prioritários, requisito visível independentemente. Nova família de custo/condição exige contrato próprio; IA estratégica permanece parte 4.
+
+## DEC-044 — Automação por prioridade, sem alterar execução
+
+Prioridades especiais por loadout [3,2] por padrão; básica implícita, lista vazia basic-only. Política seleciona ações disponíveis e alvos por HP absoluto/ID, sem mutar estado; execução sempre ProfileBattle::apply. Clássico permanece básico. Não prometer IA ótima nem impedir todos os usos redundantes; orçamento limita batalhas. Contrato HAB-01-AUTOMACAO-R01.md.

@@ -149,3 +149,16 @@ Validação central no ProfileBattle para comandos por posição/ID. Recusa sem 
 ⚠️ Sem energia, custos de vida, condições de alvo, combinações lógicas, silêncio/supressão, nova política de IA ou adaptação SEQ/PAR. A habilidade é exemplo autoral provisório, não kit externo. Kernel Battle isolado não valida contratos do perfil; usar ProfileBattle como entrada para essas regras.
 
 Próximo: HAB-01 parte 4 — seleção automática mínima de especiais válidas, com prioridades e fallback pela mesma validação do controle manual. Parte 5 mantém integração/regressão geral. HAB-01 ainda aberto.
+## HAB-01 parte 4 — automação por prioridade concluída (18/11/2026)
+
+✅ CharacterLoadout configura prioridades de especiais, padrão [3,2], com básica obrigatória como alternativa final. Lista vazia mantém apenas básica. Escolha pura e determinística, ignorando passivas, recarga e condições não atendidas; Block escolhe Skip. Configuração integra o snapshot e é preservada no reset.
+
+Self usa o dono; Enemy/Ally escolhem alvo vivo de menor HP absoluto, com desempate por ID. Controle manual e automático executam por ProfileBattle::apply; escolha obsoleta é revalidada. O clássico mantém a automação básica anterior. Time B de equipes integrado e logando ID/alvo; time A continua manual.
+
+**183/183 testes aprovados**: 24 grupos de perfil e 11 textuais, mais regressões anteriores. Seis grupos novos cobrem configuração/prioridades, paridade com manual, fallback por disponibilidade, alvos/derrotados, controle/comando obsoleto/clássico e replay/reset/limite. Dezesseis combinações curtas de política, relógio fixo/AP e especial de dano/escudo possuem replay e orçamento. Uma integração textual comprova especial e básica subsequente. Mantidos 168 cenários/replays e 25 formações AP existentes.
+
+Jogar.cmd confirmou B3 usando especial com dois acertos e reset; clássico manteve defesa com dano 12. Aceite COMBATE-HAB-01-PARTE-4.json, matrizes CSV atualizadas; contrato HAB-01-AUTOMACAO-R01.md. A comparação de Action por valor foi adicionada para verificar escolhas determinísticas.
+
+⚠️ Política simples não prevê dano ótimo, preservação de buffs ou vitória. Pode privilegiar habilidade própria de CD zero até o limite de ações; não é laço interno do seletor. Não inclui toggle/editor de automação do time A, IA oficial, servidor, RNG, energia, supressão ou adaptação SEQ/PAR.
+
+Próximo: HAB-01 parte 5, integração/regressão do pequeno conjunto autoral e publicação dos limites. HAB-01 permanece aberto até esse aceite, sem antecipar novas famílias de habilidade ou engine.

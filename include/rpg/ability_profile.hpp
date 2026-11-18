@@ -34,6 +34,8 @@ struct AbilitySlot {
 struct CharacterLoadout {
     std::string fighter_id;
     std::vector<AbilitySlot> slots;
+    // Specials only; basic slot 1 is always the final fallback. Empty means basic-only.
+    std::vector<std::uint32_t> automatic_priority = {3,2};
     bool operator==(const CharacterLoadout&) const = default;
 };
 enum class AbilityAvailability { Ready, Cooldown, PassiveOnly, Incapacitated, Finished, ConditionBlocked };
@@ -64,6 +66,7 @@ public:
     [[nodiscard]] ActionResult apply(const Action& action);
     [[nodiscard]] ActionResult apply_slot(std::uint32_t position,std::string target);
     [[nodiscard]] std::optional<Action> choose_basic_action() const;
+    [[nodiscard]] std::optional<Action> choose_automatic_action() const;
     void reset();
 private:
     std::vector<Definition> roster_;

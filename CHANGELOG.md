@@ -21,3 +21,7 @@ Primeira passiva funcional: Preparação concede escudo de abertura em A2/B2, se
 ## 2026-11-18 — HAB-01 parte 3
 
 Proteção de emergência exige até 50% de vida em A3/B3. Condição exata, básica incondicional, recusa sem custo e indicadores separados de CD/controle. 176/176 testes; relatório e contrato específicos preservados.
+
+## 2026-11-18 — HAB-01 parte 4
+
+Time B de equipes usa especiais por prioridade configurada e básica como fallback. Seleção pura, alvos determinísticos e validação comum; clássico preservado. 183/183 testes; 16 combinações automáticas com replay e orçamento.

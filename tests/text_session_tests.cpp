@@ -117,12 +117,28 @@ void conditional_skill_session(){
         text.find("vida <= 50% [nao atendido]")!=std::string::npos && text.find("vida <= 50% [atendido]")!=std::string::npos &&
         text.find("RECARGA: 2")!=std::string::npos && text.find("ESCUDO 5")!=std::string::npos,"condition/CD/output unclear");
 }
+void automatic_special_session(){
+    auto roster=duel();roster[0].max_health=100;roster[1].max_health=100;auto r=rules();
+    r.skills={{"a","A",0,TargetRule::Enemy,{{EffectKind::Damage}}},
+        {"b","B",0,TargetRule::Enemy,{{EffectKind::Damage}}},
+        {"b-special","B",3,TargetRule::Enemy,{{EffectKind::Damage}}}};
+    std::vector<CharacterLoadout> sets{{"A",{{1,"Basica","a",{}}}},
+        {"B",{{1,"Basica","b",{}},{3,"Especial","b-special",{}}}}};
+    std::istringstream in("1 B\n1 B\nsair\n");std::ostringstream out;
+    const auto report=run_text_session(in,out,roster,r,CombatProfile::Team,sets);
+    check(report.player_actions==2 && report.automatic_actions==2 && report.rejected_commands==0 &&
+          out.str().find("Auto B: b-special -> A")!=std::string::npos &&
+          out.str().find("Auto B: b -> A")!=std::string::npos,"text AI special/fallback not integrated");
+    ProfileBattle expected(roster,r,CombatProfile::Team,sets);
+    for(int i=0;i<2;++i){check(expected.apply_slot(1,"B").accepted() && expected.apply(*expected.choose_automatic_action()).accepted(),"expected AI failed");}
+    check(report.final_state==expected.battle().snapshot(),"text policy changed rules or timing");
+}
 }
 int main(int argc,char** argv){
     const std::pair<const char*,void(*)()> tests[]={{"input_atomics",input_and_invalid_atomics},{"target_enemy",selected_target_and_enemy},
         {"guard_restart",guard_and_restart},{"victory_restart",victory_postfinish_restart},
         {"skill_skip_clock",skill_block_skip_and_clock},{"eof_timeout",eof_and_timeout},{"safety_technical",safety_and_technical_result},
-        {"team_profile",team_profile_session},{"opening_passive_session",opening_passive_session},{"conditional_skill_session",conditional_skill_session}};
+        {"team_profile",team_profile_session},{"opening_passive_session",opening_passive_session},{"conditional_skill_session",conditional_skill_session},{"automatic_special_session",automatic_special_session}};
     int passed=0;for(const auto& [name,test]:tests){try{test();++passed;std::cout<<"PASS text "<<name<<'\n';}
         catch(const std::exception& e){std::cerr<<"FAIL text "<<name<<": "<<e.what()<<'\n';}}
     std::cout<<"TEXT_TESTS_RESULT passed="<<passed<<" total="<<std::size(tests)<<'\n';

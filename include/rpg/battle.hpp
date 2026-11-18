@@ -165,6 +165,7 @@ struct Action {
     ActionType type;
     std::string target;
     std::string skill;
+    bool operator==(const Action&) const = default;
 };
 
 struct ActionContext {

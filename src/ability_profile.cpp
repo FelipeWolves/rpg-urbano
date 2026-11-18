@@ -17,6 +17,12 @@ ProfileBattle::ProfileBattle(std::vector<Definition> roster,BattleRules rules,Co
         if(loadouts_.size()!=roster_.size()){throw std::invalid_argument("Every fighter requires a loadout");}
         std::vector<std::string> owners,assigned,passive_ids;
         for(auto& set:loadouts_){
+            std::vector<std::uint32_t> priorities;
+            for(const auto position:set.automatic_priority){
+                if(position<2 || position>3 || std::ranges::find(priorities,position)!=priorities.end()){
+                    throw std::invalid_argument("Automatic priority requires unique special positions 2..3");}
+                priorities.push_back(position);
+            }
             if(std::ranges::find(roster_,set.fighter_id,&Definition::id)==roster_.end() ||
                std::ranges::find(owners,set.fighter_id)!=owners.end() || set.slots.empty() || set.slots.size()>3){
                 throw std::invalid_argument("Invalid loadout");}
@@ -141,5 +147,29 @@ std::optional<Action> ProfileBattle::choose_basic_action() const {
         const auto* basic=slot(action->actor,1);action->type=ActionType::Skill;action->skill=*basic->active_skill;
     }
     return action;
+}
+std::optional<Action> ProfileBattle::choose_automatic_action() const {
+    const auto basic=choose_basic_action();
+    if(!basic || profile_==CombatProfile::Classic || basic->type==ActionType::Skip){return basic;}
+    const auto* actor=battle_->current_actor();
+    const auto* set=loadout(actor->definition.id);
+    const auto views=abilities(actor->definition.id);
+    for(const auto position:set->automatic_priority){
+        const auto view=std::ranges::find_if(views,[position](const AbilityView& v){return v.slot.position==position;});
+        if(view==views.end() || view->availability!=AbilityAvailability::Ready || !view->slot.active_skill){continue;}
+        const auto skill=std::ranges::find(rules_.skills,*view->slot.active_skill,&SkillDefinition::id);
+        const Fighter* target=nullptr;
+        if(skill->target==TargetRule::Self){target=actor;}
+        else{
+            for(const auto& candidate:battle_->fighters()){
+                const bool same_side=candidate.definition.team==actor->definition.team;
+                if(candidate.health==0 || (skill->target==TargetRule::Enemy?same_side:!same_side)){continue;}
+                if(!target || candidate.health<target->health ||
+                   (candidate.health==target->health && candidate.definition.id<target->definition.id)){target=&candidate;}
+            }
+        }
+        if(target){return Action{actor->definition.id,ActionType::Skill,target->definition.id,skill->id};}
+    }
+    return basic;
 }
 } // namespace rpg

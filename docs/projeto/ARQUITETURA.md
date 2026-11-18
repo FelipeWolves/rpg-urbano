@@ -111,3 +111,7 @@ AbilitySlot pode apontar PassiveDefinition validada. ProfileBattle resolve Battl
 ## Condição de seleção — HAB-01 parte 3
 
 HealthRequirement pertence a AbilitySlot. ProfileBattle calcula condição na consulta e a valida antes de delegar ação ao Battle. AbilityView conserva condition_met e cooldown separadamente. SkillConditionNotMet não produz eventos nem mutação. Battle isolado continua sem configuração de loadout/requisito; consumidores do perfil devem usar ProfileBattle.
+
+## Política de seleção — HAB-01 parte 4
+
+CharacterLoadout inclui automatic_priority; ProfileBattle::choose_automatic_action consulta AbilityView e regras de alvo e retorna Action sem aplicar. ProfileBattle::apply revalida comandos de ambas as origens. choose_basic_action preservado como controle básico explícito; clássico não adota política de especiais. Sessão textual usa a nova seleção somente no time B de equipes. Nenhuma mudança no agendamento AP/SPD.

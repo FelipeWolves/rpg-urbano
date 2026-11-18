@@ -112,10 +112,12 @@ TextReport run_text_session(std::istream& input,std::ostream& output,std::vector
         std::uint32_t burst=0;
         while(battle.phase()==Phase::Running && battle.current_actor()->definition.team==Team::B){
             if(burst++==256){output<<"Apresentacao interrompida por excesso de acoes automaticas; nenhum resultado inventado.\n";return false;}
-            const auto action=session.choose_basic_action();
+            const auto action=session.choose_automatic_action();
             if(!action){output<<"Apresentacao interrompida: nenhuma acao automatica disponivel.\n";return false;}
             const auto result=session.apply(*action);
             if(!result.accepted()){output<<"Apresentacao interrompida: acao automatica recusada.\n";return false;}
+            if(profile==CombatProfile::Team && action->type==ActionType::Skill){
+                output<<"Auto "<<action->actor<<": "<<action->skill<<" -> "<<action->target<<'\n';}
             ++automatic;events(result,output);
         }
         return true;

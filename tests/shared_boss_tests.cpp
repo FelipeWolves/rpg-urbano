@@ -71,15 +71,118 @@ void victory_budget_replay_reset(){
     d=setup();d.rules.action_budget=ActionBudget{1,LimitOutcome::Draw};SharedBoss limited(d);step(limited);
     check(limited.battle().end_reason()==EndReason::ActionLimit && !limited.battle().winner(),"global budget not applied");
 }
+SharedBossActionResult act(SharedBoss& s,const Action& action){auto r=s.apply(action);check(r.accepted(),"skill command rejected");return r;}
+std::size_t count(const SharedBossActionResult& r,EventType type){return static_cast<std::size_t>(std::ranges::count(r.action.events,type,&Event::type));}
+int cooldown(const SharedBoss& s,const std::string& id){for(const auto& cd:s.battle().find("boss")->cooldowns){if(cd.skill==id){return cd.remaining;}}
+    throw std::runtime_error("missing cooldown");}
+void skill_scope_validation(){
+    auto d=setup();d.rules.skills={{"self","boss",0,TargetRule::Self,{{EffectKind::Marker,0,3}}}};
+    invalid([&]{SharedBoss s(d);});d.skill_scopes={{"self",SharedSkillTarget::Self}};SharedBoss valid(d);
+    d.skill_scopes[0].target=SharedSkillTarget::OwnSquad;invalid([&]{SharedBoss s(d);});
+    d.skill_scopes={{"missing",SharedSkillTarget::Self}};invalid([&]{SharedBoss s(d);});
+    d.skill_scopes={{"self",SharedSkillTarget::Self},{"self",SharedSkillTarget::Self}};invalid([&]{SharedBoss s(d);});
+    d=setup();EffectDefinition damage{EffectKind::Damage};damage.hit_selection=HitSelection::LowestHealthEnemy;
+    d.rules.skills={{"bounce","boss",0,TargetRule::Enemy,{damage}}};d.skill_scopes={{"bounce",SharedSkillTarget::RotatingFront}};
+    invalid([&]{SharedBoss s(d);});d.rules.skills[0].effects[0].hit_selection=HitSelection::FixedTarget;SharedBoss fixed(d);
+    d.skill_scopes[0].target=static_cast<SharedSkillTarget>(99);invalid([&]{SharedBoss s(d);});
+}
+void squad_and_rotating_skills(){
+    auto d=setup();d.squads[0].members.push_back({"buddy",{"buddy",Team::A,10,2,50}});
+    d.rules.skills={{"buff","A0",2,TargetRule::Ally,{{EffectKind::Marker,0,5}}}};
+    d.skill_scopes={{"buff",SharedSkillTarget::OwnSquad}};SharedBoss s(d);const auto before=s.snapshot();
+    check(s.apply({"A0",ActionType::Skill,"A1","buff"}).error==SharedBossError::WrongFront && s.snapshot()==before,
+          "ally skill crossed squad or rejection consumed turn");
+    const auto buff=act(s,{"A0",ActionType::Skill,"buddy","buff"});
+    check(count(buff,EventType::EffectApplied)==1 && s.battle().find("buddy")->statuses.size()==1 &&
+          s.battle().find("A1")->statuses.empty(),"buff multiplied or wrong squad");
+    d=setup();d.boss.speed=900;d.boss.max_health=1000;
+    d.rules.skills={{"strike","boss",0,TargetRule::Enemy,{{EffectKind::Damage}}}};
+    d.skill_scopes={{"strike",SharedSkillTarget::RotatingFront}};SharedBoss boss(d);
+    for(int i=0;i<3;++i){while(boss.battle().current_actor()->definition.id!="boss"){step(boss);}
+        const auto snap=boss.snapshot();const auto wrong="A"+std::to_string((i+1)%3);
+        check(!boss.apply({"boss",ActionType::Skill,wrong,"strike"}).accepted() && boss.snapshot()==snap,"boss skill ignored front");
+        const auto hit=act(boss,{"boss",ActionType::Skill,"A"+std::to_string(i),"strike"});
+        check(hit.squad_id=="team-"+std::to_string(i) && count(hit,EventType::Attack)==1,"boss skill duplicated hit or scope");}
+}
+void one_boss_clock_and_blocked_skip(){
+    auto d=setup();d.boss.speed=900;d.boss.max_health=1000;
+    d.rules.skills={{"clock","boss",3,TargetRule::Self,{{EffectKind::Marker,0,5}}}};
+    d.skill_scopes={{"clock",SharedSkillTarget::Self}};SharedBoss s(d);
+    const auto applied=act(s,{"boss",ActionType::Skill,"boss","clock"});
+    check(cooldown(s,"clock")==2 && count(applied,EventType::EffectApplied)==1 && s.battle().find("boss")->statuses.size()==1 &&
+          s.snapshot().next_boss_front=="team-0","self skill tripled or advanced front");
+    const auto before=s.snapshot();check(!s.apply({"boss",ActionType::Skill,"boss","clock"}).accepted() && s.snapshot()==before,"cooldown bypass");
+    while(s.battle().current_actor()->definition.id!="boss"){step(s);check(cooldown(s,"clock")==2,"ally turn ticked boss cooldown");}
+    act(s,{"boss",ActionType::Guard,{}});check(cooldown(s,"clock")==1 && s.battle().find("boss")->statuses[0].remaining==4,
+                                            "boss clock advanced per front");
+    int ally_turns=0;
+    while(s.battle().current_actor()->definition.id!="boss"){step(s);++ally_turns;
+        check(cooldown(s,"clock")==1 && s.battle().find("boss")->statuses[0].remaining==4,"ally advanced boss clocks");}
+    check(ally_turns>=3,"boss clock case did not cover all squads");
+    d=setup();d.rules.skills={{"block","A0",0,TargetRule::Enemy,{{EffectKind::Block,0,3}}}};
+    d.skill_scopes={{"block",SharedSkillTarget::Boss}};SharedBoss blocked(d);act(blocked,{"A0",ActionType::Skill,"boss","block"});
+    for(int i=0;i<40 && blocked.battle().current_actor()->definition.id!="boss";++i){
+        const auto* actor=blocked.battle().current_actor();act(blocked,{actor->definition.id,ActionType::Guard,{}});}
+    const auto skip=blocked.choose_basic_action();check(skip && skip->actor=="boss" && skip->type==ActionType::Skip,"blocked boss did not select Skip");
+    const auto next=blocked.snapshot().next_boss_front;act(blocked,*skip);check(blocked.snapshot().next_boss_front==next,"Skip advanced attack rotation");
+}
+void shared_survival_charges(){
+    auto d=setup();d.boss.speed=301;d.boss.max_health=4;d.squads[0].members[0].fighter.attack=4;
+    EffectDefinition shield{EffectKind::StructuralShield,3};shield.category=StatusCategory::Structural;
+    EffectDefinition prevent{EffectKind::PreventDeath,0,10};prevent.charges=1;
+    EffectDefinition multi{EffectKind::Damage};multi.hit_count=3;
+    d.rules.skills={{"survival","boss",0,TargetRule::Self,{shield,prevent,{EffectKind::AutoRevive,2,10}}},
+        {"multi","A0",0,TargetRule::Enemy,{multi}}};
+    d.skill_scopes={{"survival",SharedSkillTarget::Self},{"multi",SharedSkillTarget::Boss}};SharedBoss s(d);
+    act(s,{"boss",ActionType::Skill,"boss","survival"});
+    check(s.battle().current_actor()->definition.id=="A0","survival setup did not hand off to attacker");
+    const auto result=act(s,{"A0",ActionType::Skill,"boss","multi"});
+    check(count(result,EventType::ShieldBroken)==1 && count(result,EventType::DeathPrevented)==1 &&
+          count(result,EventType::FighterRevived)==1 && s.battle().find("boss")->health==2 &&
+          s.battle().find("boss")->statuses.empty() && !result.stage_finished,"shared survival duplicated charges or declared victory too soon");
+    while(s.battle().current_actor()->definition.id=="boss"){act(s,{"boss",ActionType::Guard,{}});}
+    const auto last=step(s);check(last.stage_finished && s.battle().winner()==Team::A,"consumed shared revive reappeared");
+}
+void shared_global_death_consequences(){
+    auto d=setup();d.boss.max_health=10;d.squads[0].members[0].fighter.attack=4;
+    EffectDefinition multi{EffectKind::Damage};multi.hit_count=3;
+    d.rules.skills={{"arm","A0",0,TargetRule::Enemy,{{EffectKind::Reflect,1,10},{EffectKind::DeathExplosion,30,10},
+        {EffectKind::Counter,0,10}}},{"multi","A0",0,TargetRule::Enemy,{multi}}};
+    d.skill_scopes={{"arm",SharedSkillTarget::Boss},{"multi",SharedSkillTarget::Boss}};SharedBoss s(d);
+    act(s,{"A0",ActionType::Skill,"boss","arm"});act(s,{"A1",ActionType::Guard,{}});act(s,{"A2",ActionType::Guard,{}});
+    const auto r=act(s,{"A0",ActionType::Skill,"boss","multi"});
+    check(count(r,EventType::Attack)==3 && count(r,EventType::ReflectedDamage)==3 &&
+          count(r,EventType::DeathEffectTriggered)==1 && count(r,EventType::DeathExplosion)==3 &&
+          count(r,EventType::BattleFinished)==1 && s.battle().winner()==Team::A &&
+          s.snapshot().active_squads==std::vector<bool>(3,false) && s.battle().snapshot().derived_actions==0,
+          "shared death was duplicated, missed global targets or violated causal victory");
+}
+void scoped_skill_replay_reset(){
+    auto d=setup();d.boss.speed=900;d.rules.action_budget=ActionBudget{12,LimitOutcome::Draw};
+    d.rules.skills={{"mark","boss",3,TargetRule::Self,{{EffectKind::Marker,0,5}}},
+        {"hit","boss",0,TargetRule::Enemy,{{EffectKind::Damage}}}};
+    d.skill_scopes={{"mark",SharedSkillTarget::Self},{"hit",SharedSkillTarget::RotatingFront}};
+    SharedBoss a(d),b(d);const auto initial=a.snapshot();int finishes=0;
+    while(a.battle().phase()==Phase::Running){auto action=*a.choose_basic_action();
+        if(action.actor=="boss"){action=cooldown(a,"mark")==0?Action{"boss",ActionType::Skill,"boss","mark"}:
+            Action{"boss",ActionType::Skill,action.target,"hit"};}
+        const auto x=act(a,action),y=act(b,action);finishes+=x.stage_finished?1:0;
+        check(x.action==y.action && x.squad_id==y.squad_id && a.snapshot()==b.snapshot(),"scoped replay diverged");}
+    const auto final=b.snapshot();check(finishes==1 && final.battle.accepted_actions==12,"skill global budget wrong");
+    a.reset();check(a.snapshot()==initial && b.snapshot()==final,"scope/clock/status reset leaked");
+}
 }
 int main(int argc,char** argv){
     const std::pair<const char*,void(*)()> tests[]={{"composition",composition},{"one_hp_cadence",one_hp_and_cadence},
         {"target_atomics_guard",target_atomicity_and_guard},{"dead_fronts_defeat",skip_dead_fronts_and_defeat},
-        {"victory_budget_replay_reset",victory_budget_replay_reset}};
+        {"victory_budget_replay_reset",victory_budget_replay_reset},{"scope_validation",skill_scope_validation},
+        {"squad_rotating_skills",squad_and_rotating_skills},{"boss_clock_skip",one_boss_clock_and_blocked_skip},
+        {"shared_survival",shared_survival_charges},{"global_death_consequences",shared_global_death_consequences},
+        {"scoped_replay_reset",scoped_skill_replay_reset}};
     int passed=0;for(const auto& [name,test]:tests){try{test();++passed;std::cout<<"PASS shared_boss "<<name<<'\n';}
         catch(const std::exception& e){std::cerr<<"FAIL shared_boss "<<name<<": "<<e.what()<<'\n';}}
     std::cout<<"SHARED_BOSS_TESTS_RESULT passed="<<passed<<" total="<<std::size(tests)<<'\n';
     if(argc==2 && passed==static_cast<int>(std::size(tests))){std::ofstream out(argv[1]);out<<"test,status,scope\n";
-        for(const auto& [name,test]:tests){static_cast<void>(test);out<<name<<",pass,single_hp_basic_shared_boss\n";}if(!out){return 2;}}
+        for(const auto& [name,test]:tests){static_cast<void>(test);out<<name<<",pass,single_hp_scoped_skills_shared_boss\n";}if(!out){return 2;}}
     return passed==static_cast<int>(std::size(tests))?0:1;
 }

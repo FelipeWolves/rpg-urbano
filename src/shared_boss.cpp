@@ -6,8 +6,8 @@
 namespace rpg {
 SharedBoss::SharedBoss(SharedBossDefinition definition):definition_(std::move(definition)) {
     if(definition_.id.empty() || definition_.config_version==0 || definition_.squads.size()!=3 ||
-       definition_.boss.team!=Team::B || definition_.rules.timing!=TimingProfile::ActionBar ||
-       !definition_.rules.skills.empty()) { throw std::invalid_argument("Invalid basic shared boss profile"); }
+       definition_.boss.team!=Team::B || definition_.rules.timing!=TimingProfile::ActionBar) {
+        throw std::invalid_argument("Invalid shared boss profile"); }
     std::vector<std::string> squads,characters,instances{definition_.boss.id};
     for(const auto& squad:definition_.squads){
         if(squad.id.empty() || squad.members.empty() || squad.members.size()>5 ||
@@ -21,6 +21,22 @@ SharedBoss::SharedBoss(SharedBossDefinition definition):definition_(std::move(de
             }
             characters.push_back(member.character_id);instances.push_back(member.fighter.id);
         }
+    }
+    if(definition_.skill_scopes.size()!=definition_.rules.skills.size()){throw std::invalid_argument("Each skill needs one scope");}
+    std::vector<std::string> scoped;
+    for(const auto& scope:definition_.skill_scopes){
+        const auto skill=std::ranges::find(definition_.rules.skills,scope.skill_id,&SkillDefinition::id);
+        if(skill==definition_.rules.skills.end() || std::ranges::find(scoped,scope.skill_id)!=scoped.end()){
+            throw std::invalid_argument("Invalid or duplicate skill scope");}
+        scoped.push_back(scope.skill_id);const bool boss=skill->owner==definition_.boss.id;
+        const bool valid=(scope.target==SharedSkillTarget::Self && skill->target==TargetRule::Self) ||
+            (scope.target==SharedSkillTarget::OwnSquad && !boss && skill->target==TargetRule::Ally) ||
+            (scope.target==SharedSkillTarget::Boss && !boss && skill->target==TargetRule::Enemy) ||
+            (scope.target==SharedSkillTarget::RotatingFront && boss && skill->target==TargetRule::Enemy);
+        if(!valid){throw std::invalid_argument("Skill scope does not match owner/target");}
+        if(boss && std::ranges::any_of(skill->effects,[](const EffectDefinition& effect){
+            return effect.hit_selection!=HitSelection::FixedTarget;
+        })){throw std::invalid_argument("Boss dynamic retargeting is not front-scoped yet");}
     }
     reset();
 }
@@ -52,14 +68,25 @@ SharedBossSnapshot SharedBoss::snapshot() const {
         members.push_back(std::move(local));}
     const auto front=next_front();
     return {definition_.id,definition_.config_version,definition_.boss.id,ids,members,alive,
-        front?std::optional<std::string>{ids[*front]}:std::nullopt,battle_->snapshot()};
+        front?std::optional<std::string>{ids[*front]}:std::nullopt,battle_->snapshot(),definition_.skill_scopes};
 }
 SharedBossActionResult SharedBoss::apply(const Action& action){
     SharedBossActionResult result;result.stage_id=definition_.id;
-    const bool boss_attack=action.actor==definition_.boss.id && action.type==ActionType::Attack;
+    const SkillDefinition* skill=nullptr;const SharedSkillScope* scope=nullptr;
+    if(action.type==ActionType::Skill){
+        const auto found=std::ranges::find(definition_.rules.skills,action.skill,&SkillDefinition::id);
+        if(found!=definition_.rules.skills.end() && found->owner==action.actor){skill=&*found;
+            scope=&*std::ranges::find(definition_.skill_scopes,action.skill,&SharedSkillScope::skill_id);}
+    }
+    const bool boss_attack=action.actor==definition_.boss.id && (action.type==ActionType::Attack ||
+        (scope && scope->target==SharedSkillTarget::RotatingFront));
     const auto front=boss_attack?next_front():squad_of(action.actor);
     if(front){result.squad_id=definition_.squads[*front].id;}
     if(battle_->phase()==Phase::Running && boss_attack && front && squad_of(action.target)!=front){
+        result.error=SharedBossError::WrongFront;return result;
+    }
+    if(battle_->phase()==Phase::Running && skill && scope->target==SharedSkillTarget::OwnSquad &&
+       squad_of(action.actor)!=squad_of(action.target)){
         result.error=SharedBossError::WrongFront;return result;
     }
     result.action=battle_->apply(action);
@@ -70,6 +97,7 @@ SharedBossActionResult SharedBoss::apply(const Action& action){
 std::optional<Action> SharedBoss::choose_basic_action() const {
     const auto* actor=battle_->current_actor();if(!actor){return std::nullopt;}
     if(actor->definition.id!=definition_.boss.id){return choose_basic_attack(*battle_);}
+    if(battle_->current_actor_blocked()){return Action{definition_.boss.id,ActionType::Skip,{}};}
     const auto front=next_front();if(!front){return std::nullopt;}
     const Fighter* target=nullptr;
     for(const auto& member:definition_.squads[*front].members){const auto* candidate=battle_->find(member.fighter.id);

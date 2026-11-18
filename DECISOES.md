@@ -172,3 +172,8 @@ Usuário escolheu HP único compartilhado pelos três times e uma barra global d
 ## DEC-033 — Classificação de famílias PvE por eixos
 
 Separar formação, participação dos times, autoridade de HP, fases, relógios, persistência, resultado, pontuação e recompensas. HP único/barra global/rotação permanecem perfil autoral do PAR-02; não regra universal. Treva Fluxo e exemplo dos Milagres registrados como relatos, sem inventar nome exato ou fórmula. Catálogo de 12 entradas conserva pistas históricas e não afirma exaustividade atual. Atualizados 8 cenários/26 mecânicas com originais preservados. Mudança documental, 136 testes prévios não reexecutados.
+
+
+## DEC-034 — Habilidades compartilhadas com alvo explícito
+
+SharedBoss exige mapeamento 1:1 skill/escopo compatível: Self, OwnSquad, Boss, RotatingFront. Alvo direto único; efeitos de morte/reflect/reação conservam semântica do resolvedor. Boss dynamic retargeting rejeitado até seletor limitado à frente. Self/guarda/Skip não giram rotação; skill RotatingFront aceita gira uma vez. Único Battle conserva relógios/cargas sem triplicar por time. 142 testes aprovados; parte 3 segue pendente.

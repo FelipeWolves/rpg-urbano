@@ -4,12 +4,19 @@
 namespace rpg {
 struct SharedBossMember { std::string character_id; Definition fighter; };
 struct SharedBossSquad { std::string id; std::vector<SharedBossMember> members; };
+enum class SharedSkillTarget { Self, OwnSquad, Boss, RotatingFront };
+struct SharedSkillScope {
+    std::string skill_id;
+    SharedSkillTarget target;
+    bool operator==(const SharedSkillScope&) const = default;
+};
 struct SharedBossDefinition {
     std::string id;
     std::uint32_t config_version;
     std::vector<SharedBossSquad> squads;
     Definition boss;
     BattleRules rules;
+    std::vector<SharedSkillScope> skill_scopes{};
 };
 enum class SharedBossError { None, WrongFront, BattleRejected };
 struct SharedBossSnapshot {
@@ -21,6 +28,7 @@ struct SharedBossSnapshot {
     std::vector<bool> active_squads;
     std::optional<std::string> next_boss_front;
     Snapshot battle;
+    std::vector<SharedSkillScope> skill_scopes;
     bool operator==(const SharedBossSnapshot&) const = default;
 };
 struct SharedBossActionResult {
@@ -31,7 +39,7 @@ struct SharedBossActionResult {
     bool stage_finished=false;
     [[nodiscard]] bool accepted() const noexcept { return error==SharedBossError::None && action.accepted(); }
 };
-// One authoritative Battle, one boss/AP clock. Initial profile: no skills yet.
+// One authoritative Battle, one boss/AP clock. Explicit single-target skill scopes.
 class SharedBoss {
 public:
     explicit SharedBoss(SharedBossDefinition definition);

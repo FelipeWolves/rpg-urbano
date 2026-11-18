@@ -63,8 +63,8 @@
       "BossState": "HP único e uma barra global escolhidos para nosso projeto",
       "EndCondition": "Eliminação global ou limite configurado",
       "ScoreRewards": "Sem score/recompensas",
-      "OurCoverage": "PAR-02 parte 1: 5 grupos básicos",
-      "OpenQuestion": "Rotação de ataques é regra nossa aprovada; não comprovada em chefes atuais; habilidades/R04 pendentes",
+      "OurCoverage": "PAR-02 partes 1/2: 11 grupos; HP/AP único, skills de alvo único com escopo e R04",
+      "OpenQuestion": "Rotação é regra autoral; skills de área/dinâmica do chefe e integração final pendentes",
       "Sources": "U01; DEC-032; PAR-02.md"
     },
     {
@@ -153,5 +153,5 @@
     }
   ],
   "preservation": "cenarios.json e mecanicas.csv anteriores preservados em historico-catalogos-2026-11-18",
-  "coverage": "136 testes aprovados previamente; nenhuma execução nova nesta reorganização"
+  "coverage": "142 testes aprovados após PAR-02 parte 2; detalhes em COMBATE-PAR-02-PARTE-2.json"
 }

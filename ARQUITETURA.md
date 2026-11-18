@@ -85,3 +85,6 @@ Organização documental aprovada; não muda mecânicas nem exige nova bateria d
 ## PAR-02 parte 1 — integração autoritativa
 
 HP único/barra global escolhidos pelo usuário. SharedBoss possui um Battle com todos os integrantes e um chefe; times são metadados de inscrição/alvo. Reutiliza AP/SPD e resolvedor sem alteração. Ataques comuns do chefe respeitam rotação entre times vivos; não há três contextos com HP reconciliado depois. Habilidades ainda rejeitadas até seletores e estados compartilhados serem integrados/testados na parte 2. Contrato atual em docs/batalhas/PAR-02.md; 136 testes aprovados.
+
+
+PAR-02 parte 2 habilita skills via SharedSkillScope (Self/OwnSquad/Boss/RotatingFront), mantendo um Battle e kernel inalterado. Seletores limitam alvo direto; reação/reflexão/explosão mantêm semântica causal e de lado do resolvedor. Dinâmica do chefe rejeitada para não cruzar frente. Snapshot conserva mapeamento; 142 testes aprovados. Contrato PAR-02.md; próxima parte 3 integração final.

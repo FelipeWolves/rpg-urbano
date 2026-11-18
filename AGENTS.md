@@ -103,3 +103,6 @@ Escolhas recebidas: HP único + barra global, ataques comuns alternando frentes 
 
 
 Famílias PvE organizadas em MODOS-PVE.md e modos-pve.csv/json (12 entradas). Distinguir relato, história, teste e decisão autoral. Treva Fluxo é requisito de sobrevivência/score a detalhar; exemplo dos Milagres não identificado. PAR-02 experimental não representa todos os chefes. Antigos cenarios/mecanicas atualizados com histórico preservado. Roteiro ROTEIRO-PVE-CHEFES.md para futura pesquisa. Próximo PAR-02 parte 2; não ampliar silenciosamente para score/retorno cíclico/fases HP. Nenhum teste novo nesta reorganização.
+
+
+PAR-02 parte 2 concluída: 142 testes, 11 grupos compartilhados. Self/OwnSquad/Boss/RotatingFront explícitos, apenas alvo direto único; dinâmica do chefe rejeitada. DeathExplosion mantém escopo de lado do kernel e pode atingir três times a partir de um gatilho. Relógios/cargas únicos, Skip não gira alvo. Próxima parte 3 integração orçamento/falha técnica/reações/overkill/fim/replay. Sem score/UI/engine, kernel inalterado. Contrato PAR-02.md.

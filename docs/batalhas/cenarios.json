@@ -72,12 +72,12 @@
     {
       "id": "PAR-02",
       "descricao": "Três frentes simultâneas contra o mesmo chefe",
-      "estado": "parte_1_implementada_e_testada",
+      "estado": "partes_1_2_implementadas_e_testadas",
       "fontes": [
         "U01"
       ],
-      "cobertura": "5 grupos; um Battle, HP/barra únicos e rotação básica",
-      "limite": "Escolha autoral; habilidades/R04 compartilhados pendentes; não comprova mecânica atual do Dislyte"
+      "cobertura": "11 grupos; único Battle, HP/AP globais, skills com escopos e R04",
+      "limite": "Perfil autoral; integração final pendente; sem skills comuns de área, dinâmica do chefe, score ou paridade externa"
     },
     {
       "id": "LOAD-01",

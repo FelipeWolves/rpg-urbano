@@ -1,6 +1,6 @@
 # PAR-02 — Proposta de chefe compartilhado
 
-18/11/2026. **HP único e barra global escolhidos pelo usuário. Parte 1 implementada e validada; PAR-02 ainda aberto.** PAR-01 permanece encerrado. As alternativas abaixo preservam o planejamento; o contrato vigente da parte 1 está ao final.
+18/11/2026. **HP único e barra global escolhidos pelo usuário. Partes 1/2 implementadas e validadas; PAR-02 ainda aberto.** PAR-01 permanece encerrado. As alternativas abaixo preservam o planejamento; o contrato vigente da parte 1 está ao final.
 
 ## Objetivo e limites
 
@@ -110,10 +110,54 @@ Cinco grupos novos:
 
 ### O que ainda falta
 
-Parte 2: habilidades com seletores explícitos de time/chefe, status, recargas e consequências R04 compartilhadas; testar que cargas/eventos não triplicam. Não apenas remover a restrição de skills sem validar alcance e contexto.
+Parte 2: concluída no perfil de habilidades de alvo único e consequências globais descrito abaixo. Habilidades amplas de área e redirecionamento dinâmico do chefe permanecem fora do perfil.
 
 Parte 3: integração de mortes/overkill/limites técnicos, término único e replay nas fronteiras; avaliar mudanças de kit por fase conforme contrato definido, sem alegar feature pronta antecipadamente. Limites locais, score, recompensas, partes do chefe, UI, threads e servidor não foram implementados. O bloco inteiro permanece aberto.
 
 ## Separação de famílias PvE — atualização documental
 
 MODOS-PVE.md e modos-pve.csv/json preservam os exemplos em 12 entradas, com evidência, participação dos times, HP, término e score separados. Treva Fluxo e chefes dos Milagres são relatos ainda a detalhar, não implementações comprovadas. O perfil HP único/barra global/rotação do PAR-02 é experimental e autoral; não é regra universal dos chefes atuais. “Ignorar times” significa apenas times sem sobreviventes. Contrato básico vigente mantido; próximo parte 2, sem incluir score/recompensas por antecipação.
+
+## Parte 2 — Habilidades com escopo e estado único
+
+18/11/2026. Implementado sem alteração no kernel Battle: SharedBoss habilita skills somente quando todas declaram um único SharedSkillScope válido. Scope também é registrado no snapshot. A restrição total da parte 1 foi substituída por validação de escopo, não removida indiscriminadamente.
+
+| SharedSkillTarget | Dono e alvo direto permitidos |
+|---|---|
+| Self | Próprio dono; TargetRule::Self |
+| OwnSquad | Personagem aliado, um integrante vivo do seu próprio time; TargetRule::Ally |
+| Boss | Personagem aliado, chefe único como inimigo; TargetRule::Enemy |
+| RotatingFront | Chefe, um integrante vivo da próxima frente da rotação; TargetRule::Enemy |
+
+“OwnSquad” restringe a seleção a um integrante, não aplica efeito em todos os membros automaticamente. IDs de habilidade são únicos segundo Battle. Scope ausente, desconhecido, duplicado ou incompatível é rejeitado antes de iniciar. Atributos/effects/durações continuam validados pelo kernel.
+
+Ataque comum ou skill RotatingFront aceita do chefe avança a rotação uma vez. Self, guarda e Skip não avançam. Tentativas de buff fora do time ou skill inimiga fora da frente são rejeitadas sem consumo de AP, recarga, identidade, orçamento ou cursor. Habilidade desconhecida, dono errado e recarga indisponível continuam sujeitos à rejeição do kernel.
+
+Multi-hit com alvo fixo fica no alvo original, interrompendo conforme R04. LowestHealthEnemy de personagens aliados só pode escolher o chefe, pois existe um único inimigo. Qualquer redirecionamento dinâmico de skill do chefe é rejeitado na configuração: o seletor global do kernel poderia sair da frente permitida. Nenhuma filtragem silenciosa depois de aplicar o dano é usada.
+
+### Alvo direto não é alcance de consequência
+
+Os seletores acima limitam o alvo direto da habilidade. Counter reage ao autor do impacto conforme o kernel; não cria uma nova oportunidade de rotação. Reflect afeta o autor do hit. DeathExplosion segue o alcance de lado existente no kernel: todos os adversários vivos do portador morto. Assim, explosão do chefe pode atingir os três times; é uma consequência global de um único portador, não três cópias da mesma explosão. Este comportamento foi explicitamente testado e documentado; não afirmar que uma habilidade comum RotatingFront passou a ser de área.
+
+A sequência R04 continua mitigação/escudos/prevenção, reflexão e FIFO entre hits, auto-revive, vitória e reações de sobreviventes. Contagem de vivos usa o lado inteiro, não apenas o time atingido. Um status do chefe tem uma magnitude/carga e uma recarga por habilidade; cada turno próprio avança seus relógios uma vez. Turnos dos três times não avançam a recarga/status do chefe.
+
+Skip de chefe bloqueado é selecionado pela política básica e não altera o cursor de ataques. A política automática continua ataque/Skip: skills são invocadas explicitamente nos testes; não há IA completa de habilidades.
+
+### Verificação efetiva
+
+Seis grupos novos, 11 acumulados:
+
+- scope_validation: escopos ausentes/desconhecidos/duplicados/incompatíveis e enum inválido; redirecionamento dinâmico do chefe rejeitado e equivalente fixo aceito.
+- squad_rotating_skills: buff único em integrante do mesmo time; tentativa fora do time sem mutação; skills do chefe respeitam três frentes e não duplicam hits.
+- boss_clock_skip: uma recarga/status global, recarga impede reutilização, ações dos três times não avançam relógios do chefe, bloqueio gera Skip sem avançar rotação.
+- shared_survival: escudo estrutural, prevenção e auto-revive consumidos uma única vez; alvo retorna com 2 HP e a próxima morte não reaplica cargas.
+- global_death_consequences: três hits, três reflexões, um gatilho de morte com três vítimas; morte dupla global respeita autor A, sem contra-ataque do morto ou conclusão duplicada.
+- scoped_replay_reset: replay com skills e alvo em rotação, orçamento global de 12 comandos, conclusão única e reset de escopos/status/recargas sem vazamento.
+
+A primeira montagem de shared_survival permitia guarda adicional antes do multi-hit, alterando o dano esperado. Ajustado o cenário para transferência direta ao atacante (SPD 301/300), sem mudar a regra de guarda ou o kernel. Não foi tratado como defeito de produção.
+
+**142/142 testes aprovados**, incluindo 11/11 grupos de chefe compartilhado, MSVC /W4 /WX. Preservados 168 cenários/replays, 25 formações AP/replays, 1000 simulações funcionais e demo 40 ações/14 rodadas. Evidências: COMBATE-PAR-02-PARTE-2.json, COMBATE.json e chefe-compartilhado-testes.csv; arquivo da parte 1 preservado.
+
+### Limites e próxima entrega
+
+PAR-02 permanece aberto. Parte 3: integração nas fronteiras de orçamento/falha técnica, reações, overkill, morte do chefe com outros times vivos, extras e término único/replay. Fases de kit por HP/turno exigem contrato separado; não estão prontas nesta entrega. Sem habilidades comuns de área, ataques entre times, seleção dinâmica do chefe, score/recompensas ou modos Treva Fluxo/Milagres completos. Nenhuma engine/plugin, rede ou thread introduzida.

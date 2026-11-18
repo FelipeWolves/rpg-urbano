@@ -74,4 +74,4 @@ ATB opcional, backend/multiplayer, publicação em lojas/launcher e produção m
 
 ## Próxima ação concreta
 
-PAR-02 parte 2: habilidades, seletores e R04 compartilhados. HP único/barra global escolhidos; parte 1 concluída, 136 testes aprovados. Não iniciar UI/engine/servidor junto.
+PAR-02 parte 3: integração nas fronteiras de orçamento/falha técnica, reações/overkill e conclusão única/replay. Partes 1/2 concluídas, 142 testes aprovados. Não iniciar score/UI/engine/servidor junto.

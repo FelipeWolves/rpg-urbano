@@ -1,6 +1,6 @@
 # Painel de blocos — estado consolidado
 
-Atualizado em 18/11/2026 após PAR-02 parte 1. Fonte de resultados: COMBATE.json e COMBATE-PAR-02-PARTE-1.json. Este painel substitui marcações antigas; relatórios anteriores permanecem preservados.
+Atualizado em 18/11/2026 após PAR-02 parte 2. Fonte de resultados: COMBATE.json e COMBATE-PAR-02-PARTE-2.json. Este painel substitui marcações antigas; relatórios anteriores permanecem preservados.
 
 ## Legenda das siglas e marcações
 
@@ -47,7 +47,7 @@ As siglas são identificadores internos das áreas do projeto, não nomes de fer
 | ✅ PAR-01 | Três frentes independentes coordenadas, orçamento global e cancelamento | 16 grupos; três partes concluídas, integração R04/replay/falha técnica |
 | ✅ Contrato R04 e revisões R01–R03 | Decisões e pesquisa recebida | Fechamento documental; implementação mínima em RES-01 |
 
-Total atual: **136 testes aprovados**, além das matrizes, isolamento intercalado, 1000 simulações funcionais e demonstração. Não é benchmark de servidor ou renderização.
+Total atual: **142 testes aprovados**, além das matrizes, isolamento intercalado, 1000 simulações funcionais e demonstração. Não é benchmark de servidor ou renderização.
 
 ## ⚠️ Implementado que ainda exige revisão obrigatória
 
@@ -72,13 +72,13 @@ Classificação pelo roteiro documentado, sem inferir datas pela criação do re
 
 | Prioridade | Bloco | Falta |
 |---|---|---|
-| 1 — próximo | ⚠️ PAR-02 | HP único/barra global escolhidos. ✅ Parte 1: composição e fluxo básico (5 grupos). ⚠️ Partes 2/3: habilidades/R04 compartilhados e integração final |
+| 1 — próximo | ⚠️ PAR-02 | HP único/barra global escolhidos. ✅ Partes 1/2: fluxo e skills com escopos/R04 (11 grupos). ⚠️ Parte 3: integração final e fronteiras |
 
 Também acrescentados durante o percurso, mas já encerrados: COM-01A, TIME-01, WAVE-01, TIME-PESQ, TIME-02, TIME-03, RES-01, SEQ-01 e PAR-01. AMB-01 formalizou a validação após instalação manual.
 
 ## Limitações e extensões
 
-⚠️ Não implementados nesta entrega: habilidades/R04 no chefe compartilhado, paralelismo real, servidor, IA completa, score, fases por limiar de HP, catálogo completo de habilidades, ATB opcional, lojas e produção multiplataforma. Sem aceites completos de implementação não são blocos fechados. Arte, áudio e escolha da engine terão validação apropriada, não necessariamente testes unitários.
+⚠️ Não implementados nesta entrega: skills comuns de área e redirecionamento dinâmico do chefe, paralelismo real, servidor, IA completa, score, fases por limiar de HP, catálogo completo de habilidades, ATB opcional, lojas e produção multiplataforma. Sem aceites completos de implementação não são blocos fechados. Arte, áudio e escolha da engine terão validação apropriada, não necessariamente testes unitários.
 
 Ordem atual: **PAR-02 → COM-02 → HAB-01 → CIC-01 → ENG-01 → VIS-01 → ART-01 → AUD-01 → EXP-01**. Uma entrega por vez. Priorização por risco/dependências e menor esforço útil dentro da área, sem estimativa de prazo ou consumo.
 

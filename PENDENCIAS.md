@@ -182,3 +182,8 @@ Usuário escolheu HP único e barra global, ataques comuns alternados entre fren
 ## Famílias PvE — registro sem perda de exemplos
 
 PEN-10/12: relato Treva Fluxo acrescenta sobrevivência/janela e dano influindo em ganhos; unidade/fórmula/regras ainda desconhecidas. Exemplo dos Milagres precisa de chefe/modo exato e gatilho de troca/fase. PEN-04/06: fase por entrada de time não cobre fase autônoma por HP/turno; retorno cíclico não foi afirmado nem implementado. Catálogo MODOS-PVE.md e roteiro ROTEIRO-PVE-CHEFES.md. Nenhum desses relatos revoga PEN-05 resolvida ou torna todos os modelos implementados.
+
+
+## PAR-02 parte 2 — escopos e consequências
+
+PEN-08 parcialmente atendida: alvo direto único por próprio time, chefe ou frente da rotação; buffs entre times e skills comuns globais não implementados. PEN-06 validada em cenário de explosão global única, morte dupla e revive do chefe; fronteiras técnicas/overkill continuam parte 3. 142 testes/11 grupos compartilhados aprovados. Kit por HP/turno e pontuação seguem separados; não alegar todos os modos PvE cobertos.

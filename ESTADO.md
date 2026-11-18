@@ -19,13 +19,15 @@ Pasta do projeto: este diretório. Não usar a pasta do laboratório como diret�
 
 ## Verificação desta entrega
 
-PAR-02 parte 1 concluída após escolhas explícitas: HP único e barra global, ataques comuns alternando entre times vivos. SharedBoss usa um Battle autoritativo com 3 times de 1–5 e um chefe, AP/SPD global, identidade/inscrição, restrição de alvos por frente, sobrevivência global, orçamento único e reset/replay. Nenhuma alteração no kernel. Cinco grupos novos, 136 testes totais aprovados em MSVC /W4 /WX; matrizes e demo preservados. Evidências: docs/batalhas/PAR-02.md, COMBATE-PAR-02-PARTE-1.json e chefe-compartilhado-testes.csv.
+PAR-02 partes 1/2 concluídas. Habilidades exigem escopo Self/OwnSquad/Boss/RotatingFront compatível, alvo único e rejeição atômica fora da frente. Estados e recargas pertencem ao único Battle; escudos/prevenção/revive consomem uma carga, relógios do chefe não avançam por ações dos três times. R04 e explosão global do chefe testados com término causal único. Chefe bloqueado escolhe Skip. Sem mudança do kernel.
 
-Habilidades são rejeitadas na configuração do primeiro perfil: alcance/status/recargas/R04 compartilhados ainda serão integrados. Não declarar PAR-02 inteiro concluído. Sem partes/avatares, score, limites locais por time, UI, threads ou servidor.
+Seis grupos novos, 11 de chefe compartilhado e 142 testes totais aprovados em MSVC /W4 /WX; matrizes e demo preservados. Evidências: docs/batalhas/PAR-02.md, COMBATE-PAR-02-PARTE-2.json e chefe-compartilhado-testes.csv. Um cenário foi ajustado para não inserir guarda extra antes do ataque; não houve correção de produção por esse ajuste.
+
+PAR-02 segue aberto. Não há skill comum de área, redirecionamento dinâmico do chefe, efeitos diretos entre times, kit por HP/turno, score, IA completa ou modo Treva Fluxo/Milagres implementado. Modelo experimental permanece separado em MODOS-PVE.md.
 
 ## Próximo passo executável
 
-PAR-02 parte 2: integrar habilidades, seletores explícitos e estado/recargas/R04 compartilhados; provar efeitos/cargas únicos. PEN-05 resolvida para HP único/barra global; outras propostas não são automaticamente decisões. Ler PAR-02.md, uma entrega por vez. Pushes ficam com o usuário.
+PAR-02 parte 3: integração nas fronteiras de orçamento/falha técnica, reações, extras, overkill, morte global e término único/replay. Ler PAR-02.md e MODOS-PVE.md. Não ampliar silenciosamente para score, fases por HP, UI/engine/servidor. Pushes com o usuário.
 
 ## Novas restrições e fatos úteis
 

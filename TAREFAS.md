@@ -39,7 +39,7 @@ Uma entrega por vez. Ordem por área, criticidade e dependências, conforme PLAN
   - [x] Preparar proposta de modelo/cadência, impactos e matriz de aceite em docs/batalhas/PAR-02.md (documental).
   - [x] Receber escolhas: HP único + barra global; PEN-05 resolvida no perfil inicial, contrato da parte 1 em PAR-02.md.
   - [x] Parte 1 — Composição, único estado/AP, rotação entre times vivos e ataques básicos; 136 testes totais aprovados.
-  - [ ] Parte 2 — Habilidades, seletores, estados/recargas e R04 compartilhados.
+  - [x] Parte 2 — Skills de alvo único com escopos, estados/recargas e R04 compartilhados; 142 testes totais aprovados.
   - [ ] Parte 3 — Integração final, limites técnicos, overkill e conclusão/replay nas fronteiras.
 
 ## 3. Uso, habilidades ampliadas e persistência
@@ -61,7 +61,7 @@ Uma entrega por vez. Ordem por área, criticidade e dependências, conforme PLAN
 
 ## Próximo bloco executável
 
-PAR-02 parte 2: integrar habilidades com seletores explícitos, estados/recargas e R04 compartilhados. Parte 1 concluída, HP único/barra global escolhidos. Ler PAR-02.md; não iniciar UI/engine/servidor junto.
+PAR-02 parte 3: integração de skills/R04 nas fronteiras de orçamento, falha técnica, reações/overkill e conclusão única. Partes 1/2 concluídas; ler PAR-02.md e MODOS-PVE.md. Não iniciar score/UI/engine/servidor junto.
 
 ## Encerramento de cada entrega
 

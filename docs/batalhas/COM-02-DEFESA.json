@@ -1,0 +1,12 @@
+{
+  "CheckedUtc": "2026-11-18T19:38:55.1219886Z",
+  "Scope": "Terminologia da apresentação; contrato de perfil documentado, sem implementação do novo perfil",
+  "TextTestsPassed": 7,
+  "TextTestsTotal": 7,
+  "Demo": "SIMULATION_OK winner=A rounds=14 actions=40",
+  "LaunchSmoke": "help_defesa_state_restart_quit_ok",
+  "LegacyAlias": "guardar_accepted_output_defesa",
+  "KernelChanged": false,
+  "FullSuiteRerun": false,
+  "PreviousFullSuiteTotal": 155
+}

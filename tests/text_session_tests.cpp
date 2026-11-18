@@ -28,7 +28,7 @@ void selected_target_and_enemy(){
           out.str().find("A -> B2 dano 3")!=std::string::npos,"target choice or enemy response wrong");
 }
 void guard_and_restart(){
-    std::istringstream in("guardar\nreiniciar\nsair\n");std::ostringstream out;const auto roster=duel();const auto r=rules();
+    std::istringstream in("defesa\nreiniciar\nsair\n");std::ostringstream out;const auto roster=duel();const auto r=rules();
     const auto result=run_text_session(in,out,roster,r);
     check(result.player_actions==1 && result.automatic_actions==1 && result.restarts==1 &&
           result.final_state==Battle(roster,r).snapshot() && out.str().find("dano 1")!=std::string::npos,
@@ -57,11 +57,11 @@ void skill_block_skip_and_clock(){
 void eof_and_timeout(){
     std::istringstream eof;std::ostringstream output;const auto empty=run_text_session(eof,output,duel(),rules());
     check(empty.exit==TextExit::InputClosed && empty.player_actions==0,"EOF looped or advanced player");
-    auto r=rules();r.action_budget=ActionBudget{1,LimitOutcome::Draw};std::istringstream in("guardar\nsair\n");std::ostringstream out;
+    auto r=rules();r.action_budget=ActionBudget{1,LimitOutcome::Draw};std::istringstream in("defesa\nsair\n");std::ostringstream out;
     const auto result=run_text_session(in,out,duel(),r);
     check(result.final_state.end_reason==EndReason::ActionLimit && !result.final_state.winner && result.automatic_actions==0 &&
           out.str().find("empate (limite de acoes)")!=std::string::npos,"timeout printed false winner or started AI");
-    auto roster=duel();roster[0].max_health=1;std::istringstream loss("guardar\nsair\n");std::ostringstream lost;
+    auto roster=duel();roster[0].max_health=1;std::istringstream loss("defesa\nsair\n");std::ostringstream lost;
     const auto defeat=run_text_session(loss,lost,roster,rules());
     check(defeat.final_state.winner==Team::B && defeat.automatic_actions==1 &&
           lost.str().find("vitoria do time B")!=std::string::npos,"defeat presented as player victory");

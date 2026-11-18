@@ -1,10 +1,10 @@
 # HAB-01 — Plano de habilidades e perfis de batalha
 
-18/11/2026. **Planejamento atualizado; implementação ainda não iniciada.** Proposta baseada no relato do usuário e no código atual; nenhuma regra atual completa do Dislyte foi certificada. Os 155 testes existentes não foram repetidos por esta tarefa documental.
+18/11/2026. **Contrato de equipes R01 fechado; implementação do perfil ainda não iniciada.** Proposta baseada no relato do usuário e no código atual; nenhuma regra atual completa do Dislyte foi certificada. Os 155 testes existentes não foram repetidos por esta tarefa documental.
 
 ## Direção recebida
 
-Aproximar o combate padrão de equipes da referência descrita: até três posições de habilidade por personagem, com ações selecionáveis, passivas e condições próprias. Preservar experiência clássica com ataque/guarda/opções ampliadas para outros perfis. Não apagar a implementação atual do COM-02.
+Aproximar o combate padrão de equipes da referência descrita: até três posições de habilidade por personagem, com ações selecionáveis, passivas e condições próprias. Preservar experiência clássica com ataque/defesa/opções ampliadas para outros perfis. Não apagar a implementação atual do COM-02.
 
 Distinguir três decisões independentes:
 
@@ -16,7 +16,7 @@ Exploração aberta/semiaberta pode usar um perfil adequado ao evento, mas não 
 
 ## O que já existe e será reutilizado
 
-SkillDefinition declara dono, alvo, efeitos, recarga e relógio. TIME-03/RES-01 implementam recargas, extras, estados e causalidade R04 mínimos. SharedBoss adiciona alcance de alvo direto único. COM-02 oferece comando de habilidade, mas o cenário padrão ainda não equipa skills e usa ataque/guarda como teste de referência.
+SkillDefinition declara dono, alvo, efeitos, recarga e relógio. TIME-03/RES-01 implementam recargas, extras, estados e causalidade R04 mínimos. SharedBoss adiciona alcance de alvo direto único. COM-02 oferece comando de habilidade, mas o cenário padrão ainda não equipa skills e usa ataque/defesa como teste de referência.
 
 Ainda não existem: loadout por personagem com posições A1/A2/A3; distinção completa entre habilidade ativa/passiva/híbrida; motor geral de gatilhos; interface padrão de três escolhas; automação estratégica de habilidades; catálogo autoral jogável. Os status Counter/Reflect existentes são mecanismos específicos, não um sistema geral de passivas já completo.
 
@@ -28,7 +28,7 @@ A1 básica deve apontar para a mesma definição/validação ao ser usada por co
 
 Passivas não viram botões clicáveis. Mostrar descrição e estado quando disponíveis. Passiva sem gatilho realmente implementado não será anunciada como funcional. Passivas podem ter condições, limites de proc, cargas ou recarga interna: cada mecanismo precisa de contrato, não apenas um rótulo.
 
-No perfil padrão proposto, guarda genérica não aparece; só ações do conjunto do personagem e comandos administrativos. Passar é resolução obrigatória de bloqueio quando aplicável, não uma quarta habilidade voluntária. No clássico, guarda permanece opcional conforme regras atuais. Isso organiza o projeto, sem provar equivalência ao Dislyte.
+No perfil padrão proposto, defesa genérica não aparece; só ações do conjunto do personagem e comandos administrativos. Passar é resolução obrigatória de bloqueio quando aplicável, não uma quarta habilidade voluntária. No clássico, defesa permanece opcional conforme regras atuais. Isso organiza o projeto, sem provar equivalência ao Dislyte.
 
 ## Entregas pequenas e critérios de aceite
 
@@ -47,7 +47,7 @@ São partes planejadas, não tarefas a executar todas numa entrega. A divisão p
 
 ### Antes da parte 1
 
-- Fechar quais elementos entram na configuração do perfil e na apresentação: até três posições inicialmente; preservar clássico; sem guarda genérica no padrão. Direção recebida é a base, contrato específico será apresentado com exemplos.
+- Fechar quais elementos entram na configuração do perfil e na apresentação: até três posições inicialmente; preservar clássico; sem defesa genérica no padrão. Direção recebida é a base, contrato específico será apresentado com exemplos.
 - Como mostrar habilidade passiva e indisponibilidade: informação separada de ação; comandos não devem sugerir uma opção utilizável que não existe.
 - Como identificar básica e evitar bypass: A1 como ação real do conjunto, inclusive em automação.
 
@@ -103,3 +103,8 @@ Próxima entrega executável: HAB-01 parte 1, contrato de perfis/posições e pr
 ## Material recebido após o planejamento — R01
 
 Relatório de habilidades recebido e analisado em REVISAO-HABILIDADES-USUARIO-R01.md. Reforça componentes ativo/passivo/híbrido e a separação entre gatilho, recarga interna, alterações externas e progressão. Afirmações de patch e fichas são recebidas, sem URLs individualizadas verificadas nesta entrega; não promovê-las a confirmação atual automaticamente. AutoRevive/Counter/Shield genéricos não reproduzem kits completos de personagens. Não precisa extrair todo o chat: material suficiente para orientar parte 1, com fontes pontuais somente quando necessárias. Nenhum código/teste alterado nesta revisão.
+
+
+## Contrato recebido — perfil padrão de equipes R01
+
+HAB-01-PERFIL-EQUIPE-R01.md fecha até três posições, básica A1 não silenciável e disponível quando apto, passivas informativas, defesa genérica ausente e indicadores distintos de recarga/silêncio/condição. Silêncio de passivas é suportabilidade a definir por efeito; congelar/petrificar permanecem dúvida explícita. Clássico preservado, itens/estamina/especial só propostas futuras. Nesta entrega apenas terminologia defesa foi aplicada no protótipo; próxima parte 1 é implementação dos perfis/posições.

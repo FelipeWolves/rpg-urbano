@@ -121,3 +121,6 @@ Plano HAB-01 atualizado após direção do usuário: padrão de equipes com até
 
 
 Relatório de habilidades recebido: revisão docs/batalhas/REVISAO-HABILIDADES-USUARIO-R01.md. Usar como referência recebida, sem assumir patches/fichas verificados ou copiar roster pessoal. Suficiente para HAB-01 parte 1; passivas podem ter recarga interna e componentes híbridos. Não retomar busca extensa no outro chat (usuário interrompeu para economizar limite), nem pedir extração completa. Protótipo e 155 testes inalterados.
+
+
+Contrato HAB-01-PERFIL-EQUIPE-R01.md recebido: padrão até3posições, básica A1 não silenciável/disponível se apto, passivas não clicáveis. CD/inatividade/condição separados. FreezeCooldowns não é congelar personagem; matriz silêncio/passivas/petrificar pendente, não inferir. Só terminologia defesa implementada no texto/demo, guardar alias oculto; 7 testes locais e demo aprovados sem repetir155. Clássico/itens/especial não ampliados. Próximo implementar HAB-01 parte1 com contrato fechado.

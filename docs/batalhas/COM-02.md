@@ -19,10 +19,10 @@ Time A controlado pelo jogador; time B usa ataque/Skip automático existente. Pe
 | Comando | Função |
 |---|---|
 | `atacar B3` | Ataca o ID escolhido com o personagem atual; use IDs vivos mostrados no estado |
-| `guardar` | Guarda opcional conforme perfil do motor |
+| `defesa` | Defesa opcional conforme perfil do motor |
 | `habilidade ID ALVO` | Usa uma habilidade cadastrada do personagem atual; recarga/alcance validados no motor |
 | `passar` | Permitido somente quando o personagem está bloqueado |
-| `estado` | Mostra vida/maxHP, SPD, guarda/derrotados, ator atual, habilidades/recargas e saldo |
+| `estado` | Mostra vida/maxHP, SPD, defesa/derrotados, ator atual, habilidades/recargas e saldo |
 | `ajuda` | Mostra os comandos sem avançar |
 | `reiniciar` | Recria a batalha original e volta às regras/dados iniciais; permitido durante e após fim |
 | `sair` | Encerra a sessão sem alterar o resultado do combate |
@@ -53,7 +53,7 @@ Sete grupos por entrada/saída simulada, sem teclado durante os testes:
 - eof_timeout: EOF, empate no limite sem resposta extra e derrota do jogador corretamente apresentada;
 - safety_technical: proteção de apresentação sem resultado inventado e mensagem de limite técnico sem vencedor.
 
-**155/155 testes aprovados**, sete novos de interação, MSVC /W4 /WX. Matrizes anteriores 168/25 AP/replays, 1000 simulações funcionais e demo preservadas. Executável real compilado e verificado com entrada sair; roteiro adicional `atacar B3`, `guardar`, `reiniciar`, `sair` executado com sucesso. Logs da execução ficam em build/combate/, ignorados pelo Git.
+**155/155 testes aprovados**, sete novos de interação, MSVC /W4 /WX. Matrizes anteriores 168/25 AP/replays, 1000 simulações funcionais e demo preservadas. Executável real compilado e verificado com entrada sair; roteiro adicional `atacar B3`, `defesa`, `reiniciar`, `sair` executado com sucesso. Logs da execução ficam em build/combate/, ignorados pelo Git.
 
 Evidências: COMBATE.json, COMBATE-COM-02-FINAL.json e interacao-testes.csv. A entrega testa apresentação textual do Battle, não menus para Stage/SequentialSquads/ParallelFronts/SharedBoss. Esses modos continuam com suas coberturas de núcleo, sem seleção nesta tela.
 
@@ -68,3 +68,8 @@ Erro de autorização reproduzido ao executar scripts/jogar.ps1 no Windows Power
 Adicionado Jogar.cmd, que chama diretamente build/combate/jogar.exe com caminho relativo ao próprio lançador. Falta de binário ou saída de erro fica visível antes de fechar. Validado com entrada sair via cmd.exe e executável direto via Windows PowerShell, ambos saída zero. Não houve recompilação nem nova execução dos 155 testes por esta correção de entrada.
 
 Alternativa no terminal, já dentro de rpg-urbano: ` .\build\combate\jogar.exe `. Não é necessário executar o .ps1 nem liberar scripts para experimentar o binário compilado.
+
+
+## Terminologia atualizada
+
+Comando recomendado defesa; ajuda/estado/eventos usam defesa. guardar permanece alias oculto de compatibilidade. Sete testes textuais e executáveis próprios revalidados sem repetir a bateria integral; evidência COM-02-DEFESA.json. Novo perfil de equipes definido em HAB-01-PERFIL-EQUIPE-R01.md, ainda não implementado.

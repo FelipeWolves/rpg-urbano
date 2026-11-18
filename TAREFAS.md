@@ -46,7 +46,7 @@ Uma entrega por vez. Ordem por área, criticidade e dependências, conforme PLAN
 
 - [x] COM-02 — Interação textual de ações/alvos, resposta básica do time B, estado/resultado e reinício. 155 testes totais, 7 novos; app/jogar.cpp e scripts/jogar.ps1. Perfil Battle 3x3 AP, sem menu dos coordenadores ou UI gráfica; docs/batalhas/COM-02.md.
 - [ ] HAB-01 — Perfis padrão de equipes/clássico, posições de habilidade, passivas e condições, preservando AP/SPD e regras existentes. Recurso somente se necessário. Plano em docs/batalhas/HAB-01.md.
-  - [x] Preparação — Plano, dúvidas por etapa e pesquisa pública com limites; sem mudança funcional.
+  - [x] Preparação — Plano, dúvidas e contrato de equipes R01 definidos; terminologia defesa entregue, sem implementação do novo perfil.
   - [ ] Parte 1 — Perfis/posições, básica vinculada ao conjunto e distinção ativa/passiva/híbrida, sem comportamento fictício.
   - [ ] Parte 2 — Primeira passiva autoral com gatilho, limite e janela de resolução.
   - [ ] Parte 3 — Condição adicional e primeiros kits próprios, uma família por entrega.
@@ -67,7 +67,7 @@ Uma entrega por vez. Ordem por área, criticidade e dependências, conforme PLAN
 
 ## Próximo bloco executável
 
-HAB-01 parte 1: fechar contrato de perfis/posições e implementar incremento delimitado conforme HAB-01.md. Preservar clássico, separar AP/SPD de menu e controle. Não reescrever recargas/status nem iniciar engine/UI gráfica/score junto.
+HAB-01 parte 1: implementar incremento delimitado de perfis/posições conforme HAB-01-PERFIL-EQUIPE-R01.md, contrato já fechado. Preservar clássico, separar AP/SPD de menu e controle. Não reescrever recargas/status nem iniciar engine/UI gráfica/score junto.
 
 ## Encerramento de cada entrega
 
@@ -95,3 +95,6 @@ Essas famílias não são funcionalidades prontas por SEQ-01/PAR-01/PAR-02 estar
 
 
 - [x] Corrigir acesso COM-02 no Windows PowerShell comum: Jogar.cmd chama binário direto sem política de scripts; validado CMD/Windows PowerShell, sem mudar segurança nem motor.
+
+
+- [x] Fechar contrato padrão de equipes HAB-01-PERFIL-EQUIPE-R01.md e trocar terminologia do protótipo para defesa; sete testes textuais revalidados. Novo perfil/posições e controles específicos ainda pendentes na parte 1/famílias correspondentes.

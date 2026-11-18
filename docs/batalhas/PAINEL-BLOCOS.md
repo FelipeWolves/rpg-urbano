@@ -98,3 +98,6 @@ Ordem atual: **HAB-01 → CIC-01 → ENG-01 → VIS-01 → ART-01 → AUD-01 →
 
 
 ✅ Abertura COM-02 corrigida: usar Jogar.cmd ou executável direto. Bloqueio de .ps1 reproduzido no Windows PowerShell; nenhuma política alterada. Verificações pontuais de abertura aprovadas; os 155 testes de motor/interação não foram repetidos.
+
+
+✅ Contrato padrão de equipes R01 documentado; terminologia defesa aplicada no protótipo. ⚠️ HAB-01 continua aberto: posições/perfil, silêncio e passivas funcionais ainda exigem implementação. Matriz de congelamento/petrificação/supressão não confirmada. Verificação localizada 7/7, sem nova bateria integral; COM-02-DEFESA.json.

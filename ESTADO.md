@@ -27,7 +27,7 @@ Sem menus dos coordenadores SEQ/PAR, UI gráfica, salvamento, engine, rede ou re
 
 ## Próximo passo executável
 
-HAB-01 parte 1: contrato de perfis padrão/clássico e posições de habilidade conforme docs/batalhas/HAB-01.md. Plano atualizado com dúvidas por etapa; pesquisa oficial pública não expôs especificação atual completa. Nenhuma implementação nova nesta entrega. Reutilizar recargas/efeitos; sem engine/UI gráfica/score junto. Pushes com o usuário.
+HAB-01 parte 1: implementar posições e perfil de equipes conforme contrato fechado docs/batalhas/HAB-01-PERFIL-EQUIPE-R01.md; preservar clássico. Plano atualizado com dúvidas por etapa; pesquisa oficial pública não expôs especificação atual completa. Nenhuma implementação nova nesta entrega. Reutilizar recargas/efeitos; sem engine/UI gráfica/score junto. Pushes com o usuário.
 
 ## Novas restrições e fatos úteis
 
@@ -87,3 +87,8 @@ Direção recebida: perfil padrão de equipe com até três posições, componen
 ## Habilidades recebidas — R01
 
 Relatório externo recebido, sem nova pesquisa ampla: revisão em docs/batalhas/REVISAO-HABILIDADES-USUARIO-R01.md. Modelo ativo/passivo/híbrido, recarga interna/protegida, dono de gatilho e progressão precisam de dimensões separadas. Patches/fichas são alegações recebidas não verificadas independentemente. Sem código ou testes novos; 155 prévios preservados. Próximo HAB-01 parte 1, sem exigir extração integral do outro chat.
+
+
+## Contrato de equipes e defesa
+
+Usuário fechou perfil até 3 posições, básica A1 não silenciável/disponível se apto, passivas informativas e recarga/inatividade/condição distintas. HAB-01-PERFIL-EQUIPE-R01.md; perfil não implementado ainda. Congelamento/petrificação/supressão exigem matriz futura; motor só tem Block e FreezeCooldowns de recarga. Clássico segue disponível. Terminologia alterada para defesa nos executáveis, guardar alias oculto. Recompilação localizada: 7/7 testes textuais e demo aprovados; 155 anteriores não repetidos integralmente. Próximo HAB-01 parte 1.

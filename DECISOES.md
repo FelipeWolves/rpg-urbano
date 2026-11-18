@@ -192,3 +192,8 @@ COM-02 usa streams e Battle para input/estado/eventos, sem regras duplicadas. Us
 ## DEC-037 — Roteiro de perfis e conjuntos de habilidades
 
 Observação do usuário orienta padrão de equipe com até três posições e clássico preservado. Organização documental separa menu, AP/SPD e controle. Habilidades podem ser ações de suporte ou conter componente passivo; passivas não viram botões. HAB-01 dividido em perfis/posições, primeira passiva, condições/kits, automação e integração. Detalhes são propostas de contrato, não regras já implementadas ou equivalência oficial ao Dislyte. Pesquisa pública limitada registrada em HAB-01.md; 155 testes não reexecutados.
+
+
+## DEC-038 — Contrato padrão de equipe e defesa
+
+Usuário definiu até três posições, básica A1 sem silêncio nem indisponibilidade voluntária quando apto, passivas informativas e indicadores separados de CD/inatividade/condição. Sem defesa genérica nesse perfil. Matriz de supressão e congelar/petrificar ainda incerta. Clássico preservado, quatro categorias propostas para contrato posterior. Termo visível defesa aplicado agora, mesmo Guard interno; guardar alias oculto. Perfil novo ainda não implementado. Sete testes textuais e demo revalidados, sem bateria completa.

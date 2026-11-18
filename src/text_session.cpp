@@ -5,7 +5,7 @@
 namespace rpg::presentation {
 namespace {
 void help(std::ostream& out){
-    out<<"Comandos: atacar ALVO | guardar | habilidade ID ALVO | passar\n"
+    out<<"Comandos: atacar ALVO | defesa | habilidade ID ALVO | passar\n"
        <<"          estado | ajuda | reiniciar | sair\n"
        <<"Voce controla o time A. O time B ataca automaticamente.\n";
 }
@@ -15,7 +15,7 @@ const char* error_message(ActionError error){
     case ActionError::UnknownTarget:return "Alvo desconhecido. Consulte estado.";
     case ActionError::TargetDefeated:return "Esse alvo esta derrotado.";
     case ActionError::FriendlyTarget:return "O ataque exige um inimigo.";
-    case ActionError::GuardDisabled:return "Guarda desabilitada neste perfil.";
+    case ActionError::GuardDisabled:return "Defesa desabilitada neste perfil.";
     case ActionError::UnknownSkill:return "Habilidade desconhecida para o personagem atual.";
     case ActionError::SkillOnCooldown:return "A habilidade ainda esta em recarga.";
     case ActionError::InvalidSkillTarget:return "Alvo invalido para a habilidade.";
@@ -29,7 +29,7 @@ void state(const Battle& battle,std::ostream& out){
     for(const auto& fighter:battle.fighters()){
         out<<fighter.definition.id<<" ["<<(fighter.definition.team==Team::A?'A':'B')<<"] vida "
            <<fighter.health<<'/'<<fighter.definition.max_health<<" SPD "<<fighter.effective_speed;
-        if(fighter.health==0){out<<" DERROTADO";}else if(fighter.guarding){out<<" GUARDA";}
+        if(fighter.health==0){out<<" DERROTADO";}else if(fighter.guarding){out<<" DEFESA";}
         out<<'\n';
     }
     if(battle.phase()==Phase::Finished){
@@ -53,7 +53,7 @@ void events(const ActionResult& result,std::ostream& out){
         out<<e.actor<<" -> "<<e.target<<" dano "<<e.amount;
         if(e.type==EventType::Reaction){out<<" [reacao]";}else if(e.type==EventType::ReflectedDamage){out<<" [reflexao]";}
         else if(e.type==EventType::DeathExplosion){out<<" [explosao]";}out<<'\n';break;
-    case EventType::GuardSet:out<<e.actor<<" usou guarda.\n";break;
+    case EventType::GuardSet:out<<e.actor<<" usou defesa.\n";break;
     case EventType::SkillUsed:out<<e.actor<<" usou habilidade.\n";break;
     case EventType::FighterDefeated:out<<e.actor<<" foi derrotado.\n";break;
     case EventType::FighterRevived:out<<e.actor<<" reviveu.\n";break;
@@ -100,7 +100,7 @@ TextReport run_text_session(std::istream& input,std::ostream& output,std::vector
         }
         Action action;const auto* actor=battle.current_actor();action.actor=actor?actor->definition.id:std::string{};
         if(command=="atacar" && tokens.size()==2){action.type=ActionType::Attack;action.target=tokens[1];}
-        else if(command=="guardar" && tokens.size()==1){action.type=ActionType::Guard;}
+        else if((command=="defesa" || command=="guardar") && tokens.size()==1){action.type=ActionType::Guard;}
         else if(command=="passar" && tokens.size()==1){action.type=ActionType::Skip;}
         else if(command=="habilidade" && tokens.size()==3){action.type=ActionType::Skill;action.skill=tokens[1];action.target=tokens[2];}
         else{++rejected;output<<"Comando invalido. Use ajuda.\n";continue;}

@@ -207,3 +207,8 @@ HAB-01.md concentra decisões próximas: posições e básica sem bypass; primei
 ## HAB-01 — relatório de habilidades R01
 
 Revisão em REVISAO-HABILIDADES-USUARIO-R01.md. Separar posição passiva de recarga interna, decrementar naturalmente de alterar CD externamente, dono do limite de proc e ficha-base de progressão. Algumas fichas declaradas incompletas/divergentes; fonte pontual necessária antes de paridade. Não confundir AutoRevive próprio com revive de aliados ou Counter genérico com cast de habilidade. Próximo parte 1; sem nova pesquisa ampla.
+
+
+## Contrato de equipes R01 — controles separados
+
+Básica A1 não silenciável e sempre disponível quando unidade apta/alvo legal; decisão fechada. Recarga numérica, inatividade por silêncio e condição/cadeado são estados distintos e podem coexistir. Matriz supressão de passivas x silêncio/congelamento/petrificação não fechada: não tratar hipótese como fato. Definir também tick de CD interno e efeito sobre buffs existentes. FreezeCooldowns atual não congela o personagem. Clássico com itens/estamina/especial fica para contrato próprio; sem inventário ou quarta posição no padrão.

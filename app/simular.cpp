@@ -5,7 +5,7 @@
 int main() {
     rpg::Battle battle(rpg::reference_roster());
     std::cout << "RPG Urbano - demonstracao automatica 3x3 (sem entrada interativa)\n"
-              << "A3 usa guarda na primeira acao; depois ambas equipes atacam por menor vida.\n";
+              << "A3 usa defesa na primeira acao; depois ambas equipes atacam por menor vida.\n";
     int actions = 0;
     constexpr int safety_limit = 256;
     while (battle.phase() == rpg::Phase::Running && actions < safety_limit) {
@@ -18,7 +18,7 @@ int main() {
         ++actions;
         std::cout << "R" << round << " " << action->actor;
         if (action->type == rpg::ActionType::Guard) {
-            std::cout << " guarda\n";
+            std::cout << " defesa\n";
         } else {
             for (const auto& event : result.events) {
                 if (event.type == rpg::EventType::Attack) {

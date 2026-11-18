@@ -138,4 +138,3 @@ Aceite automatizado: seis novos grupos de perfil (abertura/identidade, absorçã
 Próximo: parte 3, contrato de uma habilidade ativa com condição de disponibilidade além de recarga, separando motivo de bloqueio, consumo e básica como alternativa. Automação avançada e integração geral permanecem nas partes 4–5.
 
 Validação da parte 2: 169/169 testes aprovados (12 grupos de perfis, 9 textuais e regressões anteriores), 168 cenários/replays e 25 formações AP preservados. Jogar.cmd confirmou ativações A2/B2 e reset; Jogar-Classico.cmd confirmou defesa com dano 12. Aceite arquivado em docs/batalhas/COMBATE-HAB-01-PARTE-2.json. Nenhum componente externo instalado ou acessado.
-

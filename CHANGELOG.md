@@ -25,3 +25,7 @@ Proteção de emergência exige até 50% de vida em A3/B3. Condição exata, bá
 ## 2026-11-18 — HAB-01 parte 4
 
 Time B de equipes usa especiais por prioridade configurada e básica como fallback. Seleção pura, alvos determinísticos e validação comum; clássico preservado. 183/183 testes; 16 combinações automáticas com replay e orçamento.
+
+## 2026-11-18 — HAB-01 encerrado
+
+Demo integra kits ativo/passivo/híbrido funcionais, com configuração única, indicação de componentes automáticos e erros de comando específicos. Quatro grupos de integração adicionais: batalha completa, reset e matriz de oito configurações com replay/limite. 187/187 testes aprovados; próximo CIC-01.

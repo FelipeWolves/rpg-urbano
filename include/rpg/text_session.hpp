@@ -12,6 +12,12 @@ struct TextReport {
     std::uint64_t rejected_commands;
     std::uint64_t restarts;
 };
+struct TeamReferenceSetup {
+    std::vector<Definition> roster;
+    BattleRules rules;
+    std::vector<CharacterLoadout> loadouts;
+};
+[[nodiscard]] TeamReferenceSetup team_reference_setup();
 [[nodiscard]] BattleRules text_reference_rules();
 // Presentation only; streams support terminal use and deterministic scripted checks.
 [[nodiscard]] TextReport run_text_session(std::istream& input,std::ostream& output,

@@ -10,7 +10,7 @@ void help(std::ostream& out,CombatProfile profile){
     else{out<<"Perfil: CLASSICO | Comandos: atacar ALVO | defesa | habilidade ID ALVO | passar\n";}
     out
        <<"          estado | ajuda | reiniciar | sair\n"
-       <<"Voce controla o time A. O time B ataca automaticamente.\n";
+       <<"Voce controla o time A. O time B age automaticamente.\n";
 }
 const char* error_message(ActionError error){
     switch(error){
@@ -73,6 +73,7 @@ void profile_state(const ProfileBattle& session,std::ostream& out){
         if(view.slot.active_skill){for(const auto& skill:rules.skills){if(skill.id==*view.slot.active_skill){
             out<<" | alvo "<<(skill.target==TargetRule::Self?"proprio":skill.target==TargetRule::Ally?"aliado":"inimigo");}}}
         if(!view.slot.passive_note.empty() && view.slot.active_skill && !view.passive_implemented){out<<" | componente passivo ainda nao implementado";}
+        if(view.slot.active_skill && view.passive_implemented){out<<" | componente passivo automatico";}
         if(!view.slot.passive_note.empty()){out<<" | "<<view.slot.passive_note;}
         out<<'\n';
     }
@@ -143,7 +144,7 @@ TextReport run_text_session(std::istream& input,std::ostream& output,std::vector
         }
         if(profile==CombatProfile::Team && (command=="1" || command=="2" || command=="3") && tokens.size()==2){
             const auto result=session.apply_slot(static_cast<std::uint32_t>(command[0]-'0'),tokens[1]);
-            if(!result.accepted()){++rejected;output<<"Posicao indisponivel, informativa ou alvo invalido: "<<error_message(result.error)<<'\n';continue;}
+            if(!result.accepted()){++rejected;output<<"Acao recusada: "<<(result.error==ActionError::UnknownSkill?"Posicao sem habilidade ativa selecionavel.":error_message(result.error))<<'\n';continue;}
             ++players;events(result,output);if(!advance_enemy()){exit=TextExit::AutomaticSafetyStop;break;}
             profile_state(session,output);continue;
         }
@@ -161,7 +162,7 @@ TextReport run_text_session(std::istream& input,std::ostream& output,std::vector
     }
     return {session.battle().snapshot(),exit,players,automatic,rejected,restarts};
 }
-TextReport run_team_reference_session(std::istream& input,std::ostream& output){
+TeamReferenceSetup team_reference_setup(){
     auto roster=reference_roster();auto rules=text_reference_rules();std::vector<CharacterLoadout> sets;
     for(const auto& unit:roster){
         const auto basic=unit.id+"-basica",special=unit.id+"-especial",third=unit.id+"-terceira";
@@ -174,12 +175,21 @@ TextReport run_team_reference_session(std::istream& input,std::ostream& output){
         }else{
             rules.skills.push_back({special,unit.id,2,TargetRule::Enemy,{double_hit}});
             set.slots.push_back({2,"Golpe duplo",special,unit.id.back()=='3'?"Componente hibrido reservado; sem gatilho passivo.":""});
+            if(unit.id.back()=='3'){
+                auto& hybrid=set.slots.back();hybrid.name="Golpe duplo preparado";
+                hybrid.passive_note="Escudo de abertura; componente ativo usa recarga propria.";
+                hybrid.passive=PassiveDefinition{unit.id+"-preparacao-hibrida"};
+            }
         }
         rules.skills.push_back({third,unit.id,3,TargetRule::Self,{{EffectKind::Shield,10,2}}});
         AbilitySlot protection{3,"Protecao",third,{}};
         if(unit.id.back()=='3'){protection.name="Protecao de emergencia";protection.requirement=HealthRequirement{50};}
         set.slots.push_back(std::move(protection));sets.push_back(std::move(set));
     }
-    return run_text_session(input,output,std::move(roster),std::move(rules),CombatProfile::Team,std::move(sets));
+    return {std::move(roster),std::move(rules),std::move(sets)};
+}
+TextReport run_team_reference_session(std::istream& input,std::ostream& output){
+    auto setup=team_reference_setup();
+    return run_text_session(input,output,std::move(setup.roster),std::move(setup.rules),CombatProfile::Team,std::move(setup.loadouts));
 }
 } // namespace rpg::presentation

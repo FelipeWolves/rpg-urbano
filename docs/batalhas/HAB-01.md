@@ -1,6 +1,6 @@
 # HAB-01 — Plano de habilidades e perfis de batalha
 
-18/11/2026. **Parte 1 implementada e validada: perfis e posições. Partes 2–5 pendentes.** Proposta baseada no relato do usuário e no código atual; nenhuma regra atual completa do Dislyte foi certificada. Histórico documental preservado abaixo; aceite atual: 162/162 testes, conforme entrega ao final.
+18/11/2026. **Cinco partes concluídas no escopo mínimo autoral; 187/187 testes aprovados.** Proposta baseada no relato do usuário e no código atual; nenhuma regra atual completa do Dislyte foi certificada. Histórico documental preservado abaixo; aceite final: 187/187 testes, conforme HAB-01-FINAL.md.
 
 ## Direção recebida
 
@@ -162,3 +162,7 @@ Jogar.cmd confirmou B3 usando especial com dois acertos e reset; clássico mante
 ⚠️ Política simples não prevê dano ótimo, preservação de buffs ou vitória. Pode privilegiar habilidade própria de CD zero até o limite de ações; não é laço interno do seletor. Não inclui toggle/editor de automação do time A, IA oficial, servidor, RNG, energia, supressão ou adaptação SEQ/PAR.
 
 Próximo: HAB-01 parte 5, integração/regressão do pequeno conjunto autoral e publicação dos limites. HAB-01 permanece aberto até esse aceite, sem antecipar novas famílias de habilidade ou engine.
+
+## Parte 5 — encerramento
+
+✅ Kits ativo/passivo/híbrido funcionais na demo; híbrida usa abertura já suportada, sem nova família de efeitos. Quatro grupos integrados novos, 187/187 testes totais. Relatório e limites atuais: [HAB-01-FINAL.md](HAB-01-FINAL.md). Próximo CIC-01: composição da equipe em memória. As seções anteriores preservam o histórico por entrega.

@@ -233,3 +233,7 @@ Primeira condição adicional resolvida: vida do dono <= percentual, sem consumo
 ## HAB-01 após parte 4
 
 Política mínima de automação resolvida: prioridades configuradas, disponibilidade comum e básica como alternativa, com alvos determinísticos. 183/183 testes. Próximo parte 5: integração/regressão do pequeno conjunto e limites. IA estratégica, toggle/editor do time A e condições/custos adicionais permanecem futuros.
+
+## HAB-01 encerrado — estado atual
+
+Cinco partes do conjunto mínimo concluídas, 187/187 testes. Híbrida funcional integrada. Pendências futuras de silêncio/supressão, gatilhos durante combate, recarga interna, recursos/requisitos compostos e adaptação SEQ/PAR não foram declaradas implementadas. Próximo CIC-01 parte 1: contrato e composição/seleção em memória; recompensa e save em partes posteriores.

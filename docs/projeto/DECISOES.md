@@ -222,3 +222,7 @@ Primeiro requisito adicional é vida do dono <= percentual inclusivo exato (64 b
 ## DEC-044 — Automação por prioridade, sem alterar execução
 
 Prioridades especiais por loadout [3,2] por padrão; básica implícita, lista vazia basic-only. Política seleciona ações disponíveis e alvos por HP absoluto/ID, sem mutar estado; execução sempre ProfileBattle::apply. Clássico permanece básico. Não prometer IA ótima nem impedir todos os usos redundantes; orçamento limita batalhas. Contrato HAB-01-AUTOMACAO-R01.md.
+
+## DEC-045 — Integração e fechamento HAB-01
+
+Fechar conjunto mínimo com kits ativo/passivo/híbrido reais; híbrida reutiliza BattleStart/escudo, sem criar nova janela causal. team_reference_setup centraliza configuração da demo para sessão e integração. 187/187 testes; silêncio/passivas durante combate/custos/SEQ-PAR seguem extensões futuras. Próximo CIC-01 em incrementos: composição em memória antes de recompensa e save.

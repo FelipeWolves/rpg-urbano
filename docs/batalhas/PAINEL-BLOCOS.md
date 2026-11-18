@@ -1,18 +1,24 @@
 # Painel de blocos — estado consolidado
 
-## HAB-01 parte 4 — estado vigente (18/11/2026)
+## HAB-01 — concluído no escopo mínimo (18/11/2026)
+
+✅ Cinco partes entregues: perfis/posições, passiva de abertura, condição adicional, automação e integração de kits ativo/passivo/híbrido. **187/187 testes aprovados**; lançadores e clássico conferidos. Aceite consolidado: docs/batalhas/HAB-01-FINAL.md e COMBATE-HAB-01-FINAL.json. Não há revisão pendente desse escopo sem mudança/falha pertinente.
+
+⚠️ Silêncio, passivas durante combate, custos/condições compostas e adaptação SEQ/PAR continuam extensões futuras. Próximo: CIC-01, primeira parte, contrato e composição de equipe em memória; recompensa e save em incrementos posteriores.
+
+## HAB-01 parte 4 — histórico da entrega (18/11/2026)
 
 ✅ Automação configurável por prioridade de especiais com básica como fallback, alvos determinísticos e execução pela mesma validação manual. Time B de equipes integrado; clássico preservado. 183/183 testes aprovados, incluindo 16 combinações automáticas curtas com replay/orçamento. Contrato docs/batalhas/HAB-01-AUTOMACAO-R01.md; relatório HAB-01.md; aceite COMBATE-HAB-01-PARTE-4.json.
 
 ⚠️ Sem IA estratégica, toggle do time A ou editor de prioridade. HAB-01 continua aberto. Próximo: parte 5, integração/regressão do pequeno conjunto autoral e consolidação dos limites; sem novas famílias ou engine nesta etapa.
 
-## HAB-01 parte 3 — estado vigente (18/11/2026)
+## HAB-01 parte 3 — histórico da entrega (18/11/2026)
 
 ✅ Condição adicional de vida em ativa não básica, validada por posição e ID. Proteção de emergência A3/B3 exige <= 50% de vida; básica preservada. Motivos de condição, recarga e incapacidade separados. 176/176 testes aprovados; contratos/relatório em docs/batalhas/HAB-01-CONDICAO-VIDA-R01.md e HAB-01.md; aceite COMBATE-HAB-01-PARTE-3.json.
 
 ⚠️ HAB-01 continua aberto; sem energia, silêncio ou condições compostas. Próximo: parte 4, política mínima de automação com prioridades, especiais válidas e fallback sob a mesma validação manual.
 
-## HAB-01 parte 2 — estado vigente (18/11/2026)
+## HAB-01 parte 2 — histórico da entrega (18/11/2026)
 
 ✅ Primeira passiva funcional: Preparação aplica escudo na abertura, uma vez por combate, sem consumir ação; A2/B2 da demo já a utilizam. Posição passiva continua não selecionável, e o efeito/registro são verificáveis. Contrato: docs/batalhas/HAB-01-PASSIVA-ABERTURA-R01.md; relatório: docs/batalhas/HAB-01.md.
 
@@ -70,10 +76,11 @@ As siglas são identificadores internos das áreas do projeto, não nomes de fer
 | ✅ SEQ-01 | Três times sucessivos e chefe por etapa | 17 grupos; três partes concluídas; A/A/B e A/A/A |
 | ✅ PAR-01 | Três frentes independentes coordenadas, orçamento global e cancelamento | 16 grupos; três partes concluídas, integração R04/replay/falha técnica |
 | ✅ PAR-02 — perfil HP único | HP/AP globais, skills de alvo único, R04, limites e replay | 17 grupos; sem fases autônomas de kit, área comum ou score |
-| ✅ COM-02 | Entrada textual, alvo, time B básico, estado/resultado e reinício | 7 grupos; 3x3 AP em jogar.exe, sem menu de modos |
+| ✅ COM-02 | Entrada textual, alvo, estado/resultado e reinício | Base de 7 grupos; 15 textuais após integração HAB-01; sem menu SEQ/PAR |
+| ✅ HAB-01 | Perfis/posições, passiva, condição, automação e kits integrados | Cinco partes concluídas; 24 grupos de perfis e 15 textuais acumulados; HAB-01-FINAL.md |
 | ✅ Contrato R04 e revisões R01–R03 | Decisões e pesquisa recebida | Fechamento documental; implementação mínima em RES-01 |
 
-Total atual: **155 testes aprovados**, além das matrizes, isolamento intercalado, 1000 simulações funcionais e demonstração. Não é benchmark de servidor ou renderização.
+Total atual: **187 testes aprovados**, além das matrizes, isolamento intercalado, 1000 simulações funcionais e demonstração. Não é benchmark de servidor ou renderização.
 
 ## ⚠️ Implementado que ainda exige revisão obrigatória
 
@@ -85,7 +92,6 @@ Classificação pelo roteiro documentado, sem inferir datas pela criação do re
 
 | Ordem posterior aos modos críticos | Bloco | Falta |
 |---|---|---|
-| 1 | ⚠️ HAB-01 | Preparação documental concluída; partes 1–5 pendentes: perfis/posições, passiva, condições, automação e integração; HAB-01.md |
 | 2 | ⚠️ CIC-01 | Equipe, recompensa e save local versionado |
 | 3 | ⚠️ ENG-01 | Escolha e teste de compatibilidade da engine |
 | 4 | ⚠️ VIS-01 | Arena visual integrada ao núcleo |
@@ -108,7 +114,7 @@ Também acrescentados durante o percurso, mas já encerrados: COM-01A, TIME-01, 
 
 ⚠️ Não implementados nesta entrega: skills comuns de área e redirecionamento dinâmico do chefe, paralelismo real, servidor, IA completa, score, fases por limiar de HP, catálogo completo de habilidades, ATB opcional, lojas e produção multiplataforma. Sem aceites completos de implementação não são blocos fechados. Arte, áudio e escolha da engine terão validação apropriada, não necessariamente testes unitários.
 
-Ordem atual: **HAB-01 → CIC-01 → ENG-01 → VIS-01 → ART-01 → AUD-01 → EXP-01**. Uma entrega por vez. Priorização por risco/dependências e menor esforço útil dentro da área, sem estimativa de prazo ou consumo.
+Ordem atual: **CIC-01 → ENG-01 → VIS-01 → ART-01 → AUD-01 → EXP-01**. Uma entrega por vez. Priorização por risco/dependências e menor esforço útil dentro da área, sem estimativa de prazo ou consumo.
 
 
 ## Comparação complementar — concluída
@@ -129,7 +135,7 @@ Ordem atual: **HAB-01 → CIC-01 → ENG-01 → VIS-01 → ART-01 → AUD-01 →
 
 ✅ Defesa genérica atualizada: metade arredondada para baixo por acerto. Regressão pertinente dos blocos afetados concluída,155/155; executável confirmou25->12. COMBATE-DEFESA-BAIXO.json. ⚠️ Outras regras de dano/defesa do clássico são possibilidades futuras em DEFESA-PADRAO.md, não funcionalidades do padrão de equipes.
 
-## HAB-01 parte 1 — estado atual (18/11/2026)
+## HAB-01 parte 1 — histórico da entrega (18/11/2026)
 
 ✅ Perfis equipe/clássico, posições 1–3, básica canônica sem recarga, defesa restrita ao clássico e metadados passivos não selecionáveis implementados. 162/162 testes; dois lançadores conferidos. Este estado substitui indicações históricas de perfil ainda não implementado.
 

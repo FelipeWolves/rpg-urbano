@@ -1,18 +1,24 @@
 # Prioridades por área
 
-## HAB-01 parte 4 — estado vigente (18/11/2026)
+## HAB-01 — concluído no escopo mínimo (18/11/2026)
+
+✅ Cinco partes entregues: perfis/posições, passiva de abertura, condição adicional, automação e integração de kits ativo/passivo/híbrido. **187/187 testes aprovados**; lançadores e clássico conferidos. Aceite consolidado: docs/batalhas/HAB-01-FINAL.md e COMBATE-HAB-01-FINAL.json. Não há revisão pendente desse escopo sem mudança/falha pertinente.
+
+⚠️ Silêncio, passivas durante combate, custos/condições compostas e adaptação SEQ/PAR continuam extensões futuras. Próximo: CIC-01, primeira parte, contrato e composição de equipe em memória; recompensa e save em incrementos posteriores.
+
+## HAB-01 parte 4 — histórico da entrega (18/11/2026)
 
 ✅ Automação configurável por prioridade de especiais com básica como fallback, alvos determinísticos e execução pela mesma validação manual. Time B de equipes integrado; clássico preservado. 183/183 testes aprovados, incluindo 16 combinações automáticas curtas com replay/orçamento. Contrato docs/batalhas/HAB-01-AUTOMACAO-R01.md; relatório HAB-01.md; aceite COMBATE-HAB-01-PARTE-4.json.
 
 ⚠️ Sem IA estratégica, toggle do time A ou editor de prioridade. HAB-01 continua aberto. Próximo: parte 5, integração/regressão do pequeno conjunto autoral e consolidação dos limites; sem novas famílias ou engine nesta etapa.
 
-## HAB-01 parte 3 — estado vigente (18/11/2026)
+## HAB-01 parte 3 — histórico da entrega (18/11/2026)
 
 ✅ Condição adicional de vida em ativa não básica, validada por posição e ID. Proteção de emergência A3/B3 exige <= 50% de vida; básica preservada. Motivos de condição, recarga e incapacidade separados. 176/176 testes aprovados; contratos/relatório em docs/batalhas/HAB-01-CONDICAO-VIDA-R01.md e HAB-01.md; aceite COMBATE-HAB-01-PARTE-3.json.
 
 ⚠️ HAB-01 continua aberto; sem energia, silêncio ou condições compostas. Próximo: parte 4, política mínima de automação com prioridades, especiais válidas e fallback sob a mesma validação manual.
 
-## HAB-01 parte 2 — estado vigente (18/11/2026)
+## HAB-01 parte 2 — histórico da entrega (18/11/2026)
 
 ✅ Primeira passiva funcional: Preparação aplica escudo na abertura, uma vez por combate, sem consumir ação; A2/B2 da demo já a utilizam. Posição passiva continua não selecionável, e o efeito/registro são verificáveis. Contrato: docs/batalhas/HAB-01-PASSIVA-ABERTURA-R01.md; relatório: docs/batalhas/HAB-01.md.
 
@@ -92,9 +98,9 @@ ATB opcional, backend/multiplayer, publicação em lojas/launcher e produção m
 
 ## Próxima ação concreta
 
-HAB-01 parte 1: perfis/posições de habilidade, preservando clássico e AP/SPD. Plano HAB-01.md separa passivas, condições, automação e integração. COM-02 encerrado, 155 testes prévios; não iniciar engine/UI gráfica/score/servidor junto.
+CIC-01 parte 1: contrato e validação da composição de equipe em memória. HAB-01 encerrado no escopo mínimo, 187 testes; recompensa/save em entregas posteriores.
 
-## HAB-01 parte 1 — estado atual (18/11/2026)
+## HAB-01 parte 1 — histórico da entrega (18/11/2026)
 
 ✅ Perfis equipe/clássico, posições 1–3, básica canônica sem recarga, defesa restrita ao clássico e metadados passivos não selecionáveis implementados. 162/162 testes; dois lançadores conferidos. Este estado substitui indicações históricas de perfil ainda não implementado.
 

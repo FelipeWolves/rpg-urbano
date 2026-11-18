@@ -115,3 +115,7 @@ HealthRequirement pertence a AbilitySlot. ProfileBattle calcula condição na co
 ## Política de seleção — HAB-01 parte 4
 
 CharacterLoadout inclui automatic_priority; ProfileBattle::choose_automatic_action consulta AbilityView e regras de alvo e retorna Action sem aplicar. ProfileBattle::apply revalida comandos de ambas as origens. choose_basic_action preservado como controle básico explícito; clássico não adota política de especiais. Sessão textual usa a nova seleção somente no time B de equipes. Nenhuma mudança no agendamento AP/SPD.
+
+## Demo integrada — HAB-01 encerrado
+
+team_reference_setup fornece roster/regras/loadouts reutilizados pela sessão e testes. Não é banco de personagens nem serialização; separa configuração de exemplo da execução textual. Híbrida usa uma ativa e a mesma preparação passiva suportada, com estados e relógios independentes. Aceite HAB-01-FINAL.md.

@@ -1,4 +1,5 @@
 #include "rpg/text_session.hpp"
+#include <algorithm>
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -81,7 +82,7 @@ void team_profile_session(){
     std::istringstream input("defesa\n2 B3\nreiniciar\natacar B3\nsair\n");std::ostringstream out;
     const auto r=run_team_reference_session(input,out);
     check(r.player_actions==2 && r.rejected_commands==1 && r.restarts==1 && !r.final_state.rules.guard_enabled &&
-          out.str().find("Perfil: EQUIPES")!=std::string::npos && out.str().find("componente passivo ainda nao implementado")!=std::string::npos,
+          out.str().find("Perfil: EQUIPES")!=std::string::npos && out.str().find("componente passivo automatico")!=std::string::npos,
           "team UI allowed defense, lost aliases/reset or claimed implemented passive");
     check(out.str().find("1 - Ataque basico | DISPONIVEL")!=std::string::npos,"basic slot not shown");
 }
@@ -133,12 +134,89 @@ void automatic_special_session(){
     for(int i=0;i<2;++i){check(expected.apply_slot(1,"B").accepted() && expected.apply(*expected.choose_automatic_action()).accepted(),"expected AI failed");}
     check(report.final_state==expected.battle().snapshot(),"text policy changed rules or timing");
 }
+void integrated_reference_kits(){
+    const auto d=team_reference_setup();ProfileBattle s(d.roster,d.rules,CombatProfile::Team,d.loadouts);
+    check(d.roster.size()==6 && s.passive_activations().size()==4 && s.battle().accepted_actions()==0,"reference kit opening mismatch");
+    check(s.battle().find("A1")->statuses.empty() && s.battle().find("A2")->statuses[0].magnitude==10 &&
+          s.battle().find("A3")->statuses[0].magnitude==10,"active/passive/hybrid kit not functional");
+    const auto active=s.abilities("A1"),passive=s.abilities("A2"),hybrid=s.abilities("A3");
+    check(active[1].slot.active_skill && !active[1].passive_implemented && !passive[1].slot.active_skill &&
+          passive[1].passive_implemented && hybrid[1].slot.active_skill && hybrid[1].passive_implemented &&
+          hybrid[2].availability==AbilityAvailability::ConditionBlocked,"kit categories lost or condition missing");
+    const auto before=s.snapshot();check(s.apply_slot(3,"A3").error==ActionError::SkillConditionNotMet && s.snapshot()==before,
+                                        "initial emergency bypassed condition");
+    check(s.apply_slot(2,"B3").accepted() && s.battle().find("B3")->health==40 &&
+          s.battle().find("A3")->statuses[0].magnitude==10,"hybrid active failed or consumed own passive");
+    const auto response=s.choose_automatic_action();check(response && response->skill=="B3-terceira" &&
+          s.apply(*response).accepted() && s.battle().find("B3")->statuses[0].magnitude==10,"hybrid/threshold/enemy automation not integrated");
+}
+struct ReferenceScript {
+    std::string input;
+    Snapshot final_state;
+    std::uint64_t players=0,enemies=0,rejected=0;
+};
+ReferenceScript complete_reference_script(){
+    const auto d=team_reference_setup();ProfileBattle battle(d.roster,d.rules,CombatProfile::Team,d.loadouts);
+    ReferenceScript script;script.input="ajuda\nestado\n";
+    while(battle.battle().phase()==Phase::Running){
+        const auto action=battle.choose_automatic_action();check(action.has_value(),"reference automatic choice missing");
+        if(battle.battle().current_actor()->definition.team==Team::A){
+            script.input+="defesa\n";++script.rejected;
+            const auto* actor=battle.battle().current_actor();
+            if(actor->definition.id=="A2"){script.input+="2 B1\n";++script.rejected;}
+            if(action->type==ActionType::Skip){script.input+="passar\n";}
+            else{const auto views=battle.abilities(action->actor);std::uint32_t position=0;
+                for(const auto& view:views){if(view.slot.active_skill==action->skill){position=view.slot.position;}}
+                check(position>0,"reference action not in menu");script.input+=std::to_string(position)+" "+action->target+"\n";}
+            ++script.players;
+        }else{++script.enemies;}
+        check(battle.apply(*action).accepted(),"reference full-battle action invalid");
+    }
+    script.input+="1 B1\n";++script.rejected;script.final_state=battle.battle().snapshot();return script;
+}
+void integrated_full_text_battle(){
+    const auto script=complete_reference_script();std::istringstream in(script.input+"sair\n");std::ostringstream out;
+    const auto report=run_team_reference_session(in,out);
+    check(report.exit==TextExit::Quit && report.final_state==script.final_state && report.player_actions==script.players &&
+          report.automatic_actions==script.enemies && report.rejected_commands==script.rejected,"full textual battle diverged from profile");
+    check(report.final_state.phase==Phase::Finished && report.final_state.accepted_actions<=200 &&
+          out.str().find("Resultado:")!=std::string::npos && out.str().find("componente passivo automatico")!=std::string::npos,
+          "full battle missing end or real hybrid display");
+}
+void integrated_full_reset(){
+    const auto script=complete_reference_script();std::istringstream in(script.input+"estado\nreiniciar\nsair\n");std::ostringstream out;
+    const auto report=run_team_reference_session(in,out);const auto d=team_reference_setup();
+    ProfileBattle fresh(d.roster,d.rules,CombatProfile::Team,d.loadouts);
+    check(report.restarts==1 && report.final_state==fresh.battle().snapshot() && report.rejected_commands==script.rejected,
+          "full reset retained effects/cooldowns/health or policy changed");
+    const auto text=out.str();const std::string marker="A3 ativou passiva A3-preparacao-hibrida";
+    const auto first=text.find(marker),second=text.find(marker,first+1);
+    check(first!=std::string::npos && second!=std::string::npos && text.find(marker,second+1)==std::string::npos,
+          "hybrid opening duplicated across actions/reset");
+}
+void integrated_reference_matrix(){
+    for(int i=0;i<8;++i){
+        auto d=team_reference_setup();d.rules.action_budget=ActionBudget{12,LimitOutcome::Draw};
+        d.rules.timing=i%2?TimingProfile::ActionBar:TimingProfile::FixedRounds;
+        for(auto& set:d.loadouts){if(i%4==0){set.automatic_priority.clear();}else if(i%4==1){set.automatic_priority={2,3};}}
+        ProfileBattle a(d.roster,d.rules,CombatProfile::Team,d.loadouts),b(d.roster,d.rules,CombatProfile::Team,d.loadouts);
+        const auto initial=a.snapshot();int finishes=0;
+        while(a.battle().phase()==Phase::Running){const auto choice=a.choose_automatic_action();check(choice.has_value(),"matrix choice missing");
+            const auto result=a.apply(*choice);check(result.accepted() && result==b.apply(*b.choose_automatic_action()) &&
+                a.snapshot()==b.snapshot(),"integrated kit replay mismatch");
+            finishes+=static_cast<int>(std::ranges::count(result.events,EventType::BattleFinished,&Event::type));}
+        check(finishes==1 && a.battle().accepted_actions()<=12 && a.passive_activations().size()==4,"matrix budget/end/passive count failed");
+        a.reset();check(a.snapshot()==initial,"matrix reset mismatch");
+    }
+}
 }
 int main(int argc,char** argv){
     const std::pair<const char*,void(*)()> tests[]={{"input_atomics",input_and_invalid_atomics},{"target_enemy",selected_target_and_enemy},
         {"guard_restart",guard_and_restart},{"victory_restart",victory_postfinish_restart},
         {"skill_skip_clock",skill_block_skip_and_clock},{"eof_timeout",eof_and_timeout},{"safety_technical",safety_and_technical_result},
-        {"team_profile",team_profile_session},{"opening_passive_session",opening_passive_session},{"conditional_skill_session",conditional_skill_session},{"automatic_special_session",automatic_special_session}};
+        {"team_profile",team_profile_session},{"opening_passive_session",opening_passive_session},{"conditional_skill_session",conditional_skill_session},{"automatic_special_session",automatic_special_session},
+        {"integrated_reference_kits",integrated_reference_kits},{"integrated_full_text_battle",integrated_full_text_battle},
+        {"integrated_full_reset",integrated_full_reset},{"integrated_reference_matrix",integrated_reference_matrix}};
     int passed=0;for(const auto& [name,test]:tests){try{test();++passed;std::cout<<"PASS text "<<name<<'\n';}
         catch(const std::exception& e){std::cerr<<"FAIL text "<<name<<": "<<e.what()<<'\n';}}
     std::cout<<"TEXT_TESTS_RESULT passed="<<passed<<" total="<<std::size(tests)<<'\n';

@@ -1,0 +1,157 @@
+{
+  "schemaVersion": 1,
+  "updated": "2026-11-18",
+  "nature": "Catálogo de exemplos e famílias; não inventário exaustivo atual do Dislyte nem configuração executável",
+  "sources": {
+    "U01": "Relato histórico já registrado em fontes.json",
+    "U02": "Relato desta entrega: Treva Fluxo, chefes dos Milagres, pontuação/sobrevivência e distinção do experimento Season 0"
+  },
+  "entries": [
+    {
+      "Id": "PVE-01",
+      "Example": "Formações 1–5; exceções com seis",
+      "EvidenceType": "relato e pesquisa histórica; testes próprios",
+      "TeamFlow": "Um time; tamanho por perfil",
+      "BossState": "Não determina tipo de chefe",
+      "EndCondition": "Por modo",
+      "ScoreRewards": "Não determinada por tamanho",
+      "OurCoverage": "COM-01A: 168 cenários; 25 pares 1–5 e sondagens com seis",
+      "OpenQuestion": "Sondagem com seis não define limite universal; formação é eixo, não modo",
+      "Sources": "FORM-01; FORM-02; ANALISE.md; fontes.json"
+    },
+    {
+      "Id": "PVE-02",
+      "Example": "Até cinco confrontos na mesma fase",
+      "EvidenceType": "relato do usuário",
+      "TeamFlow": "Mesmo time em ondas sucessivas",
+      "BossState": "Inimigos por confronto; não presumir chefe único",
+      "EndCondition": "Eliminação/limites configurados",
+      "ScoreRewards": "Não implementada",
+      "OurCoverage": "WAVE-01 encerrado; 1/2/5 confrontos",
+      "OpenQuestion": "Persistência específica de cada modo real ainda exige identificação",
+      "Sources": "U01; WAVE-01.md"
+    },
+    {
+      "Id": "PVE-03",
+      "Example": "Três times sucessivos contra chefe",
+      "EvidenceType": "relato e contrato próprio",
+      "TeamFlow": "Um time ativo por vez; cada inscrição entra uma vez",
+      "BossState": "HP persistente; kits por etapa",
+      "EndCondition": "Derrota do time ou limite local troca; fim global explícito",
+      "ScoreRewards": "Sem score/recompensas",
+      "OurCoverage": "SEQ-01 encerrado: 17 grupos; A/A/A e A/A/B",
+      "OpenQuestion": "Não cobre retorno repetido do time; contrato não certifica regra externa",
+      "Sources": "U01; SEQ-01.md"
+    },
+    {
+      "Id": "PVE-04",
+      "Example": "Anomalia Celestial Season 0: três chefes",
+      "EvidenceType": "relato histórico; pesquisa seletiva",
+      "TeamFlow": "Três frentes em participação conjunta",
+      "BossState": "Chefes independentes na nossa implementação",
+      "EndCondition": "Agregado e limites próprios",
+      "ScoreRewards": "Sem score/recompensas",
+      "OurCoverage": "PAR-01 encerrado: 16 grupos; intercalação cooperativa",
+      "OpenQuestion": "Não prova arquitetura original ou execução em threads",
+      "Sources": "U01; ANALISE.md; PAR-01.md"
+    },
+    {
+      "Id": "PVE-05",
+      "Example": "Anomalia Celestial Season 0: mesmo chefe",
+      "EvidenceType": "relato histórico; escolha autoral",
+      "TeamFlow": "Três times presentes; AP/SPD global no nosso perfil",
+      "BossState": "HP único e uma barra global escolhidos para nosso projeto",
+      "EndCondition": "Eliminação global ou limite configurado",
+      "ScoreRewards": "Sem score/recompensas",
+      "OurCoverage": "PAR-02 parte 1: 5 grupos básicos",
+      "OpenQuestion": "Rotação de ataques é regra nossa aprovada; não comprovada em chefes atuais; habilidades/R04 pendentes",
+      "Sources": "U01; DEC-032; PAR-02.md"
+    },
+    {
+      "Id": "PVE-06",
+      "Example": "Treva Fluxo — nome informado pelo usuário",
+      "EvidenceType": "relato do usuário, não verificação atual externa",
+      "TeamFlow": "Até três equipes; participação exata e condições de troca a detalhar",
+      "BossState": "Autoridade de HP, morte possível e relação entre equipes não confirmadas",
+      "EndCondition": "Janela estipulada; sobrevivência/resultado segundo relato",
+      "ScoreRewards": "Dano influencia ganhos segundo relato; fórmula desconhecida",
+      "OurCoverage": "Peças de tempo/dano disponíveis; modo completo não implementado",
+      "OpenQuestion": "Confirmar unidade do contador, dano efetivo, overkill, resets, classificação e tabela de ganhos",
+      "Sources": "U02: conversa desta entrega"
+    },
+    {
+      "Id": "PVE-07",
+      "Example": "Chefes dos Milagres — chefe/modo ainda não identificado",
+      "EvidenceType": "relato do usuário, nomenclatura a confirmar",
+      "TeamFlow": "Até três grupos de até cinco, menos permitido segundo relato; cada grupo participa uma vez",
+      "BossState": "Chefe com mais de uma fase; gatilho e HP ainda a detalhar",
+      "EndCondition": "Derrotar chefe ou atingir condição como limite de turno",
+      "ScoreRewards": "Não informada",
+      "OurCoverage": "SEQ-01 pode cobrir parte da estrutura; não valida esse exemplo completo",
+      "OpenQuestion": "Nome exato; troca por limite, morte, fase ou regra fixa; não atribuir a todos os Milagres",
+      "Sources": "U02: conversa desta entrega"
+    },
+    {
+      "Id": "PVE-08",
+      "Example": "Retorno/rodízio repetido entre times",
+      "EvidenceType": "possibilidade a esclarecer; não afirmada como modo existente",
+      "TeamFlow": "Times poderiam voltar após já participar",
+      "BossState": "Persistência entre visitas precisa ser definida",
+      "EndCondition": "Indeterminada",
+      "ScoreRewards": "Indeterminada",
+      "OurCoverage": "Não implementado por SEQ-01",
+      "OpenQuestion": "Só promover a requisito se exemplo confirmar retorno; relato uma vez não implica ciclo",
+      "Sources": "Esclarecimento de escopo SEQ-01"
+    },
+    {
+      "Id": "PVE-09",
+      "Example": "Chefe com fases por HP, turno ou outro gatilho",
+      "EvidenceType": "família de requisitos; relato genérico de múltiplas fases",
+      "TeamFlow": "Não determina quantidade nem troca de times",
+      "BossState": "Estado pode persistir entre fases, conforme regra explícita",
+      "EndCondition": "Fase do chefe é diferente de confronto e time",
+      "ScoreRewards": "Independente da troca de kit",
+      "OurCoverage": "Kit por entrada do time existe; gatilhos autônomos por HP/turno não implementados",
+      "OpenQuestion": "Gatilho, múltiplos limiares no mesmo golpe, cura/revive e momento da troca",
+      "Sources": "SEQ-01.md; PAR-02.md; U02"
+    },
+    {
+      "Id": "PVE-10",
+      "Example": "Partes de chefe ou avatares/placar",
+      "EvidenceType": "alternativas técnicas; não modos originais confirmados",
+      "TeamFlow": "Depende do modelo",
+      "BossState": "HP por partes ou instâncias e placar",
+      "EndCondition": "Exige contrato próprio",
+      "ScoreRewards": "Sem fórmula definida",
+      "OurCoverage": "Não implementado; não escolhido para primeiro PAR-02",
+      "OpenQuestion": "Não inferir partes por aparências ou nomes Lion/Goat/Viper",
+      "Sources": "CONTRATOS.md; PEN-05; DEC-032"
+    },
+    {
+      "Id": "PVE-11",
+      "Example": "Withering Flame / Chimera / Lion, Goat, Viper",
+      "EvidenceType": "pistas comunitárias e identificação histórica registrada",
+      "TeamFlow": "Não reconstruído integralmente",
+      "BossState": "Não inferir arquitetura a partir de nomes/formas",
+      "EndCondition": "Não estabelecida nesta entrega",
+      "ScoreRewards": "Não estabelecida",
+      "OurCoverage": "Referência preservada; não um novo modo testado",
+      "OpenQuestion": "Mapear nomes, temporada e relações com os relatos Season 0; não fundir modos sem fonte",
+      "Sources": "ANALISE.md; fontes.json C01 C02 V01 V02"
+    },
+    {
+      "Id": "PVE-12",
+      "Example": "Shademother e hipóteses de desempenho",
+      "EvidenceType": "pista comunitária histórica, fonte primária não autenticada",
+      "TeamFlow": "Relato de outro modo; não usar como prova de Season 0",
+      "BossState": "Indeterminado",
+      "EndCondition": "Indeterminada",
+      "ScoreRewards": "Indeterminada",
+      "OurCoverage": "Somente registro histórico; não implementado",
+      "OpenQuestion": "Causa técnica, estado atual e vínculo com outros modos não demonstrados",
+      "Sources": "ANALISE.md; fontes.json C03 C04"
+    }
+  ],
+  "preservation": "cenarios.json e mecanicas.csv anteriores preservados em historico-catalogos-2026-11-18",
+  "coverage": "136 testes aprovados previamente; nenhuma execução nova nesta reorganização"
+}

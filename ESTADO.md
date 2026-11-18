@@ -64,3 +64,9 @@ ARQUITETURA.md registra separação de combate, dados, aplicação, apresentaç�
 ## PAR-02 — preparação documental
 
 Proposta compara HP único, partes e avatares/score; distingue cadência do chefe e alcance de habilidades. Inclui autoridade, fronteiras R04, integração e 12 casos de aceite ainda não executados. Nenhuma mudança de código ou execução dos 131 testes; escolhas pendentes não foram inferidas como aprovadas.
+
+## Separação de famílias PvE — atualização documental
+
+MODOS-PVE.md e modos-pve.csv/json preservam os exemplos em 12 entradas, com evidência, participação dos times, HP, término e score separados. Treva Fluxo e chefes dos Milagres são relatos ainda a detalhar, não implementações comprovadas. O perfil HP único/barra global/rotação do PAR-02 é experimental e autoral; não é regra universal dos chefes atuais. “Ignorar times” significa apenas times sem sobreviventes. Contrato básico vigente mantido; próximo parte 2, sem incluir score/recompensas por antecipação.
+
+Catálogos cenarios.json/mecanicas.csv atualizados sem excluir IDs; versões anteriores preservadas em docs/batalhas/historico-catalogos-2026-11-18/. Roteiro de pesquisa ROTEIRO-PVE-CHEFES.md. Nenhuma pesquisa online, alteração de código ou nova execução dos 136 testes nesta entrega.

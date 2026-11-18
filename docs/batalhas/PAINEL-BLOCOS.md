@@ -86,3 +86,8 @@ Ordem atual: **PAR-02 → COM-02 → HAB-01 → CIC-01 → ENG-01 → VIS-01 →
 ## Comparação complementar — concluída
 
 ✅ Matriz de 24 áreas em [comparacao-dislyte-2026-11-18/comparacao.md](comparacao-dislyte-2026-11-18/comparacao.md), com CSV/JSON. Reaproveita os 131 testes; não executa bateria nova nem reabre blocos encerrados. Oito arquivos da cópia local coincidem por tamanho/mtime com inventário anterior. R04 é contrato próprio; cobertura de testes não comprova paridade ou superioridade ao Dislyte. Próximo bloco continua PAR-02.
+
+
+## Organização complementar PvE — concluída
+
+✅ [MODOS-PVE.md](MODOS-PVE.md): 12 entradas distinguindo exemplos relatados, pistas históricas, decisões autorais e cobertura. Treva Fluxo/sobrevivência/pontuação e chefes dos Milagres separados de PAR-02. Checklist antigo atualizado, histórico preservado. [ROTEIRO-PVE-CHEFES.md](ROTEIRO-PVE-CHEFES.md) orienta pesquisa adicional. Não é catálogo completo atual; nenhum teste novo. PAR-02 continua parcial, próximo parte 2.

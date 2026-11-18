@@ -113,3 +113,7 @@ Cinco grupos novos:
 Parte 2: habilidades com seletores explícitos de time/chefe, status, recargas e consequências R04 compartilhadas; testar que cargas/eventos não triplicam. Não apenas remover a restrição de skills sem validar alcance e contexto.
 
 Parte 3: integração de mortes/overkill/limites técnicos, término único e replay nas fronteiras; avaliar mudanças de kit por fase conforme contrato definido, sem alegar feature pronta antecipadamente. Limites locais, score, recompensas, partes do chefe, UI, threads e servidor não foram implementados. O bloco inteiro permanece aberto.
+
+## Separação de famílias PvE — atualização documental
+
+MODOS-PVE.md e modos-pve.csv/json preservam os exemplos em 12 entradas, com evidência, participação dos times, HP, término e score separados. Treva Fluxo e chefes dos Milagres são relatos ainda a detalhar, não implementações comprovadas. O perfil HP único/barra global/rotação do PAR-02 é experimental e autoral; não é regra universal dos chefes atuais. “Ignorar times” significa apenas times sem sobreviventes. Contrato básico vigente mantido; próximo parte 2, sem incluir score/recompensas por antecipação.

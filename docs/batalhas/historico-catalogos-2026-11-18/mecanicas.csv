@@ -1,0 +1,27 @@
+id,categoria,origem,estado_nosso_motor,risco_a_prevenir,teste_ou_decisao
+M01,Formacoes assimetricas,U01+L01,verificado_1a5,Presumir sempre tres ou cinco,25 pares com perfis e replay
+M02,Excecoes de tamanho,C02+L01,sondagens_com_seis,Fixar cinco globalmente,Limites por modo e invocacoes
+M03,Ataque guarda e derrota,L01,implementado,Overkill e guarda consumida duas vezes,13 testes originais mantidos
+M04,Ordem fixa por velocidade,L01,implementado,Confundir ordem com frequencia,Documentar uma acao por vivo por rodada
+M05,Barra de acao e SPD,P01,nao_implementado,Starvation e speed modificada sem scheduler,Decidir perfil AP antes de habilidades
+M06,Turnos extras e acoes derivadas,P01,nao_implementado,Loops de assistencias e contagem dupla,Orcamento de eventos separado
+M07,Recargas e recursos,P01,nao_implementado,Reset gratuito entre ondas,Definir ticks e politica de passagem
+M08,Efeitos e imunidade,P01,nao_implementado,Duracao ambiguamente ligada a rodada,Definir proprietario e fase do tick
+M09,Multiplos acertos e criticos,P01,nao_implementado,Eventos por habilidade versus por golpe,Especificar gatilhos e RNG reproduzivel
+M10,Cura e dano escalonado,P01,nao_implementado,Overflow e base percentual errada,Limites aritmeticos e HP maximo preservado
+M11,Escudos reflexao e morte simultanea,proposta_de_engenharia,nao_implementado,Resolucao circular e empate indefinido,Prioridade de efeitos e resultado
+M12,Invocacao troca e reanimacao,proposta_de_engenharia,nao_implementado,IDs reciclados e morto ainda na fila,Identidade por instancia e politica de reinsercao
+M13,Alvos por time frente ou lado,proposta_de_engenharia,nao_implementado,Todos aliados inclui frente errada,SideId SquadId e BattleId distintos
+M14,Uma fase com ate cinco confrontos,U01,contrato_proposto,Restaurar vida ao reconstruir Battle,WAVE-01 com estado inicial validado
+M15,Tres times sucessivos e perfis do chefe,U01,contrato_proposto,Perfil ou score herdado indevidamente,SEQ-01 com transicoes atomicas
+M16,Tres chefes independentes,U01+L01,isolamento_intercalado_verificado,Compartilhar estado por ID local repetido,PAR-01 com coordenador e budgets
+M17,Mesmo chefe em tres frentes,U01,nao_implementado,Triplicar HP efeitos ou mortes,PAR-02 com autoridade de estado unica
+M18,Partes versus avatares de chefe,proposta_de_engenharia,nao_implementado,Modelo visual confundido com entidade,Definir grafo de entidades e vida
+M19,Limites por confronto e fase,U01+L01,limite_local_testado_global_pendente,Erro de uma acao e budget global triplicado,TIME-01 concluida localmente e PEN-02 para fase
+M20,Pontuacao e condicoes de resultado,proposta_de_engenharia,nao_implementado,Overkill pontuado e premio duplicado,Score separado e conclusao idempotente
+M21,Replay e seed por contexto,L01,parcial_deterministico_sem_RNG,Resultado depende da ordem de threads,Versionar configuracao e sequencias
+M22,Eventos entre frentes,proposta_de_engenharia,nao_implementado,Buff aplicado tres vezes ou fora de ordem,Fila autoritativa e escopo explicito
+M23,Reinicio e checkpoints,proposta_de_engenharia,nao_implementado,Estado ou evento da fase anterior vaza,Reset validado e configVersion
+M24,Multiplayer e autoridade de servidor,proposta_de_engenharia,nao_implementado,Estado cliente aceito sem validacao,Backend separado com comandos idempotentes
+M25,Desempenho CPU GPU memoria e rede,L01,apenas_lote_funcional_local,Confundir simulacao com teste de servidor,Medir cada camada em hardware alvo
+M26,Interface de multiplas frentes,proposta_de_engenharia,nao_implementado,Animacao e FPS alteram regras,Separar simulacao de reproducao visual

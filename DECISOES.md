@@ -167,3 +167,8 @@ Usuário aprovou manter combate, dados, aplicação, apresentação, áudio, per
 ## DEC-032 — HP único e barra global
 
 Usuário escolheu HP único compartilhado pelos três times e uma barra global do chefe, ataques alternando entre frentes vivas. Parte 1 usa um único Battle com identidade de time na camada SharedBoss, sem clones de chefe ou mudanças no resolvedor. Composição 3x1–5, AP/SPD global e rotação somente após ataque comum aceito. Habilidades fora do primeiro perfil; integração posterior exige seletores/estado únicos e testes. 136 testes aprovados. PEN-05 resolvida para este modelo.
+
+
+## DEC-033 — Classificação de famílias PvE por eixos
+
+Separar formação, participação dos times, autoridade de HP, fases, relógios, persistência, resultado, pontuação e recompensas. HP único/barra global/rotação permanecem perfil autoral do PAR-02; não regra universal. Treva Fluxo e exemplo dos Milagres registrados como relatos, sem inventar nome exato ou fórmula. Catálogo de 12 entradas conserva pistas históricas e não afirma exaustividade atual. Atualizados 8 cenários/26 mecânicas com originais preservados. Mudança documental, 136 testes prévios não reexecutados.

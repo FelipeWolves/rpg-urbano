@@ -74,3 +74,6 @@ Atualizar ESTADO.md com implementação, testes efetivos, limites e próxima aç
 
 
 - [x] Registrar organização por áreas e critérios para plugins, sem reorganização física antecipada; ARQUITETURA.md e DEC-031. Pesquisa específica de dependências pertence ao bloco que precisar delas.
+
+
+- [x] Organizar famílias/exemplos PvE em MODOS-PVE.md e CSV/JSON; preservar 8 cenários/26 mecânicas e versões anteriores; roteiro para pesquisa complementar. Sem implementação de score, retorno cíclico ou fases autônomas nesta tarefa. Próximo PAR-02 parte 2 permanece.

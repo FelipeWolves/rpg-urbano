@@ -177,3 +177,8 @@ PEN-05 permanece aberta. Proposta docs/batalhas/PAR-02.md detalha três modelos 
 ## PAR-02 parte 1 — escolha recebida e PEN-05 resolvida
 
 Usuário escolheu HP único e barra global, ataques comuns alternados entre frentes vivas. SharedBoss básico implementado em um único Battle, composição/identidade/rotação/vitória/reset validados. 136 testes totais, 5 grupos novos. PEN-05 encerrada no perfil escolhido; PEN-06/08 e integração R04/overkill/estado compartilhado permanecem para partes 2/3. Registros anteriores de escolha pendente são históricos.
+
+
+## Famílias PvE — registro sem perda de exemplos
+
+PEN-10/12: relato Treva Fluxo acrescenta sobrevivência/janela e dano influindo em ganhos; unidade/fórmula/regras ainda desconhecidas. Exemplo dos Milagres precisa de chefe/modo exato e gatilho de troca/fase. PEN-04/06: fase por entrada de time não cobre fase autônoma por HP/turno; retorno cíclico não foi afirmado nem implementado. Catálogo MODOS-PVE.md e roteiro ROTEIRO-PVE-CHEFES.md. Nenhum desses relatos revoga PEN-05 resolvida ou torna todos os modelos implementados.

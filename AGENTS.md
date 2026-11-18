@@ -100,3 +100,6 @@ PAR-02: proposta documental em docs/batalhas/PAR-02.md, sem código/testes novos
 
 
 Escolhas recebidas: HP único + barra global, ataques comuns alternando frentes vivas. PAR-02 parte 1 implementada SharedBoss (um Battle autoritativo, 3 times de 1–5, AP/SPD, rotação e fluxo básico). 136 testes, 5 grupos novos. Habilidades rejeitadas neste perfil até parte 2: seletores/status/recargas/R04 compartilhados. PEN-05 resolvida; não perguntar de novo. Parte 3 integração final. PAR-02 segue aberto; não iniciar UI/engine/servidor junto.
+
+
+Famílias PvE organizadas em MODOS-PVE.md e modos-pve.csv/json (12 entradas). Distinguir relato, história, teste e decisão autoral. Treva Fluxo é requisito de sobrevivência/score a detalhar; exemplo dos Milagres não identificado. PAR-02 experimental não representa todos os chefes. Antigos cenarios/mecanicas atualizados com histórico preservado. Roteiro ROTEIRO-PVE-CHEFES.md para futura pesquisa. Próximo PAR-02 parte 2; não ampliar silenciosamente para score/retorno cíclico/fases HP. Nenhum teste novo nesta reorganização.

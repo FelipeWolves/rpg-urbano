@@ -1,8 +1,8 @@
 # RpgEngineProbe — fonte do teste de compilação
 
-Projeto próprio mínimo para ENG-01, alvo RpgEngineProbeEditor / Win64 / Development. Sem mapa, conteúdo, dependência externa ou núcleo de combate ligado. Não é o projeto visual final.
+Projeto próprio mínimo para ENG-01, alvo RpgEngineProbeEditor / Win64 / Development. Sem mapa, conteúdo ou dependência externa; fontes selecionados do núcleo agora compilados no módulo. Não é o projeto visual final.
 
-Esta pasta é a fonte versionada. scripts/testar-unreal.ps1 copia os quatro arquivos do projeto para build/engine-eval/RpgEngineProbe, onde ficam resultados gerados. Edite esta fonte; não edite a cópia gerada. Não abrir esta pasta no editor como parte do teste de compilação.
+Esta pasta é a fonte versionada. scripts/testar-unreal.ps1 copia os seis arquivos do projeto e cinco fontes/cinco headers canônicos do núcleo para build/engine-eval/RpgEngineProbe, onde ficam resultados gerados. Edite esta fonte; não edite a cópia gerada. Não abrir esta pasta no editor como parte do teste de compilação.
 
 Comando validado a partir da raiz, em ambiente com scripts permitidos:
 
@@ -16,4 +16,4 @@ Logs em build/engine-eval; resultado resumido em docs/relatorios/atuais/ENG-01-B
 
 Configuração V7/ordem de includes Unreal5_8 foi conferida no modelo instalado; C++20/exceções configurados por módulo. Unity e PCH do módulo desligados para reduzir variáveis no primeiro ensaio. Isso não escolhe as configurações finais do jogo.
 
-Próximo: ponte compilada para nosso núcleo, depois execução controlada autorizada. Build bem-sucedido não executa o teste de batalha nem prova renderização, pacote, mobile ou estabilidade geral do compilador.
+O script também compila/executa CoreProbe.cpp em standalone e exige11 checkpoints antes do UBT. Mesmo código é ligado ao módulo; a flag opt-in RpgCoreProbe dispara sua execução quando o módulo for carregado. O script de build não abre a engine. Próximo: execução controlada autorizada dentro da Unreal e comparação com baseline. Build bem-sucedido não executa o teste de batalha nem prova renderização, pacote, mobile ou estabilidade geral do compilador.

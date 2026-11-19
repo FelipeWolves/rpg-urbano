@@ -57,3 +57,7 @@ Metadados UE5.8.4/CL58902052, ferramentas e requisitos locais registrados. Zero 
 ## 2026-11-18 — primeiro build Unreal
 
 Projeto de avaliação C++ mínimo compilado em UE5.8.4, MSVC14.52.37029/SDK26100.0. Editor fechado; fontes de combate e213 testes standalone preservados. Experimento e script reproduzíveis, logs/binários ignorados.
+
+## 2026-11-18 — ponte do núcleo compilada na Unreal
+
+Cinco fontes nativos e bridge ligados ao módulo UE5.8.4. Baseline da mesma função passou11 checkpoints fora da engine; manifesto de16 arquivos. Editor/runtime ainda não executados. Fonte canônica e213 testes gerais preservados.

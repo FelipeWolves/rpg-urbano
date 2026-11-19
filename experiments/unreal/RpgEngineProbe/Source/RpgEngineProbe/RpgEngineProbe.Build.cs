@@ -1,4 +1,5 @@
 using UnrealBuildTool;
+using System.IO;
 public class RpgEngineProbe : ModuleRules
 {
     public RpgEngineProbe(ReadOnlyTargetRules target) : base(target)
@@ -7,6 +8,7 @@ public class RpgEngineProbe : ModuleRules
         bUseUnity = false;
         bEnableExceptions = true;
         CppStandard = CppStandardVersion.Cpp20;
+        PublicIncludePaths.Add(Path.Combine(ModuleDirectory, "Public", "NativeCore"));
         PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine" });
     }
 }

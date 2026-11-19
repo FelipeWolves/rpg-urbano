@@ -250,3 +250,7 @@ Enquanto UE5.8.4 instala manualmente, separar formato de save e I/O Win32. Não 
 ## DEC-051 — Build de engine isolado antes da ponte
 
 Validar primeiro módulo mínimo próprio, sem abrir editor. Fonte em experiments, stage/saídas em build; UBT instalado com NoEngineChanges, execução local e concorrência2. MSVC14.52 gerou DLL com aviso de não preferido; não trocar ferramentas sem incompatibilidade demonstrada. Próximo ponte do núcleo, sem alegar runtime UE validado.
+
+## DEC-052 — Comparação por mesma função antes do runtime UE
+
+Compilar fontes nativos com runtime/flags do UBT em vez de ligar objetos /MT. Gerar e conferir stage, sem cópia editável divergente. CoreProbe.cpp roda primeiro standalone (11 checkpoints) e entra na DLL com fronteira simples/exceções capturadas. Startup só executa por opt-in explícito; build não equivale a runtime.

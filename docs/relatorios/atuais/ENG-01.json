@@ -1,7 +1,7 @@
 {
   "Data": "2026-11-18",
   "Escopo": "ENG-01 parte1 avaliacao somente; sem instalacao/editor/build engine",
-  "Status": "build_minimo_aprovado_ponte_e_execucao_pendentes",
+  "Status": "ponte_compilada_baseline_standalone_aprovado_runtime_engine_pendente",
   "Candidata": "Unreal Engine5.8.4",
   "DecisaoDefinitiva": false,
   "EditorInstaladoConfirmadoPeloUsuario": true,
@@ -101,9 +101,9 @@
     {
       "Area": "Integracao",
       "Local": "211 testes standalone aprovados",
-      "Referencia": "Modulo minimo UE compilado; sem ponte ou execucao",
+      "Referencia": "Ponte e5 fontes nativos compilados;11 checkpoints standalone",
       "Estado": "ENG-01 parcial",
-      "Proxima": "Compilar ponte do combate e depois executar com autorizacao"
+      "Proxima": "Executar opt-in na Unreal e comparar com baseline"
     }
   ],
   "Fontes": [
@@ -144,5 +144,8 @@
   "InstalacaoVerificada": "D:\\Unreal Engine\\UE_5.8",
   "VerificacaoDetalhada": "ENG-01-INSTALACAO.json",
   "BuildMinimoAprovado": true,
-  "BuildEvidence": "ENG-01-BUILD.json"
+  "BuildEvidence": "ENG-01-BUILD.json",
+  "PonteCompilada": true,
+  "BaselineCheckpoints": 11,
+  "RuntimeUnrealValidado": false
 }

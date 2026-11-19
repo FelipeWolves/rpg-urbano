@@ -68,3 +68,7 @@ UE5.8.4 em D:\Unreal Engine\UE_5.8 confirmada somente por metadados. Relatório 
 ## Build mínimo executado
 
 RpgEngineProbeEditor aprovado com MSVC14.52.37029/SDK26100.0, sem abrir editor. Relatório [ENG-01-BUILD.md](ENG-01-BUILD.md). Aviso de toolset não preferido mantido; próximo ponte de combate, não arena final.
+
+## Ponte do núcleo compilada
+
+Cinco fontes canônicos compilados no módulo e mesmo CoreProbe.cpp aprovado em11 checkpoints standalone. Execução dentro da engine ainda pendente; [ENG-01-PONTE.md](ENG-01-PONTE.md). Opt-in não foi executado por compilar o projeto.

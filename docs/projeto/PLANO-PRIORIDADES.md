@@ -1,5 +1,11 @@
 # Prioridades por área
 
+## ENG-01 — ponte compilada, execução UE pendente (18/11/2026)
+
+✅ Cinco fontes canônicos do núcleo e ponte compilados/vinculados na UE5.8.4, saída0. Baseline da mesma função executado fora da engine:11 checkpoints aprovados,1 ação aceita e10 créditos. Manifesto confere16 arquivos fonte/stage; nenhum fonte nativo alterado e nenhum editor aberto.
+
+Relatório docs/projeto/ENG-01-PONTE.md e ENG-01-BUILD.json; build mínimo anterior preservado em ENG-01-BUILD-MINIMO.json.213 testes gerais existentes não repetidos. ⚠️ Bateria ainda não executada dentro da Unreal. Próximo: execução controlada autorizada do opt-in e comparação exata com baseline. ENG-01 aberto; sem arena/pacote/mobile.
+
 ## ENG-01 — build mínimo aprovado (18/11/2026)
 
 ✅ RpgEngineProbeEditor compilado/vinculado em UE5.8.4 com MSVC14.52.37029 e SDK26100.0. Saída0 e DLL própria gerada; aviso de compilador não preferido preservado. Fonte versionada em experiments/unreal, cópia/resultados em build/engine-eval. Editor não aberto.
@@ -140,7 +146,7 @@ ATB opcional, backend/multiplayer, publicação em lojas/launcher e produção m
 
 ## Próxima ação concreta
 
-ENG-01 parte 2: decisão sobre candidata UE5.8.4 e destino de instalação, depois verificação de requisitos reais e build/editor isolados explicitamente autorizados. Inventário/relatório concluídos; não repetir 211 testes por documentação.
+ENG-01: execução controlada do opt-in na Unreal, com autorização específica e comparação ao baseline. Ponte já compilou; não reconstruir nem repetir testes gerais sem mudança/falha pertinente.
 
 ## HAB-01 parte 1 — histórico da entrega (18/11/2026)
 

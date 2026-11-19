@@ -135,3 +135,7 @@ SavedGame encapsula versão, perfil, IDs e LocalProgress, sem Snapshot de combat
 ## Fronteira de persistência preparada
 
 Save codec em save_game.hpp/.cpp não depende de Win32 nem filesystem. save_store.hpp expõe I/O por caminho e save_store_windows.cpp implementa console Windows. Limite de bytes compartilhado, locale clássico e códigos v1 explícitos. A engine deverá fornecer armazenamento apropriado sem duplicar regras de dados; ponte ainda não executada.
+
+## Ponte compilada ENG-01
+
+Experimento gera cópias verificadas dos fontes/headers do núcleo sob Private/NativeCore e Public/NativeCore no stage. Fonte única continua src/include. CoreProbe tem fronteira de resultado simples, captura exceções e não usa I/O de plataforma. Módulo chama apenas com opt-in RpgCoreProbe. Mesma função compila/executa no baseline; runtime UE não validado ainda.

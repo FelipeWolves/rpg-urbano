@@ -1,5 +1,11 @@
 # Tarefas
 
+## ENG-01 — ponte compilada, execução UE pendente (18/11/2026)
+
+✅ Cinco fontes canônicos do núcleo e ponte compilados/vinculados na UE5.8.4, saída0. Baseline da mesma função executado fora da engine:11 checkpoints aprovados,1 ação aceita e10 créditos. Manifesto confere16 arquivos fonte/stage; nenhum fonte nativo alterado e nenhum editor aberto.
+
+Relatório docs/projeto/ENG-01-PONTE.md e ENG-01-BUILD.json; build mínimo anterior preservado em ENG-01-BUILD-MINIMO.json.213 testes gerais existentes não repetidos. ⚠️ Bateria ainda não executada dentro da Unreal. Próximo: execução controlada autorizada do opt-in e comparação exata com baseline. ENG-01 aberto; sem arena/pacote/mobile.
+
 ## ENG-01 — build mínimo aprovado (18/11/2026)
 
 ✅ RpgEngineProbeEditor compilado/vinculado em UE5.8.4 com MSVC14.52.37029 e SDK26100.0. Saída0 e DLL própria gerada; aviso de compilador não preferido preservado. Fonte versionada em experiments/unreal, cópia/resultados em build/engine-eval. Editor não aberto.
@@ -142,7 +148,7 @@ Uma entrega por vez. Ordem por área, criticidade e dependências, conforme docs
 
 ## Próximo bloco executável
 
-ENG-01: conectar ponte mínima do núcleo ao experimento aprovado e compilar sem abrir editor. Depois validar execução isolada autorizada. Build do módulo vazio aprovado; não confundir com testes de combate dentro da engine.
+ENG-01: executar opt-in RpgCoreProbe em ambiente Unreal controlado explicitamente autorizado, comparar11 checkpoints e marcador com baseline standalone. Ponte compilada; ainda não executada na engine. Não iniciar arena/empacotamento/mobile junto.
 
 ## Encerramento de cada entrega
 

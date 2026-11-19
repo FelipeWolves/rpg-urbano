@@ -1,0 +1,49 @@
+{
+  "CheckedUtc": "2026-11-19T00:42:56.8907894Z",
+  "Scope": "Compile/link own minimal Editor target only; no UnrealEditor execution, no own combat bridge yet",
+  "EngineVersion": "5.8.4",
+  "EngineChangelist": 58902052,
+  "ProjectTemplate": "experiments/unreal/RpgEngineProbe",
+  "Stage": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\engine-eval\\RpgEngineProbe",
+  "ExitCode": 0,
+  "ModuleBinaryPresent": true,
+  "ToolchainLines": [
+    "Available x64 toolchains (1):",
+    "Unavailable x64 toolchains (1):",
+    "    (Family=14.29.30133, FamilyRank=2, Version=14.29.30159, HostArchitecture=x64, ReleaseChannel=Latest, Architecture=x64, Error=\"UnrealBuildTool requires at minimum the MSVC 14.38.33130 toolchain. Please install a later toolchain such as 14.50.35717 from the Visual Studio installer.\")",
+    "Visual Studio compiler version 14.52.37029 is newer than latest preferred version 14.50.35717. Please use caution as this compiler has not been heavily tested",
+    "===== Toolchain Information =====",
+    "Using ISPC compiler (D:\\Unreal Engine\\UE_5.8\\Engine\\Source\\ThirdParty\\Intel\\ISPC\\bin\\Windows\\ispc.exe)",
+    "  Intel(r) Implicit SPMD Program Compiler (Intel(r) ISPC), 1.24.0 (build commit  @ 20250404, LLVM 18.1.2) ",
+    "Using Visual Studio 14.52.37029 toolchain (C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.52.37025) and Windows 10.0.26100.0 SDK (C:\\Program Files (x86)\\Windows Kits\\10).",
+    "Warning: Visual Studio compiler 14.52.37029 is not a preferred version",
+    "===== End Toolchain Information =====",
+    "Result: Succeeded"
+  ],
+  "EditorOpened": false,
+  "EngineChangesAllowed": false,
+  "DistributedExecutorsAllowed": false,
+  "MaxParallelActions": 2,
+  "SourceManifest": [
+    {
+      "File": "RpgEngineProbe.uproject",
+      "SHA256": "AED7419C1066811452225D0867017F72CC5673706EC74047180F7DC0B3F777E6",
+      "MatchesStage": true
+    },
+    {
+      "File": "Source/RpgEngineProbeEditor.Target.cs",
+      "SHA256": "1B7A2DF54D5D6C60F0A410A24FFA875411474E49456C1D2DC29DB796E86E89B7",
+      "MatchesStage": true
+    },
+    {
+      "File": "Source/RpgEngineProbe/RpgEngineProbe.Build.cs",
+      "SHA256": "41E5F2B309CED628A078BC5FA3CE4464689169A1C72DBE5970519C2AA955EA17",
+      "MatchesStage": true
+    },
+    {
+      "File": "Source/RpgEngineProbe/RpgEngineProbe.cpp",
+      "SHA256": "747DF1E6D6883BE404665C401D722CE269E6CDCEFE7A1339DB58A7589758AE4B",
+      "MatchesStage": true
+    }
+  ]
+}

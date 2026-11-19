@@ -72,3 +72,7 @@ RpgEngineProbeEditor aprovado com MSVC14.52.37029/SDK26100.0, sem abrir editor. 
 ## Ponte do núcleo compilada
 
 Cinco fontes canônicos compilados no módulo e mesmo CoreProbe.cpp aprovado em11 checkpoints standalone. Execução dentro da engine ainda pendente; [ENG-01-PONTE.md](ENG-01-PONTE.md). Opt-in não foi executado por compilar o projeto.
+
+## Execução da ponte concluída
+
+Commandlet própria executou os mesmos11 checkpoints em2 processos UE5.8.4, ambos saída0 e resultados idênticos ao standalone. Relatório [ENG-01-RUNTIME.md](ENG-01-RUNTIME.md). Ponte Windows aceita; testes gráficos/arena/empacotamento/mobile seguem escopos pendentes. Tentativa inicial de editor geral atingiu timeout, registro preservado; método final reduz inicialização por commandlet.

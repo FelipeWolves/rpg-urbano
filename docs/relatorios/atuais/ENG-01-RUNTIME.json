@@ -1,0 +1,40 @@
+{
+  "CheckedUtc": "2026-11-19T01:05:18.3918848Z",
+  "Scope": "Own staged UE project, command-line editor, NullRHI; own commandlet runs the shared bridge; no editor interface",
+  "EngineVersion": "5.8.4",
+  "EngineChangelist": 58902052,
+  "StandaloneExpected": "RPG_CORE_PROBE passed=1 checkpoints=11 failures=0 accepted=1 credits=10",
+  "Passed": true,
+  "Runs": [
+    {
+      "Run": 1,
+      "ExitCode": 0,
+      "TimedOut": false,
+      "ElapsedSeconds": 40.15,
+      "MarkerCount": 1,
+      "MatchesStandalone": true,
+      "Passed": true,
+      "Markers": [
+        "[2026.11.19-01.04.53:367][  0]LogTemp: Display: RPG_CORE_PROBE passed=1 checkpoints=11 failures=0 accepted=1 credits=10"
+      ]
+    },
+    {
+      "Run": 2,
+      "ExitCode": 0,
+      "TimedOut": false,
+      "ElapsedSeconds": 8.13,
+      "MarkerCount": 1,
+      "MatchesStandalone": true,
+      "Passed": true,
+      "Markers": [
+        "[2026.11.19-01.05.16:797][  0]LogTemp: Display: RPG_CORE_PROBE passed=1 checkpoints=11 failures=0 accepted=1 credits=10"
+      ]
+    }
+  ],
+  "GraphicalEditorOpened": false,
+  "EngineProcessExecuted": true,
+  "PlayerSavesUsed": false,
+  "TimeoutSecondsPerRun": 180,
+  "SourceManifestVerified": true,
+  "CaptureDirectory": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\engine-eval\\runtime\\20261119-010430"
+}

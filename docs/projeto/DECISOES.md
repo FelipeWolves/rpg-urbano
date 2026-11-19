@@ -254,3 +254,7 @@ Validar primeiro módulo mínimo próprio, sem abrir editor. Fonte em experiment
 ## DEC-052 — Comparação por mesma função antes do runtime UE
 
 Compilar fontes nativos com runtime/flags do UBT em vez de ligar objetos /MT. Gerar e conferir stage, sem cópia editável divergente. CoreProbe.cpp roda primeiro standalone (11 checkpoints) e entra na DLL com fronteira simples/exceções capturadas. Startup só executa por opt-in explícito; build não equivale a runtime.
+
+## DEC-053 — Runtime por commandlet, comparação exata
+
+Usar commandlet própria sem papéis de cliente/servidor/editor para a bateria, em vez de inicialização geral do editor. Run permanece único, com saída determinada pelo resultado. Exigir1 marcador completo e código0 em2 processos independentes, limite180s e hashes do build verificados. Ponte Windows concluída, sem fechar aceites gráficos/mobile/pacote.

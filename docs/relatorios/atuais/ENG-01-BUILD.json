@@ -1,5 +1,5 @@
 {
-  "CheckedUtc": "2026-11-19T00:51:19.9923332Z",
+  "CheckedUtc": "2026-11-19T01:04:01.9861604Z",
   "Scope": "Compile/link native core and bridge in Unreal module; bridge executed only in standalone baseline, not inside Unreal",
   "EngineVersion": "5.8.4",
   "EngineChangelist": 58902052,
@@ -59,6 +59,18 @@
       "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/CoreProbe.cpp",
       "StagedRelative": "Source/RpgEngineProbe/CoreProbe.cpp",
       "SHA256": "42748D2E3E684A4DD24076097C02FB3F79AA84B7EA261DAA8F94F4F8DFCBB879",
+      "MatchesStage": true
+    },
+    {
+      "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/RpgCoreProbeCommandlet.h",
+      "StagedRelative": "Source/RpgEngineProbe/RpgCoreProbeCommandlet.h",
+      "SHA256": "056F913617BBAF584D23E26F15A83ADA6C6607F00A8AC64743A154810500B383",
+      "MatchesStage": true
+    },
+    {
+      "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/RpgCoreProbeCommandlet.cpp",
+      "StagedRelative": "Source/RpgEngineProbe/RpgCoreProbeCommandlet.cpp",
+      "SHA256": "582552BF1930569E75508B50E2651F75E4BBA4EE53BA6AF66BB56E655A2206FA",
       "MatchesStage": true
     },
     {
@@ -123,8 +135,8 @@
     }
   ],
   "Baseline": {
-    "ExitCode": 0,
-    "Result": "RPG_CORE_PROBE passed=1 checkpoints=11 failures=0 accepted=1 credits=10"
+    "Result": "RPG_CORE_PROBE passed=1 checkpoints=11 failures=0 accepted=1 credits=10",
+    "ExitCode": 0
   },
   "RuntimeProbeExecutedInUnreal": false
 }

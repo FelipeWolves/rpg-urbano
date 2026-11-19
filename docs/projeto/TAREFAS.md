@@ -1,5 +1,11 @@
 # Tarefas
 
+## ENG-01 — etapa da ponte Windows concluída (18/11/2026)
+
+✅ Compilação e execução dentro da UE5.8.4 aprovadas. Mesma bateria standalone passou11 checkpoints em dois processos Unreal, saída0 e um marcador por execução. Commandlet própria, sem interface gráfica/NullRHI; nenhum slot do jogador usado.213 testes gerais anteriores preservados, sem somar checkpoints como novos testes gerais.
+
+Relatório docs/projeto/ENG-01-RUNTIME.md e ENG-01-RUNTIME.json. Tentativa inicial de editor geral teve timeout e foi substituída por commandlet; registro preservado. ✅ Não há revisão pendente da ponte nesse escopo sem mudança/falha. ⚠️ ENG-01 gráfico/empacotamento/mobile seguem pendentes; esta entrega não começa arena visual. Próximo incremento: abertura gráfica controlada e definição da integração visual em escopo próprio.
+
 ## ENG-01 — ponte compilada, execução UE pendente (18/11/2026)
 
 ✅ Cinco fontes canônicos do núcleo e ponte compilados/vinculados na UE5.8.4, saída0. Baseline da mesma função executado fora da engine:11 checkpoints aprovados,1 ação aceita e10 créditos. Manifesto confere16 arquivos fonte/stage; nenhum fonte nativo alterado e nenhum editor aberto.
@@ -148,7 +154,7 @@ Uma entrega por vez. Ordem por área, criticidade e dependências, conforme docs
 
 ## Próximo bloco executável
 
-ENG-01: executar opt-in RpgCoreProbe em ambiente Unreal controlado explicitamente autorizado, comparar11 checkpoints e marcador com baseline standalone. Ponte compilada; ainda não executada na engine. Não iniciar arena/empacotamento/mobile junto.
+Etapa da ponte Windows concluída (build+commandlet,11 checkpoints em2 processos). Próximo incremento separado: avaliar abertura gráfica controlada e planejar ponte da arena. Sem alegar gráficos, pacote ou mobile já validados; não repetir bateria sem motivo.
 
 ## Encerramento de cada entrega
 

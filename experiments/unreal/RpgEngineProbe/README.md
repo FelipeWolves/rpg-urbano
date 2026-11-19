@@ -2,7 +2,7 @@
 
 Projeto próprio mínimo para ENG-01, alvo RpgEngineProbeEditor / Win64 / Development. Sem mapa, conteúdo ou dependência externa; fontes selecionados do núcleo agora compilados no módulo. Não é o projeto visual final.
 
-Esta pasta é a fonte versionada. scripts/testar-unreal.ps1 copia os seis arquivos do projeto e cinco fontes/cinco headers canônicos do núcleo para build/engine-eval/RpgEngineProbe, onde ficam resultados gerados. Edite esta fonte; não edite a cópia gerada. Não abrir esta pasta no editor como parte do teste de compilação.
+Esta pasta é a fonte versionada. scripts/testar-unreal.ps1 copia os oito arquivos do projeto e cinco fontes/cinco headers canônicos do núcleo para build/engine-eval/RpgEngineProbe, onde ficam resultados gerados. Edite esta fonte; não edite a cópia gerada. Não abrir esta pasta no editor como parte do teste de compilação.
 
 Comando validado a partir da raiz, em ambiente com scripts permitidos:
 
@@ -17,3 +17,7 @@ Logs em build/engine-eval; resultado resumido em docs/relatorios/atuais/ENG-01-B
 Configuração V7/ordem de includes Unreal5_8 foi conferida no modelo instalado; C++20/exceções configurados por módulo. Unity e PCH do módulo desligados para reduzir variáveis no primeiro ensaio. Isso não escolhe as configurações finais do jogo.
 
 O script também compila/executa CoreProbe.cpp em standalone e exige11 checkpoints antes do UBT. Mesmo código é ligado ao módulo; a flag opt-in RpgCoreProbe dispara sua execução quando o módulo for carregado. O script de build não abre a engine. Próximo: execução controlada autorizada dentro da Unreal e comparação com baseline. Build bem-sucedido não executa o teste de batalha nem prova renderização, pacote, mobile ou estabilidade geral do compilador.
+
+## Execução da ponte validada
+
+A rota automatizada agora usa uma commandlet própria: scripts/testar-unreal-runtime.ps1 -EngineRoot seguido da pasta da engine. Ela chama Run uma vez, sem opt-in de startup, e exige duas execuções iguais ao baseline. Saída0 e11 checkpoints aprovados em ambos. Limite180s por processo e logs em build/engine-eval/runtime. Não abre interface gráfica nem usa saves do jogador. Resultado em ENG-01-RUNTIME.json; detalhes em docs/projeto/ENG-01-RUNTIME.md. Inicialização geral anterior teve timeout e não deve ser repetida como bateria padrão.

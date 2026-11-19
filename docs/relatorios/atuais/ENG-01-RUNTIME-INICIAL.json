@@ -1,0 +1,25 @@
+{
+  "CheckedUtc": "2026-11-19T01:01:47.2173044Z",
+  "Scope": "Own staged UE project, command-line editor, NullRHI; core bridge only",
+  "EngineVersion": "5.8.4",
+  "EngineChangelist": 58902052,
+  "StandaloneExpected": "RPG_CORE_PROBE passed=1 checkpoints=11 failures=0 accepted=1 credits=10",
+  "Passed": false,
+  "Runs": [
+    {
+      "Run": 1,
+      "ExitCode": -1,
+      "TimedOut": true,
+      "ElapsedSeconds": 182.27,
+      "MarkerCount": 0,
+      "MatchesStandalone": false,
+      "Passed": false,
+      "Markers": []
+    }
+  ],
+  "GraphicalEditorOpened": false,
+  "EngineProcessExecuted": true,
+  "PlayerSavesUsed": false,
+  "TimeoutSecondsPerRun": 180,
+  "SourceManifestVerified": true
+}

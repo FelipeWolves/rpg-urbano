@@ -1,5 +1,11 @@
 # Painel de blocos — estado consolidado
 
+## ENG-01 — etapa da ponte Windows concluída (18/11/2026)
+
+✅ Compilação e execução dentro da UE5.8.4 aprovadas. Mesma bateria standalone passou11 checkpoints em dois processos Unreal, saída0 e um marcador por execução. Commandlet própria, sem interface gráfica/NullRHI; nenhum slot do jogador usado.213 testes gerais anteriores preservados, sem somar checkpoints como novos testes gerais.
+
+Relatório docs/projeto/ENG-01-RUNTIME.md e ENG-01-RUNTIME.json. Tentativa inicial de editor geral teve timeout e foi substituída por commandlet; registro preservado. ✅ Não há revisão pendente da ponte nesse escopo sem mudança/falha. ⚠️ ENG-01 gráfico/empacotamento/mobile seguem pendentes; esta entrega não começa arena visual. Próximo incremento: abertura gráfica controlada e definição da integração visual em escopo próprio.
+
 ## ENG-01 — ponte compilada, execução UE pendente (18/11/2026)
 
 ✅ Cinco fontes canônicos do núcleo e ponte compilados/vinculados na UE5.8.4, saída0. Baseline da mesma função executado fora da engine:11 checkpoints aprovados,1 ação aceita e10 créditos. Manifesto confere16 arquivos fonte/stage; nenhum fonte nativo alterado e nenhum editor aberto.
@@ -127,6 +133,7 @@ As siglas são identificadores internos das áreas do projeto, não nomes de fer
 | ✅ COM-02 | Entrada textual, alvo, estado/resultado e reinício | Base de 7 grupos; 15 textuais após integração HAB-01; sem menu SEQ/PAR |
 | ✅ HAB-01 | Perfis/posições, passiva, condição, automação e kits integrados | Cinco partes concluídas; 24 grupos de perfis e 15 textuais acumulados; HAB-01-FINAL.md |
 | ✅ CIC-01 | Seleção de equipe, recompensa única e save v1 entre batalhas | Três partes concluídas; seleção 7, recompensa 7, save 7 e interação 18 grupos acumulados; CIC-01-SAVE-R01.md |
+| ✅ ENG-01 — ponte Windows | Fontes ligados e executados na UE5.8.4 | 11 checkpoints equivalentes ao standalone em2 processos, código0; não inclui gráfico/pacote/mobile |
 | ✅ Contrato R04 e revisões R01–R03 | Decisões e pesquisa recebida | Fechamento documental; implementação mínima em RES-01 |
 
 Total atual: **213 testes aprovados**, além das matrizes, isolamento intercalado, 1000 simulações funcionais e demonstração. Não é benchmark de servidor ou renderização.
@@ -141,7 +148,7 @@ Classificação pelo roteiro documentado, sem inferir datas pela criação do re
 
 | Ordem posterior aos modos críticos | Bloco | Falta |
 |---|---|---|
-| 1 | ⚠️ ENG-01 | Avaliação documental concluída; candidata UE5.8.4 pendente de decisão/instalação e teste de integração; ENG-01.md |
+| 1 | ⚠️ ENG-01 — gráfico/pacote | Ponte Windows compilada e executada (11 checkpoints em2 processos); gráfica, pacote e mobile pendentes; ENG-01-RUNTIME.md |
 | 2 | ⚠️ VIS-01 | Arena visual integrada ao núcleo |
 | 3 | ⚠️ ART-01 | Direção artística original e personagem representativo |
 | 4 | ⚠️ AUD-01 | Áudio próprio/licenciado e integração |

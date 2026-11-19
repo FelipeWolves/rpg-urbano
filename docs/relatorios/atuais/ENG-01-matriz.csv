@@ -10,4 +10,4 @@
 "Hardware","Historico: 32GB classe, RTX3060,16 threads; VRAM nao confirmada","Referencia oficial: 32GB RAM,8GB VRAM","Candidato a prototipo leve; sem benchmark","Confirmar VRAM e medir editor depois de autorizado"
 "Disco","212.1 GiB livres na unidade do projeto","Tamanho depende dos componentes escolhidos","Nao reservar nem prometer capacidade final","Conferir tamanho no instalador e destino aprovado"
 "Windows","Registro build26300.9711,26H2; ProductName legado Windows10Pro","Historico anterior identifica Windows11Pro","Nome do registro divergente; nao concluir canal","Validar ambiente efetivo no teste do editor"
-"Integracao","211 testes standalone aprovados","Ponte e5 fontes nativos compilados;11 checkpoints standalone","ENG-01 parcial","Executar opt-in na Unreal e comparar com baseline"
+"Integracao","211 testes standalone aprovados","Ponte compilada e11 checkpoints identicos em2 processos UE","Ponte Windows minima validada","Incremento separado de abertura grafica/arena"

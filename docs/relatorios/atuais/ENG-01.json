@@ -1,7 +1,7 @@
 {
   "Data": "2026-11-18",
   "Escopo": "ENG-01 parte1 avaliacao somente; sem instalacao/editor/build engine",
-  "Status": "ponte_compilada_baseline_standalone_aprovado_runtime_engine_pendente",
+  "Status": "ponte_windows_build_runtime_validados_grafico_pacote_mobile_pendentes",
   "Candidata": "Unreal Engine5.8.4",
   "DecisaoDefinitiva": false,
   "EditorInstaladoConfirmadoPeloUsuario": true,
@@ -101,9 +101,9 @@
     {
       "Area": "Integracao",
       "Local": "211 testes standalone aprovados",
-      "Referencia": "Ponte e5 fontes nativos compilados;11 checkpoints standalone",
-      "Estado": "ENG-01 parcial",
-      "Proxima": "Executar opt-in na Unreal e comparar com baseline"
+      "Referencia": "Ponte compilada e11 checkpoints identicos em2 processos UE",
+      "Estado": "Ponte Windows minima validada",
+      "Proxima": "Incremento separado de abertura grafica/arena"
     }
   ],
   "Fontes": [
@@ -147,5 +147,7 @@
   "BuildEvidence": "ENG-01-BUILD.json",
   "PonteCompilada": true,
   "BaselineCheckpoints": 11,
-  "RuntimeUnrealValidado": false
+  "RuntimeUnrealValidado": true,
+  "RuntimeEvidence": "ENG-01-RUNTIME.json",
+  "RuntimeIndependentRuns": 2
 }

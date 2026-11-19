@@ -110,3 +110,7 @@ StandardShield implementa decisões ESC-01–07:1% do máximo do aplicador calcu
 ## 2026-11-19 — propagação das decisões ESC em P2/P3
 
 Corrigida a consolidação de PENDENCIAS.md: VIS/REG/SIS agora distinguem decisões já respondidas, implementação/testes existentes e somente as dúvidas/aceites restantes. Relógios, persistência, reaplicação, alvos, aritmética e distinção Defesa/bloqueio/proteção clássica não devem ser perguntados novamente para o escudo padrão. Alteração documental, sem código ou novos testes.
+
+## 2026-11-19 — mínimo de proteção na aplicação válida
+
+Por decisão do usuário, o escudo padrão direto passa a max(1,floor(PV máximo do aplicador/100)). Isso substitui ignorar percentuais arredondados para0. Reaplicação mínima oferece3 turnos, preservando maior força/duração. Escudo consumido/expirado continua removido; nenhum mínimo de HP, aplicação em morto ou concessão sem condição satisfeita. Cenário B3 e testes de limites/reaplicação atualizados. Análise documental da Clara preservada com ressalvas de fonte e da revisão histórica; VIS-01/P2/P3 e orientações atualizados.

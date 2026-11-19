@@ -8,7 +8,7 @@ Registro central de perguntas e decisões. **Documento de pesquisa recebido; nã
 
 ### Situação após implementação
 
-ESC-01 a ESC-07 estão fechados no caso comum; o código e os testes estão em [ESCUDO-PADRAO.md](ESCUDO-PADRAO.md). As propostas antigas preservadas no histórico não são tarefas abertas. Próximo trabalho de revisão é VIS-01–03: pacote atualizado e aceite visual autorizado. Silêncio/supressão, bloqueio automático, atributos/equipamentos clássicos, categorias específicas e bypass continuam extensões. Cura e máximo efetivo mutável ainda não existem; testar não recálculo nessas operações quando forem introduzidas.
+ESC-01 a ESC-07 estão fechados no caso comum; o código e os testes estão em [ESCUDO-PADRAO.md](ESCUDO-PADRAO.md). As propostas antigas preservadas no histórico não são tarefas abertas. A comparação com Clara foi documentada e o usuário aprovou mínimo de1 ponto para a aplicação válida do gerador direto de1%/3 turnos; essa correção já está implementada. Outros geradores, inclusive cura excedente, continuam extensões próprias. VIS-01–03 também aguardam pacote atualizado e aceite visual autorizado. Silêncio/supressão, bloqueio automático, atributos/equipamentos clássicos, categorias específicas e bypass continuam extensões. Cura e máximo efetivo mutável ainda não existem; testar não recálculo nessas operações quando forem introduzidas.
 
 ### Como preencher e priorizar
 
@@ -47,15 +47,13 @@ Esta decisão substitui a proposta inicial de10% do HP atual do protegido para o
 
 ### ESC-03 — arredondamento e limites (explicação3)
 
-**Resposta do usuário — arredondamento e ausência definidos:** valores fracionários devem ser arredondados para baixo. Para os valores não negativos de HP/PV e proteção, resultado abaixo de1 torna-se0, sem promover automaticamente a1. Zero de vida representa personagem morto; zero de escudo representa ausência de escudo, sem proteção funcional nem ícone de escudo ativo. Um ponto é suficiente para continuar vivo ou manter um escudo existente, mas não é um piso garantido de sobrevivência/proteção. Não aplicar escudo funcional a morto sem regra específica.
+**Decisão vigente revisada pelo usuário:** arredondar para baixo, mas garantir mínimo de1 ponto na concessão válida do escudo padrão direto. Força = max(1, floor(PV máximo do aplicador/100)). Exemplos de máximo do aplicador:1/9/10/55/99→1;100→1;550→5;1000→10. Isso substitui o descarte anteriormente aprovado quando esse percentual arredondava para0.
 
-**Exemplos com a fórmula vigente de ESC-01:**1% do HP/PV máximo do aplicador:1→0;9→0;10→0;55→0;100→1;550→5. Percentual zero produz zero. Isso não autoriza aplicar escudo a portador com0PV. O exemplo antigo55×10%=5,5→5 demonstra apenas o arredondamento, não muda o percentual padrão de1%. HP atual/máximo e morte do aplicador devem respeitar os estados válidos e as condições específicas de aplicação.
+**Distinções preservadas:** zero de vida significa morto e não pode ser alvo; o mínimo de proteção não concede piso de1PV. Zero de proteção restante significa ausência de escudo/ícone: consumo ou expiração removem o efeito, sem repor1 ponto. Sem condição de aplicação satisfeita, não criar escudo por inferência; o mínimo não é regra universal para cura excedente ou outros efeitos futuros.
 
-**Escopo:** arredondamento para baixo é a diretriz solicitada para valores fracionários do projeto. Alterações de outras fórmulas, momento de arredondar operações intermediárias e tratamento de valores negativos (por exemplo, variação de AP) exigem seu contrato próprio; a implementação usa divisão inteira no novo efeito, sem alterar outras fórmulas. Evitar arredondar uma razão intermediária cedo demais e zerar indevidamente o resultado final.
+**Limites:** sem soma entre aplicações padrão, sem cap adicional de gameplay inventado; int positivo válido e divisão por100 evitam overflow de multiplicação. INT_MAX e valores pequenos constam dos testes. Não derivar cap mecânico do tamanho da faixa de vida.
 
-**Esclarecimento solicitado pelo usuário — teto por aplicação/total:** limite por aplicação é a proteção máxima de um único escudo; limite total é a proteção máxima somada caso se permita coexistência de escudos. Exemplo ilustrativo, não regra: limitar cada escudo a100 pontos e a soma no personagem a150. São limites de gameplay opcionais, distintos da capacidade técnica dos números e do limite visual da barra. ESC-05 definiu que escudos padrão não somam. Nenhum cap adicional de gameplay foi escolhido; a fórmula e a representação inteira válida limitam os pontos. Não inventar cap baseado no HP atual.
-
-**Estado:** ESC-03 comum definido e implementado: cálculo inteiro por divisão, zero ignorado, sem alvo morto. Sem soma nem cap adicional inventado; teto específico de gameplay permanece extensão opcional, não bloqueador. Limites técnicos e INT_MAX testados.
+**Estado:** mínimo e arredondamento aprovados para este gerador, implementação/testes atualizados. Outras fórmulas, escalas e valores negativos conservam seus contratos próprios. Relatório em ESCUDO-PADRAO.md.
 
 ### ESC-04 — absorção e ordem do dano (explicação4)
 
@@ -77,7 +75,7 @@ Esta decisão substitui a proposta inicial de10% do HP atual do protegido para o
 
 **Substitui decisões anteriores:** a proposta anterior de sempre usar a força do novo escudo, mesmo menor, foi revogada por esta decisão. O reinício de duração anteriormente aceito passa a respeitar o maior entre duração restante e duração oferecida; não diminuir duração nem somar tempos. O modo de medir essa duração permanece em ESC-06.
 
-**Cálculo da nova força:**1% do HP/PV máximo do novo aplicador no instante da aplicação, arredondado para baixo (ESC-01/02/03). O escudo existente não é recalculado. Uma tentativa calculada em0 não diminui pontos existentes nem cria proteção/ícone funcional se não houver escudo. **Decisão adicional do usuário:** aplicação calculada em0 pontos é inteiramente ignorada: não cria escudo nem ícone, não altera pontos existentes e não renova, estende ou reduz a duração de um escudo ativo.
+**Cálculo da nova força:**1% do HP/PV máximo do novo aplicador no instante da aplicação, arredondado para baixo (ESC-01/02/03). O escudo existente não é recalculado. **Revisão aprovada:** cálculo percentual abaixo de1 recebe mínimo de1 na aplicação válida. Essa oferta pode renovar duração, preservando a maior força/duração; não é mais ignorada. Não cria proteção para alvo morto ou condição inválida.
 
 **Alvos e categorias:** protegido com0PV não pode ser escolhido. Esta regra vale apenas para escudo padrão sem borda diferenciada; escudos prateados, dourados e outras categorias terão contratos próprios futuros. Não generalizar para StructuralShield. Não reaplicar efeitos de abertura nem disparar gatilhos de expiração por inferência.
 
@@ -108,7 +106,7 @@ Esta decisão substitui a proposta inicial de10% do HP atual do protegido para o
 
 **Bloqueio — conceito futuro separado:** chance de defesa automática contra ataque; quando ocorre, o personagem não recebe dano desse ataque. Diferente do comando Defesa clássico, que reduz o dano pela metade e arredonda para baixo. Ainda especificar chance/origem, elegibilidade, resolução por ataque ou hit, interação com escudo e efeitos ao acertar, reações, dano inevitável e regras por perfil antes de implementar. Não atribuir probabilidade, imunidade a debuffs ou gatilhos por inferência. Trata-se de decisão de conceito do nosso projeto, não equivalência comprovada com Dislyte.
 
-**Duração padrão confirmada pelo usuário:**3 turnos naturais do protegido. Uma aplicação válida oferece3 de duração; a reaplicação conserva max(duração restante,3), independentemente de max(proteção restante,nova proteção), sem somar. Aplicação calculada em0 pontos é ignorada integralmente, inclusive para duração. Autoaplicação mantém3 ao encerrar a ação aplicadora. Depois, cada oportunidade natural concluída desconta1, inclusive quando impossibilitado de agir:3→2→1→0 e remoção; extras/reações não descontam. Se a proteção for consumida antes, o escudo termina antes.
+**Duração padrão confirmada pelo usuário:**3 turnos naturais do protegido. Uma aplicação válida oferece3 de duração; a reaplicação conserva max(duração restante,3), independentemente de max(proteção restante,nova proteção), sem somar. Aplicação válida com resultado percentual abaixo de1 oferece1 ponto e3 turnos, preservando os maiores valores. Autoaplicação mantém3 ao encerrar a ação aplicadora. Depois, cada oportunidade natural concluída desconta1, inclusive quando impossibilitado de agir:3→2→1→0 e remoção; extras/reações não descontam. Se a proteção for consumida antes, o escudo termina antes.
 
 **Estado:** ESC-06 definido documentalmente para o escudo padrão:3 turnos, relógio do protegido, efeito imediato, decremento ao fim de oportunidade natural inclusive sem ação por controle, sem desconto imediato na aplicação/autoaplicação, sem tick em extras/reações e sem dependência da vida do aplicador. Morte do protegido e transições definidas em ESC-07. Implementação e testes do caso comum concluídos no incremento ESCUDO-PADRAO.md.
 
@@ -126,7 +124,7 @@ Esta decisão substitui a proposta inicial de10% do HP atual do protegido para o
 | Troca de equipe | Não transferir nem conservar escudo da equipe anterior |
 | Duração chega a0 | Remover sem consequência adicional própria de expiração |
 | Proteção chega a0 | Remover; excesso do hit atinge HP/PV conforme ESC-04 |
-| Nova aplicação calculada em0 | Ignorar integralmente, sem alterar escudo existente |
+| Nova aplicação válida com percentual arredondado para0 | Conceder mínimo de1 ponto e oferecer3 turnos; reaplicar por maiores propriedades |
 
 **Explicação de Preserve/Reset:** são nomes de políticas técnicas. Preserve conserva estados entre etapas quando o contrato do encontro permite; Reset reinicia/remove os estados abrangidos por aquela política. Não são comandos novos do jogador. Para o novo escudo padrão, a regra comum solicitada é não transportar proteção/duração entre essas transições. Uma eventual exceção deve indicar quais eventos conservam o escudo e não recuperar pontos/tempo já gastos.
 
@@ -144,15 +142,15 @@ As respostas ESC também encerram partes dos itens abaixo. **Definido**, **imple
 
 **✅ Definido:** proteção azul-clara sobre a vida preenchida; pontos reais e duração no painel; zero significa ausência de escudo/ícone. O valor vem de1% do máximo do aplicador, não de uma segunda porcentagem do HP atual do protegido. Pontos e duração seguem as regras de reaplicação fechadas em ESC-05/06. Excesso visual não limita proteção mecânica.
 
-**✅ Implementado/testado nativamente:** StandardShield é incluído na faixa/painel e os dados de proteção são testados. Aplicação zero não cria status; consumo/expiração removem o estado; dados expostos vêm do núcleo. Build Editor aprovado em [ESCUDO-PADRAO.md](ESCUDO-PADRAO.md). As passivas fixas históricas permanecem distintas.
+**✅ Implementado/testado nativamente:** StandardShield é incluído na faixa/painel e os dados de proteção são testados. Aplicação válida com percentual abaixo de1 cria proteção mínima de1; consumo/expiração removem o estado; dados expostos vêm do núcleo. Build Editor aprovado em [ESCUDO-PADRAO.md](ESCUDO-PADRAO.md). As passivas fixas históricas permanecem distintas.
 
-**⚠️ Falta somente no aceite desta apresentação:** observar faixa/ícone/painel durante aplicação, consumo, reaplicação e expiração; confirmar valores completos e legibilidade. Cenários: aplicador1000PV→10 pontos sobre protegido50PV; aplicador550PV→5; aplicador abaixo de100PV→0; proteção maior que a vida preenchida. Conferir que o ícone some quando não há escudo e que ignorar aplicação zero preserva o estado anterior.
+**⚠️ Falta somente no aceite desta apresentação:** observar faixa/ícone/painel durante aplicação, consumo, reaplicação e expiração; confirmar valores completos e legibilidade. Cenários: aplicador1000PV→10 pontos sobre protegido50PV; aplicador550PV→5; aplicador com máximo abaixo de100PV→1 ponto; proteção maior que a vida preenchida. Conferir que o ícone some quando não há escudo e que uma aplicação mínima preserva maior proteção e pode renovar duração.
 
-**Estado:** regras respondidas; implementação nativa aprovada; teste visual pendente. Não há nova pergunta de fórmula do escudo neste item. Novos metadados de categorias futuras não são requisitos do aceite do padrão.
+**Estado revisado por solicitação do usuário:** contrato anterior implementado/testado, sem alteração automática. Antes de avançar no aceite, comparar a geração do escudo associado à básica de Clara em [ANALISE-CLARA-ESCUDO-VIS-01.md](ANALISE-CLARA-ESCUDO-VIS-01.md). A descrição comunitária associa cura da básica à conversão de excedente pela passiva, não à regra universal de1%. O usuário manteve o gerador de1%/3 turnos e aprovou mínimo de1 ponto. Generalizar outros geradores continua extensão futura, não bloqueia essa correção. Essa revisão é de fórmula/escopo do gerador; a UI continua recebendo pontos reais. Fonte primária atualizada e arredondamento de Dislyte ainda não confirmados; código próprio atualizado apenas para o mínimo aprovado. Baixo HP atual do protegido não zera a fórmula vigente, que usa máximo do aplicador.
 
 ### VIS-02 — habilidades, alvos e interação
 
-**✅ Definido anteriormente e reforçado pelas respostas:** ativa de escudo pode atingir o próprio personagem ou um aliado vivo; personagem com0PV não pode ser escolhido para recebê-la. A possibilidade do efeito é distinta do alvo cadastrado: a terceira ativa do cenário atual continua Self, sem ganhar seleção de aliado implicitamente. Aplicação com força0 é ignorada como efeito, sem criar ícone; não torna gratuita a habilidade executada.
+**✅ Definido anteriormente e reforçado pelas respostas:** ativa de escudo pode atingir o próprio personagem ou um aliado vivo; personagem com0PV não pode ser escolhido para recebê-la. A possibilidade do efeito é distinta do alvo cadastrado: a terceira ativa do cenário atual continua Self, sem ganhar seleção de aliado implicitamente. Aplicação válida tem mínimo de1 ponto; cria escudo/ícone, sem tornar gratuita a habilidade executada.
 
 **✅ Implementado/testado nativamente:** validação de alvo vivo, recusa sem alteração do combate, informação da habilidade padrão, candidatos e gesto curto/prolongado. Passivas são consultáveis e não selecionáveis; nível só quando cadastrado. Textos do impedimento de ação foram alterados para “impossibilitado de agir”/“unable to act”, sem implementar bloqueio automático.
 
@@ -200,7 +198,7 @@ As respostas ESC também encerram partes dos itens abaixo. **Definido**, **imple
 
 ### SIS-01 — origem, permissões, âncoras e quotas
 
-**✅ Respondido para o escudo padrão:** origem é habilidade, aplicada em si ou em aliado vivo; base é máximo do aplicador no instante de aplicação; estado pertence ao protegido. Âncora é fim de oportunidade natural do protegido, inclusive impossibilitado de agir; extras/reações não contam.3 turnos, zero ignorado, maiores força/duração independentemente sem soma, remoção na morte do protegido/transições e nenhuma dependência posterior do aplicador. Expiração não dispara consequência adicional. Categorias prateada/dourada terão regras próprias, não herdadas pela cor.
+**✅ Respondido para o escudo padrão:** origem é habilidade, aplicada em si ou em aliado vivo; base é máximo do aplicador no instante de aplicação; estado pertence ao protegido. Âncora é fim de oportunidade natural do protegido, inclusive impossibilitado de agir; extras/reações não contam.3 turnos, mínimo de1 na aplicação válida, maiores força/duração independentemente sem soma, remoção na morte do protegido/transições e nenhuma dependência posterior do aplicador. Expiração não dispara consequência adicional. Categorias prateada/dourada terão regras próprias, não herdadas pela cor.
 
 **✅ Implementado/testado:** esse caso comum e sua apresentação de dados estão em ESCUDO-PADRAO.md. Não é um framework completo de atributos/equipamentos.
 
@@ -210,7 +208,7 @@ As respostas ESC também encerram partes dos itens abaixo. **Definido**, **imple
 
 ### SIS-02 — fórmulas, atributos e auditoria de fontes
 
-**✅ Respondido/implementado:** força padrão = HP máximo inteiro positivo do aplicador/100; divisão inteira faz o floor final sem overflow por multiplicação. Abaixo de1 vira0; zero ignorado, sem mínimo automático. Sem acúmulo ou cap adicional de gameplay inventado. Reduções aplicáveis→escudo→HP; cada hit consome separado e excesso pode matar. Defesa clássica usa divisão por2 para baixo. Testes incluem limites até INT_MAX. Cobertura da faixa visual não é cap mecânico.
+**✅ Respondido/implementado:** força padrão = max(1,HP máximo inteiro positivo do aplicador/100); divisão inteira arredonda o percentual para baixo sem overflow por multiplicação, e aplicação válida garante1 ponto. Sem acúmulo ou cap adicional de gameplay inventado. Reduções aplicáveis→escudo→HP; cada hit consome separado e excesso pode matar. Defesa clássica usa divisão por2 para baixo. Testes incluem limites até INT_MAX. Cobertura da faixa visual não é cap mecânico.
 
 **⚠️ Resta:** afinidade, ACC/RESIST, Miss/Crit/Boon, mitigação por DEF, dano verdadeiro, bypass, overkill e teto de HP; arredondamento de fórmulas compostas/negativas; atributos base/efetivos e HP máximo mutável. Cura e máximo mutável não existem no núcleo atual: acrescentar testes de não recálculo do escudo quando forem implementados. Cap específico de gameplay é extensão opcional, não bloqueia o escudo entregue.
 

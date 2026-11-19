@@ -26,7 +26,7 @@ Atualizado em19/11/2026. Comece pelas sínteses atuais; relatórios datados deli
 
 ## Escudo padrão vigente
 
-[Contrato e implementação](projeto/ESCUDO-PADRAO.md), [14 grupos nativos](relatorios/atuais/ESC-01-PADRAO.json) e [build Editor](relatorios/atuais/ESC-01-BUILD.json). Caso comum fechado; sem pacote/aceite visual desta revisão.
+[Contrato e implementação](projeto/ESCUDO-PADRAO.md), [14 grupos nativos](relatorios/atuais/ESC-01-PADRAO.json) e [build Editor da revisão de mínimo1](relatorios/atuais/ESC-01-MINIMO-BUILD.json). Caso comum fechado; sem pacote/aceite visual desta revisão.
 
 ## Organização dos arquivos
 

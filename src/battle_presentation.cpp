@@ -82,7 +82,7 @@ std::vector<std::string> ability_details(const VisualState& state,std::uint32_t 
             out.push_back("Cooldown: "+std::to_string(skill->cooldown)+" | remaining "+std::to_string(ability->cooldown));
             for(const auto& effect:skill->effects){
                 auto detail=effect_name(effect.kind);
-                if(effect.kind==EffectKind::StandardShield){detail+=": 1% caster max HP, rounded down; 3 recipient natural turns; keep greater points/duration.";}
+                if(effect.kind==EffectKind::StandardShield){detail+=": 1% caster max HP, rounded down, minimum 1 point; 3 recipient natural turns; keep greater points/duration.";}
                 else if(effect.kind==EffectKind::Damage){detail+=": attack power, hits "+std::to_string(effect.hit_count);}
                 else{detail+=" | value "+std::to_string(effect.amount)+" | duration "+std::to_string(effect.duration);}
                 out.push_back(detail);

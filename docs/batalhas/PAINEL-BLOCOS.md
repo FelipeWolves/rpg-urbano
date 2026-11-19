@@ -32,7 +32,7 @@ As siglas são identificadores internos das áreas do projeto, não nomes de fer
 
 | Bloco | Entrega validada | Evidência/limite |
 |---|---|---|
-| ✅ Escudo padrão (ESC-01–07) | Contrato comum implementado:1%/3 turnos;14 grupos nativos e build Editor | [Relatório](../projeto/ESCUDO-PADRAO.md); aceite visual continua pendente |
+| ✅ Escudo padrão (ESC-01–07) | Contrato comum implementado:1% com mínimo de1 ponto;3 turnos;14 grupos nativos e build Editor | [Relatório](../projeto/ESCUDO-PADRAO.md); aceite visual continua pendente |
 | ✅ FUN-01 | Fundação e organização | Visão, arquitetura e contratos |
 | ✅ FUN-02 | Diagnóstico inicial de ferramentas | Registro histórico; ambiente posterior em AMB-01 |
 | ✅ AMB-01 | C++20/MSVC x64 | Diagnóstico compilado e executado |

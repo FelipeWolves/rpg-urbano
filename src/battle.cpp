@@ -589,8 +589,7 @@ ActionResult Battle::apply(const Action& action) {
                 break;
             case EffectKind::StandardShield: {
                 // Integer division computes floor(1% max HP) without multiplication overflow.
-                const int points=actor.definition.max_health/100;
-                if(points==0){continue;}
+                const int points=std::max(1,actor.definition.max_health/100);
                 auto old=std::ranges::find(target.statuses,EffectKind::StandardShield,&Status::kind);
                 if(old==target.statuses.end()){
                     target.statuses.push_back({EffectKind::StandardShield,3,TickPolicy::NaturalOnly,turn_id_,points});

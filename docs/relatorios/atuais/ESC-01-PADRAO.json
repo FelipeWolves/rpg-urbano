@@ -1,7 +1,7 @@
 {
-  "CheckedUtc": "2026-11-19T18:42:28.0328684Z",
+  "CheckedUtc": "2026-11-19T19:08:56.2701958Z",
   "Passed": 14,
   "Total": 14,
-  "Scope": "Native standard shield contracts; no Unreal runtime or visual acceptance",
+  "Scope": "Native standard shield with minimum 1 point for valid direct application; explicit expected values, dead target, reapplication and clock contracts; no Unreal runtime acceptance",
   "EngineExecuted": false
 }

@@ -64,4 +64,4 @@ Interação gráfica compartilhada com o clássico: `-CombatProfile=Classic` hab
 
 Pesquisa e decisões: [questionário central por prioridade](docs/projeto/PENDENCIAS.md). ESC-01–07 estão definidos e implementados no caso comum; demais pontos continuam organizados por prioridade. [Índice atualizado](docs/README.md).
 
-Escudo padrão por habilidade:1% do PV máximo do aplicador por3 turnos naturais do protegido, com reaplicação por maior força/duração. [Contrato, testes e limites](docs/projeto/ESCUDO-PADRAO.md). A terceira habilidade ativa usa essa regra; passivas fixas históricas não foram convertidas. Aceite visual pendente.
+Escudo padrão por habilidade:1% do PV máximo do aplicador, para baixo com mínimo de1 ponto na aplicação válida, por3 turnos naturais do protegido, com reaplicação por maior força/duração. [Contrato, testes e limites](docs/projeto/ESCUDO-PADRAO.md). A terceira habilidade ativa usa essa regra; passivas fixas históricas não foram convertidas. Aceite visual pendente.

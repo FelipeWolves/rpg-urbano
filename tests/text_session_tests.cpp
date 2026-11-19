@@ -149,7 +149,7 @@ void integrated_reference_kits(){
     check(s.apply_slot(2,"B3").accepted() && s.battle().find("B3")->health==40 &&
           s.battle().find("A3")->statuses[0].magnitude==10,"hybrid active failed or consumed own passive");
     const auto response=s.choose_automatic_action();check(response && response->skill=="B3-terceira" &&
-          s.apply(*response).accepted() && s.battle().find("B3")->statuses.empty(),"80 max HP standard shield must round to zero, without restoring consumed opening shield");
+          s.apply(*response).accepted() && s.battle().find("B3")->statuses.size()==1 && s.battle().find("B3")->statuses[0].kind==EffectKind::StandardShield && s.battle().find("B3")->statuses[0].magnitude==1 && s.battle().find("B3")->statuses[0].remaining==3,"80 max HP standard shield must grant minimum 1 point for 3 turns, without restoring opening shield");
 }
 struct ReferenceScript {
     std::string input;

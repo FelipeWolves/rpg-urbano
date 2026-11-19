@@ -6,7 +6,7 @@ Atualizado em 19/11/2026. [Checklist histórico integral](historico/2026-11-18/T
 
 - [x] Receber, preservar e revisar a pesquisa de habilidades/itens.
 - [x] Registrar explicitamente todos os pontos da devolutiva em [PENDENCIAS.md](PENDENCIAS.md), com prioridades, exemplos e campos de resposta.
-- [x] P1: ESC-01 a ESC-07 respondidos; escudo padrão implementado e testado. [Contrato e limites](ESCUDO-PADRAO.md).
+- [x] P1: ESC-01 a ESC-07 respondidos; escudo padrão implementado e testado, com mínimo de1 ponto na aplicação válida aprovado posteriormente. [Contrato e limites](ESCUDO-PADRAO.md).
 - [ ] Em paralelo documental, pesquisar VIS/REG/SIS se desejado; não precisa fechar todas as extensões para avançar.
 - [ ] Aceite visual da revisão atual, após autorização específica de abertura; independe do catálogo completo.
 ## Concluído

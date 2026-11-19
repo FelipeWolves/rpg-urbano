@@ -130,3 +130,11 @@ Panorama JPEG, arte lateral PNG e dois MP4 recebidos; metadados locais conferido
 ## 2026-11-19 — dois acessos no panorama provisório
 
 Cadastro separado da arte para Evento Especial no outdoor e Batalha no dispositivo. Coordenadas normalizadas estimadas e rotas internas identificadas; terceiro adiado pelo usuário. Metadados validados; renderer/roteador ainda não ligados. Nenhuma edição de imagem, abertura de aplicativo ou mudança de combate.
+
+## 2026-11-19 — alvos do hub confirmados por marcação
+
+Imagem marcada do usuário resolve a localização do outdoor e do dispositivo. Âncoras/áreas normalizadas atualizadas no catálogo; marcação preservada localmente fora do Git. Não altera arte original, rotas ou quantidade de acessos e não implica botões já renderizados.
+
+## 2026-11-19 — HUB-01B por código sem abrir editor
+
+Parser JSON do hub, importação do panorama, projeção/clipping dos dois alvos e painel de evento/arena/volta. Entrada opt-in -Hub preserva arena direta. Sessão mantida na navegação, sem ações automáticas no hub pelo fluxo do HUD.10 grupos de apresentação e5 de alvos aprovados; compilação Editor registrada, sem execução gráfica/cook/pacote. Preparação37 entradas inclui catálogo/JPEG e regra de staging, não vídeos. Player/mobile continuam pendentes.

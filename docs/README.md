@@ -40,7 +40,7 @@ Atualizado em19/11/2026. Comece pelas sínteses atuais; relatórios datados deli
 
 [Mídias recebidas do HUB-01A](projeto/HUB-01A-RECURSOS.md): inventário real, catálogo e observações visuais, sem reprodução dos vídeos.
 
-[Acessos provisórios HUB-01B](projeto/HUB-01B-ACESSOS.md): Evento Especial e Batalha cadastrados; ligação gráfica pendente.
+[Acessos provisórios HUB-01B](projeto/HUB-01B-ACESSOS.md): Evento Especial e Batalha cadastrados; [ligação gráfica escrita/compilada](projeto/HUB-01B-IMPLEMENTACAO.md), execução pendente.
 
 [Briefing visual opcional para o usuário](projeto/BRIEFING-VISUAL-HUB.md): imagem marcada, aparência dos acessos e identidade/painel provisórios.
 

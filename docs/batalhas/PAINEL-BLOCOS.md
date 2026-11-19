@@ -112,3 +112,5 @@ Pesquisa recebida: [matriz de incorporação](../projeto/REVISAO-PESQUISA-HABILI
 HUB-01: referência recebida e imagens associadas em [HUB-01-REFERENCIAS.md](../projeto/HUB-01-REFERENCIAS.md). ⚠️ Proposta de escopo/contrato, sem implementação; não confundir com o aceite visual da arena.
 
 HUB-01A: ✅ fundação de dados/enquadramento testada (10 grupos nativos); ⚠️ imagem real, renderer/player, preferências de janela e rotação em aparelho pendentes. [Relatório](../projeto/HUB-01A-APRESENTACAO.md). Não encerra HUB integral.
+
+HUB-01B: ✅ código de JSON/panorama/rotas e projeção (5 grupos), compilação Editor; ⚠️ sem execução/aceite visual. [Relatório](../projeto/HUB-01B-IMPLEMENTACAO.md). Não marca HUB integral concluído.

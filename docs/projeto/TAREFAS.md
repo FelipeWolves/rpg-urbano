@@ -96,7 +96,8 @@ Não interrompe nem encerra o aceite VIS atual.
 - [x] Criar catálogo local versionado e validação de recursos previstos, sem mídia de terceiros incorporada.
 - [x] Receber arquivos e conferir formatos/dimensões; autoria própria declarada pelo usuário. [Inventário](HUB-01A-RECURSOS.md).
 - [ ] Confirmar recortes/composição e destinos da imagem: material atual mostra um terraço contínuo, não três alas distintas.
-- [ ] Ligar catálogo/renderer/player na Unreal; aplicar preferências antes da janela e orientação/restauração no celular.
+- [x] Ligar por código o subconjunto hub do catálogo e renderer/rotas; sem aceite de execução.
+- [ ] Player e preferências antes da janela; orientação/restauração reais no celular.
 - [ ] Aceite gráfico e em aparelho após autorização própria; sem atribuir execução real a teste de geometria.
 
 [Contrato e limites](HUB-01A-APRESENTACAO.md). Pode avançar como base independente sem modificar combate.
@@ -104,7 +105,8 @@ Não interrompe nem encerra o aceite VIS atual.
 ## HUB-01B — acessos provisórios
 
 - [x] Cadastrar Evento Especial no outdoor e Batalha no dispositivo; terceiro adiado pelo usuário.
-- [ ] Ligar renderer/roteador e testar posições/recortes; cadastro não torna o botão clicável.
+- [x] Escrever renderer/leitor de catálogo e roteador do hub;5 novos grupos nativos aprovados e compilação Unreal registrada.
+- [ ] Executar aceite gráfico do hub com autorização específica; posições/recortes e fluxo ainda não observados.
 - [ ] Evento permanece painel provisório até definição de conteúdo.
 
 [Definição e limites](HUB-01B-ACESSOS.md). Sem mudança de combate ou abertura de aplicativo.

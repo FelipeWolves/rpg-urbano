@@ -39,6 +39,8 @@ void AProbeArenaMode::BeginPlay()
 void AProbeArenaHUD::BeginPlay()
 {
     Super::BeginPlay();
+    HubEnabled=FParse::Param(FCommandLine::Get(),TEXT("Hub"));InHub=HubEnabled;
+    if(HubEnabled){LoadHubCatalog();}
     const auto layout=SelectedLayout();
     if(!layout){return;}
     std::vector<rpg::Definition> roster;
@@ -62,6 +64,10 @@ void AProbeArenaHUD::OpenInfo(const FString& title,const std::vector<std::string
 void AProbeArenaHUD::DrawHUD()
 {
     Super::DrawHUD();if(!Canvas || !PlayerOwner){return;}
+    if(HubEnabled && InHub){DrawHub();return;}
+    if(HubEnabled && PlayerOwner->WasInputKeyJustPressed(EKeys::Escape)){
+        if(!PopupLines.IsEmpty()){PopupLines.Empty();Gesture.cancel();}else{ReturnToHub();}return;
+    }
     auto view=Session.state();
     const double now=GetWorld()->GetTimeSeconds();
     const auto layout=SelectedLayout();
@@ -195,6 +201,7 @@ void AProbeArenaHUD::DrawHUD()
             Message=classic?TEXT("Choose a valid target."):TEXT("Target suggested. Change it or confirm.");return;
         }
     }
+    if(HubEnabled && PopupLines.IsEmpty() && button(20.f,bottom-42,130,30,TEXT("Voltar ao hub"),true)){ReturnToHub();return;}
     DrawText(Message,FColor::White,20,bottom+60);
     if(!running){DrawText(view.combat.battle.winner==rpg::Team::A?TEXT("Team A wins"):view.combat.battle.winner==rpg::Team::B?TEXT("Team B wins"):TEXT("Draw"),FColor::Yellow,20,62);}
     if(PopupLines.IsEmpty() && button(20.f,bottom,100,50,TEXT("Restart"),true)){

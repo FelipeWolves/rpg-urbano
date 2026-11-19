@@ -83,3 +83,9 @@ Política C++ de panorama/recortes e vídeo com proporção, intenção de orien
 Mídias HUB-01A recebidas: panorama JPEG, arte lateral PNG e dois MP4; nomes/dimensões reais cadastrados, autoria própria declarada. [Conferência](HUB-01A-RECURSOS.md). Vídeos não reproduzidos; arquivos permanecem locais e ignorados no Git até estratégia de versionamento. Recortes do terraço e integração de player ainda pendentes.
 
 HUB-01B: dois acessos definidos/cadastrados no panorama atual (Evento Especial no outdoor, Batalha no dispositivo), sem terceiro botão. [Definição e limites](HUB-01B-ACESSOS.md). Renderer/roteador pendentes; nenhuma interface aberta ou alteração da imagem.
+
+Imagem marcada recebida: outdoor com rosto feminino acima do lobo alado→Evento Especial; tela do dispositivo do homem→Batalha. Alvos confirmados e coordenadas atualizadas; referência preservada localmente sem alterar o panorama. Aceite visual e ligação gráfica continuam pendentes.
+
+## HUB-01B — ligação gráfica por código
+
+Parser do catálogo local, panorama único, dois acessos e navegação evento/arena/volta implementados para opção -Hub.10 grupos anteriores e5 novos de projeção aprovados; build Editor registrado sem abrir editor/aplicativo/commandlet.37 entradas preparadas, incluindo JSON e JPEG; sem vídeos ou cook/pacote. [Relatório](HUB-01B-IMPLEMENTACAO.md). Aceite visual/fluxo e integração do player continuam pendentes.

@@ -1,0 +1,12 @@
+{
+  "CheckedUtc": "2026-11-19T21:45:08.9581417Z",
+  "Passed": true,
+  "ExitCode": 0,
+  "Stage": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\p\\991ce5de\\RpgEngineProbe",
+  "Log": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\p\\991ce5de\\hub-links-editor-build.log",
+  "Scope": "Unreal hub JSON reader, image renderer and links/navigation; Editor compilation only",
+  "WindowOpened": false,
+  "RuntimeExecuted": false,
+  "CookExecuted": false,
+  "Packaged": false
+}

@@ -36,17 +36,17 @@
         "label": "Evento Especial",
         "route": "SpecialEventPlaceholder",
         "anchor": {
-          "x": 0.285,
-          "y": 0.13
+          "x": 0.2779796511627907,
+          "y": 0.107421875
         },
         "hitArea": {
-          "x": 0.25,
-          "y": 0.045,
-          "width": 0.085,
-          "height": 0.185
+          "x": 0.24309593023255813,
+          "y": 0.041015625,
+          "width": 0.06976744186046512,
+          "height": 0.1328125
         },
-        "positionStatus": "Provisional",
-        "location": "Outdoor luminoso acima do lobo a esquerda",
+        "positionStatus": "UserMarked",
+        "location": "Outdoor com rosto feminino acima do lobo alado, circulado pelo usuario",
         "visible": true
       },
       {
@@ -54,20 +54,21 @@
         "label": "Batalha",
         "route": "ReferenceBattle",
         "anchor": {
-          "x": 0.79,
-          "y": 0.535
+          "x": 0.7870639534883721,
+          "y": 0.576171875
         },
         "hitArea": {
-          "x": 0.75,
-          "y": 0.48,
-          "width": 0.085,
-          "height": 0.12
+          "x": 0.7609011627906976,
+          "y": 0.529296875,
+          "width": 0.05232558139534884,
+          "height": 0.09375
         },
-        "positionStatus": "Provisional",
-        "location": "Tela do dispositivo na mao do homem a direita",
+        "positionStatus": "UserMarked",
+        "location": "Tela do dispositivo na mao do homem a direita, circulada pelo usuario",
         "visible": true
       }
-    ]
+    ],
+    "hotspotReference": "assets/sources/hub-accesses-marked-2026-11-19.png"
   },
   "video": {
     "fit": "Contain",

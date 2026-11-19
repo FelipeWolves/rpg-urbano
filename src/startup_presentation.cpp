@@ -87,4 +87,34 @@ void validate_display(const StartupDisplay& display){
     valid_size(display.resolution);
     if(display.mode!=WindowMode::Windowed && display.mode!=WindowMode::Fullscreen){throw std::invalid_argument("Unknown window mode");}
 }
-} // namespace rpg::presentation
+void validate_hotspot(const HubHotspot& h){
+    const auto& r=h.source_area;
+    if(h.id.empty() || h.label.empty() || (h.route!=HubRoute::Battle && h.route!=HubRoute::SpecialEvent) ||
+       !std::isfinite(h.anchor_x) || !std::isfinite(h.anchor_y) ||
+       !std::isfinite(r.x) || !std::isfinite(r.y) || !std::isfinite(r.width) || !std::isfinite(r.height) ||
+       r.x<0 || r.y<0 || r.width<=0 || r.height<=0 || r.x+r.width>1 || r.y+r.height>1 ||
+       h.anchor_x<r.x || h.anchor_y<r.y || h.anchor_x>r.x+r.width || h.anchor_y>r.y+r.height){
+        throw std::invalid_argument("Invalid hub hotspot");
+    }
+}
+bool contains(const Rect& r,double x,double y) noexcept {
+    return std::isfinite(x) && std::isfinite(y) && r.width>0 && r.height>0 &&
+        x>=r.x && y>=r.y && x<r.x+r.width && y<r.y+r.height;
+}
+std::optional<ProjectedHotspot> project_hotspot(const HubPlan& plan,const HubHotspot& h){
+    validate_hotspot(h);
+    const auto& uv=plan.source_uv;const auto& content=plan.content;
+    if(!std::isfinite(uv.x) || !std::isfinite(uv.y) || !std::isfinite(uv.width) || !std::isfinite(uv.height) ||
+       uv.x<0 || uv.y<0 || uv.width<=0 || uv.height<=0 || uv.x+uv.width>1 || uv.y+uv.height>1 ||
+       !std::isfinite(content.x) || !std::isfinite(content.y) || !std::isfinite(content.width) || !std::isfinite(content.height) ||
+       content.width<=0 || content.height<=0){throw std::invalid_argument("Invalid hub projection");}
+    if(!h.visible){return {};}
+    const double x=std::max(uv.x,h.source_area.x),y=std::max(uv.y,h.source_area.y);
+    const double right=std::min(uv.x+uv.width,h.source_area.x+h.source_area.width);
+    const double bottom=std::min(uv.y+uv.height,h.source_area.y+h.source_area.height);
+    if(right<=x || bottom<=y){return {};}
+    const auto px=[&](double value){return content.x+(value-uv.x)*content.width/uv.width;};
+    const auto py=[&](double value){return content.y+(value-uv.y)*content.height/uv.height;};
+    return ProjectedHotspot{{px(x),py(y),px(right)-px(x),py(bottom)-py(y)},
+        px(std::clamp(h.anchor_x,x,right)),py(std::clamp(h.anchor_y,y,bottom))};
+}} // namespace rpg::presentation

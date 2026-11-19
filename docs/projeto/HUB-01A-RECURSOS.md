@@ -39,3 +39,5 @@ assets/runtime, assets/source e assets/sources ficam ignorados no Git enquanto n
 - Repetir validação: scripts/validar-recursos-apresentacao.ps1; confere presença e estrutura, sem decodificar vídeo.
 
 Recebimento técnico concluído. Próximo passo é ligar catálogo/renderização/player, confirmar papel/enquadramento da imagem e, com autorização específica, realizar o aceite gráfico. Nenhuma mudança de core/combate, instalação, conversão, execução de vídeo ou engine nesta conferência.
+
+Atualização posterior: a ligação por código do catálogo/panorama/acessos foi escrita e compilada em [HUB-01B-IMPLEMENTACAO.md](HUB-01B-IMPLEMENTACAO.md). Não significa vídeo executado ou fluxo gráfico aceito; próximo passo é conferência autorizada.

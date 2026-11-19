@@ -40,6 +40,24 @@ struct HubPlan {
     Rect source_uv;
     Rect content;
 };
+enum class HubRoute { SpecialEvent, Battle };
+struct HubHotspot {
+    std::string id;
+    std::string label;
+    HubRoute route;
+    double anchor_x;
+    double anchor_y;
+    Rect source_area;
+    bool visible=true;
+};
+struct ProjectedHotspot {
+    Rect hit_area;
+    double label_x;
+    double label_y;
+};
+void validate_hotspot(const HubHotspot& hotspot);
+[[nodiscard]] std::optional<ProjectedHotspot> project_hotspot(const HubPlan& plan,const HubHotspot& hotspot);
+[[nodiscard]] bool contains(const Rect& rect,double x,double y) noexcept;
 // Geometry/policy only: never opens a file, window, player, account or platform service.
 [[nodiscard]] Rect contain(PixelSize media,PixelSize viewport);
 [[nodiscard]] HubPlan plan_hub(PixelSize panorama,PixelSize viewport,Device device,

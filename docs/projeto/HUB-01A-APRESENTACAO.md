@@ -34,7 +34,7 @@ Fonte: include/rpg/startup_presentation.hpp e src/startup_presentation.cpp. Nenh
 
 O limiar Auto de1,5 e os tamanhos1280×720/3240×1920 são valores de trabalho configuráveis, não obrigação de produto. Retrato/paisagem não determinam tipo de entrada; o adaptador futuro tratará mouse/toque/controle separadamente.
 
-## O que ainda não está ligado ao aplicativo
+## Limites da entrega HUB-01A (atualização HUB-01B abaixo)
 
 - Leitura automática do JSON pelo runtime Unreal e conversão para as estruturas C++; atualmente catálogo e política têm contratos compatíveis, mas não estão ligados por parser.
 - Importação de arquivos para Content/pacote, carregar uma única textura real e efetivamente desenhar seus recortes.
@@ -79,3 +79,7 @@ Após receber arte/vídeo e autorização específica de abertura, escolher uma 
 ## Recebimento posterior
 
 Mídias recebidas e catálogo atualizado com nomes/dimensões reais,4 Ready por presença. Autoria própria declarada pelo usuário. [Conferência e limitações](HUB-01A-RECURSOS.md). A marcação anterior4 Planned/0 Ready descreve o catálogo inicial. Player, decodificação em engine e rotação real continuam pendentes.
+
+## Integração posterior por código
+
+HUB-01B escreveu o parser do subconjunto hub, carregamento do panorama, HUD e rotas locais; compilação sem execução. [Estado preciso](HUB-01B-IMPLEMENTACAO.md). Vídeo, preferências de janela e orientação nativa continuam pendentes. A lista anterior preserva o escopo da fundação, não deve ser usada para dizer que ainda falta escrever esse parser do hub.

@@ -1,11 +1,11 @@
 {
-  "CheckedUtc": "2026-11-19T20:51:34.5701804Z",
+  "CheckedUtc": "2026-11-19T21:44:11.7952783Z",
   "Status": "prepared_not_built",
   "EngineVersion": "5.8.4",
   "EngineChangelist": 58902052,
-  "Stage": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\p\\3014be3b\\RpgEngineProbe",
-  "Archive": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\p\\3014be3b\\archive",
-  "Plan": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\p\\3014be3b\\package-plan.json",
+  "Stage": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\p\\991ce5de\\RpgEngineProbe",
+  "Archive": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\p\\991ce5de\\archive",
+  "Plan": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\p\\991ce5de\\package-plan.json",
   "Target": "RpgEngineProbe",
   "Platform": "Win64",
   "Configuration": "Development",
@@ -27,7 +27,7 @@
       "StagedRelative": "Source/RpgEngineProbe.Target.cs"
     },
     {
-      "SHA256": "C27FFA0A769A3C246A50C007BC5E1E9BC60F56113A2273402CECA5DACC852C81",
+      "SHA256": "B7935143ABCBD8CA581CC8A73E21F933E62AE3DF306A2D8D37CEE121216328BD",
       "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/RpgEngineProbe.Build.cs",
       "StagedRelative": "Source/RpgEngineProbe/RpgEngineProbe.Build.cs"
     },
@@ -37,14 +37,19 @@
       "StagedRelative": "Source/RpgEngineProbe/RpgEngineProbe.cpp"
     },
     {
-      "SHA256": "E60829BAD4AB10617A0EF77EAF649EC089D6C3D0CB5CB88F25582C9C5E6A9E3F",
+      "SHA256": "92BB3C1CE45DF55D3EE84C11EAA48BFF5AB317001CC98F012406A6CC8E1DB885",
       "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/ProbeArena.h",
       "StagedRelative": "Source/RpgEngineProbe/ProbeArena.h"
     },
     {
-      "SHA256": "2588A631F9F52818C743C9C150F0756272D63257739FAD21DBCE7EA76364855D",
+      "SHA256": "7ABB7434D22C5FA8B5EEEBE4DB0253A7585B7136BCE980DAF30A4DCBF2D5F643",
       "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/ProbeArena.cpp",
       "StagedRelative": "Source/RpgEngineProbe/ProbeArena.cpp"
+    },
+    {
+      "SHA256": "A5A3811CAE5D4A872E92F88492F6825B851D550B75CBEF82B9CE1DF6E6F97DC4",
+      "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/ProbeHub.cpp",
+      "StagedRelative": "Source/RpgEngineProbe/ProbeHub.cpp"
     },
     {
       "SHA256": "14155E17335DF8522AFCB6B4CBBE26C7329DC4AEB3550F670E3C942D86206F49",
@@ -77,7 +82,7 @@
       "StagedRelative": "Config/DefaultEditorSettings.ini"
     },
     {
-      "SHA256": "0C3CAE03B91A479E37E8EF73F058993AEFCB2E64922E4BA5EFF083ED3FF8F2AE",
+      "SHA256": "2299F9793F79F60F69AC47509308E4254E5B7D9A5015D0ADAC7A94A3E5475250",
       "Original": "experiments/unreal/RpgEngineProbe/Config/DefaultGame.ini",
       "StagedRelative": "Config/DefaultGame.ini"
     },
@@ -172,14 +177,24 @@
       "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/battle_presentation.hpp"
     },
     {
-      "SHA256": "29BFE5D221E53E45B3EE75953EAD76C0096866CF735BC17DF0913995667E6B5B",
+      "SHA256": "A6BA6C3E9F6FA9675191791BB505CBD0CEC33B6D5E3C772864C83B01D15F8EA6",
       "Original": "src/startup_presentation.cpp",
       "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/startup_presentation.cpp"
     },
     {
-      "SHA256": "9791311A85F0FD76C2C5505042309112A562BC5629C034193CD2F8AB2B8ADBFD",
+      "SHA256": "22B22289E5E03062D8D4C7CFCD525159AA7ECAB8D2C1424A8726E92B72559C4E",
       "Original": "include/rpg/startup_presentation.hpp",
       "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/startup_presentation.hpp"
+    },
+    {
+      "SHA256": "5118F494D3587012B5D3DC124C0867BF4050E036BABA776CAFD8371D44173D8C",
+      "Original": "data/presentation/startup.json",
+      "StagedRelative": "Content/Presentation/data/presentation/startup.json"
+    },
+    {
+      "SHA256": "FD42446DFA8646BE4AC46977D78CBBE8DB6D3AF48D4A0FAFA0B57754372ED260",
+      "Original": "assets/runtime/hub/panorama.jpg",
+      "StagedRelative": "Content/Presentation/assets/runtime/hub/panorama.jpg"
     }
   ],
   "BuildExecuted": false,

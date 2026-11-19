@@ -20,6 +20,10 @@ if errorlevel 1 exit /b 11
 cl.exe %FLAGS% /I"$root/include" "$root/tests/startup_presentation_tests.cpp" "$build/startup_presentation.obj" /Fo"$build/tests.obj" /Fe"$build/tests.exe" /link /INCREMENTAL:NO
 if errorlevel 1 exit /b 12
 "$build/tests.exe"
+if errorlevel 1 exit /b 13
+cl.exe %FLAGS% /I"$root/include" "$root/tests/hub_hotspot_tests.cpp" "$build/startup_presentation.obj" /Fo"$build/hub_tests.obj" /Fe"$build/hub_tests.exe" /link /INCREMENTAL:NO
+if errorlevel 1 exit /b 14
+"$build/hub_tests.exe"
 exit /b %ERRORLEVEL%
 "@
 $batchPath=Join-Path $build 'testar.cmd';$batch | Set-Content $batchPath -Encoding ascii
@@ -27,5 +31,8 @@ $output=@(& $env:ComSpec /d /c $batchPath 2>&1 | ForEach-Object {$_.ToString()})
 $output | Set-Content (Join-Path $build 'resultado.log') -Encoding utf8
 $passed=$code -eq 0 -and $output -contains 'STARTUP_PRESENTATION_TESTS_RESULT passed=10 total=10'
 [ordered]@{CheckedUtc=[DateTime]::UtcNow.ToString('o');Passed=$passed;ExitCode=$code;Groups=10;Scope='Native hub image crop, video contain/orientation request and local metadata; no media playback/window/device execution';EngineExecuted=$false;DeviceRotationExecuted=$false} | ConvertTo-Json | Set-Content (Join-Path $root 'docs/relatorios/atuais/HUB-01A.json') -Encoding utf8
+$hotspotsPassed=$code -eq 0 -and $output -contains 'HUB_HOTSPOT_TESTS_RESULT passed=5 total=5'
+[ordered]@{CheckedUtc=[DateTime]::UtcNow.ToString('o');Passed=$hotspotsPassed;Groups=5;ExitCode=$code;Scope='Native hotspot projection/clipping/hit bounds; not Unreal UI acceptance';EngineExecuted=$false} | ConvertTo-Json | Set-Content (Join-Path $root 'docs/relatorios/atuais/HUB-01B.json') -Encoding utf8
 $output | ForEach-Object {Write-Output $_}
+if(!$hotspotsPassed){throw 'Hub hotspot tests failed'}
 if(!$passed){throw 'Startup presentation tests failed'}

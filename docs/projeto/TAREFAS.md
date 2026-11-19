@@ -94,8 +94,17 @@ Não interrompe nem encerra o aceite VIS atual.
 
 - [x] Registrar regras de vídeo e enquadramento recebidas diretamente do usuário; implementar política neutra e testes10/10.
 - [x] Criar catálogo local versionado e validação de recursos previstos, sem mídia de terceiros incorporada.
-- [ ] Receber arquivos autorais/licenciados e confirmar metadados/recortes.
+- [x] Receber arquivos e conferir formatos/dimensões; autoria própria declarada pelo usuário. [Inventário](HUB-01A-RECURSOS.md).
+- [ ] Confirmar recortes/composição e destinos da imagem: material atual mostra um terraço contínuo, não três alas distintas.
 - [ ] Ligar catálogo/renderer/player na Unreal; aplicar preferências antes da janela e orientação/restauração no celular.
 - [ ] Aceite gráfico e em aparelho após autorização própria; sem atribuir execução real a teste de geometria.
 
 [Contrato e limites](HUB-01A-APRESENTACAO.md). Pode avançar como base independente sem modificar combate.
+
+## HUB-01B — acessos provisórios
+
+- [x] Cadastrar Evento Especial no outdoor e Batalha no dispositivo; terceiro adiado pelo usuário.
+- [ ] Ligar renderer/roteador e testar posições/recortes; cadastro não torna o botão clicável.
+- [ ] Evento permanece painel provisório até definição de conteúdo.
+
+[Definição e limites](HUB-01B-ACESSOS.md). Sem mudança de combate ou abertura de aplicativo.

@@ -38,6 +38,12 @@ Atualizado em19/11/2026. Comece pelas sínteses atuais; relatórios datados deli
 
 [Base de apresentação HUB-01A](projeto/HUB-01A-APRESENTACAO.md): políticas nativas de panorama/vídeo e catálogo local; renderer/player/mobile ainda não ligados.
 
+[Mídias recebidas do HUB-01A](projeto/HUB-01A-RECURSOS.md): inventário real, catálogo e observações visuais, sem reprodução dos vídeos.
+
+[Acessos provisórios HUB-01B](projeto/HUB-01B-ACESSOS.md): Evento Especial e Batalha cadastrados; ligação gráfica pendente.
+
+[Briefing visual opcional para o usuário](projeto/BRIEFING-VISUAL-HUB.md): imagem marcada, aparência dos acessos e identidade/painel provisórios.
+
 ## Organização dos arquivos
 
 Núcleo em include/rpg e src; testes em tests; automação em scripts. [Experimento Unreal](../experiments/unreal/RpgEngineProbe/README.md) contém fonte versionada. Stages, objetos, pacotes, logs e saves ficam em build ignorado. Não editar fontes gerados ou mover núcleo para a engine.

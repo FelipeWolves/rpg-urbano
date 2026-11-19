@@ -22,6 +22,23 @@ foreach($name in @('Left','Center','Right')){
     if($region.x -lt 0 -or $region.y -lt 0 -or $region.width -le 0 -or $region.height -le 0 -or
        ($region.x+$region.width) -gt 1 -or ($region.y+$region.height) -gt 1){throw 'Hub region outside image'}
 }
+$hotspotIds=@()
+foreach($spot in $c.hub.hotspots){
+    if([string]::IsNullOrWhiteSpace($spot.id) -or $spot.id -in $hotspotIds -or [string]::IsNullOrWhiteSpace($spot.label)){throw 'Unique hotspot IDs and labels required'}
+    if($spot.route -notin @('SpecialEventPlaceholder','ReferenceBattle') -or $spot.visible -isnot [bool]){throw 'Unknown provisional hub route or visibility'}
+    foreach($key in @('x','y')){
+        if($null -eq $spot.anchor.$key -or ![double]::IsFinite([double]$spot.anchor.$key) -or $spot.anchor.$key -lt 0 -or $spot.anchor.$key -gt 1){throw 'Hotspot anchor outside source image'}
+    }
+    $area=$spot.hitArea
+    foreach($key in @('x','y','width','height')){
+        if($null -eq $area.$key -or ![double]::IsFinite([double]$area.$key)){throw 'Finite hotspot area required'}
+    }
+    if($area.x -lt 0 -or $area.y -lt 0 -or $area.width -le 0 -or $area.height -le 0 -or
+       ($area.x+$area.width) -gt 1 -or ($area.y+$area.height) -gt 1){throw 'Hotspot hit area outside source image'}
+    if($spot.anchor.x -lt $area.x -or $spot.anchor.y -lt $area.y -or
+       $spot.anchor.x -gt ($area.x+$area.width) -or $spot.anchor.y -gt ($area.y+$area.height)){throw 'Hotspot anchor outside its hit area'}
+    $hotspotIds+=$spot.id
+}
 if($c.video.fit -ne 'Contain' -or $c.video.fallback -ne 'ContinueToLocalEntry' -or $c.video.variantPreference -ne 'DeviceThenOther'){throw 'Unsupported video policy'}
 foreach($key in @('mobileRequestMatchingOrientation','restoreHubOrientationAfterPlayback','desktopPortraitSideComposition','allowSkip')){
     if($c.video.$key -isnot [bool]){throw 'Boolean video policy required'}
@@ -55,6 +72,6 @@ foreach($asset in $c.assets){
     $assets += [ordered]@{Id=$asset.id;Role=$asset.role;Status=$asset.status;FilePresenceChecked=($asset.status -eq 'Ready');FileExists=$exists;DimensionsDeclared=@($asset.width,$asset.height)}
 }
 foreach($role in @('HubPanorama','IntroDesktop','IntroMobile','SideArt')){if($role -notin $roles){throw 'Catalog role missing'}}
-$report=[ordered]@{CheckedUtc=[DateTime]::UtcNow.ToString('o');Passed=$true;SchemaVersion=1;Catalog='data/presentation/startup.json';Assets=$assets;MediaDecoded=$false;DimensionsReadFromFile=$false;EngineExecuted=$false;NetworkAccessed=$false;Scope='Catalog metadata and presence of declared Ready local files only; no runtime import/playback or license verification'}
+$report=[ordered]@{CheckedUtc=[DateTime]::UtcNow.ToString('o');Passed=$true;SchemaVersion=1;Catalog='data/presentation/startup.json';Assets=$assets;HotspotIds=$hotspotIds;HotspotRuntimeConnected=$false;MediaDecoded=$false;DimensionsReadFromFile=$false;EngineExecuted=$false;NetworkAccessed=$false;Scope='Catalog metadata and presence of declared Ready local files only; no runtime import/playback or license verification'}
 $report | ConvertTo-Json -Depth 6 | Set-Content (Join-Path $root 'docs/relatorios/atuais/HUB-01A-CATALOGO.json') -Encoding utf8
 'PRESENTATION_CATALOG_OK assets='+$assets.Count+' ready='+@($assets | Where-Object Status -eq 'Ready').Count

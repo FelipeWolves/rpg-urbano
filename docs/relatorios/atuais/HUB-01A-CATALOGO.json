@@ -1,5 +1,5 @@
 {
-  "CheckedUtc": "2026-11-19T20:54:36.5646399Z",
+  "CheckedUtc": "2026-11-19T21:28:56.5735053Z",
   "Passed": true,
   "SchemaVersion": 1,
   "Catalog": "data/presentation/startup.json",
@@ -7,48 +7,53 @@
     {
       "Id": "hub-panorama",
       "Role": "HubPanorama",
-      "Status": "Planned",
-      "FilePresenceChecked": false,
-      "FileExists": false,
+      "Status": "Ready",
+      "FilePresenceChecked": true,
+      "FileExists": true,
       "DimensionsDeclared": [
-        3240,
-        1920
+        2752,
+        1536
       ]
     },
     {
       "Id": "intro-desktop",
       "Role": "IntroDesktop",
-      "Status": "Planned",
-      "FilePresenceChecked": false,
-      "FileExists": false,
+      "Status": "Ready",
+      "FilePresenceChecked": true,
+      "FileExists": true,
       "DimensionsDeclared": [
-        1920,
-        1080
+        3840,
+        2160
       ]
     },
     {
       "Id": "intro-mobile",
       "Role": "IntroMobile",
-      "Status": "Planned",
-      "FilePresenceChecked": false,
-      "FileExists": false,
+      "Status": "Ready",
+      "FilePresenceChecked": true,
+      "FileExists": true,
       "DimensionsDeclared": [
-        1080,
-        1920
+        2160,
+        3840
       ]
     },
     {
       "Id": "intro-side-art",
       "Role": "SideArt",
-      "Status": "Planned",
-      "FilePresenceChecked": false,
-      "FileExists": false,
+      "Status": "Ready",
+      "FilePresenceChecked": true,
+      "FileExists": true,
       "DimensionsDeclared": [
-        1920,
-        1080
+        1672,
+        941
       ]
     }
   ],
+  "HotspotIds": [
+    "special-event",
+    "battle"
+  ],
+  "HotspotRuntimeConnected": false,
   "MediaDecoded": false,
   "DimensionsReadFromFile": false,
   "EngineExecuted": false,

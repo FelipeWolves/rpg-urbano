@@ -240,9 +240,11 @@ As respostas ESC também encerram partes dos itens abaixo. **Definido**, **imple
 
 **✅ Definido pelo usuário:** panorama compartilhado por áreas; enquadramento por resolução; vídeo horizontal solicita paisagem no celular; vídeo vertical central no desktop com arte lateral; variantes por dispositivo; janela/resolução ou tela cheia escolhidas antes da abertura.
 
-**✅ Base implementada:** política de recorte/proporção/orientação solicitada e metadados,10 testes próprios. Catálogo previsto sem mídia Ready. [Contrato completo](HUB-01A-APRESENTACAO.md).
+**✅ Base implementada:** política de recorte/proporção/orientação solicitada e metadados,10 testes próprios. Catálogo atualizado com4 mídias recebidas/cadastradas; autoria própria declarada, metadados conferidos em HUB-01A-RECURSOS.md. [Contrato completo](HUB-01A-APRESENTACAO.md).
 
-**⚠️ Restante:** receber arte/vídeo e direitos; metadados reais; parser do catálogo no runtime; renderer do hub e hitboxes; player/codec; configurações antes de criar janela; rotação/restauração reais e áreas seguras; desempenho e testes mobile. Não reabrir os requisitos já dados só porque a integração ainda falta.
+**⚠️ Restante:** confirmar recortes/função da imagem (terraço único versus três alas) e compatibilidade real de vídeo; estratégia de distribuição/versionamento de mídias grandes; parser do catálogo no runtime; renderer do hub e hitboxes; player/codec; configurações antes de criar janela; rotação/restauração reais e áreas seguras; desempenho e testes mobile. Não reabrir os requisitos já dados só porque a integração ainda falta.
+
+Dois acessos da imagem atual definidos: Evento Especial no outdoor e Batalha no dispositivo; terceiro adiado pelo usuário. Posições provisórias/rotas cadastradas; ligação gráfica pendente em [HUB-01B-ACESSOS.md](HUB-01B-ACESSOS.md).
 
 O contrato de câmera do hub não é o perfil de combate clássico. Perguntas de avatar/destinos permanecem em HUB-01-REFERENCIAS.md. Essa frente não altera ESC-01–07 nem resolve mobile pela compilação Windows.
 

@@ -79,3 +79,7 @@ Quatro capturas associadas ao texto por conteúdo visual em [HUB-01-REFERENCIAS.
 ## HUB-01A — base de apresentação
 
 Política C++ de panorama/recortes e vídeo com proporção, intenção de orientação mobile e composição lateral desktop implementada;10 grupos próprios aprovados. Catálogo local validado com4 Planned/0 Ready. [Relatório e limites](HUB-01A-APRESENTACAO.md). Ainda sem carregamento real de imagem/player, preferências aplicadas à janela ou execução mobile. Nenhuma regra de combate mudou.
+
+Mídias HUB-01A recebidas: panorama JPEG, arte lateral PNG e dois MP4; nomes/dimensões reais cadastrados, autoria própria declarada. [Conferência](HUB-01A-RECURSOS.md). Vídeos não reproduzidos; arquivos permanecem locais e ignorados no Git até estratégia de versionamento. Recortes do terraço e integração de player ainda pendentes.
+
+HUB-01B: dois acessos definidos/cadastrados no panorama atual (Evento Especial no outdoor, Batalha no dispositivo), sem terceiro botão. [Definição e limites](HUB-01B-ACESSOS.md). Renderer/roteador pendentes; nenhuma interface aberta ou alteração da imagem.

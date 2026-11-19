@@ -75,3 +75,7 @@ A bateria de combate anterior não foi repetida: não houve mudança em seus fon
 ## Próxima integração
 
 Após receber arte/vídeo e autorização específica de abertura, escolher uma primeira ligação gráfica: carregar o panorama e alternar regiões com HUD independente; depois integrar o player e suas preferências de inicialização. Dados/câmera/vídeo usam esta mesma política em vez de duplicar fórmulas por tela. Backend, autenticação real e SDKs de lojas continuam fora desta entrega.
+
+## Recebimento posterior
+
+Mídias recebidas e catálogo atualizado com nomes/dimensões reais,4 Ready por presença. Autoria própria declarada pelo usuário. [Conferência e limitações](HUB-01A-RECURSOS.md). A marcação anterior4 Planned/0 Ready descreve o catálogo inicial. Player, decodificação em engine e rotação real continuam pendentes.

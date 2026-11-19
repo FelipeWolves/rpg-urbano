@@ -122,3 +122,11 @@ Adicionado PROGRESSO-GERAL.md em destaque no README: estimativas por área, lacu
 ## 2026-11-19 — HUB-01A: base de imagem/vídeo por dispositivo
 
 Política C++ para panorama/regiões configuráveis, proporção de vídeo, intenção de orientação mobile e laterais no desktop. Preferências antes da janela e variantes de mídia registradas em catálogo versionado, com validador local;4 Planned/0 Ready.10 grupos nativos aprovados; nenhuma regra de combate alterada. Runtime JSON/renderer/player, orientação nativa e teste em aparelho continuam pendentes. Recursos/arte não gerados nem baixados; sem novas dependências.
+
+## 2026-11-19 — recebimento das mídias do hub/entrada
+
+Panorama JPEG, arte lateral PNG e dois MP4 recebidos; metadados locais conferidos sem player e catálogo atualizado para nomes/dimensões reais. Autoria/geração própria declarada pelo usuário. Acrescentado script de inspeção e relatório; mídias/fontes preservadas e ignoradas no Git até estratégia de grandes arquivos. Não houve mudança no combate, conversão ou execução de vídeo/engine.
+
+## 2026-11-19 — dois acessos no panorama provisório
+
+Cadastro separado da arte para Evento Especial no outdoor e Batalha no dispositivo. Coordenadas normalizadas estimadas e rotas internas identificadas; terceiro adiado pelo usuário. Metadados validados; renderer/roteador ainda não ligados. Nenhuma edição de imagem, abertura de aplicativo ou mudança de combate.

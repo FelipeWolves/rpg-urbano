@@ -11,10 +11,63 @@
     "view": "Auto",
     "panoramicMinAspect": 1.5,
     "regions": {
-      "Left": { "x": 0, "y": 0, "width": 0.3333333333333333, "height": 1 },
-      "Center": { "x": 0.3333333333333333, "y": 0, "width": 0.3333333333333333, "height": 1 },
-      "Right": { "x": 0.6666666666666666, "y": 0, "width": 0.3333333333333333, "height": 1 }
-    }
+      "Left": {
+        "x": 0,
+        "y": 0,
+        "width": 0.3333333333333333,
+        "height": 1
+      },
+      "Center": {
+        "x": 0.3333333333333333,
+        "y": 0,
+        "width": 0.3333333333333333,
+        "height": 1
+      },
+      "Right": {
+        "x": 0.6666666666666666,
+        "y": 0,
+        "width": 0.3333333333333333,
+        "height": 1
+      }
+    },
+    "hotspots": [
+      {
+        "id": "special-event",
+        "label": "Evento Especial",
+        "route": "SpecialEventPlaceholder",
+        "anchor": {
+          "x": 0.285,
+          "y": 0.13
+        },
+        "hitArea": {
+          "x": 0.25,
+          "y": 0.045,
+          "width": 0.085,
+          "height": 0.185
+        },
+        "positionStatus": "Provisional",
+        "location": "Outdoor luminoso acima do lobo a esquerda",
+        "visible": true
+      },
+      {
+        "id": "battle",
+        "label": "Batalha",
+        "route": "ReferenceBattle",
+        "anchor": {
+          "x": 0.79,
+          "y": 0.535
+        },
+        "hitArea": {
+          "x": 0.75,
+          "y": 0.48,
+          "width": 0.085,
+          "height": 0.12
+        },
+        "positionStatus": "Provisional",
+        "location": "Tela do dispositivo na mao do homem a direita",
+        "visible": true
+      }
+    ]
   },
   "video": {
     "fit": "Contain",
@@ -26,9 +79,45 @@
     "variantPreference": "DeviceThenOther"
   },
   "assets": [
-    { "id": "hub-panorama", "role": "HubPanorama", "status": "Planned", "path": "assets/runtime/hub/panorama.png", "width": 3240, "height": 1920, "origin": "", "rights": "" },
-    { "id": "intro-desktop", "role": "IntroDesktop", "status": "Planned", "path": "assets/runtime/video/intro-desktop.mp4", "width": 1920, "height": 1080, "origin": "", "rights": "" },
-    { "id": "intro-mobile", "role": "IntroMobile", "status": "Planned", "path": "assets/runtime/video/intro-mobile.mp4", "width": 1080, "height": 1920, "origin": "", "rights": "" },
-    { "id": "intro-side-art", "role": "SideArt", "status": "Planned", "path": "assets/runtime/video/intro-side-art.png", "width": 1920, "height": 1080, "origin": "", "rights": "" }
+    {
+      "id": "hub-panorama",
+      "role": "HubPanorama",
+      "status": "Ready",
+      "path": "assets/runtime/hub/panorama.jpg",
+      "width": 2752,
+      "height": 1536,
+      "origin": "Criado/gerado pelo usuario, conforme declaracao nesta conversa.",
+      "rights": "Autoria/geracao propria declarada; uso no projeto informado pelo usuario; sem licenca publica de redistribuicao definida."
+    },
+    {
+      "id": "intro-desktop",
+      "role": "IntroDesktop",
+      "status": "Ready",
+      "path": "assets/runtime/video/intro-desk.mp4",
+      "width": 3840,
+      "height": 2160,
+      "origin": "Criado/gerado pelo usuario, conforme declaracao nesta conversa.",
+      "rights": "Autoria/geracao propria declarada; uso no projeto informado pelo usuario; sem licenca publica de redistribuicao definida."
+    },
+    {
+      "id": "intro-mobile",
+      "role": "IntroMobile",
+      "status": "Ready",
+      "path": "assets/runtime/video/intro-mobile.mp4",
+      "width": 2160,
+      "height": 3840,
+      "origin": "Criado/gerado pelo usuario, conforme declaracao nesta conversa.",
+      "rights": "Autoria/geracao propria declarada; uso no projeto informado pelo usuario; sem licenca publica de redistribuicao definida."
+    },
+    {
+      "id": "intro-side-art",
+      "role": "SideArt",
+      "status": "Ready",
+      "path": "assets/runtime/video/intro-side-art.png",
+      "width": 1672,
+      "height": 941,
+      "origin": "Criado/gerado pelo usuario, conforme declaracao nesta conversa.",
+      "rights": "Autoria/geracao propria declarada; uso no projeto informado pelo usuario; sem licenca publica de redistribuicao definida."
+    }
   ]
 }

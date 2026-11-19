@@ -71,3 +71,5 @@ Preservar projeto3D, recursos e licença/autoria, além do arquivo de vídeo fin
 Fechamento: texto sem corte e batalha/seleção confirmados pelo usuário; seletor/mobile/fluidez continuam pendentes. Percentuais acima revisados e mantidos nesta etapa documental, sem aumento por commit ou lançadores.
 
 Organização da coleta: [central por área](../../entregas/README.md). Todos os percentuais foram revisados e permanecem iguais nesta entrega exclusivamente documental; guias/pastas não representam funcionalidade nova. O índice de recebimento não deve ser usado para calcular progresso do jogo.
+
+Correção pontual do seletor implementada, sem aceite visual ainda; percentuais mantidos. [Relatório](VIS-SELETOR-CHAO.md).

@@ -6,6 +6,7 @@
 #include "rpg/arena_layout.hpp"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/Canvas.h"
+#include "DrawDebugHelpers.h"
 #include "Engine/StaticMesh.h"
 #include "Engine/StaticMeshActor.h"
 #include "Engine/World.h"
@@ -139,12 +140,16 @@ void AProbeArenaHUD::DrawHUD()
             if(fighter.health>0 && (SelectedTarget==id || (classic && validTarget(fighter.definition.id) && inside(x,y,width-28,40)))){
                 FString style;FParse::Value(FCommandLine::Get(),TEXT("TargetMarker="),style);
                 const int32 segments=style==TEXT("Diamond")?4:28;
-                FVector2D previous=FVector2D::ZeroVector;bool previousValid=false;
-                for(int32 step=0;step<=segments;++step){
-                    const float angle=2*PI*step/segments;FVector2D point=FVector2D::ZeroVector;
-                    const bool valid=PlayerOwner->ProjectWorldLocationToScreen(it->GetActorLocation()+FVector(75*FMath::Cos(angle),75*FMath::Sin(angle),-52),point);
-                    if(valid && previousValid){DrawLine(static_cast<float>(previous.X),static_cast<float>(previous.Y),static_cast<float>(point.X),static_cast<float>(point.Y),FLinearColor(0.3f,0.95f,1.f),3);}
-                    previous=point;previousValid=valid;
+                // World-depth lines sit at the model's feet instead of painting over its silhouette.
+                FVector center,extent;it->GetActorBounds(false,center,extent);
+                const float radius=FMath::Max(extent.X,extent.Y)*1.5f;
+                const FVector base(center.X,center.Y,center.Z-extent.Z+1.f);
+                FVector previous=base+FVector(radius,0,0);
+                for(int32 step=1;step<=segments;++step){
+                    const float angle=2*PI*step/segments;
+                    const FVector point=base+FVector(radius*FMath::Cos(angle),radius*FMath::Sin(angle),0);
+                    DrawDebugLine(GetWorld(),previous,point,FColor(77,242,255),false,-1.f,0,3.f);
+                    previous=point;
                 }
             }
         }

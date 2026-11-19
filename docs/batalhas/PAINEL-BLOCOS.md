@@ -122,3 +122,5 @@ Atualização vigente da identidade: fontes Cormorant Garamond/Lora e PNG da log
 Aceite do usuário: ✅ texto sem corte, seleção e funcionamento básico de batalha; ⚠️ seletor sobreposto, apresentação mobile e fluidez pendentes. Não encerra VIS integral. [Registro](../projeto/HUB-IDENTIDADE.md).
 
 Coleta independente: [guias por grupo e recebimento](../../entregas/README.md). Organização documental concluída; nenhum bloco de combate recebeu novo aceite por esta entrega. Pendências REG/SIS/VIS permanecem na fonte central e contratos fechados não foram reabertos.
+
+Seletor: código corrigido para profundidade3D; ⚠️ aceite visual pendente do usuário. [Limites](../projeto/VIS-SELETOR-CHAO.md). Não encerra VIS integral.

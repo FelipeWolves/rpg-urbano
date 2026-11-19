@@ -509,3 +509,5 @@ Documento do usuário preservado e comparado aos contratos. [Revisão e matriz](
 ### Fechamento e próxima entrega
 
 ✅ Usuário confirmou texto sem corte, seleção funcional e batalha conforme combinado. Fontes/logo conectadas; aceite integral ainda parcial. ⚠️ Próximo: seletor no chão sob a unidade, sem sobrepor a esfera. Investigar apresentação mobile separadamente; fluidez aguarda critérios. Prévia por Abrir-Preview.cmd; editor por Abrir-Editor.cmd, ambos usando build aprovado. Nesta entrega final só se validaram os lançadores sem abrir programas. [Evidências](HUB-IDENTIDADE.md).
+
+Seletor: correção por linhas3D com profundidade junto à base do modelo implementada; aceite visual delegado ao usuário, sem abrir a prévia nesta entrega. [Escopo e roteiro](VIS-SELETOR-CHAO.md). Não altera regras nem resolve mobile/fluidez; próximo passo é conferir a correção.

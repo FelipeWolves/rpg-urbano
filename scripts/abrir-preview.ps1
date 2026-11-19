@@ -2,7 +2,9 @@
 param([switch]$Editor,[switch]$ValidateOnly)
 $ErrorActionPreference='Stop'
 $root=Split-Path $PSScriptRoot -Parent
-$report=Get-Content (Join-Path $root 'docs/relatorios/atuais/HUB-IDENTIDADE-BUILD.json') -Raw|ConvertFrom-Json
+$buildReport=Join-Path $root 'docs/relatorios/atuais/PREVIEW-BUILD.json'
+if(!(Test-Path -LiteralPath $buildReport)){$buildReport=Join-Path $root 'docs/relatorios/atuais/HUB-IDENTIDADE-BUILD.json'}
+$report=Get-Content $buildReport -Raw|ConvertFrom-Json
 if(!$report.Passed){throw 'The current prototype build is not approved.'}
 $stage=[IO.Path]::GetFullPath($report.Stage)
 $boundary=[IO.Path]::GetFullPath((Join-Path $root 'build/p'))+[IO.Path]::DirectorySeparatorChar

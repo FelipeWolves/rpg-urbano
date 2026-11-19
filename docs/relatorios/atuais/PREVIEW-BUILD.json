@@ -1,0 +1,10 @@
+{
+  "CheckedUtc": "2026-11-19T23:14:24.2538684Z",
+  "Log": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\p\\09a2c038/marker-output.log",
+  "RuntimeExecuted": false,
+  "Passed": true,
+  "ExitCode": 0,
+  "Stage": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\p\\09a2c038\\RpgEngineProbe",
+  "Scope": "Depth-tested world marker compilation only",
+  "VisualAcceptance": "Pending user check"
+}

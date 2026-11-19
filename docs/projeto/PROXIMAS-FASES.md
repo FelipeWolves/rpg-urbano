@@ -47,3 +47,5 @@ Prioridade imediata após o fechamento: corrigir seletor sobreposto à esfera, v
 ## Trabalho independente durante a pausa
 
 Guias detalhados por grupo e pastas de recebimento em [entregas/README.md](../../entregas/README.md). Ali estão separados: informação que falta, recurso que pode ser produzido agora, trabalho que exige código e dependência futura. Receber material não inicia automaticamente um bloco. Ao retomar, conferir somente novidades, reconciliar com pendências e manter a ordem crítica deste plano.
+
+Seletor: correção por linhas3D com profundidade junto à base do modelo implementada; aceite visual delegado ao usuário, sem abrir a prévia nesta entrega. [Escopo e roteiro](VIS-SELETOR-CHAO.md). Não altera regras nem resolve mobile/fluidez; próximo passo é conferir a correção.

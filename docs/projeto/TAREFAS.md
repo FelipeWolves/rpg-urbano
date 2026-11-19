@@ -6,7 +6,7 @@ Atualizado em 19/11/2026. [Checklist histórico integral](historico/2026-11-18/T
 
 - [x] Receber, preservar e revisar a pesquisa de habilidades/itens.
 - [x] Registrar explicitamente todos os pontos da devolutiva em [PENDENCIAS.md](PENDENCIAS.md), com prioridades, exemplos e campos de resposta.
-- [ ] P1: usuário decidir ESC-01 a ESC-07; depois implementar/testar um escudo percentual original sem alterar escudos fixos implicitamente.
+- [x] P1: ESC-01 a ESC-07 respondidos; escudo padrão implementado e testado. [Contrato e limites](ESCUDO-PADRAO.md).
 - [ ] Em paralelo documental, pesquisar VIS/REG/SIS se desejado; não precisa fechar todas as extensões para avançar.
 - [ ] Aceite visual da revisão atual, após autorização específica de abertura; independe do catálogo completo.
 ## Concluído
@@ -74,7 +74,7 @@ Interação inicial implementada e compilada em19/11/2026: ícone/painéis, faix
 
 - [x] Adaptador explícito Classic, ataque/defesa do núcleo, efeitos e consultas compartilhados;6 novos grupos nativos aprovados e build Editor aprovado.
 - [ ] Gerar pacote atualizado e realizar aceite visual específico dos dois perfis, formações e resoluções, após autorização de abertura.
-- [ ] Fechar ESC-01 a ESC-07 no registro central antes de alterar efeitos.
+- [x] Fechar ESC-01 a ESC-07 e implementar o caso comum; extensões futuras permanecem separadas.
 
 Roteiro e limites: [VIS-01-CLASSICO-INTERACAO.md](VIS-01-CLASSICO-INTERACAO.md). Sem inventário/especiais cadastrados no encontro clássico e sem equivalência declarada com Dislyte.
 

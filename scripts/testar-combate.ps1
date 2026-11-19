@@ -116,6 +116,10 @@ cl.exe %FLAGS% /I"$root\include" "$root\tests\classic_visual_tests.cpp" "$build\
 if errorlevel 1 exit /b 78
 "$build\classic_visual_tests.exe"
 if errorlevel 1 exit /b 79
+cl.exe %FLAGS% /I"$root\include" "$root\tests\standard_shield_tests.cpp" "$build\battle.obj" "$build\stage.obj" "$build\sequential.obj" "$build\shared_boss.obj" "$build\ability_profile.obj" "$build\local_session.obj" "$build\reference_encounter.obj" "$build\visual_session.obj" "$build\battle_presentation.obj" /Fo"$build\standard_shield_tests.obj" /Fe"$build\standard_shield_tests.exe" /link /INCREMENTAL:NO
+if errorlevel 1 exit /b 80
+"$build\standard_shield_tests.exe"
+if errorlevel 1 exit /b 81
 cl.exe %FLAGS% /I"$root\include" /c "$root\src\text_session.cpp" /Fo"$build\text_session.obj"
 if errorlevel 1 exit /b 48
 cl.exe %FLAGS% /I"$root\include" "$root\tests\text_session_tests.cpp" "$build\battle.obj" "$build\ability_profile.obj" "$build\team_selection.obj" "$build\local_session.obj" "$build\save_game.obj" "$build\save_store_windows.obj" "$build\text_session.obj" "$build\reference_encounter.obj" /Fo"$build\text_session_tests.obj" /Fe"$build\text_session_tests.exe" /link /INCREMENTAL:NO
@@ -156,6 +160,9 @@ if($presentationResults.Count -ne 1){throw 'Presentation contracts failed or mis
 $classicResults=@($messages | Where-Object {$_ -eq 'CLASSIC_VIS_TESTS_RESULT passed=6 total=6'})
 if($classicResults.Count -ne 1){throw 'Classic presentation contracts failed or missing'}
 [ordered]@{CheckedUtc=[DateTime]::UtcNow.ToString('o');Passed=6;Total=6;Scope='Native Classic adapter, defense, targets, information, atomicity and battle completion; no Unreal UI';EngineExecuted=$false} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $root 'docs/relatorios/atuais/VIS-01-CLASSICO.json') -Encoding utf8
+$shieldResults=@($messages | Where-Object {$_ -eq 'STANDARD_SHIELD_TESTS_RESULT passed=14 total=14'})
+if($shieldResults.Count -ne 1){throw 'Standard shield tests failed or missing'}
+[ordered]@{CheckedUtc=[DateTime]::UtcNow.ToString('o');Passed=14;Total=14;Scope='Native standard shield contracts; no Unreal runtime or visual acceptance';EngineExecuted=$false} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $root 'docs/relatorios/atuais/ESC-01-PADRAO.json') -Encoding utf8
 $testResult = @($messages | Where-Object { $_ -match '^TESTS_RESULT passed=(\d+) total=(\d+)$' })
 $simulation = @($messages | Where-Object { $_ -match '^SIMULATION_OK ' })
 if ($testResult.Count -ne 1 -or $simulation.Count -ne 1) { throw 'Resultado esperado ausente.' }

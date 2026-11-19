@@ -43,3 +43,6 @@ Fontes compartilhados canônicos: arena_layout e battle_presentation em include/
 As câmeras anteriores foram observadas no pacote; a interação revisada (painéis, escudo real, consulta prolongada e novo perfil clássico) passou nos testes nativos e build Editor, sem novo pacote/inspeção visual. Não usar o pacote anterior para validar código que ele não contém. [Entrega e evidências](../../../docs/projeto/VIS-01-CLASSICO-INTERACAO.md), [questionário](../../../docs/projeto/PENDENCIAS.md).
 
 Preparar não compila nem abre; empacotar compila/cook/stage/archive sem abrir o aplicativo. O roteiro testar-apresentacao-arena.ps1 abre o pacote de layout registrado e depende de autorização específica; ele não é um teste genérico da revisão mais recente. Não abrir editor, pacote ou mudar rede por inferência documental.
+## Escudo padrão
+
+A terceira ativa do cenário usa StandardShield (1% do máximo do aplicador,3 turnos naturais do protegido). Consultas/vida/escudo recebem os pontos reais do mesmo núcleo. Build Editor desta revisão aprovado; pacote anterior não contém a mudança. Passivas fixas de abertura preservadas. Contrato em [ESCUDO-PADRAO.md](../../../docs/projeto/ESCUDO-PADRAO.md); sem autorização implícita para abrir editor ou aplicativo.

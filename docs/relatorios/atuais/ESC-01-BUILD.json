@@ -1,0 +1,10 @@
+{
+  "CheckedUtc": "2026-11-19T18:38:05.8227014Z",
+  "Passed": true,
+  "ExitCode": 0,
+  "Stage": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\p\\ac57b704\\RpgEngineProbe",
+  "Log": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\p\\ac57b704\\standard-shield-editor-build.log",
+  "Scope": "Standard shield core, arena metadata and UI compilation; no runtime acceptance",
+  "WindowOpened": false,
+  "Packaged": false
+}

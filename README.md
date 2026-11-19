@@ -62,4 +62,6 @@ Apresentações da arena: padrão em profundidade (aliados próximos, inimigos a
 
 Interação gráfica compartilhada com o clássico: `-CombatProfile=Classic` habilita suas regras de ataque/defesa; `-ArenaLayout=Classic` continua independente e só muda a câmera. [Implementação, validação e próximo aceite](docs/projeto/VIS-01-CLASSICO-INTERACAO.md). Compilação aprovada; pacotes anteriores não incluem a revisão e seu aceite visual está pendente.
 
-Pesquisa e decisões: [questionário central por prioridade](docs/projeto/PENDENCIAS.md). ESC-01–07 são necessários para o próximo escudo; demais pontos podem ser pesquisados juntos sem bloquear esse incremento. [Índice atualizado](docs/README.md).
+Pesquisa e decisões: [questionário central por prioridade](docs/projeto/PENDENCIAS.md). ESC-01–07 estão definidos e implementados no caso comum; demais pontos continuam organizados por prioridade. [Índice atualizado](docs/README.md).
+
+Escudo padrão por habilidade:1% do PV máximo do aplicador por3 turnos naturais do protegido, com reaplicação por maior força/duração. [Contrato, testes e limites](docs/projeto/ESCUDO-PADRAO.md). A terceira habilidade ativa usa essa regra; passivas fixas históricas não foram convertidas. Aceite visual pendente.

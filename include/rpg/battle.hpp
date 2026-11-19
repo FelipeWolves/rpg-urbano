@@ -20,7 +20,7 @@ enum class TurnKind { Natural, Extra };
 enum class TickPolicy { NaturalOnly, EveryTurn };
 enum class TargetRule { Enemy, Ally, Self };
 enum class EffectKind { Damage, ChangeAP, SetSpeed, ExtraTurn, Block, Marker, Counter, FreezeCooldowns,
-                        Reflect, DeathExplosion, PreventDeath, AutoRevive, Shield, StructuralShield };
+                        Reflect, DeathExplosion, PreventDeath, AutoRevive, Shield, StructuralShield, StandardShield };
 enum class ExtraOrigin { Ability, Equipment, Custom };
 enum class HitSelection { FixedTarget, LowestHealthEnemy };
 enum class StatusCategory { Temporary, Permanent, Structural };

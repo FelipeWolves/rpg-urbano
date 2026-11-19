@@ -104,6 +104,13 @@ Battle::Battle(std::vector<Definition> definitions, BattleRules rules,
                 sources.emplace_back(skill.owner, source);
             }
             switch (effect.kind) {
+            case EffectKind::StandardShield:
+                if(effect.amount!=0 || effect.duration!=0 || effect.clock!=TickPolicy::NaturalOnly ||
+                   effect.category!=StatusCategory::Temporary || effect.charges!=1 ||
+                   (skill.target!=TargetRule::Self && skill.target!=TargetRule::Ally)) {
+                    throw std::invalid_argument("Standard shield requires fixed parameters and living ally target");
+                }
+                break;
             case EffectKind::ChangeAP:
                 if (rules_.timing != TimingProfile::ActionBar || effect.amount < -bar_max || effect.amount > bar_max) {
                     throw std::invalid_argument("Invalid AP effect");
@@ -185,15 +192,16 @@ Battle::Battle(std::vector<Definition> definitions, BattleRules rules,
                  status.kind != EffectKind::FreezeCooldowns && status.kind != EffectKind::Reflect &&
                  status.kind != EffectKind::DeathExplosion && status.kind != EffectKind::PreventDeath &&
                  status.kind != EffectKind::AutoRevive && status.kind != EffectKind::Shield &&
-                 status.kind != EffectKind::StructuralShield) ||
+                 status.kind != EffectKind::StructuralShield && status.kind != EffectKind::StandardShield) ||
                 !valid_duration(status.category,status.remaining) || !valid_clock(status.clock)) {
                 throw std::invalid_argument("Invalid status state");
             }
             if ((status.kind == EffectKind::Reflect || status.kind == EffectKind::DeathExplosion ||
                  status.kind == EffectKind::AutoRevive || status.kind==EffectKind::Shield ||
-                 status.kind==EffectKind::StructuralShield) && status.magnitude <= 0) {
+                 status.kind==EffectKind::StructuralShield || status.kind==EffectKind::StandardShield) && status.magnitude <= 0) {
                 throw std::invalid_argument("Invalid consequence magnitude");
             }
+            if(status.kind==EffectKind::StandardShield && (fighter.health==0 || status.clock!=TickPolicy::NaturalOnly || status.category!=StatusCategory::Temporary)){throw std::invalid_argument("Invalid standard shield state");}
             if ((status.kind==EffectKind::Shield && status.category!=StatusCategory::Temporary) ||
                 (status.kind==EffectKind::StructuralShield && status.category!=StatusCategory::Structural)) {
                 throw std::invalid_argument("Invalid shield category");
@@ -370,7 +378,7 @@ void Battle::apply_damage(std::size_t emitter, std::size_t target_index, int pow
     if (target.health==0 || phase_!=Phase::Running) {return;}
     const auto begin=events.size();
     // Guard has already mitigated the hit. Ordinary shield precedes the structural layer.
-    for(const auto kind:{EffectKind::Shield,EffectKind::StructuralShield}) {
+    for(const auto kind:{EffectKind::StandardShield,EffectKind::Shield,EffectKind::StructuralShield}) {
         auto shield=std::ranges::find(target.statuses,kind,&Status::kind);
         if(shield==target.statuses.end() || power==0){continue;}
         const int absorbed=std::min(power,shield->magnitude);
@@ -395,6 +403,7 @@ void Battle::apply_damage(std::size_t emitter, std::size_t target_index, int pow
         events.push_back(Event{EventType::DeathPrevented,target.definition.id,target.definition.id,1,round_,{}});
     }
     if (target.health==0) {
+        std::erase_if(target.statuses,[](const Status& status){return status.kind==EffectKind::StandardShield;});
         target.ap=0;
         events.push_back(Event{EventType::FighterDefeated,target.definition.id,{},0,round_,{}});
         deaths.push_back(target_index);
@@ -483,7 +492,8 @@ void Battle::end_turn(std::vector<Event>& events) {
         }
     }
     for (auto& status : actor.statuses) {
-        const bool advance = source ? source->advances_effect_durations : ticks(status.clock, turn_kind_);
+        const bool advance = status.kind==EffectKind::StandardShield ? turn_kind_==TurnKind::Natural :
+            (source ? source->advances_effect_durations : ticks(status.clock, turn_kind_));
         if (status.category==StatusCategory::Temporary && status.applied_turn != turn_id_ && advance) { --status.remaining; }
     }
     std::erase_if(actor.statuses, [&events, this, &actor](const Status& status) {
@@ -577,6 +587,20 @@ ActionResult Battle::apply(const Action& action) {
                     hit(active_, *chosen, false, {}, root_context, ++hit_index, planned_hits, result.events, reactions, guarded, revives);
                 }
                 break;
+            case EffectKind::StandardShield: {
+                // Integer division computes floor(1% max HP) without multiplication overflow.
+                const int points=actor.definition.max_health/100;
+                if(points==0){continue;}
+                auto old=std::ranges::find(target.statuses,EffectKind::StandardShield,&Status::kind);
+                if(old==target.statuses.end()){
+                    target.statuses.push_back({EffectKind::StandardShield,3,TickPolicy::NaturalOnly,turn_id_,points});
+                }else{
+                    old->magnitude=std::max(old->magnitude,points);
+                    old->remaining=std::max(old->remaining,3);
+                    old->applied_turn=turn_id_;
+                }
+                break;
+            }
             case EffectKind::ChangeAP:
                 target.ap = std::clamp(target.ap + effect.amount, std::int64_t{0}, bar_max); break;
             case EffectKind::SetSpeed: target.effective_speed = effect.amount; break;

@@ -1,0 +1,7 @@
+{
+  "CheckedUtc": "2026-11-19T18:42:28.0328684Z",
+  "Passed": 14,
+  "Total": 14,
+  "Scope": "Native standard shield contracts; no Unreal runtime or visual acceptance",
+  "EngineExecuted": false
+}

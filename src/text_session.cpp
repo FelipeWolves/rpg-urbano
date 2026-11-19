@@ -24,8 +24,8 @@ const char* error_message(ActionError error){
     case ActionError::SkillOnCooldown:return "A habilidade ainda esta em recarga.";
     case ActionError::SkillConditionNotMet:return "Condicao da habilidade nao satisfeita. Consulte o requisito em estado.";
     case ActionError::InvalidSkillTarget:return "Alvo invalido para a habilidade.";
-    case ActionError::ActorBlocked:return "Personagem bloqueado: use passar.";
-    case ActionError::NotBlocked:return "Passar so e permitido quando o personagem esta bloqueado.";
+    case ActionError::ActorBlocked:return "Personagem impossibilitado de agir: use passar.";
+    case ActionError::NotBlocked:return "Passar so e permitido quando o personagem esta impossibilitado de agir.";
     default:return "Acao recusada pelo motor. Consulte estado.";
     }
 }
@@ -35,7 +35,7 @@ void state(const Battle& battle,std::ostream& out,bool show_skills=true){
         out<<fighter.definition.id<<" ["<<(fighter.definition.team==Team::A?'A':'B')<<"] vida "
            <<fighter.health<<'/'<<fighter.definition.max_health<<" SPD "<<fighter.effective_speed;
         if(fighter.health==0){out<<" DERROTADO";}else if(fighter.guarding){out<<" DEFESA";}
-        for(const auto& status:fighter.statuses){if(status.kind==EffectKind::Shield){
+        for(const auto& status:fighter.statuses){if(status.kind==EffectKind::Shield || status.kind==EffectKind::StandardShield){
             out<<" ESCUDO "<<status.magnitude<<" ("<<status.remaining<<" turnos naturais proprios)";}}
         out<<'\n';
     }
@@ -46,7 +46,7 @@ void state(const Battle& battle,std::ostream& out,bool show_skills=true){
         out<<"Use reiniciar ou sair.\n";return;
     }
     const auto* actor=battle.current_actor();
-    if(actor){out<<"Vez de "<<actor->definition.id;if(battle.current_actor_blocked()){out<<" [bloqueado: passar]";}out<<'\n';
+    if(actor){out<<"Vez de "<<actor->definition.id;if(battle.current_actor_blocked()){out<<" [impossibilitado de agir: passar]";}out<<'\n';
         if(show_skills){for(const auto& skill:battle.snapshot().rules.skills){if(skill.owner==actor->definition.id){
             out<<"Habilidade "<<skill.id<<" | alvo "<<(skill.target==TargetRule::Self?"proprio":skill.target==TargetRule::Ally?"aliado":"inimigo");
             for(const auto& cd:actor->cooldowns){if(cd.skill==skill.id){out<<" | recarga "<<cd.remaining;}}
@@ -95,7 +95,7 @@ void events(const ActionResult& result,std::ostream& out){
     case EventType::SkillUsed:out<<e.actor<<" usou habilidade.\n";break;
     case EventType::FighterDefeated:out<<e.actor<<" foi derrotado.\n";break;
     case EventType::FighterRevived:out<<e.actor<<" reviveu.\n";break;
-    case EventType::TurnSkipped:out<<e.actor<<" passou por bloqueio.\n";break;
+    case EventType::TurnSkipped:out<<e.actor<<" perdeu o turno por estar impossibilitado de agir.\n";break;
     default:break;
     }}
 }

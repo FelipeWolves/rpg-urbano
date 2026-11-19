@@ -5,7 +5,7 @@ Atualizado em19/11/2026. Comece pelas sínteses atuais; relatórios datados deli
 ## Retomada e pesquisa
 
 - [Estado](projeto/ESTADO.md), [tarefas](projeto/TAREFAS.md) e [prioridades](projeto/PLANO-PRIORIDADES.md).
-- [Pendências e formulário por prioridade](projeto/PENDENCIAS.md): ESC-01 a ESC-07 são as decisões necessárias para o próximo escudo; VIS/REG/SIS organizam as demais perguntas. Recomendações ainda não são contratos aprovados.
+- [Pendências e formulário por prioridade](projeto/PENDENCIAS.md): ESC-01 a ESC-07 estão fechados para o escudo padrão; VIS/REG/SIS organizam aceites/extensões pendentes.
 - [Painel de blocos e legenda](batalhas/PAINEL-BLOCOS.md): aceites separados das extensões.
 - [Pesquisa recebida sobre habilidades/itens](batalhas/PESQUISA-HABILIDADES-ITENS-HIERARQUIA-USUARIO.md), [revisão técnica](projeto/REVISAO-PESQUISA-HABILIDADES-ITENS.md) e [proveniência/hash](relatorios/atuais/PESQUISA-HABILIDADES-RECEPCAO.json). Alegações externas ainda não auditadas.
 - [Visão](projeto/VISAO.md), [arquitetura](projeto/ARQUITETURA.md), [decisões](projeto/DECISOES.md), [ferramentas](projeto/FERRAMENTAS.md), [contribuição](../CONTRIBUTING.md) e [orientações](../AGENTS.md).
@@ -23,6 +23,10 @@ Atualizado em19/11/2026. Comece pelas sínteses atuais; relatórios datados deli
 | Câmeras | [Layouts](projeto/VIS-01-LAYOUTS.md), [observação no pacote](projeto/VIS-01-LAYOUTS-RUNTIME.md) | Profundidade padrão e lateral preservada; geometria6 grupos; legibilidade ainda pendente |
 | Interação revisada | [Contrato inicial](projeto/VIS-01-INTERACAO-R01.md), [implementação](projeto/VIS-01-INTERACAO-IMPLEMENTACAO.md) |6 grupos nativos; build aprovado; sem inspeção visual desta revisão |
 | Perfil clássico gráfico | [Entrega e roteiro](projeto/VIS-01-CLASSICO-INTERACAO.md), [testes](relatorios/atuais/VIS-01-CLASSICO.json), [build](relatorios/atuais/VIS-01-CLASSICO-BUILD.json) |6 grupos próprios; câmera e regras independentes; pacote atualizado ainda pendente |
+
+## Escudo padrão vigente
+
+[Contrato e implementação](projeto/ESCUDO-PADRAO.md), [14 grupos nativos](relatorios/atuais/ESC-01-PADRAO.json) e [build Editor](relatorios/atuais/ESC-01-BUILD.json). Caso comum fechado; sem pacote/aceite visual desta revisão.
 
 ## Organização dos arquivos
 

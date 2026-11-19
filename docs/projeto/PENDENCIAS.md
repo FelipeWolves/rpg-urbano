@@ -2,76 +2,139 @@
 
 ## Síntese vigente —19/11/2026
 
-Registro central de perguntas e decisões. **Documento de pesquisa recebido; não estamos mais aguardando seu envio.** A revisão está em [REVISAO-PESQUISA-HABILIDADES-ITENS.md](REVISAO-PESQUISA-HABILIDADES-ITENS.md). Os itens abaixo são a lista vigente para a próxima devolutiva. Recomendações não são regras aprovadas nem implementadas.
+Registro central de perguntas e decisões. **Documento de pesquisa recebido; não estamos mais aguardando seu envio.** A revisão está em [REVISAO-PESQUISA-HABILIDADES-ITENS.md](REVISAO-PESQUISA-HABILIDADES-ITENS.md). Os itens abaixo são a lista vigente para a próxima devolutiva. As respostas ESC abaixo substituem as recomendações iniciais; VIS/REG/SIS mantêm seus estados próprios.
 
 ✅ Núcleo, R04, HAB-01, CIC-01 e perfis SEQ/PAR preservados no escopo de seus aceites. Ponte Unreal executada, pacote básico e fluxo visual3×3 já observados; interação revisada compilada, mas ainda sem aceite visual. Evidências em [ESTADO.md](ESTADO.md) e no [painel](../batalhas/PAINEL-BLOCOS.md).
 
+### Situação após implementação
+
+ESC-01 a ESC-07 estão fechados no caso comum; o código e os testes estão em [ESCUDO-PADRAO.md](ESCUDO-PADRAO.md). As propostas antigas preservadas no histórico não são tarefas abertas. Próximo trabalho de revisão é VIS-01–03: pacote atualizado e aceite visual autorizado. Silêncio/supressão, bloqueio automático, atributos/equipamentos clássicos, categorias específicas e bypass continuam extensões. Cura e máximo efetivo mutável ainda não existem; testar não recálculo nessas operações quando forem introduzidas.
+
 ### Como preencher e priorizar
 
-- **🔴 P1 — necessário antes do próximo efeito:** ESC-01 a ESC-07. Decidir esses pontos permite implementar o primeiro escudo percentual; não bloqueiam a inspeção visual da interface já compilada.
+- **✅ P1 — contrato comum fechado:** ESC-01 a ESC-07 respondidos e implementados para o escudo padrão. Contrato/evidências em [ESCUDO-PADRAO.md](ESCUDO-PADRAO.md); não pedir novamente essas decisões. O aceite visual é separado.
 - **🟠 P2 — necessário antes da família correspondente:** VIS-01 a VIS-03 e REG-01 a REG-03. Pode pesquisar tudo agora, mas cada extensão só entra no código em seu bloco.
 - **🟡 P3 — planejamento e auditoria:** SIS-01 a SIS-04. Registrar respostas sem ampliar automaticamente o escopo.
 - **✅ Preservado:** contratos já validados. Uma hipótese externa diferente não os invalida. Sem repetição de testes por simples atualização documental.
 
 Para cada ID, responder: **decisão desejada para nosso jogo; exemplo numérico/cenário; fonte e versão (se referente ao Dislyte); exceções; dúvida restante**. Fonte externa pode ficar “não localizada”; preferência própria não precisa ser apresentada como fato do outro jogo. Respostas parciais são aceitas. O usuário pode devolver todos os itens juntos.
 
-## 🔴 P1 — contrato do primeiro escudo percentual
+## ✅ P1 — contrato do escudo padrão fechado
 
 ### ESC-01 — base do cálculo (explicação1)
 
-**Pergunta:** usar HP atual do aplicador ou do protegido? Efeitos futuros poderão usar HP máximo, perdido ou atributos diferentes?
+**Resposta do usuário — base definida:** o escudo padrão usa **1% do HP/PV máximo do aplicador**, concedido como proteção sobre a vida atual de quem recebe. O HP atual do protegido não é uma segunda multiplicação na fórmula. Exemplo: aplicador com1000PV máximos concede10 pontos; sobre protegido com50PV atuais, esses10 equivalem visualmente a20% da vida preenchida. Com aplicador de2000PV máximos, seriam20 pontos antes de outras regras ainda abertas.
 
-**Recomendação ainda não aprovada:** primeiro exemplo usa HP atual do protegido;10% de100=10 e10% de50=5. Manter a base declarada por efeito, sem converter escudos fixos existentes. **Fechamento:** identificar sujeito/base e pelo menos dois exemplos.
+Esta decisão substitui a proposta inicial de10% do HP atual do protegido para o escudo padrão. Escudos fixos históricos foram preservados; a terceira ativa do cenário foi migrada explicitamente para o novo tipo StandardShield. Ver ESCUDO-PADRAO.md.
 
-**Resposta do usuário:** pendente.
+**Categorias propostas pelo usuário:** padrão (sem borda diferenciada), prateada e dourada. O escudo descrito pertence à categoria padrão. A classificação é uma proposta para nosso projeto inspirada no Dislyte; não comprova regras universais do jogo de referência. Borda não implica automaticamente potência maior, imunidade, prioridade, acúmulo ou permissão de dissipação. Esses comportamentos permanecem em SIS-01.
+
+**Extensibilidade solicitada:** efeitos futuros poderão usar HP atual, máximo, perdido ou outros atributos, com bases e comportamento explicitados por definição. Não aplicar a regra de1% a todos os efeitos ou categorias.
+
+**Estado:** ESC-01 definido; demais regras comuns também respondidas nas seções seguintes e implementadas em StandardShield. A faixa limitada à vida preenchida não define teto mecânico.
 
 ### ESC-02 — instante e recálculo (explicação2)
 
-**Pergunta:** calcular na aplicação ou atualizar com perda/cura/alteração de HP? Recalcular poderia restaurar pontos já consumidos? Qual comportamento se houver atualização do HP máximo?
+**Resposta do usuário — cálculo definido:** escudos padrão, sem borda diferenciada, calculam seus pontos uma única vez na aplicação. Usar a base definida em ESC-01 (1% do HP/PV máximo do aplicador nesse instante). Depois de aplicado, o escudo pertence ao estado do protegido; alterações posteriores de HP/PV atual ou máximo do aplicador ou protegido não recalculam nem recompõem seus pontos. O aplicador não continua participando do cálculo numérico após a aplicação. Morte/remoção do aplicador e duração são questões específicas de ESC-06/07, não decididas implicitamente aqui.
 
-**Recomendação ainda não aprovada:** converter o percentual em pontos uma única vez na aplicação; dano/cura posterior não recalcula nem recompõe proteção. **Fechamento:** cenário com aplicação, dano e cura, incluindo ordem dos eventos.
+**Independência do percentual de vida do protegido:** a mesma regra de aplicação vale com vida cheia ou parcial, desde que tenha pelo menos1PV. Ter pouca vida não reduz por si só os pontos calculados pela base de ESC-01. Isso não autoriza revive ou aplicação funcional em morto. O limite visual da faixa não limita por si só o valor mecânico do escudo.
 
-**Resposta do usuário:** pendente.
+**Cronologia ilustrativa:** aplicador com1000PV máximos concede10 pontos a um protegido com50PV atuais. Cura ou mudança posterior do HP máximo não altera esses pontos. Depois de consumo de proteção por dano conforme a regra de absorção a fechar em ESC-04, cura não restaura pontos consumidos.
+
+**Esclarecimento respondido pelo usuário — opção1:** o escudo padrão absorve somente até os pontos restantes; dano excedente atinge a vida e pode matar. Com5PV e10 pontos de escudo,20 de dano esgotam o escudo e derrotam o protegido. Não há garantia de1PV nem prevenção de morte inerente ao escudo. Eventuais efeitos separados de prevenção continuam seguindo R04.
+
+**Estado:** ESC-02 definido e implementado; demais regras comuns também respondidas e implementadas em ESC-03 a ESC-07. A condição de pelo menos1PV permite receber proteção; não representa um piso de sobrevivência.
 
 ### ESC-03 — arredondamento e limites (explicação3)
 
-**Pergunta:**55×10%=5,5 vira5? Valores abaixo de1 viram0 ou têm mínimo? Há teto por instância/total? Zero pode criar apenas ícone ou deve significar ausência de escudo?
+**Resposta do usuário — arredondamento e ausência definidos:** valores fracionários devem ser arredondados para baixo. Para os valores não negativos de HP/PV e proteção, resultado abaixo de1 torna-se0, sem promover automaticamente a1. Zero de vida representa personagem morto; zero de escudo representa ausência de escudo, sem proteção funcional nem ícone de escudo ativo. Um ponto é suficiente para continuar vivo ou manter um escudo existente, mas não é um piso garantido de sobrevivência/proteção. Não aplicar escudo funcional a morto sem regra específica.
 
-**Recomendação ainda não aprovada:** arredondar para baixo; permitir zero sem mínimo implícito; não criar proteção funcional de valor zero. Limites numéricos devem ser validados, sem truncamento/overflow silencioso. **Fechamento:** exemplos HP0/1/9/10/55, percentual zero e limites admissíveis; não aplicar escudo funcional a morto sem regra específica.
+**Exemplos com a fórmula vigente de ESC-01:**1% do HP/PV máximo do aplicador:1→0;9→0;10→0;55→0;100→1;550→5. Percentual zero produz zero. Isso não autoriza aplicar escudo a portador com0PV. O exemplo antigo55×10%=5,5→5 demonstra apenas o arredondamento, não muda o percentual padrão de1%. HP atual/máximo e morte do aplicador devem respeitar os estados válidos e as condições específicas de aplicação.
 
-**Resposta do usuário:** pendente.
+**Escopo:** arredondamento para baixo é a diretriz solicitada para valores fracionários do projeto. Alterações de outras fórmulas, momento de arredondar operações intermediárias e tratamento de valores negativos (por exemplo, variação de AP) exigem seu contrato próprio; a implementação usa divisão inteira no novo efeito, sem alterar outras fórmulas. Evitar arredondar uma razão intermediária cedo demais e zerar indevidamente o resultado final.
+
+**Esclarecimento solicitado pelo usuário — teto por aplicação/total:** limite por aplicação é a proteção máxima de um único escudo; limite total é a proteção máxima somada caso se permita coexistência de escudos. Exemplo ilustrativo, não regra: limitar cada escudo a100 pontos e a soma no personagem a150. São limites de gameplay opcionais, distintos da capacidade técnica dos números e do limite visual da barra. ESC-05 definiu que escudos padrão não somam. Nenhum cap adicional de gameplay foi escolhido; a fórmula e a representação inteira válida limitam os pontos. Não inventar cap baseado no HP atual.
+
+**Estado:** ESC-03 comum definido e implementado: cálculo inteiro por divisão, zero ignorado, sem alvo morto. Sem soma nem cap adicional inventado; teto específico de gameplay permanece extensão opcional, não bloqueador. Limites técnicos e INT_MAX testados.
 
 ### ESC-04 — absorção e ordem do dano (explicação4)
 
-**Pergunta:** escudo absorve antes do HP, depois das reduções? Excesso atravessa? Cada hit consome separadamente? Quais ataques ignoram escudo e quais escudos podem impedir esse bypass?
+**Resposta do usuário — absorção definida:** escudo absorve antes do HP/PV. Cada hit consome separadamente os pontos restantes. Ao atingir0, o escudo desaparece, sem ícone/proteção ativa; o dano excedente daquele hit atravessa para a vida. Escudo não garante sobrevivência com1PV. Aplicar o restante da cadeia segundo R04; não retomar hits cancelados nem alterar Victory Lock.
 
-**Recomendação ainda não aprovada:** usar dano após mitigação aplicável;5 de escudo contra8 absorve5 e deixa3 para HP. Reutilizar o executor existente; exceções declaradas por efeito, sem alterar R04. **Fechamento:** exemplo simples, multi-hit, escudo esgotado, dano zero e bypass.
+**Exemplos derivados das decisões:**5 de escudo contra8 de dano disponível para absorção consome5 e retira3PV;10 de escudo contra dois hits de6 resulta, no primeiro,4 pontos de escudo restantes sem perda de PV e, no segundo, escudo esgotado e perda de2PV. Com5PV +10 de escudo contra20 de dano, o alvo morre se não houver outro efeito de prevenção. Dano zero não consome pontos de escudo pela absorção numérica; isso não define gatilhos de “ao ser atingido” de futuras habilidades.
 
-**Resposta do usuário:** pendente.
+**Exceções separadas solicitadas pelo usuário:** quais ataques ignoram escudo e quais proteções resistem a esse bypass serão especificados por habilidade/equipamento/categoria, com base na pesquisa recebida e nas decisões do projeto. O escudo padrão não ganha bypass ou resistência a bypass implicitamente. São interações com o escudo que exigem precedência explícita, mas não devem sobrecarregar sua regra comum. Registrar futuros contratos em SIS-01/02; a lista recebida não é catálogo executável nem evidência externa já auditada.
+
+**Ordem confirmada pelo usuário:** dano → reduções aplicáveis → absorção pelo escudo → dano excedente no HP/PV. Exemplo aprovado:20 de dano com redução aplicável de50% e5 de escudo resulta em10 após redução,5 absorvidos e5 de perda de PV. Sem redução ativa,20 de dano contra5 de escudo retira15PV. A defesa clássica já existente é um exemplo de redução aplicável; nenhuma redução nova foi criada. O perfil Equipes continua sem comando de defesa genérica. Futuras reduções por habilidade/equipamento exigem contratos próprios.
+
+**Estado:** regra comum de ESC-04 definida: ordem das reduções/escudo/vida, consumo por hit, remoção ao zerar e excesso letal. Exceções de bypass adiadas para seus contratos próprios; não bloqueiam o caso comum. Caso comum implementado; exceções futuras não reabrem este aceite. Implementação comum concluída; evidências em ESCUDO-PADRAO.md.
 
 ### ESC-05 — reaplicação e coexistência (explicação5)
 
-**Pergunta:** reaplicar soma, substitui, mantém o maior ou cria instâncias? Duração renova? Fontes diferentes coexistem? Se coexistirem, qual é consumida primeiro? Escudo comum e StructuralShield seguem a mesma regra?
+**Decisão revisada pelo usuário — maior valor por propriedade:** uma segunda aplicação do escudo padrão nunca reduz a força restante nem a duração restante do primeiro. Comparar as duas propriedades independentemente: pontos resultantes = max(pontos restantes, novos pontos); duração resultante = max(duração restante, duração da nova aplicação). Não somar pontos nem durações. A propriedade menor pode ser substituída pela maior da nova aplicação, mesmo quando a outra propriedade permanece do escudo anterior.
 
-**Recomendação ainda não aprovada:** mesmo efeito conserva o maior entre pontos restantes e nova aplicação, renovando duração. Não habilitar acúmulo entre fontes sem decisão; não unificar categorias só pela aparência. **Fechamento:** aplicações10→3→novo5 e10→8→novo5; fontes diferentes e durações diferentes.
+**Exemplos de contrato:**10 pontos/3 turnos restantes + novo20/1 resulta20/3;20/1 + novo10/3 resulta20/3;20/3 + novo10/1 conserva20/3;10/1 + novo20/3 resulta20/3. Valores de duração são exemplos, não duração padrão definida. Empate não altera a propriedade. Comparar duração restante, não restaurar por inferência a duração original já transcorrida.
 
-**Resposta do usuário:** pendente.
+**Substitui decisões anteriores:** a proposta anterior de sempre usar a força do novo escudo, mesmo menor, foi revogada por esta decisão. O reinício de duração anteriormente aceito passa a respeitar o maior entre duração restante e duração oferecida; não diminuir duração nem somar tempos. O modo de medir essa duração permanece em ESC-06.
+
+**Cálculo da nova força:**1% do HP/PV máximo do novo aplicador no instante da aplicação, arredondado para baixo (ESC-01/02/03). O escudo existente não é recalculado. Uma tentativa calculada em0 não diminui pontos existentes nem cria proteção/ícone funcional se não houver escudo. **Decisão adicional do usuário:** aplicação calculada em0 pontos é inteiramente ignorada: não cria escudo nem ícone, não altera pontos existentes e não renova, estende ou reduz a duração de um escudo ativo.
+
+**Alvos e categorias:** protegido com0PV não pode ser escolhido. Esta regra vale apenas para escudo padrão sem borda diferenciada; escudos prateados, dourados e outras categorias terão contratos próprios futuros. Não generalizar para StructuralShield. Não reaplicar efeitos de abertura nem disparar gatilhos de expiração por inferência.
+
+**Escopo esclarecido pelo usuário:** as regras ESC do escudo padrão descrevem uma habilidade que concede escudo ao próprio aplicador ou a outro personagem. Não constituem, por si só, regras de atributo defensivo/equipamento do modo clássico. Na autoaplicação, aplicador e protegido são o mesmo personagem, mantendo a mesma base de cálculo.
+
+**Clássico — conceito solicitado para desenvolvimento futuro:** uma proteção/atributo próprio poderá ter bases e modificadores por equipamento, com regras separadas. Também poderá existir habilidade clássica que conceda o escudo convencional sem borda, por mecânica de aquisição/uso a definir nesse perfil. Não cadastrar habilidade ou equipamento implicitamente nem confundir esse atributo com o comando Defesa.
+
+**Correspondência com o código atual:** `StructuralShield` é uma camada técnica de proteção consumível representada como status de categoria Structural no núcleo compartilhado. Não é um atributo de equipamento clássico já implementado e não é exclusivo do perfil Classic. Hoje o executor consome Shield antes de StructuralShield. Preservar esse comportamento validado até contrato de evolução/migração próprio; o nome existente não confirma a suposição de equivalência. Atributos/equipamentos, recuperação dessa proteção, suas bases e coexistência com escudo de habilidade permanecem futuros. Não interpretar borda do ícone como StatusCategory do núcleo.
+**Limites e metadados:** não há acúmulo de escudos padrão em paralelo. Não foi escolhido cap adicional por aplicação; força deriva de1% do máximo válido do aplicador. Cap específico de gameplay permanece opcional futuro. Propriedades podem resultar de fontes diferentes; eventual atribuição de origem por propriedade e condições específicas de escudos futuros precisam de contrato SIS-01; para o padrão, morte do aplicador não remove a proteção (ESC-07), sem dependência numérica posterior do aplicador. Caso comum implementado; ver ESCUDO-PADRAO.md.
+
+**Estado:** ESC-05 comum definido e implementado; ESC-06/07 também respondidos abaixo. Origem por propriedade e categorias futuras só serão necessárias para efeitos que usem esses metadados.
 
 ### ESC-06 — duração e relógio (explicação6)
 
-**Pergunta:** contar turno do aplicador/protegido/global? Início ou fim? NaturalOnly ou EveryTurn? Aplicação no próprio turno desconta imediatamente? Bloqueio, turno extra e morte do aplicador alteram duração?
+**Resposta do usuário — relógio do protegido:** o escudo padrão passa a proteger assim que aplicado e sua duração acompanha o turno de ação do protegido, não o contador global nem turnos do aplicador. Quando ocorre o turno natural do protegido depois de receber o escudo, descontar1 ao concluir essa oportunidade, mesmo que esteja impossibilitado de agir; manter a proteção durante o turno. Quando já havia agido antes da aplicação, não descontar retroativamente. O escudo expira quando a duração chega a0, podendo acabar antes por consumo dos pontos (ESC-04).
 
-**Recomendação ainda não aprovada:** oportunidades naturais do protegido; nenhuma perda imediata no turno de aplicação. Especificar a fronteira exata compatível com o núcleo antes de implementar; reação não equivale a turno do dono. **Fechamento:** cronologia de aplicação, oportunidade natural, extra, bloqueio e expiração.
+**Autoaplicação:** a ação que aplica escudo no próprio personagem não reduz imediatamente sua duração. O novo efeito entra ao final dessa ação; não cobrar um turno já realizado. Aplicação em outro personagem segue o turno natural futuro do protegido. A fronteira precisa identificar nova aplicação/reaplicação durante a própria oportunidade para evitar desconto imediato indevido; manter a comparação de maior duração de ESC-05.
 
-**Resposta do usuário:** pendente.
+**Ações fora do turno natural:** ação concedida por outro efeito, assistência, perseguição, contra-ataque ou turno extra não deve reduzir a duração deste escudo padrão. O usuário confirmou que turno extra não altera sua duração. Isso vale como contrato do escudo, sem mudar relógios de outros efeitos/habilidades. Morte do aplicador não altera a duração do escudo já concedido. Outros tipos de escudo poderão declarar mecânicas diferentes futuramente.
+
+**Significado técnico:** NaturalOnly distingue oportunidades naturais do dono de oportunidades extras. EveryTurn inclui naturais e extras reconhecidas pelo escalonador (conforme a política da fonte de extra); não significa receber dano nem ser alvo de qualquer efeito. Reações não se tornam turnos do portador só por executarem ações. A flag atual pode não bastar se uma fonte de extra solicitar tick de efeitos: a implementação deverá garantir a regra própria do escudo, sem assumir equivalência completa pelo nome NaturalOnly.
+
+**Cronologia ilustrativa (2 turnos de duração, apenas exemplo):** escudo aplicado emB → próximo turno natural em queB age: duração2→1 ao fim → reação/extra deB: continua1 → próximo turno natural em queB age:1→0 e remoção. SeB já agiu antes da aplicação, seu turno anterior não conta. Autoaplicação com2 mantém2 ao fechar a ação aplicadora. Cura e mudanças de HP não alteram esse relógio.
+
+**Esclarecimento confirmado — impossibilitado de agir:** se chega a oportunidade natural do protegido e ele não pode agir, o escudo continua válido durante esse turno e perde1 de duração no encerramento. A contagem acompanha a oportunidade natural, não a execução bem-sucedida de uma ação. Manter o fluxo de Skip existente quando aplicável; não descontar em comandos inválidos nem em ações extras/reações. Isso substitui a ambiguidade anterior sobre oportunidade sem ação.
+
+**Terminologia decidida pelo usuário:** chamar essa condição de “impossibilitado de agir”, não “bloqueio”. O identificador técnico atual EffectKind::Block representa impedimento de ação, não chance de anular dano. A revisão de rótulos/textos e eventual renomeação técnica deverá preservar esse comportamento e suas evidências, sem converter enum em mecânica nova por troca de nome.
+
+**Bloqueio — conceito futuro separado:** chance de defesa automática contra ataque; quando ocorre, o personagem não recebe dano desse ataque. Diferente do comando Defesa clássico, que reduz o dano pela metade e arredonda para baixo. Ainda especificar chance/origem, elegibilidade, resolução por ataque ou hit, interação com escudo e efeitos ao acertar, reações, dano inevitável e regras por perfil antes de implementar. Não atribuir probabilidade, imunidade a debuffs ou gatilhos por inferência. Trata-se de decisão de conceito do nosso projeto, não equivalência comprovada com Dislyte.
+
+**Duração padrão confirmada pelo usuário:**3 turnos naturais do protegido. Uma aplicação válida oferece3 de duração; a reaplicação conserva max(duração restante,3), independentemente de max(proteção restante,nova proteção), sem somar. Aplicação calculada em0 pontos é ignorada integralmente, inclusive para duração. Autoaplicação mantém3 ao encerrar a ação aplicadora. Depois, cada oportunidade natural concluída desconta1, inclusive quando impossibilitado de agir:3→2→1→0 e remoção; extras/reações não descontam. Se a proteção for consumida antes, o escudo termina antes.
+
+**Estado:** ESC-06 definido documentalmente para o escudo padrão:3 turnos, relógio do protegido, efeito imediato, decremento ao fim de oportunidade natural inclusive sem ação por controle, sem desconto imediato na aplicação/autoaplicação, sem tick em extras/reações e sem dependência da vida do aplicador. Morte do protegido e transições definidas em ESC-07. Implementação e testes do caso comum concluídos no incremento ESCUDO-PADRAO.md.
 
 ### ESC-07 — morte, revive e transições (explicação7)
 
-**Pergunta:** remover na morte do protegido? Morte do aplicador encerra? Revive restaura? Onda, confronto e troca de equipe conservam pontos/duração? Expiração dispara algum efeito?
+**Resposta do usuário — comportamento comum definido:** remover o escudo padrão na morte do protegido. Morte do aplicador não encerra o escudo já aplicado; revive não restaura o escudo removido. Por padrão, transição de onda, confronto ou troca de equipe não conserva os pontos nem a duração desse escudo. Expiração não dispara efeito adicional. Escudos específicos ou encontros com políticas próprias poderão definir exceções futuramente, explicitamente e com testes próprios.
 
-**Recomendação ainda não aprovada:** remover este escudo na morte do portador; revive não o restaura; transições seguem política explícita do encontro. Dependência do aplicador é atributo separado. **Fechamento:** tabela por evento e casos Preserve/Reset, sem mudar políticas SEQ/PAR já aprovadas.
+| Evento | Regra comum do escudo padrão |
+|---|---|
+| Morte do protegido | Remover pontos e duração; sem ícone ativo |
+| Morte do aplicador | Não remover nem alterar escudo já aplicado |
+| Revive do protegido | Não restaurar o escudo anterior; nova aplicação válida é independente |
+| Mudança de onda | Não conservar escudo: remover pontos e duração |
+| Novo confronto | Não conservar escudo: remover pontos e duração |
+| Troca de equipe | Não transferir nem conservar escudo da equipe anterior |
+| Duração chega a0 | Remover sem consequência adicional própria de expiração |
+| Proteção chega a0 | Remover; excesso do hit atinge HP/PV conforme ESC-04 |
+| Nova aplicação calculada em0 | Ignorar integralmente, sem alterar escudo existente |
 
-**Resposta do usuário:** pendente.
+**Explicação de Preserve/Reset:** são nomes de políticas técnicas. Preserve conserva estados entre etapas quando o contrato do encontro permite; Reset reinicia/remove os estados abrangidos por aquela política. Não são comandos novos do jogador. Para o novo escudo padrão, a regra comum solicitada é não transportar proteção/duração entre essas transições. Uma eventual exceção deve indicar quais eventos conservam o escudo e não recuperar pontos/tempo já gastos.
+
+**SEQ/PAR:** SEQ-01 é o coordenador de equipes sucessivas; PAR são perfis de frentes coordenadas, incluindo chefe compartilhado. Seus aceites já testam políticas explícitas para os estados existentes. A nova regra do escudo deve ser integrada/testada como extensão declarada, sem substituir silenciosamente políticas genéricas Preserve/Reset ou mudar outros estados (HP, recargas etc.). Se um modo explicitamente conservar esse novo escudo, será exceção documentada, não uma mudança universal dos contratos encerrados.
+
+**Integração implementada:** Stage remove StandardShield na transição e SEQ remove o estado temporário; testes cobrem ambos. PAR mantém o escudo ao alternar ações entre frentes vivas, sem confundir agendamento com troca de equipe. Nova aplicação após revive é permitida apenas com alvo vivo e demais condições válidas; nenhuma autoaplicação/recompensa/gatilho de remoção implícito. A ausência de efeito próprio de expiração não inventa imunidade a futuros observadores de eventos definidos separadamente.
+
+**Estado:** ESC-07 definido documentalmente para o comportamento comum. Exceções futuras precisam de contrato específico. Implementação e testes do caso comum concluídos em ESCUDO-PADRAO.md.
 
 ## 🟠 P2 — apresentação e contratos relacionados
 
@@ -105,11 +168,11 @@ Conferir1/3/5 unidades por lado, assimetrias, rótulos ao fundo, ausência de ca
 
 **Pesquisa opcional:** caso haja evidência externa diferente, registrar versão/contexto e exemplo; não mudar automaticamente o projeto. Timeout do modo e papel ofensivo/defensivo devem permanecer separados do autor causal. Sem nova decisão necessária para avançar o escudo.
 
-### REG-03 — silêncio, bloqueio e supressão (explicação11)
+### REG-03 — silêncio, impossibilidade de agir e supressão (explicação11)
 
 **Perguntas:** quais efeitos impedem agir, bloqueiam apenas ativas ou suprimem passivas? Congelamento/petrificação fazem quais operações? Passiva de abertura difere de gatilho em combate? Recargas continuam contando? O que ocorre com reações/extras já enfileirados? Quais exceções por unidade/efeito?
 
-✅ Básica na posição1 não é silenciada por decisão do projeto; impedimento de agir é condição distinta. Block não significa silêncio; FreezeCooldowns não significa personagem congelado. **Fechamento futuro:** matriz efeito×comando/gatilho/clock, incluindo exceções explícitas. Necessário antes de implementar essa família, não antes da inspeção visual.
+✅ Básica na posição1 não é silenciada por decisão do projeto; impossibilidade de agir é condição distinta. O Block técnico atual significa impossibilidade de agir, não silêncio nem bloqueio automático de dano; FreezeCooldowns não significa personagem congelado. Bloqueio será conceito separado: chance de anular dano de ataque, com contrato futuro e sem implementação nesta decisão. **Fechamento futuro:** matriz efeito×comando/gatilho/clock, incluindo exceções explícitas. Necessário antes de implementar essa família, não antes da inspeção visual.
 
 **Resposta do usuário:** pendente.
 

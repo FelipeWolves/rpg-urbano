@@ -102,3 +102,7 @@ Cenário compartilhado extraído da apresentação textual; adaptador nativo com
 - Testes/compilação anteriores preservados; esta organização não executa novamente gameplay nem abre aplicativos.
 
 Verificação desta organização: links Markdown locais dos arquivos alterados válidos, JSONs alterados legíveis, scripts PowerShell sem erros de sintaxe e revisão de espaços (quebras Markdown do documento recebido preservadas por atributo específico). Documento recebido idêntico à origem por SHA-256. Testes funcionais anteriores não repetidos por mudanças somente documentais.
+
+## 2026-11-19 — escudo padrão por habilidade
+
+StandardShield implementa decisões ESC-01–07:1% do máximo do aplicador calculado uma vez,3 turnos naturais do protegido, absorção por hit após mitigação, max de pontos/duração sem soma, zero ignorado, remoção na morte/transições e manutenção após morte do aplicador. Terceira ativa do cenário atualizada; passivas fixas preservadas. Extras com tick não avançam o escudo; impossibilidade de agir em oportunidade natural avança. Terminologia corrigida sem implementar bloqueio probabilístico.14 grupos próprios e regressão pertinente; build Editor sem abertura/pacote. Contrato e limites em docs/projeto/ESCUDO-PADRAO.md.

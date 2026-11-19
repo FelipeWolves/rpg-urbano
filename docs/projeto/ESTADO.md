@@ -4,9 +4,10 @@ Atualizado em 19/11/2026. Esta é a síntese vigente; registros anteriores estã
 
 ## Prioridade vigente
 
-A pesquisa de habilidades/itens foi recebida e revisada. A lista única para devolutiva é [PENDENCIAS.md](PENDENCIAS.md): **ESC-01 a ESC-07 antes do próximo efeito**, VIS/REG antes das respectivas validações/famílias e SIS para pesquisa futura. Recomendações não foram adotadas como regras. O usuário pode responder tudo junto. R04, defesa atual e SEQ/PAR permanecem preservados.
+Escudo padrão por habilidade implementado conforme ESC-01 a ESC-07:1% do PV máximo do aplicador, floor,3 oportunidades naturais do protegido, reaplicação por maiores propriedades e aplicação zero ignorada. Removido na morte do protegido e transições comuns; morte do aplicador não interfere. [Contrato/evidências](ESCUDO-PADRAO.md). Decisões não precisam ser respondidas novamente.
 
-A revisão de interação e perfil clássico está implementada e compilada;213 gerais +6 adaptador +6 apresentação +6 clássicos aprovados em seus escopos. Geometria tem6 grupos anteriores. Nenhuma nova bateria foi executada por esta organização documental. Próximo: contrato do escudo e aceite visual autorizado; relatório em [VIS-01-CLASSICO-INTERACAO.md](VIS-01-CLASSICO-INTERACAO.md).
+A bateria nativa contém213 testes gerais,6 do adaptador,6 de apresentação,6 clássicos e14 grupos próprios do escudo, em escopos separados. Geometria tem6 grupos anteriores não repetidos nesta revisão. Build Editor aprovado; não houve pacote novo, janela aberta ou teste visual da revisão. Próximo: aceite visual autorizado (VIS-01–03). Silêncio/supressão, bloqueio automático, outras categorias e equipamentos permanecem futuros em [PENDENCIAS.md](PENDENCIAS.md).
+
 ## Resultado atual
 
 O protótipo C++20 permanece jogável no console. HAB-01 e CIC-01 estão concluídos no escopo mínimo: habilidades, perfis, seleção de equipe, recompensa única e save v1 de progresso entre batalhas.

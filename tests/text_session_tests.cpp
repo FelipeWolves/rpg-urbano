@@ -48,13 +48,13 @@ void skill_block_skip_and_clock(){
     std::istringstream in("habilidade block B\nhabilidade block B\nsair\n");std::ostringstream out;
     const auto result=run_text_session(in,out,duel(),r);
     check(result.player_actions==1 && result.automatic_actions==1 && result.rejected_commands==1 &&
-          out.str().find("passou por bloqueio")!=std::string::npos && out.str().find("em recarga")!=std::string::npos,
+          out.str().find("perdeu o turno por estar impossibilitado de agir")!=std::string::npos && out.str().find("em recarga")!=std::string::npos,
           "skill/cooldown or automatic blocked skip wrong");
     r=rules();r.skills={{"block","A",0,TargetRule::Self,{{EffectKind::Block,0,3}}}};
     std::istringstream blocked("habilidade block A\npassar\nsair\n");std::ostringstream skipped;
     const auto player=run_text_session(blocked,skipped,duel(),r);
     check(player.player_actions==2 && player.automatic_actions==2 && player.rejected_commands==0 &&
-          skipped.str().find("A passou por bloqueio")!=std::string::npos,"player blocked Skip not handled");
+          skipped.str().find("A perdeu o turno por estar impossibilitado de agir")!=std::string::npos,"player blocked Skip not handled");
 }
 void eof_and_timeout(){
     std::istringstream eof;std::ostringstream output;const auto empty=run_text_session(eof,output,duel(),rules());
@@ -149,7 +149,7 @@ void integrated_reference_kits(){
     check(s.apply_slot(2,"B3").accepted() && s.battle().find("B3")->health==40 &&
           s.battle().find("A3")->statuses[0].magnitude==10,"hybrid active failed or consumed own passive");
     const auto response=s.choose_automatic_action();check(response && response->skill=="B3-terceira" &&
-          s.apply(*response).accepted() && s.battle().find("B3")->statuses[0].magnitude==10,"hybrid/threshold/enemy automation not integrated");
+          s.apply(*response).accepted() && s.battle().find("B3")->statuses.empty(),"80 max HP standard shield must round to zero, without restoring consumed opening shield");
 }
 struct ReferenceScript {
     std::string input;

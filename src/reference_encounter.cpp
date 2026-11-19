@@ -22,7 +22,7 @@ EncounterSetup team_reference_setup(){
                 hybrid.passive=PassiveDefinition{unit.id+"-preparacao-hibrida"};
             }
         }
-        rules.skills.push_back({third,unit.id,3,TargetRule::Self,{{EffectKind::Shield,10,2}}});
+        rules.skills.push_back({third,unit.id,3,TargetRule::Self,{{EffectKind::StandardShield}}});
         AbilitySlot protection{3,"Protecao",third,{}};
         if(unit.id.back()=='3'){protection.name="Protecao de emergencia";protection.requirement=HealthRequirement{50};}
         set.slots.push_back(std::move(protection));sets.push_back(std::move(set));

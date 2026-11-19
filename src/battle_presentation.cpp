@@ -5,7 +5,7 @@
 namespace rpg::presentation {
 ShieldDisplay shield_display(const Fighter& fighter){
     std::int64_t shield=0;
-    for(const auto& status:fighter.statuses){if(status.kind==EffectKind::Shield || status.kind==EffectKind::StructuralShield){shield+=std::max(0,status.magnitude);}}
+    for(const auto& status:fighter.statuses){if(status.kind==EffectKind::StandardShield || status.kind==EffectKind::Shield || status.kind==EffectKind::StructuralShield){shield+=std::max(0,status.magnitude);}}
     if(fighter.definition.max_health<=0){throw std::invalid_argument("Positive max HP required");}
     const int health=std::clamp(fighter.health,0,fighter.definition.max_health);
     return {shield,static_cast<double>(health)/fighter.definition.max_health,
@@ -13,8 +13,8 @@ ShieldDisplay shield_display(const Fighter& fighter){
 }
 std::string effect_name(EffectKind kind){
     switch(kind){
-    case EffectKind::Shield:return "Shield";case EffectKind::StructuralShield:return "Structural shield";
-    case EffectKind::Block:return "Action blocked";case EffectKind::FreezeCooldowns:return "Cooldowns frozen";
+    case EffectKind::StandardShield:return "Standard shield";case EffectKind::Shield:return "Shield";case EffectKind::StructuralShield:return "Structural shield";
+    case EffectKind::Block:return "Unable to act";case EffectKind::FreezeCooldowns:return "Cooldowns frozen";
     case EffectKind::Reflect:return "Reflect";case EffectKind::DeathExplosion:return "On-death explosion";
     case EffectKind::PreventDeath:return "Death prevention";case EffectKind::AutoRevive:return "Auto-revive";
     case EffectKind::Counter:return "Counter";case EffectKind::Marker:return "Marker";
@@ -63,7 +63,7 @@ std::vector<std::string> ability_details(const VisualState& state,std::uint32_t 
     if(state.combat.profile==CombatProfile::Classic){
         if(position==1){return {"Attack","Choose a living enemy. Uses the existing attack rules."};}
         if(position==2){return {"Defense","Existing defense: halves each incoming hit, rounded down.","Expires at the next owner opportunity according to the core."};}
-        if(position==4){return {"Pass","Only legal while the current actor is blocked."};}
+        if(position==4){return {"Pass","Only legal while the current actor is unable to act."};}
         std::vector<std::string> out={"Classic skills"};
         for(const auto& skill:state.combat.battle.rules.skills){if(state.combat.battle.current_actor==skill.owner){out.push_back(skill.id+" | cooldown "+std::to_string(skill.cooldown));}}
         if(out.size()==1){out.push_back("No special skills registered in this reference encounter.");}
@@ -82,7 +82,8 @@ std::vector<std::string> ability_details(const VisualState& state,std::uint32_t 
             out.push_back("Cooldown: "+std::to_string(skill->cooldown)+" | remaining "+std::to_string(ability->cooldown));
             for(const auto& effect:skill->effects){
                 auto detail=effect_name(effect.kind);
-                if(effect.kind==EffectKind::Damage){detail+=": attack power, hits "+std::to_string(effect.hit_count);}
+                if(effect.kind==EffectKind::StandardShield){detail+=": 1% caster max HP, rounded down; 3 recipient natural turns; keep greater points/duration.";}
+                else if(effect.kind==EffectKind::Damage){detail+=": attack power, hits "+std::to_string(effect.hit_count);}
                 else{detail+=" | value "+std::to_string(effect.amount)+" | duration "+std::to_string(effect.duration);}
                 out.push_back(detail);
             }
@@ -105,8 +106,8 @@ std::string action_error_message(ActionError error){
     case ActionError::UnknownSkill:return "This unit does not have that skill.";
     case ActionError::SkillOnCooldown:return "The skill is still on cooldown.";
     case ActionError::InvalidSkillTarget:return "This skill requires a different target type.";
-    case ActionError::ActorBlocked:return "This unit is blocked; only pass is available.";
-    case ActionError::NotBlocked:return "Pass is only legal while blocked.";
+    case ActionError::ActorBlocked:return "This unit is unable to act; only pass is available.";
+    case ActionError::NotBlocked:return "Pass is only legal while unable to act.";
     case ActionError::SkillConditionNotMet:return "The skill condition is not satisfied.";
     case ActionError::UnexpectedGuardTarget:return "Defense does not take a target.";
     case ActionError::UnknownAction:return "Unknown action.";

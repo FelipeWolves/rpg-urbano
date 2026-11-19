@@ -165,7 +165,7 @@ void AProbeArenaHUD::DrawHUD()
             if(pressed && PopupLines.IsEmpty() && inside(x,bottom,205,50)){Gesture.press(position,now,view.revision);}
             if(shortSlot==position && inside(x,bottom,205,50) && PopupLines.IsEmpty()){
                 if(position==3){OpenInfo(TEXT("Classic skills"),rpg::presentation::ability_details(view,3));return;}
-                if(!ready){Message=TEXT("Unit blocked; use Pass.");return;}
+                if(!ready){Message=TEXT("Unit unable to act; use Pass.");return;}
                 if(position==2){perform(rpg::ActionType::Guard);return;}
                 SelectedSlot=1;SelectionRevision=view.revision;SelectedTarget.Empty();
                 const auto ids=rpg::presentation::target_candidates(view,1);

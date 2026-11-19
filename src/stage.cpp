@@ -96,7 +96,9 @@ void Stage::start_encounter(const std::vector<Fighter>& previous) {
     if (definition_.runtime_carry == RuntimeCarry::Preserve) {
         for (const auto& fighter : previous) {
             if (fighter.definition.team == Team::A) {
-                runtime.push_back({fighter.definition.id, fighter.effective_speed, fighter.statuses, fighter.cooldowns});
+                auto statuses=fighter.statuses;
+                std::erase_if(statuses,[](const Status& status){return status.kind==EffectKind::StandardShield;});
+                runtime.push_back({fighter.definition.id, fighter.effective_speed, std::move(statuses), fighter.cooldowns});
             }
         }
     }

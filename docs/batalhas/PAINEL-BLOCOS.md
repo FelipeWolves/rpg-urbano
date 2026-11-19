@@ -32,6 +32,7 @@ As siglas são identificadores internos das áreas do projeto, não nomes de fer
 
 | Bloco | Entrega validada | Evidência/limite |
 |---|---|---|
+| ✅ Escudo padrão (ESC-01–07) | Contrato comum implementado:1%/3 turnos;14 grupos nativos e build Editor | [Relatório](../projeto/ESCUDO-PADRAO.md); aceite visual continua pendente |
 | ✅ FUN-01 | Fundação e organização | Visão, arquitetura e contratos |
 | ✅ FUN-02 | Diagnóstico inicial de ferramentas | Registro histórico; ambiente posterior em AMB-01 |
 | ✅ AMB-01 | C++20/MSVC x64 | Diagnóstico compilado e executado |
@@ -105,4 +106,4 @@ Pesquisa recebida: [matriz de incorporação](../projeto/REVISAO-PESQUISA-HABILI
 
 ### Fila de decisões e validações — organização vigente
 
-🔴 P1: ESC-01–07 antes de implementar o primeiro escudo percentual. 🟠 P2: VIS-01–03 (aceite visual) e REG-01–03 (contratos relacionados). 🟡 P3: SIS-01–04 (sistemas/pesquisa futura). Lista completa, exemplos e campos de resposta em [PENDENCIAS.md](../projeto/PENDENCIAS.md). O usuário pode pesquisar todos juntos; não é necessário fechar P2/P3 para entregar P1. Recomendações não são decisões aprovadas. Códigos novos são IDs de perguntas, não novos blocos concluídos.
+✅ P1: ESC-01–07 definidos e implementados no caso comum;14 grupos próprios e build aprovados. 🟠 P2: VIS-01–03 (aceite visual) e REG-01–03 (contratos relacionados). 🟡 P3: SIS-01–04 (sistemas/pesquisa futura). Lista completa, exemplos e campos de resposta em [PENDENCIAS.md](../projeto/PENDENCIAS.md). O usuário pode pesquisar todos juntos; P2/P3 continuam separados do caso comum P1 já entregue. Propostas de extensões não são decisões aprovadas. Códigos novos são IDs de perguntas, não novos blocos concluídos.

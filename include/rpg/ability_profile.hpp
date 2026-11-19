@@ -29,6 +29,8 @@ struct AbilitySlot {
     std::string passive_note;
     std::optional<PassiveDefinition> passive = std::nullopt;
     std::optional<HealthRequirement> requirement = std::nullopt;
+    std::optional<std::uint32_t> level = std::nullopt;
+    std::string description = {};
     bool operator==(const AbilitySlot&) const = default;
 };
 struct CharacterLoadout {

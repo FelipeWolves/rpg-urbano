@@ -29,4 +29,5 @@ EncounterSetup team_reference_setup(){
     }
     return {std::move(roster),std::move(rules),std::move(sets)};
 }
+EncounterSetup classic_reference_setup(){return {reference_roster(),text_reference_rules(),{}};}
 }

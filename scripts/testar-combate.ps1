@@ -106,6 +106,16 @@ cl.exe %FLAGS% /I"$root\include" "$root\tests\visual_session_tests.cpp" "$build\
 if errorlevel 1 exit /b 62
 "$build\visual_session_tests.exe"
 if errorlevel 1 exit /b 63
+cl.exe %FLAGS% /I"$root\include" /c "$root\src\battle_presentation.cpp" /Fo"$build\battle_presentation.obj"
+if errorlevel 1 exit /b 75
+cl.exe %FLAGS% /I"$root\include" "$root\tests\battle_presentation_tests.cpp" "$build\battle.obj" "$build\ability_profile.obj" "$build\local_session.obj" "$build\reference_encounter.obj" "$build\visual_session.obj" "$build\battle_presentation.obj" /Fo"$build\battle_presentation_tests.obj" /Fe"$build\battle_presentation_tests.exe" /link /INCREMENTAL:NO
+if errorlevel 1 exit /b 76
+"$build\battle_presentation_tests.exe"
+if errorlevel 1 exit /b 77
+cl.exe %FLAGS% /I"$root\include" "$root\tests\classic_visual_tests.cpp" "$build\battle.obj" "$build\ability_profile.obj" "$build\local_session.obj" "$build\reference_encounter.obj" "$build\visual_session.obj" "$build\battle_presentation.obj" /Fo"$build\classic_visual_tests.obj" /Fe"$build\classic_visual_tests.exe" /link /INCREMENTAL:NO
+if errorlevel 1 exit /b 78
+"$build\classic_visual_tests.exe"
+if errorlevel 1 exit /b 79
 cl.exe %FLAGS% /I"$root\include" /c "$root\src\text_session.cpp" /Fo"$build\text_session.obj"
 if errorlevel 1 exit /b 48
 cl.exe %FLAGS% /I"$root\include" "$root\tests\text_session_tests.cpp" "$build\battle.obj" "$build\ability_profile.obj" "$build\team_selection.obj" "$build\local_session.obj" "$build\save_game.obj" "$build\save_store_windows.obj" "$build\text_session.obj" "$build\reference_encounter.obj" /Fo"$build\text_session_tests.obj" /Fe"$build\text_session_tests.exe" /link /INCREMENTAL:NO
@@ -140,6 +150,12 @@ if ($visualResult.Count -ne 1) { throw 'Resultado visual ausente.' }
 $visualMatch = [regex]::Match($visualResult[0], '^VIS_TESTS_RESULT passed=(\d+) total=(\d+)$')
 if ($visualMatch.Groups[1].Value -ne $visualMatch.Groups[2].Value) { throw 'Testes visuais reprovados.' }
 [ordered]@{CheckedUtc=[DateTime]::UtcNow.ToString('o');Passed=[int]$visualMatch.Groups[1].Value;Total=[int]$visualMatch.Groups[2].Value;Scope='Native adapter contracts only; no Unreal UI';EngineExecuted=$false} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $root 'docs/relatorios/atuais/VIS-01A.json') -Encoding utf8
+$presentationResults=@($messages | Where-Object {$_ -eq 'PRESENTATION_TESTS_RESULT passed=6 total=6'})
+if($presentationResults.Count -ne 1){throw 'Presentation contracts failed or missing'}
+[ordered]@{CheckedUtc=[DateTime]::UtcNow.ToString('o');Passed=6;Total=6;Scope='Native shield display, information data, candidate filtering and gesture; no UI validation';EngineExecuted=$false} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $root 'docs/relatorios/atuais/VIS-01-INTERACAO.json') -Encoding utf8
+$classicResults=@($messages | Where-Object {$_ -eq 'CLASSIC_VIS_TESTS_RESULT passed=6 total=6'})
+if($classicResults.Count -ne 1){throw 'Classic presentation contracts failed or missing'}
+[ordered]@{CheckedUtc=[DateTime]::UtcNow.ToString('o');Passed=6;Total=6;Scope='Native Classic adapter, defense, targets, information, atomicity and battle completion; no Unreal UI';EngineExecuted=$false} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $root 'docs/relatorios/atuais/VIS-01-CLASSICO.json') -Encoding utf8
 $testResult = @($messages | Where-Object { $_ -match '^TESTS_RESULT passed=(\d+) total=(\d+)$' })
 $simulation = @($messages | Where-Object { $_ -match '^SIMULATION_OK ' })
 if ($testResult.Count -ne 1 -or $simulation.Count -ne 1) { throw 'Resultado esperado ausente.' }

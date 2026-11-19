@@ -21,3 +21,6 @@
 *.glb binary
 *.uasset binary
 *.umap binary
+
+# Preserve the received research document byte-for-byte, including Markdown hard breaks.
+/docs/batalhas/PESQUISA-HABILIDADES-ITENS-HIERARQUIA-USUARIO.md -text whitespace=-blank-at-eol,cr-at-eol

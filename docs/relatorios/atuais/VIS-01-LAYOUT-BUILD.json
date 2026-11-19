@@ -1,0 +1,11 @@
+{
+  "CheckedUtc": "2026-11-19T15:23:49.9752760Z",
+  "Passed": true,
+  "ExitCode": 0,
+  "Stage": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\p\\7225eb04\\RpgEngineProbe",
+  "Log": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\p\\7225eb04/arena-layout-build.log",
+  "Scope": "Standard fan/depth and preserved classic lateral; active portrait placeholder; Editor compile only",
+  "WindowOpened": false,
+  "DefaultLayout": "Standard",
+  "ClassicArgument": "-ArenaLayout=Classic"
+}

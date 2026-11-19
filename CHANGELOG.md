@@ -92,3 +92,13 @@ Adicionados alvo Game, configurações do mapa de avaliação e scripts de prepa
 ## 2026-11-19 — adaptador e arena funcional3×3
 
 Cenário compartilhado extraído da apresentação textual; adaptador nativo com revisão de comandos e automação limitada. 213 testes anteriores e6 novos casos aprovados. Cena Canvas com formas provisórias, câmera, vida/escudo e três posições de habilidade ligada ao núcleo. Pacote revisado observado até vitória A em20 ações e reinício, com saída0 e log sem erros/avisos. Aceite integral permanece parcial para leitura, descrição/seleção de alvo e formações1/5/resoluções. Nenhuma arte proprietária, instalação ou mudança de rede.
+
+## 2026-11-19 — arena, interação e organização da pesquisa
+
+- Profundidade padrão e câmera lateral preservada; perfil de regras Classic explícito e independente da câmera.
+- Efeitos/detalhes consultáveis, escudo em pontos reais, seleção de alvos e defesa clássica pela sessão compartilhada; evidências e limites em VIS-01-CLASSICO-INTERACAO.md.
+- Pesquisa recebida preservada com hash e revisão crítica; perguntas ESC/VIS/REG/SIS centralizadas em PENDENCIAS.md, com prioridades e campos de resposta.
+- Índice, estado, tarefas e guia do experimento atualizados. Núcleo/experimento permanecem nas pastas existentes; sem novas dependências, arte proprietária ou mudança de regras por documentação.
+- Testes/compilação anteriores preservados; esta organização não executa novamente gameplay nem abre aplicativos.
+
+Verificação desta organização: links Markdown locais dos arquivos alterados válidos, JSONs alterados legíveis, scripts PowerShell sem erros de sintaxe e revisão de espaços (quebras Markdown do documento recebido preservadas por atributo específico). Documento recebido idêntico à origem por SHA-256. Testes funcionais anteriores não repetidos por mudanças somente documentais.

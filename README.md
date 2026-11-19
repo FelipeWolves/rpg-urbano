@@ -56,3 +56,10 @@ Padrão de trabalho Unreal: priorizar inglês (`-culture=en` nos testes). Os 14 
 ## Direitos e conteúdo
 
 Nenhuma licença de distribuição pública foi escolhida. O repositório não concede uma licença aberta para redistribuição; a decisão cabe ao titular. Conteúdo de terceiros precisa de autorização/licença própria registrada. Não incluir instalações de jogos, recursos protegidos, chaves, contas ou credenciais.
+
+
+Apresentações da arena: padrão em profundidade (aliados próximos, inimigos ao fundo) e lateral clássica preservada por -ArenaLayout=Classic. [Detalhes e validação pendente](docs/projeto/VIS-01-LAYOUTS.md). Essas opções visuais não mudam as regras de combate e não alteram os comandos do console.
+
+Interação gráfica compartilhada com o clássico: `-CombatProfile=Classic` habilita suas regras de ataque/defesa; `-ArenaLayout=Classic` continua independente e só muda a câmera. [Implementação, validação e próximo aceite](docs/projeto/VIS-01-CLASSICO-INTERACAO.md). Compilação aprovada; pacotes anteriores não incluem a revisão e seu aceite visual está pendente.
+
+Pesquisa e decisões: [questionário central por prioridade](docs/projeto/PENDENCIAS.md). ESC-01–07 são necessários para o próximo escudo; demais pontos podem ser pesquisados juntos sem bloquear esse incremento. [Índice atualizado](docs/README.md).

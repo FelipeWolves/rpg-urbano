@@ -1,44 +1,36 @@
 # Documentação — índice vigente
 
-Atualizado em 18/11/2026. Consulte a síntese atual antes dos relatórios de etapas anteriores.
+Atualizado em19/11/2026. Comece pelas sínteses atuais; relatórios datados delimitam a evidência de cada versão.
 
-## Retomar o trabalho
+## Retomada e pesquisa
 
-- [Estado atual](projeto/ESTADO.md), [tarefas](projeto/TAREFAS.md) e [prioridades](projeto/PLANO-PRIORIDADES.md).
-- [Painel de blocos e legenda](batalhas/PAINEL-BLOCOS.md): aceites concluídos e pendências separados.
-- [Visão](projeto/VISAO.md), [arquitetura](projeto/ARQUITETURA.md), [decisões](projeto/DECISOES.md) e [questões abertas](projeto/PENDENCIAS.md).
-- [Ferramentas](projeto/FERRAMENTAS.md), [guia de contribuição](../CONTRIBUTING.md) e [regras de trabalho](../AGENTS.md).
+- [Estado](projeto/ESTADO.md), [tarefas](projeto/TAREFAS.md) e [prioridades](projeto/PLANO-PRIORIDADES.md).
+- [Pendências e formulário por prioridade](projeto/PENDENCIAS.md): ESC-01 a ESC-07 são as decisões necessárias para o próximo escudo; VIS/REG/SIS organizam as demais perguntas. Recomendações ainda não são contratos aprovados.
+- [Painel de blocos e legenda](batalhas/PAINEL-BLOCOS.md): aceites separados das extensões.
+- [Pesquisa recebida sobre habilidades/itens](batalhas/PESQUISA-HABILIDADES-ITENS-HIERARQUIA-USUARIO.md), [revisão técnica](projeto/REVISAO-PESQUISA-HABILIDADES-ITENS.md) e [proveniência/hash](relatorios/atuais/PESQUISA-HABILIDADES-RECEPCAO.json). Alegações externas ainda não auditadas.
+- [Visão](projeto/VISAO.md), [arquitetura](projeto/ARQUITETURA.md), [decisões](projeto/DECISOES.md), [ferramentas](projeto/FERRAMENTAS.md), [contribuição](../CONTRIBUTING.md) e [orientações](../AGENTS.md).
 
-## Aceites funcionais
+## Evidências atuais
 
-| Área | Relatório | Evidência estruturada |
+| Área | Relatório | Alcance e limite |
 |---|---|---|
-| Núcleo/console | [Fundação](projeto/COMBATE.md) e [painel](batalhas/PAINEL-BLOCOS.md) | [213 testes standalone](relatorios/atuais/COMBATE.json) |
-| Habilidades | [HAB-01 final](batalhas/HAB-01-FINAL.md) | Aceites por parte em batalhas/ |
-| Ciclo local | [CIC-01](projeto/CIC-01.md) e [save v1](projeto/CIC-01-SAVE-R01.md) | [CIC-01 final](batalhas/COMBATE-CIC-01-FINAL.json) |
-| Instalação Unreal | [Metadados](projeto/ENG-01-INSTALACAO.md) | [Instalação](relatorios/atuais/ENG-01-INSTALACAO.json) |
-| Build/ponte | [Build](projeto/ENG-01-BUILD.md) e [ponte](projeto/ENG-01-PONTE.md) | [Build atual](relatorios/atuais/ENG-01-BUILD.json) |
-| Execução Unreal | [Aceite runtime](projeto/ENG-01-RUNTIME.md) | [Dois processos/11 checkpoints](relatorios/atuais/ENG-01-RUNTIME.json) |
+| Núcleo/console | [Fundação](projeto/COMBATE.md), [resultado](relatorios/atuais/COMBATE.json) |213 gerais; não são testes de interface Unreal |
+| Habilidades/ciclo | [HAB-01](batalhas/HAB-01-FINAL.md), [CIC-01](projeto/CIC-01.md), [save](projeto/CIC-01-SAVE-R01.md) | Escopos mínimos encerrados; save de progresso entre batalhas |
+| Instalação/ponte | [Instalação](projeto/ENG-01-INSTALACAO.md), [build](projeto/ENG-01-BUILD.md), [runtime](projeto/ENG-01-RUNTIME.md) |11 checkpoints iguais em dois processos; não são22 casos distintos |
+| Ambiente gráfico | [Diagnóstico](projeto/ENG-01-GRAFICO-DIAGNOSTICO.md) | Inglês priorizado nas ferramentas; português do produto separado; sem isolamento de rede validado |
+| Pacote Windows básico | [Preparação](projeto/ENG-01-PACOTE-PREPARACAO.md), [build](projeto/ENG-01-PACOTE-BUILD.md), [runtime](projeto/ENG-01-PACOTE-RUNTIME.md) | Build/abertura/encerramento aprovados nesta máquina; sem Windows limpo ou distribuição final |
+| Arena inicial | [Plano](projeto/VIS-01-PLANO.md), [adaptador](projeto/VIS-01A.md), [cena](projeto/VIS-01B.md), [aceite3×3](projeto/VIS-01C.md) | Batalha/reinício observados; aceite visual integral parcial |
+| Câmeras | [Layouts](projeto/VIS-01-LAYOUTS.md), [observação no pacote](projeto/VIS-01-LAYOUTS-RUNTIME.md) | Profundidade padrão e lateral preservada; geometria6 grupos; legibilidade ainda pendente |
+| Interação revisada | [Contrato inicial](projeto/VIS-01-INTERACAO-R01.md), [implementação](projeto/VIS-01-INTERACAO-IMPLEMENTACAO.md) |6 grupos nativos; build aprovado; sem inspeção visual desta revisão |
+| Perfil clássico gráfico | [Entrega e roteiro](projeto/VIS-01-CLASSICO-INTERACAO.md), [testes](relatorios/atuais/VIS-01-CLASSICO.json), [build](relatorios/atuais/VIS-01-CLASSICO-BUILD.json) |6 grupos próprios; câmera e regras independentes; pacote atualizado ainda pendente |
 
-A ponte Windows está concluída. [Editor gráfico parcialmente validado](projeto/ENG-01-GRAFICO.md), com [JSON](relatorios/atuais/ENG-01-GRAFICO.json): renderização e interação confirmadas, ENG-G01/ENG-G02 pendentes. Arena, pacote e plataformas adicionais continuam pendentes. Os 213 testes gerais e os 11 checkpoints repetidos na Unreal são medidas diferentes.
+## Organização dos arquivos
 
-## Fonte dos experimentos
+Núcleo em include/rpg e src; testes em tests; automação em scripts. [Experimento Unreal](../experiments/unreal/RpgEngineProbe/README.md) contém fonte versionada. Stages, objetos, pacotes, logs e saves ficam em build ignorado. Não editar fontes gerados ou mover núcleo para a engine.
 
-[Projeto de avaliação Unreal](../experiments/unreal/RpgEngineProbe/README.md). Arquivos gerados, DLLs, logs e saves ficam em build ignorado pelo Git; não são documentação nem fonte editável.
+- docs/projeto: sínteses, decisões, contratos de integração e planejamento.
+- docs/batalhas: contratos/evidências de mecânicas e pesquisas recebidas, com procedência na revisão correspondente.
+- docs/relatorios/atuais: resultados estruturados pequenos; caminhos locais identificam artefatos não distribuídos.
+- [Histórico de consolidação](projeto/historico/2026-11-18/README.md): documentos antigos preservados, sem virar instruções atuais.
 
-## Histórico e referências antigas
-
-[Snapshot anterior à consolidação](projeto/historico/2026-11-18/README.md) preserva integralmente as antigas sínteses/checklists em arquivos .md.txt, sem promovê-las a instruções atuais. Relatórios técnicos, CSV e JSON datados continuam nos caminhos originais.
-
-Documentos que antes ficavam na raiz estão em projeto/; AMBIENTE.json e COMBATE.json estão em relatorios/atuais/. Menções textuais históricas a esses nomes seguem essa correspondência. Links do arquivo histórico são registros da época, não navegação vigente.
-
-Ao atualizar: substitua a síntese atual, preserve aceites datados e evite acrescentar sucessivos estados contraditórios no topo de vários documentos.
-
-
-[Diagnóstico gráfico regional e padrão de idioma](projeto/ENG-01-GRAFICO-DIAGNOSTICO.md): inglês priorizado no ambiente Unreal; português do jogo será tratado por localização independente, ainda não validada.
-
-
-Pacote Windows: [preparação](projeto/ENG-01-PACOTE-PREPARACAO.md), [build](projeto/ENG-01-PACOTE-BUILD.md) e [execução básica aprovada](projeto/ENG-01-PACOTE-RUNTIME.md). Inventário e JSONs vinculados nesses relatórios. Não validam gameplay, desempenho ou distribuição em Windows limpo.
-
-
-VIS-01: [plano](projeto/VIS-01-PLANO.md), [adaptador aprovado](projeto/VIS-01A.md), [cena compilada](projeto/VIS-01B.md) e [fluxo3×3/aceite visual parcial no pacote](projeto/VIS-01C.md). Evidências estruturadas vinculadas em cada relatório.
+Atualize a síntese vigente e os links; preserve aceites datados. Não copie a lista de perguntas para vários arquivos: o registro central é PENDENCIAS.md. Pesquisa recebida não deve sobrescrever contratos aprovados. Evite repetir testes para mudanças apenas documentais.

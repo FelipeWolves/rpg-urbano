@@ -1,0 +1,11 @@
+{
+  "CheckedUtc": "2026-11-19T16:33:38.5799137Z",
+  "Passed": true,
+  "ExitCode": 0,
+  "Stage": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\p\\e2394b7f\\RpgEngineProbe",
+  "Log": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\p\\e2394b7f\\classic-editor-build-authorized.log",
+  "Scope": "Classic combat profile and shared interaction UI; Editor compilation only",
+  "WindowOpened": false,
+  "Packaged": false,
+  "InitialRestrictedAttempt": "Denied access to Engine/Source, exit 6; log preserved in stage"
+}

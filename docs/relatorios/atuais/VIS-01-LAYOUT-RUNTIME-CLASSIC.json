@@ -1,0 +1,40 @@
+{
+  "StartedUtc": "2026-11-19T15:32:30.0900155Z",
+  "RequestedLayout": "Classic",
+  "ExplicitLayoutArgument": true,
+  "EntryProcessId": 24480,
+  "EntryExecutable": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\p\\7225eb04\\archive\\Windows\\RpgEngineProbe.exe",
+  "ExecutableSHA256": "2722E4C226DB4A260F05FE9A720A0B2FD2FBFAD056BFC5D40446D377F0210FCB",
+  "Log": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\arena-runtime\\Classic-20261119-153230\\runtime.log",
+  "Status": "basic_layout_and_interaction_observed_visual_acceptance_partial",
+  "NetworkChanged": false,
+  "VisualAcceptance": false,
+  "RuntimeProcessId": 32660,
+  "RuntimeExitCode": 0,
+  "EntryExitCode": 0,
+  "FinishedUtc": "2026-11-19T15:33:21.0203541Z",
+  "ErrorLines": 0,
+  "Pending": [
+    "Background enemy label overlap in Standard",
+    "HP/shield spacing",
+    "Full skill descriptions and target feedback",
+    "Formations 1 and 5 and other resolutions"
+  ],
+  "WarningLines": 0,
+  "ActivePortraitPlaceholderObserved": false,
+  "UI5v5Validated": false,
+  "WindowClosedObserved": true,
+  "Resolution": "1280x720",
+  "BasicActionObserved": true,
+  "LayoutObserved": "CLASSIC",
+  "NetworkIsolationValidated": false,
+  "ExpectedLayoutLogObserved": true,
+  "EnemyResponseObserved": true,
+  "StateAfterAction": {
+    "B3Health": 65,
+    "AcceptedActions": 2,
+    "A3Health": 40,
+    "Actor": "A1"
+  },
+  "RestartObserved": true
+}

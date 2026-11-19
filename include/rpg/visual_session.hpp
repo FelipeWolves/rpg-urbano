@@ -19,9 +19,10 @@ struct VisualState {
 // Owns one session; views cannot mutate it. Revision expires after every accepted action/reset.
 class VisualSession {
 public:
-    explicit VisualSession(EncounterSetup setup=team_reference_setup());
+    explicit VisualSession(EncounterSetup setup=team_reference_setup(),CombatProfile profile=CombatProfile::Team);
     [[nodiscard]] VisualState state() const;
     [[nodiscard]] VisualResult submit(std::uint64_t revision,std::uint32_t slot,std::string target);
+    [[nodiscard]] VisualResult submit_action(std::uint64_t revision,const Action& action);
     [[nodiscard]] VisualResult step_automatic();
     void reset();
 private:

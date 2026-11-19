@@ -1,0 +1,16 @@
+{
+  "StartedUtc": "2026-11-19T15:26:43.9060932Z",
+  "Status": "completed",
+  "ProcessId": 2880,
+  "Stage": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\p\\7225eb04\\RpgEngineProbe",
+  "Archive": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\p\\7225eb04\\archive",
+  "Stdout": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\p\\7225eb04\\uat-stdout.log",
+  "Stderr": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\p\\7225eb04\\uat-stderr.log",
+  "Plan": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\p\\7225eb04\\package-plan.json",
+  "SourceManifestVerified": true,
+  "NetworkChanged": false,
+  "PackageLaunched": false,
+  "Passed": true,
+  "ExitCode": 0,
+  "FinishedUtc": "2026-11-19T15:29:56.6535142Z"
+}

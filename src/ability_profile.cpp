@@ -32,6 +32,7 @@ ProfileBattle::ProfileBattle(std::vector<Definition> roster,BattleRules rules,Co
             for(const auto& entry:set.slots){
                 if(entry.position<1 || entry.position>3 || entry.position==previous || entry.name.empty() ||
                    (!entry.active_skill && !entry.passive && entry.passive_note.empty())){throw std::invalid_argument("Invalid ability slot");}
+                if(entry.level && *entry.level==0){throw std::invalid_argument("Ability level must be positive when provided");}
                 previous=entry.position;
                 if(entry.requirement && (!entry.active_skill || entry.position==1 ||
                    entry.requirement->at_most_percent<1 || entry.requirement->at_most_percent>100)){

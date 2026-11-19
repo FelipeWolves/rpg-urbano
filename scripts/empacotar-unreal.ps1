@@ -1,5 +1,5 @@
 # Executes an explicitly authorized package plan; never launches the packaged application.
-param([ValidateSet('ENG-01-PACOTE-BUILD.json','VIS-01C-BUILD.json')][string]$ReportName='ENG-01-PACOTE-BUILD.json')
+param([ValidateSet('ENG-01-PACOTE-BUILD.json','VIS-01C-BUILD.json','VIS-01-LAYOUT-PACOTE.json')][string]$ReportName='ENG-01-PACOTE-BUILD.json')
 $ErrorActionPreference='Stop'
 $root=Split-Path $PSScriptRoot -Parent
 $r=Get-Content -LiteralPath (Join-Path $root 'docs/relatorios/atuais/ENG-01-PACOTE-PREPARACAO.json') -Raw | ConvertFrom-Json

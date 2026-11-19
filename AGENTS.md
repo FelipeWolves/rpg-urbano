@@ -43,3 +43,12 @@ Contratos TIME/RES/SEQ/PAR permanecem válidos no escopo de cada relatório. R04
 ## Encerramento
 
 Atualize estado, tarefa e painel pertinentes com resultado, verificações efetivamente executadas, limites e próximo passo. Não duplicar o relatório completo entre documentos. Português nos documentos e explicações, inglês técnico consistente no código. Nunca declarar teste, compilação ou recurso funcional que não ocorreu.
+
+
+## Apresentações da arena
+
+StandardDepth é o padrão visual: aliados próximos da câmera e inimigos ao fundo, com cinco posições possíveis em leque escalonado, conforme referência visual do usuário. ClassicLateral preserva a composição lateral, selecionada por -ArenaLayout=Classic. Definição neutra em arena_layout.hpp/cpp, usada pela Unreal;5 posições possíveis por lado, sem criar personagens novos. Perfil visual é separado de CombatProfile; não habilitar defesa no perfil Equipes por escolher câmera clássica. Jogar.cmd/Jogar-Classico.cmd preservados. Testes nativos e build não equivalem ao aceite visual da nova câmera. Testar posições: scripts/testar-layout-arena.ps1 (6 grupos), sem abrir a Unreal. Retrato ativo tem só um painel provisório; UI específica de chefe/auxiliares ainda pendente. Ver docs/projeto/VIS-01-LAYOUTS.md. Não abrir janela por inferência desta atualização.
+
+Interação gráfica: `-CombatProfile=Classic` seleciona regras clássicas (referência sem loadouts/especiais), independentemente de `-ArenaLayout=Classic`. Não confundir câmera lateral com defesa habilitada. Efeitos/detalhes/escudo em pontos reais compartilhados; defesa também aparece na informação. Mais6 grupos clássicos nativos aprovados, separados dos213+6 adaptador+6 apresentação. Build Editor aprovado, sem abrir janela/pacote desta revisão. Ver VIS-01-CLASSICO-INTERACAO.md. Regra de escudo percentual aguarda documento; não converter escudos fixos implicitamente.
+
+Pesquisa de habilidades recebida e revisada. Perguntas novas vivem somente em docs/projeto/PENDENCIAS.md (ESC/VIS/REG/SIS), com recomendações ainda não aprovadas. Não dizer que aguardamos envio; aguardamos decisões ESC-01–07. Preservar fonte recebida e contratos encerrados. Não repetir a lista em outros documentos.

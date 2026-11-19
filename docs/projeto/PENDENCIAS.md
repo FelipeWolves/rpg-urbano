@@ -1,13 +1,147 @@
 # Pendências e pontos a esclarecer
 
-## Síntese vigente — 18/11/2026
+## Síntese vigente —19/11/2026
 
-Resolvidos no escopo mínimo: habilidades/perfis, primeiro gatilho passivo e requisito de vida, automação simples, seleção, recompensa única, save v1 e ponte Windows executada dentro da Unreal. Relatórios [HAB-01](../batalhas/HAB-01-FINAL.md), [CIC-01](CIC-01.md) e [ponte](ENG-01-RUNTIME.md).
+Registro central de perguntas e decisões. **Documento de pesquisa recebido; não estamos mais aguardando seu envio.** A revisão está em [REVISAO-PESQUISA-HABILIDADES-ITENS.md](REVISAO-PESQUISA-HABILIDADES-ITENS.md). Os itens abaixo são a lista vigente para a próxima devolutiva. Recomendações não são regras aprovadas nem implementadas.
 
-Continuam abertos: editor gráfico/GPU, pacote e mobile; famílias PvE ainda não implementadas; silêncio/supressão, passivas durante combate/recarga interna, custos/condições compostas e automação estratégica; persistência de runtime/migrações/concorrência e economia de produção. A próxima tarefa é abertura gráfica controlada, não repetir os aceites da ponte.
+✅ Núcleo, R04, HAB-01, CIC-01 e perfis SEQ/PAR preservados no escopo de seus aceites. Ponte Unreal executada, pacote básico e fluxo visual3×3 já observados; interação revisada compilada, mas ainda sem aceite visual. Evidências em [ESTADO.md](ESTADO.md) e no [painel](../batalhas/PAINEL-BLOCOS.md).
 
-Os IDs e contratos de pesquisa abaixo são preservados. Resumos incrementais antigos foram reunidos no [histórico integral](historico/2026-11-18/PENDENCIAS.md.txt); instruções antigas como “instalar engine” ou “implementar primeira passiva” não são a fila vigente.
-Registro central, atualizado em 18/11/2026. Consultar somente os itens relevantes ao bloco atual. Uma pendência de etapa futura não impede entregar o que já tem regras definidas. Não decidir silenciosamente comportamentos de jogo nem apresentar hipóteses como capacidades implementadas.
+### Como preencher e priorizar
+
+- **🔴 P1 — necessário antes do próximo efeito:** ESC-01 a ESC-07. Decidir esses pontos permite implementar o primeiro escudo percentual; não bloqueiam a inspeção visual da interface já compilada.
+- **🟠 P2 — necessário antes da família correspondente:** VIS-01 a VIS-03 e REG-01 a REG-03. Pode pesquisar tudo agora, mas cada extensão só entra no código em seu bloco.
+- **🟡 P3 — planejamento e auditoria:** SIS-01 a SIS-04. Registrar respostas sem ampliar automaticamente o escopo.
+- **✅ Preservado:** contratos já validados. Uma hipótese externa diferente não os invalida. Sem repetição de testes por simples atualização documental.
+
+Para cada ID, responder: **decisão desejada para nosso jogo; exemplo numérico/cenário; fonte e versão (se referente ao Dislyte); exceções; dúvida restante**. Fonte externa pode ficar “não localizada”; preferência própria não precisa ser apresentada como fato do outro jogo. Respostas parciais são aceitas. O usuário pode devolver todos os itens juntos.
+
+## 🔴 P1 — contrato do primeiro escudo percentual
+
+### ESC-01 — base do cálculo (explicação1)
+
+**Pergunta:** usar HP atual do aplicador ou do protegido? Efeitos futuros poderão usar HP máximo, perdido ou atributos diferentes?
+
+**Recomendação ainda não aprovada:** primeiro exemplo usa HP atual do protegido;10% de100=10 e10% de50=5. Manter a base declarada por efeito, sem converter escudos fixos existentes. **Fechamento:** identificar sujeito/base e pelo menos dois exemplos.
+
+**Resposta do usuário:** pendente.
+
+### ESC-02 — instante e recálculo (explicação2)
+
+**Pergunta:** calcular na aplicação ou atualizar com perda/cura/alteração de HP? Recalcular poderia restaurar pontos já consumidos? Qual comportamento se houver atualização do HP máximo?
+
+**Recomendação ainda não aprovada:** converter o percentual em pontos uma única vez na aplicação; dano/cura posterior não recalcula nem recompõe proteção. **Fechamento:** cenário com aplicação, dano e cura, incluindo ordem dos eventos.
+
+**Resposta do usuário:** pendente.
+
+### ESC-03 — arredondamento e limites (explicação3)
+
+**Pergunta:**55×10%=5,5 vira5? Valores abaixo de1 viram0 ou têm mínimo? Há teto por instância/total? Zero pode criar apenas ícone ou deve significar ausência de escudo?
+
+**Recomendação ainda não aprovada:** arredondar para baixo; permitir zero sem mínimo implícito; não criar proteção funcional de valor zero. Limites numéricos devem ser validados, sem truncamento/overflow silencioso. **Fechamento:** exemplos HP0/1/9/10/55, percentual zero e limites admissíveis; não aplicar escudo funcional a morto sem regra específica.
+
+**Resposta do usuário:** pendente.
+
+### ESC-04 — absorção e ordem do dano (explicação4)
+
+**Pergunta:** escudo absorve antes do HP, depois das reduções? Excesso atravessa? Cada hit consome separadamente? Quais ataques ignoram escudo e quais escudos podem impedir esse bypass?
+
+**Recomendação ainda não aprovada:** usar dano após mitigação aplicável;5 de escudo contra8 absorve5 e deixa3 para HP. Reutilizar o executor existente; exceções declaradas por efeito, sem alterar R04. **Fechamento:** exemplo simples, multi-hit, escudo esgotado, dano zero e bypass.
+
+**Resposta do usuário:** pendente.
+
+### ESC-05 — reaplicação e coexistência (explicação5)
+
+**Pergunta:** reaplicar soma, substitui, mantém o maior ou cria instâncias? Duração renova? Fontes diferentes coexistem? Se coexistirem, qual é consumida primeiro? Escudo comum e StructuralShield seguem a mesma regra?
+
+**Recomendação ainda não aprovada:** mesmo efeito conserva o maior entre pontos restantes e nova aplicação, renovando duração. Não habilitar acúmulo entre fontes sem decisão; não unificar categorias só pela aparência. **Fechamento:** aplicações10→3→novo5 e10→8→novo5; fontes diferentes e durações diferentes.
+
+**Resposta do usuário:** pendente.
+
+### ESC-06 — duração e relógio (explicação6)
+
+**Pergunta:** contar turno do aplicador/protegido/global? Início ou fim? NaturalOnly ou EveryTurn? Aplicação no próprio turno desconta imediatamente? Bloqueio, turno extra e morte do aplicador alteram duração?
+
+**Recomendação ainda não aprovada:** oportunidades naturais do protegido; nenhuma perda imediata no turno de aplicação. Especificar a fronteira exata compatível com o núcleo antes de implementar; reação não equivale a turno do dono. **Fechamento:** cronologia de aplicação, oportunidade natural, extra, bloqueio e expiração.
+
+**Resposta do usuário:** pendente.
+
+### ESC-07 — morte, revive e transições (explicação7)
+
+**Pergunta:** remover na morte do protegido? Morte do aplicador encerra? Revive restaura? Onda, confronto e troca de equipe conservam pontos/duração? Expiração dispara algum efeito?
+
+**Recomendação ainda não aprovada:** remover este escudo na morte do portador; revive não o restaura; transições seguem política explícita do encontro. Dependência do aplicador é atributo separado. **Fechamento:** tabela por evento e casos Preserve/Reset, sem mudar políticas SEQ/PAR já aprovadas.
+
+**Resposta do usuário:** pendente.
+
+## 🟠 P2 — apresentação e contratos relacionados
+
+### VIS-01 — faixa de escudo e painel (explicação8)
+
+Já implementado em fonte: pontos reais sobre a parte preenchida da vida, faixa azul-clara limitada à área de HP e valor integral no painel. Confirmar visualmente100HP/10,50HP/5,50HP/10, escudo maior que HP e escudo zero. Diferenciar escudo fixo de percentual no texto; mostrar origem/duração conforme metadados disponíveis. **Prioridade:** aceite da revisão atual; não depende de cadastrar todo o catálogo.
+
+**Resultado/observação do usuário:** pendente.
+
+### VIS-02 — habilidades, alvos e interação
+
+Verificar ícone/painel de efeitos, nomes/descrições completos, nível somente quando cadastrado, passivas consultáveis e não selecionáveis, recarga com contador, bloqueio com motivo. Testar clique curto/prolongado e soltura sem ação, pausa local da automação durante consulta, alvo válido, troca/confirmação e recusa sem consumo. Standard e lateral conservam seus fluxos declarados. Símbolo de alvo deve admitir futura personalização; imagem própria/licenciada ainda não implementada.
+
+**Resultado/observação do usuário:** pendente. Compilação não substitui teste visual; abrir aplicativo exige autorização específica.
+
+### VIS-03 — formações, tela e acessibilidade
+
+Conferir1/3/5 unidades por lado, assimetrias, rótulos ao fundo, ausência de caixas agregadoras e outras resoluções/redimensionamento. Seis posições, mobile/toque e acessibilidade são extensões a especificar/testar separadamente. Retrato2D original e UI específica de chefe/auxiliares permanecem pendentes, sem inferir compartilhamento de HP pelo layout.
+
+**Resultado/observação do usuário:** pendente.
+
+### REG-01 — defesa clássica (explicação9)
+
+✅ Regra vigente: metade do dano por hit, para baixo; consumida no fecho de ação que a utilizou ou expirada na próxima oportunidade do dono. Documento novo sugere duração até próxima oportunidade natural e outras exceções. **Pergunta futura:** manter variante separada? Como interage com extras, dano verdadeiro, perfuração e modificadores? **Recomendação:** preservar atual e nome Defesa; não habilitar no modo Equipes por escolher câmera lateral.
+
+**Decisão sobre variante:** pendente; não bloqueia o escudo nem reabre o aceite da defesa atual.
+
+### REG-02 — causalidade e vitória (explicação10)
+
+✅ R04/RES-01 preservados: reflexão/explosão FIFO inline; interrupção dos hits quando aplicável; auto-revive; Victory Lock antes de reações. Em morte dupla, lado do autor da ação atual, inclusive contra-atacante. A sequência Q07 do documento não substitui esse contrato.
+
+**Pesquisa opcional:** caso haja evidência externa diferente, registrar versão/contexto e exemplo; não mudar automaticamente o projeto. Timeout do modo e papel ofensivo/defensivo devem permanecer separados do autor causal. Sem nova decisão necessária para avançar o escudo.
+
+### REG-03 — silêncio, bloqueio e supressão (explicação11)
+
+**Perguntas:** quais efeitos impedem agir, bloqueiam apenas ativas ou suprimem passivas? Congelamento/petrificação fazem quais operações? Passiva de abertura difere de gatilho em combate? Recargas continuam contando? O que ocorre com reações/extras já enfileirados? Quais exceções por unidade/efeito?
+
+✅ Básica na posição1 não é silenciada por decisão do projeto; impedimento de agir é condição distinta. Block não significa silêncio; FreezeCooldowns não significa personagem congelado. **Fechamento futuro:** matriz efeito×comando/gatilho/clock, incluindo exceções explícitas. Necessário antes de implementar essa família, não antes da inspeção visual.
+
+**Resposta do usuário:** pendente.
+
+## 🟡 P3 — pesquisa ampla e evolução (explicação12)
+
+### SIS-01 — origem, permissões, âncoras e quotas
+
+Distinguir habilidade, equipamento, divinate e regra de modo. Definir quem aplica, quem porta, quais eventos disparam, âncora temporal, persistência, reaplicação e limites por fonte/alvo/time/cadeia/batalha. Definir dissipação, roubo, transferência, imunidade e supressão independentemente da cor do ícone. Silver/Golden têm divergências no documento. Esses sistemas ainda não existem integralmente no projeto.
+
+**Resposta/fontes:** pendentes; prioridade antes dos respectivos sistemas, sem plugins/dependências antecipados.
+
+### SIS-02 — fórmulas, atributos e auditoria de fontes
+
+Verificar contexto/versão de afinidades, ACC/RESIST, Miss/Crit/Boon, mitigação por DEF, dano verdadeiro, limites contra chefes, overkill e teto de HP. Transcrever e conferir as fórmulas embutidas como imagens antes de qualquer uso. Separar atributos base/efetivos, escala/arredondamento e limites seguros. Ocean não comprova sozinho tick normal de recarga; empate em habilidade de Toland não comprova desempate universal. Datas conflitantes de3.4.50 e catálogo incompleto não são baseline confirmado. Auditar apenas o necessário para o próximo contrato, podendo o usuário pesquisar todos de uma vez.
+
+**Resposta/fontes:** pendentes.
+
+### SIS-03 — ondas, times, chefes e persistência
+
+Distinguir início de combate/onda/rodada/oportunidade, efeitos que persistem, retorno cíclico de times, kit fixo ou variável por etapa, condições por HP e score/sobrevivência. Preservar SEQ-01 e PAR-02 (HP único/barra global no perfil escolhido); proposta de instâncias independentes é outro modo. Identificar quais exceções afetam chefe, auxiliares, invocações ou outras frentes. Não impor exclusividade de equipamentos antes de haver sistema de equipamentos. IDs PEN/PVE históricos permanecem rastreáveis abaixo e no painel.
+
+**Resposta/fontes:** pendentes; famílias futuras não invalidam perfis já encerrados.
+
+### SIS-04 — inventário, ATB, retomada e plataformas
+
+Equipamento não equivale a consumível: definir estamina/itens de combate separadamente no clássico, custos, turno consumido e regras de uso. ATB Active/Wait, barra de energia, cast delay e recursos não são mera troca de SPD. Save de progresso existente não restaura combate; snapshots/retomada precisam de contrato. Servidor, threads, carga, desempenho, mobile e distribuição precisam de medição própria, não de inferências sobre remoção de modos do Dislyte.
+
+**Resposta/preferências:** pendentes; não bloqueiam o primeiro escudo nem autorizam instalações, rede ou novos programas.
+
+## Registro histórico e rastreabilidade
+
+As tabelas PEN/VAL e atualizações datadas a seguir registram a evolução. Linhas antigas como “não implementado” não substituem os aceites posteriores. Para estado vigente usar a síntese acima, [ESTADO.md](ESTADO.md) e o [painel](../batalhas/PAINEL-BLOCOS.md). Histórico anterior à consolidação preservado em [PENDENCIAS.md.txt](historico/2026-11-18/PENDENCIAS.md.txt).
 
 ## Decisões em aberto
 
@@ -235,3 +369,19 @@ Arredondamento padrão para baixo decidido e implementado. Modificadores de dano
 ## ENG-G01/G02 — atualização do diagnóstico e idioma
 
 Três testes internos de mensagens explicam as 14 falhas em pt-BR; passaram em inglês. Priorizar -culture=en nos testes Unreal como contorno, sem declarar correção da causa. Opt-out bSendUsageData=False sem os marcadores de telemetria anteriores; sem auditoria/bloqueio de rede por decisão do usuário. O jogo em português permanece objetivo separado: definir localização de interface/textos, fontes, formatos regionais e validação no pacote, independentemente do idioma do editor. Evidências e limites em [ENG-01-GRAFICO-DIAGNOSTICO.md](ENG-01-GRAFICO-DIAGNOSTICO.md).
+
+
+## Apresentação padrão — imagem do usuário em19/11/2026
+
+- Formação em leque escalonado, aliados no primeiro plano e inimigos ao fundo; Classic lateral preservado por chamada própria. Inspeção visual pendente.
+- Retrato2D próprio/licenciado do ator junto das três habilidades; existe apenas painel de identificação provisório.
+- Futura UI PvE: identificar chefe/auxiliares explicitamente, barra e kit do chefe no topo, vidas dos auxiliares independentes. Não derivar HP agregado nem compartilhar vida automaticamente. Layout do chefe não implica nova mecânica de combate. Detalhes em VIS-01-LAYOUTS.md.
+
+
+## VIS-01 — interação R01
+
+Ícone/painel, escudo em pontos reais, metadados opcionais, consulta prolongada e orientação de alvos implementados e testados nativamente. Aceite visual atualizado, formações e resoluções continuam pendentes. Regra percentual e interações aguardam documento do usuário; sexta posição permanece aberta. Ver VIS-01-INTERACAO-IMPLEMENTACAO.md e VIS-01-CLASSICO-INTERACAO.md.
+
+## Pesquisa de habilidades recebida —19/11/2026
+
+Documento do usuário preservado e comparado aos contratos. [Revisão e matriz](REVISAO-PESQUISA-HABILIDADES-ITENS.md). Q07/Q08 e proposta de frentes não substituem R04, defesa atual ou PAR-02. Fontes externas ainda não auditadas; escudo percentual permanece em especificação (base, instante/recalculo, reaplicação e consumo), não mais aguardando envio do documento. Próximo passo: fechar esse contrato mínimo. Sem código/testes novos nesta recepção; aceite visual atual permanece pendente.

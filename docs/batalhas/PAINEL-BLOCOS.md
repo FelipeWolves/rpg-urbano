@@ -87,3 +87,22 @@ Também acrescentados durante o percurso, mas já encerrados: COM-01A, TIME-01, 
 ⚠️ Não implementados nesta entrega: skills comuns de área e redirecionamento dinâmico do chefe, paralelismo real, servidor, IA completa, score, fases por limiar de HP, catálogo completo de habilidades, ATB opcional, lojas e produção multiplataforma. Sem aceites completos de implementação não são blocos fechados. Arte, áudio e escolha da engine terão validação apropriada, não necessariamente testes unitários.
 
 Ordem atual: **ENG-01 → VIS-01 → ART-01 → AUD-01 → EXP-01**. Uma entrega por vez. Priorização por risco/dependências e menor esforço útil dentro da área, sem estimativa de prazo ou consumo.
+
+
+Decisão de apresentação: Standard em profundidade passa a ser o padrão; Classic lateral preservado por chamada própria. Testes nativos de posições1–5 aprovados; nova câmera ainda sem aceite visual. Contrato: docs/projeto/VIS-01-LAYOUTS.md. Preservar o aceite funcional3×3 anterior como evidência da versão lateral, sem transferi-lo automaticamente para esta revisão.
+
+
+Apresentações verificadas no pacote em19/11/2026: Standard sem argumento e Classic por chamada explícita, ação/resposta/reinício observados com mesmos valores. Entrada e processo principal de ambas saíram0. Aceite visual integral parcial por sobreposição de etiquetas ao fundo e demais pendências. Relatório: docs/projeto/VIS-01-LAYOUTS-RUNTIME.md. Aplicativos encerrados; próximo ajuste é legibilidade/áreas de seleção.
+
+
+Interação inicial implementada e compilada em19/11/2026: ícone/painéis, faixa de escudo real, gesto prolongado, nível opcional e seleção padrão com marcador/sugestão/confirmação. Regressão213+6 e6 novos grupos aprovados. Ainda sem teste visual desta revisão; cálculo percentual do escudo segue separado dos escudos fixos antigos. Relatório: docs/projeto/VIS-01-INTERACAO-IMPLEMENTACAO.md. Próximo: inspeção autorizada do pacote atualizado.
+
+### VIS-01 — extensão clássica da interação (19/11/2026)
+
+✅ Implementação/adaptador nativos: Classic explícito, ataque/defesa preservados e informações compartilhadas;6 novos grupos aprovados, além dos213 gerais,6 do adaptador e6 de apresentação. Build Editor aprovado. ⚠️ Aceite visual deste incremento,1/5 e resoluções ainda pendentes; escudo percentual aguarda documento. Não fechar VIS-01 integral por compilação. [Relatório](../projeto/VIS-01-CLASSICO-INTERACAO.md).
+
+Pesquisa recebida: [matriz de incorporação](../projeto/REVISAO-PESQUISA-HABILIDADES-ITENS.md). Preservados contratos encerrados; escudo percentual em especificação e fontes externas sem auditoria. Sem nova execução de testes nesta revisão.
+
+### Fila de decisões e validações — organização vigente
+
+🔴 P1: ESC-01–07 antes de implementar o primeiro escudo percentual. 🟠 P2: VIS-01–03 (aceite visual) e REG-01–03 (contratos relacionados). 🟡 P3: SIS-01–04 (sistemas/pesquisa futura). Lista completa, exemplos e campos de resposta em [PENDENCIAS.md](../projeto/PENDENCIAS.md). O usuário pode pesquisar todos juntos; não é necessário fechar P2/P3 para entregar P1. Recomendações não são decisões aprovadas. Códigos novos são IDs de perguntas, não novos blocos concluídos.

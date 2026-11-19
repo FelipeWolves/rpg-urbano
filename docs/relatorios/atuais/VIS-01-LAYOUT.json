@@ -1,0 +1,20 @@
+{
+  "CheckedUtc": "2026-11-19T15:23:22.1483762Z",
+  "Passed": true,
+  "ExitCode": 0,
+  "Groups": 6,
+  "FormationSizes": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "Layouts": [
+    "Standard",
+    "Classic"
+  ],
+  "Default": "Standard",
+  "Scope": "Native placement contracts; not visual/UI tests",
+  "EngineExecuted": false
+}

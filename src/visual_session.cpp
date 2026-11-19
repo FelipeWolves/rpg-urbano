@@ -2,7 +2,7 @@
 #include <limits>
 #include <stdexcept>
 namespace rpg::presentation {
-VisualSession::VisualSession(EncounterSetup setup):session_(std::move(setup.roster),std::move(setup.rules),CombatProfile::Team,std::move(setup.loadouts)){}
+VisualSession::VisualSession(EncounterSetup setup,CombatProfile profile):session_(std::move(setup.roster),std::move(setup.rules),profile,std::move(setup.loadouts)){}
 VisualState VisualSession::state() const {
     const auto& profile=session_.battle();const auto* actor=profile.battle().current_actor();
     return {revision_,profile.snapshot(),session_.progress(),actor?profile.abilities(actor->definition.id):std::vector<AbilityView>{},
@@ -19,6 +19,16 @@ VisualResult VisualSession::submit(std::uint64_t revision,std::uint32_t slot,std
     if(!actor || actor->definition.team!=Team::A){return {VisualError::NotPlayerTurn,{}};}
     check_revision_capacity();
     auto result=session_.apply_slot(slot,std::move(target));
+    if(!result.accepted()){return {VisualError::CoreRejected,std::move(result)};}
+    ++revision_;automatic_count_=0;return {VisualError::None,std::move(result)};
+}
+VisualResult VisualSession::submit_action(std::uint64_t revision,const Action& action){
+    if(revision!=revision_){return {VisualError::StaleCommand,{}};}
+    if(stopped_){return {VisualError::SafetyStop,{}};}
+    const auto* actor=session_.battle().battle().current_actor();
+    if(session_.battle().battle().phase()==Phase::Finished){return {VisualError::Finished,{}};}
+    if(!actor || actor->definition.team!=Team::A){return {VisualError::NotPlayerTurn,{}};}
+    check_revision_capacity();auto result=session_.apply(action);
     if(!result.accepted()){return {VisualError::CoreRejected,std::move(result)};}
     ++revision_;automatic_count_=0;return {VisualError::None,std::move(result)};
 }

@@ -1,0 +1,7 @@
+{
+  "CheckedUtc": "2026-11-19T16:32:40.1881582Z",
+  "Passed": 6,
+  "Total": 6,
+  "Scope": "Native shield display, information data, candidate filtering and gesture; no UI validation",
+  "EngineExecuted": false
+}

@@ -114,3 +114,7 @@ Corrigida a consolidação de PENDENCIAS.md: VIS/REG/SIS agora distinguem decis�
 ## 2026-11-19 — mínimo de proteção na aplicação válida
 
 Por decisão do usuário, o escudo padrão direto passa a max(1,floor(PV máximo do aplicador/100)). Isso substitui ignorar percentuais arredondados para0. Reaplicação mínima oferece3 turnos, preservando maior força/duração. Escudo consumido/expirado continua removido; nenhum mínimo de HP, aplicação em morto ou concessão sem condição satisfeita. Cenário B3 e testes de limites/reaplicação atualizados. Análise documental da Clara preservada com ressalvas de fonte e da revisão histórica; VIS-01/P2/P3 e orientações atualizados.
+
+## 2026-11-19 — painel geral e referências do hub
+
+Adicionado PROGRESSO-GERAL.md em destaque no README: estimativas por área, lacunas e frentes separáveis, incluindo cinema/vídeo local. Referências do hub associadas visualmente aos arquivos reais; texto recebido preservado sem copiar capturas/dados de conta. Propostas do outro assistente separadas de decisões e capacidades existentes. Entrega documental: sem mudança de código, novas ferramentas ou testes de gameplay.

@@ -21,6 +21,7 @@ As siglas são identificadores internos das áreas do projeto, não nomes de fer
 | CIC | Ciclo | Equipe, recompensa e persistência |
 | ENG | Engine | Escolha e integração do motor gráfico |
 | VIS | Visual | Arena e apresentação funcional |
+| HUB | Central de navegação | Proposta de áreas, avatar, menus e acesso ao combate |
 | ART | Arte | Direção artística e recursos originais |
 | AUD | Áudio | Sons e identidade musical |
 | EXP | Expansão | Campanha e experiências adicionais |
@@ -107,3 +108,5 @@ Pesquisa recebida: [matriz de incorporação](../projeto/REVISAO-PESQUISA-HABILI
 ### Fila de decisões e validações — organização vigente
 
 ✅ P1: ESC-01–07 definidos e implementados no caso comum;14 grupos próprios e build aprovados. 🟠 P2: VIS-01–03 (aceite visual) e REG-01–03 (contratos relacionados). 🟡 P3: SIS-01–04 (sistemas/pesquisa futura). Lista completa, exemplos e campos de resposta em [PENDENCIAS.md](../projeto/PENDENCIAS.md). O usuário pode pesquisar todos juntos; P2/P3 continuam separados do caso comum P1 já entregue. Propostas de extensões não são decisões aprovadas. Códigos novos são IDs de perguntas, não novos blocos concluídos.
+
+HUB-01: referência recebida e imagens associadas em [HUB-01-REFERENCIAS.md](../projeto/HUB-01-REFERENCIAS.md). ⚠️ Proposta de escopo/contrato, sem implementação; não confundir com o aceite visual da arena.

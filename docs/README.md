@@ -2,6 +2,10 @@
 
 Atualizado em19/11/2026. Comece pelas sínteses atuais; relatórios datados delimitam a evidência de cada versão.
 
+## Visão do projeto inteiro
+
+[Progresso geral por área](projeto/PROGRESSO-GERAL.md): estimativas de maturidade, trabalho restante e frentes que podem avançar separadamente.
+
 ## Retomada e pesquisa
 
 - [Estado](projeto/ESTADO.md), [tarefas](projeto/TAREFAS.md) e [prioridades](projeto/PLANO-PRIORIDADES.md).
@@ -27,6 +31,10 @@ Atualizado em19/11/2026. Comece pelas sínteses atuais; relatórios datados deli
 ## Escudo padrão vigente
 
 [Contrato e implementação](projeto/ESCUDO-PADRAO.md), [14 grupos nativos](relatorios/atuais/ESC-01-PADRAO.json) e [build Editor da revisão de mínimo1](relatorios/atuais/ESC-01-MINIMO-BUILD.json). Caso comum fechado; sem pacote/aceite visual desta revisão.
+
+## Referências do hub recebidas
+
+[Associação das quatro capturas e análise de integração](projeto/HUB-01-REFERENCIAS.md). Proposta recebida, sem implementação de hub ou adoção automática de tecnologias/lojas.
 
 ## Organização dos arquivos
 

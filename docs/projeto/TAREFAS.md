@@ -81,3 +81,11 @@ Roteiro e limites: [VIS-01-CLASSICO-INTERACAO.md](VIS-01-CLASSICO-INTERACAO.md).
 ## Pesquisa de habilidades recebida —19/11/2026
 
 Documento do usuário preservado e comparado aos contratos. [Revisão e matriz](REVISAO-PESQUISA-HABILIDADES-ITENS.md). Q07/Q08 e proposta de frentes não substituem R04, defesa atual ou PAR-02. Fontes externas ainda não auditadas; escudo percentual permanece em especificação (base, instante/recalculo, reaplicação e consumo), não mais aguardando envio do documento. Próximo passo: fechar esse contrato mínimo. Sem código/testes novos nesta recepção; aceite visual atual permanece pendente.
+
+## Proposta recebida — navegação do hub
+
+- [x] Associar as quatro capturas aos nomes antigos do texto e registrar compatibilidade/limitações.
+- [ ] Antes de HUB-01A: confirmar direção do avatar, panorama, destinos funcionais e escopo local; perguntas em [HUB-01-REFERENCIAS.md](HUB-01-REFERENCIAS.md).
+- [ ] Planejar contrato do hub separado de CombatProfile/ArenaLayout; não iniciar cena/contas/lojas por inferência do documento recebido.
+
+Não interrompe nem encerra o aceite VIS atual.

@@ -2,6 +2,8 @@
 
 Atualizado em 19/11/2026. Esta é a síntese vigente; registros anteriores estão no [histórico preservado](historico/2026-11-18/ESTADO.md.txt).
 
+**Visão geral:** [percentuais por área e frentes independentes](PROGRESSO-GERAL.md). Estimativas de planejamento, separadas das evidências técnicas abaixo.
+
 ## Prioridade vigente
 
 Escudo padrão por habilidade implementado conforme ESC-01 a ESC-07:1% do PV máximo do aplicador, floor e mínimo de1 ponto na aplicação válida,3 oportunidades naturais do protegido e reaplicação por maiores propriedades. Removido na morte do protegido e transições comuns; morte do aplicador não interfere. [Contrato/evidências](ESCUDO-PADRAO.md). Decisões não precisam ser respondidas novamente.
@@ -69,3 +71,7 @@ Compartilhamento implementado: efeitos/escudo/detalhes e orientação de alvos t
 ## Pesquisa de habilidades recebida —19/11/2026
 
 Documento do usuário preservado e comparado aos contratos. [Revisão e matriz](REVISAO-PESQUISA-HABILIDADES-ITENS.md). Q07/Q08 e proposta de frentes não substituem R04, defesa atual ou PAR-02. Fontes externas ainda não auditadas; escudo percentual permanece em especificação (base, instante/recalculo, reaplicação e consumo), não mais aguardando envio do documento. Próximo passo: fechar esse contrato mínimo. Sem código/testes novos nesta recepção; aceite visual atual permanece pendente.
+
+## Referência recebida — hub urbano
+
+Quatro capturas associadas ao texto por conteúdo visual em [HUB-01-REFERENCIAS.md](HUB-01-REFERENCIAS.md). Proposta de três áreas, avatar e enquadramentos responsivos separada da evidência estática e da implementação existente. Nenhum hub, login, serviço ou loja implementado/adotado por esta recepção; prioridade executável VIS permanece. Capturas não foram copiadas; o texto recebido foi preservado como referência, sem adotar perfil/recursos como dados do produto.

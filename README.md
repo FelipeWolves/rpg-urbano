@@ -2,6 +2,8 @@
 
 Protótipo original de RPG por turnos com identidade urbana e musical. Núcleo em **C++20**, independente de engine; interface textual para validar regras antes da apresentação gráfica. Unreal Engine 5.8.4 já tem integração mínima de núcleo validada no Windows; apresentação gráfica, nome final, arte e publicação seguem em definição.
 
+**[📊 Progresso geral — percentuais por área e frentes de trabalho](docs/projeto/PROGRESSO-GERAL.md)**
+
 ## Começar
 
 1. Leia o [estado atual](docs/projeto/ESTADO.md), a [fila de tarefas](docs/projeto/TAREFAS.md) e o [painel de blocos](docs/batalhas/PAINEL-BLOCOS.md).

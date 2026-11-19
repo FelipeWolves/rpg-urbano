@@ -69,3 +69,7 @@ Commandlet própria aprovada em 2 processos UE5.8.4,11 checkpoints idênticos ao
 ## 2026-11-18 — consolidação documental após aceite da ponte
 
 Estado, tarefas, prioridades, painel e instruções de retomada consolidados. Sínteses antigas preservadas integralmente em docs/projeto/historico/2026-11-18/. README/índice/arquitetura/ferramentas passam a distinguir o estado atual dos relatos históricos. Documentação apenas: sem código, JSON/CSV de evidência, novos testes ou execução da engine.
+
+## 2026-11-18 — revisão final da consolidação documental
+
+Consolidação já registrada no commit 00fd035, preservada. Links Markdown locais conferidos sem referências quebradas; seis snapshots históricos conferidos com o conteúdo do commit 25516e6. Ajuste de redação no painel. Sem alteração de código/evidências JSON/CSV, nova execução de testes ou engine.

@@ -52,7 +52,7 @@ As siglas são identificadores internos das áreas do projeto, não nomes de fer
 | ✅ ENG-01 — ponte Windows | Fontes ligados e executados na UE5.8.4 | 11 checkpoints equivalentes ao standalone em 2 processos, código0; não inclui gráfico/pacote/mobile |
 | ✅ Contrato R04 e revisões R01–R03 | Decisões e pesquisa recebida | Fechamento documental; implementação mínima em RES-01 |
 
-Total atual: **213 testes gerais standalone aprovados**. Separadamente, a ponte passou **11 checkpoints em duas execuções Unreal**, com saída zero e comparação ao baseline. Além disso, foram preservadas além das matrizes, isolamento intercalado, 1000 simulações funcionais e demonstração. Não é benchmark de servidor ou renderização.
+Total atual: **213 testes gerais standalone aprovados**. Separadamente, a ponte passou **11 checkpoints em duas execuções Unreal**, com saída zero e comparação ao baseline. Também foram preservados os resultados das matrizes, do isolamento intercalado, das 1.000 simulações funcionais e da demonstração. Não é benchmark de servidor ou renderização.
 
 ## ⚠️ Implementado que ainda exige revisão obrigatória
 

@@ -106,3 +106,7 @@ Verificação desta organização: links Markdown locais dos arquivos alterados 
 ## 2026-11-19 — escudo padrão por habilidade
 
 StandardShield implementa decisões ESC-01–07:1% do máximo do aplicador calculado uma vez,3 turnos naturais do protegido, absorção por hit após mitigação, max de pontos/duração sem soma, zero ignorado, remoção na morte/transições e manutenção após morte do aplicador. Terceira ativa do cenário atualizada; passivas fixas preservadas. Extras com tick não avançam o escudo; impossibilidade de agir em oportunidade natural avança. Terminologia corrigida sem implementar bloqueio probabilístico.14 grupos próprios e regressão pertinente; build Editor sem abertura/pacote. Contrato e limites em docs/projeto/ESCUDO-PADRAO.md.
+
+## 2026-11-19 — propagação das decisões ESC em P2/P3
+
+Corrigida a consolidação de PENDENCIAS.md: VIS/REG/SIS agora distinguem decisões já respondidas, implementação/testes existentes e somente as dúvidas/aceites restantes. Relógios, persistência, reaplicação, alvos, aritmética e distinção Defesa/bloqueio/proteção clássica não devem ser perguntados novamente para o escudo padrão. Alteração documental, sem código ou novos testes.

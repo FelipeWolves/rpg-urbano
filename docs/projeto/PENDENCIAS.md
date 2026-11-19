@@ -138,69 +138,105 @@ Esta decisão substitui a proposta inicial de10% do HP atual do protegido para o
 
 ## 🟠 P2 — apresentação e contratos relacionados
 
+As respostas ESC também encerram partes dos itens abaixo. **Definido**, **implementado/testado nativamente** e **aceito visualmente** são estados diferentes. Não pedir de novo decisões já registradas; pesquisar/testar apenas o restante.
+
 ### VIS-01 — faixa de escudo e painel (explicação8)
 
-Já implementado em fonte: pontos reais sobre a parte preenchida da vida, faixa azul-clara limitada à área de HP e valor integral no painel. Confirmar visualmente100HP/10,50HP/5,50HP/10, escudo maior que HP e escudo zero. Diferenciar escudo fixo de percentual no texto; mostrar origem/duração conforme metadados disponíveis. **Prioridade:** aceite da revisão atual; não depende de cadastrar todo o catálogo.
+**✅ Definido:** proteção azul-clara sobre a vida preenchida; pontos reais e duração no painel; zero significa ausência de escudo/ícone. O valor vem de1% do máximo do aplicador, não de uma segunda porcentagem do HP atual do protegido. Pontos e duração seguem as regras de reaplicação fechadas em ESC-05/06. Excesso visual não limita proteção mecânica.
 
-**Resultado/observação do usuário:** pendente.
+**✅ Implementado/testado nativamente:** StandardShield é incluído na faixa/painel e os dados de proteção são testados. Aplicação zero não cria status; consumo/expiração removem o estado; dados expostos vêm do núcleo. Build Editor aprovado em [ESCUDO-PADRAO.md](ESCUDO-PADRAO.md). As passivas fixas históricas permanecem distintas.
+
+**⚠️ Falta somente no aceite desta apresentação:** observar faixa/ícone/painel durante aplicação, consumo, reaplicação e expiração; confirmar valores completos e legibilidade. Cenários: aplicador1000PV→10 pontos sobre protegido50PV; aplicador550PV→5; aplicador abaixo de100PV→0; proteção maior que a vida preenchida. Conferir que o ícone some quando não há escudo e que ignorar aplicação zero preserva o estado anterior.
+
+**Estado:** regras respondidas; implementação nativa aprovada; teste visual pendente. Não há nova pergunta de fórmula do escudo neste item. Novos metadados de categorias futuras não são requisitos do aceite do padrão.
 
 ### VIS-02 — habilidades, alvos e interação
 
-Verificar ícone/painel de efeitos, nomes/descrições completos, nível somente quando cadastrado, passivas consultáveis e não selecionáveis, recarga com contador, bloqueio com motivo. Testar clique curto/prolongado e soltura sem ação, pausa local da automação durante consulta, alvo válido, troca/confirmação e recusa sem consumo. Standard e lateral conservam seus fluxos declarados. Símbolo de alvo deve admitir futura personalização; imagem própria/licenciada ainda não implementada.
+**✅ Definido anteriormente e reforçado pelas respostas:** ativa de escudo pode atingir o próprio personagem ou um aliado vivo; personagem com0PV não pode ser escolhido para recebê-la. A possibilidade do efeito é distinta do alvo cadastrado: a terceira ativa do cenário atual continua Self, sem ganhar seleção de aliado implicitamente. Aplicação com força0 é ignorada como efeito, sem criar ícone; não torna gratuita a habilidade executada.
 
-**Resultado/observação do usuário:** pendente. Compilação não substitui teste visual; abrir aplicativo exige autorização específica.
+**✅ Implementado/testado nativamente:** validação de alvo vivo, recusa sem alteração do combate, informação da habilidade padrão, candidatos e gesto curto/prolongado. Passivas são consultáveis e não selecionáveis; nível só quando cadastrado. Textos do impedimento de ação foram alterados para “impossibilitado de agir”/“unable to act”, sem implementar bloqueio automático.
+
+**⚠️ Falta verificar visualmente:** abrir/fechar/paginar detalhes; soltar após gesto sem agir; consultar passiva/recarga/condição; selecionar/trocar alvo e confirmar conforme apresentação; automação suspensa durante consulta; motivos claros de recusa, incluindo alvo morto. Conferir a nova terminologia sem confundir indisponibilidade da habilidade com bloqueio automático de dano. Ícone final de recarga/cadeado/indisponibilidade e imagem personalizada de alvo ainda exigem acabamento e aceite, sem presumir entrega só pelos textos.
+
+**Estado:** parcialmente concluído; não repetir perguntas sobre alvo morto, categoria de ação ou básica. Arte de ícones/marcador, toque e validação visual permanecem abertos; abrir aplicativo exige autorização específica.
 
 ### VIS-03 — formações, tela e acessibilidade
 
-Conferir1/3/5 unidades por lado, assimetrias, rótulos ao fundo, ausência de caixas agregadoras e outras resoluções/redimensionamento. Seis posições, mobile/toque e acessibilidade são extensões a especificar/testar separadamente. Retrato2D original e UI específica de chefe/auxiliares permanecem pendentes, sem inferir compartilhamento de HP pelo layout.
+**✅ Já definido/testado no escopo próprio:** formações de1–5, apresentações Standard em profundidade e Classic lateral separadas das regras; geometria com6 grupos nativos anteriores. Essas decisões não dependem de escudo.
 
-**Resultado/observação do usuário:** pendente.
+**⚠️ Continua pendente:** inspeção visual1/3/5 e assimetrias; rótulos ao fundo sem caixas agregadoras; resoluções/redimensionamento; mobile/toque e acessibilidade. Sexta posição é extensão não aprovada como ampliação global. Retrato2D original e UI de chefe/auxiliares ainda pendentes; não inferir HP compartilhado pelo layout.
 
-### REG-01 — defesa clássica (explicação9)
+**Estado:** as respostas ESC não resolvem esses testes/recursos. Não pedir nova definição de formação para reconhecer que ainda falta observá-la.
 
-✅ Regra vigente: metade do dano por hit, para baixo; consumida no fecho de ação que a utilizou ou expirada na próxima oportunidade do dono. Documento novo sugere duração até próxima oportunidade natural e outras exceções. **Pergunta futura:** manter variante separada? Como interage com extras, dano verdadeiro, perfuração e modificadores? **Recomendação:** preservar atual e nome Defesa; não habilitar no modo Equipes por escolher câmera lateral.
+### REG-01 — defesa clássica e bloqueio automático (explicação9)
 
-**Decisão sobre variante:** pendente; não bloqueia o escudo nem reabre o aceite da defesa atual.
+**✅ Definido e implementado:** Defesa clássica continua reduzindo o dano pela metade, para baixo, consumida no fecho de ação que a utilizou ou expirada na próxima oportunidade do dono. Sua redução vem antes da absorção do escudo. Escudo por habilidade, proteção/atributo futuro do clássico e comando Defesa são conceitos distintos. Câmera lateral não habilita defesa no modo Equipes.
+
+**✅ Conceitos futuros já escolhidos pelo usuário:** bloqueio será chance automática de anular dano de ataque, diferente de Defesa; o clássico poderá ter atributo/proteção próprio modificado por equipamentos e também habilidade que conceda o escudo convencional.
+
+**⚠️ Falta apenas antes dessas extensões:** probabilidade/origem do bloqueio, checagem por ataque ou hit, ataques elegíveis/inevitáveis e relação com efeitos ao acertar/reações; bases/recuperação/modificadores do atributo clássico e forma de aquisição/uso da habilidade nesse perfil. Uma variante de Defesa de maior duração é possibilidade futura, não pergunta obrigatória nem mudança aprovada.
+
+**Estado:** interação comum Defesa→escudo encerrada/testada; extensões futuras não implementadas. Não reabrir a defesa atual.
 
 ### REG-02 — causalidade e vitória (explicação10)
 
-✅ R04/RES-01 preservados: reflexão/explosão FIFO inline; interrupção dos hits quando aplicável; auto-revive; Victory Lock antes de reações. Em morte dupla, lado do autor da ação atual, inclusive contra-atacante. A sequência Q07 do documento não substitui esse contrato.
+**✅ Encerrado no contrato vigente:** R04/RES-01 preservados: reflexão/explosão FIFO inline, interrupção de hits quando aplicável, auto-revive e Victory Lock antes de reações; morte dupla favorece o lado do autor causal da ação atual. Escudo absorve após reduções e antes da vida, não oferece piso de1PV e não altera essa causalidade.
 
-**Pesquisa opcional:** caso haja evidência externa diferente, registrar versão/contexto e exemplo; não mudar automaticamente o projeto. Timeout do modo e papel ofensivo/defensivo devem permanecer separados do autor causal. Sem nova decisão necessária para avançar o escudo.
+**✅ Evidência:** regressão da resolução aprovada com o novo escudo integrado; testes próprios verificam absorção por hit, excesso e morte/revive. Não são todas as combinações futuras de habilidades.
+
+**Estado:** nenhuma resposta adicional necessária agora. Pesquisa externa é opcional para referências futuras; só mudança relevante justifica reabrir implementação/validação.
 
 ### REG-03 — silêncio, impossibilidade de agir e supressão (explicação11)
 
-**Perguntas:** quais efeitos impedem agir, bloqueiam apenas ativas ou suprimem passivas? Congelamento/petrificação fazem quais operações? Passiva de abertura difere de gatilho em combate? Recargas continuam contando? O que ocorre com reações/extras já enfileirados? Quais exceções por unidade/efeito?
+**✅ Respondido:** impedimento de ação deve ser chamado “impossibilitado de agir”; Block técnico atual não é o futuro bloqueio probabilístico. A oportunidade natural impossibilitada ainda reduz duração do escudo padrão. Extras/reações não reduzem esse escudo. Sua aplicação não altera relógios de outros efeitos. Básica na posição1 não é silenciada por decisão anterior do projeto, mas pode não ser executada se o personagem estiver impossibilitado de agir.
 
-✅ Básica na posição1 não é silenciada por decisão do projeto; impossibilidade de agir é condição distinta. O Block técnico atual significa impossibilidade de agir, não silêncio nem bloqueio automático de dano; FreezeCooldowns não significa personagem congelado. Bloqueio será conceito separado: chance de anular dano de ataque, com contrato futuro e sem implementação nesta decisão. **Fechamento futuro:** matriz efeito×comando/gatilho/clock, incluindo exceções explícitas. Necessário antes de implementar essa família, não antes da inspeção visual.
+**✅ Implementado/testado no escopo do escudo:** contagem por oportunidade natural, inclusive Skip; nenhuma perda em extra mesmo com fonte que solicita tick. Terminologia pública atualizada; nome técnico legado preservado.
 
-**Resposta do usuário:** pendente.
+**⚠️ Perguntas restantes:** quais condições concretas causam impossibilidade de agir? Silêncio bloqueia quais ativas? Supressão desliga quais passivas de abertura/combate? Congelamento e petrificação fazem quais operações? Como contam recargas e outros efeitos, e o que ocorre com reações/extras já enfileirados? Quais exceções por unidade/efeito? FreezeCooldowns não é personagem congelado.
+
+**Estado:** parcialmente respondido; falta matriz efeito×comando/gatilho/clock para essas famílias. Não pedir novamente a regra do relógio do escudo ou a distinção de termos.
 
 ## 🟡 P3 — pesquisa ampla e evolução (explicação12)
 
 ### SIS-01 — origem, permissões, âncoras e quotas
 
-Distinguir habilidade, equipamento, divinate e regra de modo. Definir quem aplica, quem porta, quais eventos disparam, âncora temporal, persistência, reaplicação e limites por fonte/alvo/time/cadeia/batalha. Definir dissipação, roubo, transferência, imunidade e supressão independentemente da cor do ícone. Silver/Golden têm divergências no documento. Esses sistemas ainda não existem integralmente no projeto.
+**✅ Respondido para o escudo padrão:** origem é habilidade, aplicada em si ou em aliado vivo; base é máximo do aplicador no instante de aplicação; estado pertence ao protegido. Âncora é fim de oportunidade natural do protegido, inclusive impossibilitado de agir; extras/reações não contam.3 turnos, zero ignorado, maiores força/duração independentemente sem soma, remoção na morte do protegido/transições e nenhuma dependência posterior do aplicador. Expiração não dispara consequência adicional. Categorias prateada/dourada terão regras próprias, não herdadas pela cor.
 
-**Resposta/fontes:** pendentes; prioridade antes dos respectivos sistemas, sem plugins/dependências antecipados.
+**✅ Implementado/testado:** esse caso comum e sua apresentação de dados estão em ESCUDO-PADRAO.md. Não é um framework completo de atributos/equipamentos.
+
+**⚠️ Resta para outros efeitos/sistemas:** origem por equipamento/divinate/modo; âncoras do aplicador/globais e outras persistências; quotas por fonte/alvo/time/cadeia/batalha; dissipação, roubo, transferência, imunidade e supressão; coexistência/prioridade de outras categorias. Silver/Golden têm divergências na pesquisa recebida. Não usar o nome técnico StructuralShield como prova de categoria visual ou atributo clássico.
+
+**Estado:** parcialmente concluído, com contrato padrão fechado. Não reenviar perguntas genéricas de reaplicação/âncora do escudo já respondidas; especificar a nova categoria/efeito ao perguntar.
 
 ### SIS-02 — fórmulas, atributos e auditoria de fontes
 
-Verificar contexto/versão de afinidades, ACC/RESIST, Miss/Crit/Boon, mitigação por DEF, dano verdadeiro, limites contra chefes, overkill e teto de HP. Transcrever e conferir as fórmulas embutidas como imagens antes de qualquer uso. Separar atributos base/efetivos, escala/arredondamento e limites seguros. Ocean não comprova sozinho tick normal de recarga; empate em habilidade de Toland não comprova desempate universal. Datas conflitantes de3.4.50 e catálogo incompleto não são baseline confirmado. Auditar apenas o necessário para o próximo contrato, podendo o usuário pesquisar todos de uma vez.
+**✅ Respondido/implementado:** força padrão = HP máximo inteiro positivo do aplicador/100; divisão inteira faz o floor final sem overflow por multiplicação. Abaixo de1 vira0; zero ignorado, sem mínimo automático. Sem acúmulo ou cap adicional de gameplay inventado. Reduções aplicáveis→escudo→HP; cada hit consome separado e excesso pode matar. Defesa clássica usa divisão por2 para baixo. Testes incluem limites até INT_MAX. Cobertura da faixa visual não é cap mecânico.
 
-**Resposta/fontes:** pendentes.
+**⚠️ Resta:** afinidade, ACC/RESIST, Miss/Crit/Boon, mitigação por DEF, dano verdadeiro, bypass, overkill e teto de HP; arredondamento de fórmulas compostas/negativas; atributos base/efetivos e HP máximo mutável. Cura e máximo mutável não existem no núcleo atual: acrescentar testes de não recálculo do escudo quando forem implementados. Cap específico de gameplay é extensão opcional, não bloqueia o escudo entregue.
+
+**⚠️ Auditoria externa separada:** fórmulas embutidas em imagens precisam ser transcritas/conferidas antes de uso. Ocean não comprova sozinho tick normal de recarga; condição de empate de Toland não comprova desempate universal. Datas conflitantes/catálogo parcial não são baseline confirmado. A pesquisa não foi auditada externamente por termos aprovado regras próprias.
+
+**Estado:** aritmética comum do escudo fechada/testada; fórmulas gerais e auditoria continuam abertas. Auditar apenas o necessário ao próximo contrato, podendo o usuário pesquisar tudo junto.
 
 ### SIS-03 — ondas, times, chefes e persistência
 
-Distinguir início de combate/onda/rodada/oportunidade, efeitos que persistem, retorno cíclico de times, kit fixo ou variável por etapa, condições por HP e score/sobrevivência. Preservar SEQ-01 e PAR-02 (HP único/barra global no perfil escolhido); proposta de instâncias independentes é outro modo. Identificar quais exceções afetam chefe, auxiliares, invocações ou outras frentes. Não impor exclusividade de equipamentos antes de haver sistema de equipamentos. IDs PEN/PVE históricos permanecem rastreáveis abaixo e no painel.
+**✅ Respondido/implementado para o escudo padrão:** remover na morte do protegido; revive não restaura; morte do aplicador não remove. Não conservar proteção/duração ao mudar onda/confronto/equipe. Stage aplica a regra mesmo com Preserve genérico, sem alterar outros estados; SEQ remove o temporário nas três políticas testadas. Agendamento entre frentes de PAR-02 não é troca de equipe e não remove escudo; teste específico aprovado.
 
-**Resposta/fontes:** pendentes; famílias futuras não invalidam perfis já encerrados.
+**✅ Preservado:** políticas explícitas dos modos existentes, SEQ-01 e PAR-02 (HP único/barra global no perfil escolhido); outros estados seguem seus contratos. Novas regras do escudo não justificam reabrir esses aceites.
+
+**⚠️ Resta para novos modos:** distinguir gatilhos de início de combate/onda/rodada/oportunidade em outros efeitos; retorno cíclico de equipes; kit por HP/turno e score/sobrevivência; regras de auxiliares/invocações/alcance entre frentes. Uma exceção que conserve o novo escudo precisa de configuração e teste específicos, ainda não implementados. Não há sistema de equipamentos para exigir exclusividade de peças.
+
+**Estado:** persistência comum do escudo respondida/testada; catálogo de modos/chefes e políticas excepcionais continuam abertos. IDs PEN/PVE históricos seguem rastreáveis, sem invalidar perfis encerrados.
 
 ### SIS-04 — inventário, ATB, retomada e plataformas
 
-Equipamento não equivale a consumível: definir estamina/itens de combate separadamente no clássico, custos, turno consumido e regras de uso. ATB Active/Wait, barra de energia, cast delay e recursos não são mera troca de SPD. Save de progresso existente não restaura combate; snapshots/retomada precisam de contrato. Servidor, threads, carga, desempenho, mobile e distribuição precisam de medição própria, não de inferências sobre remoção de modos do Dislyte.
+**✅ Respondido conceitualmente:** proteção/atributo futuro do clássico terá bases e modificadores próprios por equipamento; não é o comando Defesa nem uma habilidade. Uma habilidade clássica também poderá conceder o escudo convencional, por mecânica de uso própria futura. StructuralShield atual não comprova que esse atributo/sistema de equipamento já exista.
 
-**Resposta/preferências:** pendentes; não bloqueiam o primeiro escudo nem autorizam instalações, rede ou novos programas.
+**✅ Limites atuais conhecidos:** save v1 de progresso não restaura combate; geometria/layout não comprovam mobile; execução cooperativa não comprova threads ou servidor. Essas limitações continuam válidas.
+
+**⚠️ Resta:** inventário/estamina como consumível, custos e consumo de oportunidade; definição efetiva dos atributos/equipamentos e acesso à habilidade clássica; ATB Active/Wait, cast delay e recursos; snapshot/retomada/migração de combate; servidor, paralelismo, carga, desempenho e plataformas. Tudo exige contratos/medições próprios. Não inferir essas respostas a partir da duração do escudo.
+
+**Estado:** separação de conceitos parcialmente respondida; sistemas ainda não implementados. Não bloqueiam o caso comum do escudo nem autorizam instalações, rede ou abertura de programas.
 
 ## Registro histórico e rastreabilidade
 

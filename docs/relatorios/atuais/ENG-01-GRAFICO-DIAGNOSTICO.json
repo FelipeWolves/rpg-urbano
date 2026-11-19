@@ -1,0 +1,27 @@
+{
+  "StartedUtc": "2026-11-19T03:42:36.6484959Z",
+  "ProcessId": 5820,
+  "Log": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\engine-eval\\graphical-diagnostic\\20261119-034236\\editor.log",
+  "NetworkConfigurationChanged": false,
+  "TelemetryOptOutRequested": true,
+  "AutomationLogVerbosity": "Log",
+  "SourceManifestVerified": true,
+  "FailedSmokeTests": [
+    "FUnifiedErrorTest_CreateErrorMessage",
+    "FUnifiedErrorTest_CreateErrorMessageWithContext",
+    "FStructuredLogFormatTest"
+  ],
+  "GracefulShutdownObserved": true,
+  "RenderedMapObserved": true,
+  "ExitCode": 0,
+  "ObservedCulture": "pt-BR",
+  "TelemetryRequestMarkers": 0,
+  "NetworkIsolationValidated": false,
+  "Status": "completed",
+  "ConditionFailuresByTest": {
+    "FStructuredLogFormatTest": 3,
+    "FUnifiedErrorTest_CreateErrorMessage": 7,
+    "FUnifiedErrorTest_CreateErrorMessageWithContext": 4
+  },
+  "ErrorLineCount": 14
+}

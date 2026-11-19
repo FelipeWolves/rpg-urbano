@@ -33,3 +33,6 @@ A ponte Windows está concluída. [Editor gráfico parcialmente validado](projet
 Documentos que antes ficavam na raiz estão em projeto/; AMBIENTE.json e COMBATE.json estão em relatorios/atuais/. Menções textuais históricas a esses nomes seguem essa correspondência. Links do arquivo histórico são registros da época, não navegação vigente.
 
 Ao atualizar: substitua a síntese atual, preserve aceites datados e evite acrescentar sucessivos estados contraditórios no topo de vários documentos.
+
+
+[Diagnóstico gráfico regional e padrão de idioma](projeto/ENG-01-GRAFICO-DIAGNOSTICO.md): inglês priorizado no ambiente Unreal; português do jogo será tratado por localização independente, ainda não validada.

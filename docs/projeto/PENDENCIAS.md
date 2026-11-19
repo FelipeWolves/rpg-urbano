@@ -230,3 +230,8 @@ Arredondamento padrão para baixo decidido e implementado. Modificadores de dano
 - ENG-G01: 14 erros genéricos de automação na inicialização, causa/impacto desconhecidos; investigar registros antes de repetir.
 - ENG-G02: tentativa de telemetria apesar de NoAnalytics; entrega não confirmada, isolamento não validado. Planejar bloqueio efetivo antes de outra execução.
 - Abertura, mapa, menus e encerramento foram observados; aceite gráfico integral permanece parcial. Roteiro e limites em [ENG-01-GRAFICO.md](ENG-01-GRAFICO.md). Futuro uso de programas exige autorização específica.
+
+
+## ENG-G01/G02 — atualização do diagnóstico e idioma
+
+Três testes internos de mensagens explicam as 14 falhas em pt-BR; passaram em inglês. Priorizar -culture=en nos testes Unreal como contorno, sem declarar correção da causa. Opt-out bSendUsageData=False sem os marcadores de telemetria anteriores; sem auditoria/bloqueio de rede por decisão do usuário. O jogo em português permanece objetivo separado: definir localização de interface/textos, fontes, formatos regionais e validação no pacote, independentemente do idioma do editor. Evidências e limites em [ENG-01-GRAFICO-DIAGNOSTICO.md](ENG-01-GRAFICO-DIAGNOSTICO.md).

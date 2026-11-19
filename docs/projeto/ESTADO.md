@@ -13,7 +13,7 @@ A ponte Windows foi compilada e executada na **Unreal Engine 5.8.4**, instalada 
 | Regressão do protótipo | 213/213 testes aprovados | Não são 213 testes executados na Unreal |
 | Ponte na Unreal | 11 checkpoints em cada uma de duas execuções | Mesmo cenário repetido, não 22 casos distintos |
 | Compilador/SDK usados | MSVC 14.52.37029, SDK 10.0.26100.0 | Compilador não preferido; aviso mantido |
-| Editor gráfico/GPU | Abertura, mapa, menus e encerramento confirmados; RTX 3060/D3D12/SM5 | Validação parcial: 14 erros genéricos e tentativa de telemetria; ENG-01-GRAFICO.md |
+| Editor gráfico/GPU | Abertura, mapa, menus e encerramento confirmados; RTX 3060/D3D12/SM5 | Diagnóstico: três testes internos falham em pt-BR e passam em inglês; ENG-01-GRAFICO-DIAGNOSTICO.md |
 | Pacote/Android/iOS | Ainda não validados | Instalar suporte de plataforma não equivale a validar o jogo |
 
 Primeira inicialização geral atingiu o limite de tempo antes do teste. A rota final por commandlet passou; ambas as evidências foram preservadas. Não há revisão pendente da ponte entregue sem mudança ou falha pertinente.
@@ -28,7 +28,7 @@ Primeira inicialização geral atingiu o limite de tempo antes do teste. A rota 
 
 ## Próximo incremento
 
-Esclarecer **ENG-G01 (erros genéricos de automação)** e definir isolamento de rede para **ENG-G02 (tentativa de telemetria)**, começando pelos registros existentes. [Relatório gráfico e roteiro](ENG-01-GRAFICO.md). Nova execução exige autorização específica do programa e finalidade. Não iniciar arena, arte, áudio, pacote ou mobile nesta atualização documental. A parte gráfica/produção do ENG-01 permanece aberta; a ponte Windows não precisa ser refeita por rotina.
+Priorizar idioma e região em inglês no ambiente Unreal (`-culture=en` por processo nos testes). A comparação passou sem linhas Error:; pt-BR produziu 14 falhas em três testes internos de mensagens. [Diagnóstico e limites](ENG-01-GRAFICO-DIAGNOSTICO.md). Próximo: planejar o pacote Windows de avaliação, sem executá-lo nesta entrega. O jogo poderá ter interface/textos em português por uma camada de localização própria, a definir e validar separadamente; inglês no editor não determina o idioma do produto. Telemetria com opt-out não apresentou os marcadores anteriores; rede continua sem isolamento por decisão do usuário. Nova execução exige autorização específica. A ponte entregue não precisa ser refeita por rotina.
 
 Não assumir que save de progresso é save de combate, que intercalação equivale a threads ou que o perfil de chefe compartilhado cobre todos os modos PvE. Pendências em [PENDENCIAS.md](PENDENCIAS.md), fila em [TAREFAS.md](TAREFAS.md) e [painel](../batalhas/PAINEL-BLOCOS.md).
 

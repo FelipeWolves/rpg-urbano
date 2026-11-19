@@ -6,7 +6,7 @@ Não há revisão obrigatória identificada nos blocos encerrados. A ponte Windo
 
 | Ordem | Área/bloco | Próxima entrega delimitada | Dependência |
 |---|---|---|---|
-| 1 | ENG-01 — gráfico parcial | Esclarecer ENG-G01 e definir isolamento para ENG-G02 | Abertura/GPU/menus/encerramento observados; erros e telemetria pendentes |
+| 1 | ENG-01 — gráfico parcial | Consolidar uso de inglês e preparar escopo do pacote | Diagnóstico concluído; contorno em inglês, sem isolamento de rede |
 | 2 | ENG-01 — pacote | Primeiro executável próprio de avaliação fora do editor | Teste gráfico inicial e cena/fluxo mínimo definidos |
 | 3 | VIS-01 | Arena provisória usando um único estado de combate | Aceites iniciais de engine; não duplicar regras na UI |
 | 4 | Multiplataforma | Primeiro teste Android, depois fluxo iOS conforme ferramentas/dispositivos | Não adiar decisões de escala/interface até arte final |
@@ -18,6 +18,6 @@ HAB-01/CIC-01 mínimos estão concluídos. Novas famílias PvE, passivas, condi�
 
 ## Próxima ação concreta
 
-Analisar os registros existentes para ENG-G01 e planejar isolamento de rede para ENG-G02 antes de nova abertura. Ver ENG-01-GRAFICO.md. Futuro uso de programa exige autorização específica. Nenhuma execução nesta entrega documental. Não instalar plugin/SDK, alterar toolset ou abrir serviços por antecipação. Preservar fonte única do núcleo e adaptadores separados de apresentação/persistência.
+Planejar o pacote Windows de avaliação com inglês como padrão de trabalho Unreal. Diagnóstico em ENG-01-GRAFICO-DIAGNOSTICO.md. Localização do jogo em português será uma tarefa independente; definir estratégia e validar no produto, sem presumir idioma pela configuração do editor. Futuro uso de programa exige autorização específica. Nenhuma execução nesta entrega documental. Não instalar plugin/SDK, alterar toolset ou abrir serviços por antecipação. Preservar fonte única do núcleo e adaptadores separados de apresentação/persistência.
 
 A engine não garante migração sem retrabalho. Não escolher preview por novidade nem inferir desempenho gráfico/mobile dos testes de console ou da commandlet NullRHI.

@@ -77,3 +77,8 @@ Consolidação já registrada no commit 00fd035, preservada. Links Markdown loca
 ## 2026-11-19 — ENG-01 gráfico parcial
 
 Registrados abertura, mapa, interação e encerramento do editor em RTX 3060/D3D12/SM5. Aceite integral pendente de erros genéricos de automação e tentativa de telemetria. Relatório sanitizado, roteiro e painel atualizados; sem novos testes, execução de engine ou alteração do núcleo nesta atualização documental.
+
+
+## 2026-11-19 — diagnóstico regional e padrão de trabalho Unreal
+
+Identificados três testes internos com 14 falhas em pt-BR; comparação em inglês sem linhas de erro, ambas as execuções com saída0. Inglês priorizado no ambiente Unreal. Português do produto será tratado por localização separada, ainda a definir e validar. Opt-out observado sem os marcadores anteriores; sem mudanças de rede. Documentação e evidências consolidadas, sem novos testes nesta entrega.

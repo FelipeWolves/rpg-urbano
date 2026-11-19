@@ -16,8 +16,8 @@ Não repetir verificações concluídas sem mudança, falha ou dependência pert
 ## Próximo bloco executável
 
 - [x] ENG-01 — observação gráfica inicial: mapa, menus, RTX 3060/D3D12/SM5 e encerramento normal confirmados. Aceite integral permanece parcial; [relatório](ENG-01-GRAFICO.md).
-- [ ] ENG-G01: identificar origem/impacto das 14 mensagens de automação nos registros existentes.
-- [ ] ENG-G02: definir isolamento efetivo de rede; NoAnalytics não impediu tentativa de telemetria. Nova execução somente com autorização específica.
+- [x] ENG-G01 — diagnóstico: três testes internos de mensagens identificados (7+4+3 falhas em pt-BR); passaram em inglês. Inglês priorizado no ambiente Unreal; causa detalhada não corrigida.
+- [x] ENG-G02 — observação delimitada: bSendUsageData=False solicitado nas duas comparações, sem os marcadores anteriores. Sem auditoria ou isolamento de rede; usuário não autorizou mudanças de rede.
 - [ ] ENG-01 — pacote: definir e validar um executável próprio distribuível em incremento separado.
 - [ ] VIS-01: arena provisória com ação/alvo, turno/vida/resultado e reinício, reutilizando o núcleo sem duplicar regras.
 
@@ -25,6 +25,7 @@ Uma entrega por vez. Não abrir editor, instalar componentes nem iniciar serviç
 
 ## Áreas posteriores
 
+- [ ] Localização do jogo em português: definir textos traduzíveis e recursos separados, seleção de idioma, fontes/acentos, formatação regional e testes no pacote. Não depende de usar o editor em português; ainda não implementada nem validada.
 - [ ] ART-01: direção artística original, personagem representativo, fontes e direitos.
 - [ ] AUD-01: áudio próprio/licenciado e integração funcional.
 - [ ] EXP-01: delimitar campanha e experiência rítmica antes da implementação.

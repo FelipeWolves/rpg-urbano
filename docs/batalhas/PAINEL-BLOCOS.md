@@ -1,6 +1,6 @@
 # Painel de blocos — estado consolidado
 
-Atualizado em 18/11/2026. Este painel é vigente; [histórico integral](../projeto/historico/2026-11-18/PAINEL-BLOCOS.md.txt). Aceites detalhados permanecem nos relatórios de cada bloco.
+Atualizado em 19/11/2026. Este painel é vigente; [histórico integral](../projeto/historico/2026-11-18/PAINEL-BLOCOS.md.txt). Aceites detalhados permanecem nos relatórios de cada bloco.
 
 ## Legenda das siglas e marcações
 
@@ -64,7 +64,7 @@ Classificação pelo roteiro documentado, sem inferir datas pela criação do re
 
 | Ordem posterior aos modos críticos | Bloco | Falta |
 |---|---|---|
-| 1 | ⚠️ ENG-01 — gráfico/pacote | Ponte Windows compilada e executada (11 checkpoints em 2 processos); gráfica, pacote e mobile pendentes; ENG-01-RUNTIME.md |
+| 1 | ⚠️ ENG-01 — gráfico/pacote | Ponte aprovada; abertura/mapa/menus/encerramento observados em RTX 3060/D3D12/SM5. Gráfico parcial: ENG-G01/ENG-G02 abertos; pacote/mobile pendentes; ENG-01-GRAFICO.md |
 | 2 | ⚠️ VIS-01 | Arena visual integrada ao núcleo |
 | 3 | ⚠️ ART-01 | Direção artística original e personagem representativo |
 | 4 | ⚠️ AUD-01 | Áudio próprio/licenciado e integração |

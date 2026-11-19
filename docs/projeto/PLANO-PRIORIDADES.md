@@ -1,12 +1,12 @@
 # Prioridades — estado vigente
 
-18/11/2026. Revisão do implementado primeiro; prioridade por dependência/risco e menor incremento útil. Não são estimativas de prazo ou consumo. [Plano histórico](historico/2026-11-18/PLANO-PRIORIDADES.md.txt).
+19/11/2026. Revisão do implementado primeiro; prioridade por dependência/risco e menor incremento útil. Não são estimativas de prazo ou consumo. [Plano histórico](historico/2026-11-18/PLANO-PRIORIDADES.md.txt).
 
 Não há revisão obrigatória identificada nos blocos encerrados. A ponte Windows já tem compilação e execução equivalentes ao standalone; não reabrir sem mudança/falha pertinente.
 
 | Ordem | Área/bloco | Próxima entrega delimitada | Dependência |
 |---|---|---|---|
-| 1 | ENG-01 — gráfico | Abertura controlada do projeto de avaliação; GPU/log/encerramento | Ponte aprovada; execução gráfica específica |
+| 1 | ENG-01 — gráfico parcial | Esclarecer ENG-G01 e definir isolamento para ENG-G02 | Abertura/GPU/menus/encerramento observados; erros e telemetria pendentes |
 | 2 | ENG-01 — pacote | Primeiro executável próprio de avaliação fora do editor | Teste gráfico inicial e cena/fluxo mínimo definidos |
 | 3 | VIS-01 | Arena provisória usando um único estado de combate | Aceites iniciais de engine; não duplicar regras na UI |
 | 4 | Multiplataforma | Primeiro teste Android, depois fluxo iOS conforme ferramentas/dispositivos | Não adiar decisões de escala/interface até arte final |
@@ -18,6 +18,6 @@ HAB-01/CIC-01 mínimos estão concluídos. Novas famílias PvE, passivas, condi�
 
 ## Próxima ação concreta
 
-Definir a abertura gráfica controlada e seus critérios antes da arena. Nenhuma execução nesta entrega documental. Não instalar plugin/SDK, alterar toolset ou abrir serviços por antecipação. Preservar fonte única do núcleo e adaptadores separados de apresentação/persistência.
+Analisar os registros existentes para ENG-G01 e planejar isolamento de rede para ENG-G02 antes de nova abertura. Ver ENG-01-GRAFICO.md. Futuro uso de programa exige autorização específica. Nenhuma execução nesta entrega documental. Não instalar plugin/SDK, alterar toolset ou abrir serviços por antecipação. Preservar fonte única do núcleo e adaptadores separados de apresentação/persistência.
 
 A engine não garante migração sem retrabalho. Não escolher preview por novidade nem inferir desempenho gráfico/mobile dos testes de console ou da commandlet NullRHI.

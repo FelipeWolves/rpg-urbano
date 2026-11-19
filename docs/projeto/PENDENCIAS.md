@@ -224,3 +224,9 @@ Básica A1 não silenciável e sempre disponível quando unidade apta/alvo legal
 ## Defesa clássica — extensões futuras
 
 Arredondamento padrão para baixo decidido e implementado. Modificadores de dano recebido/defendido, perfuração, itens/atributos e ordem/limites futuros do clássico são possibilidades a especificar antes de codificar. Não se aplicam automaticamente ao padrão de equipes sem defesa genérica. DEFESA-PADRAO.md; regressão atual155 aprovada.
+
+## ENG-01 gráfico — 19/11/2026
+
+- ENG-G01: 14 erros genéricos de automação na inicialização, causa/impacto desconhecidos; investigar registros antes de repetir.
+- ENG-G02: tentativa de telemetria apesar de NoAnalytics; entrega não confirmada, isolamento não validado. Planejar bloqueio efetivo antes de outra execução.
+- Abertura, mapa, menus e encerramento foram observados; aceite gráfico integral permanece parcial. Roteiro e limites em [ENG-01-GRAFICO.md](ENG-01-GRAFICO.md). Futuro uso de programas exige autorização específica.

@@ -20,7 +20,7 @@ Atualizado em 18/11/2026. Consulte a síntese atual antes dos relatórios de eta
 | Build/ponte | [Build](projeto/ENG-01-BUILD.md) e [ponte](projeto/ENG-01-PONTE.md) | [Build atual](relatorios/atuais/ENG-01-BUILD.json) |
 | Execução Unreal | [Aceite runtime](projeto/ENG-01-RUNTIME.md) | [Dois processos/11 checkpoints](relatorios/atuais/ENG-01-RUNTIME.json) |
 
-A ponte Windows está concluída. GPU/editor gráfico, arena, pacote e plataformas adicionais continuam pendentes. Os 213 testes gerais e os 11 checkpoints repetidos na Unreal são medidas diferentes.
+A ponte Windows está concluída. [Editor gráfico parcialmente validado](projeto/ENG-01-GRAFICO.md), com [JSON](relatorios/atuais/ENG-01-GRAFICO.json): renderização e interação confirmadas, ENG-G01/ENG-G02 pendentes. Arena, pacote e plataformas adicionais continuam pendentes. Os 213 testes gerais e os 11 checkpoints repetidos na Unreal são medidas diferentes.
 
 ## Fonte dos experimentos
 

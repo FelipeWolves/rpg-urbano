@@ -47,9 +47,9 @@ A estrutura C++ atual já separa interfaces, implementação e aplicação. Não
 - **Ponte Windows compilada e executada na Unreal 5.8.4:** os mesmos11 checkpoints passaram em dois processos independentes, com saída zero e resultado idêntico ao baseline. [Aceite da execução](docs/projeto/ENG-01-RUNTIME.md) e [JSON](docs/relatorios/atuais/ENG-01-RUNTIME.json).
 - **HAB-01 e CIC-01 mínimos concluídos:** [habilidades](docs/batalhas/HAB-01-FINAL.md) e [ciclo local](docs/projeto/CIC-01.md).
 
-A validação Unreal usou commandlet sem interface gráfica, com NullRHI. Arena, GPU/editor gráfico, empacotamento e mobile ainda não foram validados. Os11 checkpoints não são toda a suíte de213 testes, nem22 casos distintos por terem rodado duas vezes.
+A validação Unreal usou commandlet sem interface gráfica, com NullRHI. Abertura do editor, mapa, menus e encerramento foram observados em RTX 3060/D3D12/SM5; [validação gráfica parcial](docs/projeto/ENG-01-GRAFICO.md), com erros de automação e tentativa de telemetria ainda pendentes. Arena, empacotamento e mobile não foram validados. Os11 checkpoints não são toda a suíte de213 testes, nem22 casos distintos por terem rodado duas vezes.
 
-Próximo incremento: abertura gráfica controlada e planejamento da integração visual, em escopo separado. O protótipo não comprova servidor, desempenho gráfico ou equivalência a outro jogo. Não há revisão pendente da ponte entregue sem mudança/falha pertinente.
+Próximo incremento: esclarecer os registros de automação e definir isolamento de rede antes de outra abertura; uso futuro de programas exige autorização específica. O protótipo não comprova servidor, desempenho gráfico ou equivalência a outro jogo. Não há revisão pendente da ponte entregue sem mudança/falha pertinente.
 
 [Guia de contribuição](CONTRIBUTING.md) · [Segurança e dados](SECURITY.md) · [Índice da documentação](docs/README.md) · [Histórico de organização](CHANGELOG.md).
 

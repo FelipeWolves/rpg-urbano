@@ -1,6 +1,6 @@
 # Tarefas — fila vigente
 
-Atualizado em 18/11/2026. [Checklist histórico integral](historico/2026-11-18/TAREFAS.md.txt); [blocos e legenda](../batalhas/PAINEL-BLOCOS.md).
+Atualizado em 19/11/2026. [Checklist histórico integral](historico/2026-11-18/TAREFAS.md.txt); [blocos e legenda](../batalhas/PAINEL-BLOCOS.md).
 
 ## Concluído
 
@@ -15,7 +15,9 @@ Não repetir verificações concluídas sem mudança, falha ou dependência pert
 
 ## Próximo bloco executável
 
-- [ ] ENG-01 — abertura gráfica controlada: definir um teste pequeno de editor/GPU, abrir o projeto de avaliação autorizado, verificar log/recursos/encerramento e registrar limites. Ainda não é arena final nem teste de desempenho de jogo.
+- [x] ENG-01 — observação gráfica inicial: mapa, menus, RTX 3060/D3D12/SM5 e encerramento normal confirmados. Aceite integral permanece parcial; [relatório](ENG-01-GRAFICO.md).
+- [ ] ENG-G01: identificar origem/impacto das 14 mensagens de automação nos registros existentes.
+- [ ] ENG-G02: definir isolamento efetivo de rede; NoAnalytics não impediu tentativa de telemetria. Nova execução somente com autorização específica.
 - [ ] ENG-01 — pacote: definir e validar um executável próprio distribuível em incremento separado.
 - [ ] VIS-01: arena provisória com ação/alvo, turno/vida/resultado e reinício, reutilizando o núcleo sem duplicar regras.
 

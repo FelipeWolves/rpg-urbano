@@ -73,3 +73,7 @@ Estado, tarefas, prioridades, painel e instruções de retomada consolidados. S�
 ## 2026-11-18 — revisão final da consolidação documental
 
 Consolidação já registrada no commit 00fd035, preservada. Links Markdown locais conferidos sem referências quebradas; seis snapshots históricos conferidos com o conteúdo do commit 25516e6. Ajuste de redação no painel. Sem alteração de código/evidências JSON/CSV, nova execução de testes ou engine.
+
+## 2026-11-19 — ENG-01 gráfico parcial
+
+Registrados abertura, mapa, interação e encerramento do editor em RTX 3060/D3D12/SM5. Aceite integral pendente de erros genéricos de automação e tentativa de telemetria. Relatório sanitizado, roteiro e painel atualizados; sem novos testes, execução de engine ou alteração do núcleo nesta atualização documental.

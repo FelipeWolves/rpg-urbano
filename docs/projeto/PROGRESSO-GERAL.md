@@ -13,7 +13,7 @@ Referência de chegada: versão jogável com apresentação gráfica final do es
 | Código core — combate e mecânicas | **55%** | Tempo/AP, ações, efeitos mínimos, causalidade, perfis de chefes/equipes e escudo padrão testados | Famílias restantes de efeitos, passivas, alvos/área, atributos, equipamentos e balanceamento |
 | Código da engine — integração Unreal | **35%** | Ponte do núcleo, arena provisória, compilação e pacote Windows anteriores | Fluxo completo, apresentação de eventos, animação/áudio, carregamento e integração final |
 | Front — interface do jogador | **15%** | Interface textual e HUD gráfico provisório com ações, vida/escudo, consultas e seleção | Arte/layout finais, navegação completa, acessibilidade, toque e diversas resoluções |
-| Hub, entrada e navegação entre áreas | **0%** | Referências associadas e proposta documentada | Contrato de navegação, cena, avatar, câmera, painéis e ida/volta da batalha |
+| Hub, entrada e navegação entre áreas | **5%** | Referências, catálogo e política de enquadramento/vídeo testada | Ligar renderer/player, preferências/rotação reais, cena, avatar, painéis e fluxo com batalha |
 | Cenários3D e iluminação | **5%** | Composição/câmeras e formas provisórias da arena | Direção visual original, modelagem, materiais, luz e otimização dos ambientes |
 | Personagens, rig e animações | **0%** | Identificação de atores e posições de apresentação | Modelos próprios/licenciados, esqueleto, poses, ações, expressões e integração |
 | Efeitos visuais e cinematics | **0%** | Possíveis usos ainda em definição | Linguagem visual, efeitos, roteiro visual, montagem e integração/validação |

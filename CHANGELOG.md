@@ -118,3 +118,7 @@ Por decisão do usuário, o escudo padrão direto passa a max(1,floor(PV máximo
 ## 2026-11-19 — painel geral e referências do hub
 
 Adicionado PROGRESSO-GERAL.md em destaque no README: estimativas por área, lacunas e frentes separáveis, incluindo cinema/vídeo local. Referências do hub associadas visualmente aos arquivos reais; texto recebido preservado sem copiar capturas/dados de conta. Propostas do outro assistente separadas de decisões e capacidades existentes. Entrega documental: sem mudança de código, novas ferramentas ou testes de gameplay.
+
+## 2026-11-19 — HUB-01A: base de imagem/vídeo por dispositivo
+
+Política C++ para panorama/regiões configuráveis, proporção de vídeo, intenção de orientação mobile e laterais no desktop. Preferências antes da janela e variantes de mídia registradas em catálogo versionado, com validador local;4 Planned/0 Ready.10 grupos nativos aprovados; nenhuma regra de combate alterada. Runtime JSON/renderer/player, orientação nativa e teste em aparelho continuam pendentes. Recursos/arte não gerados nem baixados; sem novas dependências.

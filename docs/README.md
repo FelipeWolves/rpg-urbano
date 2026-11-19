@@ -36,6 +36,8 @@ Atualizado em19/11/2026. Comece pelas sínteses atuais; relatórios datados deli
 
 [Associação das quatro capturas e análise de integração](projeto/HUB-01-REFERENCIAS.md). Proposta recebida, sem implementação de hub ou adoção automática de tecnologias/lojas.
 
+[Base de apresentação HUB-01A](projeto/HUB-01A-APRESENTACAO.md): políticas nativas de panorama/vídeo e catálogo local; renderer/player/mobile ainda não ligados.
+
 ## Organização dos arquivos
 
 Núcleo em include/rpg e src; testes em tests; automação em scripts. [Experimento Unreal](../experiments/unreal/RpgEngineProbe/README.md) contém fonte versionada. Stages, objetos, pacotes, logs e saves ficam em build ignorado. Não editar fontes gerados ou mover núcleo para a engine.

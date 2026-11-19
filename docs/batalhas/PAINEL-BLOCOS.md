@@ -110,3 +110,5 @@ Pesquisa recebida: [matriz de incorporação](../projeto/REVISAO-PESQUISA-HABILI
 ✅ P1: ESC-01–07 definidos e implementados no caso comum;14 grupos próprios e build aprovados. 🟠 P2: VIS-01–03 (aceite visual) e REG-01–03 (contratos relacionados). 🟡 P3: SIS-01–04 (sistemas/pesquisa futura). Lista completa, exemplos e campos de resposta em [PENDENCIAS.md](../projeto/PENDENCIAS.md). O usuário pode pesquisar todos juntos; P2/P3 continuam separados do caso comum P1 já entregue. Propostas de extensões não são decisões aprovadas. Códigos novos são IDs de perguntas, não novos blocos concluídos.
 
 HUB-01: referência recebida e imagens associadas em [HUB-01-REFERENCIAS.md](../projeto/HUB-01-REFERENCIAS.md). ⚠️ Proposta de escopo/contrato, sem implementação; não confundir com o aceite visual da arena.
+
+HUB-01A: ✅ fundação de dados/enquadramento testada (10 grupos nativos); ⚠️ imagem real, renderer/player, preferências de janela e rotação em aparelho pendentes. [Relatório](../projeto/HUB-01A-APRESENTACAO.md). Não encerra HUB integral.

@@ -75,3 +75,7 @@ Documento do usuário preservado e comparado aos contratos. [Revisão e matriz](
 ## Referência recebida — hub urbano
 
 Quatro capturas associadas ao texto por conteúdo visual em [HUB-01-REFERENCIAS.md](HUB-01-REFERENCIAS.md). Proposta de três áreas, avatar e enquadramentos responsivos separada da evidência estática e da implementação existente. Nenhum hub, login, serviço ou loja implementado/adotado por esta recepção; prioridade executável VIS permanece. Capturas não foram copiadas; o texto recebido foi preservado como referência, sem adotar perfil/recursos como dados do produto.
+
+## HUB-01A — base de apresentação
+
+Política C++ de panorama/recortes e vídeo com proporção, intenção de orientação mobile e composição lateral desktop implementada;10 grupos próprios aprovados. Catálogo local validado com4 Planned/0 Ready. [Relatório e limites](HUB-01A-APRESENTACAO.md). Ainda sem carregamento real de imagem/player, preferências aplicadas à janela ou execução mobile. Nenhuma regra de combate mudou.

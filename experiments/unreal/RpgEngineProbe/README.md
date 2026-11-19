@@ -33,7 +33,7 @@ ProbeArenaMode/HUD usam Canvas e InputCore, sem plugin novo. O adaptador e o cen
 
 ## Revisão de apresentação e interação
 
-Fontes compartilhados canônicos: arena_layout e battle_presentation em include/rpg e src, copiados para o stage com os demais arquivos. O preparador atual confere/copia32 entradas; não editar as cópias em build/p. O script histórico da ponte não é o fluxo de pacote da arena.
+Fontes compartilhados canônicos: arena_layout e battle_presentation em include/rpg e src, copiados para o stage com os demais arquivos. O preparador atual confere/copia34 entradas; não editar as cópias em build/p. O script histórico da ponte não é o fluxo de pacote da arena.
 
 - Padrão: câmera em profundidade e CombatProfile Team.
 - `-ArenaLayout=Classic`: apenas câmera lateral; não habilita defesa.
@@ -46,3 +46,5 @@ Preparar não compila nem abre; empacotar compila/cook/stage/archive sem abrir o
 ## Escudo padrão
 
 A terceira ativa do cenário usa StandardShield (1% do máximo do aplicador,3 turnos naturais do protegido). Consultas/vida/escudo recebem os pontos reais do mesmo núcleo. Build Editor desta revisão aprovado; pacote anterior não contém a mudança. Passivas fixas de abertura preservadas. Contrato em [ESCUDO-PADRAO.md](../../../docs/projeto/ESCUDO-PADRAO.md); sem autorização implícita para abrir editor ou aplicativo.
+
+startup_presentation.hpp/cpp também são canônicos e copiados pelo preparador atual (34 entradas). Compilar a política não liga o JSON, renderer ou player à arena. Ver docs/projeto/HUB-01A-APRESENTACAO.md.

@@ -236,6 +236,16 @@ As respostas ESC também encerram partes dos itens abaixo. **Definido**, **imple
 
 **Estado:** separação de conceitos parcialmente respondida; sistemas ainda não implementados. Não bloqueiam o caso comum do escudo nem autorizam instalações, rede ou abertura de programas.
 
+## HUB-01A — imagem, vídeo e inicialização
+
+**✅ Definido pelo usuário:** panorama compartilhado por áreas; enquadramento por resolução; vídeo horizontal solicita paisagem no celular; vídeo vertical central no desktop com arte lateral; variantes por dispositivo; janela/resolução ou tela cheia escolhidas antes da abertura.
+
+**✅ Base implementada:** política de recorte/proporção/orientação solicitada e metadados,10 testes próprios. Catálogo previsto sem mídia Ready. [Contrato completo](HUB-01A-APRESENTACAO.md).
+
+**⚠️ Restante:** receber arte/vídeo e direitos; metadados reais; parser do catálogo no runtime; renderer do hub e hitboxes; player/codec; configurações antes de criar janela; rotação/restauração reais e áreas seguras; desempenho e testes mobile. Não reabrir os requisitos já dados só porque a integração ainda falta.
+
+O contrato de câmera do hub não é o perfil de combate clássico. Perguntas de avatar/destinos permanecem em HUB-01-REFERENCIAS.md. Essa frente não altera ESC-01–07 nem resolve mobile pela compilação Windows.
+
 ## Registro histórico e rastreabilidade
 
 As tabelas PEN/VAL e atualizações datadas a seguir registram a evolução. Linhas antigas como “não implementado” não substituem os aceites posteriores. Para estado vigente usar a síntese acima, [ESTADO.md](ESTADO.md) e o [painel](../batalhas/PAINEL-BLOCOS.md). Histórico anterior à consolidação preservado em [PENDENCIAS.md.txt](historico/2026-11-18/PENDENCIAS.md.txt).

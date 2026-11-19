@@ -89,3 +89,13 @@ Documento do usuário preservado e comparado aos contratos. [Revisão e matriz](
 - [ ] Planejar contrato do hub separado de CombatProfile/ArenaLayout; não iniciar cena/contas/lojas por inferência do documento recebido.
 
 Não interrompe nem encerra o aceite VIS atual.
+
+## HUB-01A — imagem/vídeo por dispositivo
+
+- [x] Registrar regras de vídeo e enquadramento recebidas diretamente do usuário; implementar política neutra e testes10/10.
+- [x] Criar catálogo local versionado e validação de recursos previstos, sem mídia de terceiros incorporada.
+- [ ] Receber arquivos autorais/licenciados e confirmar metadados/recortes.
+- [ ] Ligar catálogo/renderer/player na Unreal; aplicar preferências antes da janela e orientação/restauração no celular.
+- [ ] Aceite gráfico e em aparelho após autorização própria; sem atribuir execução real a teste de geometria.
+
+[Contrato e limites](HUB-01A-APRESENTACAO.md). Pode avançar como base independente sem modificar combate.

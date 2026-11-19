@@ -1,0 +1,57 @@
+{
+  "CheckedUtc": "2026-11-19T20:54:36.5646399Z",
+  "Passed": true,
+  "SchemaVersion": 1,
+  "Catalog": "data/presentation/startup.json",
+  "Assets": [
+    {
+      "Id": "hub-panorama",
+      "Role": "HubPanorama",
+      "Status": "Planned",
+      "FilePresenceChecked": false,
+      "FileExists": false,
+      "DimensionsDeclared": [
+        3240,
+        1920
+      ]
+    },
+    {
+      "Id": "intro-desktop",
+      "Role": "IntroDesktop",
+      "Status": "Planned",
+      "FilePresenceChecked": false,
+      "FileExists": false,
+      "DimensionsDeclared": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "Id": "intro-mobile",
+      "Role": "IntroMobile",
+      "Status": "Planned",
+      "FilePresenceChecked": false,
+      "FileExists": false,
+      "DimensionsDeclared": [
+        1080,
+        1920
+      ]
+    },
+    {
+      "Id": "intro-side-art",
+      "Role": "SideArt",
+      "Status": "Planned",
+      "FilePresenceChecked": false,
+      "FileExists": false,
+      "DimensionsDeclared": [
+        1920,
+        1080
+      ]
+    }
+  ],
+  "MediaDecoded": false,
+  "DimensionsReadFromFile": false,
+  "EngineExecuted": false,
+  "NetworkAccessed": false,
+  "Scope": "Catalog metadata and presence of declared Ready local files only; no runtime import/playback or license verification"
+}

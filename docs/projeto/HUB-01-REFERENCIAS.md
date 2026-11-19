@@ -76,3 +76,7 @@ Arte/avatar finais, animar comunicador, transições sem corte, música, climati
 - A visão tripla no PC é requisito obrigatório ou pode haver foco em uma área quando a leitura exigir?
 
 Registrar respostas nesta seção para não misturar questões do hub com ESC/VIS de combate. Nenhuma decisão anterior foi revogada por receber o documento.
+
+## Evolução posterior autorizada
+
+Requisitos de panorama/vídeo por dispositivo recebidos diretamente do usuário e base neutra implementada em [HUB-01A-APRESENTACAO.md](HUB-01A-APRESENTACAO.md). Essa autorização permite a fundação antes do aceite visual, sem aprovar automaticamente todos os destinos, avatar, lojas ou tecnologias da proposta recebida. Renderer/player/rotação real ainda não ligados.

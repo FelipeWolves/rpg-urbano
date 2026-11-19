@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "desktopBeforeWindowCreation": {
+    "mode": "Windowed",
+    "width": 1280,
+    "height": 720,
+    "userConfigurable": true
+  },
+  "hub": {
+    "initialArea": "Center",
+    "view": "Auto",
+    "panoramicMinAspect": 1.5,
+    "regions": {
+      "Left": { "x": 0, "y": 0, "width": 0.3333333333333333, "height": 1 },
+      "Center": { "x": 0.3333333333333333, "y": 0, "width": 0.3333333333333333, "height": 1 },
+      "Right": { "x": 0.6666666666666666, "y": 0, "width": 0.3333333333333333, "height": 1 }
+    }
+  },
+  "video": {
+    "fit": "Contain",
+    "mobileRequestMatchingOrientation": true,
+    "restoreHubOrientationAfterPlayback": true,
+    "desktopPortraitSideComposition": true,
+    "allowSkip": true,
+    "fallback": "ContinueToLocalEntry",
+    "variantPreference": "DeviceThenOther"
+  },
+  "assets": [
+    { "id": "hub-panorama", "role": "HubPanorama", "status": "Planned", "path": "assets/runtime/hub/panorama.png", "width": 3240, "height": 1920, "origin": "", "rights": "" },
+    { "id": "intro-desktop", "role": "IntroDesktop", "status": "Planned", "path": "assets/runtime/video/intro-desktop.mp4", "width": 1920, "height": 1080, "origin": "", "rights": "" },
+    { "id": "intro-mobile", "role": "IntroMobile", "status": "Planned", "path": "assets/runtime/video/intro-mobile.mp4", "width": 1080, "height": 1920, "origin": "", "rights": "" },
+    { "id": "intro-side-art", "role": "SideArt", "status": "Planned", "path": "assets/runtime/video/intro-side-art.png", "width": 1920, "height": 1080, "origin": "", "rights": "" }
+  ]
+}

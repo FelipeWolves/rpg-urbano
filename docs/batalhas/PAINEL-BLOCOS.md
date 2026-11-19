@@ -50,6 +50,7 @@ As siglas são identificadores internos das áreas do projeto, não nomes de fer
 | ✅ HAB-01 | Perfis/posições, passiva, condição, automação e kits integrados | Cinco partes concluídas; 24 grupos de perfis e 15 textuais acumulados; HAB-01-FINAL.md |
 | ✅ CIC-01 | Seleção de equipe, recompensa única e save v1 entre batalhas | Três partes concluídas; seleção 7, recompensa 7, save 7 e interação 18 grupos acumulados; CIC-01-SAVE-R01.md |
 | ✅ ENG-01 — ponte Windows | Fontes ligados e executados na UE5.8.4 | 11 checkpoints equivalentes ao standalone em 2 processos, código0; não inclui gráfico/pacote/mobile |
+| ✅ ENG-01 — pacote Windows básico | Build/cook/stage/archive e abertura/mapa/encerramento nesta máquina | Development/Win64; saída0 do build, bootstrap e processo principal; ENG-01-PACOTE-RUNTIME.md; sem gameplay/Windows limpo |
 | ✅ Contrato R04 e revisões R01–R03 | Decisões e pesquisa recebida | Fechamento documental; implementação mínima em RES-01 |
 
 Total atual: **213 testes gerais standalone aprovados**. Separadamente, a ponte passou **11 checkpoints em duas execuções Unreal**, com saída zero e comparação ao baseline. Também foram preservados os resultados das matrizes, do isolamento intercalado, das 1.000 simulações funcionais e da demonstração. Não é benchmark de servidor ou renderização.
@@ -64,7 +65,7 @@ Classificação pelo roteiro documentado, sem inferir datas pela criação do re
 
 | Ordem posterior aos modos críticos | Bloco | Falta |
 |---|---|---|
-| 1 | ⚠️ ENG-01 — gráfico/pacote | Abertura básica e diagnóstico regional registrados; inglês priorizado (zero erros na comparação). Pacote/mobile pendentes. Português no jogo terá localização própria a definir; ENG-01-GRAFICO-DIAGNOSTICO.md |
+| 1 | ⚠️ ENG-01 — produção/multiplataforma | Pacote Windows básico aprovado. Faltam Windows limpo/pré-requisitos, desempenho, distribuição, mobile e localização; inglês no ambiente e português do produto são decisões separadas |
 | 2 | ⚠️ VIS-01 | Arena visual integrada ao núcleo |
 | 3 | ⚠️ ART-01 | Direção artística original e personagem representativo |
 | 4 | ⚠️ AUD-01 | Áudio próprio/licenciado e integração |

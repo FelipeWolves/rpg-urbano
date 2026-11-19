@@ -14,7 +14,8 @@ A ponte Windows foi compilada e executada na **Unreal Engine 5.8.4**, instalada 
 | Ponte na Unreal | 11 checkpoints em cada uma de duas execuções | Mesmo cenário repetido, não 22 casos distintos |
 | Compilador/SDK usados | MSVC 14.52.37029, SDK 10.0.26100.0 | Compilador não preferido; aviso mantido |
 | Editor gráfico/GPU | Abertura, mapa, menus e encerramento confirmados; RTX 3060/D3D12/SM5 | Diagnóstico: três testes internos falham em pt-BR e passam em inglês; ENG-01-GRAFICO-DIAGNOSTICO.md |
-| Pacote/Android/iOS | Ainda não validados | Instalar suporte de plataforma não equivale a validar o jogo |
+| Pacote Windows | Build e execução básica aprovados nesta máquina, saída0 | Sem Windows limpo, gameplay ou desempenho validados |
+| Android/iOS | Ainda não validados | Instalar suporte não equivale a validar o jogo |
 
 Primeira inicialização geral atingiu o limite de tempo antes do teste. A rota final por commandlet passou; ambas as evidências foram preservadas. Não há revisão pendente da ponte entregue sem mudança ou falha pertinente.
 
@@ -28,7 +29,7 @@ Primeira inicialização geral atingiu o limite de tempo antes do teste. A rota 
 
 ## Próximo incremento
 
-Priorizar idioma e região em inglês no ambiente Unreal (`-culture=en` por processo nos testes). A comparação passou sem linhas Error:; pt-BR produziu 14 falhas em três testes internos de mensagens. [Diagnóstico e limites](ENG-01-GRAFICO-DIAGNOSTICO.md). Próximo: planejar o pacote Windows de avaliação, sem executá-lo nesta entrega. O jogo poderá ter interface/textos em português por uma camada de localização própria, a definir e validar separadamente; inglês no editor não determina o idioma do produto. Telemetria com opt-out não apresentou os marcadores anteriores; rede continua sem isolamento por decisão do usuário. Nova execução exige autorização específica. A ponte entregue não precisa ser refeita por rotina.
+Priorizar idioma e região em inglês no ambiente Unreal (`-culture=en` por processo nos testes). A comparação passou sem linhas Error:; pt-BR produziu 14 falhas em três testes internos de mensagens. [Diagnóstico e limites](ENG-01-GRAFICO-DIAGNOSTICO.md). Pacote Windows gerado e execução básica aprovada nesta máquina; [aceite do pacote](ENG-01-PACOTE-RUNTIME.md). Próximo: planejar VIS-01, sem iniciar implementação nesta entrega. O jogo poderá ter interface/textos em português por uma camada de localização própria, a definir e validar separadamente; inglês no editor não determina o idioma do produto. Telemetria com opt-out não apresentou os marcadores anteriores; rede continua sem isolamento por decisão do usuário. Nova execução exige autorização específica. A ponte entregue não precisa ser refeita por rotina.
 
 Não assumir que save de progresso é save de combate, que intercalação equivale a threads ou que o perfil de chefe compartilhado cobre todos os modos PvE. Pendências em [PENDENCIAS.md](PENDENCIAS.md), fila em [TAREFAS.md](TAREFAS.md) e [painel](../batalhas/PAINEL-BLOCOS.md).
 
@@ -36,6 +37,7 @@ Não assumir que save de progresso é save de combate, que intercalação equiva
 
 - [Resultado standalone](../relatorios/atuais/COMBATE.json).
 - [Compilação da ponte](../relatorios/atuais/ENG-01-BUILD.json).
+- [Pacote Windows: build](ENG-01-PACOTE-BUILD.md) e [execução básica](ENG-01-PACOTE-RUNTIME.md): build/cook/archive e os dois processos com saída0; sem benchmark ou Windows limpo validados.
 - [Execução Unreal](../relatorios/atuais/ENG-01-RUNTIME.json) e [relatório do aceite](ENG-01-RUNTIME.md).
 - [Habilidades](../batalhas/HAB-01-FINAL.md), [ciclo local](CIC-01.md) e [save v1](CIC-01-SAVE-R01.md).
 

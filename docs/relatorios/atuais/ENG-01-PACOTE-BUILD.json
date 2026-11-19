@@ -1,0 +1,42 @@
+{
+  "StartedUtc": "2026-11-19T04:05:18.1887779Z",
+  "Status": "completed",
+  "ProcessId": 39036,
+  "Stage": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\p\\66761013\\RpgEngineProbe",
+  "Archive": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\p\\66761013\\archive",
+  "Stdout": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\p\\66761013\\uat-stdout.log",
+  "Stderr": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\p\\66761013\\uat-stderr.log",
+  "Plan": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\p\\66761013\\package-plan.json",
+  "SourceManifestVerified": true,
+  "NetworkChanged": false,
+  "PackageLaunched": false,
+  "Passed": true,
+  "ExitCode": 0,
+  "FinishedUtc": "2026-11-19T04:12:05.3416768Z",
+  "Inventory": "ENG-01-PACOTE-ARQUIVOS.csv",
+  "PortugueseLocalizationValidated": false,
+  "DebugSymbolsBytes": 201805824.0,
+  "Executables": [
+    {
+      "Path": "Windows\\RpgEngineProbe.exe",
+      "SHA256": "8F420F4B02CF652AEE319576FF4037B7B407BCEF9BF5E99D9436E12DF5C65D7B",
+      "Bytes": 171520
+    },
+    {
+      "Path": "Windows\\RpgEngineProbe\\Binaries\\Win64\\RpgEngineProbe.exe",
+      "SHA256": "FA1F3C353DC94B47B41EF4DE757B52FF30158B32E12C8A2E805DD79A42D100B6",
+      "Bytes": 219783680
+    }
+  ],
+  "ArchiveBytes": 525955927.0,
+  "Warnings": [
+    "MSVC14.52 not preferred by engine",
+    "ACL plugin compression defaults missing; animation not validated",
+    "Temporary local Zen readiness wait during staging"
+  ],
+  "PackageLaunchValidated": false,
+  "InitialFailure": "Paths exceed UBT 260-character limit; new shorter build/p staging used without moving engine",
+  "InitialAttempt": "ENG-01-PACOTE-BUILD-INICIAL.json",
+  "BuildCookRunSeconds": 405.86,
+  "ArchiveFileCount": 45
+}

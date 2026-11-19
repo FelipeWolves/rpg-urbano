@@ -21,3 +21,7 @@ O script também compila/executa CoreProbe.cpp em standalone e exige11 checkpoin
 ## Execução da ponte validada
 
 A rota automatizada agora usa uma commandlet própria: scripts/testar-unreal-runtime.ps1 -EngineRoot seguido da pasta da engine. Ela chama Run uma vez, sem opt-in de startup, e exige duas execuções iguais ao baseline. Saída0 e11 checkpoints aprovados em ambos. Limite180s por processo e logs em build/engine-eval/runtime. Não abre interface gráfica nem usa saves do jogador. Resultado em ENG-01-RUNTIME.json; detalhes em docs/projeto/ENG-01-RUNTIME.md. Inicialização geral anterior teve timeout e não deve ser repetida como bateria padrão.
+
+## Preparação de pacote Windows
+
+Alvo Game e Config compilados na etapa de pacote Development/Win64, build/cook/archive com saída0. Aplicativo abriu Template_Default fora do editor e encerrou com saída0; sem arena própria ou gameplay validados. scripts/preparar-pacote-unreal.ps1 cria stage novo e plano sem invocar ferramentas. Detalhes em docs/projeto/ENG-01-PACOTE-PREPARACAO.md, ENG-01-PACOTE-BUILD.md e ENG-01-PACOTE-RUNTIME.md. O script empacotar-unreal.ps1 executa o plano somente com autorização, sem abrir aplicativo. Stage de pacote curto em build/p, preservando a tentativa inicial de caminhos longos. O stage anterior e o build do editor permanecem separados. Priorizar inglês nas ferramentas; localização do jogo em português continua independente e pendente.

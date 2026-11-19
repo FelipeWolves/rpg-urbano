@@ -18,7 +18,8 @@ Não repetir verificações concluídas sem mudança, falha ou dependência pert
 - [x] ENG-01 — observação gráfica inicial: mapa, menus, RTX 3060/D3D12/SM5 e encerramento normal confirmados. Aceite integral permanece parcial; [relatório](ENG-01-GRAFICO.md).
 - [x] ENG-G01 — diagnóstico: três testes internos de mensagens identificados (7+4+3 falhas em pt-BR); passaram em inglês. Inglês priorizado no ambiente Unreal; causa detalhada não corrigida.
 - [x] ENG-G02 — observação delimitada: bSendUsageData=False solicitado nas duas comparações, sem os marcadores anteriores. Sem auditoria ou isolamento de rede; usuário não autorizou mudanças de rede.
-- [ ] ENG-01 — pacote: definir e validar um executável próprio distribuível em incremento separado.
+- [x] ENG-01 — geração do pacote: Development/Win64, build/cook/stage/archive com saída0; 45 arquivos (~501,6 MiB com PDB). ENG-01-PACOTE-BUILD.md.
+- [x] ENG-01 — execução básica do pacote: mapa renderizado fora do editor e encerramento normal; entrada/processo principal com saída0. ENG-01-PACOTE-RUNTIME.md; não valida Windows limpo ou gameplay.
 - [ ] VIS-01: arena provisória com ação/alvo, turno/vida/resultado e reinício, reutilizando o núcleo sem duplicar regras.
 
 Uma entrega por vez. Não abrir editor, instalar componentes nem iniciar serviços por inferência de uma tarefa documental. Download/instalação e escolhas definitivas continuam com decisão específica.

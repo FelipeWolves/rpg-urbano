@@ -82,3 +82,8 @@ Registrados abertura, mapa, interação e encerramento do editor em RTX 3060/D3D
 ## 2026-11-19 — diagnóstico regional e padrão de trabalho Unreal
 
 Identificados três testes internos com 14 falhas em pt-BR; comparação em inglês sem linhas de erro, ambas as execuções com saída0. Inglês priorizado no ambiente Unreal. Português do produto será tratado por localização separada, ainda a definir e validar. Opt-out observado sem os marcadores anteriores; sem mudanças de rede. Documentação e evidências consolidadas, sem novos testes nesta entrega.
+
+
+## 2026-11-19 — pacote Windows básico aprovado
+
+Adicionados alvo Game, configurações do mapa de avaliação e scripts de preparação/empacotamento. Build/cook/stage/archive com saída0; 45 arquivos, 525.955.927 bytes incluindo símbolos PDB. Abertura fora do editor, mapa renderizado em RTX3060/D3D12/SM5 e encerramento normal; bootstrap e processo principal com saída0, log sem linhas Error:/Warning:. Falha inicial de caminhos preservada, resolvida com stage curto em build/p. Avisos MSVC/ACL e espera Zen documentados. Não valida gameplay, desempenho, Windows limpo, localização ou rede isolada. Próximo VIS-01; sem repetir testes nesta consolidação.

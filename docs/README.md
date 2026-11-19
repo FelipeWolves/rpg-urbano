@@ -36,3 +36,6 @@ Ao atualizar: substitua a síntese atual, preserve aceites datados e evite acres
 
 
 [Diagnóstico gráfico regional e padrão de idioma](projeto/ENG-01-GRAFICO-DIAGNOSTICO.md): inglês priorizado no ambiente Unreal; português do jogo será tratado por localização independente, ainda não validada.
+
+
+Pacote Windows: [preparação](projeto/ENG-01-PACOTE-PREPARACAO.md), [build](projeto/ENG-01-PACOTE-BUILD.md) e [execução básica aprovada](projeto/ENG-01-PACOTE-RUNTIME.md). Inventário e JSONs vinculados nesses relatórios. Não validam gameplay, desempenho ou distribuição em Windows limpo.

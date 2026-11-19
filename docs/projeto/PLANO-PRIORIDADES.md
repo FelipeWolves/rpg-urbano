@@ -6,9 +6,9 @@ Não há revisão obrigatória identificada nos blocos encerrados. A ponte Windo
 
 | Ordem | Área/bloco | Próxima entrega delimitada | Dependência |
 |---|---|---|---|
-| 1 | ENG-01 — gráfico parcial | Consolidar uso de inglês e preparar escopo do pacote | Diagnóstico concluído; contorno em inglês, sem isolamento de rede |
-| 2 | ENG-01 — pacote | Primeiro executável próprio de avaliação fora do editor | Teste gráfico inicial e cena/fluxo mínimo definidos |
-| 3 | VIS-01 | Arena provisória usando um único estado de combate | Aceites iniciais de engine; não duplicar regras na UI |
+| 1 | VIS-01 | Planejar e entregar arena provisória ligada ao núcleo | Ponte e pacote Windows básico aprovados; sem duplicar regras na UI |
+| 2 | ENG-01 — distribuição | Windows limpo, pré-requisitos e comportamento do pacote atualizado | Pacote básico aprovado nesta máquina; sem distribuição final validada |
+| 3 | Localização | Definir e validar português no produto, separado do editor | Fluxo visual e textos traduzíveis; inglês mantido no ambiente Unreal |
 | 4 | Multiplataforma | Primeiro teste Android, depois fluxo iOS conforme ferramentas/dispositivos | Não adiar decisões de escala/interface até arte final |
 | 5 | ART-01 | Direção visual e um personagem original | Arena provisória suficiente para testar |
 | 6 | AUD-01 | Pequeno conjunto próprio/licenciado e integração | Fluxo demonstrável; pode anteceder arte quando necessário |
@@ -18,6 +18,6 @@ HAB-01/CIC-01 mínimos estão concluídos. Novas famílias PvE, passivas, condi�
 
 ## Próxima ação concreta
 
-Planejar o pacote Windows de avaliação com inglês como padrão de trabalho Unreal. Diagnóstico em ENG-01-GRAFICO-DIAGNOSTICO.md. Localização do jogo em português será uma tarefa independente; definir estratégia e validar no produto, sem presumir idioma pela configuração do editor. Futuro uso de programa exige autorização específica. Nenhuma execução nesta entrega documental. Não instalar plugin/SDK, alterar toolset ou abrir serviços por antecipação. Preservar fonte única do núcleo e adaptadores separados de apresentação/persistência.
+Planejar VIS-01 usando o núcleo existente; pacote Windows básico já gerado, aberto e encerrado com saída0. Ver ENG-01-PACOTE-RUNTIME.md. Manter inglês como padrão de trabalho Unreal. Diagnóstico em ENG-01-GRAFICO-DIAGNOSTICO.md. Localização do jogo em português será uma tarefa independente; definir estratégia e validar no produto, sem presumir idioma pela configuração do editor. Futuro uso de programa exige autorização específica. Nenhuma execução nesta entrega documental. Não instalar plugin/SDK, alterar toolset ou abrir serviços por antecipação. Preservar fonte única do núcleo e adaptadores separados de apresentação/persistência.
 
 A engine não garante migração sem retrabalho. Não escolher preview por novidade nem inferir desempenho gráfico/mobile dos testes de console ou da commandlet NullRHI.

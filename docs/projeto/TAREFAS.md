@@ -4,6 +4,11 @@ Atualizado em 19/11/2026. [Checklist histórico integral](historico/2026-11-18/T
 
 ## Próxima ação vigente
 
+- [x] Organizar [coleta por grupos](../../entregas/README.md), modelo de entrega e pastas recebidos locais.
+- [ ] Usuário: reunir os itens que conseguir, começando por mobile/fluidez e regras ainda abertas; entregas parciais são válidas.
+- [ ] Retomada: inventariar novos materiais, comparar contratos, registrar conflitos e selecionar uma entrega implementável. Não repetir análises concluídas nem mover originais sem revisão.
+- [ ] Próxima mudança de código após a coleta pertinente: seletor no chão, com aceite visual.
+
 Ordem detalhada e frentes independentes em [PROXIMAS-FASES.md](PROXIMAS-FASES.md). Primeiro fechar aceite visual atual; depois UI pequena/mobile e player, sem esperar catálogo completo de habilidades. Percentuais revisados em [PROGRESSO-GERAL.md](PROGRESSO-GERAL.md).
 
 - [x] Receber, preservar e revisar a pesquisa de habilidades/itens.

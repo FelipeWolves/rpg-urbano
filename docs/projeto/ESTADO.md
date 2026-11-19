@@ -6,6 +6,8 @@ Atualizado em 19/11/2026. Esta é a síntese vigente; registros anteriores estã
 
 ## Prioridade vigente
 
+Entrega documental: [central de materiais por grupo](../../entregas/README.md) criada para pesquisa/produção independente do usuário. Guias e índice versionados; recebidos locais ignorados até revisão. Na retomada, ler apenas novidades pertinentes antes de implementar. Próxima correção de código continua sendo o seletor no chão; não iniciada por esta organização. Nenhum programa/teste de gameplay executado nesta entrega.
+
 Escudo padrão por habilidade implementado conforme ESC-01 a ESC-07:1% do PV máximo do aplicador, floor e mínimo de1 ponto na aplicação válida,3 oportunidades naturais do protegido e reaplicação por maiores propriedades. Removido na morte do protegido e transições comuns; morte do aplicador não interfere. [Contrato/evidências](ESCUDO-PADRAO.md). Decisões não precisam ser respondidas novamente.
 
 A bateria nativa contém213 testes gerais,6 do adaptador,6 de apresentação,6 clássicos e14 grupos próprios do escudo, em escopos separados. Geometria tem6 grupos anteriores não repetidos nesta revisão. Build Editor aprovado; não houve pacote novo, janela aberta ou teste visual da revisão. Próximo: aceite visual autorizado (VIS-01–03). Silêncio/supressão, bloqueio automático, outras categorias e equipamentos permanecem futuros em [PENDENCIAS.md](PENDENCIAS.md).

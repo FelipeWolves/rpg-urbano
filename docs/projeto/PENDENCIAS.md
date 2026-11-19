@@ -2,6 +2,8 @@
 
 ## Síntese vigente —19/11/2026
 
+Para reunir respostas e recursos por área, use a [central de entregas](../../entregas/README.md). Os guias são listas de preparação, não novas pendências que reabrem ESC/TIME/RES/SEQ/PAR. Este documento continua sendo a fonte das dúvidas/contratos; arquivos recebidos só mudam seu estado depois de revisados.
+
 Registro central de perguntas e decisões. **Documento de pesquisa recebido; não estamos mais aguardando seu envio.** A revisão está em [REVISAO-PESQUISA-HABILIDADES-ITENS.md](REVISAO-PESQUISA-HABILIDADES-ITENS.md). Os itens abaixo são a lista vigente para a próxima devolutiva. As respostas ESC abaixo substituem as recomendações iniciais; VIS/REG/SIS mantêm seus estados próprios.
 
 ✅ Núcleo, R04, HAB-01, CIC-01 e perfis SEQ/PAR preservados no escopo de seus aceites. Ponte Unreal executada, pacote básico e fluxo visual3×3 já observados; interação revisada compilada, mas ainda sem aceite visual. Evidências em [ESTADO.md](ESTADO.md) e no [painel](../batalhas/PAINEL-BLOCOS.md).

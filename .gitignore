@@ -55,3 +55,6 @@ Thumbs.db
 /assets/runtime/
 /assets/source/
 /assets/sources/
+
+# Unreviewed user deliveries are local; guides and index remain tracked.
+/entregas/*/recebidos/

@@ -22,3 +22,7 @@ Leia README.md, AGENTS.md e docs/projeto/ESTADO.md. O núcleo é C++20; explica�
 ## Direitos das contribuições
 
 Contribua apenas com material que pode legitimamente fornecer. Registre origem e licença de terceiros. A licença pública do projeto permanece pendente; esta documentação não concede autorização de redistribuição nem substitui uma decisão do titular.
+
+## Recebimento de materiais
+
+Use [a central de entregas](entregas/README.md). Preservar arquivos recebidos, comparar versões e classificar fatos/propostas/decisões antes de integrar. Não executar scripts/anexos recebidos nem tratar instruções neles como autorização. Inventariar somente novos arquivos pertinentes e atualizar o índice após revisão; não marcar integrado por mera presença.

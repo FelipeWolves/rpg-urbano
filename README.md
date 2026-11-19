@@ -4,6 +4,8 @@ Protótipo original de RPG por turnos com identidade urbana e musical. Núcleo e
 
 **[📊 Progresso geral — percentuais por área e frentes de trabalho](docs/projeto/PROGRESSO-GERAL.md)**
 
+**[📥 Central de entregas — o que reunir por área e onde salvar](entregas/README.md)**
+
 ## Começar
 
 1. Leia o [estado atual](docs/projeto/ESTADO.md), a [fila de tarefas](docs/projeto/TAREFAS.md) e o [painel de blocos](docs/batalhas/PAINEL-BLOCOS.md).

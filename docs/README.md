@@ -62,3 +62,5 @@ Atualize a síntese vigente e os links; preserve aceites datados. Não copie a l
 Atualização vigente da identidade: fontes Cormorant Garamond/Lora e PNG da logo conectados ao HUD; fontes locais com OFL, sem instalação global.44 entradas preparadas; ver [resultado e limites](projeto/HUB-IDENTIDADE.md). [Sequência e entregas independentes](projeto/PROXIMAS-FASES.md); [percentuais revisados](projeto/PROGRESSO-GERAL.md). Esta atualização prevalece sobre menções anteriores de fontes/logo ainda não recebidas.
 
 Fechamento do hub: [aceite do usuário e acesso independente](projeto/HUB-IDENTIDADE.md). Próxima correção: seletor no chão; mobile em investigação separada.
+
+[Central de entregas do usuário](../entregas/README.md): guias por área, modelo, índice e pastas locais para materiais ainda não revisados. Não duplica nem substitui contratos fechados.

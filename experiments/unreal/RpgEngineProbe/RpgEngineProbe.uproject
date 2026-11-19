@@ -1,0 +1,10 @@
+{
+  "FileVersion": 3,
+  "EngineAssociation": "5.8",
+  "Category": "Experiments",
+  "Description": "ENG-01: isolated C++ build probe; no editor launch or gameplay assets.",
+  "DisableEnginePluginsByDefault": true,
+  "Modules": [
+    { "Name": "RpgEngineProbe", "Type": "Runtime", "LoadingPhase": "Default" }
+  ]
+}

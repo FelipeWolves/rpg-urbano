@@ -64,3 +64,7 @@ Usuário iniciou instalação manual5.8.4. Concluída a separação do codec e d
 ## Instalação recebida e verificada
 
 UE5.8.4 em D:\Unreal Engine\UE_5.8 confirmada somente por metadados. Relatório [ENG-01-INSTALACAO.md](ENG-01-INSTALACAO.md). Fonte local detalha preferências/proibições do compilador; integração ainda não executada. Nenhuma instalação/engine modificada ou executada pelo agente.
+
+## Build mínimo executado
+
+RpgEngineProbeEditor aprovado com MSVC14.52.37029/SDK26100.0, sem abrir editor. Relatório [ENG-01-BUILD.md](ENG-01-BUILD.md). Aviso de toolset não preferido mantido; próximo ponte de combate, não arena final.

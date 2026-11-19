@@ -1,5 +1,11 @@
 # Tarefas
 
+## ENG-01 — build mínimo aprovado (18/11/2026)
+
+✅ RpgEngineProbeEditor compilado/vinculado em UE5.8.4 com MSVC14.52.37029 e SDK26100.0. Saída0 e DLL própria gerada; aviso de compilador não preferido preservado. Fonte versionada em experiments/unreal, cópia/resultados em build/engine-eval. Editor não aberto.
+
+Relatório docs/projeto/ENG-01-BUILD.md; JSON ENG-01-BUILD.json.213 testes standalone anteriores preservados, sem repetição. ⚠️ Ainda sem ponte do combate, execução do módulo, renderização ou pacote. Próximo: ponte mínima do núcleo e sua compilação; execução/editor em etapa específica. ENG-01 aberto.
+
 ## ENG-01 — instalação confirmada, integração pendente (18/11/2026)
 
 ✅ Metadados confirmam UE5.8.4 em D:\Unreal Engine\UE_5.8, build58902052, editor/UBT presentes e runtime.NET10 empacotado. MSVC14.52 fora das faixas proibidas, mas não preferido; SDK26100 no intervalo local declarado. Compatibilidade real ainda exige build.
@@ -136,7 +142,7 @@ Uma entrega por vez. Ordem por área, criticidade e dependências, conforme docs
 
 ## Próximo bloco executável
 
-ENG-01: instalação5.8.4 confirmada por metadados. Preparar projeto C++ de avaliação separado e testar compilação UBT em etapa específica, sem abrir editor automaticamente. Não repetir213 testes por esta inspeção.
+ENG-01: conectar ponte mínima do núcleo ao experimento aprovado e compilar sem abrir editor. Depois validar execução isolada autorizada. Build do módulo vazio aprovado; não confundir com testes de combate dentro da engine.
 
 ## Encerramento de cada entrega
 

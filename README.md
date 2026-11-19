@@ -30,6 +30,7 @@ Conclusões agora registram recompensa provisória: +10 créditos de teste por v
 | `src/` | Implementações das regras e sessão textual |
 | `app/` | Pontos de entrada dos executáveis próprios |
 | `tests/` | Testes de comportamento, cenários e invariantes |
+| `experiments/unreal/` | Fonte de experimentos Unreal isolados, sem mover o protótipo |
 | `tools/` | Diagnóstico e ferramentas próprias auxiliares |
 | `scripts/` | Compilação, verificações e rotinas locais |
 | `docs/projeto/` | Visão, arquitetura, decisões, estado e planejamento |
@@ -42,7 +43,7 @@ A estrutura C++ atual já separa interfaces, implementação e aplicação. Não
 
 ## Verificação e limites
 
-A última entrega funcional aprovou **213/213 testes**; consulte o [resultado vigente](docs/relatorios/atuais/COMBATE.json) e o [aceite final HAB-01](docs/batalhas/HAB-01-FINAL.md). O protótipo não comprova servidor, desempenho gráfico ou equivalência a outro jogo. ENG-01 tem [avaliação documental concluída](docs/projeto/ENG-01.md): candidata UE5.8.4, pendente de decisão, instalação e teste real. Preparação do formato de save e armazenamento separada, sem usar editor. Instalação5.8.4 confirmada por [metadados locais](docs/projeto/ENG-01-INSTALACAO.md); compilação Unreal e validação mobile ainda pendentes.
+A última entrega funcional aprovou **213/213 testes**; consulte o [resultado vigente](docs/relatorios/atuais/COMBATE.json) e o [aceite final HAB-01](docs/batalhas/HAB-01-FINAL.md). O protótipo não comprova servidor, desempenho gráfico ou equivalência a outro jogo. ENG-01 tem [avaliação documental concluída](docs/projeto/ENG-01.md): candidata UE5.8.4, pendente de decisão, instalação e teste real. Preparação do formato de save e armazenamento separada, sem usar editor. Instalação5.8.4 confirmada por [metadados locais](docs/projeto/ENG-01-INSTALACAO.md); [Build mínimo Unreal aprovado](docs/projeto/ENG-01-BUILD.md), sem abrir editor; ponte do combate e validação mobile ainda pendentes.
 
 [Guia de contribuição](CONTRIBUTING.md) · [Segurança e dados](SECURITY.md) · [Índice da documentação](docs/README.md) · [Histórico de organização](CHANGELOG.md).
 

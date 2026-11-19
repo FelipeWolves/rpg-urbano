@@ -246,3 +246,7 @@ Avaliação propõe UE5.8.4 estável para Windows; usuário confirma editor não
 ## DEC-050 — Codec independente do armazenamento
 
 Enquanto UE5.8.4 instala manualmente, separar formato de save e I/O Win32. Não alterar versão1 nem regras de gameplay. Fixar locale e mapeamento dos motivos para não depender de ambiente/enum interno. Verificar codec sem vincular adaptador, preservar regressões Windows.213/213 testes; nenhuma conclusão de compatibilidade Unreal/mobile.
+
+## DEC-051 — Build de engine isolado antes da ponte
+
+Validar primeiro módulo mínimo próprio, sem abrir editor. Fonte em experiments, stage/saídas em build; UBT instalado com NoEngineChanges, execução local e concorrência2. MSVC14.52 gerou DLL com aviso de não preferido; não trocar ferramentas sem incompatibilidade demonstrada. Próximo ponte do núcleo, sem alegar runtime UE validado.

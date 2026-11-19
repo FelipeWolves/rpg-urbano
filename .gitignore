@@ -42,3 +42,11 @@ CMakeUserPresets.json
 /.vscode/
 .DS_Store
 Thumbs.db
+
+# Generated data if an Unreal experiment is opened directly.
+/experiments/unreal/**/Binaries/
+/experiments/unreal/**/Intermediate/
+/experiments/unreal/**/Saved/
+/experiments/unreal/**/DerivedDataCache/
+/experiments/unreal/**/.vs/
+*.slnx

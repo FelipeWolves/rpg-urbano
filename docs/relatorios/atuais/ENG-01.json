@@ -1,7 +1,7 @@
 {
   "Data": "2026-11-18",
   "Escopo": "ENG-01 parte1 avaliacao somente; sem instalacao/editor/build engine",
-  "Status": "instalacao_confirmada_por_metadados_build_engine_pendente",
+  "Status": "build_minimo_aprovado_ponte_e_execucao_pendentes",
   "Candidata": "Unreal Engine5.8.4",
   "DecisaoDefinitiva": false,
   "EditorInstaladoConfirmadoPeloUsuario": true,
@@ -46,8 +46,8 @@
       "Area": "MSVC",
       "Local": "14.52.37025 e 14.29.30133 presentes",
       "Referencia": "14.50 recomendado",
-      "Estado": "14.52 nao proibido nem preferido na configuracao instalada; build pendente",
-      "Proxima": "Ler versoes aceitas da engine; nao forcar compilador rejeitado"
+      "Estado": "Modulo minimo compilado com14.52.37029; aviso nao preferido",
+      "Proxima": "Validar ponte do nucleo, sem concluir estabilidade geral"
     },
     {
       "Area": "WindowsSDK",
@@ -101,9 +101,9 @@
     {
       "Area": "Integracao",
       "Local": "211 testes standalone aprovados",
-      "Referencia": "Nenhuma compilacao UE executada",
+      "Referencia": "Modulo minimo UE compilado; sem ponte ou execucao",
       "Estado": "ENG-01 parcial",
-      "Proxima": "Criar experimento separado apos aprovacao"
+      "Proxima": "Compilar ponte do combate e depois executar com autorizacao"
     }
   ],
   "Fontes": [
@@ -142,5 +142,7 @@
   "PreparacaoSemEditor": "Codec separado do armazenamento Windows; locale fixo e formato v1 preservado",
   "VersaoEmInstalacaoManual": "5.8.4",
   "InstalacaoVerificada": "D:\\Unreal Engine\\UE_5.8",
-  "VerificacaoDetalhada": "ENG-01-INSTALACAO.json"
+  "VerificacaoDetalhada": "ENG-01-INSTALACAO.json",
+  "BuildMinimoAprovado": true,
+  "BuildEvidence": "ENG-01-BUILD.json"
 }

@@ -1,5 +1,12 @@
 # Pendências e pontos a esclarecer
 
+## Síntese vigente — 18/11/2026
+
+Resolvidos no escopo mínimo: habilidades/perfis, primeiro gatilho passivo e requisito de vida, automação simples, seleção, recompensa única, save v1 e ponte Windows executada dentro da Unreal. Relatórios [HAB-01](../batalhas/HAB-01-FINAL.md), [CIC-01](CIC-01.md) e [ponte](ENG-01-RUNTIME.md).
+
+Continuam abertos: editor gráfico/GPU, pacote e mobile; famílias PvE ainda não implementadas; silêncio/supressão, passivas durante combate/recarga interna, custos/condições compostas e automação estratégica; persistência de runtime/migrações/concorrência e economia de produção. A próxima tarefa é abertura gráfica controlada, não repetir os aceites da ponte.
+
+Os IDs e contratos de pesquisa abaixo são preservados. Resumos incrementais antigos foram reunidos no [histórico integral](historico/2026-11-18/PENDENCIAS.md.txt); instruções antigas como “instalar engine” ou “implementar primeira passiva” não são a fila vigente.
 Registro central, atualizado em 18/11/2026. Consultar somente os itens relevantes ao bloco atual. Uma pendência de etapa futura não impede entregar o que já tem regras definidas. Não decidir silenciosamente comportamentos de jogo nem apresentar hipóteses como capacidades implementadas.
 
 ## Decisões em aberto
@@ -217,39 +224,3 @@ Básica A1 não silenciável e sempre disponível quando unidade apta/alvo legal
 ## Defesa clássica — extensões futuras
 
 Arredondamento padrão para baixo decidido e implementado. Modificadores de dano recebido/defendido, perfuração, itens/atributos e ordem/limites futuros do clássico são possibilidades a especificar antes de codificar. Não se aplicam automaticamente ao padrão de equipes sem defesa genérica. DEFESA-PADRAO.md; regressão atual155 aprovada.
-
-## HAB-01 após parte 1
-
-Perfis/posições concluídos (162/162 testes). Próxima pendência: contrato e implementação do primeiro gatilho passivo; definir janela, dono do limite, vivos/bloqueados/revive e integração R04. Silêncio/supressão e condições especiais seguem futuros; não declarar esses efeitos testados.
-
-## HAB-01 após parte 2 — estado atual
-
-Resolvida a pendência de primeiro gatilho: BattleStart/escudo próprio com limite de uma ativação por combate. Gatilhos por impacto/morte, supressão, recarga interna e transporte entre coordenadores permanecem futuros. Próximo incremento parte 3: contrato de condição de habilidade; não reabrir R04 nem ampliar o catálogo implicitamente.
-
-## HAB-01 após parte 3
-
-Primeira condição adicional resolvida: vida do dono <= percentual, sem consumo. Contrato HAB-01-CONDICAO-VIDA-R01.md, 176/176 testes. Próximo parte 4: escolher política mínima de prioridades/fallback para especiais sob a mesma validação. Recursos/condições compostas e supressão seguem futuros.
-
-## HAB-01 após parte 4
-
-Política mínima de automação resolvida: prioridades configuradas, disponibilidade comum e básica como alternativa, com alvos determinísticos. 183/183 testes. Próximo parte 5: integração/regressão do pequeno conjunto e limites. IA estratégica, toggle/editor do time A e condições/custos adicionais permanecem futuros.
-
-## HAB-01 encerrado — estado atual
-
-Cinco partes do conjunto mínimo concluídas, 187/187 testes. Híbrida funcional integrada. Pendências futuras de silêncio/supressão, gatilhos durante combate, recarga interna, recursos/requisitos compostos e adaptação SEQ/PAR não foram declaradas implementadas. Próximo CIC-01 parte 1: contrato e composição/seleção em memória; recompensa e save em partes posteriores.
-
-## CIC-01 parte 1 concluída
-
-Composição 1–5 validada em memória e integrada por --equipe; 195/195 testes. Próxima pendência: identidade de conclusão e concessão única da recompensa mínima. Formato de save/migração permanece parte 3; seleção não transporta HP/status de batalhas anteriores.
-
-## CIC-01 parte 2 concluída
-
-Identidade de tentativa e apuração única de recompensa em memória resolvidas, 203/203 testes. Próximo contrato: save versionado, escopo persistido, validação/restauração e como manter concessão única após carregar. Não assumir que o snapshot do kernel ou IDs locais já resolvem persistência.
-
-## CIC-01 encerrado no escopo mínimo
-
-Save v1 de equipe/progresso entre batalhas validado, 211/211 testes; sem nova concessão ao carregar. Save de runtime, versões futuras/migrações, backup, concorrência, autenticação e economia real permanecem extensões. Próximo ENG-01: avaliar compatibilidade antes de escolher/instalar engine.
-
-## ENG-01 — avaliação e decisões pendentes
-
-Candidata UE5.8.4, não adotada. Falta decidir versão/destino, instalar editor, confirmar toolset aceito por UBT e executar teste isolado de módulo/editor. Ajustes previstos: exceções/C++20, runtime de compilação, fronteira de I/O Windows e saves. Não modificar compilador/engine para ignorar incompatibilidade. 211 testes standalone não provam integração UE.

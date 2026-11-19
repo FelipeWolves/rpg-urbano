@@ -1,5 +1,7 @@
 # ENG-01 — primeiro build Unreal aprovado
 
+Relatório da fase indicada. O aceite posterior da execução está em [ENG-01-RUNTIME.md](ENG-01-RUNTIME.md); pendências mencionadas aqui podem ter sido resolvidas nessa etapa.
+
 18/11/2026. **✅ Compilação/vinculação de módulo próprio mínimo aprovada; ENG-01 continua aberto.**
 
 ## Resultado

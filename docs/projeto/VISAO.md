@@ -1,5 +1,9 @@
 # Visão — RPG Urbano
 
+## Estado da visão versus implementação — 18/11/2026
+
+A identidade urbana/musical permanece original e provisória. Hoje há protótipo textual, habilidades/ciclo local e ponte Windows validada na UE5.8.4; ainda não há arena visual. As regras da primeira experiência registradas abaixo são históricas: referências atuais estão no [painel](../batalhas/PAINEL-BLOCOS.md), nos contratos e no [estado vigente](ESTADO.md). Defesa genérica atual arredonda para baixo; tempo e causalidade evoluíram nos blocos TIME/RES. Não usar o primeiro modelo como especificação atual completa.
+
 Nome provisório, sem marca ou identidade final aprovada. Fundação criada em 18/11/2026.
 
 ## Proposta

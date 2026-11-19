@@ -1,11 +1,11 @@
 # RPG Urbano
 
-Protótipo original de RPG por turnos com identidade urbana e musical. Núcleo em **C++20**, independente de engine; interface textual para validar regras antes da apresentação gráfica. Engine, nome final, arte e publicação ainda em definição.
+Protótipo original de RPG por turnos com identidade urbana e musical. Núcleo em **C++20**, independente de engine; interface textual para validar regras antes da apresentação gráfica. Unreal Engine 5.8.4 já tem integração mínima de núcleo validada no Windows; apresentação gráfica, nome final, arte e publicação seguem em definição.
 
 ## Começar
 
 1. Leia o [estado atual](docs/projeto/ESTADO.md), a [fila de tarefas](docs/projeto/TAREFAS.md) e o [painel de blocos](docs/batalhas/PAINEL-BLOCOS.md).
-2. Pré-requisito validado: Windows, Visual Studio 2026 com desenvolvimento C++ desktop, MSVC e Windows SDK. Versões registradas em [AMBIENTE.json](docs/relatorios/atuais/AMBIENTE.json); isso não garante compatibilidade com uma futura engine.
+2. Pré-requisito validado: Windows, Visual Studio 2026 com desenvolvimento C++ desktop, MSVC e Windows SDK. Versões registradas em [AMBIENTE.json](docs/relatorios/atuais/AMBIENTE.json); o teste real de integração com a Unreal está registrado separadamente, conforme o escopo abaixo.
 3. Em PowerShell com scripts permitidos pela política local, execute na raiz:
 
 ```powershell
@@ -43,7 +43,13 @@ A estrutura C++ atual já separa interfaces, implementação e aplicação. Não
 
 ## Verificação e limites
 
-A última entrega funcional aprovou **213/213 testes**; consulte o [resultado vigente](docs/relatorios/atuais/COMBATE.json) e o [aceite final HAB-01](docs/batalhas/HAB-01-FINAL.md). O protótipo não comprova servidor, desempenho gráfico ou equivalência a outro jogo. ENG-01 tem [avaliação documental concluída](docs/projeto/ENG-01.md): candidata UE5.8.4, pendente de decisão, instalação e teste real. Preparação do formato de save e armazenamento separada, sem usar editor. Instalação5.8.4 confirmada por [metadados locais](docs/projeto/ENG-01-INSTALACAO.md); [Build mínimo Unreal aprovado](docs/projeto/ENG-01-BUILD.md), sem abrir editor; ponte do núcleo já compilada e [baseline aprovado](docs/projeto/ENG-01-PONTE.md); [execução da ponte dentro da Unreal aprovada](docs/projeto/ENG-01-RUNTIME.md) em dois processos, sem interface gráfica. Arena, pacote e validação mobile continuam pendentes.
+- **213/213 testes gerais standalone aprovados:** [resultado vigente](docs/relatorios/atuais/COMBATE.json).
+- **Ponte Windows compilada e executada na Unreal 5.8.4:** os mesmos11 checkpoints passaram em dois processos independentes, com saída zero e resultado idêntico ao baseline. [Aceite da execução](docs/projeto/ENG-01-RUNTIME.md) e [JSON](docs/relatorios/atuais/ENG-01-RUNTIME.json).
+- **HAB-01 e CIC-01 mínimos concluídos:** [habilidades](docs/batalhas/HAB-01-FINAL.md) e [ciclo local](docs/projeto/CIC-01.md).
+
+A validação Unreal usou commandlet sem interface gráfica, com NullRHI. Arena, GPU/editor gráfico, empacotamento e mobile ainda não foram validados. Os11 checkpoints não são toda a suíte de213 testes, nem22 casos distintos por terem rodado duas vezes.
+
+Próximo incremento: abertura gráfica controlada e planejamento da integração visual, em escopo separado. O protótipo não comprova servidor, desempenho gráfico ou equivalência a outro jogo. Não há revisão pendente da ponte entregue sem mudança/falha pertinente.
 
 [Guia de contribuição](CONTRIBUTING.md) · [Segurança e dados](SECURITY.md) · [Índice da documentação](docs/README.md) · [Histórico de organização](CHANGELOG.md).
 

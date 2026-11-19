@@ -1,5 +1,7 @@
 # ENG-01 — ponte do núcleo compilada
 
+Relatório da fase indicada. O aceite posterior da execução está em [ENG-01-RUNTIME.md](ENG-01-RUNTIME.md); pendências mencionadas aqui podem ter sido resolvidas nessa etapa.
+
 18/11/2026. **Ponte compilada/vinculada na UE5.8.4; execução dentro da engine ainda pendente.**
 
 ## Fonte única e fronteira

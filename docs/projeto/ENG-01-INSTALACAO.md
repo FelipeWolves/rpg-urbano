@@ -1,5 +1,7 @@
 # ENG-01 — instalação confirmada por metadados
 
+Relatório da fase indicada. O aceite posterior da execução está em [ENG-01-RUNTIME.md](ENG-01-RUNTIME.md); pendências mencionadas aqui podem ter sido resolvidas nessa etapa.
+
 18/11/2026. Verificação somente em leitura da pasta fornecida pelo usuário. Nenhum editor, launcher, UBT, script de build ou componente da engine foi executado; nenhum arquivo da instalação foi alterado.
 
 ## Confirmado

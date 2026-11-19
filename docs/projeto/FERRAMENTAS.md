@@ -1,5 +1,9 @@
 # Ferramentas — AMB-01 validada
 
+## Ferramentas confirmadas hoje — 18/11/2026
+
+VS2026, MSVC 14.52.37029 e SDK 10.0.26100.0 foram usados no build UE5.8.4/CL58902052. Runtime da ponte aprovado por commandlet em dois processos, sem interface gráfica. Aviso de compilador não preferido preservado. Inventários antigos abaixo são históricos, não ausência atual de editor/ferramentas. Ver [instalação](ENG-01-INSTALACAO.md), [build](ENG-01-BUILD.md) e [execução](ENG-01-RUNTIME.md). Nenhuma ferramenta foi instalada nesta revisão documental.
+
 ## Situação atual em 18/11/2026
 
 O usuário escolheu e instalou manualmente **Visual Studio Community 2026**. A proposta histórica de Build Tools VS2022 está superada. Nenhuma instalação ou download foi feito pelo agente.

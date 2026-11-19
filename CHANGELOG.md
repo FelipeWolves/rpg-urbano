@@ -60,8 +60,12 @@ Projeto de avaliação C++ mínimo compilado em UE5.8.4, MSVC14.52.37029/SDK2610
 
 ## 2026-11-18 — ponte do núcleo compilada na Unreal
 
-Cinco fontes nativos e bridge ligados ao módulo UE5.8.4. Baseline da mesma função passou11 checkpoints fora da engine; manifesto de16 arquivos. Editor/runtime ainda não executados. Fonte canônica e213 testes gerais preservados.
+Cinco fontes nativos e bridge ligados ao módulo UE5.8.4. Baseline da mesma função passou 11 checkpoints fora da engine; manifesto de16 arquivos. Editor/runtime ainda não executados. Fonte canônica e213 testes gerais preservados.
 
 ## 2026-11-18 — ponte executada dentro da Unreal
 
-Commandlet própria aprovada em2 processos UE5.8.4,11 checkpoints idênticos ao baseline, saída0 e sem interface gráfica. Inicialização geral anterior teve timeout; evidência preservada e método corrigido. Ponte Windows concluída;213 testes gerais preservados, sem novo escopo visual.
+Commandlet própria aprovada em 2 processos UE5.8.4,11 checkpoints idênticos ao baseline, saída0 e sem interface gráfica. Inicialização geral anterior teve timeout; evidência preservada e método corrigido. Ponte Windows concluída;213 testes gerais preservados, sem novo escopo visual.
+
+## 2026-11-18 — consolidação documental após aceite da ponte
+
+Estado, tarefas, prioridades, painel e instruções de retomada consolidados. Sínteses antigas preservadas integralmente em docs/projeto/historico/2026-11-18/. README/índice/arquitetura/ferramentas passam a distinguir o estado atual dos relatos históricos. Documentação apenas: sem código, JSON/CSV de evidência, novos testes ou execução da engine.

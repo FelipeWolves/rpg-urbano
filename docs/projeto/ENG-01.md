@@ -1,4 +1,10 @@
-# ENG-01 — avaliação da engine, parte 1
+# ENG-01 — índice de avaliação e integração
+
+## Situação vigente — 18/11/2026
+
+Ponte Windows compilada e executada na UE5.8.4: 11 checkpoints aprovados em dois processos, iguais ao baseline, saída zero. [Aceite runtime](ENG-01-RUNTIME.md). Abertura gráfica/GPU, arena, pacote e mobile ainda pendentes. A sequência abaixo é histórico das fases, não lista de passos ainda por executar.
+
+## Histórico da avaliação inicial
 
 18/11/2026. **Avaliação documental concluída; ENG-01 permanece aberto.** Não foi instalado nem aberto editor, alterado código de gameplay ou executado build da engine. Reutilizados os 211 testes anteriores; não repetidos por esta mudança documental.
 

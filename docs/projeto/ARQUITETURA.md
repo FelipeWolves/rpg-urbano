@@ -1,5 +1,9 @@
 # Arquitetura inicial
 
+## Síntese arquitetural vigente — 18/11/2026
+
+Fonte canônica em src/include; apresentação textual separada; seleção/progresso e save v1 entre batalhas validados. Codec em save_game, armazenamento Windows em save_store_windows. Experimento Unreal compila cópias verificadas apenas no stage e expõe resultado simples pela ponte; a mesma função passou 11 checkpoints no standalone e em dois processos Unreal. Nada exige duplicar regras na UI. GPU/arena/pacote/mobile ainda pendentes. Detalhes atuais em [ESTADO.md](ESTADO.md) e [ENG-01-RUNTIME.md](ENG-01-RUNTIME.md); seções antigas abaixo preservam a evolução.
+
 Atualização TIME-02: BattleRules seleciona perfil fixo/AP; eventos distinguem oportunidade e reação, SkillDefinition declara efeitos/recarga e RuntimeCarry rege passagem nas fases estendidas. Contrato atual em docs/batalhas/TIME-02.md; demais seções iniciais são base histórica quando superadas.
 
 Estado: núcleo C++20 e matriz de formações; TIME-01 adicionou orçamento local de ações e resultado explícito de encerramento. MSVC x64 validado; engine não escolhida. WAVE-01 adicionou Stage com passagem explícita de vida, reset e orçamento global consecutivo (docs/batalhas/WAVE-01.md). Chefes por etapa/compartilhados, entrada do jogador e apresentação gráfica seguem pendentes em docs/projeto/PENDENCIAS.md.

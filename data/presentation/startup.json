@@ -75,18 +75,20 @@
       "fonts": {
         "primary": "Cormorant Garamond",
         "secondary": "Lora",
-        "status": "FilesPending",
+        "status": "LocalFilesIntegrated",
         "excluded": [
           "Cinzel"
-        ]
+        ],
+        "primaryPath": "assets/runtime/fonts/CormorantGaramond.ttf",
+        "secondaryPath": "assets/runtime/fonts/Lora.ttf"
       },
       "logo": {
         "sourcePath": "assets/sources/logo-lobo-silhouette.webp",
-        "status": "ReceivedSource",
+        "status": "LocalPngIntegrated",
         "format": "WebP",
         "width": 132,
         "height": 132,
-        "runtimePath": null,
+        "runtimePath": "assets/runtime/hub/logo-lobo.png",
         "origin": "Arquivo fornecido pelo usuario; URL de origem indicada no briefing"
       },
       "palette": {

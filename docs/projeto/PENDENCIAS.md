@@ -252,7 +252,7 @@ O contrato de câmera do hub não é o perfil de combate clássico. Perguntas de
 
 **✅ Definido:** Evento Especial neon magenta/roxo/ciano, Batalha âmbar com ícone pulsante/legenda, áreas ampliadas e feedback; fundo escuro80%; nome provisório e textos do painel recebidos; nenhuma ilustração adicional exigida. As posições já confirmadas não precisam ser respondidas novamente.
 
-**✅ Respondido/implementado:** Cormorant Garamond principal/Lora complementar, Cinzel excluída; LOBO é codinome; logo WebP recebida; pulso, alvo mínimo e movimento reduzido definidos. Tema/emblema implementados,5 novos grupos nativos e compilação Unreal aprovados. **⚠️ Restante técnico:** arquivos/importação das fontes e logo de runtime; aceite visual de contraste/recortes/textos, toque/foco, preferência de acessibilidade do sistema e persistência. Não repetir escolhas encerradas. [Detalhes](HUB-01C-VISUAL.md).
+**✅ Respondido/implementado:** Cormorant Garamond principal/Lora complementar, Cinzel excluída; LOBO é codinome; logo WebP recebida; pulso, alvo mínimo e movimento reduzido definidos. Tema/emblema implementados,5 novos grupos nativos e compilação Unreal aprovados. **⚠️ Restante técnico:** fontes e PNG da logo já conectados ao runtime; ampliar aceite de contraste/recortes/textos para outras resoluções, toque/foco, preferência de acessibilidade do sistema e persistência. [Integração vigente](HUB-IDENTIDADE.md). Não repetir escolhas encerradas. [Detalhes](HUB-01C-VISUAL.md).
 
 Não altera o core ou os destinos já implementados. Fonte atual do usuário: BRIEFING-VISUAL-HUB.md.
 
@@ -502,3 +502,8 @@ Três testes internos de mensagens explicam as 14 falhas em pt-BR; passaram em i
 ## Pesquisa de habilidades recebida —19/11/2026
 
 Documento do usuário preservado e comparado aos contratos. [Revisão e matriz](REVISAO-PESQUISA-HABILIDADES-ITENS.md). Q07/Q08 e proposta de frentes não substituem R04, defesa atual ou PAR-02. Fontes externas ainda não auditadas; escudo percentual permanece em especificação (base, instante/recalculo, reaplicação e consumo), não mais aguardando envio do documento. Próximo passo: fechar esse contrato mínimo. Sem código/testes novos nesta recepção; aceite visual atual permanece pendente.
+
+
+### Fechamento e próxima entrega
+
+✅ Usuário confirmou texto sem corte, seleção funcional e batalha conforme combinado. Fontes/logo conectadas; aceite integral ainda parcial. ⚠️ Próximo: seletor no chão sob a unidade, sem sobrepor a esfera. Investigar apresentação mobile separadamente; fluidez aguarda critérios. Prévia por Abrir-Preview.cmd; editor por Abrir-Editor.cmd, ambos usando build aprovado. Nesta entrega final só se validaram os lançadores sem abrir programas. [Evidências](HUB-IDENTIDADE.md).

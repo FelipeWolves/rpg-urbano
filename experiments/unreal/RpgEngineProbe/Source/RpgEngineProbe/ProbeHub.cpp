@@ -4,6 +4,7 @@
 #include <stdexcept>
 #include "Dom/JsonObject.h"
 #include "Engine/Canvas.h"
+#include "Engine/Font.h"
 #include "Engine/World.h"
 #include "Engine/Texture2D.h"
 #include "GameFramework/PlayerController.h"
@@ -42,7 +43,7 @@ Device DeviceProfile(){
 }
 }
 void AProbeArenaHUD::LoadHubCatalog(){
-    HubTexture=nullptr;HubLinks.clear();
+    HubTexture=nullptr;HubLogo=nullptr;HubTitleFont=nullptr;HubBodyFont=nullptr;HubLinks.clear();
     try{
         const FString root=FPaths::ConvertRelativePathToFull(FPaths::ProjectContentDir()/TEXT("Presentation"));
         const FString path=root/TEXT("data/presentation/startup.json");
@@ -78,6 +79,24 @@ void AProbeArenaHUD::LoadHubCatalog(){
                 Number(pulse,TEXT("ringMaximumScale")),Number(pulse,TEXT("ringOpacity")),Number(pulse,TEXT("ringStroke")),Number(pulse,TEXT("minimumTarget"))};
             validate_pulse(HubPulse);
             if(!visual->TryGetBoolField(TEXT("reducedMotion"),HubReducedMotion)){throw std::invalid_argument("Missing reduced motion preference");}
+            const auto fonts=Object(visual,TEXT("fonts"));
+            const auto loadFont=[&](const TCHAR* key){
+                const FString filename=FPaths::ConvertRelativePathToFull(root/String(fonts,key));
+                const int64 size=IFileManager::Get().FileSize(*filename);
+                if(!FPaths::IsUnderDirectory(filename,root) || size<1 || size>4*1024*1024){throw std::invalid_argument("Local font missing or invalid");}
+                auto* font=NewObject<UFont>(this);
+                font->FontCacheType=EFontCacheType::Runtime;
+                font->LegacyFontSize=18;
+                font->GetMutableInternalCompositeFont()=FCompositeFont(FName(TEXT("Regular")),filename,EFontHinting::Default,EFontLoadingPolicy::LazyLoad);
+                return font;
+            };
+            HubTitleFont=loadFont(TEXT("primaryPath"));HubBodyFont=loadFont(TEXT("secondaryPath"));HubBodyFont->LegacyFontSize=14;
+            const auto logo=Object(visual,TEXT("logo"));
+            const FString logoFile=FPaths::ConvertRelativePathToFull(root/String(logo,TEXT("runtimePath")));
+            const int64 logoBytes=IFileManager::Get().FileSize(*logoFile);
+            if(!FPaths::IsUnderDirectory(logoFile,root) || logoBytes<1 || logoBytes>1024*1024){throw std::invalid_argument("Local logo missing or invalid");}
+            HubLogo=FImageUtils::ImportFileAsTexture2D(logoFile);
+            if(!HubLogo || HubLogo->GetSizeX()!=132 || HubLogo->GetSizeY()!=132){throw std::invalid_argument("Logo decode/dimensions mismatch");}
             const auto panel=Object(visual,TEXT("eventPanel"));
             HubEventTitle=String(panel,TEXT("title"));HubEventBody=String(panel,TEXT("body"));
         }
@@ -164,25 +183,28 @@ void AProbeArenaHUD::DrawHub(){
             line(area.x,area.y+area.height,area.x,area.y,c,stroke);
         }
     };
-    DrawText(HubTitle,HubCyan.ToFColorSRGB(),16,10);
-    DrawText(TEXT("CODINOME: ")+HubCodename,FColor::White,16,28);
+    if(HubLogo){DrawTexture(HubLogo,12,8,48,48,0,0,1,1,FLinearColor::White,BLEND_Translucent);}
+    DrawText(HubTitle,HubCyan.ToFColorSRGB(),68,8,HubTitleFont);
+    DrawText(TEXT("CODINOME: ")+HubCodename,FColor::White,68,32,HubBodyFont,0.75f);
     if(HubEventOpen){
         const double width=FMath::Min(660.0,Canvas->SizeX-30.0),height=FMath::Min(360.0,Canvas->SizeY-30.0);
         const double x=(Canvas->SizeX-width)/2,y=(Canvas->SizeY-height)/2;
         DrawRect(HubPanel,static_cast<float>(x),static_cast<float>(y),static_cast<float>(width),static_cast<float>(height));
         frame({x,y,width,height},HubMagenta);
         double cursor=y+18;
+        float lineWidth=0,lineHeight=0;GetTextSize(TEXT("Ágj"),lineWidth,lineHeight,HubBodyFont);
+        const double lineStep=std::max(20.0,static_cast<double>(lineHeight)+4);
         const auto wrapped=[&](const FString& text,FColor color){
             TArray<FString> words;text.ParseIntoArray(words,TEXT(" "),true);FString current;
             for(const auto& word:words){
                 const FString candidate=current.IsEmpty()?word:current+TEXT(" ")+word;
-                float textWidth=0,textHeight=0;GetTextSize(candidate,textWidth,textHeight);
+                float textWidth=0,textHeight=0;GetTextSize(candidate,textWidth,textHeight,HubBodyFont);
                 if(textWidth>width-32 && !current.IsEmpty()){
-                    if(cursor+18>y+height-60){return;}
-                    DrawText(current,color,static_cast<float>(x+16),static_cast<float>(cursor));cursor+=20;current=word;
+                    if(cursor+lineStep>y+height-60){return;}
+                    DrawText(current,color,static_cast<float>(x+16),static_cast<float>(cursor),HubBodyFont);cursor+=lineStep;current=word;
                 }else{current=candidate;}
             }
-            if(!current.IsEmpty() && cursor+18<=y+height-60){DrawText(current,color,static_cast<float>(x+16),static_cast<float>(cursor));cursor+=20;}
+            if(!current.IsEmpty() && cursor+lineStep<=y+height-60){DrawText(current,color,static_cast<float>(x+16),static_cast<float>(cursor),HubBodyFont);cursor+=lineStep;}
         };
         wrapped(HubEventTitle,HubCyan.ToFColorSRGB());cursor+=12;wrapped(HubEventBody,FColor::White);
         if(button({x+16,y+height-48,120,36},TEXT("Voltar")) || PlayerOwner->WasInputKeyJustPressed(EKeys::Escape)){HubEventOpen=false;}return;
@@ -192,8 +214,8 @@ void AProbeArenaHUD::DrawHub(){
         const auto projected=project_hotspot(plan,link);if(!projected){continue;}
         const bool battle=link.route==HubRoute::Battle;
         const FString labelText=battle?Text(link.label).ToUpper():Text(link.label);
-        float tw=0,th=0;GetTextSize(labelText,tw,th);
-        const double width=std::min(static_cast<double>(tw+24),r.width),height=std::min(28.0,r.height);
+        float tw=0,th=0;GetTextSize(labelText,tw,th,HubBodyFont);
+        const double width=std::min(static_cast<double>(tw+24),r.width),height=std::min(std::max(28.0,static_cast<double>(th)+12.0),r.height);
         const Rect label{std::clamp(projected->label_x-width/2,r.x,r.x+r.width-width),
             std::clamp(projected->label_y+(battle?30:-height/2),r.y,r.y+r.height-height),width,height};
         const double left=std::min(label.x,projected->hit_area.x),top=std::min(label.y,projected->hit_area.y);
@@ -203,7 +225,7 @@ void AProbeArenaHUD::DrawHub(){
         if(!hit){continue;}
         const bool hover=contains(*hit,mx,my);
         DrawRect(HubPanel,static_cast<float>(label.x),static_cast<float>(label.y),static_cast<float>(label.width),static_cast<float>(label.height));
-        DrawText(labelText,(battle?HubAmber:HubCyan).ToFColorSRGB(),static_cast<float>(label.x+10),static_cast<float>(label.y+6));
+        DrawText(labelText,(battle?HubAmber:HubCyan).ToFColorSRGB(),static_cast<float>(label.x+10),static_cast<float>(label.y+6),HubBodyFont);
         if(!battle){frame(label,hover?HubCyan:HubMagenta);}
         else{
             const double cx=projected->label_x,cy=projected->label_y;
@@ -238,3 +260,6 @@ void AProbeArenaHUD::DrawHub(){
     }
     if(button({40+4*w,y,w,34},HubReducedMotion?TEXT("Sem pulso"):TEXT("Com pulso")) && !HubReducedMotionForced){HubReducedMotion=!HubReducedMotion;}
 }
+
+
+

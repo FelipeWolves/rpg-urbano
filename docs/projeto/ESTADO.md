@@ -93,3 +93,9 @@ Parser do catálogo local, panorama único, dois acessos e navegação evento/ar
 ## Hub — tema e decisões visuais vigentes
 
 Cormorant Garamond/Lora confirmadas, Cinzel excluída; LOBO é codinome. Logo WebP recebida localmente, sem importação de runtime. Tema, texto do evento, emblema original, pulso e modo estático implementados;5 grupos novos nativos e build Editor aprovados, sem editor/aplicativo aberto. Preparação39 entradas. Fontes reais/logo, aceites visuais, toque e preferência do sistema continuam pendentes. [Relatório](HUB-01C-VISUAL.md). Esta entrega de hub não encerra VIS-01C da arena.
+
+Atualização vigente da identidade: fontes Cormorant Garamond/Lora e PNG da logo conectados ao HUD; fontes locais com OFL, sem instalação global.44 entradas preparadas; ver [resultado e limites](HUB-IDENTIDADE.md). [Sequência e entregas independentes](PROXIMAS-FASES.md); [percentuais revisados](PROGRESSO-GERAL.md). Esta atualização prevalece sobre menções anteriores de fontes/logo ainda não recebidas.
+
+### Fechamento e próxima entrega
+
+✅ Usuário confirmou texto sem corte, seleção funcional e batalha conforme combinado. Fontes/logo conectadas; aceite integral ainda parcial. ⚠️ Próximo: seletor no chão sob a unidade, sem sobrepor a esfera. Investigar apresentação mobile separadamente; fluidez aguarda critérios. Prévia por Abrir-Preview.cmd; editor por Abrir-Editor.cmd, ambos usando build aprovado. Nesta entrega final só se validaram os lançadores sem abrir programas. [Evidências](HUB-IDENTIDADE.md).

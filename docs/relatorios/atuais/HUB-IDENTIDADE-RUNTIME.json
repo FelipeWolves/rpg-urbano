@@ -1,0 +1,27 @@
+{
+  "RecordedUtc": "2026-11-19T23:02:14.4848904Z",
+  "Stage": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\p\\f288a683\\RpgEngineProbe",
+  "BuildPassed": true,
+  "Scope": "Limited Windows visual observations, not full acceptance",
+  "AgentObserved": [
+    "Previous corrected stage: logo and serif fonts visible at 1280x720",
+    "Event panel opened and returned",
+    "Reduced-motion toggle changed to static double border",
+    "Hub to arena and back"
+  ],
+  "UserConfirmed": [
+    "Final text no longer clips",
+    "Selection works",
+    "Battle behaves as discussed"
+  ],
+  "OpenIssues": [
+    "Selection marker overlaps the character sphere; should be beneath on the ground",
+    "Expected mobile presentation did not load; cause not yet identified",
+    "Battle flow polish requires concrete acceptance criteria"
+  ],
+  "FinalAgentVisualCheck": "Interrupted by physical Escape; not completed",
+  "MobileValidated": false,
+  "FullArenaAcceptance": false,
+  "NewCookOrPackageExecuted": false,
+  "PreviewLaunchers": "Paths and modes validated without launching in this closing task"
+}

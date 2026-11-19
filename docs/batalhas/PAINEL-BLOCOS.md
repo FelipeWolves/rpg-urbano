@@ -116,3 +116,7 @@ HUB-01A: ✅ fundação de dados/enquadramento testada (10 grupos nativos); ⚠�
 HUB-01B: ✅ código de JSON/panorama/rotas e projeção (5 grupos), compilação Editor; ⚠️ sem execução/aceite visual. [Relatório](../projeto/HUB-01B-IMPLEMENTACAO.md). Não marca HUB integral concluído.
 
 Hub — tema: ✅ parâmetros, emblema e movimento reduzido por código;5 grupos novos e compilação Editor. ⚠️ Fontes/logo de runtime, toque e aceite gráfico pendentes. [Escopo](../projeto/HUB-01C-VISUAL.md); não encerra VIS-01C da arena.
+
+Atualização vigente da identidade: fontes Cormorant Garamond/Lora e PNG da logo conectados ao HUD; fontes locais com OFL, sem instalação global.44 entradas preparadas; ver [resultado e limites](../projeto/HUB-IDENTIDADE.md). [Sequência e entregas independentes](../projeto/PROXIMAS-FASES.md); [percentuais revisados](../projeto/PROGRESSO-GERAL.md). Esta atualização prevalece sobre menções anteriores de fontes/logo ainda não recebidas.
+
+Aceite do usuário: ✅ texto sem corte, seleção e funcionamento básico de batalha; ⚠️ seletor sobreposto, apresentação mobile e fluidez pendentes. Não encerra VIS integral. [Registro](../projeto/HUB-IDENTIDADE.md).

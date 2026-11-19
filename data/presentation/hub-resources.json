@@ -1,0 +1,43 @@
+{
+  "OriginalWebpPreserved": true,
+  "Resources": [
+    {
+      "License": "SIL Open Font License 1.1",
+      "Source": "https://raw.githubusercontent.com/google/fonts/main/ofl/cormorantgaramond/CormorantGaramond%5Bwght%5D.ttf",
+      "SHA256": "B20B7D9626DD956B2C5E558692AD328B1F19E3275E2782DB4FA07670D83F35E0",
+      "Bytes": 1195560,
+      "Path": "assets/runtime/fonts/CormorantGaramond.ttf"
+    },
+    {
+      "License": "SIL Open Font License 1.1",
+      "Source": "https://raw.githubusercontent.com/google/fonts/main/ofl/cormorantgaramond/OFL.txt",
+      "SHA256": "60700D351CAC4650C51F3F9DB318D2A420F8B45052DBA2715EB5FEC41F0F6956",
+      "Bytes": 4387,
+      "Path": "assets/runtime/fonts/CormorantGaramond-OFL.txt"
+    },
+    {
+      "License": "SIL Open Font License 1.1",
+      "Source": "https://raw.githubusercontent.com/google/fonts/main/ofl/lora/Lora%5Bwght%5D.ttf",
+      "SHA256": "822A6621CCBE8D97D20AC88C1C41F5615C9C2C202EAA75F272CD452AAC6475A7",
+      "Bytes": 212196,
+      "Path": "assets/runtime/fonts/Lora.ttf"
+    },
+    {
+      "License": "SIL Open Font License 1.1",
+      "Source": "https://raw.githubusercontent.com/google/fonts/main/ofl/lora/OFL.txt",
+      "SHA256": "1D9A970809AC804B582A6CE7F0EBC4E7FEFCBFD7FF6299CAD35EE656A21BE716",
+      "Bytes": 4423,
+      "Path": "assets/runtime/fonts/Lora-OFL.txt"
+    },
+    {
+      "License": "User selected reference; independent redistribution rights audit pending",
+      "Source": "https://contosdeumlobo.com.br/wp-content/uploads/2018/07/klemzo123_silhouette-wolf-2-e1534524681539.png",
+      "SHA256": "C17D0E93A760E1917110609E3D080CC3E67BFD931B7BD30F72EE2B7A47F402B9",
+      "Bytes": 3019,
+      "Path": "assets/runtime/hub/logo-lobo.png"
+    }
+  ],
+  "SchemaVersion": 1,
+  "InstalledInWindows": false,
+  "AcquiredUtc": "2026-11-19T22:44:03.3538726Z"
+}

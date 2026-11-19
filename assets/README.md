@@ -15,3 +15,5 @@ Arquivos grandes precisam de estratégia de versionamento antes do primeiro comm
 Ready no catálogo significa arquivo presente/cadastrado; não significa renderer/player integrado. Mídias locais estão ignoradas no Git até decidir versionamento. Para outra cópia do projeto, transferir os arquivos separadamente pelos caminhos do catálogo.
 
 Logo fornecida pelo usuário em19/11/2026: assets/sources/logo-lobo-silhouette.webp (132×132,1234 bytes). Original preservado, ignorado no Git; sem conversão ou importação de runtime. Origem indicada no briefing visual; auditoria independente de direitos não realizada. Cormorant Garamond/Lora escolhidas; arquivos de fontes ainda não recebidos.
+
+Atualização vigente da identidade: fontes Cormorant Garamond/Lora e PNG da logo conectados ao HUD; fontes locais com OFL, sem instalação global.44 entradas preparadas; ver [resultado e limites](../docs/projeto/HUB-IDENTIDADE.md). [Sequência e entregas independentes](../docs/projeto/PROXIMAS-FASES.md); [percentuais revisados](../docs/projeto/PROGRESSO-GERAL.md). Esta atualização prevalece sobre menções anteriores de fontes/logo ainda não recebidas.

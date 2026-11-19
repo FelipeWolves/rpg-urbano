@@ -4,6 +4,8 @@ Atualizado em 19/11/2026. [Checklist histórico integral](historico/2026-11-18/T
 
 ## Próxima ação vigente
 
+Ordem detalhada e frentes independentes em [PROXIMAS-FASES.md](PROXIMAS-FASES.md). Primeiro fechar aceite visual atual; depois UI pequena/mobile e player, sem esperar catálogo completo de habilidades. Percentuais revisados em [PROGRESSO-GERAL.md](PROGRESSO-GERAL.md).
+
 - [x] Receber, preservar e revisar a pesquisa de habilidades/itens.
 - [x] Registrar explicitamente todos os pontos da devolutiva em [PENDENCIAS.md](PENDENCIAS.md), com prioridades, exemplos e campos de resposta.
 - [x] P1: ESC-01 a ESC-07 respondidos; escudo padrão implementado e testado, com mínimo de1 ponto na aplicação válida aprovado posteriormente. [Contrato e limites](ESCUDO-PADRAO.md).
@@ -106,7 +108,7 @@ Não interrompe nem encerra o aceite VIS atual.
 
 - [x] Cadastrar Evento Especial no outdoor e Batalha no dispositivo; terceiro adiado pelo usuário.
 - [x] Escrever renderer/leitor de catálogo e roteador do hub;5 novos grupos nativos aprovados e compilação Unreal registrada.
-- [ ] Executar aceite gráfico do hub com autorização específica; posições/recortes e fluxo ainda não observados.
+- [x] Observar fluxo básico Windows hub/evento/arena/volta; aceite de outras proporções, mobile e posições permanece parcial.
 - [ ] Evento permanece painel provisório até definição de conteúdo.
 
 [Definição e limites](HUB-01B-ACESSOS.md). Sem mudança de combate ou abertura de aplicativo.
@@ -114,9 +116,15 @@ Não interrompe nem encerra o aceite VIS atual.
 ## Briefing visual do hub recebido
 
 - [x] Ler preferências/paleta, nome e texto do painel sem alterar respostas do usuário; conferir procedência das fontes.
-- [x] Aplicar estilo por código e texto definido;5 grupos novos e compilação Editor aprovados. Fonte padrão permanece provisória.
+- [x] Aplicar estilo por código e texto definido;5 grupos novos e compilação Editor aprovados. Fontes locais integradas posteriormente, conforme HUB-IDENTIDADE.md.
 - [x] Fechar Cormorant Garamond/Lora, codinome LOBO, emblema/pulso e receber logo WebP localmente.
-- [ ] Importar arquivos de fontes e logo de runtime; integrar acessibilidade do sistema/persistência. [Escopo atual](HUB-01C-VISUAL.md).
+- [x] Conectar fontes locais com licenças e PNG da logo ao HUD; compilação aprovada. [Integração](HUB-IDENTIDADE.md).
+- [ ] Integrar acessibilidade do sistema/persistência e ampliar aceite visual/dispositivo.
 - [ ] Aceite visual e toque continuam pendentes.
 
 [Revisão](HUB-BRIEFING-REVISAO.md).
+
+
+### Fechamento e próxima entrega
+
+✅ Usuário confirmou texto sem corte, seleção funcional e batalha conforme combinado. Fontes/logo conectadas; aceite integral ainda parcial. ⚠️ Próximo: seletor no chão sob a unidade, sem sobrepor a esfera. Investigar apresentação mobile separadamente; fluidez aguarda critérios. Prévia por Abrir-Preview.cmd; editor por Abrir-Editor.cmd, ambos usando build aprovado. Nesta entrega final só se validaram os lançadores sem abrir programas. [Evidências](HUB-IDENTIDADE.md).

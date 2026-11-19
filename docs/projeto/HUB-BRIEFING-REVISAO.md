@@ -14,8 +14,8 @@ Atualizada em19/11/2026 após as respostas complementares do usuário. Respostas
 
 ## Pendências técnicas, sem repetir perguntas respondidas
 
-1. Receber/importar arquivos Cormorant Garamond/Lora acompanhados das licenças; fontes provisórias até então. Licenças OFL conferidas nas fontes oficiais: https://github.com/google/fonts/blob/main/ofl/cormorantgaramond/OFL.txt e https://github.com/google/fonts/blob/main/ofl/lora/OFL.txt. Nada baixado/instalado.
-2. Definir recurso de runtime para logo e verificar resolução/transparência; o WebP original foi recebido, mas ainda não renderizado. Procedência declarada preservada; direitos de distribuição não auditados independentemente.
+1. ✅ Arquivos Cormorant Garamond/Lora e licenças obtidos no repositório oficial; fontes conectadas ao HUD sem instalação no Windows. Validar conjunto de caracteres e pacote/plataformas. Licenças OFL conferidas nas fontes oficiais: https://github.com/google/fonts/blob/main/ofl/cormorantgaramond/OFL.txt e https://github.com/google/fonts/blob/main/ofl/lora/OFL.txt. Download posterior autorizado nesta entrega; nenhuma fonte instalada globalmente.
+2. ✅ PNG obtido da URL indicada e conectado ao HUD; WebP preservado. Conferir aparência nas escalas finais; resolução132×132 limita ampliação. Procedência declarada preservada; direitos de distribuição não auditados independentemente.
 3. Aceite visual de recortes, contraste, texto longo/acentos, sobreposições e interação em diferentes resoluções; toque/foco ainda pendentes.
 4. Integrar preferência de movimento reduzido do sistema e persistência da opção de jogo. Hoje há catálogo, opção local e -ReducedMotion.
 

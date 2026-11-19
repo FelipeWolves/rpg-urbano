@@ -5,8 +5,8 @@
 ## Decisões vigentes
 
 - Título: Mundus Lupis Disco. LOBO é codinome.
-- Cormorant Garamond principal e Lora complementar; Cinzel excluída. Arquivos de fontes ainda não recebidos/importados; o HUD continua usando fonte provisória da engine.
-- Logo recebida e preservada sem conversão em assets/sources/logo-lobo-silhouette.webp: WebP,132×132,1234 bytes. Origem indicada pelo usuário no briefing; recebimento não constitui auditoria independente de direitos. Não foi incorporada ao renderizador ou pacote; formato de runtime e qualidade ampliada precisam de verificação. Binário permanece local, ignorado no Git.
+- Cormorant Garamond principal e Lora complementar; Cinzel excluída. Integração posterior das fontes locais e da logo registrada em [HUB-IDENTIDADE.md](HUB-IDENTIDADE.md); evidências abaixo referem-se ao incremento original.
+- Logo recebida e preservada sem conversão em assets/sources/logo-lobo-silhouette.webp: WebP,132×132,1234 bytes. Origem indicada pelo usuário no briefing; recebimento não constitui auditoria independente de direitos. Posteriormente foi obtido PNG no endereço informado pelo usuário e conectado ao renderizador; qualidade ampliada continua limitada pela resolução. O pacote distribuível ainda não foi validado nesta revisão. Binário permanece local, ignorado no Git.
 - Batalha: octógono chanfrado original com presas geométricas e legenda BATALHA, sem copiar ícone do jogo de referência.
 
 ## Implementação
@@ -29,4 +29,4 @@ Texto do evento atualizado, com quebra simples de linhas. Em janelas pequenas po
 
 ## Próximo aceite
 
-Observar contraste, cortes, sobreposição, hover, animação e retorno à arena em execução autorizada. Integrar arquivos de fontes com suas licenças e logo em formato adequado separadamente; depois validar acentos, escala e fidelidade. Player, orientação real mobile e preferências anteriores à janela continuam em entregas próprias.
+Observar contraste, cortes, sobreposição, hover, animação e retorno à arena em execução autorizada. Fontes e logo conectadas posteriormente; conferir resultado vigente em HUB-IDENTIDADE.md e ampliar aceite para escalas/dispositivos. Player, orientação real mobile e preferências anteriores à janela continuam em entregas próprias.

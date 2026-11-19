@@ -66,3 +66,5 @@ Ligação por código de catálogo/panorama/dois acessos/evento/arena/volta impl
 As respostas originais acima ficam preservadas como histórico. O usuário confirmou Cormorant Garamond principal e Lora complementar, excluindo Cinzel; LOBO é codinome de Mundus Lupis Disco. Logo recebida em assets/sources/logo-lobo-silhouette.webp, sem conversão.
 
 Batalha passa a usar emblema geométrico original em octógono chanfrado, presas/lâminas minimalistas e legenda BATALHA, em lugar da sugestão de smartphone. Pulso1–1,06 com anel âmbar #F59E0B de1,5px até135%, alpha0,7–0 e ciclo2,4s ease-in-out. Área mínima48×48. Movimento reduzido desliga animação e usa borda dupla e brilho fixo âmbar/carmesim #DC2626. [Implementação, verificações e limites](HUB-01C-VISUAL.md).
+
+Implementação posterior: fontes e logo locais conectadas e verificações registradas em [HUB-IDENTIDADE.md](HUB-IDENTIDADE.md). Decisões de identidade não aguardam novas respostas.

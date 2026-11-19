@@ -18,6 +18,9 @@ private:
     rpg::presentation::VisualSession Session;
     UPROPERTY(Transient)
     TObjectPtr<UTexture2D> HubTexture=nullptr;
+    UPROPERTY(Transient) TObjectPtr<UTexture2D> HubLogo=nullptr;
+    UPROPERTY(Transient) TObjectPtr<UFont> HubTitleFont=nullptr;
+    UPROPERTY(Transient) TObjectPtr<UFont> HubBodyFont=nullptr;
     bool HubEnabled=false;
     bool InHub=false;
     bool HubEventOpen=false;
@@ -61,3 +64,4 @@ public:
     AProbeArenaMode();
     virtual void BeginPlay() override;
 };
+

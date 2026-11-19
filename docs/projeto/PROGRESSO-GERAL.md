@@ -11,9 +11,9 @@ Referência de chegada: versão jogável com apresentação gráfica final do es
 | Área | Estimativa | O que já existe | Principal trabalho restante |
 |---|---:|---|---|
 | Código core — combate e mecânicas | **55%** | Tempo/AP, ações, efeitos mínimos, causalidade, perfis de chefes/equipes e escudo padrão testados | Famílias restantes de efeitos, passivas, alvos/área, atributos, equipamentos e balanceamento |
-| Código da engine — integração Unreal | **35%** | Ponte do núcleo, arena provisória, compilação e pacote Windows anteriores | Fluxo completo, apresentação de eventos, animação/áudio, carregamento e integração final |
-| Front — interface do jogador | **15%** | Interface textual e HUD gráfico provisório com ações, vida/escudo, consultas e seleção | Arte/layout finais, navegação completa, acessibilidade, toque e diversas resoluções |
-| Hub, entrada e navegação entre áreas | **5%** | Referências, catálogo e política testada; parser/renderer/rotas escritos e compilados | Aceite gráfico do hub/arena, player, preferências/rotação reais, avatar e acabamento |
+| Código da engine — integração Unreal | **38%** | Ponte, arena, parser/rotas do hub e integração local de fontes/logo compilados; pacote Windows anterior | Fluxo completo, apresentação de eventos, animação/áudio, carregamento e integração final |
+| Front — interface do jogador | **20%** | HUD da arena e hub com tema, emblema, movimento reduzido, fontes e logo conectadas | Arte/layout finais, navegação completa, acessibilidade, toque e diversas resoluções |
+| Hub, entrada e navegação entre áreas | **20%** | Panorama/rotas locais, tema, identidade e20 grupos nativos de apresentação/projeção/estilo | Aceite gráfico do hub/arena, player, preferências/rotação reais, avatar e acabamento |
 | Cenários3D e iluminação | **5%** | Composição/câmeras e formas provisórias da arena | Direção visual original, modelagem, materiais, luz e otimização dos ambientes |
 | Personagens, rig e animações | **0%** | Identificação de atores e posições de apresentação | Modelos próprios/licenciados, esqueleto, poses, ações, expressões e integração |
 | Efeitos visuais e cinematics | **0%** | Possíveis usos ainda em definição | Linguagem visual, efeitos, roteiro visual, montagem e integração/validação |
@@ -22,10 +22,16 @@ Referência de chegada: versão jogável com apresentação gráfica final do es
 | Progressão e persistência | **25%** | Seleção, recompensa de laboratório e save v1 entre batalhas | Economia real, desbloqueios, inventário, migração e retomada conforme escopo |
 | Serviços online e integrações de lojas | **0%** | Separação de responsabilidades planejada | Só após escopo próprio: contas, backend, PvP real, compras e SDKs; não bloqueia laboratório local |
 | Mobile e otimização | **0%** | Objetivo multiplataforma registrado | Compilar/instalar em aparelho, toque, áreas seguras, memória, GPU, temperatura e bateria |
-| Qualidade e validação do produto | **20%** | Suítes nativas relevantes, ponte e alguns aceites Windows | Matriz completa de modos/UI/assets, regressão integrada, dispositivos, desempenho e distribuição |
-| Documentação e organização | **60%** | Contratos, pendências, evidências, índices e Git organizados | Manter sincronizados com escopo/conteúdo novos, decisões e entregas das outras frentes |
+| Qualidade e validação do produto | **22%** | Suítes nativas, ponte, builds e verificações incrementais Windows; mídias com hashes | Matriz completa de modos/UI/assets, regressão integrada, dispositivos, desempenho e distribuição |
+| Documentação e organização | **65%** | Contratos, pendências, evidências, manifestos, fases e entregas independentes organizados | Manter sincronizados com escopo/conteúdo novos, decisões e entregas das outras frentes |
 
 **0% significa implementação não iniciada, não ausência de ideias.** Ter testes sólidos do core não significa que metade do jogo completo esteja pronta. Da mesma forma, um cenário renderizado não comprova desempenho de jogo no celular.
+
+## Revisão desta entrega
+
+Todos os percentuais foram revisados. Core55%, cenários5%, personagens0%, efeitos/cinematics0%, áudio0%, conteúdo5%, progressão25%, serviços0% e mobile0% permanecem: esta entrega não implementou esses escopos. Engine35→38%, Front15→20%, Hub5→20%, Qualidade20→22% e Documentação60→65% refletem os artefatos do hub e a organização incremental, sem equivaler a produto final. Estimativa global permanece15%–20%: falta escopo final e validação mobile para sustentar mudança precisa.
+
+[Próximas fases, dependências e entregas independentes](PROXIMAS-FASES.md). [Integração e evidências da identidade](HUB-IDENTIDADE.md).
 
 ## Frentes que podem avançar separadamente
 
@@ -60,3 +66,6 @@ Preservar projeto3D, recursos e licença/autoria, além do arquivo de vídeo fin
 - Registrar mudança de escopo que reduza a estimativa; não preservar número artificialmente.
 - Usar [ESTADO.md](ESTADO.md) para a situação técnica, [TAREFAS.md](TAREFAS.md) para a próxima entrega e [PENDENCIAS.md](PENDENCIAS.md) para dúvidas.
 - Referência nova de hub: [HUB-01-REFERENCIAS.md](HUB-01-REFERENCIAS.md). Escudo atual: [ESCUDO-PADRAO.md](ESCUDO-PADRAO.md).
+
+
+Fechamento: texto sem corte e batalha/seleção confirmados pelo usuário; seletor/mobile/fluidez continuam pendentes. Percentuais acima revisados e mantidos nesta etapa documental, sem aumento por commit ou lançadores.

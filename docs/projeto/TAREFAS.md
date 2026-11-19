@@ -20,7 +20,10 @@ Não repetir verificações concluídas sem mudança, falha ou dependência pert
 - [x] ENG-G02 — observação delimitada: bSendUsageData=False solicitado nas duas comparações, sem os marcadores anteriores. Sem auditoria ou isolamento de rede; usuário não autorizou mudanças de rede.
 - [x] ENG-01 — geração do pacote: Development/Win64, build/cook/stage/archive com saída0; 45 arquivos (~501,6 MiB com PDB). ENG-01-PACOTE-BUILD.md.
 - [x] ENG-01 — execução básica do pacote: mapa renderizado fora do editor e encerramento normal; entrada/processo principal com saída0. ENG-01-PACOTE-RUNTIME.md; não valida Windows limpo ou gameplay.
-- [ ] VIS-01: arena provisória com ação/alvo, turno/vida/resultado e reinício, reutilizando o núcleo sem duplicar regras.
+- [x] VIS-01 — plano: [arquitetura, etapas e matriz de aceite](VIS-01-PLANO.md). Nenhuma arena implementada ou validada.
+- [x] VIS-01A: adaptador de sessão visual e cenário compartilhado com o console; preservar regras e testar contratos.
+- [x] VIS-01B/C — entrega funcional3×3: cena compilada, vitória após20 ações, passiva/condição/recarga e reinício observados no pacote; processos com saída0. [Aceite parcial](VIS-01C.md).
+- [ ] VIS-01B/C — fechamento visual: corrigir HP/escudo e descrições/seleção de alvos; gerar formas a partir do elenco e validar1/3/5 e outras resoluções. Não iniciar arte/áudio por inferência.
 
 Uma entrega por vez. Não abrir editor, instalar componentes nem iniciar serviços por inferência de uma tarefa documental. Download/instalação e escolhas definitivas continuam com decisão específica.
 

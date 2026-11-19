@@ -9,6 +9,6 @@ public class RpgEngineProbe : ModuleRules
         bEnableExceptions = true;
         CppStandard = CppStandardVersion.Cpp20;
         PublicIncludePaths.Add(Path.Combine(ModuleDirectory, "Public", "NativeCore"));
-        PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine" });
+        PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore" });
     }
 }

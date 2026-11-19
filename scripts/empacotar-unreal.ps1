@@ -1,4 +1,5 @@
 # Executes an explicitly authorized package plan; never launches the packaged application.
+param([ValidateSet('ENG-01-PACOTE-BUILD.json','VIS-01C-BUILD.json')][string]$ReportName='ENG-01-PACOTE-BUILD.json')
 $ErrorActionPreference='Stop'
 $root=Split-Path $PSScriptRoot -Parent
 $r=Get-Content -LiteralPath (Join-Path $root 'docs/relatorios/atuais/ENG-01-PACOTE-PREPARACAO.json') -Raw | ConvertFrom-Json
@@ -25,7 +26,7 @@ try {
     $process=[Diagnostics.Process]::Start($psi)
     $outTask=$process.StandardOutput.BaseStream.CopyToAsync($stdout);$errTask=$process.StandardError.BaseStream.CopyToAsync($stderr)
     $report=[ordered]@{StartedUtc=[DateTime]::UtcNow.ToString('o');Status='running';ProcessId=$process.Id;Stage=$r.Stage;Archive=$r.Archive;Stdout=$log;Stderr=$err;Plan=$r.Plan;SourceManifestVerified=$true;NetworkChanged=$false;PackageLaunched=$false;Passed=$false}
-    $reportPath=Join-Path $root 'docs/relatorios/atuais/ENG-01-PACOTE-BUILD.json'
+    $reportPath=Join-Path (Join-Path $root 'docs/relatorios/atuais') $ReportName
     $report | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath $reportPath -Encoding utf8
     Write-Output "PACKAGE_BUILD_STARTED pid=$($process.Id)"
     $process.WaitForExit();$null=$outTask.GetAwaiter().GetResult();$null=$errTask.GetAwaiter().GetResult()

@@ -66,7 +66,7 @@ Classificação pelo roteiro documentado, sem inferir datas pela criação do re
 | Ordem posterior aos modos críticos | Bloco | Falta |
 |---|---|---|
 | 1 | ⚠️ ENG-01 — produção/multiplataforma | Pacote Windows básico aprovado. Faltam Windows limpo/pré-requisitos, desempenho, distribuição, mobile e localização; inglês no ambiente e português do produto são decisões separadas |
-| 2 | ⚠️ VIS-01 | Arena visual integrada ao núcleo |
+| 2 | ⚠️ VIS-01 | A concluído (6 testes nativos); B/C funcional3×3 aprovado no pacote, vitória/reinício/saída0. Aceite integral parcial: HP/escudo, descrições/alvos e1/5/resoluções pendentes; VIS-01C.md |
 | 3 | ⚠️ ART-01 | Direção artística original e personagem representativo |
 | 4 | ⚠️ AUD-01 | Áudio próprio/licenciado e integração |
 | 5 | ⚠️ EXP-01 | Delimitar campanha/minijogo rítmico antes de implementar |

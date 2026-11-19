@@ -87,3 +87,8 @@ Identificados três testes internos com 14 falhas em pt-BR; comparação em ingl
 ## 2026-11-19 — pacote Windows básico aprovado
 
 Adicionados alvo Game, configurações do mapa de avaliação e scripts de preparação/empacotamento. Build/cook/stage/archive com saída0; 45 arquivos, 525.955.927 bytes incluindo símbolos PDB. Abertura fora do editor, mapa renderizado em RTX3060/D3D12/SM5 e encerramento normal; bootstrap e processo principal com saída0, log sem linhas Error:/Warning:. Falha inicial de caminhos preservada, resolvida com stage curto em build/p. Avisos MSVC/ACL e espera Zen documentados. Não valida gameplay, desempenho, Windows limpo, localização ou rede isolada. Próximo VIS-01; sem repetir testes nesta consolidação.
+
+
+## 2026-11-19 — adaptador e arena funcional3×3
+
+Cenário compartilhado extraído da apresentação textual; adaptador nativo com revisão de comandos e automação limitada. 213 testes anteriores e6 novos casos aprovados. Cena Canvas com formas provisórias, câmera, vida/escudo e três posições de habilidade ligada ao núcleo. Pacote revisado observado até vitória A em20 ações e reinício, com saída0 e log sem erros/avisos. Aceite integral permanece parcial para leitura, descrição/seleção de alvo e formações1/5/resoluções. Nenhuma arte proprietária, instalação ou mudança de rede.

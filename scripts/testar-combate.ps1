@@ -98,13 +98,21 @@ cl.exe %FLAGS% /I"$root\include" "$root\tests\save_game_tests.cpp" "$build\battl
 if errorlevel 1 exit /b 63
 "$build\save_game_tests.exe" "$build\saves-testes.csv"
 if errorlevel 1 exit /b 64
+cl.exe %FLAGS% /I"$root\include" /c "$root\src\reference_encounter.cpp" /Fo"$build\reference_encounter.obj"
+if errorlevel 1 exit /b 60
+cl.exe %FLAGS% /I"$root\include" /c "$root\src\visual_session.cpp" /Fo"$build\visual_session.obj"
+if errorlevel 1 exit /b 61
+cl.exe %FLAGS% /I"$root\include" "$root\tests\visual_session_tests.cpp" "$build\battle.obj" "$build\ability_profile.obj" "$build\local_session.obj" "$build\reference_encounter.obj" "$build\visual_session.obj" /Fo"$build\visual_session_tests.obj" /Fe"$build\visual_session_tests.exe" /link /INCREMENTAL:NO
+if errorlevel 1 exit /b 62
+"$build\visual_session_tests.exe"
+if errorlevel 1 exit /b 63
 cl.exe %FLAGS% /I"$root\include" /c "$root\src\text_session.cpp" /Fo"$build\text_session.obj"
 if errorlevel 1 exit /b 48
-cl.exe %FLAGS% /I"$root\include" "$root\tests\text_session_tests.cpp" "$build\battle.obj" "$build\ability_profile.obj" "$build\team_selection.obj" "$build\local_session.obj" "$build\save_game.obj" "$build\save_store_windows.obj" "$build\text_session.obj" /Fo"$build\text_session_tests.obj" /Fe"$build\text_session_tests.exe" /link /INCREMENTAL:NO
+cl.exe %FLAGS% /I"$root\include" "$root\tests\text_session_tests.cpp" "$build\battle.obj" "$build\ability_profile.obj" "$build\team_selection.obj" "$build\local_session.obj" "$build\save_game.obj" "$build\save_store_windows.obj" "$build\text_session.obj" "$build\reference_encounter.obj" /Fo"$build\text_session_tests.obj" /Fe"$build\text_session_tests.exe" /link /INCREMENTAL:NO
 if errorlevel 1 exit /b 49
 "$build\text_session_tests.exe" "$build\interacao-testes.csv"
 if errorlevel 1 exit /b 50
-cl.exe %FLAGS% /I"$root\include" "$root\app\jogar.cpp" "$build\battle.obj" "$build\ability_profile.obj" "$build\team_selection.obj" "$build\local_session.obj" "$build\save_game.obj" "$build\save_store_windows.obj" "$build\text_session.obj" /Fo"$build\jogar.obj" /Fe"$build\jogar.exe" /link /INCREMENTAL:NO
+cl.exe %FLAGS% /I"$root\include" "$root\app\jogar.cpp" "$build\battle.obj" "$build\ability_profile.obj" "$build\team_selection.obj" "$build\local_session.obj" "$build\save_game.obj" "$build\save_store_windows.obj" "$build\text_session.obj" "$build\reference_encounter.obj" /Fo"$build\jogar.obj" /Fe"$build\jogar.exe" /link /INCREMENTAL:NO
 if errorlevel 1 exit /b 51
 "$build\jogar.exe" < "$build\jogar-smoke.txt" > "$build\jogar-smoke.log"
 if errorlevel 1 exit /b 52
@@ -127,6 +135,11 @@ finally { Pop-Location }
 $messages | Set-Content -LiteralPath (Join-Path $build 'resultado.log') -Encoding utf8
 $messages | ForEach-Object { Write-Output $_ }
 if ($code -ne 0) { throw "Combate falhou (código $code). Consulte build/combate/resultado.log." }
+$visualResult = @($messages | Where-Object { $_ -match '^VIS_TESTS_RESULT passed=(\d+) total=(\d+)$' })
+if ($visualResult.Count -ne 1) { throw 'Resultado visual ausente.' }
+$visualMatch = [regex]::Match($visualResult[0], '^VIS_TESTS_RESULT passed=(\d+) total=(\d+)$')
+if ($visualMatch.Groups[1].Value -ne $visualMatch.Groups[2].Value) { throw 'Testes visuais reprovados.' }
+[ordered]@{CheckedUtc=[DateTime]::UtcNow.ToString('o');Passed=[int]$visualMatch.Groups[1].Value;Total=[int]$visualMatch.Groups[2].Value;Scope='Native adapter contracts only; no Unreal UI';EngineExecuted=$false} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $root 'docs/relatorios/atuais/VIS-01A.json') -Encoding utf8
 $testResult = @($messages | Where-Object { $_ -match '^TESTS_RESULT passed=(\d+) total=(\d+)$' })
 $simulation = @($messages | Where-Object { $_ -match '^SIMULATION_OK ' })
 if ($testResult.Count -ne 1 -or $simulation.Count -ne 1) { throw 'Resultado esperado ausente.' }

@@ -1,0 +1,10 @@
+{
+  "StartedUtc": "2026-11-19T04:46:07.449453Z",
+  "Status": "closed_initial_inspection_found_layout_issues",
+  "Log": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\vis-runtime\\20261119-044607\\runtime.log",
+  "EntryProcessId": 34088,
+  "EntryExecutable": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\p\\fa380353\\archive\\Windows\\RpgEngineProbe.exe",
+  "Passed": false,
+  "NetworkChanged": false,
+  "EntryExitCode": 0
+}

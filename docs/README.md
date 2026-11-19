@@ -39,3 +39,6 @@ Ao atualizar: substitua a síntese atual, preserve aceites datados e evite acres
 
 
 Pacote Windows: [preparação](projeto/ENG-01-PACOTE-PREPARACAO.md), [build](projeto/ENG-01-PACOTE-BUILD.md) e [execução básica aprovada](projeto/ENG-01-PACOTE-RUNTIME.md). Inventário e JSONs vinculados nesses relatórios. Não validam gameplay, desempenho ou distribuição em Windows limpo.
+
+
+VIS-01: [plano](projeto/VIS-01-PLANO.md), [adaptador aprovado](projeto/VIS-01A.md), [cena compilada](projeto/VIS-01B.md) e [fluxo3×3/aceite visual parcial no pacote](projeto/VIS-01C.md). Evidências estruturadas vinculadas em cada relatório.

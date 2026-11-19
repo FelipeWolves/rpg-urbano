@@ -29,13 +29,14 @@ Primeira inicialização geral atingiu o limite de tempo antes do teste. A rota 
 
 ## Próximo incremento
 
-Priorizar idioma e região em inglês no ambiente Unreal (`-culture=en` por processo nos testes). A comparação passou sem linhas Error:; pt-BR produziu 14 falhas em três testes internos de mensagens. [Diagnóstico e limites](ENG-01-GRAFICO-DIAGNOSTICO.md). Pacote Windows gerado e execução básica aprovada nesta máquina; [aceite do pacote](ENG-01-PACOTE-RUNTIME.md). Próximo: planejar VIS-01, sem iniciar implementação nesta entrega. O jogo poderá ter interface/textos em português por uma camada de localização própria, a definir e validar separadamente; inglês no editor não determina o idioma do produto. Telemetria com opt-out não apresentou os marcadores anteriores; rede continua sem isolamento por decisão do usuário. Nova execução exige autorização específica. A ponte entregue não precisa ser refeita por rotina.
+Priorizar idioma e região em inglês no ambiente Unreal (`-culture=en` por processo nos testes). A comparação passou sem linhas Error:; pt-BR produziu 14 falhas em três testes internos de mensagens. [Diagnóstico e limites](ENG-01-GRAFICO-DIAGNOSTICO.md). Pacote Windows gerado e execução básica aprovada nesta máquina; [aceite do pacote](ENG-01-PACOTE-RUNTIME.md). VIS-01A concluído: cenário compartilhado e adaptador nativo, com 6/6 novos casos além dos213 anteriores. Cena VIS-01B compilada e fluxo3×3 VIS-01C verificado fora do editor: vitória A após20 ações, proteção condicional, passiva/recarga e reinício. [Resultado e pendências](VIS-01C.md). Próximo: corrigir HP/escudo e descrições/alvos, criar formas conforme elenco e validar1/3/5 e resoluções; aceite visual integral permanece parcial. O jogo poderá ter interface/textos em português por uma camada de localização própria, a definir e validar separadamente; inglês no editor não determina o idioma do produto. Telemetria com opt-out não apresentou os marcadores anteriores; rede continua sem isolamento por decisão do usuário. Nova execução exige autorização específica. A ponte entregue não precisa ser refeita por rotina.
 
 Não assumir que save de progresso é save de combate, que intercalação equivale a threads ou que o perfil de chefe compartilhado cobre todos os modos PvE. Pendências em [PENDENCIAS.md](PENDENCIAS.md), fila em [TAREFAS.md](TAREFAS.md) e [painel](../batalhas/PAINEL-BLOCOS.md).
 
 ## Evidências para retomada
 
-- [Resultado standalone](../relatorios/atuais/COMBATE.json).
+- [Resultado standalone](../relatorios/atuais/COMBATE.json) e [6 casos do adaptador](../relatorios/atuais/VIS-01A.json).
+- [VIS-01: plano](VIS-01-PLANO.md), [adaptador](VIS-01A.md), [cena](VIS-01B.md) e [aceite parcial no pacote](VIS-01C.md).
 - [Compilação da ponte](../relatorios/atuais/ENG-01-BUILD.json).
 - [Pacote Windows: build](ENG-01-PACOTE-BUILD.md) e [execução básica](ENG-01-PACOTE-RUNTIME.md): build/cook/archive e os dois processos com saída0; sem benchmark ou Windows limpo validados.
 - [Execução Unreal](../relatorios/atuais/ENG-01-RUNTIME.json) e [relatório do aceite](ENG-01-RUNTIME.md).

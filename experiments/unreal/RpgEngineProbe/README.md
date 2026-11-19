@@ -25,3 +25,8 @@ A rota automatizada agora usa uma commandlet própria: scripts/testar-unreal-run
 ## Preparação de pacote Windows
 
 Alvo Game e Config compilados na etapa de pacote Development/Win64, build/cook/archive com saída0. Aplicativo abriu Template_Default fora do editor e encerrou com saída0; sem arena própria ou gameplay validados. scripts/preparar-pacote-unreal.ps1 cria stage novo e plano sem invocar ferramentas. Detalhes em docs/projeto/ENG-01-PACOTE-PREPARACAO.md, ENG-01-PACOTE-BUILD.md e ENG-01-PACOTE-RUNTIME.md. O script empacotar-unreal.ps1 executa o plano somente com autorização, sem abrir aplicativo. Stage de pacote curto em build/p, preservando a tentativa inicial de caminhos longos. O stage anterior e o build do editor permanecem separados. Priorizar inglês nas ferramentas; localização do jogo em português continua independente e pendente.
+
+
+## Arena provisória VIS-01
+
+ProbeArenaMode/HUD usam Canvas e InputCore, sem plugin novo. O adaptador e o cenário são fontes canônicos adicionais copiados pelo preparador de pacote (28 entradas no total). Batalha3×3 até vitória/reinício foi observada no pacote revisado, sem editor. O script antigo testar-unreal.ps1 continua próprio da ponte histórica e não inclui automaticamente esses novos arquivos. Para a arena usar preparar-pacote-unreal.ps1/empacotar-unreal.ps1 com autorização específica. Aceite visual integral permanece parcial em docs/projeto/VIS-01C.md; inglês no ambiente e localização do produto separados.

@@ -1,5 +1,5 @@
 #pragma once
-#include "rpg/team_selection.hpp"
+#include "rpg/reference_encounter.hpp"
 #include "rpg/local_session.hpp"
 #include "rpg/save_store.hpp"
 #include <iosfwd>
@@ -21,8 +21,8 @@ struct TextSessionOptions {
     std::optional<LocalProgress> restored;
     std::vector<std::string> selected;
 };
-[[nodiscard]] TeamReferenceSetup team_reference_setup();
-[[nodiscard]] BattleRules text_reference_rules();
+using rpg::team_reference_setup;
+using rpg::text_reference_rules;
 // Presentation only; streams support terminal use and deterministic scripted checks.
 [[nodiscard]] TextReport run_text_session(std::istream& input,std::ostream& output,
     std::vector<Definition> roster=reference_roster(),BattleRules rules=text_reference_rules(),

@@ -4,6 +4,7 @@
 #include "GameFramework/GameModeBase.h"
 #include "rpg/battle_presentation.hpp"
 #include "rpg/startup_presentation.hpp"
+#include "rpg/hub_style.hpp"
 #include "ProbeArena.generated.h"
 UCLASS()
 class RPGENGINEPROBE_API AProbeArenaHUD : public AHUD
@@ -26,6 +27,18 @@ private:
     double HubAspectThreshold=1.5;
     std::vector<rpg::presentation::HubHotspot> HubLinks;
     FString HubError;
+    FString HubTitle=TEXT("Mundus Lupis Disco");
+    FString HubCodename=TEXT("LOBO");
+    FString HubEventTitle=TEXT("EVENTO ESPECIAL — EM PREPARAÇÃO");
+    FString HubEventBody=TEXT("Conteúdo em preparação.");
+    FLinearColor HubMagenta=FLinearColor::FromSRGBColor(FColor(217,70,239));
+    FLinearColor HubCyan=FLinearColor::FromSRGBColor(FColor(34,211,238));
+    FLinearColor HubAmber=FLinearColor::FromSRGBColor(FColor(245,158,11));
+    FLinearColor HubCrimson=FLinearColor::FromSRGBColor(FColor(220,38,38));
+    FLinearColor HubPanel=FLinearColor(0.005f,0.009f,0.025f,0.8f);
+    rpg::presentation::PulseSettings HubPulse;
+    bool HubReducedMotion=false;
+    bool HubReducedMotionForced=false;
     void LoadHubCatalog();
     void DrawHub();
     void ReturnToHub();

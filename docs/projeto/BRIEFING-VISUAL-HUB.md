@@ -60,3 +60,9 @@ Isso não exige criar recompensas, calendário ou um modo novo. Esses sistemas p
 Pode entregar somente a imagem marcada ou este arquivo parcialmente preenchido. Recursos/versões originais ficam localmente em assets/sources; mídia grande não entra no Git automaticamente. Não substituir arquivos já recebidos sem manter uma versão anterior.
 
 Ligação por código de catálogo/panorama/dois acessos/evento/arena/volta implementada e compilada em HUB-01B-IMPLEMENTACAO.md; falta observar com autorização de abertura. Código/runtime e decisões de gameplay não dependem de logo/arte final para essa entrega.
+
+## Decisões posteriores vigentes —19/11/2026
+
+As respostas originais acima ficam preservadas como histórico. O usuário confirmou Cormorant Garamond principal e Lora complementar, excluindo Cinzel; LOBO é codinome de Mundus Lupis Disco. Logo recebida em assets/sources/logo-lobo-silhouette.webp, sem conversão.
+
+Batalha passa a usar emblema geométrico original em octógono chanfrado, presas/lâminas minimalistas e legenda BATALHA, em lugar da sugestão de smartphone. Pulso1–1,06 com anel âmbar #F59E0B de1,5px até135%, alpha0,7–0 e ciclo2,4s ease-in-out. Área mínima48×48. Movimento reduzido desliga animação e usa borda dupla e brilho fixo âmbar/carmesim #DC2626. [Implementação, verificações e limites](HUB-01C-VISUAL.md).

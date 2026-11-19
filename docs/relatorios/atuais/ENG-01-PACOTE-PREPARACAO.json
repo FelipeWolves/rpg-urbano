@@ -1,11 +1,11 @@
 {
-  "CheckedUtc": "2026-11-19T21:44:11.7952783Z",
+  "CheckedUtc": "2026-11-19T22:05:38.7611338Z",
   "Status": "prepared_not_built",
   "EngineVersion": "5.8.4",
   "EngineChangelist": 58902052,
-  "Stage": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\p\\991ce5de\\RpgEngineProbe",
-  "Archive": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\p\\991ce5de\\archive",
-  "Plan": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\p\\991ce5de\\package-plan.json",
+  "Stage": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\p\\c6d1b900\\RpgEngineProbe",
+  "Archive": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\p\\c6d1b900\\archive",
+  "Plan": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\p\\c6d1b900\\package-plan.json",
   "Target": "RpgEngineProbe",
   "Platform": "Win64",
   "Configuration": "Development",
@@ -37,7 +37,7 @@
       "StagedRelative": "Source/RpgEngineProbe/RpgEngineProbe.cpp"
     },
     {
-      "SHA256": "92BB3C1CE45DF55D3EE84C11EAA48BFF5AB317001CC98F012406A6CC8E1DB885",
+      "SHA256": "E45C8CF55894C955D440911A121412B4E1C785CB5E23B24AD3D88953B6AC6FAF",
       "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/ProbeArena.h",
       "StagedRelative": "Source/RpgEngineProbe/ProbeArena.h"
     },
@@ -47,7 +47,7 @@
       "StagedRelative": "Source/RpgEngineProbe/ProbeArena.cpp"
     },
     {
-      "SHA256": "A5A3811CAE5D4A872E92F88492F6825B851D550B75CBEF82B9CE1DF6E6F97DC4",
+      "SHA256": "AF165A3EC12D420DDDBF9D33B3675E5042B87EB2A08AA86CBBFC9F401D1DC5CC",
       "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/ProbeHub.cpp",
       "StagedRelative": "Source/RpgEngineProbe/ProbeHub.cpp"
     },
@@ -187,7 +187,17 @@
       "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/startup_presentation.hpp"
     },
     {
-      "SHA256": "5118F494D3587012B5D3DC124C0867BF4050E036BABA776CAFD8371D44173D8C",
+      "SHA256": "E943605365631767E2B0C8BB571631D0F5C04DE7C7B08C26ED14992D7565DC3E",
+      "Original": "src/hub_style.cpp",
+      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/hub_style.cpp"
+    },
+    {
+      "SHA256": "D850A99DCEB96A2B137763EB536281D80DBA40473571A8E28B4AC26050BD46AA",
+      "Original": "include/rpg/hub_style.hpp",
+      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/hub_style.hpp"
+    },
+    {
+      "SHA256": "8AAA9899E47424786D9C40C747F77A45D1D2137D042ADB177B201B4D2DA14D4F",
       "Original": "data/presentation/startup.json",
       "StagedRelative": "Content/Presentation/data/presentation/startup.json"
     },

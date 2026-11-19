@@ -44,6 +44,8 @@ Atualizado em19/11/2026. Comece pelas sínteses atuais; relatórios datados deli
 
 [Briefing visual opcional para o usuário](projeto/BRIEFING-VISUAL-HUB.md): imagem marcada, aparência dos acessos e identidade/painel provisórios.
 
+[Revisão do briefing visual preenchido](projeto/HUB-BRIEFING-REVISAO.md): decisões recebidas, licenças consultadas e escolhas restantes; sem aplicação do estilo ainda.
+
 ## Organização dos arquivos
 
 Núcleo em include/rpg e src; testes em tests; automação em scripts. [Experimento Unreal](../experiments/unreal/RpgEngineProbe/README.md) contém fonte versionada. Stages, objetos, pacotes, logs e saves ficam em build ignorado. Não editar fontes gerados ou mover núcleo para a engine.
@@ -54,3 +56,5 @@ Núcleo em include/rpg e src; testes em tests; automação em scripts. [Experime
 - [Histórico de consolidação](projeto/historico/2026-11-18/README.md): documentos antigos preservados, sem virar instruções atuais.
 
 Atualize a síntese vigente e os links; preserve aceites datados. Não copie a lista de perguntas para vários arquivos: o registro central é PENDENCIAS.md. Pesquisa recebida não deve sobrescrever contratos aprovados. Evite repetir testes para mudanças apenas documentais.
+
+[Estilo e decisões visuais do hub](projeto/HUB-01C-VISUAL.md): código/testes/build aprovados; fontes/logo de runtime e aceite visual pendentes.

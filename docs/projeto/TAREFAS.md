@@ -110,3 +110,13 @@ Não interrompe nem encerra o aceite VIS atual.
 - [ ] Evento permanece painel provisório até definição de conteúdo.
 
 [Definição e limites](HUB-01B-ACESSOS.md). Sem mudança de combate ou abertura de aplicativo.
+
+## Briefing visual do hub recebido
+
+- [x] Ler preferências/paleta, nome e texto do painel sem alterar respostas do usuário; conferir procedência das fontes.
+- [x] Aplicar estilo por código e texto definido;5 grupos novos e compilação Editor aprovados. Fonte padrão permanece provisória.
+- [x] Fechar Cormorant Garamond/Lora, codinome LOBO, emblema/pulso e receber logo WebP localmente.
+- [ ] Importar arquivos de fontes e logo de runtime; integrar acessibilidade do sistema/persistência. [Escopo atual](HUB-01C-VISUAL.md).
+- [ ] Aceite visual e toque continuam pendentes.
+
+[Revisão](HUB-BRIEFING-REVISAO.md).

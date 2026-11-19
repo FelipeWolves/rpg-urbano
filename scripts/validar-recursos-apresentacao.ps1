@@ -39,6 +39,22 @@ foreach($spot in $c.hub.hotspots){
        $spot.anchor.x -gt ($area.x+$area.width) -or $spot.anchor.y -gt ($area.y+$area.height)){throw 'Hotspot anchor outside its hit area'}
     $hotspotIds+=$spot.id
 }
+if($null -ne $c.hub.visual){
+    $visual=$c.hub.visual
+    if([string]::IsNullOrWhiteSpace($visual.title) -or [string]::IsNullOrWhiteSpace($visual.codename)){throw 'Hub title and codename required'}
+    foreach($name in @('magenta','violet','cyan','cyanBright','amber','gold','crimson','panel')){
+        if($visual.palette.$name -notmatch '^#[0-9a-fA-F]{6}$'){throw 'RGB hex palette required'}
+    }
+    if($visual.reducedMotion -isnot [bool] -or $visual.palette.panelOpacity -lt 0 -or $visual.palette.panelOpacity -gt 1){throw 'Invalid motion/opacity preference'}
+    $pulse=$visual.battlePulse
+    foreach($name in @('period','minimumScale','maximumScale','ringMaximumScale','ringOpacity','ringStroke','minimumTarget')){
+        if($null -eq $pulse.$name -or ![double]::IsFinite([double]$pulse.$name)){throw 'Finite pulse settings required'}
+    }
+    if($pulse.period -le 0 -or $pulse.minimumScale -le 0 -or $pulse.maximumScale -lt $pulse.minimumScale -or
+       $pulse.ringMaximumScale -lt 1 -or $pulse.ringOpacity -lt 0 -or $pulse.ringOpacity -gt 1 -or
+       $pulse.ringStroke -le 0 -or $pulse.minimumTarget -lt 48){throw 'Invalid pulse/minimum target policy'}
+    if([string]::IsNullOrWhiteSpace($visual.eventPanel.title) -or [string]::IsNullOrWhiteSpace($visual.eventPanel.body)){throw 'Event panel text required'}
+}
 if($c.video.fit -ne 'Contain' -or $c.video.fallback -ne 'ContinueToLocalEntry' -or $c.video.variantPreference -ne 'DeviceThenOther'){throw 'Unsupported video policy'}
 foreach($key in @('mobileRequestMatchingOrientation','restoreHubOrientationAfterPlayback','desktopPortraitSideComposition','allowSkip')){
     if($c.video.$key -isnot [bool]){throw 'Boolean video policy required'}

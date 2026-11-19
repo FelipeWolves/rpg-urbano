@@ -11,6 +11,8 @@
 #include "ImageUtils.h"
 #include "InputCoreTypes.h"
 #include "Misc/FileHelper.h"
+#include "Misc/CommandLine.h"
+#include "Misc/Parse.h"
 #include "Misc/Paths.h"
 #include "Serialization/JsonReader.h"
 #include "Serialization/JsonSerializer.h"
@@ -57,6 +59,30 @@ void AProbeArenaHUD::LoadHubCatalog(){
         if(view!=TEXT("Auto") && view!=TEXT("Focused") && view!=TEXT("Panoramic")){throw std::invalid_argument("Unknown hub view");}
         HubArea=area==TEXT("Left")?rpg::presentation::HubArea::Left:area==TEXT("Right")?rpg::presentation::HubArea::Right:rpg::presentation::HubArea::Center;
         HubView=view==TEXT("Focused")?rpg::presentation::HubView::Focused:view==TEXT("Panoramic")?rpg::presentation::HubView::Panoramic:rpg::presentation::HubView::Auto;
+        const TSharedPtr<FJsonObject>* visualPtr=nullptr;
+        if(hub->TryGetObjectField(TEXT("visual"),visualPtr) && visualPtr && visualPtr->IsValid()){
+            const auto visual=*visualPtr,palette=Object(visual,TEXT("palette"));
+            HubTitle=String(visual,TEXT("title"));HubCodename=String(visual,TEXT("codename"));
+            const auto readColor=[&](const TCHAR* name){
+                const FString hex=String(palette,name);
+                if(hex.Len()!=7 || hex[0]!=TEXT('#')){throw std::invalid_argument("Expected RGB hex color");}
+                for(int32 index=1;index<hex.Len();++index){if(!FChar::IsHexDigit(hex[index])){throw std::invalid_argument("Invalid RGB hex color");}}
+                return FLinearColor::FromSRGBColor(FColor::FromHex(hex));
+            };
+            HubMagenta=readColor(TEXT("magenta"));HubCyan=readColor(TEXT("cyanBright"));
+            HubAmber=readColor(TEXT("amber"));HubCrimson=readColor(TEXT("crimson"));HubPanel=readColor(TEXT("panel"));
+            const double opacity=Number(palette,TEXT("panelOpacity"));if(opacity<0 || opacity>1){throw std::invalid_argument("Invalid panel opacity");}
+            HubPanel.A=static_cast<float>(opacity);
+            const auto pulse=Object(visual,TEXT("battlePulse"));
+            HubPulse={Number(pulse,TEXT("period")),Number(pulse,TEXT("minimumScale")),Number(pulse,TEXT("maximumScale")),
+                Number(pulse,TEXT("ringMaximumScale")),Number(pulse,TEXT("ringOpacity")),Number(pulse,TEXT("ringStroke")),Number(pulse,TEXT("minimumTarget"))};
+            validate_pulse(HubPulse);
+            if(!visual->TryGetBoolField(TEXT("reducedMotion"),HubReducedMotion)){throw std::invalid_argument("Missing reduced motion preference");}
+            const auto panel=Object(visual,TEXT("eventPanel"));
+            HubEventTitle=String(panel,TEXT("title"));HubEventBody=String(panel,TEXT("body"));
+        }
+        HubReducedMotionForced=FParse::Param(FCommandLine::Get(),TEXT("ReducedMotion"));
+        HubReducedMotion=HubReducedMotion || HubReducedMotionForced;
         std::optional<Asset> panorama;
         for(const auto& entry:Array(catalog,TEXT("assets"))){
             const auto asset=entry->AsObject();
@@ -104,7 +130,7 @@ void AProbeArenaHUD::DrawHub(){
     const bool clicked=PlayerOwner->WasInputKeyJustReleased(EKeys::LeftMouseButton);
     const auto button=[&](const Rect& rect,const FString& label){
         const bool hover=contains(rect,mx,my);
-        DrawRect(hover?FLinearColor(0.08f,0.4f,0.45f,0.95f):FLinearColor(0.035f,0.08f,0.12f,0.92f),
+        DrawRect(hover?FLinearColor(HubCyan.R*0.15f,HubCyan.G*0.15f,HubCyan.B*0.15f,0.92f):HubPanel,
             static_cast<float>(rect.x),static_cast<float>(rect.y),static_cast<float>(rect.width),static_cast<float>(rect.height));
         DrawText(label,FColor::White,static_cast<float>(rect.x+8),static_cast<float>(rect.y+8));
         return clicked && hover;
@@ -125,30 +151,90 @@ void AProbeArenaHUD::DrawHub(){
     const auto& r=plan.content;const auto& uv=plan.source_uv;
     DrawTexture(HubTexture,static_cast<float>(r.x),static_cast<float>(r.y),static_cast<float>(r.width),static_cast<float>(r.height),
         static_cast<float>(uv.x),static_cast<float>(uv.y),static_cast<float>(uv.width),static_cast<float>(uv.height),FLinearColor::White,BLEND_Opaque);
+    const auto line=[&](double x1,double y1,double x2,double y2,FLinearColor color,double stroke){
+        DrawLine(static_cast<float>(x1),static_cast<float>(y1),static_cast<float>(x2),static_cast<float>(y2),color,static_cast<float>(stroke));
+    };
+    const auto frame=[&](const Rect& area,FLinearColor color){
+        auto glow=color;glow.A=0.12f;
+        for(double stroke:{5.0,1.5}){
+            const auto c=stroke>2?glow:color;
+            line(area.x,area.y,area.x+area.width,area.y,c,stroke);
+            line(area.x+area.width,area.y,area.x+area.width,area.y+area.height,c,stroke);
+            line(area.x+area.width,area.y+area.height,area.x,area.y+area.height,c,stroke);
+            line(area.x,area.y+area.height,area.x,area.y,c,stroke);
+        }
+    };
+    DrawText(HubTitle,HubCyan.ToFColorSRGB(),16,10);
+    DrawText(TEXT("CODINOME: ")+HubCodename,FColor::White,16,28);
     if(HubEventOpen){
-        const double width=FMath::Min(580.0,Canvas->SizeX-30.0),x=(Canvas->SizeX-width)/2,y=FMath::Max(20.0,(Canvas->SizeY-220.0)/2);
-        DrawRect(FLinearColor(0.025f,0.04f,0.07f),static_cast<float>(x),static_cast<float>(y),static_cast<float>(width),220);
-        DrawText(TEXT("Evento Especial"),FColor::Cyan,static_cast<float>(x+16),static_cast<float>(y+20));
-        DrawText(TEXT("Conteúdo em preparação."),FColor::White,static_cast<float>(x+16),static_cast<float>(y+65));
-        DrawText(TEXT("Nenhum evento disponível nesta versão."),FColor::White,static_cast<float>(x+16),static_cast<float>(y+90));
-        if(button({x+16,y+155,120,38},TEXT("Voltar")) || PlayerOwner->WasInputKeyJustPressed(EKeys::Escape)){HubEventOpen=false;}return;
+        const double width=FMath::Min(660.0,Canvas->SizeX-30.0),height=FMath::Min(360.0,Canvas->SizeY-30.0);
+        const double x=(Canvas->SizeX-width)/2,y=(Canvas->SizeY-height)/2;
+        DrawRect(HubPanel,static_cast<float>(x),static_cast<float>(y),static_cast<float>(width),static_cast<float>(height));
+        frame({x,y,width,height},HubMagenta);
+        double cursor=y+18;
+        const auto wrapped=[&](const FString& text,FColor color){
+            TArray<FString> words;text.ParseIntoArray(words,TEXT(" "),true);FString current;
+            for(const auto& word:words){
+                const FString candidate=current.IsEmpty()?word:current+TEXT(" ")+word;
+                float textWidth=0,textHeight=0;GetTextSize(candidate,textWidth,textHeight);
+                if(textWidth>width-32 && !current.IsEmpty()){
+                    if(cursor+18>y+height-60){return;}
+                    DrawText(current,color,static_cast<float>(x+16),static_cast<float>(cursor));cursor+=20;current=word;
+                }else{current=candidate;}
+            }
+            if(!current.IsEmpty() && cursor+18<=y+height-60){DrawText(current,color,static_cast<float>(x+16),static_cast<float>(cursor));cursor+=20;}
+        };
+        wrapped(HubEventTitle,HubCyan.ToFColorSRGB());cursor+=12;wrapped(HubEventBody,FColor::White);
+        if(button({x+16,y+height-48,120,36},TEXT("Voltar")) || PlayerOwner->WasInputKeyJustPressed(EKeys::Escape)){HubEventOpen=false;}return;
     }
+    const auto pulse=pulse_frame(GetWorld()->GetTimeSeconds(),HubReducedMotion,HubPulse);
     for(const auto& link:HubLinks){
         const auto projected=project_hotspot(plan,link);if(!projected){continue;}
-        float tw=0,th=0;GetTextSize(Text(link.label),tw,th);
-        const double width=std::min(static_cast<double>(tw+24),r.width),height=std::min(34.0,r.height);
+        const bool battle=link.route==HubRoute::Battle;
+        const FString labelText=battle?Text(link.label).ToUpper():Text(link.label);
+        float tw=0,th=0;GetTextSize(labelText,tw,th);
+        const double width=std::min(static_cast<double>(tw+24),r.width),height=std::min(28.0,r.height);
         const Rect label{std::clamp(projected->label_x-width/2,r.x,r.x+r.width-width),
-            std::clamp(projected->label_y-height/2,r.y,r.y+r.height-height),width,height};
-        const bool labelClicked=button(label,Text(link.label));
-        if(labelClicked || (clicked && contains(projected->hit_area,mx,my))){
-            if(link.route==HubRoute::Battle){enterBattle();}else{HubEventOpen=true;}return;
+            std::clamp(projected->label_y+(battle?30:-height/2),r.y,r.y+r.height-height),width,height};
+        const double left=std::min(label.x,projected->hit_area.x),top=std::min(label.y,projected->hit_area.y);
+        const double right=std::max(label.x+label.width,projected->hit_area.x+projected->hit_area.width);
+        const double bottom=std::max(label.y+label.height,projected->hit_area.y+projected->hit_area.height);
+        const auto hit=minimum_target({left,top,right-left,bottom-top},r,HubPulse.minimum_target);
+        if(!hit){continue;}
+        const bool hover=contains(*hit,mx,my);
+        DrawRect(HubPanel,static_cast<float>(label.x),static_cast<float>(label.y),static_cast<float>(label.width),static_cast<float>(label.height));
+        DrawText(labelText,(battle?HubAmber:HubCyan).ToFColorSRGB(),static_cast<float>(label.x+10),static_cast<float>(label.y+6));
+        if(!battle){frame(label,hover?HubCyan:HubMagenta);}
+        else{
+            const double cx=projected->label_x,cy=projected->label_y;
+            const auto octagon=[&](double radius,FLinearColor color,double stroke){
+                constexpr double points[8][2]={{-.55,-1},{.55,-1},{1,-.55},{1,.55},{.55,1},{-.55,1},{-1,.55},{-1,-.55}};
+                for(int32 index=0;index<8;++index){const int32 next=(index+1)%8;line(cx+points[index][0]*radius,cy+points[index][1]*radius,cx+points[next][0]*radius,cy+points[next][1]*radius,color,stroke);}
+            };
+            const double radius=20*pulse.icon_scale;
+            auto glow=HubAmber;glow.A=hover?0.35f:0.15f;octagon(radius,glow,6);octagon(radius,HubAmber,1.5);
+            if(pulse.static_double_border){octagon(16,HubCrimson,1.5);}
+            else{
+                auto ring=HubAmber;ring.A=static_cast<float>(pulse.ring_opacity);
+                for(int32 i=0;i<32;++i){
+                    const double a=2*PI*i/32,b=2*PI*(i+1)/32,ringRadius=20*pulse.ring_scale;
+                    line(cx+ringRadius*std::cos(a),cy+ringRadius*std::sin(a),cx+ringRadius*std::cos(b),cy+ringRadius*std::sin(b),ring,HubPulse.ring_stroke);
+                }
+            }
+            // Original geometric paired fangs, no imported game icon.
+            for(double sign:{-1.0,1.0}){
+                line(cx+sign*12*pulse.icon_scale,cy-8*pulse.icon_scale,cx+sign*5*pulse.icon_scale,cy+11*pulse.icon_scale,HubAmber,2);
+                line(cx+sign*5*pulse.icon_scale,cy+11*pulse.icon_scale,cx+sign*3*pulse.icon_scale,cy-5*pulse.icon_scale,HubAmber,2);
+            }
         }
+        if(clicked && hover){if(battle){enterBattle();}else{HubEventOpen=true;}return;}
     }
-    const double w=std::min(130.0,(Canvas->SizeX-40.0)/4),y=Canvas->SizeY-46.0;
+    const double w=std::min(130.0,(Canvas->SizeX-48.0)/5),y=Canvas->SizeY-46.0;
     if(button({8,y,w,34},TEXT("Esquerda")) || PlayerOwner->WasInputKeyJustPressed(EKeys::Left)){HubArea=rpg::presentation::HubArea::Left;HubView=rpg::presentation::HubView::Focused;}
     if(button({16+w,y,w,34},TEXT("Centro"))){HubArea=rpg::presentation::HubArea::Center;HubView=rpg::presentation::HubView::Focused;}
     if(button({24+2*w,y,w,34},TEXT("Direita")) || PlayerOwner->WasInputKeyJustPressed(EKeys::Right)){HubArea=rpg::presentation::HubArea::Right;HubView=rpg::presentation::HubView::Focused;}
     if(button({32+3*w,y,w,34},plan.view==rpg::presentation::HubView::Panoramic?TEXT("Focar área"):TEXT("Panorama"))){
         HubView=plan.view==rpg::presentation::HubView::Panoramic?rpg::presentation::HubView::Focused:rpg::presentation::HubView::Panoramic;
     }
+    if(button({40+4*w,y,w,34},HubReducedMotion?TEXT("Sem pulso"):TEXT("Com pulso")) && !HubReducedMotionForced){HubReducedMotion=!HubReducedMotion;}
 }

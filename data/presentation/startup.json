@@ -68,7 +68,53 @@
         "visible": true
       }
     ],
-    "hotspotReference": "assets/sources/hub-accesses-marked-2026-11-19.png"
+    "hotspotReference": "assets/sources/hub-accesses-marked-2026-11-19.png",
+    "visual": {
+      "title": "Mundus Lupis Disco",
+      "codename": "LOBO",
+      "fonts": {
+        "primary": "Cormorant Garamond",
+        "secondary": "Lora",
+        "status": "FilesPending",
+        "excluded": [
+          "Cinzel"
+        ]
+      },
+      "logo": {
+        "sourcePath": "assets/sources/logo-lobo-silhouette.webp",
+        "status": "ReceivedSource",
+        "format": "WebP",
+        "width": 132,
+        "height": 132,
+        "runtimePath": null,
+        "origin": "Arquivo fornecido pelo usuario; URL de origem indicada no briefing"
+      },
+      "palette": {
+        "magenta": "#D946EF",
+        "violet": "#A855F7",
+        "cyan": "#06B6D4",
+        "cyanBright": "#22D3EE",
+        "amber": "#F59E0B",
+        "gold": "#FACC15",
+        "crimson": "#DC2626",
+        "panel": "#0F172A",
+        "panelOpacity": 0.8
+      },
+      "battlePulse": {
+        "period": 2.4,
+        "minimumScale": 1.0,
+        "maximumScale": 1.06,
+        "ringMaximumScale": 1.35,
+        "ringOpacity": 0.7,
+        "ringStroke": 1.5,
+        "minimumTarget": 48
+      },
+      "reducedMotion": false,
+      "eventPanel": {
+        "title": "EVENTO ESPECIAL — EM PREPARAÇÃO",
+        "body": "Área reservada para campanhas, desafios temporários e rotações especiais. Este painel valida a navegação do Hub e será conectado ao sistema de eventos em uma etapa futura."
+      }
+    }
   },
   "video": {
     "fit": "Contain",

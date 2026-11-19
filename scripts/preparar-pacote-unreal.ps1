@@ -16,7 +16,7 @@ if(![IO.Path]::GetFullPath($stage).StartsWith($boundary,[StringComparison]::Ordi
 $files=@('RpgEngineProbe.uproject','Source/RpgEngineProbeEditor.Target.cs','Source/RpgEngineProbe.Target.cs','Source/RpgEngineProbe/RpgEngineProbe.Build.cs','Source/RpgEngineProbe/RpgEngineProbe.cpp','Source/RpgEngineProbe/ProbeArena.h','Source/RpgEngineProbe/ProbeArena.cpp','Source/RpgEngineProbe/ProbeHub.cpp','Source/RpgEngineProbe/CoreProbe.h','Source/RpgEngineProbe/CoreProbe.cpp','Source/RpgEngineProbe/RpgCoreProbeCommandlet.h','Source/RpgEngineProbe/RpgCoreProbeCommandlet.cpp','Config/DefaultEngine.ini','Config/DefaultEditorSettings.ini','Config/DefaultGame.ini')
 $manifest=@()
 foreach($file in $files){$manifest+=@{Original=('experiments/unreal/RpgEngineProbe/'+$file);StagedRelative=$file}}
-foreach($name in @('battle','ability_profile','local_session','team_selection','save_game','reference_encounter','visual_session','arena_layout','battle_presentation','startup_presentation')){
+foreach($name in @('battle','ability_profile','local_session','team_selection','save_game','reference_encounter','visual_session','arena_layout','battle_presentation','startup_presentation','hub_style')){
     $manifest+=@{Original="src/$name.cpp";StagedRelative="Source/RpgEngineProbe/Private/NativeCore/$name.cpp"}
     $manifest+=@{Original="include/rpg/$name.hpp";StagedRelative="Source/RpgEngineProbe/Public/NativeCore/rpg/$name.hpp"}
 }

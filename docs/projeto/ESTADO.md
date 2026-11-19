@@ -89,3 +89,7 @@ Imagem marcada recebida: outdoor com rosto feminino acima do lobo alado→Evento
 ## HUB-01B — ligação gráfica por código
 
 Parser do catálogo local, panorama único, dois acessos e navegação evento/arena/volta implementados para opção -Hub.10 grupos anteriores e5 novos de projeção aprovados; build Editor registrado sem abrir editor/aplicativo/commandlet.37 entradas preparadas, incluindo JSON e JPEG; sem vídeos ou cook/pacote. [Relatório](HUB-01B-IMPLEMENTACAO.md). Aceite visual/fluxo e integração do player continuam pendentes.
+
+## Hub — tema e decisões visuais vigentes
+
+Cormorant Garamond/Lora confirmadas, Cinzel excluída; LOBO é codinome. Logo WebP recebida localmente, sem importação de runtime. Tema, texto do evento, emblema original, pulso e modo estático implementados;5 grupos novos nativos e build Editor aprovados, sem editor/aplicativo aberto. Preparação39 entradas. Fontes reais/logo, aceites visuais, toque e preferência do sistema continuam pendentes. [Relatório](HUB-01C-VISUAL.md). Esta entrega de hub não encerra VIS-01C da arena.

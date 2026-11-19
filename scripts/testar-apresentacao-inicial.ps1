@@ -24,6 +24,12 @@ if errorlevel 1 exit /b 13
 cl.exe %FLAGS% /I"$root/include" "$root/tests/hub_hotspot_tests.cpp" "$build/startup_presentation.obj" /Fo"$build/hub_tests.obj" /Fe"$build/hub_tests.exe" /link /INCREMENTAL:NO
 if errorlevel 1 exit /b 14
 "$build/hub_tests.exe"
+if errorlevel 1 exit /b 15
+cl.exe %FLAGS% /I"$root/include" /c "$root/src/hub_style.cpp" /Fo"$build/hub_style.obj"
+if errorlevel 1 exit /b 16
+cl.exe %FLAGS% /I"$root/include" "$root/tests/hub_style_tests.cpp" "$build/hub_style.obj" /Fo"$build/hub_style_tests.obj" /Fe"$build/hub_style_tests.exe" /link /INCREMENTAL:NO
+if errorlevel 1 exit /b 17
+"$build/hub_style_tests.exe"
 exit /b %ERRORLEVEL%
 "@
 $batchPath=Join-Path $build 'testar.cmd';$batch | Set-Content $batchPath -Encoding ascii
@@ -33,6 +39,9 @@ $passed=$code -eq 0 -and $output -contains 'STARTUP_PRESENTATION_TESTS_RESULT pa
 [ordered]@{CheckedUtc=[DateTime]::UtcNow.ToString('o');Passed=$passed;ExitCode=$code;Groups=10;Scope='Native hub image crop, video contain/orientation request and local metadata; no media playback/window/device execution';EngineExecuted=$false;DeviceRotationExecuted=$false} | ConvertTo-Json | Set-Content (Join-Path $root 'docs/relatorios/atuais/HUB-01A.json') -Encoding utf8
 $hotspotsPassed=$code -eq 0 -and $output -contains 'HUB_HOTSPOT_TESTS_RESULT passed=5 total=5'
 [ordered]@{CheckedUtc=[DateTime]::UtcNow.ToString('o');Passed=$hotspotsPassed;Groups=5;ExitCode=$code;Scope='Native hotspot projection/clipping/hit bounds; not Unreal UI acceptance';EngineExecuted=$false} | ConvertTo-Json | Set-Content (Join-Path $root 'docs/relatorios/atuais/HUB-01B.json') -Encoding utf8
+$stylePassed=$code -eq 0 -and $output -contains 'HUB_STYLE_TESTS_RESULT passed=5 total=5'
+[ordered]@{CheckedUtc=[DateTime]::UtcNow.ToString('o');Passed=$stylePassed;Groups=5;ExitCode=$code;Scope='Native pulse timing, reduced motion and minimum target geometry only';EngineExecuted=$false} | ConvertTo-Json | Set-Content (Join-Path $root 'docs/relatorios/atuais/HUB-01C.json') -Encoding utf8
+if(!$stylePassed){throw 'Hub style tests failed'}
 $output | ForEach-Object {Write-Output $_}
 if(!$hotspotsPassed){throw 'Hub hotspot tests failed'}
 if(!$passed){throw 'Startup presentation tests failed'}

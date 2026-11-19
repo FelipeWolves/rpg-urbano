@@ -248,6 +248,14 @@ Dois acessos da imagem atual definidos: Evento Especial no outdoor e Batalha no 
 
 O contrato de câmera do hub não é o perfil de combate clássico. Perguntas de avatar/destinos permanecem em HUB-01-REFERENCIAS.md. Essa frente não altera ESC-01–07 nem resolve mobile pela compilação Windows.
 
+## Briefing visual do hub — respostas recebidas
+
+**✅ Definido:** Evento Especial neon magenta/roxo/ciano, Batalha âmbar com ícone pulsante/legenda, áreas ampliadas e feedback; fundo escuro80%; nome provisório e textos do painel recebidos; nenhuma ilustração adicional exigida. As posições já confirmadas não precisam ser respondidas novamente.
+
+**✅ Respondido/implementado:** Cormorant Garamond principal/Lora complementar, Cinzel excluída; LOBO é codinome; logo WebP recebida; pulso, alvo mínimo e movimento reduzido definidos. Tema/emblema implementados,5 novos grupos nativos e compilação Unreal aprovados. **⚠️ Restante técnico:** arquivos/importação das fontes e logo de runtime; aceite visual de contraste/recortes/textos, toque/foco, preferência de acessibilidade do sistema e persistência. Não repetir escolhas encerradas. [Detalhes](HUB-01C-VISUAL.md).
+
+Não altera o core ou os destinos já implementados. Fonte atual do usuário: BRIEFING-VISUAL-HUB.md.
+
 ## Registro histórico e rastreabilidade
 
 As tabelas PEN/VAL e atualizações datadas a seguir registram a evolução. Linhas antigas como “não implementado” não substituem os aceites posteriores. Para estado vigente usar a síntese acima, [ESTADO.md](ESTADO.md) e o [painel](../batalhas/PAINEL-BLOCOS.md). Histórico anterior à consolidação preservado em [PENDENCIAS.md.txt](historico/2026-11-18/PENDENCIAS.md.txt).

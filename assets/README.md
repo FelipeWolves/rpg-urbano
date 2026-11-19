@@ -13,3 +13,5 @@ Prefira fundo sem textos/botões: interface, recursos e rótulos ficarão em cam
 Arquivos grandes precisam de estratégia de versionamento antes do primeiro commit. Não instalar Git LFS ou incluir vídeos/fontes pesados automaticamente. Importação para Content da Unreal e inclusão no pacote serão passos próprios, sem editar cópias geradas.
 
 Ready no catálogo significa arquivo presente/cadastrado; não significa renderer/player integrado. Mídias locais estão ignoradas no Git até decidir versionamento. Para outra cópia do projeto, transferir os arquivos separadamente pelos caminhos do catálogo.
+
+Logo fornecida pelo usuário em19/11/2026: assets/sources/logo-lobo-silhouette.webp (132×132,1234 bytes). Original preservado, ignorado no Git; sem conversão ou importação de runtime. Origem indicada no briefing visual; auditoria independente de direitos não realizada. Cormorant Garamond/Lora escolhidas; arquivos de fontes ainda não recebidos.

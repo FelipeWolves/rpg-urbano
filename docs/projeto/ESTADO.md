@@ -1,5 +1,11 @@
 # Estado do projeto
 
+## ENG-01 — instalação confirmada, integração pendente (18/11/2026)
+
+✅ Metadados confirmam UE5.8.4 em D:\Unreal Engine\UE_5.8, build58902052, editor/UBT presentes e runtime.NET10 empacotado. MSVC14.52 fora das faixas proibidas, mas não preferido; SDK26100 no intervalo local declarado. Compatibilidade real ainda exige build.
+
+Relatório docs/projeto/ENG-01-INSTALACAO.md; JSON ENG-01-INSTALACAO.json. Instalação somente lida, sem executar componentes ou alterá-la.213 testes prévios reaproveitados. Próximo: projeto C++ de avaliação separado e compilação UBT em etapa específica; editor ainda fechado. ENG-01 aberto.
+
 ## ENG-01 — preparação sem editor concluída (18/11/2026)
 
 ✅ Codec do save separado do armazenamento Windows, formato v1 preservado e números independentes de locale. **213/213 testes aprovados**; dois novos grupos verificam formato fixo e locale em executável sem o adaptador de armazenamento. Relatório docs/projeto/ENG-01-PREPARACAO-SEM-EDITOR.md, aceite COMBATE-ENG-01-PREPARACAO.json e codec-testes.csv.

@@ -1,0 +1,69 @@
+{
+  "Data": "2026-11-18",
+  "Escopo": "Somente leitura de metadados da engine indicada; zero componentes executados",
+  "EngineRoot": "D:\\Unreal Engine\\UE_5.8",
+  "Version": {
+    "MajorVersion": 5,
+    "MinorVersion": 8,
+    "PatchVersion": 4,
+    "Changelist": 58902052,
+    "CompatibleChangelist": 55116800,
+    "IsLicenseeVersion": 0,
+    "IsPromotedBuild": 1,
+    "BranchName": "++UE5+Release-5.8"
+  },
+  "Checks": [
+    {
+      "RelativePath": "Engine/Build/InstalledBuild.txt",
+      "Present": true
+    },
+    {
+      "RelativePath": "Engine/Binaries/Win64/UnrealEditor.exe",
+      "Present": true
+    },
+    {
+      "RelativePath": "Engine/Binaries/Win64/UnrealEditor-Core.dll",
+      "Present": true
+    },
+    {
+      "RelativePath": "Engine/Binaries/DotNET/UnrealBuildTool/UnrealBuildTool.dll",
+      "Present": true
+    },
+    {
+      "RelativePath": "Engine/Build/BatchFiles/Build.bat",
+      "Present": true
+    },
+    {
+      "RelativePath": "Engine/Binaries/ThirdParty/DotNet/10.0/win-x64/dotnet.exe",
+      "Present": true
+    }
+  ],
+  "WindowsSDK": {
+    "MainVersion": "10.0.22621.0",
+    "MinVersion": "10.0.19041.0",
+    "MaxVersion": "10.9.99999.0"
+  },
+  "Compiler": {
+    "PreferredVisualCppVersions": [
+      "14.50.35717-14.50.99999",
+      "14.44.35207-14.44.99999"
+    ],
+    "BannedVisualCppVersions": [
+      "14.50.0-14.50.35722",
+      "14.44.0-14.44.35210",
+      "14.40.0-14.43.99999",
+      "14.39.0-14.39.99999"
+    ],
+    "MinimumVisualCppVersion": "14.38.33130"
+  },
+  "InstalledMSVC": "14.52.37025",
+  "CompilerVerdict": "Acima do minimo, fora das faixas proibidas listadas, fora das preferidas; build UBT pendente",
+  "UBTRuntime": {
+    "name": "Microsoft.NETCore.App",
+    "version": "10.0.0"
+  },
+  "EditorOpened": false,
+  "BuildExecuted": false,
+  "CompleteIntegrityVerified": false,
+  "StandaloneTestsReused": 213
+}

@@ -1,10 +1,10 @@
 {
   "Data": "2026-11-18",
   "Escopo": "ENG-01 parte1 avaliacao somente; sem instalacao/editor/build engine",
-  "Status": "avaliacao_documental_concluida_integracao_pendente",
+  "Status": "instalacao_confirmada_por_metadados_build_engine_pendente",
   "Candidata": "Unreal Engine5.8.4",
   "DecisaoDefinitiva": false,
-  "EditorInstaladoConfirmadoPeloUsuario": false,
+  "EditorInstaladoConfirmadoPeloUsuario": true,
   "Toolchain": {
     "DotnetSDK": "11.0.100",
     "VS": "18.12.12412.261",
@@ -23,10 +23,10 @@
   "Matriz": [
     {
       "Area": "Engine",
-      "Local": "Editor nao instalado, confirmado pelo usuario",
+      "Local": "UE5.8.4 instalada; raiz D:\\Unreal Engine\\UE_5.8",
       "Referencia": "UE 5.8.4 hotfix publicada",
-      "Estado": "Candidata para avaliacao, nao adotada",
-      "Proxima": "Decisao do usuario antes de instalar"
+      "Estado": "Presenca/versao confirmadas; build pendente",
+      "Proxima": "Experimento C++ isolado"
     },
     {
       "Area": "Preview",
@@ -46,7 +46,7 @@
       "Area": "MSVC",
       "Local": "14.52.37025 e 14.29.30133 presentes",
       "Referencia": "14.50 recomendado",
-      "Estado": "14.52 ainda nao validado por UBT",
+      "Estado": "14.52 nao proibido nem preferido na configuracao instalada; build pendente",
       "Proxima": "Ler versoes aceitas da engine; nao forcar compilador rejeitado"
     },
     {
@@ -140,5 +140,7 @@
   ],
   "InstalacaoManualPeloUsuario": true,
   "PreparacaoSemEditor": "Codec separado do armazenamento Windows; locale fixo e formato v1 preservado",
-  "VersaoEmInstalacaoManual": "5.8.4"
+  "VersaoEmInstalacaoManual": "5.8.4",
+  "InstalacaoVerificada": "D:\\Unreal Engine\\UE_5.8",
+  "VerificacaoDetalhada": "ENG-01-INSTALACAO.json"
 }

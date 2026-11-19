@@ -60,3 +60,7 @@ Usuário informou que fará pessoalmente a instalação do editor. Não abrir la
 ## Preparação autorizada durante a instalação
 
 Usuário iniciou instalação manual5.8.4. Concluída a separação do codec e do I/O Windows com compatibilidade v1 e locale estável;213/213 testes standalone. Relatório [ENG-01-PREPARACAO-SEM-EDITOR.md](ENG-01-PREPARACAO-SEM-EDITOR.md). A tarefa de separar essas responsabilidades deixou de ser apenas plano; adaptação de armazenamento da engine e integração UE continuam pendentes. Nenhum editor/launcher aberto.
+
+## Instalação recebida e verificada
+
+UE5.8.4 em D:\Unreal Engine\UE_5.8 confirmada somente por metadados. Relatório [ENG-01-INSTALACAO.md](ENG-01-INSTALACAO.md). Fonte local detalha preferências/proibições do compilador; integração ainda não executada. Nenhuma instalação/engine modificada ou executada pelo agente.

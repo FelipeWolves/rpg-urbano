@@ -49,3 +49,7 @@ Inventário seletivo, fontes oficiais, candidata UE5.8.4 e matriz de compatibili
 ## 2026-11-18 — preparação independente do editor
 
 Codec de save separado do adaptador Windows. Formato v1 preservado, códigos explícitos e locale estável. Dois grupos novos e regressão completa:213/213 aprovados. Instalação manual UE5.8.4 em andamento; sem executar engine.
+
+## 2026-11-18 — engine instalada, leitura confirmada
+
+Metadados UE5.8.4/CL58902052, ferramentas e requisitos locais registrados. Zero execução/escrita na engine; nenhum teste de gameplay repetido. ENG-01 continua aberto até compilação/integração reais.

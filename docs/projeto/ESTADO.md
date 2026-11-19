@@ -6,7 +6,7 @@ Atualizado em 19/11/2026. Esta é a síntese vigente; registros anteriores estã
 
 ## Prioridade vigente
 
-Entrega documental: [central de materiais por grupo](../../entregas/README.md) criada para pesquisa/produção independente do usuário. Guias e índice versionados; recebidos locais ignorados até revisão. Na retomada, ler apenas novidades pertinentes antes de implementar. Próxima correção de código continua sendo o seletor no chão; não iniciada por esta organização. Nenhum programa/teste de gameplay executado nesta entrega.
+Entrega documental: [central de materiais por grupo](../../entregas/README.md) criada para pesquisa/produção independente do usuário. Guias e índice versionados; recebidos locais ignorados até revisão. Na retomada, ler apenas novidades pertinentes antes de implementar. Seletor posteriormente corrigido e aceito; próxima frente proposta é a apresentação mobile testável. Nenhum programa/teste de gameplay executado nesta entrega.
 
 Escudo padrão por habilidade implementado conforme ESC-01 a ESC-07:1% do PV máximo do aplicador, floor e mínimo de1 ponto na aplicação válida,3 oportunidades naturais do protegido e reaplicação por maiores propriedades. Removido na morte do protegido e transições comuns; morte do aplicador não interfere. [Contrato/evidências](ESCUDO-PADRAO.md). Decisões não precisam ser respondidas novamente.
 
@@ -100,6 +100,8 @@ Atualização vigente da identidade: fontes Cormorant Garamond/Lora e PNG da log
 
 ### Fechamento e próxima entrega
 
-✅ Usuário confirmou texto sem corte, seleção funcional e batalha conforme combinado. Fontes/logo conectadas; aceite integral ainda parcial. ⚠️ Próximo: seletor no chão sob a unidade, sem sobrepor a esfera. Investigar apresentação mobile separadamente; fluidez aguarda critérios. Prévia por Abrir-Preview.cmd; editor por Abrir-Editor.cmd, ambos usando build aprovado. Nesta entrega final só se validaram os lançadores sem abrir programas. [Evidências](HUB-IDENTIDADE.md).
+✅ Usuário confirmou texto sem corte, seleção funcional e batalha conforme combinado. Fontes/logo conectadas; aceite integral ainda parcial. ✅ Seletor no chão corrigido e aceito visualmente pelo usuário. Investigar apresentação mobile separadamente; fluidez aguarda critérios. Prévia por Abrir-Preview.cmd; editor por Abrir-Editor.cmd, ambos usando build aprovado. Nesta entrega final só se validaram os lançadores sem abrir programas. [Evidências](HUB-IDENTIDADE.md).
 
-Seletor: correção por linhas3D com profundidade junto à base do modelo implementada; aceite visual delegado ao usuário, sem abrir a prévia nesta entrega. [Escopo e roteiro](VIS-SELETOR-CHAO.md). Não altera regras nem resolve mobile/fluidez; próximo passo é conferir a correção.
+Seletor: correção por linhas3D com profundidade junto à base do modelo implementada e posteriormente aceita visualmente pelo usuário; o assistente não abriu a prévia nessa entrega. [Escopo e roteiro](VIS-SELETOR-CHAO.md). Não altera regras nem resolve mobile/fluidez; não repetir esse aceite sem mudança ou defeito novo.
+
+Mobile: [proposta revisada e sequência mínima](MOBILE-PLANO-REVISAO.md). HUD atual é Canvas, não UMG; preview/renderizador não troca automaticamente DeviceProfile Windows. Próxima implementação a planejar: apresentação Desktop/Mobile/Auto separada de plataforma, antes de presumir migração UMG ou instalar SDK. Sem implementação nova por esta revisão.

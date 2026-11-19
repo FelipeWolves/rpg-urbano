@@ -42,10 +42,12 @@ Não há independência absoluta. Entregar fontes editáveis, arquivo final, ver
 - Revisar somente o escopo alterado; testes de combate completos apenas se houver mudança/dependência pertinente. Arte recebida não significa integração aprovada.
 - O usuário acompanha o saldo de uso; não há acesso do assistente ao limite diário nem garantia de quantos blocos caberão nele.
 
-Prioridade imediata após o fechamento: corrigir seletor sobreposto à esfera, validar sob a unidade e então continuar a matriz visual. Texto sem corte confirmado pelo usuário; seleção e batalha funcionais no relato. Apresentação mobile e fluidez permanecem separadas, sem causa/regra inventada.
+Seletor corrigido e aceito pelo usuário. Próximo: planejar apresentação mobile e continuar a matriz visual restante, sem repetir o aceite do seletor. Texto sem corte confirmado pelo usuário; seleção e batalha funcionais no relato. Apresentação mobile e fluidez permanecem separadas, sem causa/regra inventada.
 
 ## Trabalho independente durante a pausa
 
 Guias detalhados por grupo e pastas de recebimento em [entregas/README.md](../../entregas/README.md). Ali estão separados: informação que falta, recurso que pode ser produzido agora, trabalho que exige código e dependência futura. Receber material não inicia automaticamente um bloco. Ao retomar, conferir somente novidades, reconciliar com pendências e manter a ordem crítica deste plano.
 
-Seletor: correção por linhas3D com profundidade junto à base do modelo implementada; aceite visual delegado ao usuário, sem abrir a prévia nesta entrega. [Escopo e roteiro](VIS-SELETOR-CHAO.md). Não altera regras nem resolve mobile/fluidez; próximo passo é conferir a correção.
+Seletor: correção por linhas3D com profundidade junto à base do modelo implementada e posteriormente aceita visualmente pelo usuário; o assistente não abriu a prévia nessa entrega. [Escopo e roteiro](VIS-SELETOR-CHAO.md). Não altera regras nem resolve mobile/fluidez; não repetir esse aceite sem mudança ou defeito novo.
+
+Mobile: [proposta revisada e sequência mínima](MOBILE-PLANO-REVISAO.md). HUD atual é Canvas, não UMG; preview/renderizador não troca automaticamente DeviceProfile Windows. Próxima implementação a planejar: apresentação Desktop/Mobile/Auto separada de plataforma, antes de presumir migração UMG ou instalar SDK. Sem implementação nova por esta revisão.

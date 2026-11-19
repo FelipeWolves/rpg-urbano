@@ -119,8 +119,8 @@ Hub — tema: ✅ parâmetros, emblema e movimento reduzido por código;5 grupos
 
 Atualização vigente da identidade: fontes Cormorant Garamond/Lora e PNG da logo conectados ao HUD; fontes locais com OFL, sem instalação global.44 entradas preparadas; ver [resultado e limites](../projeto/HUB-IDENTIDADE.md). [Sequência e entregas independentes](../projeto/PROXIMAS-FASES.md); [percentuais revisados](../projeto/PROGRESSO-GERAL.md). Esta atualização prevalece sobre menções anteriores de fontes/logo ainda não recebidas.
 
-Aceite do usuário: ✅ texto sem corte, seleção e funcionamento básico de batalha; ⚠️ seletor sobreposto, apresentação mobile e fluidez pendentes. Não encerra VIS integral. [Registro](../projeto/HUB-IDENTIDADE.md).
+Aceite do usuário: ✅ texto sem corte, seleção e funcionamento básico de batalha; ✅ seletor corrigido e aceito; ⚠️ apresentação mobile e fluidez pendentes. Não encerra VIS integral. [Registro](../projeto/HUB-IDENTIDADE.md).
 
 Coleta independente: [guias por grupo e recebimento](../../entregas/README.md). Organização documental concluída; nenhum bloco de combate recebeu novo aceite por esta entrega. Pendências REG/SIS/VIS permanecem na fonte central e contratos fechados não foram reabertos.
 
-Seletor: código corrigido para profundidade3D; ⚠️ aceite visual pendente do usuário. [Limites](../projeto/VIS-SELETOR-CHAO.md). Não encerra VIS integral.
+Seletor: código corrigido para profundidade3D; ✅ aceite visual do usuário recebido. [Limites](../projeto/VIS-SELETOR-CHAO.md). Não encerra VIS integral.

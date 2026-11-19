@@ -4,11 +4,11 @@ Prioridade: **P1 — primeiro**. Guia de preparação, não autorização de imp
 
 ## Já existente — não reenviar decisões fechadas
 
-Texto sem corte aceito; seleção/batalha funcionais no relato. Seletor sobre a esfera é defeito conhecido. VIS-01/02/03 mantêm aceite parcial.
+Texto sem corte aceito; seleção/batalha funcionais no relato. Seletor no chão corrigido e aceito visualmente pelo usuário. VIS-01/02/03 mantêm aceite parcial.
 
 ## O que você pode reunir ou responder
 
-- [ ] Para o seletor, uma referência de posição no chão e preferência de símbolo/cor pode ajudar; o defeito já está registrado, não precisa provar novamente.
+- [x] Seletor no chão corrigido e aceito; não precisa reenviar prova nem nova preferência para fechar esse defeito.
 - [ ] Para fluidez, descreva uma sequência concreta: o que ocorre hoje, o que espera, qual espera/transição incomoda; vídeo curto é opcional.
 - [ ] Informe resolução, escala do Windows e tamanho da janela nos problemas visuais; não precisa enviar dados pessoais.
 - [ ] Liste textos que ficam difíceis de ler, estados sem indicação e gestos desejados de clique/toque/segurar.

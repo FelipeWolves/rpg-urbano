@@ -25,3 +25,5 @@ Pesquisa disponível agora; instalação/configuração só com autorização pr
 Coloque documentos/imagens/vídeos desta área em **recebidos/**, nesta pasta. Pode entregar parcialmente; use NÃO SEI / PROPOSTA / REFERÊNCIA / DECISÃO DESEJADA. Copie o modelo geral se ajudar. Não sobrescreva versões anteriores. Arquivos recebidos ficam locais e não entram automaticamente no Git.
 
 [Instruções gerais](../README.md) · [Modelo](../MODELO-ENTREGA.md) · [Pendências vigentes](../../docs/projeto/PENDENCIAS.md).
+
+[Revisão das sugestões e limites atuais](../../docs/projeto/MOBILE-PLANO-REVISAO.md): não precisa instalar BlueStacks; ferramentas/perfis devem ser verificados antes do uso. Canvas atual não tem Designer UMG; preview Windows não comprova Android/iOS.

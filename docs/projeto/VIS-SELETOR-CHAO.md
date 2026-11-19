@@ -14,4 +14,4 @@ Build Editor: docs/relatorios/atuais/VIS-SELETOR-BUILD.json. Nenhum editor, jogo
 4. Trocar alvo e confirmar ação; o marcador deve acompanhar a seleção e desaparecer quando ela for limpa.
 5. Se houver problema, informar captura e resolução em entregas/01-interface-e-testes/recebidos. Não é necessário repetir toda a batalha.
 
-Aceite visual pendente do usuário. Apresentação mobile e fluidez permanecem tarefas separadas; demais aceites VIS continuam parciais. Percentuais mantidos por ser correção pontual ainda sem aceite visual.
+Aceite visual confirmado pelo usuário após a correção. Apresentação mobile e fluidez permanecem tarefas separadas; demais aceites VIS continuam parciais. Percentuais mantidos: o aceite pontual não fecha o conjunto VIS nem mobile.

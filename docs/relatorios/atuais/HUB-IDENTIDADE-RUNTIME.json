@@ -12,10 +12,10 @@
   "UserConfirmed": [
     "Final text no longer clips",
     "Selection works",
-    "Battle behaves as discussed"
+    "Battle behaves as discussed",
+    "Subsequent world-depth selector correction accepted visually by user"
   ],
   "OpenIssues": [
-    "Selection marker overlaps the character sphere; should be beneath on the ground",
     "Expected mobile presentation did not load; cause not yet identified",
     "Battle flow polish requires concrete acceptance criteria"
   ],

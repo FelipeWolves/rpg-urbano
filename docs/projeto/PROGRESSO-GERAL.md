@@ -68,8 +68,10 @@ Preservar projeto3D, recursos e licença/autoria, além do arquivo de vídeo fin
 - Referência nova de hub: [HUB-01-REFERENCIAS.md](HUB-01-REFERENCIAS.md). Escudo atual: [ESCUDO-PADRAO.md](ESCUDO-PADRAO.md).
 
 
-Fechamento: texto sem corte e batalha/seleção confirmados pelo usuário; seletor/mobile/fluidez continuam pendentes. Percentuais acima revisados e mantidos nesta etapa documental, sem aumento por commit ou lançadores.
+Fechamento: texto sem corte e batalha/seleção confirmados pelo usuário; seletor corrigido e aceito; mobile/fluidez continuam pendentes. Percentuais acima revisados e mantidos nesta etapa documental, sem aumento por commit ou lançadores.
 
 Organização da coleta: [central por área](../../entregas/README.md). Todos os percentuais foram revisados e permanecem iguais nesta entrega exclusivamente documental; guias/pastas não representam funcionalidade nova. O índice de recebimento não deve ser usado para calcular progresso do jogo.
 
-Correção pontual do seletor implementada, sem aceite visual ainda; percentuais mantidos. [Relatório](VIS-SELETOR-CHAO.md).
+Correção pontual do seletor implementada e aceita pelo usuário; percentuais mantidos. [Relatório](VIS-SELETOR-CHAO.md).
+
+Revisão mobile documental: percentuais mantidos; seletor aceito no protótipo, sem fechar VIS integral. Canvas/UMG e preview/dispositivo esclarecidos em MOBILE-PLANO-REVISAO.md; não houve implantação mobile.

@@ -33,7 +33,7 @@ Próxima ordem e entregas independentes: [PROXIMAS-FASES.md](PROXIMAS-FASES.md).
 
 O usuário confirmou na compilação final que o texto não corta mais, a seleção responde e a batalha funciona conforme o combinado. A última inspeção do assistente foi interrompida pelo Escape físico; o aceite do texto é relato explícito do usuário, não inspeção final automatizada.
 
-Pendências: seletor aparece sobre a esfera e deve ficar no chão sob a unidade; apresentação esperada no modo mobile não carregou (causa não identificada, janela vertical não troca plataforma); fluidez de batalha precisa de exemplos/critério antes de alterar tempos ou regras. Próxima entrega pequena: corrigir apenas a posição do seletor e validar visualmente. Mobile permanece investigação separada.
+Pendências atualizadas: seletor corrigido e aceito pelo usuário; apresentação esperada no modo mobile não carregou (causa não identificada, janela vertical não troca plataforma); fluidez de batalha precisa de exemplos/critério antes de alterar tempos ou regras. Correção da posição do seletor encerrada no protótipo atual. Mobile permanece investigação separada.
 
 Abrir-Preview.cmd inicia a última compilação aprovada indicada por HUB-IDENTIDADE-BUILD.json; Abrir-Editor.cmd abre o mesmo projeto no editor sem iniciar Play automaticamente. Ambos validam caminhos, não compilam/instalam nada e respeitam a política de scripts. Se o Windows bloquear scripts, não contornar a política. O editor pode gerar caches normais. O projeto em build/p é cópia gerada: alterações nele não voltam ao código canônico; cenas/assets que quisermos preservar precisam de transferência revisada para a estrutura canônica antes de nova preparação. Não substituir a origem por arquivos gerados implicitamente.
 

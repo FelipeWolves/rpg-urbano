@@ -7,7 +7,7 @@ Atualizado em 19/11/2026. [Checklist histórico integral](historico/2026-11-18/T
 - [x] Organizar [coleta por grupos](../../entregas/README.md), modelo de entrega e pastas recebidos locais.
 - [ ] Usuário: reunir os itens que conseguir, começando por mobile/fluidez e regras ainda abertas; entregas parciais são válidas.
 - [ ] Retomada: inventariar novos materiais, comparar contratos, registrar conflitos e selecionar uma entrega implementável. Não repetir análises concluídas nem mover originais sem revisão.
-- [ ] Próxima mudança de código após a coleta pertinente: seletor no chão, com aceite visual.
+- [x] Seletor no chão implementado e aceito visualmente pelo usuário; encerrado no protótipo atual.
 
 Ordem detalhada e frentes independentes em [PROXIMAS-FASES.md](PROXIMAS-FASES.md). Primeiro fechar aceite visual atual; depois UI pequena/mobile e player, sem esperar catálogo completo de habilidades. Percentuais revisados em [PROGRESSO-GERAL.md](PROGRESSO-GERAL.md).
 
@@ -132,6 +132,8 @@ Não interrompe nem encerra o aceite VIS atual.
 
 ### Fechamento e próxima entrega
 
-✅ Usuário confirmou texto sem corte, seleção funcional e batalha conforme combinado. Fontes/logo conectadas; aceite integral ainda parcial. ⚠️ Próximo: seletor no chão sob a unidade, sem sobrepor a esfera. Investigar apresentação mobile separadamente; fluidez aguarda critérios. Prévia por Abrir-Preview.cmd; editor por Abrir-Editor.cmd, ambos usando build aprovado. Nesta entrega final só se validaram os lançadores sem abrir programas. [Evidências](HUB-IDENTIDADE.md).
+✅ Usuário confirmou texto sem corte, seleção funcional e batalha conforme combinado. Fontes/logo conectadas; aceite integral ainda parcial. ✅ Seletor no chão corrigido e aceito visualmente pelo usuário. Investigar apresentação mobile separadamente; fluidez aguarda critérios. Prévia por Abrir-Preview.cmd; editor por Abrir-Editor.cmd, ambos usando build aprovado. Nesta entrega final só se validaram os lançadores sem abrir programas. [Evidências](HUB-IDENTIDADE.md).
 
-Seletor: correção por linhas3D com profundidade junto à base do modelo implementada; aceite visual delegado ao usuário, sem abrir a prévia nesta entrega. [Escopo e roteiro](VIS-SELETOR-CHAO.md). Não altera regras nem resolve mobile/fluidez; próximo passo é conferir a correção.
+Seletor: correção por linhas3D com profundidade junto à base do modelo implementada e posteriormente aceita visualmente pelo usuário; o assistente não abriu a prévia nessa entrega. [Escopo e roteiro](VIS-SELETOR-CHAO.md). Não altera regras nem resolve mobile/fluidez; não repetir esse aceite sem mudança ou defeito novo.
+
+Mobile: [proposta revisada e sequência mínima](MOBILE-PLANO-REVISAO.md). HUD atual é Canvas, não UMG; preview/renderizador não troca automaticamente DeviceProfile Windows. Próxima implementação a planejar: apresentação Desktop/Mobile/Auto separada de plataforma, antes de presumir migração UMG ou instalar SDK. Sem implementação nova por esta revisão.

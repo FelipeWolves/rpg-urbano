@@ -66,3 +66,5 @@ Fechamento do hub: [aceite do usuário e acesso independente](projeto/HUB-IDENTI
 [Central de entregas do usuário](../entregas/README.md): guias por área, modelo, índice e pastas locais para materiais ainda não revisados. Não duplica nem substitui contratos fechados.
 
 [Seletor no chão](projeto/VIS-SELETOR-CHAO.md): correção3D com profundidade, aceite visual do usuário pendente.
+
+[Planejamento mobile revisado](projeto/MOBILE-PLANO-REVISAO.md): Canvas versus UMG, preview versus dispositivo, ferramentas e sequência proposta.

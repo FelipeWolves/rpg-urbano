@@ -4,6 +4,8 @@ Atualizado em 19/11/2026. [Checklist histórico integral](historico/2026-11-18/T
 
 ## Próxima ação vigente
 
+**Desenvolvimento sem aguardar entregas:** [fila independente AUT-01–16](FILA-DESENVOLVIMENTO-INDEPENDENTE.md). Plano apenas, sem execução. Primeiro bloco proposto: AUT-01, apresentação Desktop/Mobile/Auto; pesquisas do usuário não bloqueiam essa base.
+
 - [x] Organizar [coleta por grupos](../../entregas/README.md), modelo de entrega e pastas recebidos locais.
 - [ ] Usuário: reunir os itens que conseguir, começando por mobile/fluidez e regras ainda abertas; entregas parciais são válidas.
 - [ ] Retomada: inventariar novos materiais, comparar contratos, registrar conflitos e selecionar uma entrega implementável. Não repetir análises concluídas nem mover originais sem revisão.

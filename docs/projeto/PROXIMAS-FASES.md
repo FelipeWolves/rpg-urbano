@@ -51,3 +51,7 @@ Guias detalhados por grupo e pastas de recebimento em [entregas/README.md](../..
 Seletor: correção por linhas3D com profundidade junto à base do modelo implementada e posteriormente aceita visualmente pelo usuário; o assistente não abriu a prévia nessa entrega. [Escopo e roteiro](VIS-SELETOR-CHAO.md). Não altera regras nem resolve mobile/fluidez; não repetir esse aceite sem mudança ou defeito novo.
 
 Mobile: [proposta revisada e sequência mínima](MOBILE-PLANO-REVISAO.md). HUD atual é Canvas, não UMG; preview/renderizador não troca automaticamente DeviceProfile Windows. Próxima implementação a planejar: apresentação Desktop/Mobile/Auto separada de plataforma, antes de presumir migração UMG ou instalar SDK. Sem implementação nova por esta revisão.
+
+## Desenvolvimento que não espera novos materiais
+
+[Plano executável por entregas AUT-01–16](FILA-DESENVOLVIMENTO-INDEPENDENTE.md): ordem, dependências internas, aceite e limites. Complementa esta sequência geral; não agenda nem executa trabalho. Primeiro candidato AUT-01, mantendo ESC/seletor já encerrados.

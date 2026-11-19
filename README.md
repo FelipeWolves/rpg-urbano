@@ -73,3 +73,5 @@ Escudo padrão por habilidade:1% do PV máximo do aplicador, para baixo com mín
 Atualização vigente da identidade: fontes Cormorant Garamond/Lora e PNG da logo conectados ao HUD; fontes locais com OFL, sem instalação global.44 entradas preparadas; ver [resultado e limites](docs/projeto/HUB-IDENTIDADE.md). [Sequência e entregas independentes](docs/projeto/PROXIMAS-FASES.md); [percentuais revisados](docs/projeto/PROGRESSO-GERAL.md). Esta atualização prevalece sobre menções anteriores de fontes/logo ainda não recebidas.
 
 Prévia gráfica atual: **Abrir-Preview.cmd**. Para abrir o mesmo projeto na Unreal, use **Abrir-Editor.cmd** (não inicia Play). Ambos exigem o build local aprovado; não baixam nem compilam. Orientações e limites em [HUB-IDENTIDADE.md](docs/projeto/HUB-IDENTIDADE.md).
+
+**[Fila de desenvolvimento sem aguardar novas entregas](docs/projeto/FILA-DESENVOLVIMENTO-INDEPENDENTE.md)** — ordem, dependências e critérios para retomar por blocos.

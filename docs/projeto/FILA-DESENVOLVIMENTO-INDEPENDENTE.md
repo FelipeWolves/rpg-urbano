@@ -1,0 +1,101 @@
+# Fila de desenvolvimento independente das entregas
+
+Plano preparado em19/11/2026. **Não executado.** Esta fila usa contratos, recursos locais e exemplos já existentes. Entregas do usuário podem melhorar/substituir recursos e esclarecer extensões, mas não são pré-requisito dos itens classificados como prontos. A retomada depende de disponibilidade/autorização de trabalho; não há execução agendada ou em segundo plano.
+
+## Como ler e executar depois
+
+- **Pronto para iniciar:** informação suficiente no projeto para uma entrega pequena, sem nova decisão de produto.
+- **Após tarefa interna:** depende de outro trabalho nosso, não de envio de material.
+- **Preparação apenas:** podemos construir contrato/interface/fallback, mas não declarar sistema completo antes da decisão ou validação indicada.
+- Os IDs AUT abaixo organizam esta fila; não substituem VIS/ESC/HUB/CIC nem marcam novos blocos como concluídos.
+- Uma tarefa por entrega, seguida de verificação pertinente, documentação e commit local. Não reexecutar suítes inteiras por rotina. Abrir editor/aplicativo, instalar ferramentas ou configurar aparelho continua sujeito às permissões da sessão.
+- Teste nativo, compilação, execução observada e aceite do usuário são evidências diferentes. Sem programa/aparelho, registrar limite e entregar parte verificável; não marcar aceite visual/mobile por compilação.
+
+## Ordem curta recomendada
+
+1. AUT-01: apresentação Desktop/Mobile/Auto testável no Windows.
+2. AUT-02: resolução, proporção e regiões seguras simuladas.
+3. AUT-03: entrada comum para mouse/toque, sem duplicar ações.
+4. AUT-04/05: textos/painéis e matriz visual, incluindo escudo já implementado.
+5. AUT-06/07: controles de habilidade e acessibilidade persistida.
+6. AUT-08/09: fluxo de telas e save já existente ligados à experiência gráfica.
+7. AUT-10/11: base de mídia e demonstração local com os recursos recebidos.
+8. AUT-12–15: infraestrutura de recursos, animação, dados e verificação do pacote.
+
+Se surgir defeito de build/regra, corrigir antes da próxima entrega. A ordem é técnica e pode mudar por dependência identificada, sem obrigar terminar todas as habilidades antes de melhorar telas.
+
+## 1. Apresentação mobile e interação — prioridade alta
+
+| ID / blocos existentes | Estado | Trabalho que cabe ao desenvolvimento | Critério de conclusão / limite |
+|---|---|---|---|
+| AUT-01 — HUB/VIS | Pronto para iniciar | Separar plataforma real da política de apresentação; permitir Desktop/Mobile/Auto configurável no experimento, mantendo Auto como comportamento existente e dados do catálogo | Seleção explícita funciona nos planos de apresentação, entrada inválida tem recusa/fallback claro, desktop preservado. Compilar; execução visual separada. Não é APK nem simulação exata de aparelho |
+| AUT-02 — VIS-03/HUB | Após AUT-01 | Definir tamanhos de teste retrato/paisagem, região de conteúdo e margens seguras configuráveis; aplicar posições/hitboxes aos limites visíveis usando panorama atual | Geometria verificada em resoluções representativas, sem controles fora da área disponível. Insets simulados não provam notch/gestos físicos; nenhuma imagem nova exigida |
+| AUT-03 — VIS-02/03 | Pronto para iniciar; integrar após AUT-02 | Separar ponteiro de comando; adaptar clique/toque/pressionar/soltar/cancelar mantendo gesto curto e prolongado; evitar mouse+touch duplicarem a ação | Casos de cancelamento, consulta sem atacar, troca de alvo e um comando por gesto. Sem alterar o resolvedor. Integração real de toque pede teste apropriado |
+
+Canvas atual pode atender ao primeiro ensaio. UMG não é migração obrigatória para começar. Se uma entrega UMG pequena demonstrar vantagem, avaliar antes de adotá-la; não reescrever arena/core nem criar uma arquitetura extensa preventivamente. [Limites do preview](MOBILE-PLANO-REVISAO.md).
+
+## 2. Interface, habilidades e escudo — prioridade alta
+
+| ID / blocos existentes | Estado | Trabalho que cabe ao desenvolvimento | Critério de conclusão / limite |
+|---|---|---|---|
+| AUT-04 — VIS-01/02/HUB | Pronto para iniciar | Medição de texto, quebra de linhas, rolagem/paginação e fechamento de painéis; permitir descrições completas sem sobrepor botões | Texto longo/acentos e janela pequena tratados; consulta não consome ação. Usar textos e fontes atuais, sem aguardar ilustração |
+| AUT-05 — VIS-01/03 + ESC | Pronto para iniciar | Preparar cenas/casos de inspeção 1/3/5 e assimetrias com unidades provisórias e regras existentes; conferir faixa/ícone/painel do escudo em aplicação, consumo, reaplicação e expiração | Roteiro repetível com valores esperados e possibilidade de conferir sem jogar uma batalha inteira. Executar apenas os testes/aceites ainda faltantes; preservar combate e roster da demonstração padrão |
+| AUT-06 — VIS-02/HAB | Após AUT-03/04 | Apresentar básica, posição passiva, ativa, recarga, cadeado e indisponibilidade como estados distintos; foco/seleção e mensagem de recusa consistente | Passiva consultável não executável; recarga numérica e motivos coerentes com dados existentes. Usar símbolos/formas originais provisórias; não inventar silêncio/custos ainda sem contrato |
+| AUT-07 — VIS/HUB/CIC | Após AUT-02/03 | Opções de texto/contraste/foco e movimento reduzido; salvar preferências locais de apresentação separadas do progresso do combate | Preferência restaurada, arquivo inválido tratado sem perder progresso; modo sem movimento preservado. Preferência automática do SO só quando API/comportamento forem verificados |
+
+**Não refazer ESC-01–07:** fórmula, mínimo1, duração3, relógio, absorção, reaplicação e remoção estão implementados/testados. Falta apresentação integrada onde ainda não houve aceite. O seletor no chão já foi corrigido e aceito pelo usuário; recurso final para Shipping/terreno irregular é outra tarefa (AUT-12), não reabertura desse defeito.
+
+## 3. Fluxo de telas, equipe, resultado e persistência
+
+| ID / blocos existentes | Estado | Trabalho que cabe ao desenvolvimento | Critério de conclusão / limite |
+|---|---|---|---|
+| AUT-08 — HUB/CIC/VIS | Pronto para iniciar | Estruturar estados de tela e retorno usando o fluxo atual: hub, evento provisório, equipe, arena, resultado; impedir ação/automação indevida atrás de painel | Transições explícitas; ida/volta não reinicia, duplica recompensa ou dispara ações inesperadas. Sem inventar login, loja, campanha ou conteúdo de evento |
+| AUT-09 — CIC-01 | Após AUT-08 | Expor seleção do catálogo atual de 1–5 IDs e resumo de resultado/recompensa; conectar codec/save v1 já existente ao fluxo gráfico por adaptador de armazenamento | Validar equipe, recompensa única, salvar/carregar progresso e iniciar nova tentativa conforme contrato; falha de arquivo visível e recuperável. Não restaurar combate nem inventar migração/sincronização de conta |
+
+Telas podem usar componentes simples e dados fictícios claramente identificados. Isso permite depois inserir arte/roteiro autorais sem pedir esses arquivos para cada avanço de engenharia.
+
+## 4. Abertura, vídeos e áudio — base independente, produto condicionado
+
+| ID / blocos existentes | Estado | Trabalho que cabe ao desenvolvimento | Critério de conclusão / limite |
+|---|---|---|---|
+| AUT-10 — HUB/ENG | Preparação apenas | Criar interface/estados de mídia local e ligação com planos de proporção existentes: preparar, reproduzir, terminar, falhar e cancelar; fallback direto ao hub quando indisponível | Contrato e fluxo verificáveis sem player/hardware. Usar mídias recebidas; não decidir ainda regras definitivas de repetição/pular/áudio/retomada |
+| AUT-11 — HUB/AUD | Após AUT-10; preparação parcial | Provar backend de reprodução local em ensaio isolado usando APIs instaladas, com tamanho/codec tratados como validação por plataforma; abrir/fechar recurso e retornar ao hub | Reprodução só aprovada onde efetivamente testada. Sem download/plugin antecipado. Integrar regras de interrupção/legendas/volume apenas após contrato; orientação real e áudio final não se resolvem pela interface abstrata |
+
+Não exigir vídeo novo para construir o contrato; não confundir MP4 presente no disco com player implementado. As perguntas de produto permanecem em entregas/06-video-e-cinematics e08-audio-musica-e-dj.
+
+## 5. Recursos gráficos e dados — prioridade média
+
+| ID / blocos existentes | Estado | Trabalho que cabe ao desenvolvimento | Critério de conclusão / limite |
+|---|---|---|---|
+| AUT-12 — VIS/ENG/ART | Pronto para iniciar em entrega própria | Substituir marcador DrawDebugLine por recurso de apresentação de runtime com profundidade; definir âncora de pés/solo, ciclo de criação/limpeza e configuração visual | Círculo/losango equivalentes sem dependência de desenho de debug; respeita seleção/morte/limpeza. Build Shipping e terreno variável precisam de verificação própria; não exige modelo final |
+| AUT-13 — VIS/ART | Preparação apenas | Definir adaptador de eventos para poses/animação/efeitos, separando início visual, impacto e término; usar formas provisórias e eventos existentes | Falta de animação não bloqueia combate nem aplica dano duas vezes. Não adicionar tempos de gameplay/fluidez como regra definitiva sem critério; animação final depende de rig/recurso |
+| AUT-14 — HAB/ENG | Preparação apenas | Organizar esquema versionado, IDs, validação e mensagens para dados já representados pelo cenário existente; mapear diferenças antes de trocar definições em código por arquivo | Paridade do cenário existente e rejeição explícita de dados inválidos; não criar catálogo de efeitos/regras ausentes. Preferir componente mínimo, sem refatoração global antecipada |
+
+Personagens definitivos, cenário final, música e roteiro não são necessários para esses adaptadores. A entrega artística poderá usar os pontos de integração depois. Não prometer estética final com formas provisórias.
+
+## 6. Empacotamento e qualidade — prioridade contínua
+
+| ID / blocos existentes | Estado | Trabalho que cabe ao desenvolvimento | Critério de conclusão / limite |
+|---|---|---|---|
+| AUT-15 — ENG/VIS/HUB | Pronto para preparar; executar após mudanças pertinentes | Consolidar manifesto de fontes/dados/recursos, reproduzir stage e verificar pacote Windows atualizado quando autorizado; registrar ambiente, entrada, saída e falhas sem dados pessoais | Diagnóstico local e roteiro reproduzível; build/cook/abertura somente com autorização aplicável. Nenhum download automático nem exigência de loja/servidor |
+| AUT-16 — ENG/QA | Pronto para preparar | Organizar seleção de verificações por área alterada e cenários de fumaça para hub/equipe/batalha/resultado/save, com evidências separadas | Rodar somente cobertura pertinente quando houver mudança; não somar testes independentes como aceite de produto. Windows limpo e mobile dependem de ambiente real |
+
+## Fora da fila autônoma de implementação completa
+
+Estes tópicos podem receber estudo/interface, mas exigem definição/dados/ambiente antes de fechamento:
+
+- REG-03/SIS: semântica nova de silêncio/supressão, fórmulas gerais, cura/HP máximo mutável, equipamentos, ATB e novas categorias. Não escolher regras de produto para preencher lacunas.
+- PvE: score, fases por HP, modos novos e exceções entre equipes ainda sem contrato; não generalizar PAR-02 para todos.
+- Arte, rig, música, narrativa, logo/publicação e direitos: usar provisórios próprios quando possível; material final depende de produção/aprovação.
+- Android/iOS completos: aparelho, SDK/NDK/JDK ou Mac/Xcode compatíveis e permissões. Pode adiantar política/layout Windows, mas não comprovar desempenho mobile.
+- Login, compras, lojas, nuvem, servidor e multiplayer: escopo/serviços/credenciais não definidos; não iniciar instalações/contas/custos.
+
+**Independente de suas entregas não significa independente de dependências técnicas, autorização ou critérios de produto.** Se uma tarefa pronta terminar, podemos seguir para outra da fila quando você retomar, sem esperar pesquisas de todas as áreas.
+
+## Primeiro bloco proposto para a retomada
+
+AUT-01 somente: opção Desktop/Mobile/Auto e aplicação ao plano do hub com a mídia atual, preservando comportamento Auto existente. Verificar seleção/recortes e compilação; fornecer instrução para visualizar sem afirmar teste em aparelho. AUT-02 e os demais continuam planejados, sem execução por este documento.
+
+## Rastreabilidade
+
+Este plano não altera percentuais nem aceites. Estado: todos os AUT **planejados**, nenhum iniciado nesta entrega. [Tarefas](TAREFAS.md), [pendências](PENDENCIAS.md), [fases gerais](PROXIMAS-FASES.md), [central de materiais](../../entregas/README.md). Quando iniciar, registrar implementação, verificações, limites e commit por tarefa, mantendo fechado o que já foi aceito.

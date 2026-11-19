@@ -75,3 +75,5 @@ Organização da coleta: [central por área](../../entregas/README.md). Todos os
 Correção pontual do seletor implementada e aceita pelo usuário; percentuais mantidos. [Relatório](VIS-SELETOR-CHAO.md).
 
 Revisão mobile documental: percentuais mantidos; seletor aceito no protótipo, sem fechar VIS integral. Canvas/UMG e preview/dispositivo esclarecidos em MOBILE-PLANO-REVISAO.md; não houve implantação mobile.
+
+Plano AUT-01–16 criado em FILA-DESENVOLVIMENTO-INDEPENDENTE.md; nenhuma tarefa executada, percentuais mantidos. Planejamento não é implementação.

@@ -44,3 +44,7 @@ Estados: **recebido → revisado → esclarecimento necessário ou pronto para i
 Os READMEs, modelo e índice entram no Git. Todo conteúdo dentro de **recebidos/** é ignorado até revisão: isso evita commitar mídia grande ou dados acidentais. Portanto **push não faz backup dos materiais recebidos**. Mantenha uma cópia sua. Em outra máquina, as subpastas vazias recebidos podem ser criadas manualmente.
 
 Os recursos já enviados continuam em assets; não precisam ser movidos ou duplicados. Sem sobrescrever originais ou apagar histórico. Não entregar senhas, tokens, certificados privados, dados de conta nem arquivos protegidos do jogo de referência. Para referência pública, basta fonte/link/data/patch e observação; não precisa baixar clientes, extrair recursos ou pesquisar todos os sistemas antes de ajudar.
+
+## O projeto não precisa esperar todas as entregas
+
+Enquanto você reúne material, há uma [fila independente de engenharia](../docs/projeto/FILA-DESENVOLVIMENTO-INDEPENDENTE.md). Pesquisas opcionais não bloqueiam esses itens prontos. A fila não representa trabalho executado nem substitui decisões de produto ainda abertas.

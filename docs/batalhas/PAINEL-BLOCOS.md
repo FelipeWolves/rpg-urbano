@@ -124,3 +124,5 @@ Aceite do usuário: ✅ texto sem corte, seleção e funcionamento básico de ba
 Coleta independente: [guias por grupo e recebimento](../../entregas/README.md). Organização documental concluída; nenhum bloco de combate recebeu novo aceite por esta entrega. Pendências REG/SIS/VIS permanecem na fonte central e contratos fechados não foram reabertos.
 
 Seletor: código corrigido para profundidade3D; ✅ aceite visual do usuário recebido. [Limites](../projeto/VIS-SELETOR-CHAO.md). Não encerra VIS integral.
+
+Planejamento transversal: [AUT-01–16](../projeto/FILA-DESENVOLVIMENTO-INDEPENDENTE.md). AUT significa tarefa autônoma de desenvolvimento nesta fila, sem substituir VIS/ESC/HUB/CIC. Todos planejados; nenhum novo aceite ou execução nesta entrega.

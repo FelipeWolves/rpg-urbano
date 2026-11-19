@@ -68,3 +68,5 @@ Fechamento do hub: [aceite do usuário e acesso independente](projeto/HUB-IDENTI
 [Seletor no chão](projeto/VIS-SELETOR-CHAO.md): correção3D com profundidade, aceite visual do usuário pendente.
 
 [Planejamento mobile revisado](projeto/MOBILE-PLANO-REVISAO.md): Canvas versus UMG, preview versus dispositivo, ferramentas e sequência proposta.
+
+[Fila independente de desenvolvimento](projeto/FILA-DESENVOLVIMENTO-INDEPENDENTE.md): tarefas possíveis com recursos/contratos existentes, sem aguardar a coleta do usuário; plano não executado.

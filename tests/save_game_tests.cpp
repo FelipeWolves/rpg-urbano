@@ -1,6 +1,6 @@
 #define NOMINMAX
 #include <windows.h>
-#include "rpg/save_game.hpp"
+#include "rpg/save_store.hpp"
 #include <chrono>
 #include <fstream>
 #include <iostream>

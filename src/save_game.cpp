@@ -1,14 +1,11 @@
-#define NOMINMAX
-#include <windows.h>
 #include "rpg/save_game.hpp"
 #include <algorithm>
 #include <charconv>
-#include <fstream>
+#include <locale>
 #include <sstream>
 
 namespace rpg {
 namespace {
-constexpr std::size_t max_bytes=1024*1024;
 void validate(const SavedGame& game){
     if(game.version!=1 || (game.profile!=CombatProfile::Team && game.profile!=CombatProfile::Classic) ||
        game.selected.empty() || game.selected.size()>5){throw SaveError("Save: versao, perfil ou equipe invalidos.");}
@@ -23,7 +20,7 @@ void validate(const SavedGame& game){
 }
 struct Reader {
     std::istringstream input;
-    explicit Reader(std::string_view data):input(std::string{data}){}
+    explicit Reader(std::string_view data):input(std::string{data}){input.imbue(std::locale::classic());}
     std::string token(){std::string text;if(!(input>>text)){throw SaveError("Save truncado.");}return text;}
     void expect(std::string_view value){if(token()!=value){throw SaveError("Save: campo inesperado.");}}
     std::uint64_t number(){const auto text=token();std::uint64_t value=0;
@@ -32,17 +29,17 @@ struct Reader {
 };
 }
 std::string encode_save(const SavedGame& game){
-    validate(game);std::ostringstream out;
+    validate(game);std::ostringstream out;out.imbue(std::locale::classic());
     out<<"RPG_URBANO_SAVE 1\nprofile "<<(game.profile==CombatProfile::Team?"team":"classic")
        <<"\nattempt "<<game.progress.attempt<<"\ncredits "<<game.progress.credits<<"\nteam "<<game.selected.size();
     for(const auto& id:game.selected){out<<' '<<id;}
     out<<"\ncompletions "<<game.progress.completions.size()<<'\n';
     for(const auto& c:game.progress.completions){out<<c.attempt<<' '<<(c.winner?(*c.winner==Team::A?"A":"B"):"none")
-        <<' '<<static_cast<int>(c.reason)<<' '<<c.actions<<' '<<c.credits<<'\n';}
+        <<' '<<(c.reason==EndReason::Elimination?0:c.reason==EndReason::ActionLimit?1:2)<<' '<<c.actions<<' '<<c.credits<<'\n';}
     out<<"end\n";return out.str();
 }
 SavedGame decode_save(std::string_view data){
-    if(data.empty() || data.size()>max_bytes){throw SaveError("Save: tamanho invalido.");}
+    if(data.empty() || data.size()>max_save_bytes){throw SaveError("Save: tamanho invalido.");}
     Reader in(data);in.expect("RPG_URBANO_SAVE");if(in.number()!=1){throw SaveError("Save: versao nao suportada.");}
     SavedGame game;in.expect("profile");const auto profile=in.token();
     if(profile!="team" && profile!="classic"){throw SaveError("Save: perfil invalido.");}
@@ -53,30 +50,9 @@ SavedGame decode_save(std::string_view data){
     in.expect("completions");const auto count=in.number();if(count>4096){throw SaveError("Save: historico excedido.");}
     for(std::uint64_t i=0;i<count;++i){LocalCompletion c{};c.attempt=in.number();const auto winner=in.token();
         if(winner=="A"){c.winner=Team::A;}else if(winner=="B"){c.winner=Team::B;}else if(winner!="none"){throw SaveError("Save: vencedor invalido.");}
-        const auto reason=in.number();if(reason>2){throw SaveError("Save: motivo invalido.");}c.reason=static_cast<EndReason>(reason);
+        const auto reason=in.number();if(reason>2){throw SaveError("Save: motivo invalido.");}c.reason=reason==0?EndReason::Elimination:reason==1?EndReason::ActionLimit:EndReason::TechnicalLimit;
         c.actions=in.number();c.credits=in.number();game.progress.completions.push_back(c);}
     in.expect("end");std::string extra;if(in.input>>extra){throw SaveError("Save: dados adicionais inesperados.");}
     validate(game);return game;
-}
-SavedGame load_save(const std::filesystem::path& path){
-    std::ifstream file(path,std::ios::binary);if(!file){throw SaveError("Save ausente ou ilegivel.");}
-    std::string bytes(max_bytes+1,'\0');file.read(bytes.data(),static_cast<std::streamsize>(bytes.size()));
-    const auto size=file.gcount();if(file.bad() || size>static_cast<std::streamsize>(max_bytes)){throw SaveError("Save ilegivel ou muito grande.");}
-    bytes.resize(static_cast<std::size_t>(size));return decode_save(bytes);
-}
-void write_save(const std::filesystem::path& path,const SavedGame& game){
-    const auto bytes=encode_save(game);
-    // Refuse silent replacement of corrupt/unknown-version files.
-    if(std::filesystem::exists(path)){static_cast<void>(load_save(path));}
-    if(!path.parent_path().empty()){std::filesystem::create_directories(path.parent_path());}
-    auto pending=path;pending+=L".pending";
-    const auto handle=CreateFileW(pending.c_str(),GENERIC_WRITE,0,nullptr,CREATE_NEW,FILE_ATTRIBUTE_NORMAL,nullptr);
-    if(handle==INVALID_HANDLE_VALUE){throw SaveError("Nao foi possivel criar o save temporario; arquivo anterior preservado.");}
-    DWORD written=0;
-    bool ok=WriteFile(handle,bytes.data(),static_cast<DWORD>(bytes.size()),&written,nullptr)!=0 && written==bytes.size();
-    if(ok){ok=FlushFileBuffers(handle)!=0;}
-    const bool closed=CloseHandle(handle)!=0;ok=ok && closed;
-    if(ok){ok=MoveFileExW(pending.c_str(),path.c_str(),MOVEFILE_REPLACE_EXISTING|MOVEFILE_WRITE_THROUGH)!=0;}
-    if(!ok){DeleteFileW(pending.c_str());throw SaveError("Falha ao gravar; save anterior preservado.");}
 }
 } // namespace rpg

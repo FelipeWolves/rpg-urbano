@@ -45,3 +45,7 @@ Save manual v1 de seleção/progresso em build/saves; continuar valida e abre no
 ## 2026-11-18 — ENG-01 avaliação documental
 
 Inventário seletivo, fontes oficiais, candidata UE5.8.4 e matriz de compatibilidade/roteiro registrados em Markdown/CSV/JSON. Editor ainda não instalado, nenhuma execução/instalação de engine ou mudança de gameplay. 211 testes anteriores reaproveitados.
+
+## 2026-11-18 — preparação independente do editor
+
+Codec de save separado do adaptador Windows. Formato v1 preservado, códigos explícitos e locale estável. Dois grupos novos e regressão completa:213/213 aprovados. Instalação manual UE5.8.4 em andamento; sem executar engine.

@@ -18,7 +18,7 @@
   "DiscoLivreGiB": 212.1,
   "Hardware": "Reutilizado de FERRAMENTAS.md; CIM indisponivel nesta verificacao",
   "Sondagem": "Locais padrao e registros especificos; sem busca global ou leitura de jogos/contas",
-  "TestesStandalone": 211,
+  "TestesStandalone": 213,
   "TestesEngineExecutados": 0,
   "Matriz": [
     {
@@ -72,10 +72,10 @@
     },
     {
       "Area": "Persistencia",
-      "Local": "Codec e I/O Windows em save_game.cpp",
+      "Local": "save_game.cpp codec; save_store_windows.cpp I/O",
       "Referencia": "Ambiente UE tem diretorios e APIs proprios",
-      "Estado": "Adaptador de armazenamento pendente",
-      "Proxima": "Nao incluir app/main nem substituir save do console"
+      "Estado": "Separacao validada no standalone",
+      "Proxima": "Adaptar armazenamento/caminho da engine e testar integracao"
     },
     {
       "Area": "Hardware",
@@ -138,5 +138,7 @@
       "Uso": "Fronteira de fontes/bibliotecas; pagina atual5.9, nao prova ABI da5.8"
     }
   ],
-  "InstalacaoManualPeloUsuario": true
+  "InstalacaoManualPeloUsuario": true,
+  "PreparacaoSemEditor": "Codec separado do armazenamento Windows; locale fixo e formato v1 preservado",
+  "VersaoEmInstalacaoManual": "5.8.4"
 }

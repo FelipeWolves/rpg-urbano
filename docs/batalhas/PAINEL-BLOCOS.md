@@ -1,5 +1,11 @@
 # Painel de blocos — estado consolidado
 
+## ENG-01 — preparação sem editor concluída (18/11/2026)
+
+✅ Codec do save separado do armazenamento Windows, formato v1 preservado e números independentes de locale. **213/213 testes aprovados**; dois novos grupos verificam formato fixo e locale em executável sem o adaptador de armazenamento. Relatório docs/projeto/ENG-01-PREPARACAO-SEM-EDITOR.md, aceite COMBATE-ENG-01-PREPARACAO.json e codec-testes.csv.
+
+Usuário instala manualmente UE5.8.4. Nenhuma engine/launcher executado, novo SDK/plugin instalado ou slot do jogador alterado. ⚠️ ENG-01 segue aberto; não houve compilação Unreal ou validação mobile. Próximo: conferir versão/pasta ao terminar a instalação, depois experimento isolado autorizado.
+
 ## ENG-01 parte 1 — avaliação concluída (18/11/2026)
 
 ✅ Inventário seletivo e avaliação documental em docs/projeto/ENG-01.md; matriz CSV/JSON em docs/relatorios/atuais. Usuário confirmou editor não instalado. Candidata para decisão: UE5.8.4 Windows; 5.9 é Preview na consulta. VS2026/SDK têm respaldo documental, mas MSVC14.52, UBT e integração ainda precisam de teste real.
@@ -105,7 +111,7 @@ As siglas são identificadores internos das áreas do projeto, não nomes de fer
 | ✅ CIC-01 | Seleção de equipe, recompensa única e save v1 entre batalhas | Três partes concluídas; seleção 7, recompensa 7, save 7 e interação 18 grupos acumulados; CIC-01-SAVE-R01.md |
 | ✅ Contrato R04 e revisões R01–R03 | Decisões e pesquisa recebida | Fechamento documental; implementação mínima em RES-01 |
 
-Total atual: **211 testes aprovados**, além das matrizes, isolamento intercalado, 1000 simulações funcionais e demonstração. Não é benchmark de servidor ou renderização.
+Total atual: **213 testes aprovados**, além das matrizes, isolamento intercalado, 1000 simulações funcionais e demonstração. Não é benchmark de servidor ou renderização.
 
 ## ⚠️ Implementado que ainda exige revisão obrigatória
 

@@ -242,3 +242,7 @@ Persistir seleção, saldo e ledger em formato textual próprio limitado, sem de
 ## DEC-049 — Candidata de engine sem adoção implícita
 
 Avaliação propõe UE5.8.4 estável para Windows; usuário confirma editor não instalado. Não usar Preview5.9 como base inicial. Ferramentas recentes não substituem build de compatibilidade: MSVC14.52 versus referência14.50 segue pendente. Sem instalação/abertura/escolha definitiva. Fonte única do núcleo preservada, adaptador isolado, sem reaproveitar objetos /MT cegamente. Roteiro e evidências ENG-01.md.
+
+## DEC-050 — Codec independente do armazenamento
+
+Enquanto UE5.8.4 instala manualmente, separar formato de save e I/O Win32. Não alterar versão1 nem regras de gameplay. Fixar locale e mapeamento dos motivos para não depender de ambiente/enum interno. Verificar codec sem vincular adaptador, preservar regressões Windows.213/213 testes; nenhuma conclusão de compatibilidade Unreal/mobile.

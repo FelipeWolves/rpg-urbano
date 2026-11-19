@@ -1,5 +1,11 @@
 # Tarefas
 
+## ENG-01 — preparação sem editor concluída (18/11/2026)
+
+✅ Codec do save separado do armazenamento Windows, formato v1 preservado e números independentes de locale. **213/213 testes aprovados**; dois novos grupos verificam formato fixo e locale em executável sem o adaptador de armazenamento. Relatório docs/projeto/ENG-01-PREPARACAO-SEM-EDITOR.md, aceite COMBATE-ENG-01-PREPARACAO.json e codec-testes.csv.
+
+Usuário instala manualmente UE5.8.4. Nenhuma engine/launcher executado, novo SDK/plugin instalado ou slot do jogador alterado. ⚠️ ENG-01 segue aberto; não houve compilação Unreal ou validação mobile. Próximo: conferir versão/pasta ao terminar a instalação, depois experimento isolado autorizado.
+
 ## ENG-01 parte 1 — avaliação concluída (18/11/2026)
 
 ✅ Inventário seletivo e avaliação documental em docs/projeto/ENG-01.md; matriz CSV/JSON em docs/relatorios/atuais. Usuário confirmou editor não instalado. Candidata para decisão: UE5.8.4 Windows; 5.9 é Preview na consulta. VS2026/SDK têm respaldo documental, mas MSVC14.52, UBT e integração ainda precisam de teste real.
@@ -124,7 +130,7 @@ Uma entrega por vez. Ordem por área, criticidade e dependências, conforme docs
 
 ## Próximo bloco executável
 
-ENG-01 parte 2: após decisão específica da versão/destino, instalar editor Windows ou conferir instalação feita pelo usuário; ler requisitos reais e só então realizar experimento C++ isolado autorizado. Não abrir engine nem instalar por inferência.
+ENG-01: aguardar conclusão da instalação manual5.8.4 e receber caminho para conferir metadados. Preparação de persistência independente do editor concluída,213 testes; depois build/ponte isolados autorizados. Não executar launcher/editor automaticamente.
 
 ## Encerramento de cada entrega
 

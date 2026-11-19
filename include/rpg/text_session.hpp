@@ -1,7 +1,7 @@
 #pragma once
 #include "rpg/team_selection.hpp"
 #include "rpg/local_session.hpp"
-#include "rpg/save_game.hpp"
+#include "rpg/save_store.hpp"
 #include <iosfwd>
 
 namespace rpg::presentation {

@@ -131,3 +131,7 @@ LocalSession coordena ProfileBattle e LocalProgress, executa comandos e apura co
 ## Persistência — CIC-01 parte 3
 
 SavedGame encapsula versão, perfil, IDs e LocalProgress, sem Snapshot de combate. Codec valida limites/gramática; validate_progress verifica ledger e créditos antes de LocalSession::restore_progress importar em sessão intacta com novo ID. Aplicativo verifica perfil/catálogo e usa slots ancorados na localização do executável; TextSession recebe opções de persistência explícitas. I/O atual é Windows, separado por funções de load/write; futura plataforma exige adaptador e testes. Sem dados da engine serializados.
+
+## Fronteira de persistência preparada
+
+Save codec em save_game.hpp/.cpp não depende de Win32 nem filesystem. save_store.hpp expõe I/O por caminho e save_store_windows.cpp implementa console Windows. Limite de bytes compartilhado, locale clássico e códigos v1 explícitos. A engine deverá fornecer armazenamento apropriado sem duplicar regras de dados; ponte ainda não executada.

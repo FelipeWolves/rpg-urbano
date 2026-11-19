@@ -1,8 +1,9 @@
 #pragma once
 #include "rpg/local_session.hpp"
-#include <filesystem>
+#include <cstddef>
 #include <stdexcept>
 namespace rpg {
+inline constexpr std::size_t max_save_bytes=1024*1024;
 class SaveError:public std::runtime_error {public:using std::runtime_error::runtime_error;};
 struct SavedGame {
     std::uint32_t version=1;
@@ -13,6 +14,4 @@ struct SavedGame {
 };
 [[nodiscard]] std::string encode_save(const SavedGame& game);
 [[nodiscard]] SavedGame decode_save(std::string_view data);
-[[nodiscard]] SavedGame load_save(const std::filesystem::path& path);
-void write_save(const std::filesystem::path& path,const SavedGame& game);
 } // namespace rpg

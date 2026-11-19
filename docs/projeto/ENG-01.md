@@ -56,3 +56,7 @@ Resultados estruturados: ../relatorios/atuais/ENG-01.json e ENG-01-matriz.csv. C
 ## Instalação manual escolhida pelo usuário
 
 Usuário informou que fará pessoalmente a instalação do editor. Não abrir launcher, iniciar download/instalador, aceitar termos ou modificar componentes por conta própria. Após conclusão, conferir apenas a versão e a pasta fornecidas, sem abrir editor; teste de compilação/abertura permanece etapa específica autorizada. Recomenda-se candidata UE5.8.4 Windows para o experimento; adoção final depende do teste.
+
+## Preparação autorizada durante a instalação
+
+Usuário iniciou instalação manual5.8.4. Concluída a separação do codec e do I/O Windows com compatibilidade v1 e locale estável;213/213 testes standalone. Relatório [ENG-01-PREPARACAO-SEM-EDITOR.md](ENG-01-PREPARACAO-SEM-EDITOR.md). A tarefa de separar essas responsabilidades deixou de ser apenas plano; adaptação de armazenamento da engine e integração UE continuam pendentes. Nenhum editor/launcher aberto.

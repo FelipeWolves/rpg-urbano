@@ -7,8 +7,11 @@ Atualizado em 19/11/2026. [Checklist histórico integral](historico/2026-11-18/T
 **Desenvolvimento sem aguardar entregas:** [fila independente AUT-01–16](FILA-DESENVOLVIMENTO-INDEPENDENTE.md). Plano apenas, sem execução. Primeiro bloco proposto: AUT-01, apresentação Desktop/Mobile/Auto; pesquisas do usuário não bloqueiam essa base.
 
 - [x] Organizar [coleta por grupos](../../entregas/README.md), modelo de entrega e pastas recebidos locais.
-- [ ] Usuário: reunir os itens que conseguir, começando por mobile/fluidez e regras ainda abertas; entregas parciais são válidas.
-- [ ] Retomada: inventariar novos materiais, comparar contratos, registrar conflitos e selecionar uma entrega implementável. Não repetir análises concluídas nem mover originais sem revisão.
+- [x] Receber e estudar12 documentos dos grupos00–11; propostas e divergências mapeadas, sem código novo.
+- [x] Inventariar versões recebidas e comparar com contratos; [revisão e conflitos](REVISAO-ENTREGAS-2026-11-20.md). Originais preservados.
+- [ ] Quando o usuário informar limite/disponibilidade e retomar: AUT-01, depoisAUT-02/03/04; estudar só novas versões de material, não repetir as12leituras.
+- [ ] Conferir caminhos/compatibilidadeSDK/NDK/JDK/AVD existentes; Android Studio instalado, sem instalação/configuração automática. [Matriz de teste](ANDROID-DEPENDENCIAS.md).
+- [ ] ResolverENT específico antes da família de regras/player/tutorial correspondente; isso não bloqueia a base de interface.
 - [x] Seletor no chão implementado e aceito visualmente pelo usuário; encerrado no protótipo atual.
 
 Ordem detalhada e frentes independentes em [PROXIMAS-FASES.md](PROXIMAS-FASES.md). Primeiro fechar aceite visual atual; depois UI pequena/mobile e player, sem esperar catálogo completo de habilidades. Percentuais revisados em [PROGRESSO-GERAL.md](PROGRESSO-GERAL.md).

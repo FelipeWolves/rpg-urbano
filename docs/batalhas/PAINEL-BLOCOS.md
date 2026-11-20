@@ -126,3 +126,5 @@ Coleta independente: [guias por grupo e recebimento](../../entregas/README.md). 
 Seletor: código corrigido para profundidade3D; ✅ aceite visual do usuário recebido. [Limites](../projeto/VIS-SELETOR-CHAO.md). Não encerra VIS integral.
 
 Planejamento transversal: [AUT-01–16](../projeto/FILA-DESENVOLVIMENTO-INDEPENDENTE.md). AUT significa tarefa autônoma de desenvolvimento nesta fila, sem substituir VIS/ESC/HUB/CIC. Todos planejados; nenhum novo aceite ou execução nesta entrega.
+
+20/11:12 entregas estudadas e integradas ao planejamento. [REG/SIS/HAB e conflitosENT](../projeto/REVISAO-ENTREGAS-2026-11-20.md); nenhum aceite novo de implementação. ESC/R04/seletor preservados. [DependênciasAndroid](../projeto/ANDROID-DEPENDENCIAS.md).

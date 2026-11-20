@@ -1,5 +1,7 @@
 # Core, habilidades, efeitos e fórmulas
 
+**Atualização20/11:** material desta área estudado; [matriz e pendências específicas](../../docs/projeto/REVISAO-ENTREGAS-2026-11-20.md). Guia abaixo preservado como roteiro; não precisa responder novamente o que já entregou. Revisão integrada ao planejamento, não ao código.
+
 Prioridade: **P1/P2 — antes de cada família**. Guia de preparação, não autorização de implementação automática.
 
 ## Já existente — não reenviar decisões fechadas

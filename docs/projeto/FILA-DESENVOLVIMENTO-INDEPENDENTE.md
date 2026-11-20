@@ -2,6 +2,12 @@
 
 Plano preparado em19/11/2026. **Não executado.** Esta fila usa contratos, recursos locais e exemplos já existentes. Entregas do usuário podem melhorar/substituir recursos e esclarecer extensões, mas não são pré-requisito dos itens classificados como prontos. A retomada depende de disponibilidade/autorização de trabalho; não há execução agendada ou em segundo plano.
 
+## Atualização após estudo das12 entregas
+
+[Revisão20/11](REVISAO-ENTREGAS-2026-11-20.md) passa a orientar a retomada. AUT-01–04 continuam primeiras entregas de engenharia; não esperam todosENT. AUT-05/06 preservamESC/R04 e não incorporam as novas fichas ainda conflitantes. AUT-07/08 têm decisões recebidas de visual/navegação, comENT-04/13 antes de mudar comportamento/paleta. AUT-09 usa savev1; expansão/cross-save dependeENT-12/15. AUT-10/11 agora têm requisitos de primeira abertura, legendas, fallback e rotação; fecharENT-09 antes do player integrado, sem prometer transcodificação/downscale leve. AUT-12/13 aproveitam pivô/escala/eventos propostos; arquivos3D/rig não chegaram. AUT-14 só formaliza dados fechados, sem promover molduras/fórmulas automaticamente. AUT-15/16 ganham [matrizAndroid](ANDROID-DEPENDENCIAS.md), masStudio instalado não étoolchain pronto. TodosAUT continuam planejados; nenhum executado por esta revisão.
+
+Iniciar somente após o usuário informar disponibilidade de limite/retomada. A revisão documental não aciona desenvolvimento em segundo plano.
+
 ## Como ler e executar depois
 
 - **Pronto para iniciar:** informação suficiente no projeto para uma entrega pequena, sem nova decisão de produto.

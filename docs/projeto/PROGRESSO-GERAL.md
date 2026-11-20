@@ -77,3 +77,5 @@ Correção pontual do seletor implementada e aceita pelo usuário; percentuais m
 Revisão mobile documental: percentuais mantidos; seletor aceito no protótipo, sem fechar VIS integral. Canvas/UMG e preview/dispositivo esclarecidos em MOBILE-PLANO-REVISAO.md; não houve implantação mobile.
 
 Plano AUT-01–16 criado em FILA-DESENVOLVIMENTO-INDEPENDENTE.md; nenhuma tarefa executada, percentuais mantidos. Planejamento não é implementação.
+
+Estudo das12 entregas em20/11: informações recebidas e tarefas refinadas; percentuais mantidos, sem funcionalidade nova. Metas de produção ampliadas (67 capítulos,DJ,PvP,lojas,online) ainda precisam de recorte contratual;15%–20% permanece estimativa histórica provisória, não percentual recalculado desse escopo comercial ampliado. Android Studio instalado não aumenta maturidade mobile por si só. Ver REVISAO-ENTREGAS-2026-11-20.md.

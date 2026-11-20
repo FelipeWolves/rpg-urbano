@@ -4,7 +4,7 @@ Revisão documental em19/11/2026. Orientações trazidas pelo usuário foram tra
 
 ## Estado real do projeto
 
-Unreal5.8.4 instalada; HUD em AHUD/Canvas C++ (ProbeArena.cpp/ProbeHub.cpp), sem Widget Blueprint/UMG do hub ou arena. Build.cs usa Engine/InputCore/Json/SlateCore, não um módulo de UI UMG implementado. DeviceProfile() retorna Mobile somente quando compilado com PLATFORM_ANDROID ou PLATFORM_IOS; no Windows retorna Desktop. Portanto alterar resolução ou renderizador não altera automaticamente esse ramo do nosso código. Isso é uma limitação confirmada da seleção de política; não comprova, sozinho, a causa de toda imagem mobile ausente.
+Unreal 5.8.4 instalada; HUD em AHUD/Canvas C++ (ProbeArena.cpp/ProbeHub.cpp), sem Widget Blueprint/UMG do hub ou arena. Build.cs usa Engine/InputCore/Json/SlateCore, não um módulo de UI UMG implementado. DeviceProfile() retorna Mobile somente quando compilado com PLATFORM_ANDROID ou PLATFORM_IOS; no Windows retorna Desktop. Portanto alterar resolução ou renderizador não altera automaticamente esse ramo do nosso código. Isso é uma limitação confirmada da seleção de política; não comprova, sozinho, a causa de toda imagem mobile ausente.
 
 Seletor no chão: corrigido e aceito visualmente pelo usuário. Não é pendência mobile nem motivo para repetir testes. Referência: VIS-SELETOR-CHAO.md.
 
@@ -48,3 +48,7 @@ As páginas públicas consultadas podem abrir na versão corrente5.9; usar conce
 - [Ferramentas Android via Turnkey](https://dev.epicgames.com/documentation/unreal-engine/automated-android-sdk-ndk-and-jdk-setup-in-unreal-engine).
 - [Android Emulator na Unreal](https://dev.epicgames.com/documentation/unreal-engine/debugging-unreal-engine-projects-with-virtual-devices-using-the-android-emulator?lang=en-US).
 - [Remote Build iOS](https://dev.epicgames.com/documentation/unreal-engine/creating-remote-builds-of-unreal-engine-projects-for-ios).
+
+## Informação posterior recebida —20/11
+
+Não falta mais escolha genérica: Windows→Android→iOS;AVD8 GB desejado,S23 Ultra disponível depois,retrato e mesma imagem de hub. A janela vertical anterior não eraAPK. Studio instalado em D:\Android confirmado por metadados; [estado real de toolchain/testes](ANDROID-DEPENDENCIAS.md). A política atual ainda éCanvas; sugestõesUMG não autorizam migração automática. [Revisão dos12 documentos](REVISAO-ENTREGAS-2026-11-20.md).

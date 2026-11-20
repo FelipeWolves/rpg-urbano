@@ -75,3 +75,5 @@ Atualização vigente da identidade: fontes Cormorant Garamond/Lora e PNG da log
 Prévia gráfica atual: **Abrir-Preview.cmd**. Para abrir o mesmo projeto na Unreal, use **Abrir-Editor.cmd** (não inicia Play). Ambos exigem o build local aprovado; não baixam nem compilam. Orientações e limites em [HUB-IDENTIDADE.md](docs/projeto/HUB-IDENTIDADE.md).
 
 **[Fila de desenvolvimento sem aguardar novas entregas](docs/projeto/FILA-DESENVOLVIMENTO-INDEPENDENTE.md)** — ordem, dependências e critérios para retomar por blocos.
+
+Pesquisa recebida: [revisão dos12 grupos e retomada](docs/projeto/REVISAO-ENTREGAS-2026-11-20.md). Android Studio instalado; [dependências/testes ainda necessários](docs/projeto/ANDROID-DEPENDENCIAS.md). Nenhuma instalação ou execução automática.

@@ -6,6 +6,8 @@ Atualizado em 19/11/2026. Esta é a síntese vigente; registros anteriores estã
 
 ## Prioridade vigente
 
+**Revisão20/11:**12 entregas estudadas e integradas ao planejamento, não ao código. [Síntese/matriz/ENT-01–15](REVISAO-ENTREGAS-2026-11-20.md). Android Studio confirmado emD:\Android; SDK/NDK/AVD/compatibilidade ainda não confirmados. Nenhum programa executado, componente instalado ou teste de gameplay nesta revisão. RetomarAUT-01 e diagnósticoAndroid apenas quando houver limite/disponibilidade informados pelo usuário. Não reler tudo nem reabrirESC/seletor.
+
 Entrega documental: [central de materiais por grupo](../../entregas/README.md) criada para pesquisa/produção independente do usuário. Guias e índice versionados; recebidos locais ignorados até revisão. Na retomada, ler apenas novidades pertinentes antes de implementar. Seletor posteriormente corrigido e aceito; próxima frente proposta é a apresentação mobile testável. Nenhum programa/teste de gameplay executado nesta entrega.
 
 Escudo padrão por habilidade implementado conforme ESC-01 a ESC-07:1% do PV máximo do aplicador, floor e mínimo de1 ponto na aplicação válida,3 oportunidades naturais do protegido e reaplicação por maiores propriedades. Removido na morte do protegido e transições comuns; morte do aplicador não interfere. [Contrato/evidências](ESCUDO-PADRAO.md). Decisões não precisam ser respondidas novamente.

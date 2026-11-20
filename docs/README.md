@@ -70,3 +70,5 @@ Fechamento do hub: [aceite do usuário e acesso independente](projeto/HUB-IDENTI
 [Planejamento mobile revisado](projeto/MOBILE-PLANO-REVISAO.md): Canvas versus UMG, preview versus dispositivo, ferramentas e sequência proposta.
 
 [Fila independente de desenvolvimento](projeto/FILA-DESENVOLVIMENTO-INDEPENDENTE.md): tarefas possíveis com recursos/contratos existentes, sem aguardar a coleta do usuário; plano não executado.
+
+[Revisão das12 entregas](projeto/REVISAO-ENTREGAS-2026-11-20.md): informações recebidas, conflitosENT e roteiro de retomada. [Android Studio e dependências de teste](projeto/ANDROID-DEPENDENCIAS.md): instalação confirmada,toolchain/AVD ainda não validados.

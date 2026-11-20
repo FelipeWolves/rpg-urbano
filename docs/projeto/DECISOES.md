@@ -258,3 +258,7 @@ Compilar fontes nativos com runtime/flags do UBT em vez de ligar objetos /MT. Ge
 ## DEC-053 — Runtime por commandlet, comparação exata
 
 Usar commandlet própria sem papéis de cliente/servidor/editor para a bateria, em vez de inicialização geral do editor. Run permanece único, com saída determinada pelo resultado. Exigir1 marcador completo e código0 em2 processos independentes, limite180s e hashes do build verificados. Ponte Windows concluída, sem fechar aceites gráficos/mobile/pacote.
+
+## Direção recebida para planejamento —20/11/2026
+
+Preservar núcleoC++ independente e adaptadorUnrealC++, sem migração automática de arquitetura.12 documentos foram estudados; laboratório sembackend,produção conectada,Windows→Android→iOS e demo autoral pequena são direções recebidas. Propostas numéricas/semânticas conflitantes não substituem contratos fechados. Fonte vigente de análise: [matrizENT](REVISAO-ENTREGAS-2026-11-20.md). Não marcar decisões desejadas como implementadas.

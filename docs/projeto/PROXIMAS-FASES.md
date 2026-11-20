@@ -55,3 +55,7 @@ Mobile: [proposta revisada e sequência mínima](MOBILE-PLANO-REVISAO.md). HUD a
 ## Desenvolvimento que não espera novos materiais
 
 [Plano executável por entregas AUT-01–16](FILA-DESENVOLVIMENTO-INDEPENDENTE.md): ordem, dependências internas, aceite e limites. Complementa esta sequência geral; não agenda nem executa trabalho. Primeiro candidato AUT-01, mantendo ESC/seletor já encerrados.
+
+## Retomada após as12 entregas estudadas —20/11
+
+[Consolidação e divergências](REVISAO-ENTREGAS-2026-11-20.md). PrimeiroAUT-01→02→03→04 e diagnóstico da instalaçãoAndroid existente, quando o usuário informar limite. PrototipagemWindows segue sem exigirbackend; AndroidAVD é etapa dedicada antes doS23 Ultra. Demo pequena antecede67 capítulos,clássicoexpandido,DJ,PvP e5 lojas. Nenhum desses sistemas foi implementado pela revisão. [DependênciasAndroid](ANDROID-DEPENDENCIAS.md).

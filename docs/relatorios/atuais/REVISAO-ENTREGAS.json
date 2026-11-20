@@ -1,0 +1,88 @@
+{
+  "ReviewedOn": "2026-11-20",
+  "Scope": "Read all 12 received documents and reconcile planning; no implementation or external-source audit",
+  "SourceFiles": [
+    {
+      "Arquivo": "entregas/00-entrada-geral/recebidos/# Nota Preparatória — Estrutura de Campa.md",
+      "Bytes": "3651",
+      "SHA256": "C13DBCB8B09E48D124592911085B2843EFA130C98C4BB9737D2DD925733B30C5"
+    },
+    {
+      "Arquivo": "entregas/01-interface-e-testes/recebidos/Untitled-3.md",
+      "Bytes": "3593",
+      "SHA256": "ADF1E103D82C046E95BFE8F4800CD3E45EA861C819ECBDC52E2D5738BFAC19D2"
+    },
+    {
+      "Arquivo": "entregas/02-mobile-e-plataformas/recebidos/# Entrega — Mobile, Dispositivos e Desem.md",
+      "Bytes": "4570",
+      "SHA256": "E3282715C5CC2BAA5BC9B78AA0876DE558AEB3F5395034073C3A46C229054B5E"
+    },
+    {
+      "Arquivo": "entregas/03-combate-habilidades/recebidos/# Entrega — Core, Habilidades, Efeitos e.md",
+      "Bytes": "17706",
+      "SHA256": "89680105427AEF040E31C7CA522AD108FCDDBF4EB5AFE4BA5F16CD31025DA146"
+    },
+    {
+      "Arquivo": "entregas/04-modos-pve-e-classico/recebidos/# Entrega — Chefes, Encontros, Eventos e.md",
+      "Bytes": "10124",
+      "SHA256": "239F838C304647DC5A1141141F0A339821814579A7CB23B78BD56984E2C4AA35"
+    },
+    {
+      "Arquivo": "entregas/05-hub-identidade-e-arte2d/recebidos/# Entrega — Hub, Identidade, Menus e Art.md",
+      "Bytes": "6799",
+      "SHA256": "C60B0F9565268B7B4D7654532D00057D055C94662777CCF8C43EEDCCBFBAEEAB"
+    },
+    {
+      "Arquivo": "entregas/06-video-e-cinematics/recebidos/# Entrega — Abertura, Vídeo e Cenas de E.md",
+      "Bytes": "7330",
+      "SHA256": "60CA13F278145C1B58621432417AB1D8AEC8EDBE8C45A77E2DEC7FDF6D07A4BB"
+    },
+    {
+      "Arquivo": "entregas/07-cenarios3d-personagens-animacoes/recebidos/# Entrega — Cenários 3D, Personagens e A.md",
+      "Bytes": "7632",
+      "SHA256": "EAD477861F8AA29BFC47019F82D4D534FA37FFD1F043346C0A1B3674E14CF41A"
+    },
+    {
+      "Arquivo": "entregas/08-audio-musica-e-dj/recebidos/# Entrega — Áudio, Música e Eventual Mod.md",
+      "Bytes": "12964",
+      "SHA256": "48745FCF410B2EB5A58A508F70C91E338723310629E5C6D699DCCAAC65E0C49A"
+    },
+    {
+      "Arquivo": "entregas/09-progressao-inventario-save/recebidos/# Entrega — Progressão, Economia, Equipa.md",
+      "Bytes": "10623",
+      "SHA256": "75ABE6BCF8972612F55CD3535469AE800F9C97F96B5428BFB5563DC7C9BD1D76"
+    },
+    {
+      "Arquivo": "entregas/10-universo-conteudo-textos/recebidos/# Entrega — Universo, Narrativa, Tutoria.md",
+      "Bytes": "11663",
+      "SHA256": "8141EFCF25C5421ABA36EAA981D5A49603A418CF955717D79D0E6868F0124F22"
+    },
+    {
+      "Arquivo": "entregas/11-distribuicao-servicos-e-direitos/recebidos/# Entrega — Distribuição, Serviços e Dir.md",
+      "Bytes": "9545",
+      "SHA256": "CAACC899F69BF0AA3A33D0FBAF75D560DC4D3C2F2B8E079F0A449CEF3AFB281A"
+    }
+  ],
+  "OriginalFilesModified": false,
+  "CodeChanged": false,
+  "GameplayTestsRun": false,
+  "ProgramsLaunched": false,
+  "ToolsInstalled": false,
+  "PlanningReport": "docs/projeto/REVISAO-ENTREGAS-2026-11-20.md",
+  "Conflicts": "ENT-01 through ENT-15; apply only before affected implementation",
+  "Android": {
+    "StudioInstallationConfirmed": true,
+    "Path": "D:/Android",
+    "RegistryVersion": "2026.2.2.9",
+    "BundledJava": "25.0.4",
+    "JavaCompatibilityValidated": false,
+    "SDKPathConfirmed": false,
+    "NDKInstalledConfirmed": false,
+    "AVDConfirmed": false,
+    "EngineLocalSDKConfig": "Engine/Config/Android/Android_SDK.json",
+    "LocalReferenceAPI": "android-36",
+    "LocalReferenceNDK": "27.2.12479018",
+    "APKBuildRun": false
+  },
+  "ResumeCondition": "User indicates budget availability and resumes work"
+}

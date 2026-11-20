@@ -1,6 +1,8 @@
 # Pendências e pontos a esclarecer
 
-## Síntese vigente —19/11/2026
+## Síntese vigente — revisão20/11/2026
+
+**As12 entregas foram estudadas.** [Matriz por grupo e pontos ENT-01–15](REVISAO-ENTREGAS-2026-11-20.md). Recebimento e revisão encerrados para as versões registradas; implementação não iniciada. Informações de aparelho, imagem única, primeiro roteiro e diretrizes de produto já chegaram: não repetir perguntas genéricas. Divergências específicas permanecem antes do contrato afetado. Android Studio instalado em D:\Android; SDK/NDK/AVD ainda não confirmados, ver [dependências](ANDROID-DEPENDENCIAS.md).
 
 Para reunir respostas e recursos por área, use a [central de entregas](../../entregas/README.md). Os guias são listas de preparação, não novas pendências que reabrem ESC/TIME/RES/SEQ/PAR. Este documento continua sendo a fonte das dúvidas/contratos; arquivos recebidos só mudam seu estado depois de revisados.
 
@@ -170,6 +172,8 @@ As respostas ESC também encerram partes dos itens abaixo. **Definido**, **imple
 
 ### REG-01 — defesa clássica e bloqueio automático (explicação9)
 
+**Atualização20/11 — informação recebida:** Grupo03 trouxe chance3%/bases por classe/tetos e mitigação30–50%, que conflita com bloqueio que anulava dano. ENT-01/07/14 precisam reconciliar isso antes de implementação; Defesa atual preservada. [Revisão consolidada](REVISAO-ENTREGAS-2026-11-20.md).
+
 **✅ Definido e implementado:** Defesa clássica continua reduzindo o dano pela metade, para baixo, consumida no fecho de ação que a utilizou ou expirada na próxima oportunidade do dono. Sua redução vem antes da absorção do escudo. Escudo por habilidade, proteção/atributo futuro do clássico e comando Defesa são conceitos distintos. Câmera lateral não habilita defesa no modo Equipes.
 
 **✅ Conceitos futuros já escolhidos pelo usuário:** bloqueio será chance automática de anular dano de ataque, diferente de Defesa; o clássico poderá ter atributo/proteção próprio modificado por equipamentos e também habilidade que conceda o escudo convencional.
@@ -188,6 +192,8 @@ As respostas ESC também encerram partes dos itens abaixo. **Definido**, **imple
 
 ### REG-03 — silêncio, impossibilidade de agir e supressão (explicação11)
 
+**Atualização20/11 — informação recebida:** Matriz concreta recebida no grupo03: silêncio restringeA2/A3, supressão desliga passivas, Freeze/Petrification impedem ação. Não é mais ausência de matriz; falta fechar clocks/extras, pendentes/auras e precedênciaR04 (ENT-06). Diferenciações15/25% são propostas, não código. [Revisão consolidada](REVISAO-ENTREGAS-2026-11-20.md).
+
 **✅ Respondido:** impedimento de ação deve ser chamado “impossibilitado de agir”; Block técnico atual não é o futuro bloqueio probabilístico. A oportunidade natural impossibilitada ainda reduz duração do escudo padrão. Extras/reações não reduzem esse escudo. Sua aplicação não altera relógios de outros efeitos. Básica na posição1 não é silenciada por decisão anterior do projeto, mas pode não ser executada se o personagem estiver impossibilitado de agir.
 
 **✅ Implementado/testado no escopo do escudo:** contagem por oportunidade natural, inclusive Skip; nenhuma perda em extra mesmo com fonte que solicita tick. Terminologia pública atualizada; nome técnico legado preservado.
@@ -200,6 +206,8 @@ As respostas ESC também encerram partes dos itens abaixo. **Definido**, **imple
 
 ### SIS-01 — origem, permissões, âncoras e quotas
 
+**Atualização20/11 — informação recebida:** Grupo03 trouxe molduras, âncoras, scopes e quotas declarativas. Revisar caso a caso e limitações do núcleo; não generalizar esses defaults sobreESC. Esquema anuncia8campos mas enumera7: revisar completude ao formalizar, sem inventar campo. [Revisão consolidada](REVISAO-ENTREGAS-2026-11-20.md).
+
 **✅ Respondido para o escudo padrão:** origem é habilidade, aplicada em si ou em aliado vivo; base é máximo do aplicador no instante de aplicação; estado pertence ao protegido. Âncora é fim de oportunidade natural do protegido, inclusive impossibilitado de agir; extras/reações não contam.3 turnos, mínimo de1 na aplicação válida, maiores força/duração independentemente sem soma, remoção na morte do protegido/transições e nenhuma dependência posterior do aplicador. Expiração não dispara consequência adicional. Categorias prateada/dourada terão regras próprias, não herdadas pela cor.
 
 **✅ Implementado/testado:** esse caso comum e sua apresentação de dados estão em ESCUDO-PADRAO.md. Não é um framework completo de atributos/equipamentos.
@@ -209,6 +217,8 @@ As respostas ESC também encerram partes dos itens abaixo. **Definido**, **imple
 **Estado:** parcialmente concluído, com contrato padrão fechado. Não reenviar perguntas genéricas de reaplicação/âncora do escudo já respondidas; especificar a nova categoria/efeito ao perguntar.
 
 ### SIS-02 — fórmulas, atributos e auditoria de fontes
+
+**Atualização20/11 — informação recebida:** Fórmula e exemplos recebidos; fontes externas não auditadas. ENT-07 separa piso1dano/TrueDamage/limites/aritmética da regra vigente; nenhum mínimo universal ou nova mitigação foi aplicado. [Revisão consolidada](REVISAO-ENTREGAS-2026-11-20.md).
 
 **✅ Respondido/implementado:** força padrão = max(1,HP máximo inteiro positivo do aplicador/100); divisão inteira arredonda o percentual para baixo sem overflow por multiplicação, e aplicação válida garante1 ponto. Sem acúmulo ou cap adicional de gameplay inventado. Reduções aplicáveis→escudo→HP; cada hit consome separado e excesso pode matar. Defesa clássica usa divisão por2 para baixo. Testes incluem limites até INT_MAX. Cobertura da faixa visual não é cap mecânico.
 
@@ -220,6 +230,8 @@ As respostas ESC também encerram partes dos itens abaixo. **Definido**, **imple
 
 ### SIS-03 — ondas, times, chefes e persistência
 
+**Atualização20/11 — informação recebida:** Grupo04 trouxe matriz de famílias, score25%overkill, limiares70/35 e entidades. ENT-08 precisa preservar transições/escudo/R04 e fechar pontuação; não repetir pergunta genérica sobre as famílias já descritas. [Revisão consolidada](REVISAO-ENTREGAS-2026-11-20.md).
+
 **✅ Respondido/implementado para o escudo padrão:** remover na morte do protegido; revive não restaura; morte do aplicador não remove. Não conservar proteção/duração ao mudar onda/confronto/equipe. Stage aplica a regra mesmo com Preserve genérico, sem alterar outros estados; SEQ remove o temporário nas três políticas testadas. Agendamento entre frentes de PAR-02 não é troca de equipe e não remove escudo; teste específico aprovado.
 
 **✅ Preservado:** políticas explícitas dos modos existentes, SEQ-01 e PAR-02 (HP único/barra global no perfil escolhido); outros estados seguem seus contratos. Novas regras do escudo não justificam reabrir esses aceites.
@@ -229,6 +241,8 @@ As respostas ESC também encerram partes dos itens abaixo. **Definido**, **imple
 **Estado:** persistência comum do escudo respondida/testada; catálogo de modos/chefes e políticas excepcionais continuam abertos. IDs PEN/PVE históricos seguem rastreáveis, sem invalidar perfis encerrados.
 
 ### SIS-04 — inventário, ATB, retomada e plataformas
+
+**Atualização20/11 — informação recebida:** Grupos04/09/11 trouxeram5comandos,ATBWait/Active,6slots,moedas,save e produção conectada. São expansões propostas; ENT-12/14/15 cobrem fragmento incompleto, relógios/custos e autoridade de servidor. Studio confirmado; ambienteAndroid não validado. [Revisão consolidada](REVISAO-ENTREGAS-2026-11-20.md).
 
 **✅ Respondido conceitualmente:** proteção/atributo futuro do clássico terá bases e modificadores próprios por equipamento; não é o comando Defesa nem uma habilidade. Uma habilidade clássica também poderá conceder o escudo convencional, por mecânica de uso própria futura. StructuralShield atual não comprova que esse atributo/sistema de equipamento já exista.
 

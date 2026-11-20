@@ -1,5 +1,7 @@
 # Central de entregas do usuário
 
+**Estado em20/11/2026:**12 arquivos estudados; [revisão por grupo, conflitos e retomada](../docs/projeto/REVISAO-ENTREGAS-2026-11-20.md). As notas anteriores de “não analisado” são históricas. Agora os materiais foram incorporados ao planejamento, sem implementação. Não preencher novamente perguntas já respondidas; faltam apenas os pontosENT ou dados técnicos específicos.
+
 Comece aqui. Cada grupo tem um README com perguntas específicas, o que já existe e o trabalho de desenvolvimento restante. Coloque seus arquivos na subpasta **recebidos** correspondente. Se não souber onde, use **00-entrada-geral/recebidos**.
 
 ## Como trabalhar sem depender do assistente

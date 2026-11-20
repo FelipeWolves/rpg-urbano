@@ -1,5 +1,7 @@
 # Áudio, música e eventual modo DJ
 
+**Atualização20/11:** material desta área estudado; [matriz e pendências específicas](../../docs/projeto/REVISAO-ENTREGAS-2026-11-20.md). Guia abaixo preservado como roteiro; não precisa responder novamente o que já entregou. Revisão integrada ao planejamento, não ao código.
+
 Prioridade: **P2/P3**. Guia de preparação, não autorização de implementação automática.
 
 ## Já existente — não reenviar decisões fechadas

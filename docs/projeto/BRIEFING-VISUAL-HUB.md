@@ -55,6 +55,8 @@ Resposta: Nenhuma por enquanto — utilizar fundo estilizado padrão da UI com a
 
 Isso não exige criar recompensas, calendário ou um modo novo. Esses sistemas precisam de contrato separado; o painel pode apenas informar que o conteúdo está em preparação.
 
+Nota de integração futura: Este acesso de Evento Especial abrigará a linha de eventos em Modo Clássico (estilo RPG PS1/PS2), separada do modo padrão de equipes.
+
 ## Entrega e limites
 
 Pode entregar somente a imagem marcada ou este arquivo parcialmente preenchido. Recursos/versões originais ficam localmente em assets/sources; mídia grande não entra no Git automaticamente. Não substituir arquivos já recebidos sem manter uma versão anterior.

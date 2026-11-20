@@ -107,3 +107,5 @@ Seletor: correção por linhas3D com profundidade junto à base do modelo implem
 Mobile: [proposta revisada e sequência mínima](MOBILE-PLANO-REVISAO.md). HUD atual é Canvas, não UMG; preview/renderizador não troca automaticamente DeviceProfile Windows. Próxima implementação a planejar: apresentação Desktop/Mobile/Auto separada de plataforma, antes de presumir migração UMG ou instalar SDK. Sem implementação nova por esta revisão.
 
 Fila independente documentada em [AUT-01–16](FILA-DESENVOLVIMENTO-INDEPENDENTE.md), sem implementação nesta entrega. Inclui trabalho pronto e preparação condicionada; primeiro bloco proposto AUT-01. Não aguardar todos os materiais para avançar nas tarefas prontas.
+
+Recebimento em20/11/2026:7 documentos locais nos grupos00–06; presença/tamanho/SHA-256 registrados em entregas/RECEBIMENTO.csv, sem análise de conteúdo nem integração. Briefing visual alterado pelo usuário para indicar eventos clássicos no acesso Evento Especial, como direção futura; sem mudança de código. Originais recebidos continuam fora do Git.

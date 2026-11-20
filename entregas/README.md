@@ -48,3 +48,5 @@ Os recursos já enviados continuam em assets; não precisam ser movidos ou dupli
 ## O projeto não precisa esperar todas as entregas
 
 Enquanto você reúne material, há uma [fila independente de engenharia](../docs/projeto/FILA-DESENVOLVIMENTO-INDEPENDENTE.md). Pesquisas opcionais não bloqueiam esses itens prontos. A fila não representa trabalho executado nem substitui decisões de produto ainda abertas.
+
+Conferência em20/11/2026:7 documentos nos grupos00–06 constam em RECEBIMENTO.csv. O registro confirma presença/tamanho/hash, não aprovação ou aplicação das propostas. CONTROLE.csv atualizado; originais continuam locais e ignorados no Git.

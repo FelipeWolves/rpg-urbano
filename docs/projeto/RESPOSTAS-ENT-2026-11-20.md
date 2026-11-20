@@ -40,3 +40,5 @@ ESC/R04 e testes históricos permanecem válidos no escopo anterior. Novas regra
 Complemento ponto3: dois trilhos,basecrítica e escala/teto definidos em [FUNIL-ESCALA-NUMERICA-PONTO3.md](FUNIL-ESCALA-NUMERICA-PONTO3.md). Substitui a indefinição desses temas;equaçãoACC/RESIST completa,elegibilidadeporMiss/Block e tratamento acima do teto ficam por formalizar no bloco técnico.
 
 Adendo técnico recebido20/11: [matriz vigente](ADENDO-TECNICO-CONTRATOS-2026-11-20.md). Debuff exigehitnãoMiss/nãoBlock;supressão/prevenção e reaçõespendentes detalhadas;SilverShieldcoexiste econsomeapósStandard;ondaslimpamcomunsantesdecurar;scorearredondado uma vez. Temas respondidos não são perguntas abertas de produto;bordas técnicas estão delimitadas no adendo. Implementação ainda pendente.
+
+**Complemento final recebido20/11:** [A2, ACC/RESIST e ponto fixo](COMPLEMENTO-FINAL-A2-ACC-PONTO-FIXO.md). Bordas de A2 e equação/irresistível respondidos; teto10^12 por saturação; double substituído por ponto fixo de escala10000 no núcleo futuro. Não repetir as perguntas resolvidas. Determinismo bit a bit é meta a verificar, não aceite existente. Nenhum código/teste executado nesta recepção.

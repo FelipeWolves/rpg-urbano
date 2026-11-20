@@ -39,3 +39,5 @@ Esses detalhes devem ser fechados no bloco afetado,sem impedirAUT-01–04 e infr
 4. AUT-10/11 eAndroid seguem planos internos já registrados;instalação/execução só no escopo autorizado da retomada. Clássico/DJ/servidor mantêm fases próprias.
 
 Sem código,catálogo executável,teste,build ou programa executado nesta recepção. Originais intocados e percentuais mantidos.
+
+**Complemento final recebido20/11:** [A2, ACC/RESIST e ponto fixo](COMPLEMENTO-FINAL-A2-ACC-PONTO-FIXO.md). Bordas de A2 e equação/irresistível respondidos; teto10^12 por saturação; double substituído por ponto fixo de escala10000 no núcleo futuro. Não repetir as perguntas resolvidas. Determinismo bit a bit é meta a verificar, não aceite existente. Nenhum código/teste executado nesta recepção.

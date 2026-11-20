@@ -16,7 +16,7 @@ Contrato de produto recebido em20/11/2026; implementação e testes pendentes. A
 
 Deduplicar por identidade da ação/habilidade e do alvo, não por frame de animação. Preservar quotas/estado por ação e não modificar R04: auto-reação deve passar pelo executor apropriado; sem contra-ataque de unidade morta ou após vitória. Supressão e controles devem seguir o contrato da família quando implementados.
 
-Escolhas principais encerradas; detalhes de borda ainda não especificados no texto e a tratar antes do aceite desse bloco: empate no menor percentual deHP; definição de atingido quandoMiss/bloqueio/escudo absorve tudo ou golpe életal; momento da reação dentro de uma habilidade multialvo/multihit e eventual segundo preenchimento na mesma ação; execução do escudo se o contra-ataque não puder ocorrer ou terminar a batalha. Não inventar respostas nem transformar essas lacunas em bloqueio para AUT-01/interface.
+**Casos de borda posteriormente respondidos:** [complemento final](COMPLEMENTO-FINAL-A2-ACC-PONTO-FIXO.md). Empate prioriza Felipe e depois slot; Block/escudo/letal contam, Miss/invencibilidade não; reação ao fim da habilidade na janela R04, um disparo e excedente descartado. Não repetir essas perguntas. Implementação e validação de comandos devem preservar R04.
 
 ## Matriz de verificação futura — não executada
 

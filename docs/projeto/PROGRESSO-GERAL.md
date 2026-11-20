@@ -81,3 +81,5 @@ Plano AUT-01–16 criado em FILA-DESENVOLVIMENTO-INDEPENDENTE.md; nenhuma tarefa
 Estudo das12 entregas em20/11: informações recebidas e tarefas refinadas; percentuais mantidos, sem funcionalidade nova. Metas de produção ampliadas (67 capítulos,DJ,PvP,lojas,online) ainda precisam de recorte contratual;15%–20% permanece estimativa histórica provisória, não percentual recalculado desse escopo comercial ampliado. Android Studio instalado não aumenta maturidade mobile por si só. Ver REVISAO-ENTREGAS-2026-11-20.md.
 
 ENT-01–15 respondidos em20/11;recorteDemo1personagem completo/1 arena confirmado. Nenhuma implementação ou teste novo,percentuais mantidos. Decisões e limites em RESPOSTAS-ENT-2026-11-20.md.
+
+Complemento de A2/ACC/ponto fixo recebido; percentuais mantidos. Escolhas numéricas definidas não significam migração implementada ou paridade entre plataformas já testada.

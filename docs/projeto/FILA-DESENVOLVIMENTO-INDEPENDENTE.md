@@ -113,3 +113,5 @@ Este plano não altera percentuais nem aceites. Estado: todos os AUT **planejado
 Contrato numérico futuro: [SIS-02/ponto3](FUNIL-ESCALA-NUMERICA-PONTO3.md). Planejar migraçãoint64/teto10^12 e paridade dos cenários pequenos antes de importar fichas maiores. Não reescalar nem executar migração por este plano;AUT de interface não fica bloqueado por isso.
 
 Adendo técnico recebido20/11: [matriz vigente](ADENDO-TECNICO-CONTRATOS-2026-11-20.md). Debuff exigehitnãoMiss/nãoBlock;supressão/prevenção e reaçõespendentes detalhadas;SilverShieldcoexiste econsomeapósStandard;ondaslimpamcomunsantesdecurar;scorearredondado uma vez. Temas respondidos não são perguntas abertas de produto;bordas técnicas estão delimitadas no adendo. Implementação ainda pendente.
+
+**Complemento final recebido20/11:** [A2, ACC/RESIST e ponto fixo](COMPLEMENTO-FINAL-A2-ACC-PONTO-FIXO.md). Bordas de A2 e equação/irresistível respondidos; teto10^12 por saturação; double substituído por ponto fixo de escala10000 no núcleo futuro. Não repetir as perguntas resolvidas. Determinismo bit a bit é meta a verificar, não aceite existente. Nenhum código/teste executado nesta recepção.

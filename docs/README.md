@@ -84,3 +84,5 @@ Fechamento do hub: [aceite do usuário e acesso independente](projeto/HUB-IDENTI
 [Adendo técnico consolidado](projeto/ADENDO-TECNICO-CONTRATOS-2026-11-20.md): regras adicionais de supressão,escudos,ondas e score;planejamento,sem execução.
 
 [CheckAndroid realizado](projeto/ANDROID-CHECK-2026-11-20.md):Studio instalado,toolchain incompleta/não localizada e incompatibilidadeJava25/Gradle8.13 identificada por metadados;sem execução.
+
+[Complemento final — A2, ACC/RESIST e ponto fixo](projeto/COMPLEMENTO-FINAL-A2-ACC-PONTO-FIXO.md): casos de borda, equação, saturação e representação futura definidos; implementação e regressão pendentes.

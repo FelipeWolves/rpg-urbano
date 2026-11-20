@@ -2,6 +2,10 @@
 
 Decisão consolidada recebida em20/11/2026. Complementa os pontos1/2 e ENT-07. **Definido para implementação futura; nenhuma migração numérica ou alteração de combate executada.** Os cenários pequenos e aceites atuais permanecem preservados.
 
+## Atualização vigente — complemento final
+
+[ACC/RESIST, irresistível, saturação e ponto fixo definidos](COMPLEMENTO-FINAL-A2-ACC-PONTO-FIXO.md). A escolha inicial de double abaixo é histórica e foi substituída por inteiros/ponto fixo no núcleo. Teto10^12 passa a saturar explicitamente; equaçãoACC/RESIST e alcance deirresistível estão respondidos. Nenhuma migração ou determinismo entre plataformas foi validado ainda.
+
 ## Dois trilhos separados
 
 ### A — Dano

@@ -119,3 +119,5 @@ Recebimento final em20/11/2026: documento de Distribuição, Serviços e Direito
 ## Respostas ENT recebidas —20/11/2026
 
 **ENT-01–15 respondidos pelo usuário; implementação ainda pendente.** [Decisões vigentes e detalhes por bloco](RESPOSTAS-ENT-2026-11-20.md). PreservarESC/R04/Defesa atual até mudança explícita por implementação. Demo:1 Felipe jogável/1 arena;A2passiva. Pausa/abandono,panmobile,vídeo e futuraeconomia agora têm direção consolidada. Não repetir perguntas principais da revisão anterior;formalizar apenas detalhes técnicos no bloco afetado. Nenhuma execução autorizada por esta atualização.
+
+Ponto1/FelipeA2: regra de cargas,limite,consumo,A1eStandardShield definida;destino confirmado no aliado vivo com menor percentualHP,incluindoFelipe. [Contrato](FELIPE-A2-POSTURA-VIGILIA.md). Não repetir essas perguntas;casos de borda e implementação ficam no bloco futuro. Formação6×6 não implementada por essa decisão.

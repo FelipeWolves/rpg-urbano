@@ -133,3 +133,5 @@ ConferênciaAndroid20/11 concluída em leitura:Studio D:\Android presente;SdkPat
 **Complemento final recebido20/11:** [A2, ACC/RESIST e ponto fixo](COMPLEMENTO-FINAL-A2-ACC-PONTO-FIXO.md). Bordas de A2 e equação/irresistível respondidos; teto10^12 por saturação; double substituído por ponto fixo de escala10000 no núcleo futuro. Não repetir as perguntas resolvidas. Determinismo bit a bit é meta a verificar, não aceite existente. Nenhum código/teste executado nesta recepção.
 
 SDK localizado após instalação manual emD:\AndroidSDK:NDK/CMake/BuildTools da base presentes. Falta SDKPlatform36 (somente37.0) e confirmarJDK17/AVD. ANDROID-CHECK-2026-11-20.md eANDROID-CHECK.json atualizados;sem execução.
+
+API36 confirmada após nova instalação manual: D:\AndroidSDK\platforms\android-36\android.jar presente, ApiLevel36/revisão2. Pendência da Platform36 resolvida; restam confirmar caminho JDK17 e preparar/validar AVD e build. D:\Java\jdk-17 não localizado; isso não exclui instalação em outro caminho. Nenhuma ferramenta executada.

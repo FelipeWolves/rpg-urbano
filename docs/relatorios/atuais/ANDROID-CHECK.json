@@ -49,9 +49,10 @@
       "37.0.0"
     ],
     "InstalledPlatforms": [
+      "android-36",
       "android-37.0"
     ],
-    "Platform36JarPresent": false,
+    "Platform36JarPresent": true,
     "PlatformToolsVersion": "37.0.3",
     "EmulatorVersion": "37.3.10",
     "CommandLineToolsPresent": true,

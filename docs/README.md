@@ -80,3 +80,5 @@ Fechamento do hub: [aceite do usuário e acesso independente](projeto/HUB-IDENTI
 [Ponto2 — bloqueio, mitigação e True Damage](projeto/BLOQUEIO-MITIGACAO-DANO-PONTO2.md): regras respondidas, implementação futura.
 
 [Ponto3 — trilhos de dano/debuff e escala numérica](projeto/FUNIL-ESCALA-NUMERICA-PONTO3.md): int64/teto10^12, regras e testes futuros,sem implementação.
+
+[Adendo técnico consolidado](projeto/ADENDO-TECNICO-CONTRATOS-2026-11-20.md): regras adicionais de supressão,escudos,ondas e score;planejamento,sem execução.

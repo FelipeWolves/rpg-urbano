@@ -29,3 +29,5 @@ Escolhas principais encerradas; detalhes de borda ainda não especificados no te
 - Integração morte/vitória/supressão/controle após fechar os detalhes de borda;sem laços reativos ou recompensa duplicada.
 
 Nenhum código/catálogo executável foi alterado por este documento. Nenhum teste ou programa executado. Não reabrir ESC ou aumentar percentuais por especificação.
+
+Adendo técnico consolidado20/11 confirma esta contagem e pré-carga. O destino permanece o aliado vivo com menorHP%,incluindoFelipe,conforme confirmação específica anterior;alternativa parentética do adendo não o substitui. Ver ADENDO-TECNICO-CONTRATOS-2026-11-20.md.

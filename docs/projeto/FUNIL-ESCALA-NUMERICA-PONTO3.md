@@ -51,3 +51,5 @@ Teto de gameplay é diferente de limite de representação int64. Double não to
 - Regressão dos cenários pequenos e R04/ESC; round-trip de save e ponte de apresentação; comparação de replay em plataformas quando houver builds.
 
 Sem código, teste, execução de programa ou aumento de percentuais nesta recepção.
+
+Atualização20/11: adendo explicitou que debuff porhit só tenta aplicar após acerto não esquivado/bloqueado. Essa elegibilidade deixou de estar indefinida. EquaçãoACC/RESIST,irresistível e tratamento numérico continuam formalização técnica;double não comprova determinismo. Ver ADENDO-TECNICO-CONTRATOS-2026-11-20.md.

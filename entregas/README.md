@@ -58,3 +58,5 @@ Nova conferência em20/11/2026:11 arquivos nos grupos00–10;4 novos (07–10),4
 Recebimento final em20/11/2026: documento de Distribuição, Serviços e Direitos (grupo11) presente e registrado. Agora todos os12 grupos00–11 possuem1 documento recebido. Esta conclusão é somente de recebimento; conteúdo ainda não analisado/aprovado/integrado. Originais permanecem locais, fora do Git.
 
 Adendo20/11: respostasENT-01–15 recebidas e estudadas no grupo00;13 originais locais ao todo. [Decisões consolidadas](../docs/projeto/RESPOSTAS-ENT-2026-11-20.md). Não editar documentos antigos para apagar alternativas:adendo prevalece nos pontos respondidos;implementação ainda pendente.
+
+Novo adendo técnico20/11 estudado no grupo00;14originais locais registrados. [Consolidação](../docs/projeto/ADENDO-TECNICO-CONTRATOS-2026-11-20.md). Sem edição dos originais nem implementação;originais permanecem fora do Git.

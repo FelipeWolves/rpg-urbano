@@ -34,3 +34,5 @@ A inelegibilidade de DoT ao bloqueio está respondida; não implica que DoT herd
 - Dano comum1 sob Defender vira0; estado de fonte, remoção e expiração devem refletir-se sem acumulação residual.
 
 Sem código, catálogo executável, build ou teste nesta atualização. Implementar em bloco REG/SIS próprio, preservando baselines históricos.
+
+Atualização20/11: hit bloqueado não abre o trilho comum de debuff,conforme adendo consolidado. Supressão/categorias e camadasSilverShield estão registradas em ADENDO-TECNICO-CONTRATOS-2026-11-20.md;sem implementação por esta nota.

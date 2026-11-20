@@ -38,3 +38,5 @@ Quando o usuário informar disponibilidade de limite: AUT-01→02→03→04 com 
 ESC/R04 e testes históricos permanecem válidos no escopo anterior. Novas regras (curaentreondas,bloqueio,TrueDamage,SP) deverão ganhar implementação/versão e regressão próprias. Seletor continua aceito. Nenhum código,catálogo executável,save ou recurso original foi modificado nesta recepção;percentuais mantidos.
 
 Complemento ponto3: dois trilhos,basecrítica e escala/teto definidos em [FUNIL-ESCALA-NUMERICA-PONTO3.md](FUNIL-ESCALA-NUMERICA-PONTO3.md). Substitui a indefinição desses temas;equaçãoACC/RESIST completa,elegibilidadeporMiss/Block e tratamento acima do teto ficam por formalizar no bloco técnico.
+
+Adendo técnico recebido20/11: [matriz vigente](ADENDO-TECNICO-CONTRATOS-2026-11-20.md). Debuff exigehitnãoMiss/nãoBlock;supressão/prevenção e reaçõespendentes detalhadas;SilverShieldcoexiste econsomeapósStandard;ondaslimpamcomunsantesdecurar;scorearredondado uma vez. Temas respondidos não são perguntas abertas de produto;bordas técnicas estão delimitadas no adendo. Implementação ainda pendente.

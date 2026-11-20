@@ -94,5 +94,14 @@
     "DecisionDocument": "docs/projeto/RESPOSTAS-ENT-2026-11-20.md",
     "Implemented": false,
     "TechnicalDetails": "See bounded implementation details in decision document"
+  },
+  "TechnicalSupplement": {
+    "Arquivo": "entregas/00-entrada-geral/recebidos/2026-11-20_adendo-tecnico-contratos_v01.md",
+    "SHA256": "79EC7916E98E5512D4974491B876C31F26E92B5262C930A031320F353791190D",
+    "Bytes": 10022,
+    "ReviewedOn": "2026-11-20",
+    "PlanningDocument": "docs/projeto/ADENDO-TECNICO-CONTRATOS-2026-11-20.md",
+    "Implemented": false,
+    "SourcePreserved": true
   }
 }

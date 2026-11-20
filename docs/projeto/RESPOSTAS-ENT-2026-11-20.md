@@ -36,3 +36,5 @@ As escolhas principais não precisam ser perguntadas novamente. Antes de impleme
 Quando o usuário informar disponibilidade de limite: AUT-01→02→03→04 com recursos atuais; AUT-07/08 seguem as decisões de pausa/mídia sem habilitar serviços ou menus não implementados. Inventariar somente arquivos que mudaram. SDK/NDK/JDK/AVD continuam pendentes da conferência documentada em ANDROID-DEPENDENCIAS.md; este adendo não informa versões/caminhos novos nem autoriza instalações.
 
 ESC/R04 e testes históricos permanecem válidos no escopo anterior. Novas regras (curaentreondas,bloqueio,TrueDamage,SP) deverão ganhar implementação/versão e regressão próprias. Seletor continua aceito. Nenhum código,catálogo executável,save ou recurso original foi modificado nesta recepção;percentuais mantidos.
+
+Complemento ponto3: dois trilhos,basecrítica e escala/teto definidos em [FUNIL-ESCALA-NUMERICA-PONTO3.md](FUNIL-ESCALA-NUMERICA-PONTO3.md). Substitui a indefinição desses temas;equaçãoACC/RESIST completa,elegibilidadeporMiss/Block e tratamento acima do teto ficam por formalizar no bloco técnico.

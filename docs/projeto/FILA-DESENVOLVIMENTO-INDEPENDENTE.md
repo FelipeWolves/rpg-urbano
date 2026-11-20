@@ -109,3 +109,5 @@ Este plano não altera percentuais nem aceites. Estado: todos os AUT **planejado
 ## Respostas ENT recebidas —20/11/2026
 
 **ENT-01–15 respondidos pelo usuário; implementação ainda pendente.** [Decisões vigentes e detalhes por bloco](RESPOSTAS-ENT-2026-11-20.md). PreservarESC/R04/Defesa atual até mudança explícita por implementação. Demo:1 Felipe jogável/1 arena;A2passiva. Pausa/abandono,panmobile,vídeo e futuraeconomia agora têm direção consolidada. Não repetir perguntas principais da revisão anterior;formalizar apenas detalhes técnicos no bloco afetado. Nenhuma execução autorizada por esta atualização.
+
+Contrato numérico futuro: [SIS-02/ponto3](FUNIL-ESCALA-NUMERICA-PONTO3.md). Planejar migraçãoint64/teto10^12 e paridade dos cenários pequenos antes de importar fichas maiores. Não reescalar nem executar migração por este plano;AUT de interface não fica bloqueado por isso.

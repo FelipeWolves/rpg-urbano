@@ -78,3 +78,5 @@ Fechamento do hub: [aceite do usuário e acesso independente](projeto/HUB-IDENTI
 [FelipeA2 — Postura de Vigília](projeto/FELIPE-A2-POSTURA-VIGILIA.md):cargas/contra-ataque/escudo e destino definidos;implementação pendente.
 
 [Ponto2 — bloqueio, mitigação e True Damage](projeto/BLOQUEIO-MITIGACAO-DANO-PONTO2.md): regras respondidas, implementação futura.
+
+[Ponto3 — trilhos de dano/debuff e escala numérica](projeto/FUNIL-ESCALA-NUMERICA-PONTO3.md): int64/teto10^12, regras e testes futuros,sem implementação.

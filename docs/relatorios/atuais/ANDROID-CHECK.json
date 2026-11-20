@@ -33,5 +33,32 @@
   "LicensesAccepted": false,
   "APKBuildRun": false,
   "EmulatorStarted": false,
-  "ReadyForAndroidBuild": false
+  "ReadyForAndroidBuild": false,
+  "InstallationUpdate": {
+    "CheckedOn": "2026-11-20",
+    "SDKPath": "D:/AndroidSDK",
+    "SDKLocated": true,
+    "NDKLocated": true,
+    "NDKVersion": "27.2.12479018",
+    "CMakeVersions": [
+      "3.22.1",
+      "4.1.0"
+    ],
+    "BuildTools": [
+      "36.0.0",
+      "37.0.0"
+    ],
+    "InstalledPlatforms": [
+      "android-37.0"
+    ],
+    "Platform36JarPresent": false,
+    "PlatformToolsVersion": "37.0.3",
+    "EmulatorVersion": "37.3.10",
+    "CommandLineToolsPresent": true,
+    "SystemImagesDirectoryPresent": false,
+    "BuildJDK17PathConfirmed": false,
+    "ToolsExecuted": false,
+    "ConfigurationChanged": false,
+    "ReadyForAndroidBuild": false
+  }
 }

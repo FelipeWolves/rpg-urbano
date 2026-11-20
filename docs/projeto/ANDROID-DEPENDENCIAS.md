@@ -35,3 +35,7 @@ Localização real do SDK/NDK e da pastaAVD; versão da imagem/ABI/renderizador;
 Metas4K/HDR/ultrarrealismo/física/presets são requisitos desejados a avaliar. LOD/downscale/AVD não garantemFPS, custo de decodificação de vídeo ou compatibilidade de todos os recursos. Não publicar mínimos de hardware antes de medições.
 
 ConferênciaAndroid20/11 concluída em leitura:Studio D:\Android presente;SdkPath vazio,SDK/NDK/AVD não localizados nas configurações/caminhos examinados. Java25doStudio fora da matriz suportada doGradle8.13/AGP8.13.0daengine. [Resultado e próximos passos](ANDROID-CHECK-2026-11-20.md). Não instalar/configurar/executar automaticamente;buscar SDK personalizado ou preparar componentes/JDK compatível sob autorização. AUTWindows não bloqueado.
+
+## Atualização após instalação manual —20/11/2026
+
+SDK confirmado em **D:\AndroidSDK**. NDK27.2.12479018,CMake3.22.1,BuildTools36.0.0,PlatformTools37.0.3,Emulator37.3.10 eCommandLineTools presentes por arquivos/metadados. Também presentesCMake4.1.0 eBuildTools37.0.0. PorémSDKPlatforms contém apenasandroid-37.0;**platforms/android-36/android.jar não existe**. BuildTools36 não substitui SDKPlatform36. Ainda falta instalarAPI36estável para a base escolhida e confirmar caminho doJDK17 separado. Nenhuma pasta system-images noSDK;AVD não confirmado. Somente leitura,nada executado/configurado. O diagnóstico anterior deSDKnão localizado é histórico e foi superado por esta instalação.

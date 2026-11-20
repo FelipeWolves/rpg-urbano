@@ -545,3 +545,5 @@ Adendo técnico recebido20/11: [matriz vigente](ADENDO-TECNICO-CONTRATOS-2026-11
 ConferênciaAndroid20/11 concluída em leitura:Studio D:\Android presente;SdkPath vazio,SDK/NDK/AVD não localizados nas configurações/caminhos examinados. Java25doStudio fora da matriz suportada doGradle8.13/AGP8.13.0daengine. [Resultado e próximos passos](ANDROID-CHECK-2026-11-20.md). Não instalar/configurar/executar automaticamente;buscar SDK personalizado ou preparar componentes/JDK compatível sob autorização. AUTWindows não bloqueado.
 
 **Complemento final recebido20/11:** [A2, ACC/RESIST e ponto fixo](COMPLEMENTO-FINAL-A2-ACC-PONTO-FIXO.md). Bordas de A2 e equação/irresistível respondidos; teto10^12 por saturação; double substituído por ponto fixo de escala10000 no núcleo futuro. Não repetir as perguntas resolvidas. Determinismo bit a bit é meta a verificar, não aceite existente. Nenhum código/teste executado nesta recepção.
+
+Android atualizado:SDK D:\AndroidSDK confirmado,NDK27.2.12479018/CMake3.22.1/BuildTools36.0.0 presentes. Não repetir localização genéricaSDK. RestamSDKPlatform36,JDK17 eAVD/buildcompatível. Não confundirBuildTools36 instalado comPlatform36 ausente.

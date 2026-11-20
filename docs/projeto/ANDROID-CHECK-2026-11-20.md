@@ -41,3 +41,7 @@ Pode-se continuarAUT-01–04 noWindows enquanto isso. A coleta de decisões de c
 ## Limites da busca
 
 Foram consultados locais padrão,registroStudio,variáveisAndroid/JAVA_HOME pertinentes e alguns diretóriosAndroid próximos da instalação,sem varrer todas as unidades. Locais padrão foram reconferidos em leitura fora da restrição inicial de acesso. Instalação em caminho personalizado não informado ainda pode existir. Não se conclui ausência global de todos osSDKs/JDKs na máquina.
+
+## Atualização após instalação manual —20/11/2026
+
+SDK confirmado em **D:\AndroidSDK**. NDK27.2.12479018,CMake3.22.1,BuildTools36.0.0,PlatformTools37.0.3,Emulator37.3.10 eCommandLineTools presentes por arquivos/metadados. Também presentesCMake4.1.0 eBuildTools37.0.0. PorémSDKPlatforms contém apenasandroid-37.0;**platforms/android-36/android.jar não existe**. BuildTools36 não substitui SDKPlatform36. Ainda falta instalarAPI36estável para a base escolhida e confirmar caminho doJDK17 separado. Nenhuma pasta system-images noSDK;AVD não confirmado. Somente leitura,nada executado/configurado. O diagnóstico anterior deSDKnão localizado é histórico e foi superado por esta instalação.

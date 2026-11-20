@@ -135,3 +135,5 @@ ConferênciaAndroid20/11 concluída em leitura:Studio D:\Android presente;SdkPat
 SDK localizado após instalação manual emD:\AndroidSDK:NDK/CMake/BuildTools da base presentes. Falta SDKPlatform36 (somente37.0) e confirmarJDK17/AVD. ANDROID-CHECK-2026-11-20.md eANDROID-CHECK.json atualizados;sem execução.
 
 API36 confirmada após nova instalação manual: D:\AndroidSDK\platforms\android-36\android.jar presente, ApiLevel36/revisão2. Pendência da Platform36 resolvida; restam confirmar caminho JDK17 e preparar/validar AVD e build. D:\Java\jdk-17 não localizado; isso não exclui instalação em outro caminho. Nenhuma ferramenta executada.
+
+JDK separado confirmado por metadados: D:\AndroidJava\jdk-17.0.21.1+2, Eclipse Adoptium, Java17.0.21.1, x86_64; java.exe e javac.exe presentes. FamíliaJava17 alinhada ao build planejado; não executado. Pendência de localização doJDK resolvida. Próximo: indicar naUnreal os caminhos SDK D:\AndroidSDK, NDK D:\AndroidSDK\ndk\27.2.12479018 e esteJDK, depois validar toolchain/AVD. Nenhuma configuração realizada pelo assistente;buildAndroid ainda não testado.

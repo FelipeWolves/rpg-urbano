@@ -57,9 +57,15 @@
     "EmulatorVersion": "37.3.10",
     "CommandLineToolsPresent": true,
     "SystemImagesDirectoryPresent": false,
-    "BuildJDK17PathConfirmed": false,
+    "BuildJDK17PathConfirmed": true,
     "ToolsExecuted": false,
     "ConfigurationChanged": false,
-    "ReadyForAndroidBuild": false
+    "ReadyForAndroidBuild": false,
+    "BuildJDKPath": "D:/AndroidJava/jdk-17.0.21.1+2",
+    "BuildJavaVersion": "17.0.21.1",
+    "BuildJavaVendor": "Eclipse Adoptium",
+    "BuildJavaArchitecture": "x86_64",
+    "JavaAndJavacFilesPresent": true,
+    "UnrealPathsConfiguredByAgent": false
   }
 }

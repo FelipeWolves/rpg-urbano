@@ -59,3 +59,7 @@ Mobile: [proposta revisada e sequência mínima](MOBILE-PLANO-REVISAO.md). HUD a
 ## Retomada após as12 entregas estudadas —20/11
 
 [Consolidação e divergências](REVISAO-ENTREGAS-2026-11-20.md). PrimeiroAUT-01→02→03→04 e diagnóstico da instalaçãoAndroid existente, quando o usuário informar limite. PrototipagemWindows segue sem exigirbackend; AndroidAVD é etapa dedicada antes doS23 Ultra. Demo pequena antecede67 capítulos,clássicoexpandido,DJ,PvP e5 lojas. Nenhum desses sistemas foi implementado pela revisão. [DependênciasAndroid](ANDROID-DEPENDENCIAS.md).
+
+## Respostas ENT recebidas —20/11/2026
+
+**ENT-01–15 respondidos pelo usuário; implementação ainda pendente.** [Decisões vigentes e detalhes por bloco](RESPOSTAS-ENT-2026-11-20.md). PreservarESC/R04/Defesa atual até mudança explícita por implementação. Demo:1 Felipe jogável/1 arena;A2passiva. Pausa/abandono,panmobile,vídeo e futuraeconomia agora têm direção consolidada. Não repetir perguntas principais da revisão anterior;formalizar apenas detalhes técnicos no bloco afetado. Nenhuma execução autorizada por esta atualização.

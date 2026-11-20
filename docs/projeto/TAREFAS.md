@@ -11,7 +11,8 @@ Atualizado em 19/11/2026. [Checklist histórico integral](historico/2026-11-18/T
 - [x] Inventariar versões recebidas e comparar com contratos; [revisão e conflitos](REVISAO-ENTREGAS-2026-11-20.md). Originais preservados.
 - [ ] Quando o usuário informar limite/disponibilidade e retomar: AUT-01, depoisAUT-02/03/04; estudar só novas versões de material, não repetir as12leituras.
 - [ ] Conferir caminhos/compatibilidadeSDK/NDK/JDK/AVD existentes; Android Studio instalado, sem instalação/configuração automática. [Matriz de teste](ANDROID-DEPENDENCIAS.md).
-- [ ] ResolverENT específico antes da família de regras/player/tutorial correspondente; isso não bloqueia a base de interface.
+- [x] Receber respostas ENT-01–15; decisões principais consolidadas em RESPOSTAS-ENT-2026-11-20.md.
+- [ ] Formalizar os detalhes técnicos residuais no bloco afetado; não repetir o questionárioENT. Nenhuma dessas expansões está implementada.
 - [x] Seletor no chão implementado e aceito visualmente pelo usuário; encerrado no protótipo atual.
 
 Ordem detalhada e frentes independentes em [PROXIMAS-FASES.md](PROXIMAS-FASES.md). Primeiro fechar aceite visual atual; depois UI pequena/mobile e player, sem esperar catálogo completo de habilidades. Percentuais revisados em [PROGRESSO-GERAL.md](PROGRESSO-GERAL.md).
@@ -142,3 +143,7 @@ Não interrompe nem encerra o aceite VIS atual.
 Seletor: correção por linhas3D com profundidade junto à base do modelo implementada e posteriormente aceita visualmente pelo usuário; o assistente não abriu a prévia nessa entrega. [Escopo e roteiro](VIS-SELETOR-CHAO.md). Não altera regras nem resolve mobile/fluidez; não repetir esse aceite sem mudança ou defeito novo.
 
 Mobile: [proposta revisada e sequência mínima](MOBILE-PLANO-REVISAO.md). HUD atual é Canvas, não UMG; preview/renderizador não troca automaticamente DeviceProfile Windows. Próxima implementação a planejar: apresentação Desktop/Mobile/Auto separada de plataforma, antes de presumir migração UMG ou instalar SDK. Sem implementação nova por esta revisão.
+
+## Respostas ENT recebidas —20/11/2026
+
+**ENT-01–15 respondidos pelo usuário; implementação ainda pendente.** [Decisões vigentes e detalhes por bloco](RESPOSTAS-ENT-2026-11-20.md). PreservarESC/R04/Defesa atual até mudança explícita por implementação. Demo:1 Felipe jogável/1 arena;A2passiva. Pausa/abandono,panmobile,vídeo e futuraeconomia agora têm direção consolidada. Não repetir perguntas principais da revisão anterior;formalizar apenas detalhes técnicos no bloco afetado. Nenhuma execução autorizada por esta atualização.

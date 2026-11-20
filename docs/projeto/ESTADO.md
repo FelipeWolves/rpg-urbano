@@ -115,3 +115,7 @@ Recebimento em20/11/2026:7 documentos locais nos grupos00–06; presença/tamanh
 Nova conferência em20/11/2026:11 arquivos nos grupos00–10;4 novos (07–10),4 alterados (00,01,04,05) e3 sem alteração (02,03,06). Grupo11 sem arquivo recebido. Presença/tamanho/SHA-256 conferidos; conteúdo não analisado nem aplicado. Inventário atual em entregas/RECEBIMENTO.csv; hashes anteriores preservados em entregas/RECEBIMENTO-HISTORICO.csv. Os originais continuam locais, fora do Git; o histórico de hashes não é backup dos conteúdos.
 
 Recebimento final em20/11/2026: documento de Distribuição, Serviços e Direitos (grupo11) presente e registrado. Agora todos os12 grupos00–11 possuem1 documento recebido. Esta conclusão é somente de recebimento; conteúdo ainda não analisado/aprovado/integrado. Originais permanecem locais, fora do Git.
+
+## Respostas ENT recebidas —20/11/2026
+
+**ENT-01–15 respondidos pelo usuário; implementação ainda pendente.** [Decisões vigentes e detalhes por bloco](RESPOSTAS-ENT-2026-11-20.md). PreservarESC/R04/Defesa atual até mudança explícita por implementação. Demo:1 Felipe jogável/1 arena;A2passiva. Pausa/abandono,panmobile,vídeo e futuraeconomia agora têm direção consolidada. Não repetir perguntas principais da revisão anterior;formalizar apenas detalhes técnicos no bloco afetado. Nenhuma execução autorizada por esta atualização.

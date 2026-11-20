@@ -2,6 +2,10 @@
 
 **Estudadas para planejamento; não implementadas.** Leitura integral dos12 arquivos locais recebidos, comparada aos contratos vigentes e à fila AUT. Originais preservados em entregas/*/recebidos, sem movê-los ou executar instruções contidas neles. Propostas/decisões desejadas são registradas como direção recebida, sem substituir silenciosamente regra fechada. Fontes externas citadas pelos documentos, marcadores [cite:...] e alegações jurídicas/comerciais não foram auditados nesta entrega.
 
+## Atualização posterior — respostas recebidas
+
+Os 15 pontosENT abaixo receberam respostas do usuário. A matriz de conflitos permanece como histórico do diagnóstico; para o estado vigente usar [RESPOSTAS-ENT-2026-11-20.md](RESPOSTAS-ENT-2026-11-20.md). Respondido não significa implementado; somente detalhes de contrato técnico apontados no adendo permanecem por formalizar.
+
 ## Síntese que orienta a retomada
 
 - Manter C++ independente + adaptador Unreal C++; não migrar automaticamente para Blueprints/UMG por textos de referência. Canvas atual preservado enquanto uma migração pequena não for justificada.
@@ -36,7 +40,7 @@ Não bloqueiam AUT-01–04 e engenharia neutra. Podem ser respondidos em lote qu
 |---|---|---|---|
 | ENT-01 | Alta / REG-01 | Bloqueio anterior anulava dano; grupo03 propõe redução30% (até50%), chance3% geral/10% Michel e tetos50–100%. Qual semântica substitui a anterior? | Não implementar novo bloqueio nem tratar Block legado como chance |
 | ENT-02 | Alta / HAB/tutorial | Felipe A2 é passiva de cargas/contra-ataque na ficha, mas ativa de escudo no tutorial. Qual adaptar? | Passiva não selecionável; cenário de laboratório atual preservado |
-| ENT-03 | Alta / ESC/SIS | Escudo do Filhote15%/2turnos é padrão ou gerador novo? Percentuais/duração não substituem1%/3turnos. Especificar gerador e coexistência | ESC-01–07 vigente, mínimo1 e maiores propriedades |
+| ENT-03 | Alta / ESC/SIS | Escudo do Filhote15%/2 turnos é padrão ou gerador novo? Percentuais/duração não substituem1%/3turnos. Especificar gerador e coexistência | ESC-01–07 vigente, mínimo1 e maiores propriedades |
 | ENT-04 | Alta / VIS/HUB | Antiga ESC retorna ao hub; nova proposta abre pausa/encerra sessão. Toque curto também diz confirmar, enquanto seleção+confirmar eram separados. Definir ordem cancelar→fechar→pausa→sair e efeitos sobre tentativa | Sem reset/recompensa por simples navegação; consulta longa não executa ação |
 | ENT-05 | Alta / recorte | Acessos atuais estão muito separados: x765 e2166 na imagem2752×1536. Crop vertical com altura integral412×915 mostra ~692px de largura, menor que1401px entre âncoras. Como manter ambos: zoom/contain, reposicionar controles ou pan com acessos fixos? A imagem atual mostra dispositivo na mão do homem, não do lobo | Uma imagem confirmada; não pedir segunda arte nem deformar imagem por hipótese |
 | ENT-06 | Alta / REG-03 | CarrierTurnEnd conta extra ou só natural? Supressão afeta auto-revive/prevenção/on-death já enfileirado? Freeze lista Counter/Assist mas não Pursuit; definir ataques enfileirados/auras e ordem R04 | Relógio do escudo e causalidade já fechados; ausência de nova regra não autoriza cancelamento genérico |

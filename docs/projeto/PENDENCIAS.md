@@ -2,7 +2,7 @@
 
 ## Síntese vigente — revisão20/11/2026
 
-**As12 entregas foram estudadas.** [Matriz por grupo e pontos ENT-01–15](REVISAO-ENTREGAS-2026-11-20.md). Recebimento e revisão encerrados para as versões registradas; implementação não iniciada. Informações de aparelho, imagem única, primeiro roteiro e diretrizes de produto já chegaram: não repetir perguntas genéricas. Divergências específicas permanecem antes do contrato afetado. Android Studio instalado em D:\Android; SDK/NDK/AVD ainda não confirmados, ver [dependências](ANDROID-DEPENDENCIAS.md).
+**As12 entregas foram estudadas.** [Matriz por grupo e pontos ENT-01–15](REVISAO-ENTREGAS-2026-11-20.md). Recebimento e revisão encerrados para as versões registradas; implementação não iniciada. Informações de aparelho, imagem única, primeiro roteiro e diretrizes de produto já chegaram: não repetir perguntas genéricas. As decisões principais foram posteriormente respondidas em RESPOSTAS-ENT-2026-11-20.md; faltam implementação e detalhes técnicos delimitados, não o questionário original. Android Studio instalado em D:\Android; SDK/NDK/AVD ainda não confirmados, ver [dependências](ANDROID-DEPENDENCIAS.md).
 
 Para reunir respostas e recursos por área, use a [central de entregas](../../entregas/README.md). Os guias são listas de preparação, não novas pendências que reabrem ESC/TIME/RES/SEQ/PAR. Este documento continua sendo a fonte das dúvidas/contratos; arquivos recebidos só mudam seu estado depois de revisados.
 
@@ -529,3 +529,7 @@ Seletor: correção por linhas3D com profundidade junto à base do modelo implem
 Mobile: [proposta revisada e sequência mínima](MOBILE-PLANO-REVISAO.md). HUD atual é Canvas, não UMG; preview/renderizador não troca automaticamente DeviceProfile Windows. Próxima implementação a planejar: apresentação Desktop/Mobile/Auto separada de plataforma, antes de presumir migração UMG ou instalar SDK. Sem implementação nova por esta revisão.
 
 [Fila de implementação independente](FILA-DESENVOLVIMENTO-INDEPENDENTE.md): distingue trabalho de engenharia já especificado de decisões ainda abertas. Não transformar REG/SIS sem contrato em tarefa autorizada só porque há adaptador possível.
+
+## Respostas ENT recebidas —20/11/2026
+
+**ENT-01–15 respondidos pelo usuário; implementação ainda pendente.** [Decisões vigentes e detalhes por bloco](RESPOSTAS-ENT-2026-11-20.md). PreservarESC/R04/Defesa atual até mudança explícita por implementação. Demo:1 Felipe jogável/1 arena;A2passiva. Pausa/abandono,panmobile,vídeo e futuraeconomia agora têm direção consolidada. Não repetir perguntas principais da revisão anterior;formalizar apenas detalhes técnicos no bloco afetado. Nenhuma execução autorizada por esta atualização.

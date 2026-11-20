@@ -84,5 +84,15 @@
     "LocalReferenceNDK": "27.2.12479018",
     "APKBuildRun": false
   },
-  "ResumeCondition": "User indicates budget availability and resumes work"
+  "ResumeCondition": "User indicates budget availability and resumes work",
+  "AnswersSupplement": {
+    "Arquivo": "entregas/00-entrada-geral/recebidos/2026-11-20_respostas-ent01-ent15_v01.md",
+    "Bytes": 11972,
+    "SHA256": "094FDF8A1A6832F27A92F467D4A7371D8810CD9D3210B90D3D13373E5F4171EA",
+    "ReviewedOn": "2026-11-20",
+    "MainDecisionsAnswered": "ENT-01 through ENT-15",
+    "DecisionDocument": "docs/projeto/RESPOSTAS-ENT-2026-11-20.md",
+    "Implemented": false,
+    "TechnicalDetails": "See bounded implementation details in decision document"
+  }
 }

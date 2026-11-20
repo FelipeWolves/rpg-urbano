@@ -76,3 +76,5 @@ Fechamento do hub: [aceite do usuário e acesso independente](projeto/HUB-IDENTI
 [Respostas ENT-01–15](projeto/RESPOSTAS-ENT-2026-11-20.md): decisões recebidas, mudanças futuras de contrato e fila preservada;sem implementação nesta recepção.
 
 [FelipeA2 — Postura de Vigília](projeto/FELIPE-A2-POSTURA-VIGILIA.md):cargas/contra-ataque/escudo e destino definidos;implementação pendente.
+
+[Ponto2 — bloqueio, mitigação e True Damage](projeto/BLOQUEIO-MITIGACAO-DANO-PONTO2.md): regras respondidas, implementação futura.

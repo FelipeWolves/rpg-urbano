@@ -50,3 +50,5 @@ Os recursos já enviados continuam em assets; não precisam ser movidos ou dupli
 Enquanto você reúne material, há uma [fila independente de engenharia](../docs/projeto/FILA-DESENVOLVIMENTO-INDEPENDENTE.md). Pesquisas opcionais não bloqueiam esses itens prontos. A fila não representa trabalho executado nem substitui decisões de produto ainda abertas.
 
 Conferência em20/11/2026:7 documentos nos grupos00–06 constam em RECEBIMENTO.csv. O registro confirma presença/tamanho/hash, não aprovação ou aplicação das propostas. CONTROLE.csv atualizado; originais continuam locais e ignorados no Git.
+
+Nova conferência em20/11/2026:11 arquivos nos grupos00–10;4 novos (07–10),4 alterados (00,01,04,05) e3 sem alteração (02,03,06). Grupo11 sem arquivo recebido. Presença/tamanho/SHA-256 conferidos; conteúdo não analisado nem aplicado. Inventário atual em entregas/RECEBIMENTO.csv; hashes anteriores preservados em entregas/RECEBIMENTO-HISTORICO.csv. Os originais continuam locais, fora do Git; o histórico de hashes não é backup dos conteúdos.

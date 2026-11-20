@@ -1,0 +1,37 @@
+{
+  "CheckedOn": "2026-11-20",
+  "Scope": "Read-only metadata and official compatibility references; no Android tool execution",
+  "Studio": {
+    "Installed": true,
+    "Path": "D:/Android",
+    "RegistryVersion": "2026.2.2.9",
+    "SdkPathRegistry": "",
+    "BundledJava": "25.0.4"
+  },
+  "Engine": {
+    "Version": "5.8.4",
+    "Gradle": "8.13",
+    "AGP": "8.13.0",
+    "SDKReference": "android-36",
+    "BuildToolsReference": "36.0.0",
+    "NDKReference": "27.2.12479018",
+    "CMakeReference": "3.22.1",
+    "Arm64BinaryPresent": true,
+    "X64BinaryPresent": true
+  },
+  "SDKLocated": false,
+  "NDKLocated": false,
+  "AVDLocated": false,
+  "GlobalAbsenceClaimed": false,
+  "Java25Gradle813Supported": false,
+  "BuildJdkCandidate": "17; not installed or configured by this check",
+  "CompatibilitySource": "https://docs.gradle.org/current/userguide/compatibility.html",
+  "AGPSource": "https://developer.android.com/build/releases/agp-8-13-0-release-notes?hl=en",
+  "ProgramsLaunched": false,
+  "InstalledComponents": false,
+  "ConfigurationChanged": false,
+  "LicensesAccepted": false,
+  "APKBuildRun": false,
+  "EmulatorStarted": false,
+  "ReadyForAndroidBuild": false
+}

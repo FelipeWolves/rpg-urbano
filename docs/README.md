@@ -82,3 +82,5 @@ Fechamento do hub: [aceite do usuário e acesso independente](projeto/HUB-IDENTI
 [Ponto3 — trilhos de dano/debuff e escala numérica](projeto/FUNIL-ESCALA-NUMERICA-PONTO3.md): int64/teto10^12, regras e testes futuros,sem implementação.
 
 [Adendo técnico consolidado](projeto/ADENDO-TECNICO-CONTRATOS-2026-11-20.md): regras adicionais de supressão,escudos,ondas e score;planejamento,sem execução.
+
+[CheckAndroid realizado](projeto/ANDROID-CHECK-2026-11-20.md):Studio instalado,toolchain incompleta/não localizada e incompatibilidadeJava25/Gradle8.13 identificada por metadados;sem execução.

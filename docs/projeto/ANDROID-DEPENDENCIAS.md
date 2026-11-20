@@ -33,3 +33,5 @@ Nenhuma etapa acima foi executada por este plano. Instalação de sistema-imagem
 Localização real do SDK/NDK e da pastaAVD; versão da imagem/ABI/renderizador; suporteAndroid da engine; Java compatível; ambiente de assinatura de teste; memória disponível doPC. Não solicitar credenciais ou chaves privadas no repositório. Imagem mobile ausente no Windows já foi esclarecida como janela vertical da versãoCanvas; não é falha de umAPK que não foi produzido.
 
 Metas4K/HDR/ultrarrealismo/física/presets são requisitos desejados a avaliar. LOD/downscale/AVD não garantemFPS, custo de decodificação de vídeo ou compatibilidade de todos os recursos. Não publicar mínimos de hardware antes de medições.
+
+ConferênciaAndroid20/11 concluída em leitura:Studio D:\Android presente;SdkPath vazio,SDK/NDK/AVD não localizados nas configurações/caminhos examinados. Java25doStudio fora da matriz suportada doGradle8.13/AGP8.13.0daengine. [Resultado e próximos passos](ANDROID-CHECK-2026-11-20.md). Não instalar/configurar/executar automaticamente;buscar SDK personalizado ou preparar componentes/JDK compatível sob autorização. AUTWindows não bloqueado.

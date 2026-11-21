@@ -1,3 +1,5 @@
+> **Estado vigente — 21/11/2026:** [consolidação das 15 entregas e decisões posteriores](docs/projeto/CONSOLIDACAO-2026-11-21.md). Prioridade autorizada: ENG-ESTAVEL, abertura normal e persistente pela Unreal, antes de AUT-01–04. ESC comum e seletor já aceitos não são reabertos. Android SDK/NDK/JDK localizados e boot do AVD confirmado pelo usuário; faltam persistência Unreal e APK. Percentuais recalculados no painel de progresso. As notas datadas abaixo preservam histórico e não reabrem decisões substituídas.
+
 # Regras do projeto
 
 ## Retomada

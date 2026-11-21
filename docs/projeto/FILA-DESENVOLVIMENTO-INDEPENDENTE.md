@@ -1,3 +1,5 @@
+> **Estado vigente — 21/11/2026:** [consolidação das 15 entregas e decisões posteriores](CONSOLIDACAO-2026-11-21.md). Prioridade autorizada: ENG-ESTAVEL, abertura normal e persistente pela Unreal, antes de AUT-01–04. ESC comum e seletor já aceitos não são reabertos. Android SDK/NDK/JDK localizados e boot do AVD confirmado pelo usuário; faltam persistência Unreal e APK. Percentuais recalculados no painel de progresso. As notas datadas abaixo preservam histórico e não reabrem decisões substituídas.
+
 # Fila de desenvolvimento independente das entregas
 
 Plano preparado em19/11/2026. **Não executado.** Esta fila usa contratos, recursos locais e exemplos já existentes. Entregas do usuário podem melhorar/substituir recursos e esclarecer extensões, mas não são pré-requisito dos itens classificados como prontos. A retomada depende de disponibilidade/autorização de trabalho; não há execução agendada ou em segundo plano.

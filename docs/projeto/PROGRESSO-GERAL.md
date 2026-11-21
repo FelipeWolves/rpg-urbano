@@ -10,9 +10,9 @@ Referência: demo com Felipe, uma arena e apresentação integrada testada em um
 |---|---:|---:|---|
 | Código core | 45% | 20% | Contratos novos ampliaram o trabalho restante; não houve regressão dos testes |
 | Integração Unreal | 45% | 10% | Projeto estável compilado, mapa salvo e reabertura/Play observados |
-| Front / interface | 20% | 10% | HUD provisório funcional; toque e acessibilidade pendentes |
-| Hub / navegação | 20% | 7% | Dois acessos atuais; sete destinos apenas planejados |
-| Arte 2D | 25% | 5% | Panoramas produzidos; nova composição não integrada |
+| Front / interface | 20% | 10% | Política Desktop/Mobile e motion implementados; toque e áreas seguras pendentes |
+| Hub / navegação | 20% | 7% | Sete locais e painéis informativos implementados; aceite visual pendente |
+| Arte 2D | 25% | 5% | Panorama novo conectado ao catálogo; aceite visual pendente |
 | Cenários 3D | 5% | 10% | Arena geométrica provisória |
 | Personagens / rig / animação | 0% | 12% | Sem recursos finais integrados |
 | VFX / cinematics / vídeo | 5% | 5% | Mídias recebidas; player pendente |
@@ -36,3 +36,5 @@ Seletor no chão corrigido e aceito; texto e combate confirmados pelo usuário. 
 Arte, roteiro, áudio e recursos 3D podem ser produzidos sem terminar todas as habilidades. Integração depende de contratos de IDs, dimensões, escala, eventos e direitos. Código/UI provisórios podem avançar sem novas entregas. Abertura padrão Unreal concluída no Windows local; não representa APK pronto.
 
 Integração Unreal 38→45%, QA22→24% e documentação75→78% nesta etapa. Soma ponderada 21,87%, arredondada para22%. [Evidências e limites](UNREAL-PROJETO-ESTAVEL.md).
+
+[Hub da cidade](HUB-PANORAMA-CIDADE.md): código/compilação e26grupos nativos aprovados; percentuais mantidos até aceite visual, sem confundir os sete painéis com sete sistemas completos. AUT-01 implementado; Android adiado.

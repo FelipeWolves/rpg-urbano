@@ -13,6 +13,7 @@
 #include "InputCoreTypes.h"
 #include "Misc/FileHelper.h"
 #include "Misc/CommandLine.h"
+#include "Misc/ConfigCacheIni.h"
 #include "Misc/Parse.h"
 #include "Misc/Paths.h"
 #include "Serialization/JsonReader.h"
@@ -36,10 +37,16 @@ const TArray<TSharedPtr<FJsonValue>>& Array(const TSharedPtr<FJsonObject>& objec
 }
 Device DeviceProfile(){
 #if PLATFORM_ANDROID || PLATFORM_IOS
-    return Device::Mobile;
+    const Device actual=Device::Mobile;
 #else
-    return Device::Desktop;
+    const Device actual=Device::Desktop;
 #endif
+    FString name=TEXT("Auto");
+    GConfig->GetString(TEXT("RpgPrototype"),TEXT("PresentationMode"),name,GGameIni);
+    FParse::Value(FCommandLine::Get(),TEXT("Presentation="),name);
+    const auto mode=parse_presentation_mode(Utf8(name));
+    if(!mode){static bool warned=false;if(!warned){UE_LOG(LogTemp,Warning,TEXT("Unknown Presentation; using Auto"));warned=true;}return actual;}
+    return presentation_device(*mode,actual);
 }
 }
 void AProbeArenaHUD::LoadHubCatalog(){
@@ -119,8 +126,8 @@ void AProbeArenaHUD::LoadHubCatalog(){
         for(const auto& entry:links){
             const auto object=entry->AsObject();const auto anchor=Object(object,TEXT("anchor"));
             const FString route=String(object,TEXT("route"));bool visible=false;
-            if(!object->TryGetBoolField(TEXT("visible"),visible) || (route!=TEXT("SpecialEventPlaceholder") && route!=TEXT("ReferenceBattle"))){throw std::invalid_argument("Unknown hub link route");}
-            HubHotspot hotspot{Utf8(String(object,TEXT("id"))),Utf8(String(object,TEXT("label"))),route==TEXT("ReferenceBattle")?HubRoute::Battle:HubRoute::SpecialEvent,
+            if(!object->TryGetBoolField(TEXT("visible"),visible) || (route!=TEXT("SpecialEventPlaceholder") && route!=TEXT("ReferenceBattle") && route!=TEXT("Terminal") && route!=TEXT("Unavailable"))){throw std::invalid_argument("Unknown hub link route");}
+            HubHotspot hotspot{Utf8(String(object,TEXT("id"))),Utf8(String(object,TEXT("label"))),route==TEXT("ReferenceBattle")?HubRoute::Battle:route==TEXT("Terminal")?HubRoute::Terminal:route==TEXT("Unavailable")?HubRoute::Unavailable:HubRoute::SpecialEvent,
                 Number(anchor,TEXT("x")),Number(anchor,TEXT("y")),ReadRect(Object(object,TEXT("hitArea"))),visible};
             validate_hotspot(hotspot);
             if(std::ranges::any_of(parsed,[&](const HubHotspot& known){return known.id==hotspot.id;})){throw std::invalid_argument("Duplicate hub link");}
@@ -144,14 +151,16 @@ void AProbeArenaHUD::ReturnToHub(){
     UE_LOG(LogTemp,Display,TEXT("HUB_RETURN attempt=%llu"),static_cast<unsigned long long>(Session.state().progress.attempt));
 }
 void AProbeArenaHUD::DrawHub(){
-    if(Canvas->SizeX<120 || Canvas->SizeY<120){return;}
+    if(Canvas->SizeX<280 || Canvas->SizeY<360){DrawText(TEXT("Amplie a janela para visualizar o hub."),FColor::White,8,20);return;}
     float mx=0,my=0;PlayerOwner->GetMousePosition(mx,my);
     const bool clicked=PlayerOwner->WasInputKeyJustReleased(EKeys::LeftMouseButton);
     const auto button=[&](const Rect& rect,const FString& label){
         const bool hover=contains(rect,mx,my);
         DrawRect(hover?FLinearColor(HubCyan.R*0.15f,HubCyan.G*0.15f,HubCyan.B*0.15f,0.92f):HubPanel,
             static_cast<float>(rect.x),static_cast<float>(rect.y),static_cast<float>(rect.width),static_cast<float>(rect.height));
-        DrawText(label,FColor::White,static_cast<float>(rect.x+8),static_cast<float>(rect.y+8));
+        float width=0,height=0;GetTextSize(label,width,height,HubBodyFont);
+        const float scale=static_cast<float>(std::min({1.0,(rect.width-16)/std::max(1.0,static_cast<double>(width)),(rect.height-12)/std::max(1.0,static_cast<double>(height))}));
+        DrawText(label,FColor::White,static_cast<float>(rect.x+8),static_cast<float>(rect.y+6),HubBodyFont,scale);
         return clicked && hover;
     };
     const auto enterBattle=[&](){
@@ -165,8 +174,12 @@ void AProbeArenaHUD::DrawHub(){
         DrawText(HubError,FColor::Orange,20,65);
         if(button({20,110,180,38},TEXT("Abrir batalha"))){enterBattle();}return;
     }
-    const auto plan=plan_hub({static_cast<uint32>(HubTexture->GetSizeX()),static_cast<uint32>(HubTexture->GetSizeY())},
-        {static_cast<uint32>(Canvas->SizeX),static_cast<uint32>(Canvas->SizeY)},DeviceProfile(),HubArea,HubView,HubAspectThreshold,HubRegions);
+    const int columns=Canvas->SizeX<600?3:7;
+    const int rows=(static_cast<int>(HubLinks.size())+columns-1)/columns;
+    const double dockTop=Canvas->SizeY-52.0-rows*52.0;
+    auto plan=plan_hub({static_cast<uint32>(HubTexture->GetSizeX()),static_cast<uint32>(HubTexture->GetSizeY())},
+        {static_cast<uint32>(Canvas->SizeX),static_cast<uint32>(dockTop-64)},DeviceProfile(),HubArea,HubView,HubAspectThreshold,HubRegions);
+    plan.content.y+=60;
     const auto& r=plan.content;const auto& uv=plan.source_uv;
     DrawTexture(HubTexture,static_cast<float>(r.x),static_cast<float>(r.y),static_cast<float>(r.width),static_cast<float>(r.height),
         static_cast<float>(uv.x),static_cast<float>(uv.y),static_cast<float>(uv.width),static_cast<float>(uv.height),FLinearColor::White,BLEND_Opaque);
@@ -206,50 +219,52 @@ void AProbeArenaHUD::DrawHub(){
             }
             if(!current.IsEmpty() && cursor+lineStep<=y+height-60){DrawText(current,color,static_cast<float>(x+16),static_cast<float>(cursor),HubBodyFont);cursor+=lineStep;}
         };
-        wrapped(HubEventTitle,HubCyan.ToFColorSRGB());cursor+=12;wrapped(HubEventBody,FColor::White);
+        wrapped(HubPanelTitle,HubCyan.ToFColorSRGB());cursor+=12;wrapped(HubPanelBody,FColor::White);
+        if(HubPanelRoute==HubRoute::Terminal && button({x+148,y+height-48,width-164,36},TEXT("Batalha de laboratório"))){enterBattle();return;}
         if(button({x+16,y+height-48,120,36},TEXT("Voltar")) || PlayerOwner->WasInputKeyJustPressed(EKeys::Escape)){HubEventOpen=false;}return;
     }
-    const auto pulse=pulse_frame(GetWorld()->GetTimeSeconds(),HubReducedMotion,HubPulse);
-    for(const auto& link:HubLinks){
+    const auto openDestination=[&](const HubHotspot& link){
+        if(link.route==HubRoute::Battle){enterBattle();return;}
+        HubPanelRoute=link.route;HubPanelTitle=Text(link.label);
+        if(link.route==HubRoute::Terminal){
+            HubPanelBody=TEXT("Terminal de destinos. Os modais de transporte e seus destinos serão definidos em outro bloco. Você pode acessar abaixo a batalha de laboratório atual; ela não representa História, PvP ou viagem já implementados.");
+        }else if(link.route==HubRoute::SpecialEvent){HubPanelTitle=HubEventTitle;HubPanelBody=HubEventBody;}
+        else{HubPanelBody=TEXT("Em breve. Este local está mapeado no panorama, mas seu sistema ainda não foi implementado. Nenhuma compra, recompensa, partida online ou alteração de progresso será executada aqui.");}
+        HubEventOpen=true;
+    };
+    for(std::size_t index=0;index<HubLinks.size();++index){
+        const auto& link=HubLinks[index];
         const auto projected=project_hotspot(plan,link);if(!projected){continue;}
-        const bool battle=link.route==HubRoute::Battle;
-        const FString labelText=battle?Text(link.label).ToUpper():Text(link.label);
+        const bool future=link.route==HubRoute::Unavailable;
+        const FString labelText=Text(link.label).ToUpper();
+        const FLinearColor color=future?FLinearColor(0.8f,0.85f,0.9f):link.route==HubRoute::SpecialEvent?HubMagenta:HubAmber;
         float tw=0,th=0;GetTextSize(labelText,tw,th,HubBodyFont);
-        const double width=std::min(static_cast<double>(tw+24),r.width),height=std::min(std::max(28.0,static_cast<double>(th)+12.0),r.height);
+        const double scale=std::min(1.0,(r.width-24)/std::max(1.0,static_cast<double>(tw)));
+        const double width=std::min(tw*scale+24,r.width),height=std::max(32.0,th*scale+12.0);
         const Rect label{std::clamp(projected->label_x-width/2,r.x,r.x+r.width-width),
-            std::clamp(projected->label_y+(battle?30:-height/2),r.y,r.y+r.height-height),width,height};
-        const double left=std::min(label.x,projected->hit_area.x),top=std::min(label.y,projected->hit_area.y);
-        const double right=std::max(label.x+label.width,projected->hit_area.x+projected->hit_area.width);
-        const double bottom=std::max(label.y+label.height,projected->hit_area.y+projected->hit_area.height);
-        const auto hit=minimum_target({left,top,right-left,bottom-top},r,HubPulse.minimum_target);
-        if(!hit){continue;}
+            std::clamp(projected->label_y-height/2,r.y,r.y+r.height-height),width,height};
+        const auto hit=minimum_target(label,r,48);if(!hit){continue;}
         const bool hover=contains(*hit,mx,my);
-        DrawRect(HubPanel,static_cast<float>(label.x),static_cast<float>(label.y),static_cast<float>(label.width),static_cast<float>(label.height));
-        DrawText(labelText,(battle?HubAmber:HubCyan).ToFColorSRGB(),static_cast<float>(label.x+10),static_cast<float>(label.y+6),HubBodyFont);
-        if(!battle){frame(label,hover?HubCyan:HubMagenta);}
-        else{
-            const double cx=projected->label_x,cy=projected->label_y;
-            const auto octagon=[&](double radius,FLinearColor color,double stroke){
-                constexpr double points[8][2]={{-.55,-1},{.55,-1},{1,-.55},{1,.55},{.55,1},{-.55,1},{-1,.55},{-1,-.55}};
-                for(int32 index=0;index<8;++index){const int32 next=(index+1)%8;line(cx+points[index][0]*radius,cy+points[index][1]*radius,cx+points[next][0]*radius,cy+points[next][1]*radius,color,stroke);}
-            };
-            const double radius=20*pulse.icon_scale;
-            auto glow=HubAmber;glow.A=hover?0.35f:0.15f;octagon(radius,glow,6);octagon(radius,HubAmber,1.5);
-            if(pulse.static_double_border){octagon(16,HubCrimson,1.5);}
-            else{
-                auto ring=HubAmber;ring.A=static_cast<float>(pulse.ring_opacity);
-                for(int32 i=0;i<32;++i){
-                    const double a=2*PI*i/32,b=2*PI*(i+1)/32,ringRadius=20*pulse.ring_scale;
-                    line(cx+ringRadius*std::cos(a),cy+ringRadius*std::sin(a),cx+ringRadius*std::cos(b),cy+ringRadius*std::sin(b),ring,HubPulse.ring_stroke);
-                }
-            }
-            // Original geometric paired fangs, no imported game icon.
-            for(double sign:{-1.0,1.0}){
-                line(cx+sign*12*pulse.icon_scale,cy-8*pulse.icon_scale,cx+sign*5*pulse.icon_scale,cy+11*pulse.icon_scale,HubAmber,2);
-                line(cx+sign*5*pulse.icon_scale,cy+11*pulse.icon_scale,cx+sign*3*pulse.icon_scale,cy-5*pulse.icon_scale,HubAmber,2);
-            }
-        }
-        if(clicked && hover){if(battle){enterBattle();}else{HubEventOpen=true;}return;}
+        const auto motion=label_motion(GetWorld()->GetTimeSeconds(),HubReducedMotion,static_cast<double>(index)*0.65);
+        DrawRect(HubPanel,static_cast<float>(label.x),static_cast<float>(label.y-3),static_cast<float>(label.width),static_cast<float>(label.height+6));
+        auto glow=color;glow.A=static_cast<float>(motion.glow_opacity);
+        line(label.x+5,label.y+label.height,label.x+label.width-5,label.y+label.height,glow,hover?4:2);
+        DrawText(labelText,color.ToFColorSRGB(),static_cast<float>(label.x+12),static_cast<float>(label.y+6+motion.offset_y),HubBodyFont,static_cast<float>(scale));
+        if(clicked && hover){openDestination(link);return;}
+    }
+    // Fixed dock keeps every destination reachable when its source region is cropped.
+    const double cell=static_cast<double>(Canvas->SizeX)/columns;
+    for(std::size_t index=0;index<HubLinks.size();++index){
+        const auto& link=HubLinks[index];
+        const Rect tile{(index%columns)*cell+3,dockTop+(index/columns)*52,cell-6,48};
+        const bool hover=contains(tile,mx,my);
+        DrawRect(HubPanel,static_cast<float>(tile.x),static_cast<float>(tile.y),static_cast<float>(tile.width),static_cast<float>(tile.height));
+        const FString text=Text(link.label);
+        float tw=0,th=0;GetTextSize(text,tw,th,HubBodyFont);
+        const float scale=static_cast<float>(std::min(0.85,(tile.width-12)/std::max(1.0,static_cast<double>(tw))));
+        DrawText(text,(hover?HubAmber:FLinearColor::White).ToFColorSRGB(),static_cast<float>(tile.x+(tile.width-tw*scale)/2),static_cast<float>(tile.y+4),HubBodyFont,scale);
+        DrawText(link.route==HubRoute::Unavailable?TEXT("Em breve"):TEXT("Abrir"),FColor(180,190,200),static_cast<float>(tile.x+6),static_cast<float>(tile.y+25),HubBodyFont,0.55f);
+        if(clicked && hover){openDestination(link);return;}
     }
     const double w=std::min(130.0,(Canvas->SizeX-48.0)/5),y=Canvas->SizeY-46.0;
     if(button({8,y,w,34},TEXT("Esquerda")) || PlayerOwner->WasInputKeyJustPressed(EKeys::Left)){HubArea=rpg::presentation::HubArea::Left;HubView=rpg::presentation::HubView::Focused;}
@@ -258,7 +273,7 @@ void AProbeArenaHUD::DrawHub(){
     if(button({32+3*w,y,w,34},plan.view==rpg::presentation::HubView::Panoramic?TEXT("Focar área"):TEXT("Panorama"))){
         HubView=plan.view==rpg::presentation::HubView::Panoramic?rpg::presentation::HubView::Focused:rpg::presentation::HubView::Panoramic;
     }
-    if(button({40+4*w,y,w,34},HubReducedMotion?TEXT("Sem pulso"):TEXT("Com pulso")) && !HubReducedMotionForced){HubReducedMotion=!HubReducedMotion;}
+    if(button({40+4*w,y,w,34},HubReducedMotion?TEXT("Sem movimento"):TEXT("Com movimento")) && !HubReducedMotionForced){HubReducedMotion=!HubReducedMotion;}
 }
 
 

@@ -25,7 +25,7 @@ foreach($name in @('Left','Center','Right')){
 $hotspotIds=@()
 foreach($spot in $c.hub.hotspots){
     if([string]::IsNullOrWhiteSpace($spot.id) -or $spot.id -in $hotspotIds -or [string]::IsNullOrWhiteSpace($spot.label)){throw 'Unique hotspot IDs and labels required'}
-    if($spot.route -notin @('SpecialEventPlaceholder','ReferenceBattle') -or $spot.visible -isnot [bool]){throw 'Unknown provisional hub route or visibility'}
+    if($spot.route -notin @('SpecialEventPlaceholder','ReferenceBattle','Terminal','Unavailable') -or $spot.visible -isnot [bool]){throw 'Unknown provisional hub route or visibility'}
     foreach($key in @('x','y')){
         if($null -eq $spot.anchor.$key -or ![double]::IsFinite([double]$spot.anchor.$key) -or $spot.anchor.$key -lt 0 -or $spot.anchor.$key -gt 1){throw 'Hotspot anchor outside source image'}
     }

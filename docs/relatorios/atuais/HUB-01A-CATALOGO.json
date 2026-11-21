@@ -1,5 +1,5 @@
 {
-  "CheckedUtc": "2026-11-19T22:49:27.5953825Z",
+  "CheckedUtc": "2026-11-21T23:25:03.8294487Z",
   "Passed": true,
   "SchemaVersion": 1,
   "Catalog": "data/presentation/startup.json",
@@ -11,8 +11,8 @@
       "FilePresenceChecked": true,
       "FileExists": true,
       "DimensionsDeclared": [
-        2752,
-        1536
+        1670,
+        942
       ]
     },
     {
@@ -50,8 +50,13 @@
     }
   ],
   "HotspotIds": [
-    "special-event",
-    "battle"
+    "terminal",
+    "arena-pvp",
+    "pub",
+    "plaza",
+    "games",
+    "lab-exp",
+    "library"
   ],
   "HotspotRuntimeConnected": false,
   "MediaDecoded": false,

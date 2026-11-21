@@ -20,6 +20,19 @@ Rect fit(double width,double height,PixelSize viewport){
 Rect contain(PixelSize media,PixelSize viewport){
     valid_size(media);return fit(media.width,media.height,viewport);
 }
+std::optional<PresentationMode> parse_presentation_mode(std::string_view name) noexcept {
+    if(name=="Auto"){return PresentationMode::Auto;}
+    if(name=="Desktop"){return PresentationMode::Desktop;}
+    if(name=="Mobile"){return PresentationMode::Mobile;}
+    return {};
+}
+Device presentation_device(PresentationMode mode,Device actual){
+    valid_device(actual);
+    if(mode==PresentationMode::Auto){return actual;}
+    if(mode==PresentationMode::Desktop){return Device::Desktop;}
+    if(mode==PresentationMode::Mobile){return Device::Mobile;}
+    throw std::invalid_argument("Unknown presentation mode");
+}
 HubPlan plan_hub(PixelSize panorama,PixelSize viewport,Device device,HubArea area,
                  HubView preference,double panoramic_min_aspect,const HubRegions& regions){
     valid_size(panorama);valid_size(viewport);valid_device(device);
@@ -89,7 +102,7 @@ void validate_display(const StartupDisplay& display){
 }
 void validate_hotspot(const HubHotspot& h){
     const auto& r=h.source_area;
-    if(h.id.empty() || h.label.empty() || (h.route!=HubRoute::Battle && h.route!=HubRoute::SpecialEvent) ||
+    if(h.id.empty() || h.label.empty() || (h.route!=HubRoute::Battle && h.route!=HubRoute::SpecialEvent && h.route!=HubRoute::Terminal && h.route!=HubRoute::Unavailable) ||
        !std::isfinite(h.anchor_x) || !std::isfinite(h.anchor_y) ||
        !std::isfinite(r.x) || !std::isfinite(r.y) || !std::isfinite(r.width) || !std::isfinite(r.height) ||
        r.x<0 || r.y<0 || r.width<=0 || r.height<=0 || r.x+r.width>1 || r.y+r.height>1 ||

@@ -40,7 +40,10 @@ struct HubPlan {
     Rect source_uv;
     Rect content;
 };
-enum class HubRoute { SpecialEvent, Battle };
+enum class HubRoute { SpecialEvent, Battle, Terminal, Unavailable };
+enum class PresentationMode { Auto, Desktop, Mobile };
+[[nodiscard]] std::optional<PresentationMode> parse_presentation_mode(std::string_view name) noexcept;
+[[nodiscard]] Device presentation_device(PresentationMode mode,Device actual);
 struct HubHotspot {
     std::string id;
     std::string label;

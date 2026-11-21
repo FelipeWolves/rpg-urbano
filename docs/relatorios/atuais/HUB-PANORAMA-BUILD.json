@@ -1,0 +1,33 @@
+{
+  "Date": "2026-11-21",
+  "Passed": true,
+  "ExitCode": 0,
+  "BuildActions": 8,
+  "Project": "experiments/unreal/RpgEngineProbe/RpgEngineProbe.uproject",
+  "Log": "build/hub-panorama-build.log",
+  "NativeTestGroups": 26,
+  "HubDestinations": 7,
+  "ActiveSubsystems": [
+    "reference_battle_via_terminal",
+    "event_placeholder"
+  ],
+  "FutureInfoOnly": [
+    "arena-pvp",
+    "pub",
+    "plaza",
+    "games",
+    "library"
+  ],
+  "Panorama": {
+    "Width": 1670,
+    "Height": 942,
+    "Path": "assets/runtime/hub/bg-home-day-sunny.png",
+    "SHA256": "F0A4FABF2EF619DE05E3AD77C100B354AE837E62CC3573DFBE6075FE14D54049"
+  },
+  "VisualRuntimeExecuted": false,
+  "VisualAcceptance": "Pending user test",
+  "AndroidChanged": false,
+  "ScreenControlUsed": false,
+  "AUT01": "Implemented and compiled; visual acceptance pending",
+  "AUT02": "Partial responsive dock; safe regions pending"
+}

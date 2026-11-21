@@ -30,6 +30,10 @@ if errorlevel 1 exit /b 16
 cl.exe %FLAGS% /I"$root/include" "$root/tests/hub_style_tests.cpp" "$build/hub_style.obj" /Fo"$build/hub_style_tests.obj" /Fe"$build/hub_style_tests.exe" /link /INCREMENTAL:NO
 if errorlevel 1 exit /b 17
 "$build/hub_style_tests.exe"
+if errorlevel 1 exit /b 18
+cl.exe %FLAGS% /I"$root/include" "$root/tests/hub_expansion_tests.cpp" "$build/hub_style.obj" "$build/startup_presentation.obj" /Fo"$build/hub_expansion_tests.obj" /Fe"$build/hub_expansion_tests.exe" /link /INCREMENTAL:NO
+if errorlevel 1 exit /b 19
+"$build/hub_expansion_tests.exe"
 exit /b %ERRORLEVEL%
 "@
 $batchPath=Join-Path $build 'testar.cmd';$batch | Set-Content $batchPath -Encoding ascii
@@ -45,3 +49,7 @@ if(!$stylePassed){throw 'Hub style tests failed'}
 $output | ForEach-Object {Write-Output $_}
 if(!$hotspotsPassed){throw 'Hub hotspot tests failed'}
 if(!$passed){throw 'Startup presentation tests failed'}
+
+$expansionPassed=$code -eq 0 -and $output -contains 'HUB_EXPANSION_TESTS_RESULT passed=6 total=6'
+[ordered]@{CheckedUtc=[DateTime]::UtcNow.ToString('o');Passed=$expansionPassed;Groups=6;ExitCode=$code;Scope='Presentation policy override, destination routes and reduced label motion; no visual/mobile acceptance';EngineExecuted=$false} | ConvertTo-Json | Set-Content (Join-Path $root 'docs/relatorios/atuais/HUB-EXPANSAO.json') -Encoding utf8
+if(!$expansionPassed){throw 'Hub expansion tests failed'}

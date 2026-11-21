@@ -24,6 +24,9 @@ private:
     bool HubEnabled=false;
     bool InHub=false;
     bool HubEventOpen=false;
+    rpg::presentation::HubRoute HubPanelRoute=rpg::presentation::HubRoute::SpecialEvent;
+    FString HubPanelTitle;
+    FString HubPanelBody;
     rpg::presentation::HubArea HubArea=rpg::presentation::HubArea::Center;
     rpg::presentation::HubView HubView=rpg::presentation::HubView::Auto;
     rpg::presentation::HubRegions HubRegions;

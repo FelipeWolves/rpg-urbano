@@ -4,6 +4,12 @@
 #include <numbers>
 #include <stdexcept>
 namespace rpg::presentation {
+LabelMotion label_motion(double seconds,bool reduced_motion,double phase){
+    if(!std::isfinite(seconds) || seconds<0 || !std::isfinite(phase)){throw std::invalid_argument("Invalid label motion time");}
+    if(reduced_motion){return {0,0.25};}
+    const double wave=std::sin(2*std::numbers::pi*std::fmod(seconds,4.8)/4.8+phase);
+    return {2*wave,0.25+0.1*wave};
+}
 void validate_pulse(const PulseSettings& s){
     for(const double value:{s.period,s.minimum_scale,s.maximum_scale,s.ring_maximum_scale,s.ring_opacity,s.ring_stroke,s.minimum_target}){
         if(!std::isfinite(value)){throw std::invalid_argument("Finite pulse settings required");}

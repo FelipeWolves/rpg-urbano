@@ -32,43 +32,126 @@
     },
     "hotspots": [
       {
-        "id": "special-event",
-        "label": "Evento Especial",
-        "route": "SpecialEventPlaceholder",
+        "id": "terminal",
+        "label": "Terminal",
+        "route": "Terminal",
         "anchor": {
-          "x": 0.2779796511627907,
-          "y": 0.107421875
+          "x": 0.56,
+          "y": 0.4
         },
         "hitArea": {
-          "x": 0.24309593023255813,
-          "y": 0.041015625,
-          "width": 0.06976744186046512,
-          "height": 0.1328125
+          "x": 0.515,
+          "y": 0.365,
+          "width": 0.09,
+          "height": 0.07
         },
-        "positionStatus": "UserMarked",
-        "location": "Outdoor com rosto feminino acima do lobo alado, circulado pelo usuario",
+        "positionStatus": "DocumentGuideProvisional",
         "visible": true
       },
       {
-        "id": "battle",
-        "label": "Batalha",
-        "route": "ReferenceBattle",
+        "id": "arena-pvp",
+        "label": "Arena PvP",
+        "route": "Unavailable",
         "anchor": {
-          "x": 0.7870639534883721,
-          "y": 0.576171875
+          "x": 0.88,
+          "y": 0.45
         },
         "hitArea": {
-          "x": 0.7609011627906976,
-          "y": 0.529296875,
-          "width": 0.05232558139534884,
-          "height": 0.09375
+          "x": 0.835,
+          "y": 0.41500000000000004,
+          "width": 0.09,
+          "height": 0.07
         },
-        "positionStatus": "UserMarked",
-        "location": "Tela do dispositivo na mao do homem a direita, circulada pelo usuario",
+        "positionStatus": "DocumentGuideProvisional",
+        "visible": true
+      },
+      {
+        "id": "pub",
+        "label": "Pub",
+        "route": "Unavailable",
+        "anchor": {
+          "x": 0.8,
+          "y": 0.78
+        },
+        "hitArea": {
+          "x": 0.755,
+          "y": 0.745,
+          "width": 0.09,
+          "height": 0.07
+        },
+        "positionStatus": "DocumentGuideProvisional",
+        "visible": true
+      },
+      {
+        "id": "plaza",
+        "label": "Praça",
+        "route": "Unavailable",
+        "anchor": {
+          "x": 0.17,
+          "y": 0.69
+        },
+        "hitArea": {
+          "x": 0.125,
+          "y": 0.6549999999999999,
+          "width": 0.09,
+          "height": 0.07
+        },
+        "positionStatus": "DocumentGuideProvisional",
+        "visible": true
+      },
+      {
+        "id": "games",
+        "label": "Games",
+        "route": "Unavailable",
+        "anchor": {
+          "x": 0.47,
+          "y": 0.64
+        },
+        "hitArea": {
+          "x": 0.425,
+          "y": 0.605,
+          "width": 0.09,
+          "height": 0.07
+        },
+        "positionStatus": "DocumentGuideProvisional",
+        "visible": true
+      },
+      {
+        "id": "lab-exp",
+        "label": "Lab - Exp",
+        "route": "SpecialEventPlaceholder",
+        "anchor": {
+          "x": 0.12,
+          "y": 0.43
+        },
+        "hitArea": {
+          "x": 0.075,
+          "y": 0.395,
+          "width": 0.09,
+          "height": 0.07
+        },
+        "positionStatus": "DocumentGuideProvisional",
+        "visible": true
+      },
+      {
+        "id": "library",
+        "label": "Biblioteca",
+        "route": "Unavailable",
+        "anchor": {
+          "x": 0.28,
+          "y": 0.34
+        },
+        "hitArea": {
+          "x": 0.23500000000000004,
+          "y": 0.30500000000000005,
+          "width": 0.09,
+          "height": 0.07
+        },
+        "positionStatus": "DocumentGuideProvisional",
         "visible": true
       }
     ],
-    "hotspotReference": "assets/sources/hub-accesses-marked-2026-11-19.png",
+    "hotspotReference": "entregas/05-hub-identidade-e-arte2d/recebidos/BG-tela-inicial-Prototipo-02/bg-home-indicativa-detalhada.png",
     "visual": {
       "title": "Mundus Lupis Disco",
       "codename": "LOBO",
@@ -113,8 +196,8 @@
       },
       "reducedMotion": false,
       "eventPanel": {
-        "title": "EVENTO ESPECIAL — EM PREPARAÇÃO",
-        "body": "Área reservada para campanhas, desafios temporários e rotações especiais. Este painel valida a navegação do Hub e será conectado ao sistema de eventos em uma etapa futura."
+        "title": "LAB - EXP — EVENTOS EM PREPARAÇÃO",
+        "body": "Área reservada para eventos e experiências, incluindo um futuro evento de RPG clássico. O conteúdo ainda não está implementado; este painel apenas permite conferir o novo hub."
       }
     }
   },
@@ -132,9 +215,9 @@
       "id": "hub-panorama",
       "role": "HubPanorama",
       "status": "Ready",
-      "path": "assets/runtime/hub/panorama.jpg",
-      "width": 2752,
-      "height": 1536,
+      "path": "assets/runtime/hub/bg-home-day-sunny.png",
+      "width": 1670,
+      "height": 942,
       "origin": "Criado/gerado pelo usuario, conforme declaracao nesta conversa.",
       "rights": "Autoria/geracao propria declarada; uso no projeto informado pelo usuario; sem licenca publica de redistribuicao definida."
     },

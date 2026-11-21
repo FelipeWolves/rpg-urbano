@@ -144,3 +144,8 @@ Parser JSON do hub, importação do panorama, projeção/clipping dos dois alvos
 - Projeto-fonte compilável diretamente, mapa próprio e hub padrão; abertura/reabertura/Play observados.
 - Android: caminhos persistidos, descoberta INVALID ainda pendente; nenhum APK.
 - Mídias e caches fora doGit; estágios antigos preservados. Controle de tela encerrado a pedido.
+
+## 2026-11-21 — Hub da cidade e política de apresentação
+- Panorama diurno, sete locais separados, painéis informativos e movimento reduzido.
+- AUT-01 Desktop/Mobile/Auto, dock responsivo parcial e prévias Windows atualizadas.
+-26grupos nativos e compilação8ações aprovados; aceite visual pendente do usuário. Android adiado.

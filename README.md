@@ -1,3 +1,5 @@
+> **Hub vigente21/11:** [panorama da cidade, sete locais e motion](docs/projeto/HUB-PANORAMA-CIDADE.md), implementado/compilado; aceite visual pendente do usuário. AUT-01 pronto em código; AUT-02 parcial, depois AUT-03/04. Android adiado. Sem controle de tela nesta entrega. Esta nota substitui a prioridade anterior de iniciar AUT-01 e as âncoras antigas do terraço.
+
 # RPG Urbano — Mundus Lupis Disco / codinome LOBO
 
 Protótipo original de RPG urbano e musical. Núcleo C++20 independente, apresentação atual na Unreal Engine 5.8.4 e laboratório textual preservado. Demo recortada: Felipe, uma arena e inimigos provisórios; não é o escopo comercial completo.
@@ -14,7 +16,7 @@ Compilação, mapa salvo, reabertura normal pelo `.uproject` e Play foram observ
 
 O projeto fixo está em `experiments/unreal/RpgEngineProbe`, apesar do nome histórico experiments. Edite esse projeto; `build/p` contém snapshots antigos preservados. Source, Config e o mapa próprio são versionados; caches, binários e preferências locais não. Imagens/vídeos não acompanham o Git. Em outro checkout, recursos locais precisam ser fornecidos e o C++ compilado; `scripts/preparar-editor-estavel.ps1` prepara somente recursos ausentes, conferindo hashes e preservando arquivos diferentes.
 
-**Abrir-Preview.cmd** ainda abre a prévia compilada histórica; não representa automaticamente o projeto estável mais recente. Mudanças C++ precisam de compilação; salvar um mapa não recompila código.
+**Abrir-Preview.cmd** abre a prévia do projeto estável atual. **Abrir-Preview-Mobile.cmd** abre sua apresentação retrato no Windows; não é um APK. Mudanças C++ precisam de compilação; salvar um mapa não recompila código.
 
 ## Organização
 
@@ -42,7 +44,7 @@ Histórico:213 testes gerais e suítes incrementais aprovados; ponte anterior11 
 
 [Consolidação das15 entregas](docs/projeto/CONSOLIDACAO-2026-11-21.md) distingue decisões de implementação. ESC comum e seletor aceitos são preservados; ponto fixo, novo funil, A2 de Felipe, SilverShield e demais extensões ainda exigem seus blocos.
 
-Próximo: AUT-01–04 (apresentação Desktop/Mobile, proporções/áreas seguras, entrada e painéis). Arte, áudio, roteiro e modelos podem ser produzidos separadamente com os contratos definidos. [Fila independente](docs/projeto/FILA-DESENVOLVIMENTO-INDEPENDENTE.md).
+AUT-01 implementado; próximo: completar AUT-02 e seguir AUT-03/04 (áreas seguras, entrada e painéis). Arte, áudio, roteiro e modelos podem ser produzidos separadamente com os contratos definidos. [Fila independente](docs/projeto/FILA-DESENVOLVIMENTO-INDEPENDENTE.md).
 
 Android: componentes instalados e boot de AVD confirmado pelo usuário. Caminhos persistem nas preferências da Unreal, mas a verificação sem variáveis injetadas retornou Android INVALID r27c; diagnóstico e APK pendentes. Não interpretar preview Windows como validação de aparelho. Nenhuma instalação ou mudança de rede nesta entrega.
 

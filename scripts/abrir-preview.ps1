@@ -1,18 +1,14 @@
-# Opens an already built local prototype. Never builds, downloads or modifies source files.
-param([switch]$Editor,[switch]$ValidateOnly)
+# Opens the already built stable project; never builds, installs or downloads.
+param([switch]$Editor,[switch]$Mobile,[switch]$ValidateOnly)
 $ErrorActionPreference='Stop'
 $root=Split-Path $PSScriptRoot -Parent
-$buildReport=Join-Path $root 'docs/relatorios/atuais/PREVIEW-BUILD.json'
-if(!(Test-Path -LiteralPath $buildReport)){$buildReport=Join-Path $root 'docs/relatorios/atuais/HUB-IDENTIDADE-BUILD.json'}
-$report=Get-Content $buildReport -Raw|ConvertFrom-Json
-if(!$report.Passed){throw 'The current prototype build is not approved.'}
-$stage=[IO.Path]::GetFullPath($report.Stage)
-$boundary=[IO.Path]::GetFullPath((Join-Path $root 'build/p'))+[IO.Path]::DirectorySeparatorChar
-if(!$stage.StartsWith($boundary,[StringComparison]::OrdinalIgnoreCase)){throw 'Build is outside this project.'}
-$project=Join-Path $stage 'RpgEngineProbe.uproject'
-$executable='D:\Unreal Engine\UE_5.8\Engine\Binaries\Win64\UnrealEditor.exe'
-foreach($path in @($project,$executable)){if(!(Test-Path -LiteralPath $path -PathType Leaf)){throw ('Missing local file: '+$path)}}
-$arguments=@($project,'/Engine/Maps/Templates/Template_Default','-Hub','-culture=en','-NoSplash','-windowed','-ResX=1280','-ResY=720','-ini:EditorSettings:[/Script/UnrealEd.AnalyticsPrivacySettings]:bSendUsageData=False')
-if(!$Editor){$arguments+='-game'}
-if($ValidateOnly){Write-Output ('PREVIEW_READY mode='+$(if($Editor){'Editor'}else{'Game'})+' project='+$project);return}
+$project=Join-Path $root 'experiments/unreal/RpgEngineProbe/RpgEngineProbe.uproject'
+$module=Join-Path (Split-Path $project -Parent) 'Binaries/Win64/UnrealEditor-RpgEngineProbe.dll'
+$executable='D:/Unreal Engine/UE_5.8/Engine/Binaries/Win64/UnrealEditor.exe'
+foreach($file in @($project,$module,$executable)){if(!(Test-Path -LiteralPath $file -PathType Leaf)){throw "Missing local prerequisite: $file"}}
+$arguments=@($project,'-culture=en','-NoSplash')
+if(!$Editor){$arguments+=@('-game','-windowed')}
+if($Mobile){$arguments+=@('-Presentation=Mobile','-ResX=450','-ResY=800')}
+elseif(!$Editor){$arguments+=@('-ResX=1280','-ResY=720')}
+if($ValidateOnly){Write-Output ('STABLE_PREVIEW_READY project='+$project+' mobile='+$Mobile);return}
 & $executable @arguments

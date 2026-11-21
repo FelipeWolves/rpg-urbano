@@ -1,0 +1,172 @@
+{
+  "schemaVersion": 1,
+  "desktopBeforeWindowCreation": {
+    "mode": "Windowed",
+    "width": 1280,
+    "height": 720,
+    "userConfigurable": true
+  },
+  "hub": {
+    "initialArea": "Center",
+    "view": "Auto",
+    "panoramicMinAspect": 1.5,
+    "regions": {
+      "Left": {
+        "x": 0,
+        "y": 0,
+        "width": 0.3333333333333333,
+        "height": 1
+      },
+      "Center": {
+        "x": 0.3333333333333333,
+        "y": 0,
+        "width": 0.3333333333333333,
+        "height": 1
+      },
+      "Right": {
+        "x": 0.6666666666666666,
+        "y": 0,
+        "width": 0.3333333333333333,
+        "height": 1
+      }
+    },
+    "hotspots": [
+      {
+        "id": "special-event",
+        "label": "Evento Especial",
+        "route": "SpecialEventPlaceholder",
+        "anchor": {
+          "x": 0.2779796511627907,
+          "y": 0.107421875
+        },
+        "hitArea": {
+          "x": 0.24309593023255813,
+          "y": 0.041015625,
+          "width": 0.06976744186046512,
+          "height": 0.1328125
+        },
+        "positionStatus": "UserMarked",
+        "location": "Outdoor com rosto feminino acima do lobo alado, circulado pelo usuario",
+        "visible": true
+      },
+      {
+        "id": "battle",
+        "label": "Batalha",
+        "route": "ReferenceBattle",
+        "anchor": {
+          "x": 0.7870639534883721,
+          "y": 0.576171875
+        },
+        "hitArea": {
+          "x": 0.7609011627906976,
+          "y": 0.529296875,
+          "width": 0.05232558139534884,
+          "height": 0.09375
+        },
+        "positionStatus": "UserMarked",
+        "location": "Tela do dispositivo na mao do homem a direita, circulada pelo usuario",
+        "visible": true
+      }
+    ],
+    "hotspotReference": "assets/sources/hub-accesses-marked-2026-11-19.png",
+    "visual": {
+      "title": "Mundus Lupis Disco",
+      "codename": "LOBO",
+      "fonts": {
+        "primary": "Cormorant Garamond",
+        "secondary": "Lora",
+        "status": "LocalFilesIntegrated",
+        "excluded": [
+          "Cinzel"
+        ],
+        "primaryPath": "assets/runtime/fonts/CormorantGaramond.ttf",
+        "secondaryPath": "assets/runtime/fonts/Lora.ttf"
+      },
+      "logo": {
+        "sourcePath": "assets/sources/logo-lobo-silhouette.webp",
+        "status": "LocalPngIntegrated",
+        "format": "WebP",
+        "width": 132,
+        "height": 132,
+        "runtimePath": "assets/runtime/hub/logo-lobo.png",
+        "origin": "Arquivo fornecido pelo usuario; URL de origem indicada no briefing"
+      },
+      "palette": {
+        "magenta": "#D946EF",
+        "violet": "#A855F7",
+        "cyan": "#06B6D4",
+        "cyanBright": "#22D3EE",
+        "amber": "#F59E0B",
+        "gold": "#FACC15",
+        "crimson": "#DC2626",
+        "panel": "#0F172A",
+        "panelOpacity": 0.8
+      },
+      "battlePulse": {
+        "period": 2.4,
+        "minimumScale": 1.0,
+        "maximumScale": 1.06,
+        "ringMaximumScale": 1.35,
+        "ringOpacity": 0.7,
+        "ringStroke": 1.5,
+        "minimumTarget": 48
+      },
+      "reducedMotion": false,
+      "eventPanel": {
+        "title": "EVENTO ESPECIAL — EM PREPARAÇÃO",
+        "body": "Área reservada para campanhas, desafios temporários e rotações especiais. Este painel valida a navegação do Hub e será conectado ao sistema de eventos em uma etapa futura."
+      }
+    }
+  },
+  "video": {
+    "fit": "Contain",
+    "mobileRequestMatchingOrientation": true,
+    "restoreHubOrientationAfterPlayback": true,
+    "desktopPortraitSideComposition": true,
+    "allowSkip": true,
+    "fallback": "ContinueToLocalEntry",
+    "variantPreference": "DeviceThenOther"
+  },
+  "assets": [
+    {
+      "id": "hub-panorama",
+      "role": "HubPanorama",
+      "status": "Ready",
+      "path": "assets/runtime/hub/panorama.jpg",
+      "width": 2752,
+      "height": 1536,
+      "origin": "Criado/gerado pelo usuario, conforme declaracao nesta conversa.",
+      "rights": "Autoria/geracao propria declarada; uso no projeto informado pelo usuario; sem licenca publica de redistribuicao definida."
+    },
+    {
+      "id": "intro-desktop",
+      "role": "IntroDesktop",
+      "status": "Ready",
+      "path": "assets/runtime/video/intro-desk.mp4",
+      "width": 3840,
+      "height": 2160,
+      "origin": "Criado/gerado pelo usuario, conforme declaracao nesta conversa.",
+      "rights": "Autoria/geracao propria declarada; uso no projeto informado pelo usuario; sem licenca publica de redistribuicao definida."
+    },
+    {
+      "id": "intro-mobile",
+      "role": "IntroMobile",
+      "status": "Ready",
+      "path": "assets/runtime/video/intro-mobile.mp4",
+      "width": 2160,
+      "height": 3840,
+      "origin": "Criado/gerado pelo usuario, conforme declaracao nesta conversa.",
+      "rights": "Autoria/geracao propria declarada; uso no projeto informado pelo usuario; sem licenca publica de redistribuicao definida."
+    },
+    {
+      "id": "intro-side-art",
+      "role": "SideArt",
+      "status": "Ready",
+      "path": "assets/runtime/video/intro-side-art.png",
+      "width": 1672,
+      "height": 941,
+      "origin": "Criado/gerado pelo usuario, conforme declaracao nesta conversa.",
+      "rights": "Autoria/geracao propria declarada; uso no projeto informado pelo usuario; sem licenca publica de redistribuicao definida."
+    }
+  ]
+}

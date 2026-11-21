@@ -56,5 +56,7 @@ Thumbs.db
 /assets/source/
 /assets/sources/
 
-# Unreviewed user deliveries are local; guides and index remain tracked.
-/entregas/*/recebidos/
+# User-authorized Markdown deliveries are tracked; media stays local.
+/entregas/*/recebidos/**
+!/entregas/*/recebidos/**/
+!/entregas/*/recebidos/**/*.md

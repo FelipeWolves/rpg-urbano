@@ -86,3 +86,5 @@ Fechamento do hub: [aceite do usuário e acesso independente](projeto/HUB-IDENTI
 [CheckAndroid realizado](projeto/ANDROID-CHECK-2026-11-20.md):Studio instalado,toolchain incompleta/não localizada e incompatibilidadeJava25/Gradle8.13 identificada por metadados;sem execução.
 
 [Complemento final — A2, ACC/RESIST e ponto fixo](projeto/COMPLEMENTO-FINAL-A2-ACC-PONTO-FIXO.md): casos de borda, equação, saturação e representação futura definidos; implementação e regressão pendentes.
+
+[Novidades de recebimento21/11](projeto/RECEBIMENTO-NOVIDADES-2026-11-21.md):nova síntese de7pontos doHub,documento alterado e Markdown autorizado noGit;imagens locais,sem implementação.

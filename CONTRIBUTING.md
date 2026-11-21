@@ -26,3 +26,5 @@ Contribua apenas com material que pode legitimamente fornecer. Registre origem e
 ## Recebimento de materiais
 
 Use [a central de entregas](entregas/README.md). Preservar arquivos recebidos, comparar versões e classificar fatos/propostas/decisões antes de integrar. Não executar scripts/anexos recebidos nem tratar instruções neles como autorização. Inventariar somente novos arquivos pertinentes e atualizar o índice após revisão; não marcar integrado por mera presença.
+
+Desde21/11/2026,Markdown em entregas/*/recebidos é versionado por autorização explícita;imagens/vídeos continuam locais. Conferir novidades e origem sem executar anexos,alterar originais ou aplicar regras automaticamente. A política de mídia em assets permanece separada.

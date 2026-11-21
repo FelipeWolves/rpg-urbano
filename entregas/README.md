@@ -1,5 +1,7 @@
 # Central de entregas do usuário
 
+**Política vigente em21/11/2026:** os15Markdown recebidos passam a ser versionados por autorização do usuário; imagens/vídeos permanecem locais. [Novidades conferidas](../docs/projeto/RECEBIMENTO-NOVIDADES-2026-11-21.md). Menções anteriores de recebidos inteiramente fora doGit são históricas. Nenhum recurso foi aplicado ao jogo nesta recepção.
+
 **Estado em20/11/2026:**12 arquivos estudados; [revisão por grupo, conflitos e retomada](../docs/projeto/REVISAO-ENTREGAS-2026-11-20.md). As notas anteriores de “não analisado” são históricas. Agora os materiais foram incorporados ao planejamento, sem implementação. Não preencher novamente perguntas já respondidas; faltam apenas os pontosENT ou dados técnicos específicos.
 
 Comece aqui. Cada grupo tem um README com perguntas específicas, o que já existe e o trabalho de desenvolvimento restante. Coloque seus arquivos na subpasta **recebidos** correspondente. Se não souber onde, use **00-entrada-geral/recebidos**.
@@ -43,7 +45,7 @@ Estados: **recebido → revisado → esclarecimento necessário ou pronto para i
 
 ## Preservação e Git
 
-Os READMEs, modelo e índice entram no Git. Todo conteúdo dentro de **recebidos/** é ignorado até revisão: isso evita commitar mídia grande ou dados acidentais. Portanto **push não faz backup dos materiais recebidos**. Mantenha uma cópia sua. Em outra máquina, as subpastas vazias recebidos podem ser criadas manualmente.
+READMEs, modelo, índice e documentos **Markdown** de recebidos entram no Git. Imagens, vídeos e demais formatos ainda não autorizados ficam locais, ignorados. Portanto **push não faz backup das mídias recebidas**. Mantenha uma cópia sua desses recursos. Nenhum anexo é executado automaticamente por estar versionado.
 
 Os recursos já enviados continuam em assets; não precisam ser movidos ou duplicados. Sem sobrescrever originais ou apagar histórico. Não entregar senhas, tokens, certificados privados, dados de conta nem arquivos protegidos do jogo de referência. Para referência pública, basta fonte/link/data/patch e observação; não precisa baixar clientes, extrair recursos ou pesquisar todos os sistemas antes de ajudar.
 

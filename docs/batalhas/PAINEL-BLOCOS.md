@@ -1,3 +1,5 @@
+> **Atualização21/11/2026:** ENG-ESTAVEL concluído no Windows local; [evidências](../projeto/UNREAL-PROJETO-ESTAVEL.md). ESC e seletor preservados; AUT-01–04 próximos. Novos contratos SIS/REG/A2 ainda não implementados; Android INVALID na descoberta automática, sem APK. As marcações históricas abaixo mantêm seu escopo.
+
 # Painel de blocos — estado consolidado
 
 Atualizado em 19/11/2026. Este painel é vigente; [histórico integral](../projeto/historico/2026-11-18/PAINEL-BLOCOS.md.txt). Aceites detalhados permanecem nos relatórios de cada bloco.

@@ -3,6 +3,7 @@
 #include "Camera/CameraActor.h"
 #include "Misc/CommandLine.h"
 #include "Misc/Parse.h"
+#include "Misc/ConfigCacheIni.h"
 #include "rpg/arena_layout.hpp"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/Canvas.h"
@@ -40,7 +41,11 @@ void AProbeArenaMode::BeginPlay()
 void AProbeArenaHUD::BeginPlay()
 {
     Super::BeginPlay();
-    HubEnabled=FParse::Param(FCommandLine::Get(),TEXT("Hub"));InHub=HubEnabled;
+    HubEnabled=true;
+    GConfig->GetBool(TEXT("RpgPrototype"),TEXT("StartInHub"),HubEnabled,GGameIni);
+    if(FParse::Param(FCommandLine::Get(),TEXT("Hub"))){HubEnabled=true;}
+    if(FParse::Param(FCommandLine::Get(),TEXT("Arena"))){HubEnabled=false;}
+    InHub=HubEnabled;
     if(HubEnabled){LoadHubCatalog();}
     const auto layout=SelectedLayout();
     if(!layout){return;}

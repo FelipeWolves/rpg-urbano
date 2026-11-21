@@ -1,4 +1,6 @@
-> **Estado vigente — 21/11/2026:** [consolidação das 15 entregas e decisões posteriores](projeto/CONSOLIDACAO-2026-11-21.md). Prioridade autorizada: ENG-ESTAVEL, abertura normal e persistente pela Unreal, antes de AUT-01–04. ESC comum e seletor já aceitos não são reabertos. Android SDK/NDK/JDK localizados e boot do AVD confirmado pelo usuário; faltam persistência Unreal e APK. Percentuais recalculados no painel de progresso. As notas datadas abaixo preservam histórico e não reabrem decisões substituídas.
+> **Entrega concluída:** [projeto Unreal estável e guia de abertura](projeto/UNREAL-PROJETO-ESTAVEL.md). Controle de tela encerrado por solicitação; nova interação com o editor exige nova liberação. Atualização documental/Git apenas após essa solicitação.
+
+> **Estado vigente — 21/11/2026:** [consolidação das 15 entregas e decisões posteriores](projeto/CONSOLIDACAO-2026-11-21.md). ENG-ESTAVEL concluído no Windows local: projeto fixo, mapa próprio, abertura/reabertura e Play observados. Próximo: AUT-01–04. ESC comum e seletor já aceitos não são reabertos. Android SDK/NDK/JDK localizados e boot do AVD confirmado pelo usuário; caminhos já persistem, mas ValidatePlatforms retorna Android INVALID r27c; diagnóstico e APK pendentes. Percentuais recalculados no painel de progresso. As notas datadas abaixo preservam histórico e não reabrem decisões substituídas.
 
 # Documentação — índice vigente
 

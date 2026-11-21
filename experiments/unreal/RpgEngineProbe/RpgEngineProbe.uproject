@@ -1,10 +1,14 @@
 {
   "FileVersion": 3,
   "EngineAssociation": "5.8",
-  "Category": "Experiments",
-  "Description": "ENG-01: isolated C++ build probe; no editor launch or gameplay assets.",
+  "Category": "Games",
+  "Description": "Original urban RPG prototype. Stable editor project; independent C++20 core in the repository.",
   "DisableEnginePluginsByDefault": true,
   "Modules": [
-    { "Name": "RpgEngineProbe", "Type": "Runtime", "LoadingPhase": "Default" }
+    {
+      "Name": "RpgEngineProbe",
+      "Type": "Runtime",
+      "LoadingPhase": "Default"
+    }
   ]
 }

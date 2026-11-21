@@ -138,3 +138,9 @@ Imagem marcada do usuário resolve a localização do outdoor e do dispositivo. 
 ## 2026-11-19 — HUB-01B por código sem abrir editor
 
 Parser JSON do hub, importação do panorama, projeção/clipping dos dois alvos e painel de evento/arena/volta. Entrada opt-in -Hub preserva arena direta. Sessão mantida na navegação, sem ações automáticas no hub pelo fluxo do HUD.10 grupos de apresentação e5 de alvos aprovados; compilação Editor registrada, sem execução gráfica/cook/pacote. Preparação37 entradas inclui catálogo/JPEG e regra de staging, não vídeos. Player/mobile continuam pendentes.
+
+## 2026-11-21 — Consolidação e projeto Unreal estável
+- Revisão dos15Markdown, contratos, fila e progresso ponderado da demo (aproximadamente22%).
+- Projeto-fonte compilável diretamente, mapa próprio e hub padrão; abertura/reabertura/Play observados.
+- Android: caminhos persistidos, descoberta INVALID ainda pendente; nenhum APK.
+- Mídias e caches fora doGit; estágios antigos preservados. Controle de tela encerrado a pedido.

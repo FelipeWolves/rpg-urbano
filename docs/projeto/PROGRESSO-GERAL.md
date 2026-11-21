@@ -1,6 +1,6 @@
 # Progresso geral do projeto
 
-Atualizado em **21/11/2026**. **Demo integrada estimada em aproximadamente 21% (faixa orientativa: 20–25%).**
+Atualizado em **21/11/2026**. **Demo integrada estimada em aproximadamente 22% (faixa orientativa: 20–25%).**
 
 Referência: demo com Felipe, uma arena e apresentação integrada testada em um celular-alvo. Não mede o jogo comercial completo, 67 capítulos, todas as lojas ou serviços online. Percentuais são estimativas de maturidade; não medem horas nem garantem prazo.
 
@@ -9,7 +9,7 @@ Referência: demo com Felipe, uma arena e apresentação integrada testada em um
 | Área | Progresso | Peso na demo | Base / limite |
 |---|---:|---:|---|
 | Código core | 45% | 20% | Contratos novos ampliaram o trabalho restante; não houve regressão dos testes |
-| Integração Unreal | 38% | 10% | Ponte e preview; projeto estável ainda pendente |
+| Integração Unreal | 45% | 10% | Projeto estável compilado, mapa salvo e reabertura/Play observados |
 | Front / interface | 20% | 10% | HUD provisório funcional; toque e acessibilidade pendentes |
 | Hub / navegação | 20% | 7% | Dois acessos atuais; sete destinos apenas planejados |
 | Arte 2D | 25% | 5% | Panoramas produzidos; nova composição não integrada |
@@ -20,12 +20,10 @@ Referência: demo com Felipe, uma arena e apresentação integrada testada em um
 | Conteúdo / tutorial | 10% | 5% | Recorte e universo definidos; tutorial não implementado |
 | Progressão / save | 25% | 5% | Save v1 e recompensa de laboratório |
 | Mobile / otimização | 5% | 4% | AVD iniciou; APK e desempenho não validados |
-| QA integrado | 22% | 1% | Testes nativos e evidências Windows; matriz mobile pendente |
-| Documentação | 75% | 1% | Recebimentos reconciliados; manutenção contínua |
+| QA integrado | 24% | 1% | 11 checkpoints no projeto estável e ciclo de abertura/Play; Android pendente |
+| Documentação | 78% | 1% | Entregas reconciliadas e guia de abertura/limites atualizado |
 
-Pesos somam 100; soma ponderada = 
-21.12
-%, arredondada para comunicação. Pesos são premissas de planejamento revisáveis, não precisão de medição. Serviços e lojas ficam fora da demo (implementação 0%).
+Pesos somam 100; soma ponderada = 21,87%, arredondada para comunicação. Pesos são premissas de planejamento revisáveis, não precisão de medição. Serviços e lojas ficam fora da demo (implementação 0%).
 
 ## O que mudou
 
@@ -35,4 +33,6 @@ Seletor no chão corrigido e aceito; texto e combate confirmados pelo usuário. 
 
 [Consolidação e próximas fases](CONSOLIDACAO-2026-11-21.md) · [Tarefas](TAREFAS.md) · [Estado](ESTADO.md) · [Fila independente](FILA-DESENVOLVIMENTO-INDEPENDENTE.md)
 
-Arte, roteiro, áudio e recursos 3D podem ser produzidos sem terminar todas as habilidades. Integração depende de contratos de IDs, dimensões, escala, eventos e direitos. Código/UI provisórios podem avançar sem novas entregas. Abertura padrão Unreal é a prioridade imediata; não representa APK pronto.
+Arte, roteiro, áudio e recursos 3D podem ser produzidos sem terminar todas as habilidades. Integração depende de contratos de IDs, dimensões, escala, eventos e direitos. Código/UI provisórios podem avançar sem novas entregas. Abertura padrão Unreal concluída no Windows local; não representa APK pronto.
+
+Integração Unreal 38→45%, QA22→24% e documentação75→78% nesta etapa. Soma ponderada 21,87%, arredondada para22%. [Evidências e limites](UNREAL-PROJETO-ESTAVEL.md).

@@ -1,0 +1,17 @@
+{
+  "Date": "2026-11-21",
+  "Sdk": "D:/AndroidSDK",
+  "Api": 36,
+  "Ndk": "27.2.12479018",
+  "CMake": "3.22.1",
+  "Jdk": "D:/AndroidJava/jdk-17.0.21.1+2",
+  "AvdBoot": "confirmed_by_user",
+  "Adb": "emulator-5554 device, user report",
+  "PersistentConfig": "C:/Users/Ergo_/AppData/Local/Unreal Engine/Engine/Config/UserEngine.ini",
+  "PathsPersisted": true,
+  "SDKAPILevel": "latest (user configuration; API37 also installed)",
+  "NDKAPILevel": "android-26",
+  "EditorRecognitionAfterColdOpen": "ValidatePlatforms and Turnkey: Android INVALID r27c; cause unresolved",
+  "AndroidBuild": false,
+  "DevicePerformanceValidated": false
+}

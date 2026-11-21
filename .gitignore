@@ -60,3 +60,6 @@ Thumbs.db
 /entregas/*/recebidos/**
 !/entregas/*/recebidos/**/
 !/entregas/*/recebidos/**/*.md
+
+# Local presentation copies in the stable editor project (canonical catalog tracked separately).
+/experiments/unreal/**/Content/Presentation/

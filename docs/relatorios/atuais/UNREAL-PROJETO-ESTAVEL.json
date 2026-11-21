@@ -1,0 +1,37 @@
+{
+  "Date": "2026-11-21",
+  "Project": "experiments/unreal/RpgEngineProbe/RpgEngineProbe.uproject",
+  "Engine": "5.8.4",
+  "EditorBuild": {
+    "Actions": 22,
+    "Log": "build/stable-editor-build.log",
+    "ExitCode": 0
+  },
+  "CoreProbe": {
+    "Checkpoints": 11,
+    "Log": "build/stable-core-probe.log",
+    "ExitCode": 0,
+    "Failures": 0
+  },
+  "Map": "Content/PrototypeHub.umap",
+  "MapSHA256": "02CF284A3DD7E555260A5695D46B9BD3D8E4EB591830F26145DC419CBA34EC65",
+  "UiObserved": [
+    "map_saved_in_editor",
+    "PIE_hub",
+    "hub_to_arena",
+    "uproject_shell_reopen",
+    "persisted_map",
+    "PIE_hub_after_reopen",
+    "PIE_stopped"
+  ],
+  "Android": {
+    "GlobalSettingsModified": false,
+    "Validation": "INVALID r27c",
+    "PathsPersisted": true,
+    "APKProduced": false
+  },
+  "GeneralSuiteRerun": false,
+  "NetworkChanged": false,
+  "ScreensControlEndedAtUserRequest": true,
+  "WeightedDemoProgress": 21.869999999999997
+}

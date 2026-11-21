@@ -51,6 +51,12 @@ Device DeviceProfile(){
 }
 void AProbeArenaHUD::LoadHubCatalog(){
     HubTexture=nullptr;HubLogo=nullptr;HubTitleFont=nullptr;HubBodyFont=nullptr;HubLinks.clear();
+    const auto inset=[&](const TCHAR* key){
+        float value=0;GConfig->GetFloat(TEXT("RpgPrototype"),key,value,GGameIni);
+        if(!FMath::IsFinite(value) || value<0){UE_LOG(LogTemp,Warning,TEXT("Invalid %s; using zero"),key);return 0.0;}
+        return static_cast<double>(value);
+    };
+    HubInsets={inset(TEXT("SafeLeft")),inset(TEXT("SafeTop")),inset(TEXT("SafeRight")),inset(TEXT("SafeBottom"))};
     try{
         const FString root=FPaths::ConvertRelativePathToFull(FPaths::ProjectContentDir()/TEXT("Presentation"));
         const FString path=root/TEXT("data/presentation/startup.json");
@@ -151,7 +157,10 @@ void AProbeArenaHUD::ReturnToHub(){
     UE_LOG(LogTemp,Display,TEXT("HUB_RETURN attempt=%llu"),static_cast<unsigned long long>(Session.state().progress.attempt));
 }
 void AProbeArenaHUD::DrawHub(){
-    if(Canvas->SizeX<280 || Canvas->SizeY<360){DrawText(TEXT("Amplie a janela para visualizar o hub."),FColor::White,8,20);return;}
+    if(Canvas->SizeX<1 || Canvas->SizeY<1){return;}
+    const auto framePlan=plan_hub_frame({static_cast<uint32>(Canvas->SizeX),static_cast<uint32>(Canvas->SizeY)},static_cast<uint32>(HubLinks.size()),HubInsets);
+    if(!framePlan){DrawText(TEXT("Amplie a janela ou reduza as margens simuladas."),FColor::White,8,20);return;}
+    const auto& layout=*framePlan;
     float mx=0,my=0;PlayerOwner->GetMousePosition(mx,my);
     const bool clicked=PlayerOwner->WasInputKeyJustReleased(EKeys::LeftMouseButton);
     const auto button=[&](const Rect& rect,const FString& label){
@@ -170,16 +179,13 @@ void AProbeArenaHUD::DrawHub(){
     };
     DrawRect(FLinearColor(0.015f,0.02f,0.03f),0,0,Canvas->SizeX,Canvas->SizeY);
     if(!HubTexture){
-        DrawText(TEXT("Hub indisponível. A batalha continua acessível."),FColor::White,20,40);
-        DrawText(HubError,FColor::Orange,20,65);
-        if(button({20,110,180,38},TEXT("Abrir batalha"))){enterBattle();}return;
+        DrawText(TEXT("Hub indisponível. A batalha continua acessível."),FColor::White,static_cast<float>(layout.safe.x+20),static_cast<float>(layout.safe.y+40));
+        DrawText(HubError,FColor::Orange,static_cast<float>(layout.safe.x+20),static_cast<float>(layout.safe.y+65));
+        if(button({layout.safe.x+20,layout.safe.y+110,180,48},TEXT("Abrir batalha"))){enterBattle();}return;
     }
-    const int columns=Canvas->SizeX<600?3:7;
-    const int rows=(static_cast<int>(HubLinks.size())+columns-1)/columns;
-    const double dockTop=Canvas->SizeY-52.0-rows*52.0;
     auto plan=plan_hub({static_cast<uint32>(HubTexture->GetSizeX()),static_cast<uint32>(HubTexture->GetSizeY())},
-        {static_cast<uint32>(Canvas->SizeX),static_cast<uint32>(dockTop-64)},DeviceProfile(),HubArea,HubView,HubAspectThreshold,HubRegions);
-    plan.content.y+=60;
+        {static_cast<uint32>(layout.scene.width),static_cast<uint32>(layout.scene.height)},DeviceProfile(),HubArea,HubView,HubAspectThreshold,HubRegions);
+    plan.content.x+=layout.scene.x;plan.content.y+=layout.scene.y;
     const auto& r=plan.content;const auto& uv=plan.source_uv;
     DrawTexture(HubTexture,static_cast<float>(r.x),static_cast<float>(r.y),static_cast<float>(r.width),static_cast<float>(r.height),
         static_cast<float>(uv.x),static_cast<float>(uv.y),static_cast<float>(uv.width),static_cast<float>(uv.height),FLinearColor::White,BLEND_Opaque);
@@ -196,12 +202,12 @@ void AProbeArenaHUD::DrawHub(){
             line(area.x,area.y+area.height,area.x,area.y,c,stroke);
         }
     };
-    if(HubLogo){DrawTexture(HubLogo,12,8,48,48,0,0,1,1,FLinearColor::White,BLEND_Translucent);}
-    DrawText(HubTitle,HubCyan.ToFColorSRGB(),68,8,HubTitleFont);
-    DrawText(TEXT("CODINOME: ")+HubCodename,FColor::White,68,32,HubBodyFont,0.75f);
+    if(HubLogo){DrawTexture(HubLogo,static_cast<float>(layout.header.x+12),static_cast<float>(layout.header.y+4),48,48,0,0,1,1,FLinearColor::White,BLEND_Translucent);}
+    DrawText(HubTitle,HubCyan.ToFColorSRGB(),static_cast<float>(layout.header.x+68),static_cast<float>(layout.header.y+4),HubTitleFont);
+    DrawText(TEXT("CODINOME: ")+HubCodename,FColor::White,static_cast<float>(layout.header.x+68),static_cast<float>(layout.header.y+28),HubBodyFont,0.75f);
     if(HubEventOpen){
-        const double width=FMath::Min(660.0,Canvas->SizeX-30.0),height=FMath::Min(360.0,Canvas->SizeY-30.0);
-        const double x=(Canvas->SizeX-width)/2,y=(Canvas->SizeY-height)/2;
+        const double width=FMath::Min(660.0,layout.safe.width-30.0),height=FMath::Min(360.0,layout.safe.height-30.0);
+        const double x=layout.safe.x+(layout.safe.width-width)/2,y=layout.safe.y+(layout.safe.height-height)/2;
         DrawRect(HubPanel,static_cast<float>(x),static_cast<float>(y),static_cast<float>(width),static_cast<float>(height));
         frame({x,y,width,height},HubMagenta);
         double cursor=y+18;
@@ -220,8 +226,8 @@ void AProbeArenaHUD::DrawHub(){
             if(!current.IsEmpty() && cursor+lineStep<=y+height-60){DrawText(current,color,static_cast<float>(x+16),static_cast<float>(cursor),HubBodyFont);cursor+=lineStep;}
         };
         wrapped(HubPanelTitle,HubCyan.ToFColorSRGB());cursor+=12;wrapped(HubPanelBody,FColor::White);
-        if(HubPanelRoute==HubRoute::Terminal && button({x+148,y+height-48,width-164,36},TEXT("Batalha de laboratório"))){enterBattle();return;}
-        if(button({x+16,y+height-48,120,36},TEXT("Voltar")) || PlayerOwner->WasInputKeyJustPressed(EKeys::Escape)){HubEventOpen=false;}return;
+        if(HubPanelRoute==HubRoute::Terminal && button({x+148,y+height-56,width-164,48},TEXT("Batalha de laboratório"))){enterBattle();return;}
+        if(button({x+16,y+height-56,120,48},TEXT("Voltar")) || PlayerOwner->WasInputKeyJustPressed(EKeys::Escape)){HubEventOpen=false;}return;
     }
     const auto openDestination=[&](const HubHotspot& link){
         if(link.route==HubRoute::Battle){enterBattle();return;}
@@ -253,10 +259,10 @@ void AProbeArenaHUD::DrawHub(){
         if(clicked && hover){openDestination(link);return;}
     }
     // Fixed dock keeps every destination reachable when its source region is cropped.
-    const double cell=static_cast<double>(Canvas->SizeX)/columns;
+
     for(std::size_t index=0;index<HubLinks.size();++index){
         const auto& link=HubLinks[index];
-        const Rect tile{(index%columns)*cell+3,dockTop+(index/columns)*52,cell-6,48};
+        const Rect& tile=layout.destinations[index];
         const bool hover=contains(tile,mx,my);
         DrawRect(HubPanel,static_cast<float>(tile.x),static_cast<float>(tile.y),static_cast<float>(tile.width),static_cast<float>(tile.height));
         const FString text=Text(link.label);
@@ -266,14 +272,13 @@ void AProbeArenaHUD::DrawHub(){
         DrawText(link.route==HubRoute::Unavailable?TEXT("Em breve"):TEXT("Abrir"),FColor(180,190,200),static_cast<float>(tile.x+6),static_cast<float>(tile.y+25),HubBodyFont,0.55f);
         if(clicked && hover){openDestination(link);return;}
     }
-    const double w=std::min(130.0,(Canvas->SizeX-48.0)/5),y=Canvas->SizeY-46.0;
-    if(button({8,y,w,34},TEXT("Esquerda")) || PlayerOwner->WasInputKeyJustPressed(EKeys::Left)){HubArea=rpg::presentation::HubArea::Left;HubView=rpg::presentation::HubView::Focused;}
-    if(button({16+w,y,w,34},TEXT("Centro"))){HubArea=rpg::presentation::HubArea::Center;HubView=rpg::presentation::HubView::Focused;}
-    if(button({24+2*w,y,w,34},TEXT("Direita")) || PlayerOwner->WasInputKeyJustPressed(EKeys::Right)){HubArea=rpg::presentation::HubArea::Right;HubView=rpg::presentation::HubView::Focused;}
-    if(button({32+3*w,y,w,34},plan.view==rpg::presentation::HubView::Panoramic?TEXT("Focar área"):TEXT("Panorama"))){
+    if(button(layout.navigation[0],TEXT("Esquerda")) || PlayerOwner->WasInputKeyJustPressed(EKeys::Left)){HubArea=rpg::presentation::HubArea::Left;HubView=rpg::presentation::HubView::Focused;}
+    if(button(layout.navigation[1],TEXT("Centro"))){HubArea=rpg::presentation::HubArea::Center;HubView=rpg::presentation::HubView::Focused;}
+    if(button(layout.navigation[2],TEXT("Direita")) || PlayerOwner->WasInputKeyJustPressed(EKeys::Right)){HubArea=rpg::presentation::HubArea::Right;HubView=rpg::presentation::HubView::Focused;}
+    if(button(layout.navigation[3],plan.view==rpg::presentation::HubView::Panoramic?TEXT("Focar área"):TEXT("Panorama"))){
         HubView=plan.view==rpg::presentation::HubView::Panoramic?rpg::presentation::HubView::Focused:rpg::presentation::HubView::Panoramic;
     }
-    if(button({40+4*w,y,w,34},HubReducedMotion?TEXT("Sem movimento"):TEXT("Com movimento")) && !HubReducedMotionForced){HubReducedMotion=!HubReducedMotion;}
+    if(button(layout.navigation[4],HubReducedMotion?TEXT("Sem movimento"):TEXT("Com movimento")) && !HubReducedMotionForced){HubReducedMotion=!HubReducedMotion;}
 }
 
 

@@ -3,9 +3,22 @@
 #include <optional>
 #include <string>
 #include <string_view>
+#include <vector>
 namespace rpg::presentation {
 struct PixelSize { std::uint32_t width; std::uint32_t height; };
 struct Rect { double x; double y; double width; double height; };
+struct SafeInsets { double left=0; double top=0; double right=0; double bottom=0; };
+struct HubFrame {
+    Rect safe;
+    Rect header;
+    Rect scene;
+    std::vector<Rect> destinations;
+    std::vector<Rect> navigation;
+};
+// Pure pixel geometry; no platform notch discovery or input handling.
+// Valid but insufficient space returns nullopt; invalid metadata throws.
+[[nodiscard]] std::optional<HubFrame> plan_hub_frame(PixelSize viewport,std::uint32_t destinations,
+    SafeInsets insets={});
 enum class Device { Desktop, Mobile };
 enum class HubArea { Left, Center, Right };
 enum class HubView { Auto, Focused, Panoramic };

@@ -1,0 +1,24 @@
+{
+  "Date": "2026-11-21",
+  "ProjectRoot": "F:\\Testes de jogos\\Contos de Um Lobo - Jogo\\rpg-urbano",
+  "Passed": true,
+  "ExitCode": 0,
+  "Actions": 22,
+  "NativePresentationGroups": 34,
+  "GeometryGroups": 8,
+  "Log": "build/aut02-build.log",
+  "ScreenControlUsed": false,
+  "VisualRuntimeExecuted": false,
+  "AndroidChanged": false,
+  "ActualDeviceSafeAreaValidated": false,
+  "SimulatedInsetsConfig": [
+    "SafeLeft",
+    "SafeTop",
+    "SafeRight",
+    "SafeBottom"
+  ],
+  "CopiedCacheAttemptAccepted": false,
+  "CacheBackup": "build/migration-cache-backup/aa6314f6",
+  "ActiveCompileResponseFilesChecked": 28,
+  "OldWorkspaceReferencesInActiveResponseFiles": 0
+}

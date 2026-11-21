@@ -31,6 +31,7 @@ private:
     rpg::presentation::HubView HubView=rpg::presentation::HubView::Auto;
     rpg::presentation::HubRegions HubRegions;
     double HubAspectThreshold=1.5;
+    rpg::presentation::SafeInsets HubInsets;
     std::vector<rpg::presentation::HubHotspot> HubLinks;
     FString HubError;
     FString HubTitle=TEXT("Mundus Lupis Disco");

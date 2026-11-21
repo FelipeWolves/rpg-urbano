@@ -149,3 +149,9 @@ Parser JSON do hub, importação do panorama, projeção/clipping dos dois alvos
 - Panorama diurno, sete locais separados, painéis informativos e movimento reduzido.
 - AUT-01 Desktop/Mobile/Auto, dock responsivo parcial e prévias Windows atualizadas.
 -26grupos nativos e compilação8ações aprovados; aceite visual pendente do usuário. Android adiado.
+
+## 2026-11-21 — AUT-02 e migração da pasta principal
+- Geometria centralizada do hub, margens simuladas e botões mínimos48px.
+-34grupos de apresentação e compilação limpa22ações aprovados na pasta nova.
+- Cache absoluto copiado identificado, preservado e regenerado; resultado antigo não aceito como validação.
+- Sem execução gráfica; próximo AUT-03, Android adiado.

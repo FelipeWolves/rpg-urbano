@@ -17,6 +17,33 @@ Rect fit(double width,double height,PixelSize viewport){
     return {(viewport.width-w)/2,(viewport.height-h)/2,w,h};
 }
 }
+std::optional<HubFrame> plan_hub_frame(PixelSize viewport,std::uint32_t count,SafeInsets insets){
+    valid_size(viewport);
+    if(count>16){throw std::invalid_argument("At most 16 hub destinations supported");}
+    for(double value:{insets.left,insets.top,insets.right,insets.bottom}){
+        if(!std::isfinite(value) || value<0){throw std::invalid_argument("Finite nonnegative safe margins required");}
+    }
+    const double width=viewport.width-insets.left-insets.right;
+    const double height=viewport.height-insets.top-insets.bottom;
+    if(width<280 || height<360){return {};}
+    const std::uint32_t columns=std::min(count==0?1U:count,width<600?3U:7U);
+    const std::uint32_t rows=(count+columns-1)/columns;
+    const double sceneHeight=height-60-52-static_cast<double>(rows)*52;
+    if(sceneHeight<64){return {};}
+    HubFrame frame{{insets.left,insets.top,width,height},
+        {insets.left,insets.top,width,56},
+        {insets.left,insets.top+60,width,sceneHeight},{},{}};
+    const double dockTop=insets.top+height-52-static_cast<double>(rows)*52;
+    const double cell=width/columns;
+    for(std::uint32_t i=0;i<count;++i){
+        frame.destinations.push_back({insets.left+(i%columns)*cell+3,dockTop+(i/columns)*52,cell-6,48});
+    }
+    const double navWidth=(width-24)/5;
+    for(std::uint32_t i=0;i<5;++i){
+        frame.navigation.push_back({insets.left+4+i*(navWidth+4),insets.top+height-48,navWidth,48});
+    }
+    return frame;
+}
 Rect contain(PixelSize media,PixelSize viewport){
     valid_size(media);return fit(media.width,media.height,viewport);
 }

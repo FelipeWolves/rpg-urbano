@@ -34,6 +34,10 @@ if errorlevel 1 exit /b 18
 cl.exe %FLAGS% /I"$root/include" "$root/tests/hub_expansion_tests.cpp" "$build/hub_style.obj" "$build/startup_presentation.obj" /Fo"$build/hub_expansion_tests.obj" /Fe"$build/hub_expansion_tests.exe" /link /INCREMENTAL:NO
 if errorlevel 1 exit /b 19
 "$build/hub_expansion_tests.exe"
+if errorlevel 1 exit /b 20
+cl.exe %FLAGS% /I"$root/include" "$root/tests/hub_frame_tests.cpp" "$build/startup_presentation.obj" /Fo"$build/hub_frame_tests.obj" /Fe"$build/hub_frame_tests.exe" /link /INCREMENTAL:NO
+if errorlevel 1 exit /b 21
+"$build/hub_frame_tests.exe"
 exit /b %ERRORLEVEL%
 "@
 $batchPath=Join-Path $build 'testar.cmd';$batch | Set-Content $batchPath -Encoding ascii
@@ -53,3 +57,6 @@ if(!$passed){throw 'Startup presentation tests failed'}
 $expansionPassed=$code -eq 0 -and $output -contains 'HUB_EXPANSION_TESTS_RESULT passed=6 total=6'
 [ordered]@{CheckedUtc=[DateTime]::UtcNow.ToString('o');Passed=$expansionPassed;Groups=6;ExitCode=$code;Scope='Presentation policy override, destination routes and reduced label motion; no visual/mobile acceptance';EngineExecuted=$false} | ConvertTo-Json | Set-Content (Join-Path $root 'docs/relatorios/atuais/HUB-EXPANSAO.json') -Encoding utf8
 if(!$expansionPassed){throw 'Hub expansion tests failed'}
+$framePassed=$code -eq 0 -and $output -contains 'HUB_FRAME_TESTS_RESULT passed=8 total=8'
+[ordered]@{CheckedUtc=[DateTime]::UtcNow.ToString('o');Passed=$framePassed;Groups=8;ExitCode=$code;Scope='Safe margins, nonoverlapping hub regions and minimum 48px targets; pure native geometry, no editor/device';EngineExecuted=$false} | ConvertTo-Json | Set-Content (Join-Path $root 'docs/relatorios/atuais/AUT-02-GEOMETRIA.json') -Encoding utf8
+if(!$framePassed){throw 'Safe frame tests failed'}

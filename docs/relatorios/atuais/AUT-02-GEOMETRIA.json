@@ -1,0 +1,8 @@
+{
+  "CheckedUtc": "2026-11-21T23:54:04.3248232Z",
+  "Passed": true,
+  "Groups": 8,
+  "ExitCode": 0,
+  "Scope": "Safe margins, nonoverlapping hub regions and minimum 48px targets; pure native geometry, no editor/device",
+  "EngineExecuted": false
+}

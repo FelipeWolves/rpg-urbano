@@ -38,3 +38,5 @@ Arte, roteiro, áudio e recursos 3D podem ser produzidos sem terminar todas as h
 Integração Unreal 38→45%, QA22→24% e documentação75→78% nesta etapa. Soma ponderada 21,87%, arredondada para22%. [Evidências e limites](UNREAL-PROJETO-ESTAVEL.md).
 
 [Hub da cidade](HUB-PANORAMA-CIDADE.md): código/compilação e26grupos nativos aprovados; percentuais mantidos até aceite visual, sem confundir os sete painéis com sete sistemas completos. AUT-01 implementado; Android adiado.
+
+[AUT-02](AUT-02-GEOMETRIA.md): geometria/margens simuladas implementadas,34grupos de apresentação e build na pasta nova aprovados. Percentuais mantidos até aceite visual; safe area real e Android não validados.

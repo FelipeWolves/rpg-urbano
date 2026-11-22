@@ -267,6 +267,7 @@ Battle::Battle(std::vector<Definition> definitions, BattleRules rules,
         fighter.effective_speed = state.effective_speed;
         fighter.cooldowns = std::move(cooldowns);
         fighter.statuses = std::move(statuses);
+        if(state.vigil_charges){if(!fighter.definition.vigil || *state.vigil_charges>fighter.definition.vigil->max_party_size){throw std::invalid_argument("Invalid carried charges");}fighter.vigil_charges=*state.vigil_charges;}
     }
     for (std::size_t i = 0; i < fighters_.size(); ++i) {
         if (fighters_[i].health > 0) { order_.push_back(i); }

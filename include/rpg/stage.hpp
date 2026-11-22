@@ -4,7 +4,7 @@
 namespace rpg {
 
 enum class CarryPolicy { PreserveHealth, RestoreTeam };
-enum class RuntimeCarry { Preserve, Reset };
+enum class RuntimeCarry { Preserve, Reset, WaveV2 };
 enum class StageEndReason { Completed, EncounterFailure, GlobalActionLimit, TechnicalLimit, NoSurvivors };
 
 struct EncounterDefinition {
@@ -48,6 +48,7 @@ struct StageActionResult {
     std::string encounter_id;
     bool encounter_advanced = false;
     bool stage_finished = false;
+    std::vector<Event> transition_events;
 };
 
 class Stage {
@@ -66,7 +67,7 @@ private:
     Phase phase_ = Phase::Running;
     std::optional<Team> winner_;
     std::optional<StageEndReason> reason_;
-    void start_encounter(const std::vector<Fighter>& previous);
+    void start_encounter(const std::vector<Fighter>& previous,std::vector<Event>* transition=nullptr);
     void finish(StageEndReason reason, std::optional<Team> winner);
 };
 } // namespace rpg

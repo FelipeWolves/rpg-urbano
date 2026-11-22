@@ -198,6 +198,7 @@ struct InitialRuntime {
     int effective_speed;
     std::vector<Status> statuses;
     std::vector<Cooldown> cooldowns;
+    std::optional<std::uint32_t> vigil_charges;
 };
 
 struct Action {

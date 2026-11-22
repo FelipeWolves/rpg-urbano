@@ -1,4 +1,5 @@
 #include "rpg/stage.hpp"
+#include "rpg/status_operations.hpp"
 #include <stdexcept>
 #include <utility>
 #include <algorithm>
@@ -24,6 +25,8 @@ Stage::Stage(StageDefinition definition) : definition_(std::move(definition)) {
         (definition_.carry != CarryPolicy::PreserveHealth && definition_.carry != CarryPolicy::RestoreTeam)) {
         throw std::invalid_argument("Invalid stage configuration");
     }
+    if(definition_.runtime_carry==RuntimeCarry::WaveV2 && (definition_.config_version<2 || definition_.carry!=CarryPolicy::PreserveHealth)){throw std::invalid_argument("WaveV2 requires version2 and living-health carry");}
+    if(definition_.global_budget && (definition_.global_budget->max_actions<1 || (definition_.global_budget->outcome!=LimitOutcome::Draw && definition_.global_budget->outcome!=LimitOutcome::DefeatA && definition_.global_budget->outcome!=LimitOutcome::DefeatB))){throw std::invalid_argument("Invalid global budget");}
     for (const auto& ally : definition_.squad) {
         if (ally.team != Team::A) { throw std::invalid_argument("Stage squad must be A"); }
     }
@@ -41,13 +44,15 @@ Stage::Stage(StageDefinition definition) : definition_(std::move(definition)) {
         }
         if ((encounter.rules.timing == TimingProfile::ActionBar || !encounter.rules.skills.empty()) &&
             (!definition_.runtime_carry || (*definition_.runtime_carry != RuntimeCarry::Preserve &&
-                                           *definition_.runtime_carry != RuntimeCarry::Reset))) {
+                                           *definition_.runtime_carry != RuntimeCarry::Reset && *definition_.runtime_carry!=RuntimeCarry::WaveV2))) {
             throw std::invalid_argument("Extended stages require runtime carry policy");
         }
-        if (definition_.runtime_carry == RuntimeCarry::Preserve && i > 0) {
+        if ((definition_.runtime_carry == RuntimeCarry::Preserve || definition_.runtime_carry==RuntimeCarry::WaveV2) && i > 0) {
             std::vector<SkillDefinition> initial_skills;
             std::vector<SkillDefinition> current_skills;
-            for (const auto& ally : definition_.squad) {
+            if(definition_.runtime_carry==RuntimeCarry::WaveV2 && (definition_.config_version<2 || definition_.carry!=CarryPolicy::PreserveHealth)){throw std::invalid_argument("WaveV2 requires version2 and living-health carry");}
+    if(definition_.global_budget && (definition_.global_budget->max_actions<1 || (definition_.global_budget->outcome!=LimitOutcome::Draw && definition_.global_budget->outcome!=LimitOutcome::DefeatA && definition_.global_budget->outcome!=LimitOutcome::DefeatB))){throw std::invalid_argument("Invalid global budget");}
+    for (const auto& ally : definition_.squad) {
                 for (const auto& skill : definition_.encounters.front().rules.skills) {
                     if (skill.owner == ally.id) { initial_skills.push_back(skill); }
                 }
@@ -62,7 +67,7 @@ Stage::Stage(StageDefinition definition) : definition_(std::move(definition)) {
             }
         }
         const Battle validate_local(roster, encounter.rules);
-        const Battle validate_global(roster, BattleRules{definition_.global_budget});
+        // Global budget is validated independently; do not revalidate reactive rosters without their skills.
     }
     reset();
 }
@@ -72,7 +77,20 @@ std::optional<std::uint64_t> Stage::remaining_actions() const noexcept {
     return static_cast<std::uint64_t>(definition_.global_budget->max_actions) - actions_;
 }
 
-void Stage::start_encounter(const std::vector<Fighter>& previous) {
+void Stage::start_encounter(const std::vector<Fighter>& incoming,std::vector<Event>* transition) {
+    auto previous=incoming;
+    if(definition_.runtime_carry==RuntimeCarry::WaveV2){
+        for(auto& fighter:previous){if(fighter.definition.team!=Team::A){continue;}
+            std::erase_if(fighter.statuses,[&](const Status& status){
+                const bool remove=status.kind==EffectKind::StandardShield || (status.border==StatusBorder::Common && status.category!=StatusCategory::Structural && !status.native_passive && (status_is_buff(status)||status_is_debuff(status)));
+                if(remove && transition){Event event{EventType::EffectExpired,fighter.definition.id,fighter.definition.id,static_cast<int>(status.kind)};event.status_kind=status.kind;transition->push_back(event);}return remove;
+            });
+        }
+        for(auto& fighter:previous){if(fighter.definition.team==Team::A && fighter.health>0){
+            const auto amount=std::min(fighter.definition.max_health-fighter.health,numeric::mul_div_floor(fighter.definition.max_health,3000,10000));
+            fighter.health+=amount;if(transition){Event event{EventType::EffectApplied,fighter.definition.id,fighter.definition.id,amount};event.status_kind=EffectKind::Heal;transition->push_back(event);}
+        }}
+    }
     const auto& encounter = definition_.encounters[index_];
     auto roster = definition_.squad;
     roster.insert(roster.end(), encounter.enemies.begin(), encounter.enemies.end());
@@ -93,12 +111,12 @@ void Stage::start_encounter(const std::vector<Fighter>& previous) {
         rules.action_budget = ActionBudget{static_cast<std::int64_t>(*remaining), definition_.global_budget->outcome};
     }
     std::vector<InitialRuntime> runtime;
-    if (definition_.runtime_carry == RuntimeCarry::Preserve) {
+    if (definition_.runtime_carry == RuntimeCarry::Preserve || definition_.runtime_carry==RuntimeCarry::WaveV2) {
         for (const auto& fighter : previous) {
             if (fighter.definition.team == Team::A) {
                 auto statuses=fighter.statuses;
                 std::erase_if(statuses,[](const Status& status){return status.kind==EffectKind::StandardShield;});
-                runtime.push_back({fighter.definition.id, fighter.effective_speed, std::move(statuses), fighter.cooldowns});
+                runtime.push_back({fighter.definition.id, fighter.effective_speed, std::move(statuses), fighter.cooldowns,definition_.runtime_carry==RuntimeCarry::WaveV2 && fighter.definition.vigil?std::optional<std::uint32_t>{fighter.vigil_charges}:std::nullopt});
             }
         }
     }
@@ -155,7 +173,7 @@ StageActionResult Stage::apply(const Action& action) {
         }
         const auto previous = battle_->fighters();
         ++index_;
-        start_encounter(previous);
+        start_encounter(previous,&result.transition_events);
         result.encounter_advanced = true;
     } else if (battle_->phase() == Phase::Finished) {
         finish(StageEndReason::EncounterFailure, battle_->winner());

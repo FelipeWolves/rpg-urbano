@@ -1,30 +1,33 @@
-# Universo, tutorial e textos — guia vigente
+# Universo, conteúdo e textos — guia vigente
 
-Atualizado em **22/11/2026**. Prioridade: **P2 — produção independente do código**. Este guia substitui as perguntas antigas nos temas já respondidos; o histórico abaixo fica apenas para referência.
+Atualizado em22/11/2026. **P2 — piloto em paralelo.** Fonte vigente: [mapa das famílias](../../docs/projeto/MAPA-FAMILIAS-E-PRIORIDADES.md). Conteúdo deste guia distingue preparação independente de implementação/aceite. Atualizações de arquivos recebidos ficam preservadas.
 
-## Já recebido ou definido — não reenviar
+## Já recebido — não reenviar
 
-Direção e documentação narrativa já recebidas; não pedir novamente premissa, todos os livros ou 3–5 personagens. Recorte é Felipe e um encontro de demonstração.
+- Universo, linhas narrativas, protagonista, NPC curador do hub e recorte Felipe/Terraço/Ecos já recebidos.
+- Pré-carga4/5 demonstra A2 no laboratório, mas não implementa o roteiro guiado inteiro.
 
-## O que você pode adiantar agora
+## Você pode preparar em paralelo
 
-- [ ] Preparar/revisar somente textos finais do primeiro encontro/tutorial, objetivos ensinados, condição de conclusão e falas com ID/versão. Se o trecho já estiver no material recebido, citar onde em vez de reescrever.
-- [ ] Textos de habilidade/interface podem vir como chave → pt-BR → contexto; tradução en apenas quando disponível. Separar rascunho de texto pronto.
-- [ ] Para expansão, listar o que muda no recorte; não é necessário escrever capítulos inteiros para liberar o núcleo.
+- Preparar textos finais curtos do piloto: introdução, objetivo, instrução A1/A2/A3, vitória/derrota e retorno, com IDs e ordem.
+- Indicar falas narradas e ligação com vídeo/voz; versões/localização podem ser entregues em tabela ouMarkdown.
+- Manter resumos necessários ao jogo separados de manuscritos integrais; não precisa enviar todos os livros/capítulos.
 
 ## Trabalho do desenvolvimento — não precisa virar pesquisa sua
 
-Conectar textos/localização e tutorial após a ficha piloto e regras necessárias; idioma do editor em inglês não obriga idioma do jogo.
+- Organizar chaves de texto e gatilhos do tutorial sem duplicar a regra de batalha.
+- Reutilizar a narrativa recebida; separar fase visual/elemental de personagem novo.
 
-## Testes e aceites ainda pendentes
+## Dependências e aceites
 
-Tutorial jogável completo e localização empacotada ainda precisam de implementação/ensaios.
+- Texto recebido não é tutorial integrado; aceite de legibilidade e ritmo será posterior.
+- Manuscritos completos não entram automaticamente no Git.
 
-## Onde entregar
+## Como entregar
 
-Use **recebidos/** deste grupo; para revisão, crie versão nova e cite o arquivo substituído sem apagar o original. Informe ID/versão, finalidade, o que mudou, fonte/autoria e resultado esperado quando cabível. Entrega parcial é válida e não autoriza implementação, instalação ou execução automática.
+Use recebidos/ deste grupo. Nome sugerido: AAAA-MM-DD_assunto_v02.md; identifique ID/versão, o que substitui, decisão/proposta/referência e origem. Entrega parcial é válida. Não apagar versões anteriores; Markdown pode ser versionado, imagens/vídeos e fontes grandes ficam locais fora do Git. Não reenviar material já recebido apenas para preencher uma lista.
 
-[Resumo de necessidades](../NECESSIDADES-ATUAIS.md) · [Ordem de execução](../../docs/projeto/ORDEM-EXECUCAO-POS-AUT.md) · [Mapa SIS-02-A](../../docs/projeto/SIS-02-A-MAPA-NUMERICO.md) · [Modelo](../MODELO-ENTREGA.md)
+[Central de necessidades](../NECESSIDADES-ATUAIS.md) · [Retestes](../../docs/projeto/RETESTES-ENTRADA-E-VIDEO.md) · [Escopo técnico entregue](../../docs/projeto/ESC-SIS-PVE-CONSOLIDACAO.md) · [Modelo](../MODELO-ENTREGA.md)
 
 <details>
 <summary>Guia anterior — histórico; não preencher novamente o que já foi respondido</summary>

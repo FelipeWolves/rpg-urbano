@@ -1,30 +1,32 @@
-# Interface e aceites — guia vigente
+# Interface e retestes — guia vigente
 
-Atualizado em **22/11/2026**. Prioridade: **P1 — conferências curtas**. Este guia substitui as perguntas antigas nos temas já respondidos; o histórico abaixo fica apenas para referência.
+Atualizado em22/11/2026. **P0 — ajustes confirmados.** Fonte vigente: [mapa das famílias](../../docs/projeto/MAPA-FAMILIAS-E-PRIORIDADES.md). Conteúdo deste guia distingue preparação independente de implementação/aceite. Atualizações de arquivos recebidos ficam preservadas.
 
-## Já recebido ou definido — não reenviar
+## Já recebido — não reenviar
 
-Entrada, painéis, perfis e opções já têm implementação. AUT-12 trocou o marcador debug por malhas; aceite antigo não aprova automaticamente essa nova aparência.
+- Cliques da batalha/troca de alvo e primeiro Rever estão REABERTOS; não são considerados aceitos.
+- Geometria, marcador e layouts possuem bases anteriores; não pedir nova especificação de todos os controles.
 
-## O que você pode adiantar agora
+## Você pode preparar em paralelo
 
-- [ ] Segunda conferência do primeiro clique em Rever abertura: testar logo após Play e depois novamente. Estado atual: aparentemente correto / REVER.
-- [ ] Conferir novo anel/losango no chão, seleção/equipe/alvos, janela estreita e texto ampliado. Relatar somente diferenças ou defeitos.
-- [ ] Para fluidez: uma sequência concreta e o resultado esperado; anotar resolução, escala e perfil. Vídeo curto é opcional.
+- Após receber a compilação corrigida: testar habilidade de alvo único, trocar A→B antes de confirmar e clicar uma vez.
+- Informar atalho usado, janela/PIE, resolução/escala e passos. Testar primeiro Rever e uma repetição; sem exigir gravação.
 
 ## Trabalho do desenvolvimento — não precisa virar pesquisa sua
 
-Ajustar apresentação conforme evidência; manter ações e relógio de batalha separados da animação.
+- Diagnosticar foco, origem/soltura do gesto, consumo do clique e seleção do ator; manter regra de ação no core.
+- Adicionar verificações locais dos casos e compilar o adaptador, sem controlar a tela.
 
-## Testes e aceites ainda pendentes
+## Dependências e aceites
 
-Ainda faltam aceites dos novos controles/marcador, retorno de pausa, persistência de opções e composição em resoluções relevantes.
+- RET-INPUT-01 e RET-MEDIA-01 só recebem aceite depois de reteste real.
+- Não confundir área que atinge todos com alvo único, nem clique de foco com confirmação.
 
-## Onde entregar
+## Como entregar
 
-Use **recebidos/** deste grupo; para revisão, crie versão nova e cite o arquivo substituído sem apagar o original. Informe ID/versão, finalidade, o que mudou, fonte/autoria e resultado esperado quando cabível. Entrega parcial é válida e não autoriza implementação, instalação ou execução automática.
+Use recebidos/ deste grupo. Nome sugerido: AAAA-MM-DD_assunto_v02.md; identifique ID/versão, o que substitui, decisão/proposta/referência e origem. Entrega parcial é válida. Não apagar versões anteriores; Markdown pode ser versionado, imagens/vídeos e fontes grandes ficam locais fora do Git. Não reenviar material já recebido apenas para preencher uma lista.
 
-[Resumo de necessidades](../NECESSIDADES-ATUAIS.md) · [Ordem de execução](../../docs/projeto/ORDEM-EXECUCAO-POS-AUT.md) · [Mapa SIS-02-A](../../docs/projeto/SIS-02-A-MAPA-NUMERICO.md) · [Modelo](../MODELO-ENTREGA.md)
+[Central de necessidades](../NECESSIDADES-ATUAIS.md) · [Retestes](../../docs/projeto/RETESTES-ENTRADA-E-VIDEO.md) · [Escopo técnico entregue](../../docs/projeto/ESC-SIS-PVE-CONSOLIDACAO.md) · [Modelo](../MODELO-ENTREGA.md)
 
 <details>
 <summary>Guia anterior — histórico; não preencher novamente o que já foi respondido</summary>

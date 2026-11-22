@@ -1,32 +1,32 @@
-> **Atualização22/11:** código ESC/SIS/PvE implementado; veja docs/projeto/ESC-SIS-PVE-CONSOLIDACAO.md na raiz. Não reenviar Silver/ondas/score fechados. O que ajuda: retestes clique/alvo/vídeo, propostas de menus e dados finais dos modos/chefes com gatilho, alcance, kit, duração, limites e exemplos, sem exigir catálogo inteiro.
+# Combate, habilidades e efeitos — guia vigente
 
-# Core, habilidades e fórmulas — guia vigente
+Atualizado em22/11/2026. **P1/P2 — dados e apresentação.** Fonte vigente: [mapa das famílias](../../docs/projeto/MAPA-FAMILIAS-E-PRIORIDADES.md). Conteúdo deste guia distingue preparação independente de implementação/aceite. Atualizações de arquivos recebidos ficam preservadas.
 
-Atualizado em **22/11/2026**. Prioridade: **aceite do piloto Felipe e planejamento posterior de ESC/SIS/PvE**. Este guia substitui as perguntas antigas nos temas já respondidos; o histórico abaixo fica apenas para referência.
+## Já recebido — não reenviar
 
-## Já recebido ou definido — não reenviar
+- A1/A2/A3 do Felipe, Bleed/Poison, Standard/Silver, ponto fixo, RNG, controles e operações por categoria têm implementação testada.
+- Silver também tem mínimo1 confirmado; não reenviar fórmulas, destino/desempate do escudo ou quotas já fechadas.
 
-StandardShield, R04, regras de A2 do Felipe, Block por hit, ACC/RESIST e ponto fixo já têm decisões recebidas. SIS-02-B/C, funil, controles, Bleed/Poison e A2/piloto implementados/testados no recorte local.
+## Você pode preparar em paralelo
 
-## O que você pode adiantar agora
-
-- [ ] Não repetir chance de Block, destino/desempate do escudo da A2, contagem multi-hit, teto numérico ou arredondamento já fechados.
-- [ ] Se reunir fórmulas ainda não fechadas, especialmente DEF/cura, informar entradas, ordem, exceções e exemplo numérico; separar referência externa de regra desejada.
-- [ ] Para habilidade fora do recorte conhecido, fornecer somente a ficha nova/delta: alvo, gatilho, duração/relógio, recarga, limites e exemplo. Felipe continua o piloto; não é preciso produzir elenco inteiro.
+- Revisar nome/descrição/nível/ícone do kit recebido, indicando só diferenças.
+- Para efeito novo: fonte, alvo, gatilho, borda, duração/relógio, recarga/custo, exceções e exemplo; não exigir o elenco completo.
 
 ## Trabalho do desenvolvimento — não precisa virar pesquisa sua
 
-Ponto1 entregue. Próximo grupo possível: escudos especializados, operadores de efeitos/ondas e score, em entregas próprias. Não reenviar regras fechadas dos DoTs.
+- Organizar catálogo, dados/validações e apresentação das habilidades sobre o executor pronto.
+- Ajustar VIS/ENG/HUB antes de expandir profundamente o combate; sem inventar fórmula universal de cura/equipamento.
 
-## Testes e aceites ainda pendentes
+## Dependências e aceites
 
-Piloto: Abrir-Piloto-Felipe.cmd e Abrir-Tutorial-Felipe.cmd. Aceite visual, balanceamento, tutorial guiado e determinismo medido em Android/iOS continuam pendentes.
+- Regras inéditas e atributos mutáveis precisam contrato; as bases encerradas não precisam nova pesquisa.
+- Aceites visuais e provas em outras plataformas continuam separados dos testes nativos.
 
-## Onde entregar
+## Como entregar
 
-Use **recebidos/** deste grupo; para revisão, crie versão nova e cite o arquivo substituído sem apagar o original. Informe ID/versão, finalidade, o que mudou, fonte/autoria e resultado esperado quando cabível. Entrega parcial é válida e não autoriza implementação, instalação ou execução automática.
+Use recebidos/ deste grupo. Nome sugerido: AAAA-MM-DD_assunto_v02.md; identifique ID/versão, o que substitui, decisão/proposta/referência e origem. Entrega parcial é válida. Não apagar versões anteriores; Markdown pode ser versionado, imagens/vídeos e fontes grandes ficam locais fora do Git. Não reenviar material já recebido apenas para preencher uma lista.
 
-[Resumo de necessidades](../NECESSIDADES-ATUAIS.md) · [Ordem de execução](../../docs/projeto/ORDEM-EXECUCAO-POS-AUT.md) · [Mapa SIS-02-A](../../docs/projeto/SIS-02-A-MAPA-NUMERICO.md) · [Modelo](../MODELO-ENTREGA.md)
+[Central de necessidades](../NECESSIDADES-ATUAIS.md) · [Retestes](../../docs/projeto/RETESTES-ENTRADA-E-VIDEO.md) · [Escopo técnico entregue](../../docs/projeto/ESC-SIS-PVE-CONSOLIDACAO.md) · [Modelo](../MODELO-ENTREGA.md)
 
 <details>
 <summary>Guia anterior — histórico; não preencher novamente o que já foi respondido</summary>

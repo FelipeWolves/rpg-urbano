@@ -1,29 +1,32 @@
 # Mobile e plataformas — guia vigente
 
-Atualizado em **22/11/2026**. Prioridade: **P2 — etapa dedicada, atualmente adiada**. Este guia substitui as perguntas antigas nos temas já respondidos; o histórico abaixo fica apenas para referência.
+Atualizado em22/11/2026. **P2 — etapa adiada.** Fonte vigente: [mapa das famílias](../../docs/projeto/MAPA-FAMILIAS-E-PRIORIDADES.md). Conteúdo deste guia distingue preparação independente de implementação/aceite. Atualizações de arquivos recebidos ficam preservadas.
 
-## Já recebido ou definido — não reenviar
+## Já recebido — não reenviar
 
-AVD com perfil intermediário de 8 GB e Galaxy S23 Ultra posterior já são direção recebida. SDK/JDK/boot e diagnóstico da Unreal possuem registros; não reenviar toda a configuração.
+- SDK/JDK/AVD e aparelho-alvo têm registros; não reenviar configuração inteira.
+- WMF do player atual é Win64; preview retrato no PC não prova APK ou backend Android/iOS.
 
-## O que você pode adiantar agora
+## Você pode preparar em paralelo
 
-- [ ] Quando houver reteste autorizado, entregar apenas aparelho/SO efetivamente usados, versão do build e resultado observado. Não precisa redefinir o aparelho-alvo.
-- [ ] Consulta futura: documentação oficial da versão da Unreal/plataforma sobre backend de vídeo habilitado no APK/IPA, codecs/perfis, áudio/mute, legendas, rotação/restauração, foco e memória. Guardar fonte/data/versão.
+- Guardar modelo/SO reais e versão do build quando houver teste; registrar toque, orientação, safe area e interrupções.
+- Pesquisa opcional futura deve ter fonte oficial/data/versão sobre mídias/plataformas; não instalar ou trocar SDK por iniciativa desta lista.
 
 ## Trabalho do desenvolvimento — não precisa virar pesquisa sua
 
-Retomar diagnóstico/toolchain e pacote somente na etapa autorizada. Preview mobile no Windows não comprova Android/iOS.
+- Manter interfaces independentes de plataforma e roteiros de teste reproduzíveis.
+- Diagnóstico Android, empacotamento e aparelho apenas na etapa especificamente retomada.
 
-## Testes e aceites ainda pendentes
+## Dependências e aceites
 
-Backend WMF é somente Win64. APK, orientação física, desempenho e backends Android/iOS continuam pendentes; nenhum Android deve ser iniciado agora.
+- Nenhum Android será iniciado nesta rodada.
+- iOS, assinatura, lojas, desempenho e determinismo no aparelho são validações próprias.
 
-## Onde entregar
+## Como entregar
 
-Use **recebidos/** deste grupo; para revisão, crie versão nova e cite o arquivo substituído sem apagar o original. Informe ID/versão, finalidade, o que mudou, fonte/autoria e resultado esperado quando cabível. Entrega parcial é válida e não autoriza implementação, instalação ou execução automática.
+Use recebidos/ deste grupo. Nome sugerido: AAAA-MM-DD_assunto_v02.md; identifique ID/versão, o que substitui, decisão/proposta/referência e origem. Entrega parcial é válida. Não apagar versões anteriores; Markdown pode ser versionado, imagens/vídeos e fontes grandes ficam locais fora do Git. Não reenviar material já recebido apenas para preencher uma lista.
 
-[Resumo de necessidades](../NECESSIDADES-ATUAIS.md) · [Ordem de execução](../../docs/projeto/ORDEM-EXECUCAO-POS-AUT.md) · [Mapa SIS-02-A](../../docs/projeto/SIS-02-A-MAPA-NUMERICO.md) · [Modelo](../MODELO-ENTREGA.md)
+[Central de necessidades](../NECESSIDADES-ATUAIS.md) · [Retestes](../../docs/projeto/RETESTES-ENTRADA-E-VIDEO.md) · [Escopo técnico entregue](../../docs/projeto/ESC-SIS-PVE-CONSOLIDACAO.md) · [Modelo](../MODELO-ENTREGA.md)
 
 <details>
 <summary>Guia anterior — histórico; não preencher novamente o que já foi respondido</summary>

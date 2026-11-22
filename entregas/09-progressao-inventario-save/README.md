@@ -1,30 +1,33 @@
 # Progressão, inventário e save — guia vigente
 
-Atualizado em **22/11/2026**. Prioridade: **P2 — depois do núcleo; aceites agora**. Este guia substitui as perguntas antigas nos temas já respondidos; o histórico abaixo fica apenas para referência.
+Atualizado em22/11/2026. **P1 persistência dos modos; conteúdo paralelo.** Fonte vigente: [mapa das famílias](../../docs/projeto/MAPA-FAMILIAS-E-PRIORIDADES.md). Conteúdo deste guia distingue preparação independente de implementação/aceite. Atualizações de arquivos recebidos ficam preservadas.
 
-## Já recebido ou definido — não reenviar
+## Já recebido — não reenviar
 
-CIC-01 e AUT-09 têm equipe, recompensa provisória idempotente e save v1 entre batalhas. Save v1 não contém HP/escudo/AP; SIS-02-A não exige v2 só por ampliar HP.
+- Savev1 guarda equipe/progresso entre tentativas, não HP/AP/status de batalha. Score tem recibo local idempotente, não persistência em disco.
+- Famílias de recompensas por PvE/clássico/PvP já foram separadas nas entregas; não pedir de novo a decisão de moedas distintas.
 
-## O que você pode adiantar agora
+## Você pode preparar em paralelo
 
-- [ ] Quando puder testar: salvar, fechar/reabrir a prévia e carregar; relatar equipe/saldo e nova tentativa, sem restauração de batalha nem crédito duplicado.
-- [ ] Para economia/inventário novos, enviar apenas os detalhes não cobertos nos documentos recebidos: fontes/sumidouros, limites, equipamentos e exemplos. Identificar valores provisórios.
-- [ ] Uma proposta de save de combate/cloud é mudança de escopo: explicar necessidade, não enviar credenciais ou dados reais de conta.
+- Revisar tabelas já enviadas e entregar só valores/faixas ainda ausentes, com ID, regra e se são provisórios.
+- Para itens novos: função/estoque/consumo/restrições e exemplo; sem exigir catálogo completo.
+- Indicar decisões adicionais de reset/retomada somente quando extrapolarem o contrato atual.
 
 ## Trabalho do desenvolvimento — não precisa virar pesquisa sua
 
-Preservar ledger e compatibilidade explícita na migração; score não é credits. Não mudar schema/recompensas ou migrar arquivo antigo silenciosamente.
+- Preparar dados/versionamento de encontro/modo, persistência de recibos e proteção contra duplicação.
+- Não transformar save entre tentativas em save de combate por inferência; separar migração da economia final.
 
-## Testes e aceites ainda pendentes
+## Dependências e aceites
 
-I/O real do save/preferences/flag na Unreal e recuperação de falhas continuam com aceites próprios. Inventário/economia ampla não estão implementados.
+- Valores não definidos não serão inventados para fechar a loja ou balanceamento.
+- Gravação/reabertura real e futuras contas sincronizadas são verificações distintas.
 
-## Onde entregar
+## Como entregar
 
-Use **recebidos/** deste grupo; para revisão, crie versão nova e cite o arquivo substituído sem apagar o original. Informe ID/versão, finalidade, o que mudou, fonte/autoria e resultado esperado quando cabível. Entrega parcial é válida e não autoriza implementação, instalação ou execução automática.
+Use recebidos/ deste grupo. Nome sugerido: AAAA-MM-DD_assunto_v02.md; identifique ID/versão, o que substitui, decisão/proposta/referência e origem. Entrega parcial é válida. Não apagar versões anteriores; Markdown pode ser versionado, imagens/vídeos e fontes grandes ficam locais fora do Git. Não reenviar material já recebido apenas para preencher uma lista.
 
-[Resumo de necessidades](../NECESSIDADES-ATUAIS.md) · [Ordem de execução](../../docs/projeto/ORDEM-EXECUCAO-POS-AUT.md) · [Mapa SIS-02-A](../../docs/projeto/SIS-02-A-MAPA-NUMERICO.md) · [Modelo](../MODELO-ENTREGA.md)
+[Central de necessidades](../NECESSIDADES-ATUAIS.md) · [Retestes](../../docs/projeto/RETESTES-ENTRADA-E-VIDEO.md) · [Escopo técnico entregue](../../docs/projeto/ESC-SIS-PVE-CONSOLIDACAO.md) · [Modelo](../MODELO-ENTREGA.md)
 
 <details>
 <summary>Guia anterior — histórico; não preencher novamente o que já foi respondido</summary>

@@ -1,47 +1,24 @@
-> **Atualização22/11:** código ESC/SIS/PvE implementado; veja docs/projeto/ESC-SIS-PVE-CONSOLIDACAO.md na raiz. Não reenviar Silver/ondas/score fechados. O que ajuda: retestes clique/alvo/vídeo, propostas de menus e dados finais dos modos/chefes com gatilho, alcance, kit, duração, limites e exemplos, sem exigir catálogo inteiro.
+# Necessidades atuais — preparação paralela
 
-# Necessidades atuais por área
+Atualizado em22/11/2026. Os12READMEs por grupo foram reconciliados com os documentos recebidos e o mapa de famílias. Não é necessário pesquisar tudo nem reenviar material definido. Nesta rodada a sequência de desenvolvimento é VIS → ENG → HUB; preparação paralela não deve bloquear esses ajustes.
 
-22/11/2026. Central prática para preparar entregas enquanto o desenvolvimento segue. **Não é necessário responder tudo, reenviar recursos já existentes ou pesquisar regras fechadas.** Os READMEs de cada grupo trazem os detalhes e mantêm o guia anterior recolhido como histórico.
+| Grupo | O que mais ajuda agora | O que já existe / não reenviar |
+|---|---|---|
+| 00 Geral | Avisar arquivo/versão/delta e indicar decisão ou proposta | Mapa e recorte do piloto |
+| 01 Interface | Retestar clique único, troca de alvos e primeiro Rever após a compilação corrigida | Não redescrever todos os controles |
+| 02 Mobile | Guardar resultado do aparelho/build quando houver etapa autorizada | Configuração inteira do SDK/JDK/AVD e aparelho-alvo |
+| 03 Habilidades | Descrições/níveis/ícones e apenas fichas inéditas ou deltas | Felipe A1/A2/A3, Bleed/Poison, escudos e fórmulas fechadas |
+| 04 Modos | Uma ficha representativa de encontro e dados finais/faixas ainda ausentes | Todas as famílias de chefes ou catálogos completos |
+| 05 Hub/2D | Ícones/retratos/estados; revisão de panorama só se houver mudança | Panorama/variantes, sete locais, Cormorant/Lora/LOBO |
+| 06 Vídeo | Indicar fala/legendas; novas versões só para mudar conteúdo | MP4desktop/mobile já existentes; não reexportar para tentar corrigir clique |
+| 07 3D | Uma amostra Felipe/Umbra + Terraço, rig/material/clips e fontes | Não é necessário cidade ou elenco inteiro |
+| 08 Áudio | Amostras por evento, loop, stems e autoria | Direção/canais/eventos já recebidos |
+| 09 Progressão | Valores/faixas novos e regras de itens ainda não fechadas | Decisão de moedas separadas e savev1 entre tentativas |
+| 10 Textos | Roteiro curto do piloto porID e ordem; falas vinculadas | Premissa, protagonista e todos os livros |
+| 11 Direitos | Registro de origem/licença por recurso e restrições | Não presumir autorização comercial de material externo |
 
-## O que mais ajuda agora
+As instruções completas estão no README de cada grupo, ao lado de recebidos/. Manter versões antigas, indicar o que substitui e permitir entrega parcial. DocumentosMarkdown autorizados podem ir ao Git; vídeos/imagens/fontes grandes não entram automaticamente.
 
-1. **Teste curto:** segunda conferência do primeiro clique em Rever abertura; novo marcador de alvo, equipe/alvos e leitura dos painéis. Se estiver correto, basta dizer o que foi testado. Se houver problema, indicar sequência, resolução/escala e resultado esperado.
-2. **Mídia/textos:** legendas ou indicação de ausência de fala nos vídeos; trechos finais do tutorial e textos do piloto. Não precisa reenviar os MP4 ou a narrativa inteira.
-3. **Amostra artística:** um personagem/rig e uma arena pequena, quando disponíveis, com escala/pivô/clips/fonte editável. Não produzir cidade ou elenco inteiro antes da primeira integração.
-4. **Pesquisa opcional:** somente fórmulas/exceções ainda não fechadas, com fonte/data/versão e exemplo. Separar hipótese sobre Dislyte de regra escolhida para nosso jogo.
+O desenvolvimento pode diagnosticar entrada/foco/player e preparar rotas com os recursos atuais. Arte final, voz, música e conteúdo definitivo entram por amostra. Android, instalação deMCP e testes visuais não são iniciados por este guia. Saldo de uso doCodex não é visível ao agente; a fila deve permanecer dividida em entregas pequenas.
 
-**Ponto1 entregue:** SIS-02-B/C, REG, Bleed/Poison e Felipe implementados. O que ajuda agora é o aceite do piloto pelos atalhos novos. Não pesquisar novamente regras fechadas; ESC/SIS/PvE será planejado separadamente.
-
-## Quadro de entregas
-
-| Grupo / guia | Pode preparar | Já temos — não pedir novamente | O que permanece com desenvolvimento/testes |
-|---|---|---|---|
-| [00 — Geral](00-entrada-geral/README.md) | Mudança/dúvida nova com contexto e versão anterior | ENT e complementos técnicos recebidos | Revisão localizada e classificação; envio não aplica regras |
-| [01 — Interface](01-interface-e-testes/README.md) | Reteste do clique/marcador/menus e exemplos de fluidez | Perfis, entrada e painéis implementados; aceites antigos preservados | Aceites dos controles novos, persistência e resoluções |
-| [02 — Mobile](02-mobile-e-plataformas/README.md) | Consulta oficial futura de backend/codec; relato do aparelho quando testar | AVD intermediário 8 GB e S23 Ultra posterior; ambiente já documentado | Toolchain/APK, Android/iOS, orientação, áudio/foco e desempenho; adiado |
-| [03 — Combate](03-combate-habilidades/README.md) | Fórmula DEF/cura ainda não fechada, ficha/efeito novo ou delta | StandardShield, R04, A2, Block, ACC/RESIST e ponto fixo decididos | SIS-02-B/C → REG → A2, sem nova pesquisa obrigatória para B |
-| [04 — Modos](04-modos-pve-e-classico/README.md) | Variações além dos perfis já aceitos, cronologia de fases/score | SEQ/PAR separados; HP compartilhado e frentes independentes não são o mesmo modo | Ondas novas, score, fases autônomas, área e clássico expandido |
-| [05 — Hub/2D](05-hub-identidade-e-arte2d/README.md) | Revisões versionadas, ícones/retrato/camadas e zonas seguras | Panorama/locais/variantes documentados, fontes/codinome escolhidos | Composição final e aceites; destinos futuros continuam bloqueados |
-| [06 — Vídeo](06-video-e-cinematics/README.md) | Reteste, SRT/VTT/tabela de legenda ou ausência de fala, revisão de conteúdo se houver | Dois vídeos e arte lateral; regra de skip/retomada recebida; playback Windows relatado | Mixer, legendas, arte lateral, flag/ciclo, autoabertura após aceite |
-| [07 — 3D/animação](07-cenarios3d-personagens-animacoes/README.md) | Uma amostra de personagem/arena/rig/clips | Arena provisória, marcador runtime e canal de cues | Importação, consumidores visuais, VFX, fluidez e orçamento por plataforma |
-| [08 — Áudio/DJ](08-audio-musica-e-dj/README.md) | Arquivos próprios e tabela evento/loop/volume; exemplos adicionais de DJ | Canal de mídia é direção recebida; componente de áudio existe | Mixer/consumidores e teste de som; DJ é sistema posterior |
-| [09 — Progressão](09-progressao-inventario-save/README.md) | Teste salvar/reabrir/carregar; detalhes novos de inventário/economia | CIC-01/AUT-09 e save v1 entre batalhas, sem HP no formato | Aceite de IO, compatibilidade e expansão; score não é credits |
-| [10 — Textos](10-universo-conteudo-textos/README.md) | Texto final do tutorial/piloto e chaves de localização | Direção narrativa recebida; piloto Felipe/um encontro | Integração do tutorial e localização; sem exigir todos os capítulos |
-| [11 — Distribuição](11-distribuicao-servicos-e-direitos/README.md) | Novidades de escopo e fontes/licenças dos recursos finais | Prioridade de plataformas já recebida; stage preparado | Cook/Shipping/Windows limpo, serviços/lojas e direitos finais |
-
-## Como entregar sem duplicar trabalho
-
-- Salvar em `entregas/NN-area/recebidos/AAAA-MM-DD_assunto_v02.md` (ou versão apropriada). Não apagar/substituir a versão anterior.
-- Informar o arquivo/trecho anterior a que se refere, o que mudou e o bloco/pendência se souber. Se a informação já está em um documento, citar nome e seção basta.
-- Usar [MODELO-ENTREGA.md](MODELO-ENTREGA.md) ou texto simples; resposta parcial é válida. Recurso pode vir com nomes reais dos arquivos, dimensões/escala/idioma e origem.
-- Para teste, separar observado de esperado. O status do primeiro clique é **provisório / REVER** até a segunda conferência; não precisa produzir relatório extenso.
-- Não enviar credenciais/certificados privados/dados de conta ou conteúdo extraído de terceiros. Markdown de recebidos pode ser versionado conforme autorização anterior; imagens/vídeos continuam locais. Push não é backup dessas mídias.
-
-## O que esta atualização não fez
-
-Não houve nova análise integral dos arquivos recebidos, recebimento/inventário de mídias, execução de código, teste, compilação ou alteração de recursos. CONTROLE.csv foi reconciliado com entregas/contratos já documentados; campos anteriores de revisão são preservados e não aprovam todas as propostas de um grupo. RECEBIMENTO.csv e seu histórico não foram reescritos.
-
-Não houve internet, telas, Android ou instalação. Uma pesquisa externa que for necessária pode ser entregue pelo usuário com fonte oficial/versão/data e resultado esperado; não executaremos material recebido automaticamente.
-
-[Ordem vigente](../docs/projeto/ORDEM-EXECUCAO-POS-AUT.md) · [Mapa SIS-02-A](../docs/projeto/SIS-02-A-MAPA-NUMERICO.md) · [Pendências técnicas](../docs/projeto/PENDENCIAS.md) · [Controle](CONTROLE.csv)
+[Mapa](../docs/projeto/MAPA-FAMILIAS-E-PRIORIDADES.md) · [Retestes](../docs/projeto/RETESTES-ENTRADA-E-VIDEO.md) · [MCP e Unreal](../docs/projeto/ENG-AMB-MCP-UNREAL.md)

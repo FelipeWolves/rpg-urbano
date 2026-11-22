@@ -1,30 +1,33 @@
 # Áudio, música e DJ — guia vigente
 
-Atualizado em **22/11/2026**. Prioridade: **P2 mídia; P3 modo DJ**. Este guia substitui as perguntas antigas nos temas já respondidos; o histórico abaixo fica apenas para referência.
+Atualizado em22/11/2026. **P2 áudio em paralelo; P3 DJ.** Fonte vigente: [mapa das famílias](../../docs/projeto/MAPA-FAMILIAS-E-PRIORIDADES.md). Conteúdo deste guia distingue preparação independente de implementação/aceite. Atualizações de arquivos recebidos ficam preservadas.
 
-## Já recebido ou definido — não reenviar
+## Já recebido — não reenviar
 
-Mídia possui componente de áudio separado; canal Mídia é direção consolidada. O ensaio ainda não integra volumes de produto; não solicitar novamente a política já decidida.
+- Direção autoral/licenciada, canais Master/BGM/SFX/UI/VO, loops e eventos de áudio já recebidos.
+- Matrizes WAV48kHz/24bit e stems são direção de produção recebida; compressão/backend final precisa validação, sem instalar codecs/plugins.
 
-## O que você pode adiantar agora
+## Você pode preparar em paralelo
 
-- [ ] Podem ser preparados arquivos próprios/licenciados com finalidade, versão, duração, loop e fonte editável; completar tabela evento → arquivo → volume relativo quando houver.
-- [ ] Indicar narração/fala e idioma para sincronizar com legendas. Não reenviar trilha já embutida no vídeo sem mudança.
-- [ ] Para DJ, enviar somente detalhes adicionais ao contrato recebido: exemplos de nota/janela/tolerância, score, sincronismo e latência, distinguindo proposta de dado confirmado.
+- Uma amostra por função: hub/combate/UI/impacto, com ID, versão, fonte, duração, idioma, loop intro/start/end e autoria/licença.
+- Quando houver voz, indicar texto/idioma e arquivo correspondente. Preservar stems/projeto editável.
+- DJ: enviar somente decisões novas de julgamento/input/latência se necessário; não reenviar a direção narrativa inteira.
 
 ## Trabalho do desenvolvimento — não precisa virar pesquisa sua
 
-Integrar mestre/Mídia e recuperação de preferências; consumidores de eventos sonoros independentes. DJ é uma família posterior, não parte do player de vídeo.
+- Estruturar canais, volume/mute, preferências e cues sem depender de trilha final.
+- Integrar mixer/crossfade/ducking e segundo plano de forma verificável. Modo DJ não é consequência automática de tocar música.
 
-## Testes e aceites ainda pendentes
+## Dependências e aceites
 
-Mixagem/áudio real/lifecycle por plataforma e mecânica DJ não foram aprovados por compilação.
+- Áudio real exige aceite auditivo; silêncio físico/interrupções precisam aparelho.
+- Propostas de concorrência/ducking e compressão não comprovam desempenho; validar sem misturar com regras de combate.
 
-## Onde entregar
+## Como entregar
 
-Use **recebidos/** deste grupo; para revisão, crie versão nova e cite o arquivo substituído sem apagar o original. Informe ID/versão, finalidade, o que mudou, fonte/autoria e resultado esperado quando cabível. Entrega parcial é válida e não autoriza implementação, instalação ou execução automática.
+Use recebidos/ deste grupo. Nome sugerido: AAAA-MM-DD_assunto_v02.md; identifique ID/versão, o que substitui, decisão/proposta/referência e origem. Entrega parcial é válida. Não apagar versões anteriores; Markdown pode ser versionado, imagens/vídeos e fontes grandes ficam locais fora do Git. Não reenviar material já recebido apenas para preencher uma lista.
 
-[Resumo de necessidades](../NECESSIDADES-ATUAIS.md) · [Ordem de execução](../../docs/projeto/ORDEM-EXECUCAO-POS-AUT.md) · [Mapa SIS-02-A](../../docs/projeto/SIS-02-A-MAPA-NUMERICO.md) · [Modelo](../MODELO-ENTREGA.md)
+[Central de necessidades](../NECESSIDADES-ATUAIS.md) · [Retestes](../../docs/projeto/RETESTES-ENTRADA-E-VIDEO.md) · [Escopo técnico entregue](../../docs/projeto/ESC-SIS-PVE-CONSOLIDACAO.md) · [Modelo](../MODELO-ENTREGA.md)
 
 <details>
 <summary>Guia anterior — histórico; não preencher novamente o que já foi respondido</summary>

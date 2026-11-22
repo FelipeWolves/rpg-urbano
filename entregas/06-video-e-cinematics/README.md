@@ -1,31 +1,33 @@
 # Vídeo e cinematics — guia vigente
 
-Atualizado em **22/11/2026**. Prioridade: **P1 — reteste; P2 — integração restante**. Este guia substitui as perguntas antigas nos temas já respondidos; o histórico abaixo fica apenas para referência.
+Atualizado em22/11/2026. **P0 reprodução; P2 acabamento.** Fonte vigente: [mapa das famílias](../../docs/projeto/MAPA-FAMILIAS-E-PRIORIDADES.md). Conteúdo deste guia distingue preparação independente de implementação/aceite. Atualizações de arquivos recebidos ficam preservadas.
 
-## Já recebido ou definido — não reenviar
+## Já recebido — não reenviar
 
-Vídeos desktop/mobile e arte lateral já recebidos. Player Windows WMF preparado; usuário relatou reprodução. Pulo 800 ms na primeira exibição, revisão imediata e retomada pausada são decisões já recebidas.
+- MP4 desktop/mobile autorais já recebidos e player local existe; não reexportar para tentar mascarar o clique adicional.
+- Primeiro Rever exige clique adicional em relato e permanece REABERTO. Skip/retomada e variantes têm contrato anterior.
 
-## O que você pode adiantar agora
+## Você pode preparar em paralelo
 
-- [ ] Segunda olhada no primeiro clique: registrar um clique logo após Play e outro ensaio posterior, sem redefinir a regra do botão.
-- [ ] Conferir som, fim natural, skip, perder/recuperar foco e comportamento ao reabrir. Não precisa alterar arquivos de vídeo para simular falhas.
-- [ ] Se houver falas/legendas, enviar SRT/VTT ou tabela com início/fim/texto, idioma e ID/versão do vídeo; se não houver fala, informar apenas isso.
-- [ ] Nova renderização só quando desejar revisar conteúdo: nome/versão, duração, resolução, trilha e o que substitui. Originais atuais não precisam ser reenviados.
+- Após correção, retestar primeiro Rever, repetição, fim natural, som, skip e perda/retorno de foco.
+- Se houver fala: SRT/VTT ou tabela início/fim/texto/idioma vinculada à versão; sem fala, basta registrar isso.
+- Novas versões só por revisão de conteúdo: nome, duração, resolução, trilha e substituição; guardar matriz.
 
 ## Trabalho do desenvolvimento — não precisa virar pesquisa sua
 
-Legenda, volumes mestre/Mídia, arte lateral e flag/ciclo; autoabertura somente após aceite pertinente. Arquivo presente não comprova decoder por plataforma.
+- Corrigir disparo/foco/preparação do backend com diagnóstico local; não exigir troca de mídia sem evidência.
+- Depois integrar volumes, legendas/arte lateral e ciclo de vida; abertura automática continua condicionada ao aceite.
 
-## Testes e aceites ainda pendentes
+## Dependências e aceites
 
-Primeiro clique provisório / REVER. Áudio/flag/lifecycle completo, mixer/legendas/arte lateral e abertura automática seguem pendentes.
+- Reteste real continua necessário, inclusive primeira abertura após iniciar o app.
+- Backend mobile e política de orientação precisam validação na plataforma, não apenas no PC.
 
-## Onde entregar
+## Como entregar
 
-Use **recebidos/** deste grupo; para revisão, crie versão nova e cite o arquivo substituído sem apagar o original. Informe ID/versão, finalidade, o que mudou, fonte/autoria e resultado esperado quando cabível. Entrega parcial é válida e não autoriza implementação, instalação ou execução automática.
+Use recebidos/ deste grupo. Nome sugerido: AAAA-MM-DD_assunto_v02.md; identifique ID/versão, o que substitui, decisão/proposta/referência e origem. Entrega parcial é válida. Não apagar versões anteriores; Markdown pode ser versionado, imagens/vídeos e fontes grandes ficam locais fora do Git. Não reenviar material já recebido apenas para preencher uma lista.
 
-[Resumo de necessidades](../NECESSIDADES-ATUAIS.md) · [Ordem de execução](../../docs/projeto/ORDEM-EXECUCAO-POS-AUT.md) · [Mapa SIS-02-A](../../docs/projeto/SIS-02-A-MAPA-NUMERICO.md) · [Modelo](../MODELO-ENTREGA.md)
+[Central de necessidades](../NECESSIDADES-ATUAIS.md) · [Retestes](../../docs/projeto/RETESTES-ENTRADA-E-VIDEO.md) · [Escopo técnico entregue](../../docs/projeto/ESC-SIS-PVE-CONSOLIDACAO.md) · [Modelo](../MODELO-ENTREGA.md)
 
 <details>
 <summary>Guia anterior — histórico; não preencher novamente o que já foi respondido</summary>

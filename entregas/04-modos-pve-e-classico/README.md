@@ -1,32 +1,32 @@
-> **Atualização22/11:** código ESC/SIS/PvE implementado; veja docs/projeto/ESC-SIS-PVE-CONSOLIDACAO.md na raiz. Não reenviar Silver/ondas/score fechados. O que ajuda: retestes clique/alvo/vídeo, propostas de menus e dados finais dos modos/chefes com gatilho, alcance, kit, duração, limites e exemplos, sem exigir catálogo inteiro.
-
 # Modos PvE e clássico — guia vigente
 
-Atualizado em **22/11/2026**. Prioridade: **P2 — após base numérica/funil**. Este guia substitui as perguntas antigas nos temas já respondidos; o histórico abaixo fica apenas para referência.
+Atualizado em22/11/2026. **P1 integração simples; expansões depois.** Fonte vigente: [mapa das famílias](../../docs/projeto/MAPA-FAMILIAS-E-PRIORIDADES.md). Conteúdo deste guia distingue preparação independente de implementação/aceite. Atualizações de arquivos recebidos ficam preservadas.
 
-## Já recebido ou definido — não reenviar
+## Já recebido — não reenviar
 
-SEQ/PAR e seus perfis de laboratório estão encerrados no escopo aprovado. Chefes sequenciais, frentes independentes e HP único compartilhado são modelos distintos, já separados.
+- WaveV2, Ritual/ScoreAttack/Survival, score/recibo, fases, reservas, SEQv2 e áreas locais/globais testados no core.
+- Três equipes sem retorno, HP global e auxiliares separados estão modelados; kits estáveis continuam possíveis.
 
-## O que você pode adiantar agora
+## Você pode preparar em paralelo
 
-- [ ] Documentar apenas modos/variações fora dos perfis já fechados: times, simultaneidade, alcance, HP compartilhado/separado, limites e condição de término.
-- [ ] Para fases por HP/turno e auxiliares, fornecer uma cronologia pequena com troca de kit e persistências. Para score, indicar dano efetivo/overkill/sobrevivência e momento de apuração.
-- [ ] Clássico expandido: novas regras de itens/ATB/SP/especial podem vir em documento próprio; não repetir a distinção entre câmera e perfil de combate.
+- Escolher/entregar uma ficha representativa de encontro: objetivo, formação, inimigos/auxiliares, limite e kit; usar o que já foi entregue como base.
+- Para novo limiar/kit/faixa, informar delta e exemplos. Não precisamos de relatório de todos os chefes de uma vez.
 
 ## Trabalho do desenvolvimento — não precisa virar pesquisa sua
 
-Após SIS/REG: escudos especializados/cura, política WAVE nova e score. Preservar regras já aprovadas de SEQ/PAR.
+- Depois de VIS/ENG/HUB, integrar um Ritual ao menu/HUD; depois ondas e score/resultado, antes de SEQ/PAR.
+- Clássico com itens/SP/Limit/ATB Active e DJ têm recortes próprios; não confundir defesa existente com modo completo.
 
-## Testes e aceites ainda pendentes
+## Dependências e aceites
 
-Score, fases autônomas, área entre frentes, clássico expandido e servidor não estão implementados pelos testes antigos.
+- Classes compiladas não criam telas novas automaticamente.
+- Combinação de ciclo por turnos e lista de fases precisa precedência definida; balanceamento/recompensas finais são dados próprios.
 
-## Onde entregar
+## Como entregar
 
-Use **recebidos/** deste grupo; para revisão, crie versão nova e cite o arquivo substituído sem apagar o original. Informe ID/versão, finalidade, o que mudou, fonte/autoria e resultado esperado quando cabível. Entrega parcial é válida e não autoriza implementação, instalação ou execução automática.
+Use recebidos/ deste grupo. Nome sugerido: AAAA-MM-DD_assunto_v02.md; identifique ID/versão, o que substitui, decisão/proposta/referência e origem. Entrega parcial é válida. Não apagar versões anteriores; Markdown pode ser versionado, imagens/vídeos e fontes grandes ficam locais fora do Git. Não reenviar material já recebido apenas para preencher uma lista.
 
-[Resumo de necessidades](../NECESSIDADES-ATUAIS.md) · [Ordem de execução](../../docs/projeto/ORDEM-EXECUCAO-POS-AUT.md) · [Mapa SIS-02-A](../../docs/projeto/SIS-02-A-MAPA-NUMERICO.md) · [Modelo](../MODELO-ENTREGA.md)
+[Central de necessidades](../NECESSIDADES-ATUAIS.md) · [Retestes](../../docs/projeto/RETESTES-ENTRADA-E-VIDEO.md) · [Escopo técnico entregue](../../docs/projeto/ESC-SIS-PVE-CONSOLIDACAO.md) · [Modelo](../MODELO-ENTREGA.md)
 
 <details>
 <summary>Guia anterior — histórico; não preencher novamente o que já foi respondido</summary>

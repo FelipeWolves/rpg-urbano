@@ -1,29 +1,32 @@
-# Entrada geral e decisões — guia vigente
+# Entrada geral e organização — guia vigente
 
-Atualizado em **22/11/2026**. Prioridade: **Apoio**. Este guia substitui as perguntas antigas nos temas já respondidos; o histórico abaixo fica apenas para referência.
+Atualizado em22/11/2026. **Coordenação — VIS/ENG/HUB primeiro.** Fonte vigente: [mapa das famílias](../../docs/projeto/MAPA-FAMILIAS-E-PRIORIDADES.md). Conteúdo deste guia distingue preparação independente de implementação/aceite. Atualizações de arquivos recebidos ficam preservadas.
 
-## Já recebido ou definido — não reenviar
+## Já recebido — não reenviar
 
-ENT-01–15 e complementos de A2/ACC/ponto fixo já foram recebidos. SIS-02-A mapeou 22 pontos; próxima tarefa SIS-02-B.
+- Mapa das famílias e escopos ESC/SIS/PvE consolidados; material anterior preservado.
+- Felipe/Umbra e um encontro são o recorte; não precisamos de todos os capítulos ou personagens.
 
-## O que você pode adiantar agora
+## Você pode preparar em paralelo
 
-- [ ] Use esta área para material sem classificação clara ou revisão de uma decisão. Cite somente a mudança em relação ao documento anterior.
-- [ ] Para dúvida nova: cenário antes → ação → resultado esperado; marcar hipótese ou escolha do nosso jogo.
+- Indicar nome, versão e grupo de qualquer arquivo novo; se houver revisão, citar o que substitui.
+- Entregar decisões e propostas separadas, com exemplo do resultado esperado; dúvidas podem ficar como NÃO SEI.
 
 ## Trabalho do desenvolvimento — não precisa virar pesquisa sua
 
-Classificar novidades e comparar contratos; não pedir novamente respostas fechadas. A aritmética segura não depende de nova pesquisa sua.
+- Triagem/reconciliação de entregas, mantendo uma fonte vigente e sem reabrir contratos resolvidos.
+- Prioridade atual: corrigir entrada/alvos/player, depois integrar uma experiência simples.
 
-## Testes e aceites ainda pendentes
+## Dependências e aceites
 
-Recebido não significa implementado ou validado; só registrar novo aceite quando houver relato específico.
+- Nenhuma entrega nova bloqueia os três ajustes principais.
+- O agente não conhece o saldo diário; prioridades e cortes pequenos substituem promessas de consumo.
 
-## Onde entregar
+## Como entregar
 
-Use **recebidos/** deste grupo; para revisão, crie versão nova e cite o arquivo substituído sem apagar o original. Informe ID/versão, finalidade, o que mudou, fonte/autoria e resultado esperado quando cabível. Entrega parcial é válida e não autoriza implementação, instalação ou execução automática.
+Use recebidos/ deste grupo. Nome sugerido: AAAA-MM-DD_assunto_v02.md; identifique ID/versão, o que substitui, decisão/proposta/referência e origem. Entrega parcial é válida. Não apagar versões anteriores; Markdown pode ser versionado, imagens/vídeos e fontes grandes ficam locais fora do Git. Não reenviar material já recebido apenas para preencher uma lista.
 
-[Resumo de necessidades](../NECESSIDADES-ATUAIS.md) · [Ordem de execução](../../docs/projeto/ORDEM-EXECUCAO-POS-AUT.md) · [Mapa SIS-02-A](../../docs/projeto/SIS-02-A-MAPA-NUMERICO.md) · [Modelo](../MODELO-ENTREGA.md)
+[Central de necessidades](../NECESSIDADES-ATUAIS.md) · [Retestes](../../docs/projeto/RETESTES-ENTRADA-E-VIDEO.md) · [Escopo técnico entregue](../../docs/projeto/ESC-SIS-PVE-CONSOLIDACAO.md) · [Modelo](../MODELO-ENTREGA.md)
 
 <details>
 <summary>Guia anterior — histórico; não preencher novamente o que já foi respondido</summary>

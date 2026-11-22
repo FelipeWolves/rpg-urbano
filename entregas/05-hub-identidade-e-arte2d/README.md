@@ -1,30 +1,32 @@
 # Hub, identidade e arte 2D — guia vigente
 
-Atualizado em **22/11/2026**. Prioridade: **P2 — produção independente**. Este guia substitui as perguntas antigas nos temas já respondidos; o histórico abaixo fica apenas para referência.
+Atualizado em22/11/2026. **P1 navegação; P2 arte em paralelo.** Fonte vigente: [mapa das famílias](../../docs/projeto/MAPA-FAMILIAS-E-PRIORIDADES.md). Conteúdo deste guia distingue preparação independente de implementação/aceite. Atualizações de arquivos recebidos ficam preservadas.
 
-## Já recebido ou definido — não reenviar
+## Já recebido — não reenviar
 
-Panorama atual, sete locais e variantes de clima/horário têm documentos recebidos. Hub/catálogo/rotas e identidade possuem integração parcial; Cormorant/Lora e codinome LOBO já foram escolhidos.
+- Panorama, variantes de clima/horário e sete pontos recebidos: Terminal, Arena, Pub, Praça, Games, Lab e Biblioteca.
+- Cormorant/Lora, codinome LOBO e separação fundo/widgets já definidos; não reenviar a mesma imagem ou redesenhar tudo.
 
-## O que você pode adiantar agora
+## Você pode preparar em paralelo
 
-- [ ] Enviar nova imagem somente se houver revisão; indicar versão, recortes/zonas seguras, camadas e mudanças de posição dos acessos. Não reenviar o mesmo panorama.
-- [ ] Podem avançar ícones, retrato do piloto e estados de botão com nomes/IDs, tamanhos/fonte editável e autoria/licença.
-- [ ] Para destinos futuros, completar somente conteúdo/fluxo novo; manter bloqueado o que ainda não tem sistema.
+- Produzir em paralelo ícones/estados de botão e retrato do piloto, com fonte editável e origem.
+- Se revisar o panorama: nova versão, o que mudou, áreas seguras, coordenadas/zonas dos acessos e recortes. Destinos futuros permanecem bloqueados.
 
 ## Trabalho do desenvolvimento — não precisa virar pesquisa sua
 
-Acabamento de enquadramento, acessibilidade e composição lateral podem usar recursos existentes; não iniciar loja/PvP online por imagem de destino.
+- Estabilizar cliques/retorno de painéis e destinos com os recursos atuais.
+- Conectar somente sistemas realmente disponíveis; preparar novos acessos por rota sem inventar lojas/PvP.
 
-## Testes e aceites ainda pendentes
+## Dependências e aceites
 
-Aceite de recortes/resoluções e recursos novos segue próprio. Marca/recursos para distribuição ainda precisam origem/licença conforme área 11.
+- Aceite por resolução/recorte é visual; não foi obtido só por compilar.
+- Origem de cada recurso de marca continua registrada no grupo11.
 
-## Onde entregar
+## Como entregar
 
-Use **recebidos/** deste grupo; para revisão, crie versão nova e cite o arquivo substituído sem apagar o original. Informe ID/versão, finalidade, o que mudou, fonte/autoria e resultado esperado quando cabível. Entrega parcial é válida e não autoriza implementação, instalação ou execução automática.
+Use recebidos/ deste grupo. Nome sugerido: AAAA-MM-DD_assunto_v02.md; identifique ID/versão, o que substitui, decisão/proposta/referência e origem. Entrega parcial é válida. Não apagar versões anteriores; Markdown pode ser versionado, imagens/vídeos e fontes grandes ficam locais fora do Git. Não reenviar material já recebido apenas para preencher uma lista.
 
-[Resumo de necessidades](../NECESSIDADES-ATUAIS.md) · [Ordem de execução](../../docs/projeto/ORDEM-EXECUCAO-POS-AUT.md) · [Mapa SIS-02-A](../../docs/projeto/SIS-02-A-MAPA-NUMERICO.md) · [Modelo](../MODELO-ENTREGA.md)
+[Central de necessidades](../NECESSIDADES-ATUAIS.md) · [Retestes](../../docs/projeto/RETESTES-ENTRADA-E-VIDEO.md) · [Escopo técnico entregue](../../docs/projeto/ESC-SIS-PVE-CONSOLIDACAO.md) · [Modelo](../MODELO-ENTREGA.md)
 
 <details>
 <summary>Guia anterior — histórico; não preencher novamente o que já foi respondido</summary>

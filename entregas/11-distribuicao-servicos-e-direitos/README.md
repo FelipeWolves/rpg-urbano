@@ -1,30 +1,33 @@
 # Distribuição, serviços e direitos — guia vigente
 
-Atualizado em **22/11/2026**. Prioridade: **P3 — posterior ao recorte local**. Este guia substitui as perguntas antigas nos temas já respondidos; o histórico abaixo fica apenas para referência.
+Atualizado em22/11/2026. **P2 registro de origem; P3 lojas/serviços.** Fonte vigente: [mapa das famílias](../../docs/projeto/MAPA-FAMILIAS-E-PRIORIDADES.md). Conteúdo deste guia distingue preparação independente de implementação/aceite. Atualizações de arquivos recebidos ficam preservadas.
 
-## Já recebido ou definido — não reenviar
+## Já recebido — não reenviar
 
-Direção Windows, Android e iOS posterior já foi recebida. AUT-15 preparou stage, não um executável novo aceito. Steam/loja não substitui backend de vídeo.
+- Recursos autorais e referências de terceiros já têm registros; preserve autoria e versões.
+- Steam/Windows Store/mobile/launcher são destinos futuros, não integração existente. Não abrir serviços/contas nesta lista.
 
-## O que você pode adiantar agora
+## Você pode preparar em paralelo
 
-- [ ] Somente novidades de escopo de publicação/serviços, público/idiomas e requisitos: descrever função/dados necessários, sem escolher fornecedor/plugin automaticamente.
-- [ ] Complementar autoria/licença/restrições dos recursos finais; não enviar documentos pessoais, senhas, certificados privados ou tokens.
-- [ ] Pesquisa externa futura: trazer fonte oficial/data/versão e impacto de requisitos de loja/plataforma; não instalar nem abrir contas por isso.
+- Manter registro por recurso: arquivo, autor/origem, licença/termos, data, permissão e eventual restrição; se incerto, marcar PENDENTE.
+- Revisar especialmente material externo de marca/ícones antes de distribuição; não presumir licença comercial só porque foi anexado.
+- Para publicação futura, registrar requisitos oficiais com fonte/data/versão quando pesquisados pelo usuário.
 
 ## Trabalho do desenvolvimento — não precisa virar pesquisa sua
 
-Build/cook/Shipping, Windows limpo e serviços só nas etapas autorizadas; manter ausência de conta/cloud como escopo do laboratório atual, sem inferir política comercial final.
+- Manter inventário de proveniência e interfaces desacopladas de serviços.
+- MCP futuro será avaliado em ENG/AMB por implementação concreta, compatibilidade e permissões; sem instalação/ativação agora.
 
-## Testes e aceites ainda pendentes
+## Dependências e aceites
 
-Distribuição, serviços online, loja, direitos finais e desempenho não são aprovados pelo stage verificado.
+- Consulta/registro de licença não é parecer jurídico nem aprovação de publicação.
+- Assinatura, contas, compras, conquistas e servidores exigem etapas próprias; mídias grandes continuam fora do Git.
 
-## Onde entregar
+## Como entregar
 
-Use **recebidos/** deste grupo; para revisão, crie versão nova e cite o arquivo substituído sem apagar o original. Informe ID/versão, finalidade, o que mudou, fonte/autoria e resultado esperado quando cabível. Entrega parcial é válida e não autoriza implementação, instalação ou execução automática.
+Use recebidos/ deste grupo. Nome sugerido: AAAA-MM-DD_assunto_v02.md; identifique ID/versão, o que substitui, decisão/proposta/referência e origem. Entrega parcial é válida. Não apagar versões anteriores; Markdown pode ser versionado, imagens/vídeos e fontes grandes ficam locais fora do Git. Não reenviar material já recebido apenas para preencher uma lista.
 
-[Resumo de necessidades](../NECESSIDADES-ATUAIS.md) · [Ordem de execução](../../docs/projeto/ORDEM-EXECUCAO-POS-AUT.md) · [Mapa SIS-02-A](../../docs/projeto/SIS-02-A-MAPA-NUMERICO.md) · [Modelo](../MODELO-ENTREGA.md)
+[Central de necessidades](../NECESSIDADES-ATUAIS.md) · [Retestes](../../docs/projeto/RETESTES-ENTRADA-E-VIDEO.md) · [Escopo técnico entregue](../../docs/projeto/ESC-SIS-PVE-CONSOLIDACAO.md) · [Modelo](../MODELO-ENTREGA.md)
 
 <details>
 <summary>Guia anterior — histórico; não preencher novamente o que já foi respondido</summary>

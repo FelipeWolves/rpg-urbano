@@ -1,30 +1,33 @@
-# Cenários, personagem e animação — guia vigente
+# Cenários 3D, personagem e animação — guia vigente
 
-Atualizado em **22/11/2026**. Prioridade: **P2 — uma amostra representativa**. Este guia substitui as perguntas antigas nos temas já respondidos; o histórico abaixo fica apenas para referência.
+Atualizado em22/11/2026. **P2 — amostra independente.** Fonte vigente: [mapa das famílias](../../docs/projeto/MAPA-FAMILIAS-E-PRIORIDADES.md). Conteúdo deste guia distingue preparação independente de implementação/aceite. Atualizações de arquivos recebidos ficam preservadas.
 
-## Já recebido ou definido — não reenviar
+## Já recebido — não reenviar
 
-Arena usa formas provisórias. Marcador runtime e canal de cues Begin/Impact/State/End já existem; não significam rig, animação ou VFX final.
+- Direção do Terraço da Vigília e Felipe/Umbra recebida; não pedir novamente protagonista ou arena.
+- Escala proposta 1unidade=1cm, material PBR parametrizado e referências frente/lado/costas já orientam produção; propostas técnicas não são orçamento mobile validado.
 
-## O que você pode adiantar agora
+## Você pode preparar em paralelo
 
-- [ ] Se ainda não houver recurso final entregue, preparar uma arena pequena e o personagem piloto, não cidade/elenco inteiro. Se já houver arquivo novo, apenas avisar nome/versão/local.
-- [ ] Modelo/fonte editável/exportação: unidade/escala, origem/pés, rig, materiais/texturas e autoria/licença; números de polígonos/texturas quando conhecidos.
-- [ ] Para clips: idle, ação, impacto, derrota/vitória com início/contato/fim; identificar esqueleto e compatibilidade. Não fazer animação reaplicar dano.
+- Entregar uma amostra de personagem/arena, não cidade/elenco inteiro: fonte editável e exportação existente FBX/glTF, escala, pivô/pés, rig e materiais/texturas.
+- Clips mínimos idle/ação/impacto/derrota/vitória com início/contato/fim e esqueleto associado. Informar polígonos/texturas quando conhecidos.
+- Separar itens fixos/modulares e fases visuais Umbra/Luz/Natureza sem duplicar ficha de personagem.
 
 ## Trabalho do desenvolvimento — não precisa virar pesquisa sua
 
-Consumidor provisório de cues e integração podem avançar em código; fluidez/tempos visuais e arte final precisam ensaio/recurso.
+- Preparar importação/IDs, placeholders e ligação dos cues Begin/Impact/State/End.
+- Animação não aplica dano nem muda relógio; validar um recurso antes de produzir lotes.
 
-## Testes e aceites ainda pendentes
+## Dependências e aceites
 
-Ligação rig/VFX, cancelamento visual, profundidade/solo e orçamento mobile permanecem pendentes.
+- Rig precede animação final; orçamento gráfico depende de ensaio no aparelho.
+- Imagem/conceito não é malha/rig pronto. Guardar fontes grandes fora do Git e origem no grupo11.
 
-## Onde entregar
+## Como entregar
 
-Use **recebidos/** deste grupo; para revisão, crie versão nova e cite o arquivo substituído sem apagar o original. Informe ID/versão, finalidade, o que mudou, fonte/autoria e resultado esperado quando cabível. Entrega parcial é válida e não autoriza implementação, instalação ou execução automática.
+Use recebidos/ deste grupo. Nome sugerido: AAAA-MM-DD_assunto_v02.md; identifique ID/versão, o que substitui, decisão/proposta/referência e origem. Entrega parcial é válida. Não apagar versões anteriores; Markdown pode ser versionado, imagens/vídeos e fontes grandes ficam locais fora do Git. Não reenviar material já recebido apenas para preencher uma lista.
 
-[Resumo de necessidades](../NECESSIDADES-ATUAIS.md) · [Ordem de execução](../../docs/projeto/ORDEM-EXECUCAO-POS-AUT.md) · [Mapa SIS-02-A](../../docs/projeto/SIS-02-A-MAPA-NUMERICO.md) · [Modelo](../MODELO-ENTREGA.md)
+[Central de necessidades](../NECESSIDADES-ATUAIS.md) · [Retestes](../../docs/projeto/RETESTES-ENTRADA-E-VIDEO.md) · [Escopo técnico entregue](../../docs/projeto/ESC-SIS-PVE-CONSOLIDACAO.md) · [Modelo](../MODELO-ENTREGA.md)
 
 <details>
 <summary>Guia anterior — histórico; não preencher novamente o que já foi respondido</summary>

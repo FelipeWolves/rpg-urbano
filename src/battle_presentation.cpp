@@ -181,6 +181,70 @@ std::string action_error_message(ActionError error){
     }
     return "Action rejected.";
 }
+namespace {
+std::string feedback_error(ActionError error){
+ switch(error){
+ case ActionError::None:return "A acao nao foi aplicada; selecione novamente.";
+ case ActionError::BattleFinished:return "O encontro terminou; consulte o resultado.";
+ case ActionError::UnknownActor:case ActionError::ActorDefeated:case ActionError::NotActorsTurn:return "O personagem ativo mudou ou nao pode agir.";
+ case ActionError::UnknownTarget:return "Alvo nao encontrado. Escolha outro alvo valido.";
+ case ActionError::FriendlyTarget:return "Escolha um inimigo vivo para este ataque.";
+ case ActionError::TargetDefeated:return "O alvo foi derrotado. Escolha outro alvo.";
+ case ActionError::GuardDisabled:return "Defesa generica nao esta disponivel neste perfil.";
+ case ActionError::UnknownSkill:return "Esta habilidade nao esta disponivel para o personagem.";
+ case ActionError::SkillOnCooldown:return "Habilidade em recarga; escolha outra habilidade disponivel.";
+ case ActionError::InvalidSkillTarget:return "Alvo fora do alcance permitido. Escolha um alvo valido.";
+ case ActionError::ActorBlocked:return "Personagem impossibilitado de agir; use passar a vez.";
+ case ActionError::NotBlocked:return "Passar a vez so e permitido quando nao pode agir.";
+ case ActionError::ActorSilenced:return "Habilidade silenciada; o ataque basico continua disponivel.";
+ case ActionError::SkillConditionNotMet:return "A condicao da habilidade ainda nao foi satisfeita.";
+ case ActionError::UnexpectedGuardTarget:return "Defesa nao recebe um alvo.";
+ case ActionError::UnknownAction:return "Comando nao reconhecido.";
+ }
+ return "Acao recusada.";
+}
+std::string feedback_effect(EffectKind kind){
+ switch(kind){case EffectKind::StandardShield:return "escudo";case EffectKind::SilverShield:return "escudo prateado";case EffectKind::Shield:return "protecao";case EffectKind::Bleed:return "sangramento";case EffectKind::Poison:return "veneno";default:return effect_name(kind);}
+}
+std::optional<std::string> feedback_event(const Event& e){
+ if(e.type==EventType::Attack || e.type==EventType::PeriodicDamage || e.type==EventType::ReflectedDamage || e.type==EventType::DeathExplosion){
+  std::string text=e.actor+" -> "+e.target+": ";
+  if(e.hit){switch(e.hit->outcome.contact){case resolution::Contact::Miss:return text+"esquiva; sem impacto.";case resolution::Contact::Blocked:return text+"bloqueio; dano anulado.";case resolution::Contact::Invincible:return text+"invencibilidade; dano anulado.";case resolution::Contact::Connected:break;}
+   text+="PV -"+std::to_string(e.hit->health_damage)+", escudo absorveu "+std::to_string(e.hit->absorbed);if(e.hit->outcome.critical){text+=" (critico)";}return text;
+  }
+  return text+"impacto "+std::to_string(e.amount);
+ }
+ switch(e.type){
+ case EventType::ShieldAbsorbed:return e.target+": escudo absorveu "+std::to_string(e.amount);
+ case EventType::ShieldBroken:return e.target+": escudo esgotado.";
+ case EventType::EffectApplied:if(e.status_kind){return e.target+": efeito aplicado — "+feedback_effect(*e.status_kind);}break;
+ case EventType::EffectExpired:if(e.status_kind){return e.target+": efeito encerrado — "+feedback_effect(*e.status_kind);}break;
+ case EventType::EffectResisted:return e.target+": efeito resistido ou impedido.";
+ case EventType::FighterDefeated:return (e.target.empty()?e.actor:e.target)+": derrotado.";
+ case EventType::FighterRevived:return e.target+": reviveu.";
+ case EventType::DeathPrevented:return e.target+": morte prevenida.";
+ case EventType::PassiveTriggered:return e.actor+": passiva ativada.";
+ case EventType::TurnSkipped:return e.actor+": vez passada.";
+ default:break;
+ }
+ return std::nullopt;
+}
+}
+ActionFeedback action_feedback(const VisualResult& result,std::size_t max_events){
+ ActionFeedback f;
+ switch(result.error){
+ case VisualError::StaleCommand:f.summary="A batalha avancou. Selecione a habilidade e o alvo novamente.";break;
+ case VisualError::NotPlayerTurn:f.summary="Aguarde a vez de um aliado.";break;
+ case VisualError::Finished:f.summary="O encontro terminou; consulte o resultado.";break;
+ case VisualError::SafetyStop:f.tone=FeedbackTone::Error;f.summary="Interacao interrompida por seguranca; inicie outra tentativa.";break;
+ case VisualError::CoreRejected:f.summary=feedback_error(result.action.error);f.retry_target=result.action.error==ActionError::UnknownTarget||result.action.error==ActionError::TargetDefeated||result.action.error==ActionError::InvalidSkillTarget||result.action.error==ActionError::FriendlyTarget;break;
+ case VisualError::None:if(!result.action.accepted()){f.summary=feedback_error(result.action.error);}else{f.applied=true;f.tone=FeedbackTone::Success;f.summary="Acao aplicada.";}break;
+ }
+ if(!f.applied){f.details={f.summary};return f;}
+ const auto limit=std::clamp(max_events,std::size_t{1},std::size_t{32});std::size_t included=0;bool truncated=false;f.details.push_back("Acao aplicada; eventos confirmados pelo nucleo:");
+ for(const auto& event:result.action.events){const auto text=feedback_event(event);if(!text){continue;}if(included>=limit){truncated=true;break;}if(included==0){f.summary=*text;}f.details.push_back(*text);++included;}
+ if(truncated){f.details.push_back("Mais eventos desta acao foram omitidos neste resumo.");}return f;
+}
 void AbilityGesture::press(std::uint32_t position,double seconds,std::uint64_t revision){
     cancel();if(position<1 || position>3 || !std::isfinite(seconds)){return;}
     position_=position;started_=seconds;revision_=revision;

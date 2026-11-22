@@ -1,3 +1,5 @@
+> **LAB-QA-01 — 22/11:** feedback de ações e recusas integrado; detalhes consultáveis e matriz de 16 aceites preparada. Código/testes não equivalem a aceite visual ou I/O real. Próximo independente: LAB-QA-01B, I/O em diretório isolado; usuário pode preencher a matriz em paralelo. Demo ~28% mantida. Ver docs/projeto/LAB-QA-01-FEEDBACK-E-ACEITES.md.
+
 > **LAB-PVE-06 vigente — 22/11:** SharedVisualSession sobre SharedBoss v2, HP/AP/recargas únicos, ataques locais rotativos e especial global declarado. Não somar HP, criar limite por frente ou alegar servidor. Layout3colunas suporta dados15+1, visual inicial3+1 ainda não aceito. Auxiliares por frente/BattleStart/3chefes independentes seguem fora da UI. Aceites02–06 pendentes; próximo recomendado LAB-QA-01. Stage68 e~28% mantidos.
 
 > **LAB-PVE-05 vigente — 22/11:** SequentialVisualSession observa SequentialSquads sem recriar carry. Fixtures Felipe/A1/B1aliado, CHEFE-SEQ12.500PV/SPD10, janela local4ações totais e global200; duas variantes isoladas. Sem BattleStart de abertura no adaptador/scoreSequence/persistência por inferência. Aceites02–05 pendentes; próximo06, stage68 e~28% mantidos.

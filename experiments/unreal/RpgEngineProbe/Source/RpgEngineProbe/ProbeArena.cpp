@@ -98,6 +98,10 @@ void AProbeArenaHUD::OpenInfo(const FString& title,const std::vector<std::string
     }
     if(PopupLines.IsEmpty()){PopupLines.Add(TEXT("No information available."));}
 }
+void AProbeArenaHUD::ShowActionFeedback(const rpg::presentation::VisualResult& result)
+{
+    LastActionFeedback=rpg::presentation::action_feedback(result);HasActionFeedback=true;Message=Label(LastActionFeedback.summary);
+}
 void AProbeArenaHUD::ReadPointer()
 {
     float mx=0,my=0,tx=0,ty=0;bool touched=false;
@@ -167,7 +171,7 @@ void AProbeArenaHUD::DrawHUD()
     const auto inside=[&](float x,float y,float w,float h){return mx>=x && mx<x+w && my>=y && my<y+h;};
     if(Flow.accepts_actions(!PopupLines.IsEmpty()) && !Gesture.active() && !Input.down && !Input.tap && !abilityRelease && view.automatic && !view.stopped && now>=NextAutomatic){
         const auto result=StepActiveBattle();
-        Message=result.accepted()?TEXT("Opponent acted."):TEXT("Presentation stopped; restart to retry.");
+        ShowActionFeedback(result);
         NextAutomatic=now+0.5;SelectedSlot=0;SelectedTarget.Empty();view=ActiveState();
     }
     const bool classicRules=view.combat.profile==rpg::CombatProfile::Classic;
@@ -178,9 +182,10 @@ void AProbeArenaHUD::DrawHUD()
     const auto validTarget=[&](const std::string& id){return std::ranges::find(candidates,id)!=candidates.end();};
     const auto submit=[&](const FString& id){
         const auto result=classicRules?SubmitActiveAction(SelectionRevision,{view.combat.battle.current_actor.value_or(""),rpg::ActionType::Attack,TCHAR_TO_UTF8(*id),{}}):SubmitActiveSlot(SelectionRevision,static_cast<uint32>(SelectedSlot),TCHAR_TO_UTF8(*id));
-        Message=result.accepted()?TEXT("Action accepted."):Label(rpg::presentation::action_error_message(result.action.error));
+        ShowActionFeedback(result);
+        if(LastActionFeedback.applied){NextAutomatic=now+0.5;}
         UE_LOG(LogTemp, Display, TEXT("VIS_ACTION accepted=%d revision=%llu"),result.accepted()?1:0,static_cast<unsigned long long>(ActiveState().revision));
-        SelectedSlot=0;SelectedTarget.Empty();
+        if(!LastActionFeedback.retry_target || classicRules){SelectedSlot=0;}SelectedTarget.Empty();
     };
     const auto button=[&](float x,float y,float w,float h,const FString& text,bool enabled){
         DrawRect(enabled?FLinearColor(0.08f,0.20f,0.32f):FLinearColor(0.12f,0.12f,0.12f),x,y,w,h);DrawText(text,FColor::White,x+8,y+8);
@@ -314,7 +319,7 @@ void AProbeArenaHUD::DrawHUD()
         const bool blocked=actorIt!=view.combat.battle.fighters.end() && rpg::incapacitated(*actorIt);
         const auto perform=[&](rpg::ActionType type){
             const auto result=SubmitActiveAction(view.revision,{view.combat.battle.current_actor.value_or(""),type,{},{}});
-            Message=Label(rpg::presentation::action_error_message(result.action.error));SelectedSlot=0;SelectedTarget.Empty();
+            ShowActionFeedback(result);if(LastActionFeedback.applied){NextAutomatic=now+0.5;}SelectedSlot=0;SelectedTarget.Empty();
             UE_LOG(LogTemp,Display,TEXT("VIS_CLASSIC_ACTION accepted=%d"),result.accepted()?1:0);
         };
         for(uint32 position=1;position<=3;++position){
@@ -369,7 +374,22 @@ void AProbeArenaHUD::DrawHUD()
         }
     }
     if(HubEnabled && PopupLines.IsEmpty() && button(20.f,bottom-42,130,30,running?TEXT("Pausar / Voltar"):TEXT("Voltar ao hub"),true)){if(running){HandleBack();}else{Flow.finish();ReturnToHub();}return;}
-    DrawText(Message,FColor::White,20,bottom+60);
+    const rpg::presentation::Rect messageArea{20,bottom+52,std::max(48.0,static_cast<double>(Canvas->SizeX)-245),48};
+    const float messageScale=0.75f;float ellipsisWidth=0,ellipsisHeight=0;GetTextSize(TEXT("..."),ellipsisWidth,ellipsisHeight,HubBodyFont);
+    const std::string messageText=TCHAR_TO_UTF8(*Message);
+    const auto messageLines=rpg::presentation::wrap_text(messageText,std::max(1.0,messageArea.width-26-ellipsisWidth*messageScale),[&](std::string_view text){float width=0,height=0;GetTextSize(Label(std::string(text)),width,height,HubBodyFont);return static_cast<double>(width*messageScale);});
+    const FString shortMessage=messageLines.empty()?TEXT(""):Label(messageLines.front())+(messageLines.size()>1?TEXT("..."):TEXT(""));
+    FColor messageColor=FColor::White;
+    if(HasActionFeedback && messageText==LastActionFeedback.summary){messageColor=LastActionFeedback.tone==rpg::presentation::FeedbackTone::Success?FColor::Cyan:LastActionFeedback.tone==rpg::presentation::FeedbackTone::Error?FColor::Red:FColor::Yellow;}
+    DrawText(shortMessage,messageColor,20,bottom+60,HubBodyFont,messageScale);
+    DrawText(TEXT("[i]"),FColor::Cyan,static_cast<float>(messageArea.x+messageArea.width-22),bottom+60,HubBodyFont,messageScale);
+    if(rpg::presentation::contains(messageArea,Input.x,Input.y)){DrawLine(20,bottom+83,static_cast<float>(messageArea.x+messageArea.width),bottom+83,FLinearColor(0.2f,0.8f,0.9f),1);}
+    if(PopupLines.IsEmpty() && rpg::presentation::pointer_clicked(Input,messageArea)){
+        std::vector<std::string> lines={"Mensagem atual: "+messageText};
+        if(HasActionFeedback){lines.push_back("Ultima tentativa de acao:");lines.insert(lines.end(),LastActionFeedback.details.begin(),LastActionFeedback.details.end());}
+        else{lines.push_back("Nenhuma tentativa de acao registrada nesta sessao de tela.");}
+        OpenInfo(TEXT("Mensagem / ultima acao"),lines);return;
+    }
     if((PveActive || WavesActive || SequenceActive || SharedActive) && PopupLines.IsEmpty() && button(160,bottom-42,FMath::Max(48.f,FMath::Min(210.f,Canvas->SizeX-180.f)),30,running?TEXT("Detalhes do encontro"):TEXT("Resultado do encontro"),true)){
         std::vector<std::string> lines;
         if(SharedActive){const auto hud=ActiveShared()->hud();lines={hud.status,"Chefe unico: "+hud.boss_id+" | PV "+std::to_string(hud.boss_health)+"/"+std::to_string(hud.boss_max_health),"Acoes globais: "+std::to_string(hud.global_actions),"Acoes do chefe: "+std::to_string(hud.boss_actions),"Proximo ataque local: "+hud.next_local_front.value_or("nenhuma"),"Ultimo ataque local: "+hud.last_local_front.value_or("nenhum")};
@@ -403,7 +423,7 @@ void AProbeArenaHUD::DrawHUD()
         }
     }
     if(!running && !PveActive && !WavesActive && !SequenceActive && !SharedActive){DrawText(view.combat.battle.winner==rpg::Team::A?TEXT("Team A wins"):view.combat.battle.winner==rpg::Team::B?TEXT("Team B wins"):TEXT("Draw"),FColor::Yellow,20,62);}
-    if(!running && PopupLines.IsEmpty() && button(20.f,bottom,100,50,TEXT("Nova tentativa"),true)){
+    if((!running || view.stopped) && PopupLines.IsEmpty() && button(20.f,bottom,100,50,TEXT("Nova tentativa"),true)){
         ResetActiveBattle();Flow.finish();Flow.restart_result();Gesture.cancel();SelectedSlot=0;SelectedTarget.Empty();NextAutomatic=0;Message=TEXT("New attempt.");UE_LOG(LogTemp,Display,TEXT("VIS_RESET"));return;
     }
     if(!classic && button(Canvas->SizeX-205.f,bottom+58,180,30,TEXT("Confirm action"),manual && !SelectedTarget.IsEmpty() && SelectedSlot!=0)){

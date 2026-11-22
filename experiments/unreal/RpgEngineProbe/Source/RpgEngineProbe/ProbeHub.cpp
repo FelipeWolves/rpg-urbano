@@ -231,7 +231,7 @@ void AProbeArenaHUD::DrawPreferences()
     if(pointer_clicked(Input,close) || PlayerOwner->WasInputKeyJustPressed(EKeys::Escape)){Flow.back(false,false);}
 }
 void AProbeArenaHUD::ReturnToHub(){
-    if(Flow.screen()!=UiScreen::Hub && !Flow.return_hub()){return;}Gesture.cancel();PopupLines.Empty();SelectedSlot=0;SelectedTarget.Empty();
+    if(Flow.screen()!=UiScreen::Hub && !Flow.return_hub()){return;}HasActionFeedback=false;Gesture.cancel();PopupLines.Empty();SelectedSlot=0;SelectedTarget.Empty();
     if(PveActive || WavesActive || SequenceActive || SharedActive){Flow.acknowledge_new_attempt();PveActive=false;WavesActive=false;SequenceActive=false;SharedActive=false;RefreshArenaActors();}
     UE_LOG(LogTemp,Display,TEXT("HUB_RETURN attempt=%llu"),static_cast<unsigned long long>(Session.state().progress.attempt));
 }

@@ -99,5 +99,5 @@
   "documentation_only_this_update": false,
   "android_used": false,
   "engine_opened": false,
-  "latest_technical_report": "LAB-PVE-06.json; acceptances02–06 pending, estimates unchanged"
+  "latest_technical_report": "LAB-QA-01.json; feedback/build/stage verified; manual acceptance and real save IO pending; estimates unchanged"
 }

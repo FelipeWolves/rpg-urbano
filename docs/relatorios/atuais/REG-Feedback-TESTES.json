@@ -1,0 +1,12 @@
+{
+  "Date": "2026-11-22",
+  "Suite": "Feedback",
+  "Passed": true,
+  "ExitCode": 0,
+  "Result": [
+    "REG_FEEDBACK_TESTS_RESULT passed=12 total=12"
+  ],
+  "BigIntegerVectors": 0,
+  "EngineExecuted": false,
+  "AndroidExecuted": false
+}

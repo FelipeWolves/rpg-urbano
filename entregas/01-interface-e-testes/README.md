@@ -1,3 +1,5 @@
+> **LAB-QA-01 — 22/11:** feedback de ações e recusas integrado; detalhes consultáveis e matriz de 16 aceites preparada. Código/testes não equivalem a aceite visual ou I/O real. Próximo independente: LAB-QA-01B, I/O em diretório isolado; usuário pode preencher a matriz em paralelo. Demo ~28% mantida. Ver docs/projeto/LAB-QA-01-FEEDBACK-E-ACEITES.md.
+
 > **22/11 — LAB-PVE-06:** página3doTerminal com chefe único/três frentes, variantes local/global. Roteiro em docs/projeto/LAB-PVE-06-FRENTES-COMPARTILHADAS.md. Aceites02–06 pendentes; próximo recomendado QA/feedback. Recursos finais podem continuar em paralelo.
 
 > **22/11 — LAB-PVE-05:** página2doTerminal com duas variantes de3equipes sequenciais. Roteiro em docs/projeto/LAB-PVE-05-EQUIPES-SEQUENCIAIS.md: equipe ativa, HP contínuo, fase fixa/variável, janela e resultado. Aceites02–05 pendentes; próximo06independe de arte final.

@@ -1,0 +1,20 @@
+{
+  "Date": "2026-11-22",
+  "Delivery": "LAB-QA-01",
+  "FeedbackGroups": 12,
+  "FeedbackPassed": 12,
+  "SessionContractsPassed": true,
+  "UnrealBuild": "Succeeded",
+  "StageInputs": 68,
+  "StageVerified": true,
+  "ManualCases": 16,
+  "ManualPending": 14,
+  "ManualDeferred": 2,
+  "ManualAutomaticallyAccepted": 0,
+  "EditorOpened": false,
+  "GameExecuted": false,
+  "AndroidExecuted": false,
+  "RealSaveIOTested": false,
+  "ProgressPercent": 28,
+  "Next": "LAB-QA-01B isolated save IO"
+}

@@ -4,14 +4,37 @@
   "Passed": true,
   "Checks": [
     {
-      "Script": "scripts/verificar-stage-unreal.ps1",
-      "Area": "Stage",
+      "Evidence": "Native team/session/save contracts; no Unreal IO",
+      "Script": "scripts/testar-inspecao-arena.ps1",
+      "Seconds": 41.89,
       "Arguments": [],
+      "Log": "build\\qa\\43f01853\\Session.log",
       "ExitCode": 0,
-      "Evidence": "Existing stage hashes/includes; no cook/build",
       "Status": "Passed",
-      "Log": "build\\qa\\051a618c\\Stage.log",
-      "Seconds": 1.02
+      "Area": "Session"
+    },
+    {
+      "Evidence": "Native action feedback; no graphical acceptance",
+      "Script": "scripts/testar-regras.ps1",
+      "Seconds": 23.62,
+      "Arguments": [
+        "-Suite",
+        "Feedback"
+      ],
+      "Log": "build\\qa\\43f01853\\Feedback.log",
+      "ExitCode": 0,
+      "Status": "Passed",
+      "Area": "Feedback"
+    },
+    {
+      "Evidence": "QA plan schema only; no manual acceptance",
+      "Script": "scripts/verificar-lab-qa.ps1",
+      "Seconds": 0.41,
+      "Arguments": [],
+      "Log": "build\\qa\\43f01853\\LabQaPlan.log",
+      "ExitCode": 0,
+      "Status": "Passed",
+      "Area": "LabQaPlan"
     }
   ],
   "SmokeCases": [
@@ -20,7 +43,7 @@
       "area": "Hub",
       "scenario": "Abrir hub e consultar destinos sem comandos por tras de painel",
       "status": "Pending",
-      "evidence": "Conferencia visual/interativa do usuario"
+      "evidence": "Navegacao basica aceita; bloqueio de comandos por tras de painel ainda precisa conferencia especifica"
     },
     {
       "id": "SMK-02",
@@ -32,16 +55,16 @@
     {
       "id": "SMK-03",
       "area": "Battle",
-      "scenario": "Selecionar alvo e executar acao nos dois perfis apos ajuste de captura",
-      "status": "Pending",
-      "evidence": "Interacao na previa; preservar aceites anteriores de regras"
+      "scenario": "Cliques unicos, selecao e troca de alvo nos laboratorios Team basicos testados",
+      "status": "AcceptedUser",
+      "evidence": "Usuario confirmou cliques/seletores apos fe6060b; nao inclui LAB-PVE-02–06"
     },
     {
       "id": "SMK-04",
       "area": "Marker",
-      "scenario": "Anel/losango abaixo do modelo, ocultar em morte/hub/reset",
-      "status": "Pending",
-      "evidence": "Nova malha runtime observada"
+      "scenario": "Placeholder e seletor: cor, espessura e posicao no recorte Windows testado",
+      "status": "AcceptedUser",
+      "evidence": "Usuario nao encontrou novos problemas apos fe6060b; formacoes e resolucoes amplas seguem separadas"
     },
     {
       "id": "SMK-05",
@@ -61,15 +84,15 @@
       "id": "SMK-07",
       "area": "Media",
       "scenario": "Primeiro clique imediatamente apos Play e reproducoes seguintes",
-      "status": "ProvisionalUser",
-      "evidence": "Usuario disse aparentemente correto; aguardando segunda conferencia"
+      "status": "AcceptedUser",
+      "evidence": "Usuario confirmou primeiro clique e playback em22/11; nao repetir por rotina"
     },
     {
       "id": "SMK-08",
       "area": "Media",
-      "scenario": "Skip, audio, foco, retomada pausada e flag apos reabrir",
+      "scenario": "Audio, perda/retorno de foco e marca apos reabrir a mesma compilacao",
       "status": "Pending",
-      "evidence": "Playback e persistencia observados"
+      "evidence": "Playback e skip aceitos separadamente; audio/foco/persistencia nao tiveram aceite integral"
     },
     {
       "id": "SMK-09",
@@ -84,6 +107,13 @@
       "scenario": "Cook/Shipping atualizado, dependencias e Windows limpo",
       "status": "Deferred",
       "evidence": "Autorizacao de execucao e ambiente proprio"
+    },
+    {
+      "id": "SMK-11",
+      "area": "Media",
+      "scenario": "Hover e segurar para skip na primeira exibicao, skip simples quando ja assistido",
+      "status": "AcceptedUser",
+      "evidence": "Usuario confirmou video e pular corretos apos fc31f3d e aceitou fe6060b"
     }
   ],
   "SmokeAutomaticallyAccepted": false,

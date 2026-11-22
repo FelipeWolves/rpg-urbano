@@ -1,6 +1,6 @@
 # Selects native/file checks only. Never launches Unreal, a package or an Android tool.
 param(
-    [ValidateSet('Marker','Events','Data','Media','Session','Stage','Arithmetic','Wide')][string[]]$Areas=@('Marker','Events','Data'),
+    [ValidateSet('Marker','Events','Data','Media','Session','Stage','Arithmetic','Wide','Feedback','LabQaPlan')][string[]]$Areas=@('Marker','Events','Data'),
     [switch]$Execute
 )
 $ErrorActionPreference='Stop'
@@ -13,6 +13,8 @@ $map=@{
     Data=@{Script='testar-autonomo.ps1';Arguments=@('-Block','14');Evidence='Native manifest codec and parity'}
     Media=@{Script='testar-apresentacao-inicial.ps1';Arguments=@();Evidence='Native lifecycle/geometry/input; no playback'}
     Session=@{Script='testar-inspecao-arena.ps1';Arguments=@();Evidence='Native team/session/save contracts; no Unreal IO'}
+    Feedback=@{Script='testar-regras.ps1';Arguments=@('-Suite','Feedback');Evidence='Native action feedback; no graphical acceptance'}
+    LabQaPlan=@{Script='verificar-lab-qa.ps1';Arguments=@();Evidence='QA plan schema only; no manual acceptance'}
     Stage=@{Script='verificar-stage-unreal.ps1';Arguments=@();Evidence='Existing stage hashes/includes; no cook/build'}
 }
 $smoke=Get-Content -LiteralPath (Join-Path $root 'data/qa/smoke.json') -Raw | ConvertFrom-Json

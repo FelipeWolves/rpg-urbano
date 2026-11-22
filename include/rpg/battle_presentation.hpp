@@ -43,6 +43,15 @@ struct ShieldDisplay {
 [[nodiscard]] std::vector<std::string> effect_details(const Fighter& fighter);
 [[nodiscard]] std::vector<std::string> ability_details(const VisualState& state,std::uint32_t position);
 [[nodiscard]] std::vector<std::string> target_candidates(const VisualState& state,std::uint32_t position);
+enum class FeedbackTone { Success, Warning, Error };
+struct ActionFeedback {
+ FeedbackTone tone=FeedbackTone::Warning;
+ bool applied=false,retry_target=false;
+ std::string summary;
+ std::vector<std::string> details;
+};
+// Describes committed events/errors only; never reapplies an action or sums damage independently.
+[[nodiscard]] ActionFeedback action_feedback(const VisualResult& result,std::size_t max_events=12);
 // 0.5 seconds is a provisional input threshold, not battle time.
 class AbilityGesture {
 public:

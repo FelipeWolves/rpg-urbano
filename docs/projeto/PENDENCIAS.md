@@ -600,3 +600,5 @@ Recepção21/11: [novidades e política de versionamento](RECEBIMENTO-NOVIDADES-
 Usuário informou que aparentemente está correto, mas fará uma segunda conferência. Marcar **REVER / aceite provisório**, sem encerrar definitivamente o ponto. Conferir primeiro clique logo após Play, equipe/alvos e retorno da mídia. Não reabrir por conta própria nem declarar aceite integral.
 
 Bleed (22/11): fórmula/relógio/classificação recebidos em BLEED-FELIPE-CONTRATO.md. Restam escolha de reaplicação da mesma fonte e número de slots do piloto; perguntas enviadas ao usuário. Isso não bloqueia SIS/REG independentes.
+
+REG-03 (22/11): base executável e testes entregues; ver REG-03-CONTROLES.md. Permanecem as integrações de consequências nativas da A2 e efeitos contínuos. Poison e Bleed são contratos distintos; Poison não recebeu duração global, fornecida pela habilidade aplicadora. Não reabrir fórmulas aprovadas.

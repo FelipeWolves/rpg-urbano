@@ -231,7 +231,7 @@ void AProbeArenaHUD::DrawHUD()
     }
     if(classicRules){
         const auto actorIt=std::ranges::find(view.combat.battle.fighters,view.combat.battle.current_actor.value_or(""),[](const rpg::Fighter& f){return f.definition.id;});
-        const bool blocked=actorIt!=view.combat.battle.fighters.end() && std::ranges::any_of(actorIt->statuses,[](const rpg::Status& status){return status.kind==rpg::EffectKind::Block;});
+        const bool blocked=actorIt!=view.combat.battle.fighters.end() && rpg::incapacitated(*actorIt);
         const auto perform=[&](rpg::ActionType type){
             const auto result=Session.submit_action(view.revision,{view.combat.battle.current_actor.value_or(""),type,{},{}});
             Message=Label(rpg::presentation::action_error_message(result.action.error));SelectedSlot=0;SelectedTarget.Empty();

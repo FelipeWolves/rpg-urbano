@@ -51,6 +51,7 @@ ProfileBattle::ProfileBattle(std::vector<Definition> roster,BattleRules rules,Co
                     if(skill==rules_.skills.end() || skill->owner!=set.fighter_id ||
                        std::ranges::find(assigned,*entry.active_skill)!=assigned.end()){
                         throw std::invalid_argument("Slot skill missing, repeated or owned by another fighter");}
+                    if(entry.position==1 && rules_.combat_model==resolution::CombatModel::FunnelV1){skill->basic=true;}
                     assigned.push_back(*entry.active_skill);
                     if(entry.position==1 && (skill->cooldown!=0 || skill->target!=TargetRule::Enemy ||
                        !std::ranges::any_of(skill->effects,[](const EffectDefinition& e){return e.kind==EffectKind::Damage;}))){
@@ -107,6 +108,7 @@ std::vector<AbilityView> ProfileBattle::abilities(std::string_view fighter) cons
             else if(unit->health==0 || std::ranges::any_of(unit->statuses,[](const Status& s){return s.kind==EffectKind::Block;})){
                 availability=AbilityAvailability::Incapacitated;
             }else if(cd>0){availability=AbilityAvailability::Cooldown;}
+            else if(entry.position>1 && has_status(*unit,EffectKind::Silence)){availability=AbilityAvailability::Silenced;}
             else if(!condition_met){availability=AbilityAvailability::ConditionBlocked;}
         }
         views.push_back({entry,availability,cd,entry.passive.has_value(),condition_met});

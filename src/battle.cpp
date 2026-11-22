@@ -10,6 +10,8 @@ namespace rpg {
 namespace {
 constexpr std::int64_t bar_max = 1000000;
 bool quantity_effect(EffectKind kind){return kind==EffectKind::Reflect || kind==EffectKind::DeathExplosion || kind==EffectKind::AutoRevive || kind==EffectKind::Shield || kind==EffectKind::StructuralShield || kind==EffectKind::StandardShield;}
+bool control_kind(EffectKind kind){return kind==EffectKind::Stun || kind==EffectKind::Freeze || kind==EffectKind::Petrify || kind==EffectKind::Silence || kind==EffectKind::Suppression || kind==EffectKind::Invincible || kind==EffectKind::DebuffImmunity;}
+bool valid_border(StatusBorder border){return border==StatusBorder::Common || border==StatusBorder::Silver || border==StatusBorder::Golden || border==StatusBorder::Structural;}
 bool valid_clock(TickPolicy clock) {
     return clock == TickPolicy::NaturalOnly || clock == TickPolicy::EveryTurn;
 }
@@ -22,6 +24,11 @@ bool valid_duration(StatusCategory category,int remaining) {
 }
 }
 
+bool has_status(const Fighter& unit,EffectKind kind) noexcept {return std::ranges::any_of(unit.statuses,[kind](const Status& s){return s.kind==kind;});}
+bool incapacitated(const Fighter& unit) noexcept {return has_status(unit,EffectKind::Block) || has_status(unit,EffectKind::Stun) || has_status(unit,EffectKind::Freeze) || has_status(unit,EffectKind::Petrify);}
+bool native_suppressed(const Fighter& unit) noexcept {return has_status(unit,EffectKind::Suppression);}
+bool status_native_enabled(const Fighter& unit,const Status& status) noexcept {return !status.native_passive || !native_suppressed(unit) || status.border==StatusBorder::Golden || status.border==StatusBorder::Structural;}
+bool common_debuff(EffectKind kind) noexcept {return kind==EffectKind::Block || kind==EffectKind::Stun || kind==EffectKind::Freeze || kind==EffectKind::Petrify || kind==EffectKind::Silence || kind==EffectKind::Suppression;}
 Battle::Battle(std::vector<Definition> definitions, BattleRules rules,
                std::vector<InitialHealth> initial_health,
                std::vector<InitialRuntime> initial_runtime) : rules_(std::move(rules)) {
@@ -89,6 +96,7 @@ Battle::Battle(std::vector<Definition> definitions, BattleRules rules,
                (effect.damage_kind!=resolution::DamageKind::Normal && effect.damage_kind!=resolution::DamageKind::True && effect.damage_kind!=resolution::DamageKind::Dot)){
                 throw std::invalid_argument("Invalid damage effect metadata");
             }
+            resolution::chance_domain(effect.proc_chance);if(!valid_border(effect.border)){throw std::invalid_argument("Invalid effect border");}
             if (!valid_clock(effect.clock)) { throw std::invalid_argument("Invalid effect clock"); }
             if (effect.hit_count == 0 || effect.hit_count > 64 ||
                 (effect.kind != EffectKind::Damage && effect.hit_count != 1)) {
@@ -133,6 +141,7 @@ Battle::Battle(std::vector<Definition> definitions, BattleRules rules,
                     throw std::invalid_argument("Invalid speed effect");
                 }
                 break;
+            case EffectKind::Stun: case EffectKind::Freeze: case EffectKind::Petrify: case EffectKind::Silence: case EffectKind::Suppression: case EffectKind::Invincible: case EffectKind::DebuffImmunity:
             case EffectKind::Block: case EffectKind::Marker: case EffectKind::Counter: case EffectKind::FreezeCooldowns:
             case EffectKind::Reflect: case EffectKind::DeathExplosion: case EffectKind::PreventDeath: case EffectKind::AutoRevive:
             case EffectKind::Shield: case EffectKind::StructuralShield:
@@ -196,7 +205,7 @@ Battle::Battle(std::vector<Definition> definitions, BattleRules rules,
                 throw std::invalid_argument("Invalid cooldown state");
             }
         }
-        if (state.statuses.size() > 10) { throw std::invalid_argument("Too many status types"); }
+        if (state.statuses.size() > (rules_.combat_model==resolution::CombatModel::Legacy?10u:32u)) { throw std::invalid_argument("Too many status types"); }
         auto statuses = state.statuses;
         for (std::size_t j = 0; j < statuses.size(); ++j) {
             auto& status = statuses[j];
@@ -204,8 +213,8 @@ Battle::Battle(std::vector<Definition> definitions, BattleRules rules,
                  status.kind != EffectKind::FreezeCooldowns && status.kind != EffectKind::Reflect &&
                  status.kind != EffectKind::DeathExplosion && status.kind != EffectKind::PreventDeath &&
                  status.kind != EffectKind::AutoRevive && status.kind != EffectKind::Shield &&
-                 status.kind != EffectKind::StructuralShield && status.kind != EffectKind::StandardShield) ||
-                !valid_duration(status.category,status.remaining) || !valid_clock(status.clock)) {
+                 status.kind != EffectKind::StructuralShield && status.kind != EffectKind::StandardShield && !control_kind(status.kind)) ||
+                !valid_duration(status.category,status.remaining) || !valid_clock(status.clock) || !valid_border(status.border)) {
                 throw std::invalid_argument("Invalid status state");
             }
             if ((status.kind == EffectKind::Reflect || status.kind == EffectKind::DeathExplosion ||
@@ -281,12 +290,8 @@ Snapshot Battle::snapshot() const {
 }
 
 bool Battle::current_actor_blocked() const noexcept {
-    const auto* actor = current_actor();
-    return actor && std::ranges::any_of(actor->statuses, [](const Status& status) {
-        return status.kind == EffectKind::Block;
-    });
+    const auto* actor=current_actor();return actor && incapacitated(*actor);
 }
-
 bool Battle::current_actor_cooldowns_frozen() const noexcept {
     const auto* actor = current_actor();
     return actor && std::ranges::any_of(actor->statuses, [](const Status& status) {
@@ -405,7 +410,7 @@ void Battle::apply_damage(std::size_t emitter, std::size_t target_index, numeric
         }
     }
     auto prevention=std::ranges::find(target.statuses,EffectKind::PreventDeath,&Status::kind);
-    const bool prevented=power>=target.health && prevention!=target.statuses.end();
+    const bool prevented=power>=target.health && prevention!=target.statuses.end() && status_native_enabled(target,*prevention);
     if (prevented && !spend_consequence(context,events)) {return;}
     const numeric::Quantity applied=prevented ? target.health-1 : std::min(power,target.health);
     target.health-=applied;
@@ -422,7 +427,7 @@ void Battle::apply_damage(std::size_t emitter, std::size_t target_index, numeric
         events.push_back(Event{EventType::FighterDefeated,target.definition.id,{},0,round_,{}});
         deaths.push_back(target_index);
         auto revive=std::ranges::find(target.statuses,EffectKind::AutoRevive,&Status::kind);
-        if (revive!=target.statuses.end()) {
+        if (revive!=target.statuses.end() && status_native_enabled(target,*revive)) {
             const numeric::Quantity health=std::min(revive->magnitude,target.definition.max_health);
             --revive->charges;
             if (revive->charges==0) {target.statuses.erase(revive);}
@@ -454,7 +459,7 @@ void Battle::hit(std::size_t attacker, std::size_t target_index, bool derived, c
     bool can_react=true,used_guard=target.guarding;
     if(rules_.combat_model==resolution::CombatModel::FunnelV1){
         resolution::DamageInput input;input.base=power;input.ratio=attack_effect?attack_effect->power_ratio:10000;input.kind=attack_effect?attack_effect->damage_kind:resolution::DamageKind::Normal;
-        input.attacker=actor.definition.stats;input.defender=target.definition.stats;input.guarding=target.guarding;
+        input.attacker=actor.definition.stats;input.defender=target.definition.stats;input.defender.invincible=input.defender.invincible || has_status(target,EffectKind::Invincible);input.guarding=target.guarding;
         const resolution::RollKey key{rules_.random_seed,context.id,hit_index,resolution::identity(target.definition.id),0};
         const auto calculated=resolution::calculate_damage(input,key);damage=calculated.amount;can_react=calculated.outcome.counts_for_hit_passive();
         used_guard=target.guarding && input.kind!=resolution::DamageKind::True && calculated.outcome.contact!=resolution::Contact::Invincible && calculated.outcome.contact!=resolution::Contact::Blocked;
@@ -494,7 +499,7 @@ void Battle::hit(std::size_t attacker, std::size_t target_index, bool derived, c
     // Consequence damage does not reflect or create counters. Only the original live pair can react.
     if(phase_==Phase::Running && can_react && target.health>0 && actor.health>0 && actor.definition.team!=target.definition.team &&
        !std::ranges::any_of(target.statuses,[](const Status& status){return status.kind==EffectKind::Block;}) &&
-        std::ranges::any_of(target.statuses,[](const Status& status){return status.kind==EffectKind::Counter;})) {
+        std::ranges::any_of(target.statuses,[&](const Status& status){return status.kind==EffectKind::Counter && status_native_enabled(target,status) && !incapacitated(target);})) {
         reactions.push_back({target_index,attacker,context.id});
     }
 }
@@ -571,6 +576,7 @@ ActionResult Battle::apply(const Action& action) {
 
     // Only accepted primary commands (including blocked opportunity resolution) spend a budget unit.
     ActionResult result;
+    if(skill && !skill->basic && has_status(actor,EffectKind::Silence)){return reject(ActionError::ActorSilenced);}
     const auto root_context = make_context(active_, action.type, action.target, action.skill);
     result.action_context = root_context;
     last_consequence_events_ = 0;
@@ -595,12 +601,23 @@ ActionResult Battle::apply(const Action& action) {
         for (const auto& effect : skill->effects) {
             if (effect.kind == EffectKind::Damage) { planned_hits += effect.hit_count; }
         }
-        std::uint32_t hit_index = 0;
+        std::uint32_t hit_index = 0,effect_ordinal=0;
+        const bool has_attack=std::ranges::any_of(skill->effects,[](const EffectDefinition& e){return e.kind==EffectKind::Damage;});
         for (const auto& effect : skill->effects) {
+            ++effect_ordinal;
             if (phase_ == Phase::Finished || fighters_[active_].health == 0) { break; }
             if (fighters_[*target_index].health == 0 &&
                 (effect.kind != EffectKind::Damage || effect.hit_selection == HitSelection::FixedTarget)) { break; }
             auto& target = fighters_[*target_index];
+            if(rules_.combat_model==resolution::CombatModel::FunnelV1 && target.definition.team!=actor.definition.team && (common_debuff(effect.kind) || effect.debuff)){
+                resolution::HitOutcome outcome;bool found=!has_attack;
+                for(auto it=result.events.rbegin();it!=result.events.rend();++it){if(it->target==target.definition.id && it->hit && it->action_context && it->action_context->id==root_context.id){outcome=it->hit->outcome;found=true;break;}}
+                const bool immunity=(!effect.bypass_immunity) && (target.definition.stats.debuff_immunity || has_status(target,EffectKind::DebuffImmunity) || std::ranges::find(target.definition.immune_effects,effect.kind)!=target.definition.immune_effects.end());
+                const resolution::RollKey key{rules_.random_seed,root_context.id,hit_index,resolution::identity(target.definition.id),effect_ordinal};
+                if(!found || !resolution::debuff_applies(outcome,has_attack,immunity,effect.irresistible,effect.proc_chance,actor.definition.stats.accuracy,target.definition.stats.resistance,key)){
+                    result.events.push_back({EventType::EffectResisted,action.actor,target.definition.id,0,round_,{}});result.events.back().status_kind=effect.kind;continue;
+                }
+            }
             switch (effect.kind) {
             case EffectKind::Damage:
                 for (std::uint32_t i=0; i<effect.hit_count && phase_==Phase::Running && fighters_[active_].health>0; ++i) {
@@ -651,11 +668,12 @@ ActionResult Battle::apply(const Action& action) {
                 }
                 break;
             }
+            case EffectKind::Stun: case EffectKind::Freeze: case EffectKind::Petrify: case EffectKind::Silence: case EffectKind::Suppression: case EffectKind::Invincible: case EffectKind::DebuffImmunity:
             case EffectKind::Block: case EffectKind::Marker: case EffectKind::Counter: case EffectKind::FreezeCooldowns:
             case EffectKind::Reflect: case EffectKind::DeathExplosion: case EffectKind::PreventDeath: case EffectKind::AutoRevive:
             case EffectKind::Shield: case EffectKind::StructuralShield: {
                 const auto old = std::ranges::find(target.statuses, effect.kind, &Status::kind);
-                const Status status{effect.kind, effect.duration, effect.clock, turn_id_, effect.amount, effect.charges,effect.category};
+                Status status{effect.kind, effect.duration, effect.clock, turn_id_, effect.amount, effect.charges,effect.category};status.border=effect.border;
                 if (old == target.statuses.end()) { target.statuses.push_back(status); } else { *old = status; }
                 break;
             }
@@ -670,9 +688,9 @@ ActionResult Battle::apply(const Action& action) {
     stamp_action(result.events, 0, root_context);
     std::size_t processed = 0;
     while (!reactions.empty() && phase_ == Phase::Running) {
-        const auto [from, to, parent] = reactions.front();
+        const auto reaction=reactions.front();const auto from=reaction.from,to=reaction.to;const auto parent=reaction.parent_id;
         reactions.erase(reactions.begin());
-        if (fighters_[from].health == 0 || fighters_[to].health == 0) { continue; }
+        if (fighters_[from].health == 0 || fighters_[to].health == 0 || incapacitated(fighters_[from]) || (reaction.native && native_suppressed(fighters_[from]))) { continue; }
         if (processed == rules_.max_derived_actions) {
             finish(EndReason::TechnicalLimit, std::nullopt, action.actor, result.events); break;
         }

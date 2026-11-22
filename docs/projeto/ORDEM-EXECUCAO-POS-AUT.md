@@ -1,3 +1,4 @@
+> **Atualização 22/11 — REG-03:** base de silêncio, incapacidade, imunidades, teste de debuff e revalidação de reações entregue; oito grupos focados, regressão geral e build Unreal aprovados, sem executar editor/jogo. Ver [REG-03](REG-03-CONTROLES.md). **Ainda pendentes:** executor Bleed/Poison, conexão/testes da A2 e piloto HAB; não confundir contratos recebidos com implementação. Próxima integração segue por esses componentes. Stage anterior não representa REG atual.
 > **SIS-02-A concluído — 22/11:** [mapa numérico e compatibilidade](SIS-02-A-MAPA-NUMERICO.md): 22 âncoras conferidas, cortes de migração e testes futuros definidos. Código/fórmulas/saves intactos; nenhuma bateria ou engine executada. Próxima entrega: **SIS-02-B, aritmética segura**, ainda não iniciada. Save v1 não contém HP; migração de HP não força nova versão por si só. Esta atualização prevalece sobre a indicação histórica de A ainda por iniciar.
 
 # Ordem de execução após AUT-01–16

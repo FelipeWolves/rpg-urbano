@@ -40,7 +40,7 @@ struct CharacterLoadout {
     std::vector<std::uint32_t> automatic_priority = {3,2};
     bool operator==(const CharacterLoadout&) const = default;
 };
-enum class AbilityAvailability { Ready, Cooldown, PassiveOnly, Incapacitated, Finished, ConditionBlocked };
+enum class AbilityAvailability { Ready, Cooldown, PassiveOnly, Incapacitated, Finished, ConditionBlocked, Silenced };
 struct AbilityView {
     AbilitySlot slot;
     AbilityAvailability availability;

@@ -22,10 +22,11 @@ enum class TurnKind { Natural, Extra };
 enum class TickPolicy { NaturalOnly, EveryTurn };
 enum class TargetRule { Enemy, Ally, Self };
 enum class EffectKind { Damage, ChangeAP, SetSpeed, ExtraTurn, Block, Marker, Counter, FreezeCooldowns,
-                        Reflect, DeathExplosion, PreventDeath, AutoRevive, Shield, StructuralShield, StandardShield };
+                        Reflect, DeathExplosion, PreventDeath, AutoRevive, Shield, StructuralShield, StandardShield, Stun, Freeze, Petrify, Silence, Suppression, Invincible, DebuffImmunity };
 enum class ExtraOrigin { Ability, Equipment, Custom };
 enum class HitSelection { FixedTarget, LowestHealthEnemy };
 enum class StatusCategory { Temporary, Permanent, Structural };
+enum class StatusBorder { Common, Silver, Golden, Structural };
 
 struct ExtraTurnSource {
     std::string id;
@@ -70,6 +71,9 @@ struct EffectDefinition {
     StatusCategory category = StatusCategory::Temporary;
     resolution::DamageKind damage_kind=resolution::DamageKind::Normal;
     numeric::BasisPoints power_ratio=10000;
+    numeric::BasisPoints proc_chance=10000;
+    bool irresistible=false,bypass_immunity=false,debuff=false;
+    StatusBorder border=StatusBorder::Common;
     bool operator==(const EffectDefinition&) const = default;
 };
 struct SkillDefinition {
@@ -79,6 +83,7 @@ struct SkillDefinition {
     TargetRule target;
     std::vector<EffectDefinition> effects;
     TickPolicy cooldown_clock = TickPolicy::NaturalOnly;
+    bool basic=false;
     bool operator==(const SkillDefinition&) const = default;
 };
 
@@ -106,14 +111,14 @@ enum class ActionError {
     None, BattleFinished, UnknownActor, ActorDefeated, NotActorsTurn,
     UnknownAction, UnexpectedGuardTarget, UnknownTarget, FriendlyTarget, TargetDefeated,
     GuardDisabled, UnknownSkill, SkillOnCooldown, InvalidSkillTarget, ActorBlocked, NotBlocked,
-    SkillConditionNotMet
+    SkillConditionNotMet, ActorSilenced
 };
 enum class EventType {
     Attack, GuardSet, GuardConsumed, FighterDefeated,
     RoundStarted, TurnStarted, GuardExpired, BattleFinished,
     SkillUsed, EffectApplied, EffectExpired, Reaction, TurnSkipped, TurnEnded, ExtraTurnSuppressed,
     ReflectedDamage, DeathExplosion, DeathEffectTriggered, DeathPrevented, ReviveScheduled, FighterRevived,
-    ShieldAbsorbed, ShieldBroken
+    ShieldAbsorbed, ShieldBroken, EffectResisted
 };
 
 struct Definition {
@@ -123,6 +128,8 @@ struct Definition {
     numeric::Quantity attack;
     int speed;
     resolution::FighterStats stats;
+    std::vector<EffectKind> immune_effects;
+    bool is_boss=false;
     bool operator==(const Definition&) const = default;
 };
 
@@ -134,6 +141,8 @@ struct Status {
     numeric::Quantity magnitude = 0;
     std::uint32_t charges = 1;
     StatusCategory category = StatusCategory::Temporary;
+    bool native_passive=false;
+    StatusBorder border=StatusBorder::Common;
     bool operator==(const Status&) const = default;
 };
 
@@ -156,6 +165,11 @@ struct Fighter {
     bool operator==(const Fighter&) const = default;
 };
 
+[[nodiscard]] bool has_status(const Fighter& unit,EffectKind kind) noexcept;
+[[nodiscard]] bool incapacitated(const Fighter& unit) noexcept;
+[[nodiscard]] bool native_suppressed(const Fighter& unit) noexcept;
+[[nodiscard]] bool status_native_enabled(const Fighter& unit,const Status& status) noexcept;
+[[nodiscard]] bool common_debuff(EffectKind kind) noexcept;
 struct InitialHealth {
     std::string id;
     numeric::Quantity health;
@@ -293,6 +307,7 @@ private:
         std::size_t from;
         std::size_t to;
         std::uint64_t parent_id;
+        bool native=false;
     };
     struct PendingRevive {
         std::size_t fighter;

@@ -21,9 +21,10 @@ AbilityCard ability_card(const VisualState& state,std::uint32_t position){
     const auto actor=std::ranges::find(state.combat.battle.fighters,state.combat.battle.current_actor.value_or(""),[](const Fighter& f){return f.definition.id;});
     if(actor==state.combat.battle.fighters.end()){card.reason="Não há personagem ativo.";return card;}
     if(state.automatic || actor->definition.team!=Team::A){card.reason="Aguarde o turno da sua equipe.";return card;}
-    if(actor->health<=0 || ability.availability==AbilityAvailability::Incapacitated || std::ranges::any_of(actor->statuses,[](const Status& s){return s.kind==EffectKind::Block;})){card.reason="Personagem impossibilitado de agir.";return card;}
+    if(actor->health<=0 || ability.availability==AbilityAvailability::Incapacitated || incapacitated(*actor)){card.reason="Personagem impossibilitado de agir.";return card;}
     const auto skill=std::ranges::find(state.combat.battle.rules.skills,*ability.slot.active_skill,&SkillDefinition::id);
     if(skill==state.combat.battle.rules.skills.end() || skill->owner!=actor->definition.id){card.reason="Habilidade não disponível para o personagem ativo.";return card;}
+    if(ability.availability==AbilityAvailability::Silenced){card.reason="Habilidade silenciada; ataque básico disponível.";return card;}
     if(ability.availability==AbilityAvailability::Finished){card.reason="O combate terminou.";return card;}
     if(ability.availability==AbilityAvailability::Cooldown || card.cooldown>0){
         card.badge=AbilityBadge::Cooldown;card.status="Em recarga";card.reason="Aguarde a recarga: "+std::to_string(card.cooldown)+" turno(s).";return card;
@@ -47,6 +48,7 @@ ShieldDisplay shield_display(const Fighter& fighter){
 }
 std::string effect_name(EffectKind kind){
     switch(kind){
+    case EffectKind::Stun:return "Stun";case EffectKind::Freeze:return "Freeze";case EffectKind::Petrify:return "Petrify";case EffectKind::Silence:return "Silence";case EffectKind::Suppression:return "Suppression";case EffectKind::Invincible:return "Invincible";case EffectKind::DebuffImmunity:return "Debuff immunity";
     case EffectKind::StandardShield:return "Standard shield";case EffectKind::Shield:return "Shield";case EffectKind::StructuralShield:return "Structural shield";
     case EffectKind::Block:return "Unable to act";case EffectKind::FreezeCooldowns:return "Cooldowns frozen";
     case EffectKind::Reflect:return "Reflect";case EffectKind::DeathExplosion:return "On-death explosion";
@@ -74,7 +76,7 @@ std::vector<std::string> target_candidates(const VisualState& state,std::uint32_
     if(state.combat.profile==CombatProfile::Classic){
         if(position!=1){return {};}
         const auto actor=std::ranges::find(battle.fighters,*battle.current_actor,[](const Fighter& f){return f.definition.id;});
-        if(actor==battle.fighters.end() || actor->health<=0 || std::ranges::any_of(actor->statuses,[](const Status& s){return s.kind==EffectKind::Block;})){return {};}
+        if(actor==battle.fighters.end() || actor->health<=0 || incapacitated(*actor)){return {};}
         std::vector<std::string> ids;
         for(const auto& fighter:battle.fighters){if(fighter.health>0 && fighter.definition.team!=actor->definition.team){ids.push_back(fighter.definition.id);}}
         return ids;
@@ -145,6 +147,7 @@ std::string action_error_message(ActionError error){
     case ActionError::InvalidSkillTarget:return "This skill requires a different target type.";
     case ActionError::ActorBlocked:return "This unit is unable to act; only pass is available.";
     case ActionError::NotBlocked:return "Pass is only legal while unable to act.";
+    case ActionError::ActorSilenced:return "Ability silenced; basic remains available.";
     case ActionError::SkillConditionNotMet:return "The skill condition is not satisfied.";
     case ActionError::UnexpectedGuardTarget:return "Defense does not take a target.";
     case ActionError::UnknownAction:return "Unknown action.";

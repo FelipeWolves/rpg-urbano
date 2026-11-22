@@ -3,6 +3,40 @@
 #include <cmath>
 #include <stdexcept>
 namespace rpg::presentation {
+AbilityCard ability_card(const VisualState& state,std::uint32_t position){
+    AbilityCard card{"HABILIDADE","Indisponível","Esta posição não possui habilidade."};
+    const auto found=std::ranges::find(state.abilities,position,[](const AbilityView& a){return a.slot.position;});
+    if(found==state.abilities.end()){return card;}
+    const auto& ability=*found;
+    card.kind=ability.slot.active_skill?(position==1?"BASICA":"HABILIDADE"):"PASSIVA";
+    if(!ability.slot.active_skill){
+        card.badge=AbilityBadge::Passive;card.status="Passiva";
+        card.reason=ability.passive_implemented?"Passiva automática; não é uma ação selecionável.":"Informação passiva; gatilho ainda não implementado.";
+        return card;
+    }
+    card.cooldown=std::max(0,ability.cooldown);
+    if(state.combat.profile==CombatProfile::Classic){card.reason="O perfil clássico utiliza seus comandos próprios.";return card;}
+    if(state.combat.battle.phase!=Phase::Running){card.reason="O combate terminou.";return card;}
+    if(state.stopped){card.reason="Interação parada para segurança ou inspeção.";return card;}
+    const auto actor=std::ranges::find(state.combat.battle.fighters,state.combat.battle.current_actor.value_or(""),[](const Fighter& f){return f.definition.id;});
+    if(actor==state.combat.battle.fighters.end()){card.reason="Não há personagem ativo.";return card;}
+    if(state.automatic || actor->definition.team!=Team::A){card.reason="Aguarde o turno da sua equipe.";return card;}
+    if(actor->health<=0 || ability.availability==AbilityAvailability::Incapacitated || std::ranges::any_of(actor->statuses,[](const Status& s){return s.kind==EffectKind::Block;})){card.reason="Personagem impossibilitado de agir.";return card;}
+    const auto skill=std::ranges::find(state.combat.battle.rules.skills,*ability.slot.active_skill,&SkillDefinition::id);
+    if(skill==state.combat.battle.rules.skills.end() || skill->owner!=actor->definition.id){card.reason="Habilidade não disponível para o personagem ativo.";return card;}
+    if(ability.availability==AbilityAvailability::Finished){card.reason="O combate terminou.";return card;}
+    if(ability.availability==AbilityAvailability::Cooldown || card.cooldown>0){
+        card.badge=AbilityBadge::Cooldown;card.status="Em recarga";card.reason="Aguarde a recarga: "+std::to_string(card.cooldown)+" turno(s).";return card;
+    }
+    if(ability.availability==AbilityAvailability::ConditionBlocked || !ability.condition_met){
+        card.badge=AbilityBadge::Locked;card.status="Condição";
+        card.reason=ability.slot.requirement?"Requer PV em até "+std::to_string(ability.slot.requirement->at_most_percent)+"% do máximo.":"A condição de uso não foi atendida.";
+        return card;
+    }
+    if(ability.availability!=AbilityAvailability::Ready){card.reason="Estado da habilidade indisponível.";return card;}
+    card.badge=AbilityBadge::Ready;card.status="Pronta";card.reason="Selecione a habilidade e um alvo válido; confirme a ação.";card.selectable=true;
+    return card;
+}
 ShieldDisplay shield_display(const Fighter& fighter){
     std::int64_t shield=0;
     for(const auto& status:fighter.statuses){if(status.kind==EffectKind::StandardShield || status.kind==EffectKind::Shield || status.kind==EffectKind::StructuralShield){shield+=std::max(0,status.magnitude);}}
@@ -92,6 +126,9 @@ std::vector<std::string> ability_details(const VisualState& state,std::uint32_t 
     if(slot.passive){out.push_back("Battle start: shield "+std::to_string(slot.passive->shield)+" points, duration "+std::to_string(slot.passive->duration));}
     if(!slot.passive_note.empty()){out.push_back(slot.passive_note);}
     if(slot.requirement){out.push_back("Requires owner HP <= "+std::to_string(slot.requirement->at_most_percent)+"%.");}
+    const auto card=ability_card(state,position);
+    out.push_back("Estado: "+card.status+". "+card.reason);
+    if(card.cooldown>0){out.push_back("Recarga restante: "+std::to_string(card.cooldown));}
     return out;
 }
 std::string action_error_message(ActionError error){

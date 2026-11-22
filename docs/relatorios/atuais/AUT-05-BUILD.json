@@ -10,10 +10,12 @@
   "Log": "build/aut05-build.log",
   "ProjectRoot": "F:\\Testes de jogos\\Contos de Um Lobo - Jogo\\rpg-urbano",
   "VisualRuntimeExecuted": false,
-  "VisualAcceptance": false,
+  "VisualAcceptance": true,
   "ScreenControlUsed": false,
   "AndroidExecuted": false,
   "BattleResolverChanged": false,
   "NormalDefault": "3v3 unchanged",
-  "Mode": "Explicit read-only static snapshots; no rewards or live commands"
+  "Mode": "Explicit read-only static snapshots; no rewards or live commands",
+  "VisualAcceptanceSource": "User report: both inspection layouts and details; no reported problems",
+  "UserAcceptanceReport": "AUT-05-ACEITE-USUARIO.json"
 }

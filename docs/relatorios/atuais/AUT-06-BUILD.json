@@ -1,0 +1,16 @@
+{
+  "Date": "2026-11-21",
+  "Passed": true,
+  "ExitCode": 0,
+  "BuildActions": 7,
+  "NewAbilityGroups": 10,
+  "TotalFocusedGroups": 32,
+  "Log": "build/aut06-build.log",
+  "ProjectRoot": "F:\\Testes de jogos\\Contos de Um Lobo - Jogo\\rpg-urbano",
+  "VisualRuntimeExecuted": false,
+  "VisualAcceptance": false,
+  "AndroidExecuted": false,
+  "BattleRulesChanged": false,
+  "PreviousInspectionUserAcceptance": "AUT-05-ACEITE-USUARIO.json",
+  "Scope": "Ability-card state mapping and compiled symbols/reasons; visual acceptance pending"
+}

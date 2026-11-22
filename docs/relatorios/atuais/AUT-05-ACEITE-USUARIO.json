@@ -1,0 +1,16 @@
+{
+  "Date": "2026-11-21",
+  "Source": "User report in this conversation",
+  "BaselineCommit": "a72d48b",
+  "Accepted": true,
+  "Layouts": [
+    "Standard depth",
+    "Classic lateral"
+  ],
+  "DetailsPanelsAccepted": true,
+  "IssuesReported": false,
+  "Scope": "Both inspection launchers and details checked by user, with no reported problems",
+  "PerCaseChecklistExplicitlyRecorded": false,
+  "AndroidAcceptance": false,
+  "AssistantVisualRuntimeExecuted": false
+}

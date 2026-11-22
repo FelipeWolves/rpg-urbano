@@ -10,7 +10,7 @@ Referência: demo com Felipe, uma arena e apresentação integrada testada em um
 |---|---:|---:|---|
 | Código core | 45% | 20% | Contratos novos ampliaram o trabalho restante; não houve regressão dos testes |
 | Integração Unreal | 45% | 10% | Projeto estável compilado, mapa salvo e reabertura/Play observados |
-| Front / interface | 20% | 10% | Política Desktop/Mobile e motion implementados; toque e áreas seguras pendentes |
+| Front / interface | 22% | 10% | Inspeção dos dois layouts/detalhes aceita; novos cartões compilados aguardam aceite |
 | Hub / navegação | 20% | 7% | Sete locais e painéis informativos implementados; aceite visual pendente |
 | Arte 2D | 25% | 5% | Panorama novo conectado ao catálogo; aceite visual pendente |
 | Cenários 3D | 5% | 10% | Arena geométrica provisória |
@@ -20,10 +20,10 @@ Referência: demo com Felipe, uma arena e apresentação integrada testada em um
 | Conteúdo / tutorial | 10% | 5% | Recorte e universo definidos; tutorial não implementado |
 | Progressão / save | 25% | 5% | Save v1 e recompensa de laboratório |
 | Mobile / otimização | 5% | 4% | AVD iniciou; APK e desempenho não validados |
-| QA integrado | 24% | 1% | 11 checkpoints no projeto estável e ciclo de abertura/Play; Android pendente |
+| QA integrado | 26% | 1% | Aceite do usuário na inspeção e regressões focadas; aparelho e desempenho pendentes |
 | Documentação | 78% | 1% | Entregas reconciliadas e guia de abertura/limites atualizado |
 
-Pesos somam 100; soma ponderada = 21,87%, arredondada para comunicação. Pesos são premissas de planejamento revisáveis, não precisão de medição. Serviços e lojas ficam fora da demo (implementação 0%).
+Pesos somam 100; soma ponderada = 22,09%, arredondada para comunicação. Pesos são premissas de planejamento revisáveis, não precisão de medição. Serviços e lojas ficam fora da demo (implementação 0%).
 
 ## O que mudou
 
@@ -46,3 +46,5 @@ Integração Unreal 38→45%, QA22→24% e documentação75→78% nesta etapa. S
 [AUT-04](AUT-04-PAINEIS.md): painéis unificados, quebra medida e paginação implementados,54grupos de apresentação e build aprovados. Estimativas mantidas até aceite visual; Android segue adiado.
 
 [AUT-05](AUT-05-INSPECAO.md):13cenários de inspeção,22grupos focados e build aprovados. Aceite visual de formações/escudo continua pendente; percentuais mantidos, sem alteração de regras ESC ou do roster padrão.
+
+AUT-05 aceito pelo usuário nos dois layouts/detalhes. Front20→22% e QA24→26%; soma ponderada22,09%, mantendo comunicação de aproximadamente22% da demo. AUT-06 compilado, aparência ainda pendente; Android adiado. [Registro](AUT-06-HABILIDADES.md).

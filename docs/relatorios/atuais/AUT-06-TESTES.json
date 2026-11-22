@@ -1,0 +1,10 @@
+{
+  "Date": "2026-11-21",
+  "Passed": true,
+  "ExitCode": 0,
+  "NewAbilityGroups": 10,
+  "TotalFocusedGroups": 32,
+  "EngineExecuted": false,
+  "AndroidExecuted": false,
+  "Scope": "Ability-card state mapping and reasons, existing arena inspection/layout/details regressions; not visual acceptance"
+}

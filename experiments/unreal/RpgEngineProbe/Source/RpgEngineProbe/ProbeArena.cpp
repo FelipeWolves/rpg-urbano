@@ -226,19 +226,32 @@ void AProbeArenaHUD::DrawHUD()
         if(button(130,bottom,100,50,TEXT("Pass"),manual && blocked)){perform(rpg::ActionType::Skip);return;}
     }
     for(const auto& ability:view.abilities){
-        const bool ready=manual && ability.availability==rpg::AbilityAvailability::Ready;
+        const auto card=rpg::presentation::ability_card(view,ability.slot.position);
+        const bool ready=manual && card.selectable;
         const float x=Canvas->SizeX-660.f+(ability.slot.position-1)*215.f;
-        const FString type=ability.slot.active_skill?(ability.slot.position==1?TEXT("BASIC"):TEXT("SKILL")):TEXT("PASSIVE");
-        const FString text=FString::Printf(TEXT("%u / %s"),ability.slot.position,*type);
-        FString status;
-        if(ability.availability==rpg::AbilityAvailability::Cooldown){status=FString::Printf(TEXT("Cooldown: %d"),ability.cooldown);}
-        else if(ability.availability==rpg::AbilityAvailability::PassiveOnly){status=TEXT("Passive / hold for details");}
-        else if(ability.availability==rpg::AbilityAvailability::ConditionBlocked){status=TEXT("Locked: hold for condition");}
-        else if(!ready){status=TEXT("Unavailable / hold for info");}
-        else{status=SelectedSlot==static_cast<int32>(ability.slot.position)?TEXT("Selected"):TEXT("Ready / hold for details");}
-        button(x,bottom,205,50,text,ready);DrawText(status,FColor::White,x+8,bottom+30);
+        const FString text=FString::Printf(TEXT("%u / %s"),ability.slot.position,*Label(card.kind));
+        button(x,bottom,205,50,text,ready);
+        const FColor color=card.badge==rpg::presentation::AbilityBadge::Passive?FColor(180,130,240):card.badge==rpg::presentation::AbilityBadge::Ready?FColor::Cyan:card.badge==rpg::presentation::AbilityBadge::Unavailable?FColor(180,180,180):FColor(245,158,11);
+        const bool selected=ready && SelectedSlot==static_cast<int32>(ability.slot.position);
+        DrawText(selected?TEXT("Selecionada"):Label(card.status),color,x+8,bottom+30);
+        const float cx=x+189,cy=bottom+15;
+        if(card.cooldown>0){
+            const FString timer=FString::FromInt(card.cooldown);float width=0,height=0;GetTextSize(timer,width,height);
+            const float scale=FMath::Min(1.f,32.f/FMath::Max(1.f,width));
+            DrawText(timer,FColor(245,158,11),x+165,bottom+30,nullptr,scale);
+        }
+        if(card.badge==rpg::presentation::AbilityBadge::Locked){
+            DrawLine(cx-6,cy-1,cx+6,cy-1,FLinearColor(color),1.5f);DrawLine(cx-6,cy-1,cx-6,cy+7,FLinearColor(color),1.5f);
+            DrawLine(cx+6,cy-1,cx+6,cy+7,FLinearColor(color),1.5f);DrawLine(cx-6,cy+7,cx+6,cy+7,FLinearColor(color),1.5f);
+            DrawLine(cx-4,cy-1,cx-4,cy-7,FLinearColor(color),1.5f);DrawLine(cx-4,cy-7,cx+4,cy-7,FLinearColor(color),1.5f);DrawLine(cx+4,cy-7,cx+4,cy-1,FLinearColor(color),1.5f);
+        }else if(card.badge==rpg::presentation::AbilityBadge::Unavailable){
+            for(int i=0;i<20;++i){const float a=2*PI*i/20,b=2*PI*(i+1)/20;DrawLine(cx+7*FMath::Cos(a),cy+7*FMath::Sin(a),cx+7*FMath::Cos(b),cy+7*FMath::Sin(b),FLinearColor(color),1.5f);}
+            DrawLine(cx-5,cy+5,cx+5,cy-5,FLinearColor(color),1.5f);
+        }else if(card.badge==rpg::presentation::AbilityBadge::Passive){DrawText(TEXT("i"),color,cx-3,cy-9);}
+        if(selected){DrawLine(x+2,bottom+2,x+203,bottom+2,FLinearColor::Yellow,2);}
         if(pressed && PopupLines.IsEmpty() && inside(x,bottom,205,50)){Gesture.press(ability.slot.position,now,view.revision);}
-        if(shortSlot==ability.slot.position && inside(x,bottom,205,50) && ready){
+        if(shortSlot==ability.slot.position && inside(x,bottom,205,50)){
+            if(!ready){SelectedSlot=0;SelectedTarget.Empty();Message=Label(card.reason);return;}
             SelectedSlot=static_cast<int32>(ability.slot.position);SelectionRevision=view.revision;
             const auto ids=rpg::presentation::target_candidates(view,ability.slot.position);SelectedTarget.Empty();
             if(!classic && !ids.empty()){SelectedTarget=Label(ids[static_cast<std::size_t>(FMath::RandHelper(static_cast<int32>(ids.size())))]);}

@@ -1,6 +1,17 @@
 #pragma once
 #include "rpg/visual_session.hpp"
 namespace rpg::presentation {
+enum class AbilityBadge { Ready, Cooldown, Passive, Locked, Unavailable };
+struct AbilityCard {
+    std::string kind;
+    std::string status;
+    std::string reason;
+    AbilityBadge badge=AbilityBadge::Unavailable;
+    int cooldown=0;
+    bool selectable=false;
+};
+// Presentation only. Never enables an action rejected by the core.
+[[nodiscard]] AbilityCard ability_card(const VisualState& state,std::uint32_t position);
 struct ShieldDisplay {
     std::int64_t points;
     double health_fraction;

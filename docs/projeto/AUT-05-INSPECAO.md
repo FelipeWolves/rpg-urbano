@@ -1,3 +1,5 @@
+> **Aceite posterior confirmado pelo usuário:** ambos os atalhos/layouts e os detalhes foram conferidos, sem problemas relatados. Aceite registrado em AUT-05-ACEITE-USUARIO.json. Não repetir sem mudança ou falha pertinente; não inclui Android nem checklist individual de cada caso.
+
 # AUT-05 — cenários de inspeção de formações e escudo
 
 21/11/2026. Preparação em código, testes e compilação concluídas. **Aceite visual pendente do usuário.** Não houve abertura do editor, prévia ou Android.

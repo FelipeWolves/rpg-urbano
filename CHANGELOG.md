@@ -170,3 +170,9 @@ Parser JSON do hub, importação do panorama, projeção/clipping dos dois alvos
 -13snapshots reais de formações/escudo em modo de inspeção somente leitura.
 -Atalhos para profundidade e lateral clássica; nenhum comando/recompensa na inspeção.
 -22grupos focados e compilação9ações aprovados; aceite visual pendente, Android adiado.
+
+## 2026-11-21 — AUT-06 e aceite do AUT-05
+- Estados de habilidade, contador, cadeado, indisponibilidade e motivo de recusa.
+-32grupos focados e compilação7ações aprovados; aceite visual novo pendente.
+-Registrado aceite do usuário nos dois layouts/detalhes da inspeção; progresso ponderado22,09%.
+-Android adiado; sem execução gráfica pelo assistente.

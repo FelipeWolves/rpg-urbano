@@ -31,3 +31,7 @@ Prioridade: aceite dessas correções; depois integração visual seletiva dos m
 MCP permanece opcional, sem plugin instalado ou ferramenta Unreal disponível. Ver ENG-AMB-MCP-UNREAL.md. Nenhuma dependência de gameplay foi introduzida. As 12 frentes recebíveis já têm próximos passos independentes e insumos necessários em seus READMEs (commit 4bbd4ef).
 
 Percentuais mantidos: demo ~25% (23–27%). Não atribuir avanço visual aceito a testes nativos ou compilação.
+## Retorno do usuário e correção complementar
+Vídeo inicia com um clique (confirmado). Botões gerais ainda exigem dois; investigada a condição de encaminhamento de OnMouseButtonDown em SceneViewport.cpp da engine instalada. Captura temporária substitui NoCapture; cursor livre/visível. Skip ganha hover e progresso, mantendo 800 ms para primeira exibição e clique simples quando já assistido. Retestes de entrada e skip continuam abertos. Sem alterar core, percentuais ou Android.
+
+Compilação complementar aprovada (20,93 s), stage66 verificado. Evidência: VIS-ENG-CAPTURA-SKIP.json. Sem execução visual. Testes puros não repetidos: contratos de gesto/skip não mudaram; modificação limitada à política da viewport e desenho do feedback.

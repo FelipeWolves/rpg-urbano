@@ -1,11 +1,11 @@
 {
-  "CheckedUtc": "2026-11-22T17:45:08.0191659Z",
+  "CheckedUtc": "2026-11-22T18:02:12.4566446Z",
   "Status": "prepared_not_built",
   "EngineVersion": "5.8.4",
   "EngineChangelist": 58902052,
-  "Stage": "F:\\Testes de jogos\\Contos de Um Lobo - Jogo\\rpg-urbano\\build\\p\\584a904c\\RpgEngineProbe",
-  "Archive": "F:\\Testes de jogos\\Contos de Um Lobo - Jogo\\rpg-urbano\\build\\p\\584a904c\\archive",
-  "Plan": "F:\\Testes de jogos\\Contos de Um Lobo - Jogo\\rpg-urbano\\build\\p\\584a904c\\package-plan.json",
+  "Stage": "F:\\Testes de jogos\\Contos de Um Lobo - Jogo\\rpg-urbano\\build\\p\\5f3aba0d\\RpgEngineProbe",
+  "Archive": "F:\\Testes de jogos\\Contos de Um Lobo - Jogo\\rpg-urbano\\build\\p\\5f3aba0d\\archive",
+  "Plan": "F:\\Testes de jogos\\Contos de Um Lobo - Jogo\\rpg-urbano\\build\\p\\5f3aba0d\\package-plan.json",
   "Target": "RpgEngineProbe",
   "Platform": "Win64",
   "Configuration": "Development",
@@ -44,7 +44,7 @@
     {
       "StagedRelative": "Source/RpgEngineProbe/ProbeArena.cpp",
       "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/ProbeArena.cpp",
-      "SHA256": "9D0B8D7697A2DA0C6B772611FE3635D0BE7F6DA9963BB8D3DC9E4539DA3EBD91"
+      "SHA256": "377D529C6AFD5208B941AFBAFE179A1F9DA91BF59DC1E7DD5667C49E8D8E0683"
     },
     {
       "StagedRelative": "Source/RpgEngineProbe/ProbeHub.cpp",
@@ -54,7 +54,7 @@
     {
       "StagedRelative": "Source/RpgEngineProbe/ProbeMedia.cpp",
       "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/ProbeMedia.cpp",
-      "SHA256": "518838FF6CA737867F3DD0EAE43099D33026166E647717DEC5426E3A81F0E268"
+      "SHA256": "FF9ECDD1B84C1BE1683BADBCF59FD48333944B4E077DC740B4D97C408D4F6725"
     },
     {
       "StagedRelative": "Source/RpgEngineProbe/ProbeMarker.cpp",

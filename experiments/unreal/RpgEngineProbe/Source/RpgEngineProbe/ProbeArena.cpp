@@ -43,7 +43,7 @@ void AProbeArenaMode::BeginPlay()
         // Forward the initial capture click instead of consuming it for focus.
         FInputModeGameOnly inputMode;inputMode.SetConsumeCaptureMouseDown(false);
         pc->SetInputMode(inputMode);
-        if(auto* viewport=GetWorld()->GetGameViewport()){viewport->SetMouseCaptureMode(EMouseCaptureMode::NoCapture);}
+        if(auto* viewport=GetWorld()->GetGameViewport()){viewport->SetMouseCaptureMode(EMouseCaptureMode::CaptureDuringMouseDown);viewport->SetMouseLockMode(EMouseLockMode::DoNotLock);viewport->SetHideCursorDuringCapture(false);}
     }
     UE_LOG(LogTemp, Display, TEXT("ARENA_LAYOUT %s"),classic?TEXT("Classic"):TEXT("Standard"));
 }

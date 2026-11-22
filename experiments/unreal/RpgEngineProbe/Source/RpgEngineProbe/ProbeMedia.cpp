@@ -104,11 +104,13 @@ void AProbeArenaHUD::DrawIntro(){
     DrawRect(FLinearColor(0.004f,0.005f,0.01f),0,0,Canvas->SizeX,Canvas->SizeY);
     if(auto plan=IntroFlow.layout({static_cast<uint32>(Canvas->SizeX),static_cast<uint32>(Canvas->SizeY)},Device::Desktop,false);plan && IntroTexture){const auto& r=plan->content;DrawTexture(IntroTexture,static_cast<float>(r.x),static_cast<float>(r.y),static_cast<float>(r.width),static_cast<float>(r.height),0,0,1,1,FLinearColor::White,BLEND_Opaque);}
     const double margin=16;Rect skip{Canvas->SizeX-196.0-HubInsets.right,margin+HubInsets.top,180,48};
-    DrawRect(HubPanel,static_cast<float>(skip.x),static_cast<float>(skip.y),180,48);DrawText(IntroFlow.watched()?TEXT("Pular"):TEXT("Segure para pular"),FColor::White,static_cast<float>(skip.x+8),static_cast<float>(skip.y+10),HubBodyFont,0.8f);
+    const bool skipHovered=focused && contains(skip,Input.x,Input.y);
+    DrawRect(skipHovered?FLinearColor(0.35f,0.22f,0.07f,0.95f):HubPanel,static_cast<float>(skip.x),static_cast<float>(skip.y),180,48);DrawText(IntroFlow.watched()?TEXT("Pular"):TEXT("Segure para pular"),FColor::White,static_cast<float>(skip.x+8),static_cast<float>(skip.y+10),HubBodyFont,0.8f);
     const bool key=PlayerOwner->IsInputKeyDown(EKeys::Escape) || PlayerOwner->IsInputKeyDown(EKeys::SpaceBar);
     const bool held=focused && (key || (Input.down && contains(skip,Input.x,Input.y) && contains(skip,Input.origin_x,Input.origin_y)));
     if(held){if(IntroHold<0){IntroHold=now;}IntroFlow.skip(static_cast<uint64>((now-IntroHold)*1000));}else{IntroHold=-1;}
     if(IntroFlow.watched() && pointer_clicked(Input,skip)){IntroFlow.skip(0);}
+    if(held && !IntroFlow.watched()){const float progress=static_cast<float>(FMath::Clamp((now-IntroHold)/0.8,0.0,1.0));DrawRect(FLinearColor(0.96f,0.62f,0.04f),static_cast<float>(skip.x),static_cast<float>(skip.y+43),180*progress,5);}
     if(IntroFlow.state()==MediaState::Paused){DrawText(TEXT("Toque para continuar"),FColor::White,20,90,HubBodyFont);if(focused && Input.tap && !contains(skip,Input.x,Input.y) && IntroFlow.resume() && !IntroPlayer->Play()){IntroFlow.fail(IntroTicket,MediaFailure::OpenFailed);}}
     if(IntroFlow.state()==MediaState::Preparing){DrawText(TEXT("Preparando vídeo local..."),FColor::White,20,90,HubBodyFont);}
 }

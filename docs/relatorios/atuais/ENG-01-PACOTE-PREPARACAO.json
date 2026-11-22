@@ -1,11 +1,11 @@
 {
-  "CheckedUtc": "2026-11-22T16:59:48.8218924Z",
+  "CheckedUtc": "2026-11-22T17:45:08.0191659Z",
   "Status": "prepared_not_built",
   "EngineVersion": "5.8.4",
   "EngineChangelist": 58902052,
-  "Stage": "F:\\Testes de jogos\\Contos de Um Lobo - Jogo\\rpg-urbano\\build\\p\\645b0934\\RpgEngineProbe",
-  "Archive": "F:\\Testes de jogos\\Contos de Um Lobo - Jogo\\rpg-urbano\\build\\p\\645b0934\\archive",
-  "Plan": "F:\\Testes de jogos\\Contos de Um Lobo - Jogo\\rpg-urbano\\build\\p\\645b0934\\package-plan.json",
+  "Stage": "F:\\Testes de jogos\\Contos de Um Lobo - Jogo\\rpg-urbano\\build\\p\\584a904c\\RpgEngineProbe",
+  "Archive": "F:\\Testes de jogos\\Contos de Um Lobo - Jogo\\rpg-urbano\\build\\p\\584a904c\\archive",
+  "Plan": "F:\\Testes de jogos\\Contos de Um Lobo - Jogo\\rpg-urbano\\build\\p\\584a904c\\package-plan.json",
   "Target": "RpgEngineProbe",
   "Platform": "Win64",
   "Configuration": "Development",
@@ -39,22 +39,22 @@
     {
       "StagedRelative": "Source/RpgEngineProbe/ProbeArena.h",
       "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/ProbeArena.h",
-      "SHA256": "55C34F69E7099835159E7EC7ED789712F63CAEF103A1BB67536BC4F4E257CAB1"
+      "SHA256": "F87CB91AA1D1FBDD278C47E184FBBEE3B1B0DE88DE57935835112D7A8C8D4A07"
     },
     {
       "StagedRelative": "Source/RpgEngineProbe/ProbeArena.cpp",
       "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/ProbeArena.cpp",
-      "SHA256": "68D2A360D1C9421CA3B6C5F8599E87F546CDDFFA584403A3E40A59077CB20898"
+      "SHA256": "9D0B8D7697A2DA0C6B772611FE3635D0BE7F6DA9963BB8D3DC9E4539DA3EBD91"
     },
     {
       "StagedRelative": "Source/RpgEngineProbe/ProbeHub.cpp",
       "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/ProbeHub.cpp",
-      "SHA256": "0F41F5F101F57A9B3A4C58971E5A4C6AB44483BB75CC21FB2E91522A7BC152B9"
+      "SHA256": "CFF2F395FAD57662144393D59AA1D95476A426A09A55E3C3B4CD12684BCD4DFC"
     },
     {
       "StagedRelative": "Source/RpgEngineProbe/ProbeMedia.cpp",
       "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/ProbeMedia.cpp",
-      "SHA256": "C48BF070FDF33CE6DACA1BD029D1F5257109235FCFCA91D05A45FDBDC0CBEDFF"
+      "SHA256": "518838FF6CA737867F3DD0EAE43099D33026166E647717DEC5426E3A81F0E268"
     },
     {
       "StagedRelative": "Source/RpgEngineProbe/ProbeMarker.cpp",
@@ -194,12 +194,12 @@
     {
       "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/startup_presentation.cpp",
       "Original": "src/startup_presentation.cpp",
-      "SHA256": "767D13BD753C96DD736CF30436BE234E6AF5F1558CC3D20CA7C6DA619AA846C5"
+      "SHA256": "6A82FFFFA4379A1593357CC0399189DA825B33FA9B5F9488DEBF4064D74CCD7F"
     },
     {
       "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/startup_presentation.hpp",
       "Original": "include/rpg/startup_presentation.hpp",
-      "SHA256": "CA72DCE0F163D00F3531C1AC1740C9E1E9F6A2F0D7BC77D153AE3E00BB9656CE"
+      "SHA256": "6C46BA24D5AB66C18A6FA801EB8FA6AE91935EABB1A52976260A650F32868C33"
     },
     {
       "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/hub_style.cpp",

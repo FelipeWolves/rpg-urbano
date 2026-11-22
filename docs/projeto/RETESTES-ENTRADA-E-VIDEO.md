@@ -9,4 +9,4 @@
 
 Se possível registrar atalho/cenário, modo janela/PIE, resolução/escala e sequência. Não é necessário gravar vídeo ou investigar implementação. Aceite anterior do alinhamento do ponteiro não comprova estes fluxos. O primeiro clique da mídia deixa de ser considerado aparentemente resolvido: permanece pendência confirmada pelo novo relato.
 
-Nesta rodada o usuário solicitou registro/reteste, não controle visual ou diagnóstico desses fluxos. Não afirmar correção. Mantê-los separados de ESC/SIS/PvE e não bloquear os testes automatizados de regras.
+Atualização posterior nesta mesma data: investigação e correções de código autorizadas em VIS/ENG/HUB P0; testes nativos aprovados. Retestes permanecem REABERTOS e não aceitos visualmente. Ver VIS-ENG-HUB-P0-CORRECOES.md; compilação não substitui reprodução real.

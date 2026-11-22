@@ -1,3 +1,5 @@
+> **Vigente — VIS/ENG/HUB P0, 22/11:** [correções, evidências e reteste](docs/projeto/VIS-ENG-HUB-P0-CORRECOES.md). Entrada/alvos e preparação do player atualizados em código; testes nativos aprovados. Aceites visuais continuam abertos; Android adiado e demo ~25% mantida. Próximo: reteste do usuário, depois integração visual dos modos já disponíveis. Esta nota prevalece sobre próximos passos históricos abaixo.
+
 > **Mapa vigente das famílias — 22/11:** [percentuais, tarefas independentes, ajustes, dependências e prioridades](docs/projeto/MAPA-FAMILIAS-E-PRIORIDADES.md). Organização somente; demo geral mantida em ~25%. Próximo recomendado: cliques/alvos e primeira reprodução. Bases encerradas não são reabertas por rotina.
 
 > **Vigente22/11 — ESC/SIS/PvE concluído no recorte de código:** [entregas e limites](docs/projeto/ESC-SIS-PVE-CONSOLIDACAO.md). Doze baterias, regressão geral, compilaçãoUE e stage66 aprovados, sem executar o jogo. Cliques/alvos e vídeo continuam **REABERTOS**. Menus/HUD novos, conteúdo final e plataformas são próximos trabalhos separados.

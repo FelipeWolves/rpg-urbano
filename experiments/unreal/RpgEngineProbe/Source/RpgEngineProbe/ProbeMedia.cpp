@@ -21,7 +21,8 @@ FString MediaString(const TSharedPtr<FJsonObject>& object,const TCHAR* key){FStr
 double MediaNumber(const TSharedPtr<FJsonObject>& object,const TCHAR* key){double value=0;if(!object || !object->TryGetNumberField(key,value)){throw std::runtime_error("Campo numerico de midia invalido.");}return value;}
 }
 void AProbeArenaHUD::StartIntro(){
-    StopIntro();
+    if(IntroActive || Flow.screen()!=UiScreen::Hub){return;}
+    StopIntro();Gesture.cancel();Input={};
     // Isolated opt-in from the hub. No startup autoplay before playback acceptance.
     try{
         const FString root=FPaths::ConvertRelativePathToFull(FPaths::ProjectContentDir()/TEXT("Presentation"));
@@ -72,20 +73,25 @@ void AProbeArenaHUD::StopIntro(){
     if(IntroPlayer){IntroPlayer->OnEndReached.RemoveAll(this);IntroPlayer->Close();}
     if(IntroSound){IntroSound->SetMediaPlayer(nullptr);IntroSound->DestroyComponent();}
     if(IntroTexture){IntroTexture->SetMediaPlayer(nullptr);}
-    IntroSound=nullptr;IntroTexture=nullptr;IntroPlayer=nullptr;IntroActive=false;IntroHold=-1;IntroFlow.cancel();
+    IntroSound=nullptr;IntroTexture=nullptr;IntroPlayer=nullptr;IntroActive=false;IntroHold=-1;IntroFlow.cancel();IntroStartGate.reset();
 }
 void AProbeArenaHUD::EndPlay(const EEndPlayReason::Type reason){DestroyTargetMarker();StopIntro();Super::EndPlay(reason);}
 void AProbeArenaHUD::DrawIntro(){
     const double now=FPlatformTime::Seconds();
-    const bool focused=GetWorld()->GetGameViewport() && GetWorld()->GetGameViewport()->Viewport && GetWorld()->GetGameViewport()->Viewport->IsForegroundWindow();
+    const bool focused=InputWindowActive;
     if(!focused){IntroDeactivate();}else{IntroReactivate();}
     if(IntroPlayer && IntroPlayer->HasError()){IntroFlow.fail(IntroTicket,MediaFailure::DecodeFailed);}
     if(IntroFlow.state()==MediaState::Preparing){
         if(now-IntroStarted>15){IntroFlow.fail(IntroTicket,MediaFailure::Timeout);}
         else if(IntroPlayer && IntroPlayer->IsReady()){
-            IntroFlow.prepared(IntroTicket);
-            UE_LOG(LogTemp,Display,TEXT("INTRO_PREPARED ticket=%llu state=%d"),IntroTicket,static_cast<int32>(IntroFlow.state()));
-            if(IntroFlow.state()==MediaState::Playing && !IntroPlayer->Play()){IntroFlow.fail(IntroTicket,MediaFailure::OpenFailed);}
+            // Ready is not proof of playback. Keep preparing while asynchronous Play settles.
+            if(IntroPlayer->IsPlaying() || !focused){
+                IntroFlow.prepared(IntroTicket);
+                UE_LOG(LogTemp,Display,TEXT("INTRO_PREPARED ticket=%llu state=%d attempts=%u"),IntroTicket,static_cast<int32>(IntroFlow.state()),IntroStartGate.attempts());
+            }else if(IntroStartGate.should_request(IntroFlow.state(),true,false,focused,now)){
+                const bool accepted=IntroPlayer->Play();
+                UE_LOG(LogTemp,Display,TEXT("INTRO_START_REQUEST ticket=%llu attempt=%u accepted=%d"),IntroTicket,IntroStartGate.attempts(),accepted?1:0);
+            }
         }
     }
     if(IntroFlow.return_to_hub()){

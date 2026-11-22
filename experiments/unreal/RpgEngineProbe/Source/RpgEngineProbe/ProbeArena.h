@@ -33,6 +33,7 @@ private:
     UPROPERTY(Transient) TObjectPtr<class UMediaTexture> IntroTexture=nullptr;
     UPROPERTY(Transient) TObjectPtr<class UMediaSoundComponent> IntroSound=nullptr;
     rpg::presentation::MediaFlow IntroFlow;
+    rpg::presentation::MediaStartGate IntroStartGate;
     uint64 IntroTicket=0;
     double IntroStarted=0,IntroHold=-1;
     bool IntroActive=false;
@@ -97,6 +98,7 @@ private:
     float LastTouchX=0,LastTouchY=0;
     rpg::presentation::CanvasMapping CanvasCoordinates;
     bool CanvasCoordinatesKnown=false;
+    bool InputWindowActive=false;
     void ReadPointer();
     bool InspectionMode=false;
     int32 InspectionIndex=0;

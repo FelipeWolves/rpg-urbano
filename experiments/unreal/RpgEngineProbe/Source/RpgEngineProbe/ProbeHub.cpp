@@ -317,7 +317,7 @@ void AProbeArenaHUD::DrawHub(){
     DrawText(HubTitle,HubCyan.ToFColorSRGB(),static_cast<float>(layout.header.x+68),static_cast<float>(layout.header.y+4),HubTitleFont);
     DrawText(TEXT("CODINOME: ")+HubCodename,FColor::White,static_cast<float>(layout.header.x+68),static_cast<float>(layout.header.y+28),HubBodyFont,0.75f);
     if(Flow.screen()==UiScreen::Options){DrawPreferences();return;}
-    if(Flow.screen()==UiScreen::Hub && button({layout.safe.x+184,layout.header.y+60,160,48},TEXT("Rever abertura"))){StartIntro();return;}
+    if(Flow.screen()==UiScreen::Hub && button({layout.safe.x+184,layout.header.y+60,160,48},TEXT("Rever abertura"))){Message=TEXT("Preparando abertura local...");StartIntro();return;}
     if(Flow.screen()==UiScreen::Hub && button({layout.safe.x+12,layout.header.y+60,160,48},TEXT("Equipe / Save"))){
         if(Flow.new_attempt_required()){Session.reset();Flow.acknowledge_new_attempt();}
         TeamMenuPage=0;HubPanelPage=0;DraftTeam=Session.team().selected;TeamStatus=TEXT("Seleção atual. Aplicar inicia nova tentativa; salvar usa a equipe já aplicada.");Flow.open_team();return;

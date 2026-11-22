@@ -1,3 +1,5 @@
+> **Vigente — VIS/ENG/HUB P0, 22/11:** [correções, evidências e reteste](VIS-ENG-HUB-P0-CORRECOES.md). Entrada/alvos e preparação do player atualizados em código; testes nativos aprovados. Aceites visuais continuam abertos; Android adiado e demo ~25% mantida. Próximo: reteste do usuário, depois integração visual dos modos já disponíveis. Esta nota prevalece sobre próximos passos históricos abaixo.
+
 # Mapa vigente das famílias e prioridades
 
 Atualizado em22/11/2026. Organização documental: sem implementação, testes, compilação, telas, Android ou internet nesta rodada.

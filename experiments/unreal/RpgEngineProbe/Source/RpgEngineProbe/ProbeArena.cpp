@@ -16,6 +16,7 @@
 #include "UnrealClient.h"
 #include "EngineUtils.h"
 #include "GameFramework/PlayerController.h"
+#include "Camera/PlayerCameraManager.h"
 #include "InputCoreTypes.h"
 #include "UObject/ConstructorHelpers.h"
 namespace {
@@ -80,7 +81,7 @@ void AProbeArenaHUD::RefreshArenaActors()
     auto* mesh=LoadObject<UStaticMesh>(nullptr,TEXT("/Engine/BasicShapes/Sphere.Sphere"));
     for(const auto& placement:rpg::presentation::arena_placements(roster,*layout)){
         auto* sphere=GetWorld()->SpawnActor<AStaticMeshActor>(FVector(placement.x,placement.y,placement.z),FRotator(0,placement.facing_yaw,0));
-        if(sphere && mesh){sphere->GetStaticMeshComponent()->SetStaticMesh(mesh);sphere->Tags.Add(FName(*Label(placement.fighter_id)));sphere->Tags.Add(FName(TEXT("RpgPrototypeActor")));}
+        if(sphere && mesh){sphere->GetStaticMeshComponent()->SetStaticMesh(mesh);sphere->GetStaticMeshComponent()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);sphere->GetStaticMeshComponent()->SetCollisionResponseToAllChannels(ECR_Ignore);sphere->GetStaticMeshComponent()->SetCollisionResponseToChannel(ECC_Visibility,ECR_Block);sphere->Tags.Add(FName(*Label(placement.fighter_id)));sphere->Tags.Add(FName(TEXT("RpgPrototypeActor")));}
     }
 }
 void AProbeArenaHUD::OpenInfo(const FString& title,const std::vector<std::string>& lines)
@@ -95,7 +96,9 @@ void AProbeArenaHUD::OpenInfo(const FString& title,const std::vector<std::string
 void AProbeArenaHUD::ReadPointer()
 {
     float mx=0,my=0,tx=0,ty=0;bool touched=false;
-    const bool mouseValid=PlayerOwner->GetMousePosition(mx,my);
+    int32 viewportWidth=0,viewportHeight=0;PlayerOwner->GetViewportSize(viewportWidth,viewportHeight);
+    const auto inViewport=[&](float x,float y){return x>=0 && y>=0 && x<viewportWidth && y<viewportHeight;};
+    const bool mouseValid=PlayerOwner->GetMousePosition(mx,my) && inViewport(mx,my);
     PlayerOwner->GetInputTouchState(ETouchIndex::Touch1,tx,ty,touched);
     if(touched){LastTouchX=tx;LastTouchY=ty;}
     if(Canvas->Canvas){
@@ -116,10 +119,11 @@ void AProbeArenaHUD::ReadPointer()
     const auto mouse=rpg::presentation::viewport_to_canvas(mx,my,CanvasCoordinates);
     const auto touch=rpg::presentation::viewport_to_canvas(LastTouchX,LastTouchY,CanvasCoordinates);
     const auto* viewport=GetWorld()->GetGameViewport();
-    const bool focused=viewport && viewport->Viewport && (IntroActive?viewport->Viewport->IsForegroundWindow():viewport->Viewport->HasFocus());
-    const std::uint8_t screen=InspectionMode?(!PopupLines.IsEmpty()?201:200):static_cast<std::uint8_t>(Flow.screen())+(!PopupLines.IsEmpty()?16:0);
+    InputWindowActive=viewport && viewport->Viewport && rpg::presentation::canvas_input_active(viewport->Viewport->IsForegroundWindow(),viewport->Viewport->HasFocus());
+    const bool focused=InputWindowActive;
+    const std::uint8_t screen=IntroActive?128:InspectionMode?(!PopupLines.IsEmpty()?201:200):static_cast<std::uint8_t>(Flow.screen())+(!PopupLines.IsEmpty()?16:0);
     Input=Pointer.update({PlayerOwner->IsInputKeyDown(EKeys::LeftMouseButton),mouseValid && mouse.has_value() && CanvasCoordinatesKnown,mouse?mouse->x:0,mouse?mouse->y:0},
-        {touched,touch.has_value() && CanvasCoordinatesKnown,touch?touch->x:0,touch?touch->y:0},focused,GetWorld()->GetTimeSeconds(),{InspectionMode?static_cast<std::uint64_t>(InspectionIndex):Session.state().revision,screen});
+        {touched,inViewport(LastTouchX,LastTouchY) && touch.has_value() && CanvasCoordinatesKnown,touch?touch->x:0,touch?touch->y:0},focused,GetWorld()->GetTimeSeconds(),{InspectionMode?static_cast<std::uint64_t>(InspectionIndex):Session.state().revision,screen});
     if(Input.cancelled){Gesture.cancel();}
 }
 void AProbeArenaHUD::DrawHUD()
@@ -181,11 +185,14 @@ void AProbeArenaHUD::DrawHUD()
         static_cast<unsigned long long>(view.combat.battle.round),static_cast<unsigned long long>(view.combat.battle.turn_id),static_cast<unsigned long long>(view.combat.battle.accepted_actions)),FColor::White,20,38);
     DrawText(classicRules?TEXT("Rules: Classic / Attack + Defense"):TEXT("Rules: Team / Ability slots"),FColor::Cyan,Canvas->SizeX-320.f,15);
     TArray<FBox2D> occupied;
+    std::vector<rpg::presentation::TargetHitRegion> targetRegions;
+    const FVector cameraPosition=PlayerOwner->PlayerCameraManager?PlayerOwner->PlayerCameraManager->GetCameraLocation():FVector::ZeroVector;
     for(TActorIterator<AStaticMeshActor> it(GetWorld());it;++it){
         for(const auto& fighter:view.combat.battle.fighters){
             const FString id=Label(fighter.definition.id);
             if(!it->Tags.Contains(FName(*id))){continue;}
             it->SetActorHiddenInGame(fighter.health<=0);
+            it->GetStaticMeshComponent()->SetCollisionEnabled(fighter.health>0?ECollisionEnabled::QueryOnly:ECollisionEnabled::NoCollision);
             FVector2D screen;
             if(!PlayerOwner->ProjectWorldLocationToScreen(it->GetActorLocation()+FVector(0,0,80),screen)){continue;}
             const auto labelPosition=rpg::presentation::viewport_to_canvas(screen.X,screen.Y,CanvasCoordinates);
@@ -209,8 +216,20 @@ void AProbeArenaHUD::DrawHUD()
             DrawRect(FLinearColor(0.65f,0.9f,1.f),x,y+31,width*static_cast<float>(shield.overlay_fraction),7);
             DrawText(TEXT("[i]"),FColor::Cyan,x+width-25,y+8);
             if(clicked && PopupLines.IsEmpty() && rpg::presentation::pointer_clicked(Input,{x+width-28,y,28,28})){OpenInfo(TEXT("Effects / ")+id,rpg::presentation::effect_details(fighter));return;}
-            if(clicked && manual && validTarget(fighter.definition.id) && rpg::presentation::pointer_clicked(Input,{x,y,width-28,40})){
-                if(classic){submit(id);}else{SelectedTarget=id;Message=TEXT("Target selected. Confirm when ready.");}return;
+            if(manual && validTarget(fighter.definition.id)){
+                const double depth=FVector::DistSquared(cameraPosition,it->GetActorLocation());
+                targetRegions.push_back({fighter.definition.id,{x,y,width-28,40},depth,true});
+                FVector center,extent;it->GetActorBounds(false,center,extent);
+                double left=1e20,top=1e20,right=-1e20,bottomEdge=-1e20;int projected=0;
+                for(int corner=0;corner<8;++corner){
+                    FVector2D viewportPoint;
+                    const FVector point=center+FVector((corner&1)?extent.X:-extent.X,(corner&2)?extent.Y:-extent.Y,(corner&4)?extent.Z:-extent.Z);
+                    if(!PlayerOwner->ProjectWorldLocationToScreen(point,viewportPoint)){continue;}
+                    if(const auto mapped=rpg::presentation::viewport_to_canvas(viewportPoint.X,viewportPoint.Y,CanvasCoordinates)){
+                        left=std::min(left,mapped->x);right=std::max(right,mapped->x);top=std::min(top,mapped->y);bottomEdge=std::max(bottomEdge,mapped->y);++projected;
+                    }
+                }
+                if(projected==8){const double w=std::max(48.0,right-left),h=std::max(48.0,bottomEdge-top);targetRegions.push_back({fighter.definition.id,{(left+right-w)/2,(top+bottomEdge-h)/2,w,h},depth,false});}
             }
             if(fighter.health>0 && (SelectedTarget==id || (classic && validTarget(fighter.definition.id) && inside(x,y,width-28,40)))){
                 FString style;FParse::Value(FCommandLine::Get(),TEXT("TargetMarker="),style);
@@ -310,10 +329,10 @@ void AProbeArenaHUD::DrawHUD()
     if(!classic && button(Canvas->SizeX-205.f,bottom+58,180,30,TEXT("Confirm action"),manual && !SelectedTarget.IsEmpty() && SelectedSlot!=0)){
         submit(SelectedTarget);return;
     }
-    if(PopupLines.IsEmpty() && clicked && manual && SelectedSlot && !classic){
-        FHitResult hit;const auto point=rpg::presentation::canvas_to_viewport(mx,my,CanvasCoordinates);
-        if(point && PlayerOwner->GetHitResultAtScreenPosition(FVector2D(point->x,point->y),ECC_Visibility,false,hit) && hit.GetActor()){
-            for(const auto& id:candidates){if(hit.GetActor()->Tags.Contains(FName(*Label(id)))){SelectedTarget=Label(id);Message=TEXT("Target changed. Confirm when ready.");break;}}
+    if(PopupLines.IsEmpty() && clicked && manual && SelectedSlot){
+        if(const auto target=rpg::presentation::pick_target(Input,targetRegions)){
+            if(classic){submit(Label(*target));}else{SelectedTarget=Label(*target);Message=TEXT("Alvo alterado. Confirme quando estiver pronto.");}
+            UE_LOG(LogTemp,Display,TEXT("VIS_TARGET_SELECTED slot=%d revision=%llu"),SelectedSlot,static_cast<unsigned long long>(view.revision));
         }
     }
     if(!PopupLines.IsEmpty()){

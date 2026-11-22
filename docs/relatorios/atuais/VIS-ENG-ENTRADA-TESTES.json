@@ -1,0 +1,8 @@
+{
+  "Date": "2026-11-22",
+  "Passed": true,
+  "Groups": 8,
+  "Scope": "Foreground Canvas first gesture, target change/overlap/origin/cancellation; native contract only",
+  "EngineExecuted": false,
+  "AndroidExecuted": false
+}

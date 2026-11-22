@@ -70,6 +70,9 @@ private:
     double started_=0,last_time_=0,origin_x_=0,origin_y_=0,touch_guard_=0;
 };
 [[nodiscard]] bool pointer_clicked(const PointerFrame& frame,const Rect& target) noexcept;
+struct TargetHitRegion { std::string id;Rect bounds;double depth=0;bool label=false; };
+[[nodiscard]] bool canvas_input_active(bool window_foreground,bool viewport_widget_focused) noexcept;
+[[nodiscard]] std::optional<std::string> pick_target(const PointerFrame& input,const std::vector<TargetHitRegion>& regions);
 struct SafeInsets { double left=0; double top=0; double right=0; double bottom=0; };
 struct HubFrame {
     Rect safe;
@@ -166,6 +169,15 @@ void validate_display(const StartupDisplay& display);
 // Local media lifecycle only. The backend resolves validated relative assets in AUT-11.
 enum class MediaState { Idle, Preparing, Playing, Paused, Completed, Skipped, Failed, Cancelled };
 enum class MediaFailure { None, MissingAsset, InvalidAsset, OpenFailed, Timeout, DecodeFailed };
+class MediaStartGate {
+public:
+    void reset() noexcept {next_attempt_=0;attempts_=0;}
+    [[nodiscard]] bool should_request(MediaState state,bool ready,bool playing,bool foreground,double seconds) noexcept;
+    [[nodiscard]] std::uint32_t attempts()const noexcept{return attempts_;}
+private:
+    double next_attempt_=0;
+    std::uint32_t attempts_=0;
+};
 class MediaFlow {
 public:
     std::uint64_t begin(std::optional<Asset> asset,bool previously_watched=false);

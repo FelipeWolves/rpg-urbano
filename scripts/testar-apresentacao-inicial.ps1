@@ -62,6 +62,10 @@ exit /b %ERRORLEVEL%
 "@
 $batch=$batch.Replace('exit /b %ERRORLEVEL%',@"
 if errorlevel 1 exit /b 79
+cl.exe %FLAGS% /I"$root/include" "$root/tests/interaction_routing_tests.cpp" "$build/startup_presentation.obj" /Fo"$build/interaction_routing_tests.obj" /Fe"$build/interaction_routing_tests.exe" /link /INCREMENTAL:NO
+if errorlevel 1 exit /b 82
+"$build/interaction_routing_tests.exe"
+if errorlevel 1 exit /b 83
 cl.exe %FLAGS% /I"$root/include" "$root/tests/media_flow_tests.cpp" "$build/startup_presentation.obj" /Fo"$build/media_flow_tests.obj" /Fe"$build/media_flow_tests.exe" /link /INCREMENTAL:NO
 if errorlevel 1 exit /b 80
 "$build/media_flow_tests.exe"
@@ -71,6 +75,7 @@ exit /b 0
 $batchPath=Join-Path $build 'testar.cmd';$batch | Set-Content $batchPath -Encoding ascii
 $output=@(& $env:ComSpec /d /c $batchPath 2>&1 | ForEach-Object {$_.ToString()});$code=$LASTEXITCODE
 $output | Set-Content (Join-Path $build 'resultado.log') -Encoding utf8
+if($code -ne 0){$output | Select-Object -Last 20 | Write-Output;throw "Presentation test executable/build failed: $code"}
 $passed=$code -eq 0 -and $output -contains 'STARTUP_PRESENTATION_TESTS_RESULT passed=10 total=10'
 [ordered]@{CheckedUtc=[DateTime]::UtcNow.ToString('o');Passed=$passed;ExitCode=$code;Groups=10;Scope='Native hub image crop, video contain/orientation request and local metadata; no media playback/window/device execution';EngineExecuted=$false;DeviceRotationExecuted=$false} | ConvertTo-Json | Set-Content (Join-Path $root 'docs/relatorios/atuais/HUB-01A.json') -Encoding utf8
 $hotspotsPassed=$code -eq 0 -and $output -contains 'HUB_HOTSPOT_TESTS_RESULT passed=5 total=5'
@@ -100,6 +105,10 @@ if(!$preferencesPassed){throw 'Preferences tests failed'}
 $flowPassed=$code -eq 0 -and $output -contains 'SCREEN_FLOW_TESTS_RESULT passed=10 total=10'
 [ordered]@{Date='2026-11-22';Passed=$flowPassed;ExitCode=$code;Groups=10;Scope='Explicit screen transitions, Back priority, modal gating and idempotent abandonment; no visual acceptance';EngineExecuted=$false;AndroidExecuted=$false} | ConvertTo-Json | Set-Content (Join-Path $root 'docs/relatorios/atuais/AUT-08-FLUXO.json') -Encoding utf8
 if(!$flowPassed){throw 'Screen flow tests failed'}
-$mediaPassed=$code -eq 0 -and $output -contains 'MEDIA_FLOW_TESTS_RESULT passed=12 total=12'
-[ordered]@{Date='2026-11-22';Passed=$mediaPassed;ExitCode=$code;Groups=12;Scope='Pure local media lifecycle, stale callbacks, watch state, pause/skip/failure and existing video geometry; no player or file IO';PlayerExecuted=$false;EditorOpened=$false;AndroidExecuted=$false} | ConvertTo-Json | Set-Content (Join-Path $root 'docs/relatorios/atuais/AUT-10-TESTES.json') -Encoding utf8
+$mediaPassed=$code -eq 0 -and $output -contains 'MEDIA_FLOW_TESTS_RESULT passed=16 total=16'
+[ordered]@{Date='2026-11-22';Passed=$mediaPassed;ExitCode=$code;Groups=16;Scope='Pure local media lifecycle, stale callbacks, watch state, pause/skip/failure and existing video geometry; no player or file IO';PlayerExecuted=$false;EditorOpened=$false;AndroidExecuted=$false} | ConvertTo-Json | Set-Content (Join-Path $root 'docs/relatorios/atuais/AUT-10-TESTES.json') -Encoding utf8
 if(!$mediaPassed){throw 'Media flow tests failed'}
+
+$routingPassed=$code -eq 0 -and $output -contains 'INTERACTION_ROUTING_TESTS_RESULT passed=8 total=8'
+[ordered]@{Date='2026-11-22';Passed=$routingPassed;Groups=8;Scope='Foreground Canvas first gesture, target change/overlap/origin/cancellation; native contract only';EngineExecuted=$false;AndroidExecuted=$false} | ConvertTo-Json | Set-Content (Join-Path $root 'docs/relatorios/atuais/VIS-ENG-ENTRADA-TESTES.json') -Encoding utf8
+if(!$routingPassed){throw 'Interaction routing tests failed'}

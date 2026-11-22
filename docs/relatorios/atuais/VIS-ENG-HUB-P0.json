@@ -1,0 +1,23 @@
+{
+  "Date": "2026-11-22",
+  "NativeRoutingGroups": 8,
+  "NativeMediaGroups": 16,
+  "NativeSuitePassed": true,
+  "UnrealBuild": "Succeeded",
+  "Target": "RpgEngineProbeEditor Win64 Development",
+  "BuildSeconds": 60.62,
+  "StageInputs": 66,
+  "StageVerified": true,
+  "CookExecuted": false,
+  "EditorOpened": false,
+  "GameExecuted": false,
+  "AndroidExecuted": false,
+  "InternetAccessed": false,
+  "VisualAcceptance": "pending user retest RET-INPUT-01 / RET-MEDIA-01",
+  "DemoPercentUnchanged": 25,
+  "Warnings": [
+    "MSVC 14.52 not preferred",
+    "C4864 engine Attribute.h"
+  ],
+  "McpInstalled": false
+}

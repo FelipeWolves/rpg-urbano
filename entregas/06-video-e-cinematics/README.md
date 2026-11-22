@@ -1,3 +1,5 @@
+> **22/11 — candidato a reteste:** correções de entrada/alvos e preparação da mídia em código. Testar primeira abertura/Rever e troca de alvo; aceite visual ainda pendente. Ver docs/projeto/VIS-ENG-HUB-P0-CORRECOES.md. Não é necessário reenviar os recursos já recebidos.
+
 # Vídeo e cinematics — guia vigente
 
 Atualizado em22/11/2026. **P0 reprodução; P2 acabamento.** Fonte vigente: [mapa das famílias](../../docs/projeto/MAPA-FAMILIAS-E-PRIORIDADES.md). Conteúdo deste guia distingue preparação independente de implementação/aceite. Atualizações de arquivos recebidos ficam preservadas.

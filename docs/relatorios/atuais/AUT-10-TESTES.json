@@ -2,7 +2,7 @@
   "Date": "2026-11-22",
   "Passed": true,
   "ExitCode": 0,
-  "Groups": 12,
+  "Groups": 16,
   "Scope": "Pure local media lifecycle, stale callbacks, watch state, pause/skip/failure and existing video geometry; no player or file IO",
   "PlayerExecuted": false,
   "EditorOpened": false,

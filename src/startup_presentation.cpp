@@ -168,6 +168,18 @@ PointerFrame PointerInput::update(PointerSample mouse,PointerSample touch,bool f
 bool pointer_clicked(const PointerFrame& frame,const Rect& target) noexcept {
     return frame.tap && !frame.cancelled && contains(target,frame.origin_x,frame.origin_y) && contains(target,frame.x,frame.y);
 }
+bool canvas_input_active(bool window_foreground,[[maybe_unused]] bool viewport_widget_focused) noexcept {
+    // Canvas has no focusable Slate control. Internal widget focus must not eat a fresh click.
+    return window_foreground;
+}
+std::optional<std::string> pick_target(const PointerFrame& input,const std::vector<TargetHitRegion>& regions){
+    const TargetHitRegion* chosen=nullptr;
+    for(const auto& region:regions){
+        if(region.id.empty() || !std::isfinite(region.depth) || region.depth<0 || !pointer_clicked(input,region.bounds)){continue;}
+        if(!chosen || (region.label&&!chosen->label) || (region.label==chosen->label && (region.depth<chosen->depth || (region.depth==chosen->depth && region.id<chosen->id)))){chosen=&region;}
+    }
+    return chosen?std::optional<std::string>{chosen->id}:std::nullopt;
+}
 std::optional<HubFrame> plan_hub_frame(PixelSize viewport,std::uint32_t count,SafeInsets insets){
     valid_size(viewport);
     if(count>16){throw std::invalid_argument("At most 16 hub destinations supported");}
@@ -344,7 +356,11 @@ std::optional<ProjectedHotspot> project_hotspot(const HubPlan& plan,const HubHot
     const auto py=[&](double value){return content.y+(value-uv.y)*content.height/uv.height;};
     return ProjectedHotspot{{px(x),py(y),px(right)-px(x),py(bottom)-py(y)},
         px(std::clamp(h.anchor_x,x,right)),py(std::clamp(h.anchor_y,y,bottom))};
-}bool MediaFlow::active() const noexcept {return state_==MediaState::Preparing || state_==MediaState::Playing || state_==MediaState::Paused;}
+}bool MediaStartGate::should_request(MediaState state,bool ready,bool playing,bool foreground,double seconds) noexcept {
+    if(state!=MediaState::Preparing || !ready || playing || !foreground || !std::isfinite(seconds) || seconds<0 || seconds<next_attempt_){return false;}
+    next_attempt_=seconds+0.1;++attempts_;return true;
+}
+bool MediaFlow::active() const noexcept {return state_==MediaState::Preparing || state_==MediaState::Playing || state_==MediaState::Paused;}
 bool MediaFlow::return_to_hub() const noexcept {return state_==MediaState::Completed || state_==MediaState::Skipped || state_==MediaState::Failed || state_==MediaState::Cancelled;}
 std::uint64_t MediaFlow::begin(std::optional<Asset> asset,bool previously_watched){
     if(ticket_==std::numeric_limits<std::uint64_t>::max()){throw std::overflow_error("Media ticket exhausted");}

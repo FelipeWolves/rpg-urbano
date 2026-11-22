@@ -1,3 +1,5 @@
+> **LAB-PVE-06 — 22/11:** [três frentes com chefe único](LAB-PVE-06-FRENTES-COMPARTILHADAS.md) no Terminal, página3, ataques locais e especial global. Contadores por frente e limite global, sem limite local novo. LAB01–06 em código; aceites02–06 pendentes. Próximo recomendado LAB-QA-01/aceites. Demo ~28% mantida.
+
 > **LAB-PVE-05 — 22/11:** [três equipes sequenciais no Terminal](LAB-PVE-05-EQUIPES-SEQUENCIAIS.md), variantes de chefe fixo/faseado, HP contínuo e HUD. Janela4ações totais/equipe é fixture explícita. Aceites02–05 pendentes; próximo06frentes compartilhadas. Demo ~28% mantida.
 
 > **LAB-PVE-04 — 22/11:** [score/sobrevivência e recibo no Terminal](LAB-PVE-04-SCORE-SOBREVIVENCIA.md). Acessos na página2; janela12ações e meta3turnos naturais são parâmetros de laboratório. Aceites visuais02–04 pendentes; próximo05equipes sequenciais. Demo ~28% mantida.
@@ -27,7 +29,7 @@
 - [x] LAB-PVE-03: ondas/fases e detalhes de transição implementados; aceite visual pendente.
 - [x] LAB-PVE-04: score/sobrevivência e recibos implementados; aceite visual pendente.
 - [x] LAB-PVE-05: equipes sequenciais e variantes do chefe implementadas; aceite visual pendente.
-- [ ] LAB-PVE-06: frentes locais e chefe compartilhado.
+- [x] LAB-PVE-06: frentes locais/chefe único e escopos integrados; aceite visual pendente.
 - [ ] LAB-QA-01 em paralelo: feedback e roteiro de save/tutorial/resoluções.
 
 Essa é a ordem do próximo desenvolvimento, não execução nesta atualização. Detalhes e dependências na FILA-DESENVOLVIMENTO-INDEPENDENTE.md.
@@ -46,3 +48,12 @@ Essa é a ordem do próximo desenvolvimento, não execução nesta atualização
 - [ ] Roteiro final curto do piloto; regras novas de progressão/itens se forem entrar no recorte.
 
 Não é necessário reenviar fórmulas fechadas, kit Felipe, vídeos ou panorama atuais. Recursos finais não bloqueiam os cortes de laboratório acima. Android, MCP, clássico ampliado e publicação ficam adiados. [Recebíveis](../../entregas/NECESSIDADES-ATUAIS.md).
+## Extensoes de codigo fora dos cortes LAB-PVE-01–06
+
+- [ ] Ponte de runtime para passivas BattleStart em ondas/sequenciais/frentes.
+- [ ] Mapeamento explicito quando fases trocarem IDs/slots de habilidades.
+- [ ] Layout/kit de auxiliares por frente; core ja possui escopos.
+- [ ] Adaptador de tres chefes independentes, sem confundir com HP compartilhado.
+- [ ] Matriz visual ampla (incluindo15aliados), feedback e persistencia real.
+
+Engenharia posterior, nao pesquisa obrigatoria nova do usuario. Nao iniciar Android/MCP/classico/servidor por inferencia.

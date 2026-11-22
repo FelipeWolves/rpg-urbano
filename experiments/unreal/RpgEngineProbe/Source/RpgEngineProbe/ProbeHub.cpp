@@ -232,7 +232,7 @@ void AProbeArenaHUD::DrawPreferences()
 }
 void AProbeArenaHUD::ReturnToHub(){
     if(Flow.screen()!=UiScreen::Hub && !Flow.return_hub()){return;}Gesture.cancel();PopupLines.Empty();SelectedSlot=0;SelectedTarget.Empty();
-    if(PveActive || WavesActive || SequenceActive){Flow.acknowledge_new_attempt();PveActive=false;WavesActive=false;SequenceActive=false;RefreshArenaActors();}
+    if(PveActive || WavesActive || SequenceActive || SharedActive){Flow.acknowledge_new_attempt();PveActive=false;WavesActive=false;SequenceActive=false;SharedActive=false;RefreshArenaActors();}
     UE_LOG(LogTemp,Display,TEXT("HUB_RETURN attempt=%llu"),static_cast<unsigned long long>(Session.state().progress.attempt));
 }
 int32 AProbeArenaHUD::DrawInfoPanel(const FString& title,const TArray<FString>& paragraphs,int32& page,bool action,const FString& actionLabel,const FString& closeLabel)
@@ -274,7 +274,7 @@ int32 AProbeArenaHUD::DrawInfoPanel(const FString& title,const TArray<FString>& 
     return 0;
 }
 void AProbeArenaHUD::SelectLabScenario(bool felipe){
-    const bool leavingRitual=PveActive || WavesActive || SequenceActive;PveActive=false;WavesActive=false;SequenceActive=false;
+    const bool leavingRitual=PveActive || WavesActive || SequenceActive || SharedActive;PveActive=false;WavesActive=false;SequenceActive=false;SharedActive=false;
     if(felipe==SessionIsFelipe){if(leavingRitual){RefreshArenaActors();}return;}
     // Preserve each scenario in memory; neither progress ledger is imported into the other.
     if(!AlternateLabSession){
@@ -346,9 +346,9 @@ void AProbeArenaHUD::DrawHub(){
                 if(!selected){selected=std::make_unique<rpg::presentation::PveVisualSession>(rpg::presentation::pve_lab_definition(kind));}
                 else if(selected->finished() || selected->state().stopped){selected->reset();}
                 if(Flow.new_attempt_required()){Session.reset();}Flow.acknowledge_new_attempt();
-                if(Flow.enter_arena(selected->finished())){PveActive=true;SelectedPveLab=kind;WavesActive=false;SequenceActive=false;SelectedSlot=0;SelectedTarget.Empty();Gesture.cancel();Pointer.cancel_until_release();RefreshArenaActors();NextAutomatic=GetWorld()->GetTimeSeconds()+0.5;Message=TEXT("Teste local; consulte objetivo e limites no HUD.");}
+                if(Flow.enter_arena(selected->finished())){PveActive=true;SelectedPveLab=kind;WavesActive=false;SequenceActive=false;SharedActive=false;SelectedSlot=0;SelectedTarget.Empty();Gesture.cancel();Pointer.cancel_until_release();RefreshArenaActors();NextAutomatic=GetWorld()->GetTimeSeconds()+0.5;Message=TEXT("Teste local; consulte objetivo e limites no HUD.");}
             };
-            DrawText(FString::Printf(TEXT("TERMINAL — TESTES LOCAIS %d/2"),TerminalMenuPage+1),FColor::Cyan,static_cast<float>(x),static_cast<float>(y-35),HubBodyFont,0.8f);
+            DrawText(FString::Printf(TEXT("TERMINAL — TESTES LOCAIS %d/3"),TerminalMenuPage+1),FColor::Cyan,static_cast<float>(x),static_cast<float>(y-35),HubBodyFont,0.8f);
             if(TerminalMenuPage==0){
                 if(button({x,y,w,48},TEXT("Laboratorio de equipe"))){SelectLabScenario(false);enterBattle();return;}
                 if(button({x,y+54,w,48},TEXT("Ritual local — Felipe e ecos"))){enterPve(rpg::presentation::PveLabKind::Ritual);return;}
@@ -356,9 +356,9 @@ void AProbeArenaHUD::DrawHub(){
                 if(button({x,y+162,w,48},TEXT("Ondas consecutivas — Felipe"))){
                     if(!Waves){Waves=std::make_unique<rpg::presentation::WaveVisualSession>();}else if(Waves->finished() || Waves->state().stopped){Waves->reset();}
                     if(Flow.new_attempt_required()){Session.reset();}Flow.acknowledge_new_attempt();
-                    if(Flow.enter_arena(Waves->finished())){WavesActive=true;PveActive=false;SequenceActive=false;SelectedSlot=0;SelectedTarget.Empty();Gesture.cancel();Pointer.cancel_until_release();RefreshArenaActors();NextAutomatic=GetWorld()->GetTimeSeconds()+0.5;Message=TEXT("Conclua as duas ondas; transicoes seguem WaveV2.");}return;
+                    if(Flow.enter_arena(Waves->finished())){WavesActive=true;PveActive=false;SequenceActive=false;SharedActive=false;SelectedSlot=0;SelectedTarget.Empty();Gesture.cancel();Pointer.cancel_until_release();RefreshArenaActors();NextAutomatic=GetWorld()->GetTimeSeconds()+0.5;Message=TEXT("Conclua as duas ondas; transicoes seguem WaveV2.");}return;
                 }
-            }else{
+            }else if(TerminalMenuPage==1){
                 if(button({x,y,w,48},TEXT("Pontuacao — janela de 12 acoes"))){enterPve(rpg::presentation::PveLabKind::Score);return;}
                 if(button({x,y+54,w,48},TEXT("Sobrevivencia — 3 turnos do chefe"))){enterPve(rpg::presentation::PveLabKind::Survival);return;}
             }
@@ -367,13 +367,23 @@ void AProbeArenaHUD::DrawHub(){
                     auto& selected=SequenceLabs[phases?1:0];
                     if(!selected){selected=std::make_unique<rpg::presentation::SequentialVisualSession>(rpg::presentation::sequential_lab_definition(phases));}else if(selected->finished() || selected->state().stopped){selected->reset();}
                     if(Flow.new_attempt_required()){Session.reset();}Flow.acknowledge_new_attempt();
-                    if(Flow.enter_arena(selected->finished())){SequenceActive=true;SequencePhased=phases;WavesActive=false;PveActive=false;SelectedSlot=0;SelectedTarget.Empty();Gesture.cancel();Pointer.cancel_until_release();RefreshArenaActors();NextAutomatic=GetWorld()->GetTimeSeconds()+0.5;Message=TEXT("Chefe com HP continuo; janela de 4 acoes por equipe.");}
+                    if(Flow.enter_arena(selected->finished())){SequenceActive=true;SequencePhased=phases;WavesActive=false;PveActive=false;SharedActive=false;SelectedSlot=0;SelectedTarget.Empty();Gesture.cancel();Pointer.cancel_until_release();RefreshArenaActors();NextAutomatic=GetWorld()->GetTimeSeconds()+0.5;Message=TEXT("Chefe com HP continuo; janela de 4 acoes por equipe.");}
                 };
                 if(button({x,y+108,w,48},TEXT("3 equipes — fases do chefe"))){enterSequence(true);return;}
                 if(button({x,y+162,w,48},TEXT("3 equipes — kit fixo do chefe"))){enterSequence(false);return;}
             }
+            if(TerminalMenuPage==2){
+                const auto enterShared=[&](bool global){
+                    auto& selected=SharedLabs[global?1:0];
+                    if(!selected){selected=std::make_unique<rpg::presentation::SharedVisualSession>(rpg::presentation::shared_lab_definition(global));}else if(selected->finished() || selected->state().stopped){selected->reset();}
+                    if(Flow.new_attempt_required()){Session.reset();}Flow.acknowledge_new_attempt();
+                    if(Flow.enter_arena(selected->finished())){SharedActive=true;SharedGlobalSpecial=global;SequenceActive=false;WavesActive=false;PveActive=false;SelectedSlot=0;SelectedTarget.Empty();Gesture.cancel();Pointer.cancel_until_release();RefreshArenaActors();NextAutomatic=GetWorld()->GetTimeSeconds()+0.5;Message=TEXT("Tres frentes ativas, um chefe. Consulte escopos e proximo ataque local.");}
+                };
+                if(button({x,y,w,48},TEXT("3 frentes — ataques locais"))){enterShared(false);return;}
+                if(button({x,y+54,w,48},TEXT("3 frentes — especial global"))){enterShared(true);return;}
+            }
             const double nav=(w-8)/2;
-            if(button({x,y+216,nav,48},TerminalMenuPage==0?TEXT("Mais modos >"):TEXT("< Primeiros modos"))){TerminalMenuPage=1-TerminalMenuPage;Pointer.cancel_until_release();return;}
+            if(button({x,y+216,nav,48},TerminalMenuPage==0?TEXT("Mais modos >"):TerminalMenuPage==1?TEXT("Frentes locais >"):TEXT("< Primeiros modos"))){TerminalMenuPage=(TerminalMenuPage+1)%3;Pointer.cancel_until_release();return;}
             if(button({x+nav+8,y+216,nav,48},TEXT("Voltar"))){Flow.back(false,false);return;}return;
         }
         TArray<FString> paragraphs;paragraphs.Add(HubPanelBody);

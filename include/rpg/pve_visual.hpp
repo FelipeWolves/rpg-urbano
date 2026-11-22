@@ -2,6 +2,7 @@
 #include "rpg/visual_session.hpp"
 #include "rpg/pve.hpp"
 #include "rpg/stage.hpp"
+#include "rpg/shared_boss.hpp"
 #include <memory>
 namespace rpg::presentation {
 enum class PveLabKind { Ritual, Phased, Score, Survival };
@@ -123,4 +124,42 @@ private:
  void check_capacity()const;
  [[nodiscard]] VisualResult preflight(std::uint64_t revision,bool automatic)const;
  [[nodiscard]] VisualResult accept(SequentialActionResult result,bool automatic);
+};struct SharedVisualDefinition {SharedBossDefinition encounter;std::vector<CharacterLoadout> loadouts;};
+[[nodiscard]] SharedVisualDefinition shared_lab_definition(bool global_special=false);
+struct SharedFrontHud {std::string id;bool active;std::uint64_t allied_actions;std::vector<std::string> members;};
+struct SharedHud {
+ std::string stage_id,boss_id,status;
+ numeric::Quantity boss_health,boss_max_health;
+ std::uint64_t global_actions,boss_actions;
+ std::optional<std::uint64_t> global_goal,global_remaining;
+ std::vector<SharedFrontHud> fronts;
+ std::optional<std::string> actor_front,next_local_front,last_local_front;
+ bool finished,objective_met;
+};
+class SharedVisualSession {
+public:
+ explicit SharedVisualSession(SharedVisualDefinition definition=shared_lab_definition());
+ [[nodiscard]] VisualState state()const;
+ [[nodiscard]] SharedHud hud()const;
+ [[nodiscard]] SharedBossSnapshot observation()const{return encounter_.snapshot();}
+ [[nodiscard]] bool finished()const noexcept{return encounter_.battle().phase()==Phase::Finished;}
+ [[nodiscard]] std::vector<std::string> targets(std::uint32_t position)const;
+ [[nodiscard]] VisualResult submit(std::uint64_t revision,std::uint32_t slot,std::string target);
+ [[nodiscard]] VisualResult submit_action(std::uint64_t revision,const Action& action);
+ [[nodiscard]] VisualResult step_automatic();
+ [[nodiscard]] std::optional<VisualCue> next_visual_cue(){return cues_.pop();}
+ void reset();
+ void abandon()noexcept{stopped_=true;cues_.clear();}
+private:
+ SharedVisualDefinition definition_;
+ SharedBoss encounter_;
+ VisualEventQueue cues_;
+ std::vector<std::uint64_t> front_actions_;
+ std::optional<std::string> last_local_front_;
+ std::uint64_t revision_=0,attempt_=1,boss_actions_=0;
+ std::uint32_t automatic_count_=0;
+ bool stopped_=false;
+ void check_capacity()const;
+ [[nodiscard]] VisualResult preflight(std::uint64_t revision,bool automatic)const;
+ [[nodiscard]] VisualResult accept(SharedBossActionResult result,bool automatic);
 };}

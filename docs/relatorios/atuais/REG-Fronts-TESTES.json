@@ -6,6 +6,7 @@
   "Result": [
     "REG_FRONT_TESTS_RESULT passed=8 total=8"
   ],
+  "BigIntegerVectors": 0,
   "EngineExecuted": false,
   "AndroidExecuted": false
 }

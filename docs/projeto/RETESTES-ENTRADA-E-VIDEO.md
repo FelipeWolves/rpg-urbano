@@ -1,3 +1,5 @@
+> **Novo aceite LAB-PVE-06:** [três frentes e chefe único](LAB-PVE-06-FRENTES-COMPARTILHADAS.md), página3, formação/etiquetas, rotação, escopos, resultado/abandono. Não representa três chefes independentes ou servidor; aceites02–05 continuam abertos.
+
 > **Novo aceite LAB-PVE-05:** [equipes sequenciais](LAB-PVE-05-EQUIPES-SEQUENCIAIS.md), transição de identidade, HP contínuo, kit fixo/fases, resultado/abandono/retorno. Não substitui os aceites pendentes02–04.
 
 > **Novo aceite LAB-PVE-04:** [pontuação/sobrevivência](LAB-PVE-04-SCORE-SOBREVIVENCIA.md), página2doTerminal, resultado/recibo sem repetição e meta de turnos do chefe. Não substitui os aceites pendentes02/03 nem reabre controles já aceitos.

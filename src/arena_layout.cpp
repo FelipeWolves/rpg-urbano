@@ -40,6 +40,17 @@ std::vector<ArenaPlacement> arena_placements(const std::vector<Definition>& rost
     }
     return result;
 }
+std::vector<ArenaPlacement> shared_arena_placements(const SharedBossSnapshot& s){
+ if(s.squad_ids.size()!=3 || s.members.size()!=3 || s.boss_id.empty()){throw std::invalid_argument("Invalid shared visual formation");}
+ constexpr std::array<float,5> offsets={0.f,75.f,-75.f,40.f,-40.f};constexpr std::array<float,5> depths={500.f,400.f,380.f,240.f,220.f};
+ std::vector<ArenaPlacement> out;std::vector<std::string> seen;
+ for(std::size_t i=0;i<3;++i){if(s.members[i].empty()||s.members[i].size()>5){throw std::invalid_argument("Shared visual front supports 1..5");}for(std::size_t j=0;j<s.members[i].size();++j){
+  const auto& id=s.members[i][j];const auto f=std::ranges::find(s.battle.fighters,id,[](const Fighter& unit){return unit.definition.id;});
+  if(f==s.battle.fighters.end()||f->definition.team!=Team::A||std::ranges::find(seen,id)!=seen.end()){throw std::invalid_argument("Invalid shared visual member");}seen.push_back(id);out.push_back({id,Team::A,(static_cast<float>(i)-1)*340+offsets[j],-depths[j],60,90});
+ }}
+ const auto boss=std::ranges::find(s.battle.fighters,s.boss_id,[](const Fighter& unit){return unit.definition.id;});if(boss==s.battle.fighters.end()||boss->definition.team!=Team::B){throw std::invalid_argument("Missing shared boss");}
+ out.push_back({s.boss_id,Team::B,0,600,60,-90});return out;
+}
 float marker_radius(float x,float y) noexcept {
     if(!std::isfinite(x) || !std::isfinite(y) || x<=0 || y<=0){return 75.f;}
     return std::clamp(std::max(x,y),1.f,10000.f/1.5f)*1.5f;

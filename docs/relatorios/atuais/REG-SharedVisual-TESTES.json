@@ -1,0 +1,12 @@
+{
+  "Date": "2026-11-22",
+  "Suite": "SharedVisual",
+  "Passed": true,
+  "ExitCode": 0,
+  "Result": [
+    "REG_SHARED_VISUAL_TESTS_RESULT passed=14 total=14"
+  ],
+  "BigIntegerVectors": 0,
+  "EngineExecuted": false,
+  "AndroidExecuted": false
+}

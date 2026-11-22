@@ -1,4 +1,4 @@
-> **Estado vigente — 22/11/2026:** demo **~28% (26–30%)**, ponderado28,03%. Cliques/vídeo/skip/esferas/seletor aceitos no Windows. LAB-PVE-02–05 entregues em código, aguardando aceite visual; próximo: LAB-PVE-06, frentes compartilhadas; não depende de nova entrega. [Progresso](docs/projeto/PROGRESSO-GERAL.md) · [Tarefas](docs/projeto/TAREFAS.md) · [Sua preparação](entregas/NECESSIDADES-ATUAIS.md).
+> **Estado vigente — 22/11/2026:** demo **~28% (26–30%)**, ponderado28,03%. Cliques/vídeo/skip/esferas/seletor aceitos no Windows. LAB-PVE-01–06 entregues em código, aceites visuais02–06 pendentes; próximo recomendado: LAB-QA-01 e correções dos testes do usuário; não depende de nova entrega. [Progresso](docs/projeto/PROGRESSO-GERAL.md) · [Tarefas](docs/projeto/TAREFAS.md) · [Sua preparação](entregas/NECESSIDADES-ATUAIS.md).
 # RPG Urbano — Mundus Lupis Disco / codinome LOBO
 
 Protótipo original de RPG urbano e musical. Núcleo C++20 independente, apresentação atual na Unreal Engine 5.8.4 e laboratório textual preservado. Demo recortada: Felipe, uma arena e inimigos provisórios; não é o escopo comercial completo.

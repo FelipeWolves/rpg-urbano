@@ -1,4 +1,5 @@
 #include "rpg/pve_visual.hpp"
+#include "rpg/battle_presentation.hpp"
 #include <limits>
 #include <stdexcept>
 namespace rpg::presentation {
@@ -180,4 +181,69 @@ VisualResult SequentialVisualSession::submit_action(std::uint64_t revision,const
 VisualResult SequentialVisualSession::step_automatic(){
  const auto check=preflight(revision_,true);if(!check.accepted()){return check;}if(automatic_count_>=256){stopped_=true;return {VisualError::SafetyStop,{}};}check_capacity();const auto action=choose_team_action(encounter_.battle(),loadouts());if(!action){stopped_=true;return {VisualError::SafetyStop,{}};}auto result=accept(encounter_.apply(*action),true);if(!result.accepted()){stopped_=true;}return result;
 }
-void SequentialVisualSession::reset(){check_capacity();if(attempt_==std::numeric_limits<std::uint64_t>::max()){throw std::overflow_error("Sequence attempt exhausted");}encounter_.reset();++revision_;++attempt_;automatic_count_=0;stopped_=false;cues_.clear();previous_squad_.reset();previous_phase_.reset();}}
+void SequentialVisualSession::reset(){check_capacity();if(attempt_==std::numeric_limits<std::uint64_t>::max()){throw std::overflow_error("Sequence attempt exhausted");}encounter_.reset();++revision_;++attempt_;automatic_count_=0;stopped_=false;cues_.clear();previous_squad_.reset();previous_phase_.reset();}namespace {
+SharedVisualDefinition validate_shared(SharedVisualDefinition d){
+ if(d.encounter.config_version!=2 || d.encounter.squads.size()!=3 || !d.encounter.front_enemies.empty()){throw std::invalid_argument("Visual shared profile requires v2, three fronts, no auxiliary layout yet");}
+ std::vector<Definition> roster;for(const auto& squad:d.encounter.squads){for(const auto& member:squad.members){roster.push_back(member.fighter);}}roster.push_back(d.encounter.boss);
+ for(const auto& set:d.loadouts){for(const auto& slot:set.slots){if(slot.passive&&slot.passive->trigger==PassiveTrigger::BattleStart){throw std::invalid_argument("Shared opening passives require explicit runtime adapter");}}}
+ ProfileBattle profile(roster,d.encounter.rules,CombatProfile::Team,d.loadouts);d.encounter.rules=profile.snapshot().battle.rules;d.loadouts=profile.snapshot().loadouts;return d;
+}
+std::optional<std::size_t> shared_front_of(const SharedBossSnapshot& s,std::string_view id){for(std::size_t i=0;i<s.members.size();++i){if(std::ranges::find(s.members[i],id)!=s.members[i].end()){return i;}}return std::nullopt;}
+}
+SharedVisualDefinition shared_lab_definition(bool global_special){
+ const auto sequential=sequential_lab_definition(false);SharedBossDefinition d;d.id=global_special?"shared-global-lab":"shared-local-lab";d.config_version=2;d.boss=sequential.encounter.boss;d.boss.id="CHEFE-PAR";d.boss.max_health=150000;d.boss.attack=700;
+ d.rules=team_reference_rules();std::vector<CharacterLoadout> sets;
+ for(std::size_t i=0;i<sequential.encounter.squads.size();++i){
+  const auto& squad=sequential.encounter.squads[i];const auto& member=squad.members[0];d.squads.push_back({"frente-"+std::to_string(i+1),{{member.character_id,member.fighter}}});
+  for(const auto& skill:squad.rules.skills){if(skill.owner==member.fighter.id){d.rules.skills.push_back(skill);d.skill_scopes.push_back({skill.id,skill.target==TargetRule::Self?SharedSkillTarget::Self:skill.target==TargetRule::Ally?SharedSkillTarget::OwnSquad:SharedSkillTarget::Boss});}}
+  sets.push_back(*std::ranges::find(sequential.loadouts[i],member.fighter.id,&CharacterLoadout::fighter_id));
+ }
+ SkillDefinition basic{"CHEFE-PAR-A1",d.boss.id,0,TargetRule::Enemy,{{EffectKind::Damage}}};basic.basic=true;d.rules.skills.push_back(basic);d.skill_scopes.push_back({basic.id,SharedSkillTarget::RotatingFront});
+ CharacterLoadout boss{d.boss.id,{{1,"Pulso local",basic.id,"Ataque comum alterna entre frentes vivas."}}};
+ if(global_special){SkillDefinition special{"CHEFE-PAR-A2",d.boss.id,3,TargetRule::EnemyTeam,{{EffectKind::Damage}}};d.rules.skills.push_back(special);d.skill_scopes.push_back({special.id,SharedSkillTarget::AllFronts});boss.slots.push_back({2,"Pulso global",special.id,"Ataque especial declarado para todas as frentes."});boss.automatic_priority={2};}
+ sets.push_back(std::move(boss));return {std::move(d),std::move(sets)};
+}
+SharedVisualSession::SharedVisualSession(SharedVisualDefinition definition):definition_(validate_shared(std::move(definition))),encounter_(definition_.encounter),front_actions_(3,0){}
+VisualState SharedVisualSession::state()const{
+ const auto* actor=encounter_.battle().current_actor();return {revision_,{CombatProfile::Team,definition_.loadouts,encounter_.battle().snapshot(),{}},{attempt_,0,{}},actor?team_abilities(encounter_.battle(),definition_.loadouts,actor->definition.id):std::vector<AbilityView>{},!finished()&&actor&&actor->definition.team==Team::B,stopped_||finished()};
+}
+SharedHud SharedVisualSession::hud()const{
+ const auto s=encounter_.snapshot();const auto* boss=encounter_.battle().find(s.boss_id);std::string status="Em andamento";
+ const bool objective=finished()&&s.battle.winner==Team::A&&boss->health==0&&s.battle.end_reason==EndReason::Elimination;
+ if(finished()){status=objective?"Chefe compartilhado derrotado":s.battle.end_reason==EndReason::ActionLimit?"Limite global de acoes atingido":s.battle.end_reason==EndReason::TechnicalLimit?"Interrupcao por limite tecnico":"Encontro encerrado sem cumprir objetivo";}
+ std::vector<SharedFrontHud> fronts;for(std::size_t i=0;i<s.squad_ids.size();++i){fronts.push_back({s.squad_ids[i],s.active_squads[i],front_actions_[i],s.members[i]});}
+ const auto index=s.battle.current_actor?shared_front_of(s,*s.battle.current_actor):std::nullopt;const auto actor_front=index?std::optional<std::string>{s.squad_ids[*index]}:std::nullopt;
+ const auto goal=s.battle.rules.action_budget?std::optional<std::uint64_t>{static_cast<std::uint64_t>(s.battle.rules.action_budget->max_actions)}:std::nullopt;
+ return {s.stage_id,s.boss_id,std::move(status),boss->health,boss->definition.max_health,s.battle.accepted_actions,boss_actions_,goal,encounter_.battle().remaining_actions(),std::move(fronts),actor_front,s.next_boss_front,last_local_front_,finished(),objective};
+}
+std::vector<std::string> SharedVisualSession::targets(std::uint32_t position)const{
+ auto candidates=target_candidates(state(),position);const auto s=encounter_.snapshot();if(!s.battle.current_actor){return {};}
+ const auto actor=*s.battle.current_actor;const auto set=std::ranges::find(definition_.loadouts,actor,&CharacterLoadout::fighter_id);if(set==definition_.loadouts.end()){return {};}
+ const auto slot=std::ranges::find(set->slots,position,&AbilitySlot::position);if(slot==set->slots.end()||!slot->active_skill){return {};}
+ const auto scope=std::ranges::find(s.skill_scopes,*slot->active_skill,&SharedSkillScope::skill_id);if(scope==s.skill_scopes.end()){return {};}
+ const auto owner_front=shared_front_of(s,actor);
+ std::erase_if(candidates,[&](const std::string& id){switch(scope->target){case SharedSkillTarget::Self:return id!=actor;case SharedSkillTarget::OwnSquad:return shared_front_of(s,id)!=owner_front;case SharedSkillTarget::Boss:return id!=s.boss_id;case SharedSkillTarget::RotatingFront:{const auto target=shared_front_of(s,id);return !target||!s.next_boss_front||s.squad_ids[*target]!=*s.next_boss_front;}case SharedSkillTarget::AllFronts:return !shared_front_of(s,id);}return true;});return candidates;
+}
+void SharedVisualSession::check_capacity()const{if(revision_==std::numeric_limits<std::uint64_t>::max()){throw std::overflow_error("Shared revision exhausted");}}
+VisualResult SharedVisualSession::preflight(std::uint64_t revision,bool automatic)const{
+ if(revision!=revision_){return {VisualError::StaleCommand,{}};}if(finished()){return {VisualError::Finished,{}};}if(stopped_){return {VisualError::SafetyStop,{}};}const auto* actor=encounter_.battle().current_actor();if(!actor||(actor->definition.team==Team::B)!=automatic){return {VisualError::NotPlayerTurn,{}};}return {};
+}
+VisualResult SharedVisualSession::accept(SharedBossActionResult result,bool automatic){
+ if(!result.accepted()){if(result.error==SharedBossError::WrongFront){result.action.error=ActionError::InvalidSkillTarget;}return {VisualError::CoreRejected,std::move(result.action)};}
+ const auto s=encounter_.snapshot();const auto actor=result.action.action_context?result.action.action_context->actor:std::string{};const auto front=shared_front_of(s,actor);
+ if(front){++front_actions_[*front];}else if(actor==s.boss_id){++boss_actions_;if(result.squad_id){last_local_front_=result.squad_id;}}
+ ++revision_;automatic_count_=automatic?automatic_count_+1:0;static_cast<void>(cues_.observe(revision_,result.action));return {VisualError::None,std::move(result.action)};
+}
+VisualResult SharedVisualSession::submit(std::uint64_t revision,std::uint32_t slot,std::string target){
+ const auto check=preflight(revision,false);if(!check.accepted()){return check;}check_capacity();auto prepared=prepare_team_slot(encounter_.battle(),definition_.loadouts,slot,std::move(target));if(!prepared.action){return {VisualError::CoreRejected,ActionResult{prepared.error}};}return accept(encounter_.apply(*prepared.action),false);
+}
+VisualResult SharedVisualSession::submit_action(std::uint64_t revision,const Action& action){
+ const auto check=preflight(revision,false);if(!check.accepted()){return check;}check_capacity();auto prepared=prepare_team_action(encounter_.battle(),definition_.loadouts,action);if(!prepared.action){return {VisualError::CoreRejected,ActionResult{prepared.error}};}return accept(encounter_.apply(*prepared.action),false);
+}
+VisualResult SharedVisualSession::step_automatic(){
+ const auto check=preflight(revision_,true);if(!check.accepted()){return check;}if(automatic_count_>=256){stopped_=true;return {VisualError::SafetyStop,{}};}check_capacity();auto action=choose_team_action(encounter_.battle(),definition_.loadouts);if(!action){stopped_=true;return {VisualError::SafetyStop,{}};}
+ const auto scope=std::ranges::find(definition_.encounter.skill_scopes,action->skill,&SharedSkillScope::skill_id);
+ if(scope!=definition_.encounter.skill_scopes.end()&&scope->target==SharedSkillTarget::RotatingFront){const auto routed=encounter_.choose_basic_action();if(!routed){stopped_=true;return {VisualError::SafetyStop,{}};}action->target=routed->target;}
+ auto result=accept(encounter_.apply(*action),true);if(!result.accepted()){stopped_=true;}return result;
+}
+void SharedVisualSession::reset(){check_capacity();if(attempt_==std::numeric_limits<std::uint64_t>::max()){throw std::overflow_error("Shared attempt exhausted");}encounter_.reset();++revision_;++attempt_;boss_actions_=0;automatic_count_=0;stopped_=false;cues_.clear();front_actions_.assign(3,0);last_local_front_.reset();}}

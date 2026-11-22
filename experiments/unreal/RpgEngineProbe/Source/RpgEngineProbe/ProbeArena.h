@@ -19,6 +19,11 @@ public:
     virtual void EndPlay(const EEndPlayReason::Type reason) override;
 private:
     rpg::presentation::VisualSession Session;
+    std::array<std::unique_ptr<rpg::presentation::SharedVisualSession>,2> SharedLabs;
+    bool SharedActive=false,SharedGlobalSpecial=false;
+    rpg::presentation::SharedVisualSession* ActiveShared(){return SharedLabs[SharedGlobalSpecial?1:0].get();}
+    const rpg::presentation::SharedVisualSession* ActiveShared()const{return SharedLabs[SharedGlobalSpecial?1:0].get();}
+    std::vector<std::string> ActiveTargets(const rpg::presentation::VisualState& view,std::uint32_t slot)const{return SharedActive?ActiveShared()->targets(slot):rpg::presentation::target_candidates(view,slot);}
     std::array<std::unique_ptr<rpg::presentation::PveVisualSession>,4> PveLabs;
     std::array<std::unique_ptr<rpg::presentation::SequentialVisualSession>,2> SequenceLabs;
     bool SequenceActive=false,SequencePhased=true;
@@ -31,12 +36,12 @@ private:
     int32 WaveGeometryIndex=-1,TerminalMenuPage=0;
     rpg::presentation::PveVisualSession* ActivePve(){return PveLabs[static_cast<std::size_t>(SelectedPveLab)].get();}
     const rpg::presentation::PveVisualSession* ActivePve()const{return PveLabs[static_cast<std::size_t>(SelectedPveLab)].get();}
-    rpg::presentation::VisualState ActiveState()const{return SequenceActive?ActiveSequence()->state():WavesActive?Waves->state():PveActive?ActivePve()->state():Session.state();}
-    bool ActiveFinished()const{return SequenceActive?ActiveSequence()->finished():WavesActive?Waves->finished():PveActive?ActivePve()->finished():Session.state().combat.battle.phase==rpg::Phase::Finished;}
-    void ResetActiveBattle(){if(SequenceActive){ActiveSequence()->reset();}else if(WavesActive){Waves->reset();}else if(PveActive){ActivePve()->reset();}else{Session.reset();}}
-    rpg::presentation::VisualResult SubmitActiveSlot(uint64 revision,uint32 slot,std::string target){return SequenceActive?ActiveSequence()->submit(revision,slot,std::move(target)):WavesActive?Waves->submit(revision,slot,std::move(target)):PveActive?ActivePve()->submit(revision,slot,std::move(target)):Session.submit(revision,slot,std::move(target));}
-    rpg::presentation::VisualResult SubmitActiveAction(uint64 revision,const rpg::Action& action){return SequenceActive?ActiveSequence()->submit_action(revision,action):WavesActive?Waves->submit_action(revision,action):PveActive?ActivePve()->submit_action(revision,action):Session.submit_action(revision,action);}
-    rpg::presentation::VisualResult StepActiveBattle(){return SequenceActive?ActiveSequence()->step_automatic():WavesActive?Waves->step_automatic():PveActive?ActivePve()->step_automatic():Session.step_automatic();}
+    rpg::presentation::VisualState ActiveState()const{return SharedActive?ActiveShared()->state():SequenceActive?ActiveSequence()->state():WavesActive?Waves->state():PveActive?ActivePve()->state():Session.state();}
+    bool ActiveFinished()const{return SharedActive?ActiveShared()->finished():SequenceActive?ActiveSequence()->finished():WavesActive?Waves->finished():PveActive?ActivePve()->finished():Session.state().combat.battle.phase==rpg::Phase::Finished;}
+    void ResetActiveBattle(){if(SharedActive){ActiveShared()->reset();}else if(SequenceActive){ActiveSequence()->reset();}else if(WavesActive){Waves->reset();}else if(PveActive){ActivePve()->reset();}else{Session.reset();}}
+    rpg::presentation::VisualResult SubmitActiveSlot(uint64 revision,uint32 slot,std::string target){return SharedActive?ActiveShared()->submit(revision,slot,std::move(target)):SequenceActive?ActiveSequence()->submit(revision,slot,std::move(target)):WavesActive?Waves->submit(revision,slot,std::move(target)):PveActive?ActivePve()->submit(revision,slot,std::move(target)):Session.submit(revision,slot,std::move(target));}
+    rpg::presentation::VisualResult SubmitActiveAction(uint64 revision,const rpg::Action& action){return SharedActive?ActiveShared()->submit_action(revision,action):SequenceActive?ActiveSequence()->submit_action(revision,action):WavesActive?Waves->submit_action(revision,action):PveActive?ActivePve()->submit_action(revision,action):Session.submit_action(revision,action);}
+    rpg::presentation::VisualResult StepActiveBattle(){return SharedActive?ActiveShared()->step_automatic():SequenceActive?ActiveSequence()->step_automatic():WavesActive?Waves->step_automatic():PveActive?ActivePve()->step_automatic():Session.step_automatic();}
     std::optional<rpg::presentation::VisualSession> AlternateLabSession;
     rpg::CombatProfile ReferenceProfile=rpg::CombatProfile::Team;
     bool SessionIsFelipe=false,PilotTutorial=false;

@@ -1,3 +1,5 @@
+> **22/11 — LAB-PVE-06:** chefe compartilhado/três frentes integrados em código; ataques locais e global explícito. Cortes01–06 entregues, aceites02–06 abertos. Não confundir com toda PAR/servidor/3chefes independentes. Próximo recomendado QA/feedback; global~28% mantido.
+
 > **22/11 — LAB-PVE-05:** duas variantes de3equipes sequenciais integradas em código sobre SequentialSquads; HP contínuo e janelas local/global distintas. Aceites02–05 pendentes; próximo06frentes compartilhadas. Global~28% mantido.
 
 > **22/11 — LAB-PVE-04:** pontuação/sobrevivência e recibos integrados em código; menu em duas páginas. Aceites02–04 pendentes. Próximo05equipes sequenciais; global~28% mantido.

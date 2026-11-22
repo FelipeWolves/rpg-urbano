@@ -1,6 +1,6 @@
 {
   "date": "2026-11-22",
-  "purpose": "Sequential squads, continuous boss HP and stable/profiled kits integrated; pending visual acceptance",
+  "purpose": "Three shared-boss fronts integrated locally; no server or independent-three-boss UI",
   "global_demo_estimate": 28,
   "global_range": [
     26,
@@ -27,7 +27,7 @@
       "nome": "Integração Unreal",
       "percentual": 50,
       "prioridade": "P1",
-      "agora": "Adaptadores PvE/ondas/sequenciais ligados ao HUD; próximo frentes locais compartilhadas.",
+      "agora": "Cortes LAB-PVE-01–06 integrados; consolidar QA, feedback e correções concretas.",
       "ajustes": "Pacote limpo, persistência real, cook/Shipping e backends futuros.",
       "dependencia": "Pode avançar sem MCP, Android ou recursos finais.",
       "motivo": "Reaproveita o core e mantém uma única resolução de combate.",
@@ -53,7 +53,7 @@
       "nome": "Encontros e chefes",
       "percentual": 65,
       "prioridade": "P1",
-      "agora": "Ritual, ondas/fases, score/sobrevivência e sequenciais em código; próximo LAB-PVE-06 e aceites.",
+      "agora": "Rotas locais de todos os cortes01–06 em código; aceites02–06 e extensões explícitas pendentes.",
       "ajustes": "Menus/HUD, objetivo/resultado, indicadores de fase, kits reais e balanceamento; classes compiladas não são telas prontas.",
       "dependencia": "Regras dos controladores prontas; integração independente de arte final; aceite após UI.",
       "motivo": "Grande retorno por reaproveitar os controladores recém-testados; começar por um encontro simples reduz esforço.",
@@ -157,9 +157,9 @@
       "nome": "Frentes paralelas locais",
       "percentual": 70,
       "prioridade": "P2 / depois de SEQ",
-      "agora": "Preparar seleção/indicadores de frente, HP global e sinalização de área local/global.",
+      "agora": "Chefe único/três frentes integrados em código; aguardar aceite. Três chefes independentes e auxiliares visuais são extensões.",
       "ajustes": "Apresentar três equipes e auxiliares sem confundir alcance; não representar intercalação como servidor/threads.",
-      "dependencia": "Experiência de uma frente e seleção de alvos estáveis.",
+      "dependencia": "QA visual das frentes; código de extensões pode ser preparado sem nova arte.",
       "motivo": "Tem maior custo visual e de entendimento; começar por ele ampliaria os problemas de seleção existentes.",
       "base": "PVE-C5-FASES-E-FRENTES.md; shared_boss.hpp",
       "origem": "Nova estimativa de planejamento",
@@ -284,7 +284,7 @@
   "engine_opened": false,
   "android_used": false,
   "internet_used": false,
-  "snapshot_scope": "LAB-PVE-05 technical delivery; estimates unchanged",
-  "latest_delivery": "LAB-PVE-05",
-  "next_delivery": "LAB-PVE-06"
+  "snapshot_scope": "LAB-PVE-06 technical delivery; estimates unchanged",
+  "latest_delivery": "LAB-PVE-06",
+  "next_delivery": "LAB-QA-01 and user acceptances"
 }

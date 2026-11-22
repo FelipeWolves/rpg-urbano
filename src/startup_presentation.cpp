@@ -20,8 +20,9 @@ Rect fit(double width,double height,PixelSize viewport){
 }
 }
 ScreenFlow::ScreenFlow(UiScreen start):screen_(start){if(start!=UiScreen::Hub && start!=UiScreen::Arena){throw std::invalid_argument("Invalid initial screen");}}
-bool ScreenFlow::in_hub() const noexcept {return screen_==UiScreen::Hub || screen_==UiScreen::Location || screen_==UiScreen::Options;}
+bool ScreenFlow::in_hub() const noexcept {return screen_==UiScreen::Hub || screen_==UiScreen::Location || screen_==UiScreen::Options || screen_==UiScreen::TeamSetup;}
 bool ScreenFlow::open_location() noexcept {if(screen_!=UiScreen::Hub){return false;}screen_=UiScreen::Location;return true;}
+bool ScreenFlow::open_team() noexcept {if(screen_!=UiScreen::Hub){return false;}screen_=UiScreen::TeamSetup;return true;}
 bool ScreenFlow::open_options() noexcept {if(screen_!=UiScreen::Hub){return false;}screen_=UiScreen::Options;return true;}
 bool ScreenFlow::enter_arena(bool finished) noexcept {if(screen_!=UiScreen::Hub && screen_!=UiScreen::Location){return false;}screen_=finished?UiScreen::Result:UiScreen::Arena;new_attempt_=false;return true;}
 bool ScreenFlow::pause() noexcept {if(screen_!=UiScreen::Arena){return false;}screen_=UiScreen::Pause;return true;}
@@ -36,7 +37,7 @@ BackEffect ScreenFlow::back(bool details,bool selection) noexcept {
     if(selection){return BackEffect::CancelSelection;}
     switch(screen_){
     case UiScreen::Hub:return BackEffect::None;
-    case UiScreen::Location:case UiScreen::Options:case UiScreen::Result:screen_=UiScreen::Hub;break;
+    case UiScreen::TeamSetup:case UiScreen::Location:case UiScreen::Options:case UiScreen::Result:screen_=UiScreen::Hub;break;
     case UiScreen::Arena:screen_=UiScreen::Pause;break;
     case UiScreen::Pause:screen_=UiScreen::Arena;break;
     case UiScreen::AbandonConfirm:screen_=UiScreen::Pause;break;

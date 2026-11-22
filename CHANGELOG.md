@@ -188,3 +188,9 @@ Parser JSON do hub, importação do panorama, projeção/clipping dos dois alvos
 - Estados explícitos, pausa/retomada e abandono confirmado sem recompensa.
 -82grupos de apresentação,35focados e compilação8ações aprovados.
 - Aceite interativo dos menus pendente; sem editor ou Android.
+
+## 2026-11-22 — AUT-09
+
+- Equipe / Save no hub, rascunho validado de 1–5 IDs, detalhes de resultado e adaptador Unreal para codec v1.
+- Restauração inicia nova tentativa e preserva histórico; validação por perfil/catálogo, recusa em combate e invalidação de comandos antigos.
+- 64 grupos nativos focados aprovados; Editor compilado. Interface e I/O real pendentes, Android adiado. Estimativa global mantida.

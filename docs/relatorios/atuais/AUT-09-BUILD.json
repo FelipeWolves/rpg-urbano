@@ -1,0 +1,15 @@
+{
+  "Date": "2026-11-22",
+  "Passed": true,
+  "ExitCode": 0,
+  "BuildActions": 11,
+  "Log": "build/aut09-build-final.log",
+  "NativeFocusedGroups": 64,
+  "NewContractGroups": 7,
+  "VisualRuntimeExecuted": false,
+  "PlayerSaveWritten": false,
+  "SaveIOAcceptance": false,
+  "AndroidExecuted": false,
+  "ScreenControlUsed": false,
+  "Scope": "Editor compilation and native team/save contracts; runtime file adapter and interactive menu acceptance pending"
+}

@@ -102,21 +102,21 @@ cl.exe %FLAGS% /I"$root\include" /c "$root\src\reference_encounter.cpp" /Fo"$bui
 if errorlevel 1 exit /b 60
 cl.exe %FLAGS% /I"$root\include" /c "$root\src\visual_session.cpp" /Fo"$build\visual_session.obj"
 if errorlevel 1 exit /b 61
-cl.exe %FLAGS% /I"$root\include" "$root\tests\visual_session_tests.cpp" "$build\battle.obj" "$build\ability_profile.obj" "$build\local_session.obj" "$build\reference_encounter.obj" "$build\visual_session.obj" /Fo"$build\visual_session_tests.obj" /Fe"$build\visual_session_tests.exe" /link /INCREMENTAL:NO
+cl.exe %FLAGS% /I"$root\include" "$root\tests\visual_session_tests.cpp" "$build\battle.obj" "$build\ability_profile.obj" "$build\local_session.obj" "$build\reference_encounter.obj" "$build\visual_session.obj" "$build\team_selection.obj" "$build\save_game.obj" /Fo"$build\visual_session_tests.obj" /Fe"$build\visual_session_tests.exe" /link /INCREMENTAL:NO
 if errorlevel 1 exit /b 62
 "$build\visual_session_tests.exe"
 if errorlevel 1 exit /b 63
 cl.exe %FLAGS% /I"$root\include" /c "$root\src\battle_presentation.cpp" /Fo"$build\battle_presentation.obj"
 if errorlevel 1 exit /b 75
-cl.exe %FLAGS% /I"$root\include" "$root\tests\battle_presentation_tests.cpp" "$build\battle.obj" "$build\ability_profile.obj" "$build\local_session.obj" "$build\reference_encounter.obj" "$build\visual_session.obj" "$build\battle_presentation.obj" /Fo"$build\battle_presentation_tests.obj" /Fe"$build\battle_presentation_tests.exe" /link /INCREMENTAL:NO
+cl.exe %FLAGS% /I"$root\include" "$root\tests\battle_presentation_tests.cpp" "$build\battle.obj" "$build\ability_profile.obj" "$build\local_session.obj" "$build\reference_encounter.obj" "$build\visual_session.obj" "$build\team_selection.obj" "$build\save_game.obj" "$build\battle_presentation.obj" /Fo"$build\battle_presentation_tests.obj" /Fe"$build\battle_presentation_tests.exe" /link /INCREMENTAL:NO
 if errorlevel 1 exit /b 76
 "$build\battle_presentation_tests.exe"
 if errorlevel 1 exit /b 77
-cl.exe %FLAGS% /I"$root\include" "$root\tests\classic_visual_tests.cpp" "$build\battle.obj" "$build\ability_profile.obj" "$build\local_session.obj" "$build\reference_encounter.obj" "$build\visual_session.obj" "$build\battle_presentation.obj" /Fo"$build\classic_visual_tests.obj" /Fe"$build\classic_visual_tests.exe" /link /INCREMENTAL:NO
+cl.exe %FLAGS% /I"$root\include" "$root\tests\classic_visual_tests.cpp" "$build\battle.obj" "$build\ability_profile.obj" "$build\local_session.obj" "$build\reference_encounter.obj" "$build\visual_session.obj" "$build\team_selection.obj" "$build\save_game.obj" "$build\battle_presentation.obj" /Fo"$build\classic_visual_tests.obj" /Fe"$build\classic_visual_tests.exe" /link /INCREMENTAL:NO
 if errorlevel 1 exit /b 78
 "$build\classic_visual_tests.exe"
 if errorlevel 1 exit /b 79
-cl.exe %FLAGS% /I"$root\include" "$root\tests\standard_shield_tests.cpp" "$build\battle.obj" "$build\stage.obj" "$build\sequential.obj" "$build\shared_boss.obj" "$build\ability_profile.obj" "$build\local_session.obj" "$build\reference_encounter.obj" "$build\visual_session.obj" "$build\battle_presentation.obj" /Fo"$build\standard_shield_tests.obj" /Fe"$build\standard_shield_tests.exe" /link /INCREMENTAL:NO
+cl.exe %FLAGS% /I"$root\include" "$root\tests\standard_shield_tests.cpp" "$build\battle.obj" "$build\stage.obj" "$build\sequential.obj" "$build\shared_boss.obj" "$build\ability_profile.obj" "$build\local_session.obj" "$build\reference_encounter.obj" "$build\visual_session.obj" "$build\team_selection.obj" "$build\save_game.obj" "$build\battle_presentation.obj" /Fo"$build\standard_shield_tests.obj" /Fe"$build\standard_shield_tests.exe" /link /INCREMENTAL:NO
 if errorlevel 1 exit /b 80
 "$build\standard_shield_tests.exe"
 if errorlevel 1 exit /b 81

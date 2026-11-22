@@ -16,16 +16,16 @@ call "$devcmd" -no_logo -arch=x64 -host_arch=x64
 if errorlevel 1 exit /b 10
 set "FLAGS=/nologo /std:c++20 /permissive- /Zc:__cplusplus /EHsc /W4 /WX /utf-8 /Od /MT"
 "@
-$sources=@('battle','ability_profile','local_session','reference_encounter','visual_session','battle_presentation','arena_layout','startup_presentation')
+$sources=@('battle','ability_profile','local_session','reference_encounter','visual_session','battle_presentation','arena_layout','startup_presentation','team_selection','save_game')
 foreach($name in $sources){$batch+="`ncl.exe %FLAGS% /I`"$root/include`" /c `"$root/src/$name.cpp`" /Fo`"$build/$name.obj`"`nif errorlevel 1 exit /b 11"}
 $objects=($sources | ForEach-Object {'"'+$build+'/'+$_+'.obj"'}) -join ' '
-$tests=@('arena_inspection_tests','arena_layout_tests','battle_presentation_tests','ability_card_tests','screen_flow_session_tests')
+$tests=@('arena_inspection_tests','arena_layout_tests','battle_presentation_tests','ability_card_tests','screen_flow_session_tests','visual_save_tests','visual_session_tests','classic_visual_tests','screen_flow_tests')
 foreach($name in $tests){$batch+="`ncl.exe %FLAGS% /I`"$root/include`" `"$root/tests/$name.cpp`" $objects /Fo`"$build/$name.obj`" /Fe`"$build/$name.exe`" /link /INCREMENTAL:NO`nif errorlevel 1 exit /b 12`n`"$build/$name.exe`"`nif errorlevel 1 exit /b 13"}
 $batch+="`nexit /b 0`n"
 $batchPath=Join-Path $build 'testar.cmd';$batch | Set-Content -LiteralPath $batchPath -Encoding ascii
 $output=@(& $env:ComSpec /d /c $batchPath 2>&1 | ForEach-Object {$_.ToString()});$code=$LASTEXITCODE
 $output | Set-Content (Join-Path $build 'resultado.log') -Encoding utf8
-$passed=$code -eq 0 -and $output -contains 'SCREEN_SESSION_TESTS_RESULT passed=3 total=3' -and $output -contains 'ABILITY_CARD_TESTS_RESULT passed=10 total=10' -and $output -contains 'ARENA_INSPECTION_TESTS_RESULT passed=10 total=10 cases=13' -and $output -contains 'ARENA_LAYOUT_TESTS_RESULT passed=6 total=6' -and $output -contains 'PRESENTATION_TESTS_RESULT passed=6 total=6'
+$passed=$output -contains 'VIS_TESTS_RESULT passed=6 total=6' -and $output -contains 'CLASSIC_VIS_TESTS_RESULT passed=6 total=6' -and $output -contains 'SCREEN_FLOW_TESTS_RESULT passed=10 total=10' -and $output -contains 'VISUAL_SAVE_TESTS_RESULT passed=7 total=7' -and $code -eq 0 -and $output -contains 'SCREEN_SESSION_TESTS_RESULT passed=3 total=3' -and $output -contains 'ABILITY_CARD_TESTS_RESULT passed=10 total=10' -and $output -contains 'ARENA_INSPECTION_TESTS_RESULT passed=10 total=10 cases=13' -and $output -contains 'ARENA_LAYOUT_TESTS_RESULT passed=6 total=6' -and $output -contains 'PRESENTATION_TESTS_RESULT passed=6 total=6'
 $cases=@($output | Where-Object {$_ -like 'CASE,*'} | ForEach-Object {$_ | ConvertFrom-Csv -Header Kind,Id,HP,Shield,Duration})
 $cases | Select-Object Id,HP,Shield,Duration | Export-Csv (Join-Path $root 'docs/relatorios/atuais/AUT-05-CENARIOS.csv') -NoTypeInformation -Encoding utf8
 [ordered]@{Date='2026-11-21';Passed=$passed;ExitCode=$code;NewInspectionGroups=10;RelatedLayoutGroups=6;RelatedPresentationGroups=6;Cases=$cases.Count;EngineExecuted=$false;VisualAcceptance=$false;AndroidExecuted=$false;Scope='Real executor snapshots, existing arena placement and shield display; no graphical execution'} | ConvertTo-Json | Set-Content (Join-Path $root 'docs/relatorios/atuais/AUT-05-TESTES.json') -Encoding utf8
@@ -34,3 +34,5 @@ if(!$passed){throw 'Inspection tests failed'}
 
 [ordered]@{Date='2026-11-21';Passed=$passed;ExitCode=$code;NewAbilityGroups=10;TotalFocusedGroups=32;EngineExecuted=$false;AndroidExecuted=$false;Scope='Ability-card state mapping and reasons, existing arena inspection/layout/details regressions; not visual acceptance'} | ConvertTo-Json | Set-Content (Join-Path $root 'docs/relatorios/atuais/AUT-06-TESTES.json') -Encoding utf8
 [ordered]@{Date='2026-11-22';Passed=$passed;ExitCode=$code;Groups=3;Scope='Pause/resume preserves snapshot; abandonment defers reset without rewards; returning to results does not settle twice';EngineExecuted=$false;AndroidExecuted=$false} | ConvertTo-Json | Set-Content (Join-Path $root 'docs/relatorios/atuais/AUT-08-SESSAO.json') -Encoding utf8
+
+[ordered]@{Date='2026-11-22';Passed=$passed;ExitCode=$code;NewVisualSaveGroups=7;FocusedGroups=64;EngineExecuted=$false;SaveFileWritten=$false;VisualAcceptance=$false;AndroidExecuted=$false;Scope='Team selection 1..5, invalid data atomicity, stale commands, save codec roundtrip, profile/catalog boundaries, reward ledger preservation; related screen/session/layout regressions'} | ConvertTo-Json | Set-Content (Join-Path $root 'docs/relatorios/atuais/AUT-09-TESTES.json') -Encoding utf8

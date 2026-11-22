@@ -281,8 +281,20 @@ void AProbeArenaHUD::DrawHUD()
     }
     if(HubEnabled && PopupLines.IsEmpty() && button(20.f,bottom-42,130,30,running?TEXT("Pausar / Voltar"):TEXT("Voltar ao hub"),true)){if(running){HandleBack();}else{Flow.finish();ReturnToHub();}return;}
     DrawText(Message,FColor::White,20,bottom+60);
+    if(!running && !view.progress.completions.empty()){
+        const auto& result=view.progress.completions.back();
+        if(PopupLines.IsEmpty() && button(20,88,190,32,TEXT("Detalhes do resultado"),true)){
+            OpenInfo(TEXT("Resultado do laboratório"),{
+                "Tentativa: "+std::to_string(result.attempt),
+                "Acoes aceitas: "+std::to_string(result.actions),
+                "Recompensa desta tentativa: "+std::to_string(result.credits),
+                "Saldo local: "+std::to_string(view.progress.credits),
+                result.reason==rpg::EndReason::Elimination?"Encerramento: eliminacao":result.reason==rpg::EndReason::ActionLimit?"Encerramento: limite de acoes":"Encerramento: limite tecnico",
+                "Valores provisorios do laboratorio; consultar nao concede recompensa."});return;
+        }
+    }
     if(!running){DrawText(view.combat.battle.winner==rpg::Team::A?TEXT("Team A wins"):view.combat.battle.winner==rpg::Team::B?TEXT("Team B wins"):TEXT("Draw"),FColor::Yellow,20,62);}
-    if(!running && PopupLines.IsEmpty() && button(20.f,bottom,100,50,TEXT("Restart"),true)){
+    if(!running && PopupLines.IsEmpty() && button(20.f,bottom,100,50,TEXT("Nova tentativa"),true)){
         Session.reset();Flow.finish();Flow.restart_result();Gesture.cancel();SelectedSlot=0;SelectedTarget.Empty();NextAutomatic=0;Message=TEXT("New attempt.");UE_LOG(LogTemp,Display,TEXT("VIS_RESET"));return;
     }
     if(!classic && button(Canvas->SizeX-205.f,bottom+58,180,30,TEXT("Confirm action"),manual && !SelectedTarget.IsEmpty() && SelectedSlot!=0)){

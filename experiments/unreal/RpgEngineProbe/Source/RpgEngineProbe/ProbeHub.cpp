@@ -297,7 +297,9 @@ void AProbeArenaHUD::DrawHub(){
         UE_LOG(LogTemp,Display,TEXT("HUB_BATTLE attempt=%llu"),static_cast<unsigned long long>(Session.state().progress.attempt));
     };
     DrawRect(FLinearColor(0.015f,0.02f,0.03f),0,0,Canvas->SizeX,Canvas->SizeY);
+    if(Flow.screen()==UiScreen::TeamSetup){DrawTeamSetup();return;}
     if(!HubTexture){
+        if(button({layout.safe.x+20,layout.safe.y+170,180,48},TEXT("Equipe / Save"))){if(Flow.new_attempt_required()){Session.reset();Flow.acknowledge_new_attempt();}TeamMenuPage=0;HubPanelPage=0;DraftTeam=Session.team().selected;Flow.open_team();return;}
         DrawText(TEXT("Hub indisponível. A batalha continua acessível."),FColor::White,static_cast<float>(layout.safe.x+20),static_cast<float>(layout.safe.y+40));
         DrawText(HubError,FColor::Orange,static_cast<float>(layout.safe.x+20),static_cast<float>(layout.safe.y+65));
         if(button({layout.safe.x+20,layout.safe.y+110,180,48},TEXT("Abrir batalha"))){enterBattle();}return;
@@ -315,6 +317,10 @@ void AProbeArenaHUD::DrawHub(){
     DrawText(HubTitle,HubCyan.ToFColorSRGB(),static_cast<float>(layout.header.x+68),static_cast<float>(layout.header.y+4),HubTitleFont);
     DrawText(TEXT("CODINOME: ")+HubCodename,FColor::White,static_cast<float>(layout.header.x+68),static_cast<float>(layout.header.y+28),HubBodyFont,0.75f);
     if(Flow.screen()==UiScreen::Options){DrawPreferences();return;}
+    if(Flow.screen()==UiScreen::Hub && button({layout.safe.x+12,layout.header.y+60,160,48},TEXT("Equipe / Save"))){
+        if(Flow.new_attempt_required()){Session.reset();Flow.acknowledge_new_attempt();}
+        TeamMenuPage=0;HubPanelPage=0;DraftTeam=Session.team().selected;TeamStatus=TEXT("Seleção atual. Aplicar inicia nova tentativa; salvar usa a equipe já aplicada.");Flow.open_team();return;
+    }
     if(Flow.screen()==UiScreen::Location){
         TArray<FString> paragraphs;paragraphs.Add(HubPanelBody);
         const int32 result=DrawInfoPanel(HubPanelTitle,paragraphs,HubPanelPage,HubPanelRoute==HubRoute::Terminal);
@@ -374,3 +380,80 @@ void AProbeArenaHUD::DrawHub(){
 
 
 
+
+void AProbeArenaHUD::DrawTeamSetup(){
+    const auto frame=plan_hub_frame({static_cast<uint32>(Canvas->SizeX),static_cast<uint32>(Canvas->SizeY)},0,HubInsets);
+    if(!frame){return;}
+    const auto& safe=frame->safe;
+    if(!PopupLines.IsEmpty()){if(DrawInfoPanel(PopupTitle,PopupLines,PopupPage)==1){PopupLines.Empty();}return;}
+    DrawRect(HubPanel,static_cast<float>(safe.x),static_cast<float>(safe.y),static_cast<float>(safe.width),static_cast<float>(safe.height));
+    DrawText(TEXT("EQUIPE E PROGRESSO LOCAL"),FColor::Cyan,static_cast<float>(safe.x+12),static_cast<float>(safe.y+8),HubBodyFont);
+    const auto team=Session.team();
+    // One catalog member per page keeps touch targets usable in small viewports.
+    const int32 count=static_cast<int32>(team.available.size());
+    HubPanelPage=FMath::Clamp(HubPanelPage,0,FMath::Max(0,count-1));
+    const double width=std::max(48.0,safe.width-24);
+    const double row=52;
+    const int32 capacity=FMath::Max(1,static_cast<int32>((safe.height-140)/row));
+    const int32 pages=(6+capacity-1)/capacity;
+    TeamMenuPage=FMath::Clamp(TeamMenuPage,0,pages-1);
+    const auto footer=[&](int index,const FString& label){
+        Rect rect{safe.x+12+index*(width/3),safe.y+safe.height-56,width/3-4,48};
+        DrawRect(FLinearColor(0.08f,0.20f,0.32f),static_cast<float>(rect.x),static_cast<float>(rect.y),static_cast<float>(rect.width),48);
+        float tw=0,th=0;GetTextSize(label,tw,th,HubBodyFont);const float scale=static_cast<float>(std::min(1.0,(rect.width-8)/std::max(1.0,static_cast<double>(tw))));
+        DrawText(label,FColor::White,static_cast<float>(rect.x+4),static_cast<float>(rect.y+12),HubBodyFont,scale);
+        return pointer_clicked(Input,rect);
+    };
+    if(footer(0,TEXT("Voltar"))){Flow.back(false,false);return;}
+    if(footer(1,TEXT("Anterior"))){TeamMenuPage=FMath::Max(0,TeamMenuPage-1);return;}
+    if(footer(2,TEXT("Próxima"))){TeamMenuPage=FMath::Min(pages-1,TeamMenuPage+1);return;}
+    DrawText(FString::Printf(TEXT("Rascunho: %d | Página %d/%d"),static_cast<int32>(DraftTeam.size()),TeamMenuPage+1,pages),FColor::White,static_cast<float>(safe.x+12),static_cast<float>(safe.y+28),HubBodyFont,0.7f);
+    const auto button=[&](int index,const FString& label){
+        if(index/capacity!=TeamMenuPage){return false;}
+        Rect rect{safe.x+12,safe.y+52+(index%capacity)*row,width,48};
+        if(rect.y+rect.height>safe.y+safe.height){return false;}
+        DrawRect(FLinearColor(0.08f,0.20f,0.32f),static_cast<float>(rect.x),static_cast<float>(rect.y),static_cast<float>(rect.width),48);
+        float tw=0,th=0;GetTextSize(label,tw,th,HubBodyFont);
+        const float scale=static_cast<float>(std::min(1.0,(width-12)/std::max(1.0,static_cast<double>(tw))));
+        DrawText(label,FColor::White,static_cast<float>(rect.x+6),static_cast<float>(rect.y+10),HubBodyFont,scale);
+        return pointer_clicked(Input,rect);
+    };
+    if(count>0){
+        const auto& id=team.available[HubPanelPage];const auto found=std::ranges::find(DraftTeam,id);
+        const bool selected=found!=DraftTeam.end();
+        if(button(0,FString::Printf(TEXT("%s %s (%d/%d)"),selected?TEXT("[X]"):TEXT("[ ]"),*Text(id),HubPanelPage+1,count))){
+            if(selected){DraftTeam.erase(found);}else{DraftTeam.push_back(id);}return;
+        }
+        if(button(1,TEXT("Próximo personagem"))){HubPanelPage=(HubPanelPage+1)%count;return;}
+    }
+    if(button(2,TEXT("Aplicar equipe (nova tentativa)"))){
+        try{const auto error=Session.select_team(DraftTeam);if(error==rpg::SelectionError::None){RefreshArenaActors();SelectedSlot=0;SelectedTarget.Empty();Gesture.cancel();}TeamStatus=error==rpg::SelectionError::None?TEXT("Equipe aplicada; progresso preservado."):TEXT("Equipe inválida: selecione de 1 a 5 IDs disponíveis, sem repetição.");}
+        catch(const std::exception& e){TeamStatus=Text(e.what());}OpenInfo(TEXT("Equipe / Save"),{Utf8(TeamStatus)});return;
+    }
+    const FString directory=FPaths::Combine(FPaths::ProjectSavedDir(),TEXT("LocalProgress"));
+    const FString path=FPaths::Combine(directory,TEXT("progress-v1.save"));
+    if(button(3,TEXT("Salvar progresso aplicado"))){
+        try{
+            const auto bytes=Session.export_save();
+            if(bytes.size()>rpg::max_save_bytes){throw rpg::SaveError("Save excede o limite de tamanho.");}
+            if(!IFileManager::Get().MakeDirectory(*directory,true)){throw rpg::SaveError("Nao foi possivel criar a pasta de progresso.");}
+            const FString temporary=path+TEXT(".")+FGuid::NewGuid().ToString()+TEXT(".pending");
+            TArray<uint8> data;data.Append(reinterpret_cast<const uint8*>(bytes.data()),static_cast<int32>(bytes.size()));
+            if(!FFileHelper::SaveArrayToFile(data,*temporary) || !IFileManager::Get().Move(*path,*temporary,true,true,false,true)){
+                throw rpg::SaveError("Falha ao salvar; progresso em memoria preservado. Verifique permissao/espaco.");
+            }
+            TeamStatus=TEXT("Progresso salvo em Saved/LocalProgress/progress-v1.save.");
+        }catch(const std::exception& e){TeamStatus=Text(e.what());}OpenInfo(TEXT("Equipe / Save"),{Utf8(TeamStatus)});return;
+    }
+    if(button(4,TEXT("Carregar progresso (nova tentativa)"))){
+        try{
+            TUniquePtr<FArchive> reader(IFileManager::Get().CreateFileReader(*path));
+            const int64 size=reader?reader->TotalSize():-1;
+            if(size<=0 || size>static_cast<int64>(rpg::max_save_bytes)){throw rpg::SaveError("Save ausente, vazio ou acima de 1 MiB.");}
+            TArray<uint8> bytes;bytes.SetNumUninitialized(static_cast<int32>(size));reader->Serialize(bytes.GetData(),size);if(reader->IsError()){throw rpg::SaveError("Falha de leitura do save.");}reader.Reset();
+            Session.import_save(std::string_view(reinterpret_cast<const char*>(bytes.GetData()),bytes.Num()));
+            RefreshArenaActors();SelectedSlot=0;SelectedTarget.Empty();Gesture.cancel();DraftTeam=Session.team().selected;TeamStatus=TEXT("Progresso carregado. Nova tentativa; batalha anterior não é restaurada.");
+        }catch(const std::exception& e){TeamStatus=Text(e.what());}OpenInfo(TEXT("Equipe / Save"),{Utf8(TeamStatus)});return;
+    }
+    if(button(5,TEXT("Ver mensagem / resultado da operação"))){OpenInfo(TEXT("Equipe / Save"),{Utf8(TeamStatus)});return;}
+}

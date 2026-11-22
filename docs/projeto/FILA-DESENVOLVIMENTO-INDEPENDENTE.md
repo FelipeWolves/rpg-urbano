@@ -1,3 +1,5 @@
+> **AUT-09 vigente (22/11):** [equipe, resultado e save local](AUT-09-EQUIPE-RESULTADO-SAVE.md) implementados; 64 grupos nativos focados e compilação Editor aprovados. Menu Equipe / Save, seleção validada, detalhes do resultado e codec v1 ligados ao adaptador Unreal. Aceite interativo e gravação/reabertura pela interface pendentes. Catálogo provisório continua com três aliados. Próximo código: AUT-10 (contrato de mídia); Android adiado. Notas anteriores são históricas.
+
 > **AUT-08 vigente:** [estados de tela, pausa e abandono](AUT-08-FLUXO-TELAS.md) implementados/testados e compilados;82grupos de apresentação e35focados aprovados. Menus novos pendentes de aceite interativo. Correção do ponteiro aceita pelo usuário e salva no commit1400d4e. Próximo: AUT-09 (equipe/resultado/save). Android adiado; notas anteriores são históricas.
 
 > **AUT-07 vigente:** [preferências locais](AUT-07-PREFERENCIAS.md) implementadas/testadas no modelo e adaptador compilado;64grupos de apresentação aprovados. Menu Opções, movimento/contraste/texto/enquadramento. Gravação/reabertura real e aparência pendentes; save de combate separado. Próximo código: AUT-08, estados/transições de tela. Android adiado; notas anteriores são históricas.
@@ -76,7 +78,7 @@ Canvas atual pode atender ao primeiro ensaio. UMG não é migração obrigatóri
 | ID / blocos existentes | Estado | Trabalho que cabe ao desenvolvimento | Critério de conclusão / limite |
 |---|---|---|---|
 | AUT-08 — HUB/CIC/VIS | Pronto para iniciar | Estruturar estados de tela e retorno usando o fluxo atual: hub, evento provisório, equipe, arena, resultado; impedir ação/automação indevida atrás de painel | Transições explícitas; ida/volta não reinicia, duplica recompensa ou dispara ações inesperadas. Sem inventar login, loja, campanha ou conteúdo de evento |
-| AUT-09 — CIC-01 | Após AUT-08 | Expor seleção do catálogo atual de 1–5 IDs e resumo de resultado/recompensa; conectar codec/save v1 já existente ao fluxo gráfico por adaptador de armazenamento | Validar equipe, recompensa única, salvar/carregar progresso e iniciar nova tentativa conforme contrato; falha de arquivo visível e recuperável. Não restaurar combate nem inventar migração/sincronização de conta |
+| AUT-09 — CIC-01 | Implementado/testado/compilado; aceite de interface e I/O pendente | Expor seleção do catálogo atual de 1–5 IDs e resumo de resultado/recompensa; conectar codec/save v1 já existente ao fluxo gráfico por adaptador de armazenamento | Validar equipe, recompensa única, salvar/carregar progresso e iniciar nova tentativa conforme contrato; falha de arquivo visível e recuperável. Não restaurar combate nem inventar migração/sincronização de conta |
 
 Telas podem usar componentes simples e dados fictícios claramente identificados. Isso permite depois inserir arte/roteiro autorais sem pedir esses arquivos para cada avanço de engenharia.
 

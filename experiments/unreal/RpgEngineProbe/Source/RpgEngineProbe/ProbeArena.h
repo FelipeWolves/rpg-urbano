@@ -55,6 +55,10 @@ private:
     void SavePresentationPreferences();
     void ApplyPresentationPreferences();
     void DrawPreferences();
+    void DrawTeamSetup();
+    std::vector<std::string> DraftTeam;
+    FString TeamStatus;
+    int32 TeamMenuPage=0;
     void LoadHubCatalog();
     void DrawHub();
     int32 DrawInfoPanel(const FString& title,const TArray<FString>& paragraphs,int32& page,bool action=false,const FString& actionLabel=TEXT("Batalha de laboratório"),const FString& closeLabel=TEXT("Fechar"));
@@ -92,4 +96,3 @@ public:
     AProbeArenaMode();
     virtual void BeginPlay() override;
 };
-

@@ -1,0 +1,12 @@
+{
+  "Date": "2026-11-22",
+  "Passed": true,
+  "ExitCode": 0,
+  "NewVisualSaveGroups": 7,
+  "FocusedGroups": 64,
+  "EngineExecuted": false,
+  "SaveFileWritten": false,
+  "VisualAcceptance": false,
+  "AndroidExecuted": false,
+  "Scope": "Team selection 1..5, invalid data atomicity, stale commands, save codec roundtrip, profile/catalog boundaries, reward ledger preservation; related screen/session/layout regressions"
+}

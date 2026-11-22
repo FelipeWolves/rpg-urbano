@@ -2,7 +2,12 @@
 #include <limits>
 #include <stdexcept>
 namespace rpg::presentation {
-VisualSession::VisualSession(EncounterSetup setup,CombatProfile profile):session_(std::move(setup.roster),std::move(setup.rules),profile,std::move(setup.loadouts)){}
+namespace {
+LocalSession make_session(EncounterSetup setup,CombatProfile profile){
+    return LocalSession(std::move(setup.roster),std::move(setup.rules),profile,std::move(setup.loadouts));
+}
+}
+VisualSession::VisualSession(EncounterSetup setup,CombatProfile profile):selection_(std::move(setup),Team::A,profile),profile_(profile),session_(make_session(selection_.compose(),profile)){}
 VisualState VisualSession::state() const {
     const auto& profile=session_.battle();const auto* actor=profile.battle().current_actor();
     return {revision_,profile.snapshot(),session_.progress(),actor?profile.abilities(actor->definition.id):std::vector<AbilityView>{},
@@ -45,4 +50,37 @@ VisualResult VisualSession::step_automatic(){
     ++revision_;++automatic_count_;return {VisualError::None,std::move(result)};
 }
 void VisualSession::reset(){check_revision_capacity();session_.reset();++revision_;automatic_count_=0;stopped_=false;}
+void VisualSession::require_between_battles() const {
+    const auto& battle=session_.battle().battle();
+    if(battle.phase()==Phase::Running && battle.accepted_actions()!=0){
+        throw SaveError("Equipe/save indisponivel durante combate em andamento.");
+    }
+}
+SelectionError VisualSession::select_team(std::vector<std::string> ids){
+    require_between_battles();check_revision_capacity();
+    auto candidate=selection_;
+    const auto error=candidate.select(std::move(ids));
+    if(error!=SelectionError::None){return error;}
+    auto setup=candidate.compose();
+    LocalSession replacement(std::move(setup.roster),std::move(setup.rules),profile_,std::move(setup.loadouts));
+    replacement.restore_progress(session_.progress());
+    selection_=std::move(candidate);session_=std::move(replacement);
+    ++revision_;automatic_count_=0;stopped_=false;return SelectionError::None;
+}
+std::string VisualSession::export_save() const {
+    require_between_battles();
+    return encode_save({1,profile_,selection_.snapshot().selected,session_.progress()});
+}
+void VisualSession::import_save(std::string_view bytes){
+    require_between_battles();check_revision_capacity();
+    const auto saved=decode_save(bytes);
+    if(saved.profile!=profile_){throw SaveError("Save pertence a outro perfil de combate.");}
+    auto candidate=selection_;
+    if(candidate.select(saved.selected)!=SelectionError::None){throw SaveError("Equipe do save ausente no catalogo atual.");}
+    auto setup=candidate.compose();
+    LocalSession replacement(std::move(setup.roster),std::move(setup.rules),profile_,std::move(setup.loadouts));
+    replacement.restore_progress(saved.progress);
+    selection_=std::move(candidate);session_=std::move(replacement);
+    ++revision_;automatic_count_=0;stopped_=false;
+}
 } // namespace rpg::presentation

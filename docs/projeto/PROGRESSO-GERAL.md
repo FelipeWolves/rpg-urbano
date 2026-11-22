@@ -1,6 +1,6 @@
 # Progresso geral do projeto
 
-Atualizado em **21/11/2026**. **Demo integrada estimada em aproximadamente 22% (faixa orientativa: 20–25%).**
+Atualizado em **22/11/2026**. **Demo integrada estimada em aproximadamente 22% (faixa orientativa: 20–25%).**
 
 Referência: demo com Felipe, uma arena e apresentação integrada testada em um celular-alvo. Não mede o jogo comercial completo, 67 capítulos, todas as lojas ou serviços online. Percentuais são estimativas de maturidade; não medem horas nem garantem prazo.
 
@@ -18,7 +18,7 @@ Referência: demo com Felipe, uma arena e apresentação integrada testada em um
 | VFX / cinematics / vídeo | 5% | 5% | Mídias recebidas; player pendente |
 | Áudio / música | 0% | 5% | Direção documentada; integração pendente |
 | Conteúdo / tutorial | 10% | 5% | Recorte e universo definidos; tutorial não implementado |
-| Progressão / save | 25% | 5% | Save v1 e recompensa de laboratório |
+| Progressão / save | 25% | 5% | Save v1/recompensa; menu gráfico compilado, gravação/reabertura pela interface pendentes |
 | Mobile / otimização | 5% | 4% | AVD iniciou; APK e desempenho não validados |
 | QA integrado | 26% | 1% | Aceite do usuário na inspeção e regressões focadas; aparelho e desempenho pendentes |
 | Documentação | 78% | 1% | Entregas reconciliadas e guia de abertura/limites atualizado |
@@ -52,3 +52,7 @@ AUT-05 aceito pelo usuário nos dois layouts/detalhes. Front20→22% e QA24→26
 [AUT-07](AUT-07-PREFERENCIAS.md):64grupos de apresentação e compilação aprovados; codec/recuperação testados, gravação real/menu ainda não executados. Estimativas mantidas, sem antecipar aceite de persistência ou acessibilidade completa.
 
 22/11: ponteiro corrigido e aceito; [AUT-08](AUT-08-FLUXO-TELAS.md) testado e compilado, menus novos ainda sem aceite interativo. Estimativas mantidas em aproximadamente22% da demo; não antecipar conclusão de save gráfico, equipe ou Android.
+
+## AUT-09 — 22/11/2026
+
+Equipe, resumo de resultado e adaptador de save implementados/compilados; 64 grupos focados aprovados. Aceite interativo e persistência pela interface ainda pendentes. Estimativa ponderada mantida em 22,09% (aproximadamente 22%); compilação não equivale a demo aceita em celular. Ver [entrega e roteiro](AUT-09-EQUIPE-RESULTADO-SAVE.md).

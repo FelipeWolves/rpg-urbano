@@ -18,7 +18,7 @@ struct TeamSelectionSnapshot {
 // Pre-battle composition only: no runtime, rewards, inventory or file I/O.
 class TeamSelection {
 public:
-    explicit TeamSelection(EncounterSetup catalog,Team side=Team::A);
+    explicit TeamSelection(EncounterSetup catalog,Team side=Team::A,CombatProfile profile=CombatProfile::Team);
     [[nodiscard]] SelectionError select(std::vector<std::string> ids);
     [[nodiscard]] TeamSelectionSnapshot snapshot() const {return {side_,available_,selected_};}
     [[nodiscard]] EncounterSetup compose() const;

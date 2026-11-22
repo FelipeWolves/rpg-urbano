@@ -3,9 +3,9 @@
 #include <stdexcept>
 
 namespace rpg {
-TeamSelection::TeamSelection(EncounterSetup catalog,Team side):catalog_(std::move(catalog)),side_(side){
+TeamSelection::TeamSelection(EncounterSetup catalog,Team side,CombatProfile profile):catalog_(std::move(catalog)),side_(side){
     if(side!=Team::A && side!=Team::B){throw std::invalid_argument("Invalid selection side");}
-    const ProfileBattle validated(catalog_.roster,catalog_.rules,CombatProfile::Team,catalog_.loadouts);
+    const ProfileBattle validated(catalog_.roster,catalog_.rules,profile,catalog_.loadouts);
     for(const auto& fighter:validated.battle().fighters()){
         if(fighter.definition.team==side_){available_.push_back(fighter.definition.id);}
     }

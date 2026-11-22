@@ -37,7 +37,11 @@ void AProbeArenaMode::BeginPlay()
         auto* camera=GetWorld()->SpawnActor<ACameraActor>(location,rotation);
         if(camera){pc->SetViewTarget(camera);}
         pc->bShowMouseCursor=true;
-        pc->SetInputMode(FInputModeGameAndUI());
+        // This prototype uses Canvas controls, not Slate/UMG focusable widgets.
+        // Forward the initial capture click instead of consuming it for focus.
+        FInputModeGameOnly inputMode;inputMode.SetConsumeCaptureMouseDown(false);
+        pc->SetInputMode(inputMode);
+        if(auto* viewport=GetWorld()->GetGameViewport()){viewport->SetMouseCaptureMode(EMouseCaptureMode::NoCapture);}
     }
     UE_LOG(LogTemp, Display, TEXT("ARENA_LAYOUT %s"),classic?TEXT("Classic"):TEXT("Standard"));
 }

@@ -1,0 +1,14 @@
+{
+  "Date": "2026-11-22",
+  "Compiled": true,
+  "BuildActions": 4,
+  "ExitCode": 0,
+  "Log": "build/aut11-initial-click.log",
+  "ExistingPointerGroups": 10,
+  "PriorPauseHypothesisConfirmed": false,
+  "CurrentHypothesis": "Initial mouse capture consumes first click",
+  "RuntimeAccepted": false,
+  "EditorOpened": false,
+  "AndroidExecuted": false,
+  "Retest": "First click immediately after Play; team and arena pointer regression"
+}

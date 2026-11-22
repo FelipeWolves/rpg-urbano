@@ -171,3 +171,5 @@ Recepção21/11: [novidades e política de versionamento](RECEBIMENTO-NOVIDADES-
 ### AUT-11 — retorno de playback e correção de foco
 
 Usuário confirmou que reproduz, com segundo clique indevido. Ajuste de foco de janela preparado e instrumentado; reteste pendente. Backends mobile explicitamente pendentes em PENDENCIAS.md. Nenhum percentual alterado.
+
+AUT-11: reteste confirmou segundo clique só na primeira reprodução. Sem pausa registrada; ajuste de captura inicial do mouse preparado. Reteste de clique único/equipe/arena pendente; não declarar problema encerrado.

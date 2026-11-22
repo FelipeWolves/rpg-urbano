@@ -1,24 +1,40 @@
-# Necessidades atuais — preparação paralela
+# Sua preparação e o desenvolvimento — quadro vigente
 
-Atualizado em22/11/2026. Os12READMEs por grupo foram reconciliados com os documentos recebidos e o mapa de famílias. Não é necessário pesquisar tudo nem reenviar material definido. Nesta rodada a sequência de desenvolvimento é VIS → ENG → HUB; preparação paralela não deve bloquear esses ajustes.
+22/11/2026. Demo ~28%. Não precisa concluir todas as entregas antes de eu desenvolver. Pode enviar amostras parciais na pasta recebidos/ de cada grupo; nenhum original recebido foi modificado nesta revisão.
 
-| Grupo | O que mais ajuda agora | O que já existe / não reenviar |
-|---|---|---|
-| 00 Geral | Avisar arquivo/versão/delta e indicar decisão ou proposta | Mapa e recorte do piloto |
-| 01 Interface | Retestar clique único, troca de alvos e primeiro Rever após a compilação corrigida | Não redescrever todos os controles |
-| 02 Mobile | Guardar resultado do aparelho/build quando houver etapa autorizada | Configuração inteira do SDK/JDK/AVD e aparelho-alvo |
-| 03 Habilidades | Descrições/níveis/ícones e apenas fichas inéditas ou deltas | Felipe A1/A2/A3, Bleed/Poison, escudos e fórmulas fechadas |
-| 04 Modos | Uma ficha representativa de encontro e dados finais/faixas ainda ausentes | Todas as famílias de chefes ou catálogos completos |
-| 05 Hub/2D | Ícones/retratos/estados; revisão de panorama só se houver mudança | Panorama/variantes, sete locais, Cormorant/Lora/LOBO |
-| 06 Vídeo | Indicar fala/legendas; novas versões só para mudar conteúdo | MP4desktop/mobile já existentes; não reexportar para tentar corrigir clique |
-| 07 3D | Uma amostra Felipe/Umbra + Terraço, rig/material/clips e fontes | Não é necessário cidade ou elenco inteiro |
-| 08 Áudio | Amostras por evento, loop, stems e autoria | Direção/canais/eventos já recebidos |
-| 09 Progressão | Valores/faixas novos e regras de itens ainda não fechadas | Decisão de moedas separadas e savev1 entre tentativas |
-| 10 Textos | Roteiro curto do piloto porID e ordem; falas vinculadas | Premissa, protagonista e todos os livros |
-| 11 Direitos | Registro de origem/licença por recurso e restrições | Não presumir autorização comercial de material externo |
+## O que mais ajuda você a priorizar
 
-As instruções completas estão no README de cada grupo, ao lado de recebidos/. Manter versões antigas, indicar o que substitui e permitir entrega parcial. DocumentosMarkdown autorizados podem ir ao Git; vídeos/imagens/fontes grandes não entram automaticamente.
+1. **04 Modos:** uma ficha completa de encontro para substituir os valores provisórios após a integração.
+2. **05 e 03 Interface/kit:** ícones, retratos e descrições por ID, indicando apenas novidades.
+3. **07 e 08 Produção:** uma amostra de personagem/rig/arena e áudio por evento. Não produzir todo o elenco de uma vez.
+4. **10 e 06 Conteúdo:** roteiro curto do piloto e indicação de fala/legendas.
+5. **11 Direitos:** procedência por recurso; resolver/substituir logo externa antes de uso final.
 
-O desenvolvimento pode diagnosticar entrada/foco/player e preparar rotas com os recursos atuais. Arte final, voz, música e conteúdo definitivo entram por amostra. Android, instalação deMCP e testes visuais não são iniciados por este guia. Saldo de uso doCodex não é visível ao agente; a fila deve permanecer dividida em entregas pequenas.
+Nenhum item acima bloqueia meu próximo corte LAB-PVE-01: adaptadores e HUD com dados existentes. Ritual, ondas/fases, score e sequências podem avançar com placeholders. Save/reabertura, tutorial e telas novas precisam de seu aceite depois de preparados; não exigem que você crie arte.
 
-[Mapa](../docs/projeto/MAPA-FAMILIAS-E-PRIORIDADES.md) · [Retestes](../docs/projeto/RETESTES-ENTRADA-E-VIDEO.md) · [MCP e Unreal](../docs/projeto/ENG-AMB-MCP-UNREAL.md)
+## Quadro por grupo
+
+| Pasta | Sua entrega útil | Desenvolvimento independente | Aceite/dependência final |
+|---|---|---|---|
+| 00-entrada-geral | Indicar ID, versão, o que mudou e se é decisão/proposta/referência. Não precisa reunir tudo de uma vez. | Consolidar deltas e manter índices/contratos. | Só confirmar decisões novas quando faltarem; nenhuma nova pesquisa geral é pré-requisito. |
+| 01-interface-e-testes | Preparar testes específicos de save/reabertura, tutorial e telas amplas quando houver roteiro. Não repetir clique/vídeo/seletor aceitos. | Integrar HUD PvE e feedback com placeholders; montar roteiros de QA. | Você avalia cada tela nova depois; não depende de arte final. |
+| 02-mobile-e-plataformas | Guardar modelo/Android/GPU/RAM do aparelho-alvo e resultados existentes. Não reinstalar SDK/AVD. | Manter contratos de layout e backend portáveis no código. | APK/backend de vídeo/toque/desempenho precisam etapa futura autorizada; Android adiado. |
+| 03-combate-habilidades | Deltas de fichas, descrições/níveis/ícones por ID; efeitos inéditos com exemplos. Felipe e fórmulas fechadas não precisam reenvio. | Reutilizar base Team para Terminal/Felipe, catálogo e executores; manter kits individuais. | Só regras novas indefinidas dependem de resposta; catálogo inteiro não bloqueia a UI. |
+| 04-modos-pve-e-classico | Prioridade: uma ficha de encontro representativo com objetivo, vitória/derrota/limite, ondas/fases/times, kit e valores finais ou faixas. | LAB-PVE-01–06: adaptadores, Ritual, ondas/fases, score/sobrevivência, sequenciais e frentes locais, com fixtures. | Novas regras só após definição; telas novas pedem aceite. Clássico preservado, fora desta frente. |
+| 05-hub-identidade-e-arte2d | Ícones/retratos/estados de habilidades e efeitos, textos e arquivos por ID; origem/licença. Panorama só se houver mudança real. | Rotas locais, painéis e HUD provisórios com recursos atuais. | Arte final depende de recursos; implementação de navegação não precisa esperar. Logo externa continua provisória até regularização/substituição. |
+| 06-video-e-cinematics | Informar se há fala e se precisa legendas; entregar texto/timecodes se houver. Não reexportar vídeo para corrigir clique, já aceito. | Manter player e marca por binário; preparar interfaces de legendas/áudio e fallback conforme contratos existentes. | Conteúdo de legenda final depende do texto; backend mobile e mixagem não estão aceitos. |
+| 07-cenarios3d-personagens-animacoes | Uma amostra Felipe/Umbra + Terraço: modelo, unidade/escala/pivô, rig, materiais/texturas, lista de clips e origem. Não precisa cidade/elenco inteiro. | Contrato de importação, IDs e cues; placeholders para todos os modos. | Visual final precisa asset/rig/clips; fluidez real de animação pede aceite após integração. |
+| 08-audio-musica-e-dj | Uma amostra de BGM em loop e efeitos por evento (ação, impacto, menu); formato, loop/pontos, volumes relativos e autoria. Voz/stems se disponíveis. | IDs/eventos e arquitetura de áudio provisória sem esperar todas as faixas. | Mix final/vozes exigem recursos e audição; DJ é expansão separada. |
+| 09-progressao-inventario-save | Somente valores/faixas e regras novas de itens/economia ainda indefinidos; uma ficha exemplificada. Não reenviar decisões de save v1. | Roteiro de gravação/reabertura/backup e integração de recibos de score do laboratório. | Persistência real precisa teste seu; economia comercial/cross-save não estão implementados. |
+| 10-universo-conteudo-textos | Roteiro curto final do piloto: ordem de telas/falas, IDs, objetivo e condição de concluir cada passo. Preferível uma sequência pronta a muitos capítulos. | Fluxos provisórios e validação de IDs com tutorial técnico existente. | Texto/voz finais dependem de entrega; tutorial completo ainda precisa aceite específico. |
+| 11-distribuicao-servicos-e-direitos | Tabela de recurso → origem → autoria/licença → usos permitidos/restrições. Atenção à logo externa; não presumir licença comercial. | Separar dependências, documentar procedência e contratos de plataforma. | Publicar/instalar/plugin/rede/lojas exigem etapa própria; nenhum desses itens bloqueia os testes locais com assets autorizados. |
+
+## Não precisa reenviar
+
+Kit Felipe A1/A2/A3, Bleed/Poison, Standard/Silver, fórmulas/relógios fechados, panorama/variantes atuais, vídeos já funcionando ou configuração completa do SDK. Mudanças novas devem indicar o que substituem.
+
+## Estado dos testes
+
+Cliques únicos, vídeo/skip, placeholders, seletor e conclusão da batalha Felipe aceitos no cenário Windows testado. Ainda não comprovados: persistência real após reabrir/backup, tutorial específico, matriz ampla de telas/acessibilidade, APK/desempenho/backend mobile e Shipping. Android e MCP seguem adiados.
+
+[Minha fila e ordem](../docs/projeto/FILA-DESENVOLVIMENTO-INDEPENDENTE.md) · [Progresso e pesos](../docs/projeto/PROGRESSO-GERAL.md) · [Famílias/siglas](../docs/projeto/MAPA-FAMILIAS-E-PRIORIDADES.md). Matrizes CSV/JSON em docs/relatorios/atuais/DEPENDENCIAS-ENTREGAS.

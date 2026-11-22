@@ -1,86 +1,54 @@
-> **22/11 — retorno mais recente:** vídeo/skip e conclusão do piloto sem crash aceitos no teste do usuário. [Placeholders, seletor e escala do Terminal](PLACEHOLDERS-TERMINAL.md): mobilidade corrigida, marcador mais espesso/emissivo e PV do Terminal ampliados. Aceite visual desses ajustes ainda pendente; demo ~25% mantida.
-
-> **Atualização — 22/11:** cliques únicos e hover aceitos pelo usuário no RpgEngineProbe. Arena PvP recebe [acesso temporário ao piloto Felipe](HUB-FELIPE-ACESSO-TEMPORARIO.md), sem PvP online; Terminal e saves separados. Reteste do novo acesso e barra de skip não-assistido pendentes. Demo ~25% mantida.
-
-> **Vigente — VIS/ENG/HUB P0, 22/11:** [correções, evidências e reteste](VIS-ENG-HUB-P0-CORRECOES.md). Entrada/alvos e preparação do player atualizados em código; testes nativos aprovados. Aceites visuais continuam abertos; Android adiado e demo ~25% mantida. Próximo: reteste do usuário, depois integração visual dos modos já disponíveis. Esta nota prevalece sobre próximos passos históricos abaixo.
-
-> **Mapa vigente das famílias — 22/11:** [percentuais, tarefas independentes, ajustes, dependências e prioridades](MAPA-FAMILIAS-E-PRIORIDADES.md). Organização somente; demo geral mantida em ~25%. Próximo recomendado: cliques/alvos e primeira reprodução. Bases encerradas não são reabertas por rotina.
-
 # Progresso geral do projeto
 
-Atualizado em **22/11/2026**. **Demo integrada estimada em aproximadamente 25% (faixa orientativa: 23–27%).**
+Atualizado em **22/11/2026**, após os aceites visuais de fe6060b e alinhamento e1197d5.
 
-Referência: demo com Felipe, uma arena e apresentação integrada testada em um celular-alvo. Não mede o jogo comercial completo, 67 capítulos, todas as lojas ou serviços online. Percentuais são estimativas de maturidade; não medem horas nem garantem prazo.
+**Demo integrada: aproximadamente 28% (faixa orientativa 26–30%).** Soma ponderada: **28.03%**. Anterior: 25,15%. Mesmos pesos; diferença reconhece integração e aceites já realizados, não implementação nova nesta revisão.
 
-## Atualização ESC/SIS/PvE — 22/11
+O denominador é a primeira demo com Felipe, uma arena, apresentação e teste em celular-alvo. Não mede o jogo comercial, elenco/campanha completos, multiplayer ou lojas. Estimativas de maturidade; não são medição de horas nem promessa de prazo.
 
-Core52→60%, QA28→30% e documentação79→80%. Soma orientativa25,15%; demais áreas mantidas. São estimativas de maturidade, não horas ou porcentagem medida de esforço. Nenhuma arte/mobile nova foi aceita. Clique, troca de alvos e vídeo reabertos para reteste. Novos modos estão em código/ponte, sem menu/HUD próprio.
-
-## Áreas
-
-| Área | Progresso | Peso na demo | Base / limite |
+| Área | Progresso | Peso | Evidência / limite |
 |---|---:|---:|---|
-| Código core | 60% | 20% | ESC/SIS/PvE de código testado: escudos, ondas, score, modos/fases/frentes; catálogo completo ainda pendente |
-| Integração Unreal | 45% | 10% | Projeto estável compilado, mapa salvo e reabertura/Play observados |
-| Front / interface | 22% | 10% | Inspeção dos dois layouts/detalhes aceita; novos cartões compilados aguardam aceite |
-| Hub / navegação | 20% | 7% | Sete locais e painéis informativos implementados; aceite visual pendente |
-| Arte 2D | 25% | 5% | Panorama novo conectado ao catálogo; aceite visual pendente |
-| Cenários 3D | 5% | 10% | Arena geométrica provisória |
-| Personagens / rig / animação | 0% | 12% | Sem recursos finais integrados |
-| VFX / cinematics / vídeo | 5% | 5% | Player local parcial; aceites e acabamento pendentes |
-| Áudio / música | 0% | 5% | Direção documentada; integração pendente |
-| Conteúdo / tutorial | 10% | 5% | Recorte e universo definidos; tutorial não implementado |
-| Progressão / save | 25% | 5% | Save v1/recompensa; menu gráfico compilado, gravação/reabertura pela interface pendentes |
-| Mobile / otimização | 5% | 4% | AVD iniciou; APK e desempenho não validados |
-| QA integrado | 30% | 1% | Doze baterias e regressão geral aprovadas; cliques/alvos/vídeo reabertos, mobile/desempenho pendentes |
-| Documentação | 80% | 1% | Consolidação ESC/SIS/PvE, retestes e limites de UI/plataformas atualizados |
+| Código core | 60% | 20% | ESC/SIS/PvE testados; catálogo completo e integração dos modos pendentes |
+| Integração Unreal | 50% | 10% | Dois laboratórios compilados, placeholders e entrada aceitos; pacote limpo e plataformas pendentes |
+| Front / interface | 30% | 10% | Cliques, seleção, painéis e seletor aceitos no recorte testado; HUD PvE, fluidez e matriz ampla pendentes |
+| Hub / navegação | 30% | 7% | Terminal e piloto Felipe acessíveis pelo hub e aceitos; sete destinos não significam sete sistemas |
+| Arte 2D | 25% | 5% | Panorama e recursos autorais recebidos/conectados; sem nova produção ou aceite integral de arte final |
+| Cenários 3D | 5% | 10% | Arena geométrica provisória; sem cenário 3D final |
+| Personagens / rig / animação | 0% | 12% | Sem personagem, rig ou animações finais integrados |
+| VFX / cinematics / vídeo | 15% | 5% | Player, primeiro clique, hover e skip aceitos no Windows; vídeo por compilação; mobile/legendas/VFX pendentes |
+| Áudio / música | 0% | 5% | Direção recebida; sem mixer, música ou voz finais integrados |
+| Conteúdo / tutorial | 15% | 5% | Tutorial técnico Felipe implementado; sem aceite específico do roteiro/tutorial completo |
+| Progressão / save | 25% | 5% | Save v1 e sessões isoladas; persistência real e recuperação via UI ainda não aceitas |
+| Mobile / otimização | 5% | 4% | AVD com boot anterior; sem APK, toque real, desempenho ou backend mobile validados |
+| QA integrado | 38% | 1% | Retestes Windows aceitos e regressões pertinentes aprovadas; save/resoluções/Shipping/mobile pendentes |
+| Documentação | 85% | 1% | Estado reconciliado com commits e aceites; fila por dependência e recebíveis atualizados |
 
-Pesos somam 100; soma ponderada estimada = 25,15%, arredondada para comunicação. Pesos são premissas de planejamento revisáveis, não precisão de medição. Serviços e lojas ficam fora da demo (implementação 0%).
+## Concluído no recorte atual
 
-## Fechamento SIS/REG/HAB — 22/11
+- Core de batalha: ponto fixo, funil, controles, Bleed/Poison, Felipe A1/A2/A3, escudos, ondas, score, fases e frentes em código e testes; nem todos têm interface integrada.
+- Windows: abertura padrão do projeto, entrada com clique único, seleção/troca de alvos, recargas, placeholders e seletor; usuário aprovou os últimos ajustes no cenário testado.
+- Vídeo: início com um clique e skip/hover aprovados; marca de assistido vinculada ao binário, sem apagar saves.
+- Hub: Terminal genérico e piloto Felipe via Arena PvP temporária, ambos locais e com sessões/saves isolados. Nenhum PvP online implementado.
+- Base Team comum para ambos; limite 200 ações/empate. Kits individuais preservados. Clássico fora desta frente.
 
-Core45→52%, QA26→28%, documentação78→79%. Demais áreas mantidas; sem avanço validado de arte3D/mobile ou aceite visual do piloto. São estimativas de maturidade, não medição de esforço restante. [Entrega](HAB-FELIPE-PILOTO.md).
+## Ainda depende de aceite seu
 
-## Histórico de atualizações
+Persistência real de equipe/progresso/preferências após fechar e reabrir; backup/recuperação; tutorial específico; resoluções/formações e acessibilidade amplas; futuras telas dos modos. Não repetir aceites de clique/vídeo/seletor por rotina. Compilação/teste nativo não substitui essas provas.
 
-A faixa histórica 15–20% não tinha pesos explícitos. Agora a arte recebida e o boot do AVD são reconhecidos dentro de limites pequenos; core passa de 55 para 45% pelo escopo ampliado de atributos, ponto fixo, bloqueio e efeitos, não por perda de funcionalidades. Não comparar diretamente as duas estimativas como velocidade de produção. Novas regras respondidas não recebem crédito de implementação.
+## Ainda depende de entregas ou decisões suas
 
-Seletor no chão corrigido e aceito; texto e combate confirmados pelo usuário. Não reabrir esses defeitos sem evidência nova. Mobile, fluidez, player e formação/resolução ampla permanecem separados. Nenhum teste foi repetido por esta atualização documental.
+Recursos finais 3D/rig/animações, áudio/voz, ícones/retratos e direitos, roteiro final e kits/encontros novos cujas regras não foram definidas. Pode enviar uma amostra parcial por área; não precisa completar tudo. Arte provisória e dados de laboratório permitem desenvolver os fluxos antes.
 
-[Consolidação e próximas fases](CONSOLIDACAO-2026-11-21.md) · [Tarefas](TAREFAS.md) · [Estado](ESTADO.md) · [Fila independente](FILA-DESENVOLVIMENTO-INDEPENDENTE.md)
+## Próximos passos independentes das entregas
 
-Arte, roteiro, áudio e recursos 3D podem ser produzidos sem terminar todas as habilidades. Integração depende de contratos de IDs, dimensões, escala, eventos e direitos. Código/UI provisórios podem avançar sem novas entregas. Abertura padrão Unreal concluída no Windows local; não representa APK pronto.
+1. Mapear os adaptadores dos modos já implementados e o contrato de dados do HUD, sem duplicar combate.
+2. Integrar no Terminal um encontro Ritual simples com estados de objetivo e resultado.
+3. Mostrar ondas e fases; depois ScoreAttack/Survival e resumo de score.
+4. Integrar trocas sequenciais; depois frentes paralelas/chefe compartilhado, que exigem apresentação mais complexa.
+5. Melhorar feedback de ações/efeitos/recusas e preparar a matriz de aceite de save/tutorial/resoluções.
 
-Integração Unreal 38→45%, QA22→24% e documentação75→78% nesta etapa. Soma ponderada 21,87%, arredondada para22%. [Evidências e limites](UNREAL-PROJETO-ESTAVEL.md).
+Esta lista é planejamento, não execução nesta atualização. Android, instalações, MCP e controle de tela continuam fora da fila imediata. Regras inéditas não serão inventadas para desbloquear conteúdo final.
 
-[Hub da cidade](HUB-PANORAMA-CIDADE.md): código/compilação e26grupos nativos aprovados; percentuais mantidos até aceite visual, sem confundir os sete painéis com sete sistemas completos. AUT-01 implementado; Android adiado.
+[Dependências e sua preparação](../../entregas/NECESSIDADES-ATUAIS.md) · [Fila do desenvolvimento](FILA-DESENVOLVIMENTO-INDEPENDENTE.md) · [Famílias e siglas](MAPA-FAMILIAS-E-PRIORIDADES.md) · [Pendências](PENDENCIAS.md).
 
-[AUT-02](AUT-02-GEOMETRIA.md): geometria/margens simuladas implementadas,34grupos de apresentação e build na pasta nova aprovados. Percentuais mantidos até aceite visual; safe area real e Android não validados.
-
-[AUT-03](AUT-03-ENTRADA.md): entrada unificada e cancelamentos implementados/testados,44grupos nativos e build aprovados; percentual mantido até aceite interativo. Android adiado.
-
-[AUT-04](AUT-04-PAINEIS.md): painéis unificados, quebra medida e paginação implementados,54grupos de apresentação e build aprovados. Estimativas mantidas até aceite visual; Android segue adiado.
-
-[AUT-05](AUT-05-INSPECAO.md):13cenários de inspeção,22grupos focados e build aprovados. Aceite visual de formações/escudo continua pendente; percentuais mantidos, sem alteração de regras ESC ou do roster padrão.
-
-AUT-05 aceito pelo usuário nos dois layouts/detalhes. Front20→22% e QA24→26%; soma ponderada22,09%, mantendo comunicação de aproximadamente22% da demo. AUT-06 compilado, aparência ainda pendente; Android adiado. [Registro](AUT-06-HABILIDADES.md).
-
-[AUT-07](AUT-07-PREFERENCIAS.md):64grupos de apresentação e compilação aprovados; codec/recuperação testados, gravação real/menu ainda não executados. Estimativas mantidas, sem antecipar aceite de persistência ou acessibilidade completa.
-
-22/11: ponteiro corrigido e aceito; [AUT-08](AUT-08-FLUXO-TELAS.md) testado e compilado, menus novos ainda sem aceite interativo. Estimativas mantidas em aproximadamente22% da demo; não antecipar conclusão de save gráfico, equipe ou Android.
-
-## AUT-09 — 22/11/2026
-
-Equipe, resumo de resultado e adaptador de save implementados/compilados; 64 grupos focados aprovados. Aceite interativo e persistência pela interface ainda pendentes. Estimativa ponderada mantida em 22,09% (aproximadamente 22%); compilação não equivale a demo aceita em celular. Ver [entrega e roteiro](AUT-09-EQUIPE-RESULTADO-SAVE.md).
-
-## AUT-10 — 22/11/2026
-
-Contrato de mídia local implementado e testado (12 grupos novos; 94 de apresentação no total desta bateria). Sem reprodução ou alteração visual. Percentuais mantidos, incluindo estimativa ponderada de 22,09% da demo. Próximo: AUT-11, backend e integração. Ver AUT-10-MIDIA-LOCAL.md.
-
-## AUT-11 — 22/11/2026
-
-Ensaio manual de player local compilado, sem reprodução observada. Flag, codecs, áudio, legendas/mixer e aceites continuam pendentes. Estimativa mantida em 22,09% da demo; integração compilada não recebe aceite de mídia. Ver AUT-11-PLAYER-LOCAL.md.
-
-## AUT-12 a AUT-16 — 22/11/2026
-
-Entregas consolidadas em CONSOLIDACAO-AUT-12-16.md: runtime do marcador, canal de cues, schema de referência, stage e QA por área. Percentuais mantidos até aceites pertinentes; estimativa continua 22,09% (aproximadamente 22%). Sem teste visual/mobile/Shipping nesta rodada. Clique inicial da intro provisório, REVER. Não somar as baterias distintas como suite única.
+Histórico de percentuais e estados anteriores permanece no Git e nos relatórios datados. Este painel substitui notas acumuladas que ainda diziam cliques/vídeo reabertos, tutorial inexistente ou AUT por iniciar. Nenhum teste, build ou jogo foi executado nesta revisão documental.

@@ -1,3 +1,28 @@
+# Modos e encontros — guia vigente
+
+Atualizado em **22/11/2026**. Demo **~28%**. Sua preparação e o desenvolvimento são frentes paralelas: entregar amostras é suficiente; nada aqui pede para refazer material já definido.
+
+## Sua próxima contribuição
+
+Prioridade: uma ficha de encontro representativo com objetivo, vitória/derrota/limite, ondas/fases/times, kit e valores finais ou faixas.
+
+## O que posso desenvolver sem sua próxima entrega
+
+LAB-PVE-01–06: adaptadores, Ritual, ondas/fases, score/sobrevivência, sequenciais e frentes locais, com fixtures.
+
+## O que depende de aceite ou recurso final
+
+Novas regras só após definição; telas novas pedem aceite. Clássico preservado, fora desta frente.
+
+## Como entregar
+
+Coloque em recebidos/ desta pasta. Nome: AAAA-MM-DD_assunto_v02.md, com ID, versão, substituição/delta, decisão ou hipótese e origem. Pode enviar uma parte pronta por vez. Não apagar versões anteriores. Markdown pode ir ao Git; imagens, vídeos e recursos grandes continuam locais. Não incluir credenciais/dados pessoais.
+
+Cliques únicos, vídeo/skip, esferas e seletor já foram aceitos no recorte Windows testado. Novos HUDs, save real e mobile têm aceites separados. [Central](../NECESSIDADES-ATUAIS.md) · [Progresso](../../docs/projeto/PROGRESSO-GERAL.md) · [Minha fila](../../docs/projeto/FILA-DESENVOLVIMENTO-INDEPENDENTE.md).
+
+<details>
+<summary>Guia anterior e histórico — não repetir pedidos já atendidos</summary>
+
 # Modos PvE e clássico — guia vigente
 
 Atualizado em22/11/2026. **P1 integração simples; expansões depois.** Fonte vigente: [mapa das famílias](../../docs/projeto/MAPA-FAMILIAS-E-PRIORIDADES.md). Conteúdo deste guia distingue preparação independente de implementação/aceite. Atualizações de arquivos recebidos ficam preservadas.
@@ -62,5 +87,8 @@ Especificação pode chegar agora; execução depende das regras usadas por cada
 Coloque documentos/imagens/vídeos desta área em **recebidos/**, nesta pasta. Pode entregar parcialmente; use NÃO SEI / PROPOSTA / REFERÊNCIA / DECISÃO DESEJADA. Copie o modelo geral se ajudar. Não sobrescreva versões anteriores. Desde21/11,Markdown recebido é versionado por autorização do usuário; imagens/vídeos ficam locais, fora doGit.
 
 [Instruções gerais](../README.md) · [Modelo](../MODELO-ENTREGA.md) · [Pendências vigentes](../../docs/projeto/PENDENCIAS.md).
+
+</details>
+
 
 </details>

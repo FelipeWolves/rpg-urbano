@@ -1,3 +1,28 @@
+# Vídeo e cinematics — guia vigente
+
+Atualizado em **22/11/2026**. Demo **~28%**. Sua preparação e o desenvolvimento são frentes paralelas: entregar amostras é suficiente; nada aqui pede para refazer material já definido.
+
+## Sua próxima contribuição
+
+Informar se há fala e se precisa legendas; entregar texto/timecodes se houver. Não reexportar vídeo para corrigir clique, já aceito.
+
+## O que posso desenvolver sem sua próxima entrega
+
+Manter player e marca por binário; preparar interfaces de legendas/áudio e fallback conforme contratos existentes.
+
+## O que depende de aceite ou recurso final
+
+Conteúdo de legenda final depende do texto; backend mobile e mixagem não estão aceitos.
+
+## Como entregar
+
+Coloque em recebidos/ desta pasta. Nome: AAAA-MM-DD_assunto_v02.md, com ID, versão, substituição/delta, decisão ou hipótese e origem. Pode enviar uma parte pronta por vez. Não apagar versões anteriores. Markdown pode ir ao Git; imagens, vídeos e recursos grandes continuam locais. Não incluir credenciais/dados pessoais.
+
+Cliques únicos, vídeo/skip, esferas e seletor já foram aceitos no recorte Windows testado. Novos HUDs, save real e mobile têm aceites separados. [Central](../NECESSIDADES-ATUAIS.md) · [Progresso](../../docs/projeto/PROGRESSO-GERAL.md) · [Minha fila](../../docs/projeto/FILA-DESENVOLVIMENTO-INDEPENDENTE.md).
+
+<details>
+<summary>Guia anterior e histórico — não repetir pedidos já atendidos</summary>
+
 > **22/11 — candidato a reteste:** correções de entrada/alvos e preparação da mídia em código. Testar primeira abertura/Rever e troca de alvo; aceite visual ainda pendente. Ver docs/projeto/VIS-ENG-HUB-P0-CORRECOES.md. Não é necessário reenviar os recursos já recebidos.
 
 # Vídeo e cinematics — guia vigente
@@ -65,5 +90,8 @@ Roteiro e vídeo independem de combate completo; runtime depende do player e dis
 Coloque documentos/imagens/vídeos desta área em **recebidos/**, nesta pasta. Pode entregar parcialmente; use NÃO SEI / PROPOSTA / REFERÊNCIA / DECISÃO DESEJADA. Copie o modelo geral se ajudar. Não sobrescreva versões anteriores. Desde21/11,Markdown recebido é versionado por autorização do usuário; imagens/vídeos ficam locais, fora doGit.
 
 [Instruções gerais](../README.md) · [Modelo](../MODELO-ENTREGA.md) · [Pendências vigentes](../../docs/projeto/PENDENCIAS.md).
+
+</details>
+
 
 </details>

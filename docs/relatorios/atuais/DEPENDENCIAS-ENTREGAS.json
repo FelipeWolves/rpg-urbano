@@ -1,0 +1,74 @@
+[
+  {
+    "Grupo": "00-entrada-geral",
+    "SuaEntrega": "Indicar ID, versão, o que mudou e se é decisão/proposta/referência. Não precisa reunir tudo de uma vez.",
+    "DesenvolvimentoIndependente": "Consolidar deltas e manter índices/contratos.",
+    "AceiteOuDependencia": "Só confirmar decisões novas quando faltarem; nenhuma nova pesquisa geral é pré-requisito."
+  },
+  {
+    "Grupo": "01-interface-e-testes",
+    "SuaEntrega": "Preparar testes específicos de save/reabertura, tutorial e telas amplas quando houver roteiro. Não repetir clique/vídeo/seletor aceitos.",
+    "DesenvolvimentoIndependente": "Integrar HUD PvE e feedback com placeholders; montar roteiros de QA.",
+    "AceiteOuDependencia": "Você avalia cada tela nova depois; não depende de arte final."
+  },
+  {
+    "Grupo": "02-mobile-e-plataformas",
+    "SuaEntrega": "Guardar modelo/Android/GPU/RAM do aparelho-alvo e resultados existentes. Não reinstalar SDK/AVD.",
+    "DesenvolvimentoIndependente": "Manter contratos de layout e backend portáveis no código.",
+    "AceiteOuDependencia": "APK/backend de vídeo/toque/desempenho precisam etapa futura autorizada; Android adiado."
+  },
+  {
+    "Grupo": "03-combate-habilidades",
+    "SuaEntrega": "Deltas de fichas, descrições/níveis/ícones por ID; efeitos inéditos com exemplos. Felipe e fórmulas fechadas não precisam reenvio.",
+    "DesenvolvimentoIndependente": "Reutilizar base Team para Terminal/Felipe, catálogo e executores; manter kits individuais.",
+    "AceiteOuDependencia": "Só regras novas indefinidas dependem de resposta; catálogo inteiro não bloqueia a UI."
+  },
+  {
+    "Grupo": "04-modos-pve-e-classico",
+    "SuaEntrega": "Prioridade: uma ficha de encontro representativo com objetivo, vitória/derrota/limite, ondas/fases/times, kit e valores finais ou faixas.",
+    "DesenvolvimentoIndependente": "LAB-PVE-01–06: adaptadores, Ritual, ondas/fases, score/sobrevivência, sequenciais e frentes locais, com fixtures.",
+    "AceiteOuDependencia": "Novas regras só após definição; telas novas pedem aceite. Clássico preservado, fora desta frente."
+  },
+  {
+    "Grupo": "05-hub-identidade-e-arte2d",
+    "SuaEntrega": "Ícones/retratos/estados de habilidades e efeitos, textos e arquivos por ID; origem/licença. Panorama só se houver mudança real.",
+    "DesenvolvimentoIndependente": "Rotas locais, painéis e HUD provisórios com recursos atuais.",
+    "AceiteOuDependencia": "Arte final depende de recursos; implementação de navegação não precisa esperar. Logo externa continua provisória até regularização/substituição."
+  },
+  {
+    "Grupo": "06-video-e-cinematics",
+    "SuaEntrega": "Informar se há fala e se precisa legendas; entregar texto/timecodes se houver. Não reexportar vídeo para corrigir clique, já aceito.",
+    "DesenvolvimentoIndependente": "Manter player e marca por binário; preparar interfaces de legendas/áudio e fallback conforme contratos existentes.",
+    "AceiteOuDependencia": "Conteúdo de legenda final depende do texto; backend mobile e mixagem não estão aceitos."
+  },
+  {
+    "Grupo": "07-cenarios3d-personagens-animacoes",
+    "SuaEntrega": "Uma amostra Felipe/Umbra + Terraço: modelo, unidade/escala/pivô, rig, materiais/texturas, lista de clips e origem. Não precisa cidade/elenco inteiro.",
+    "DesenvolvimentoIndependente": "Contrato de importação, IDs e cues; placeholders para todos os modos.",
+    "AceiteOuDependencia": "Visual final precisa asset/rig/clips; fluidez real de animação pede aceite após integração."
+  },
+  {
+    "Grupo": "08-audio-musica-e-dj",
+    "SuaEntrega": "Uma amostra de BGM em loop e efeitos por evento (ação, impacto, menu); formato, loop/pontos, volumes relativos e autoria. Voz/stems se disponíveis.",
+    "DesenvolvimentoIndependente": "IDs/eventos e arquitetura de áudio provisória sem esperar todas as faixas.",
+    "AceiteOuDependencia": "Mix final/vozes exigem recursos e audição; DJ é expansão separada."
+  },
+  {
+    "Grupo": "09-progressao-inventario-save",
+    "SuaEntrega": "Somente valores/faixas e regras novas de itens/economia ainda indefinidos; uma ficha exemplificada. Não reenviar decisões de save v1.",
+    "DesenvolvimentoIndependente": "Roteiro de gravação/reabertura/backup e integração de recibos de score do laboratório.",
+    "AceiteOuDependencia": "Persistência real precisa teste seu; economia comercial/cross-save não estão implementados."
+  },
+  {
+    "Grupo": "10-universo-conteudo-textos",
+    "SuaEntrega": "Roteiro curto final do piloto: ordem de telas/falas, IDs, objetivo e condição de concluir cada passo. Preferível uma sequência pronta a muitos capítulos.",
+    "DesenvolvimentoIndependente": "Fluxos provisórios e validação de IDs com tutorial técnico existente.",
+    "AceiteOuDependencia": "Texto/voz finais dependem de entrega; tutorial completo ainda precisa aceite específico."
+  },
+  {
+    "Grupo": "11-distribuicao-servicos-e-direitos",
+    "SuaEntrega": "Tabela de recurso → origem → autoria/licença → usos permitidos/restrições. Atenção à logo externa; não presumir licença comercial.",
+    "DesenvolvimentoIndependente": "Separar dependências, documentar procedência e contratos de plataforma.",
+    "AceiteOuDependencia": "Publicar/instalar/plugin/rede/lojas exigem etapa própria; nenhum desses itens bloqueia os testes locais com assets autorizados."
+  }
+]

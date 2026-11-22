@@ -1,3 +1,25 @@
+# Pendências — síntese vigente
+
+22/11/2026. Esta síntese substitui marcações históricas do detalhamento abaixo. Demo ~28%; ver PROGRESSO-GERAL.md.
+
+| Área | Estado real | Quem libera o próximo avanço |
+|---|---|---|
+| Clique, alvo, vídeo/skip, placeholders e seletor | Aceitos no recorte Windows testado | Ninguém: preservar, só retestar se houver regressão |
+| Base Team / Felipe / escudos / efeitos / funil | Código e testes entregues; kits individuais preservados | Desenvolvimento mantém/reutiliza; regras novas dependem de definição específica |
+| PvE, ondas, score, fases, SEQ/PAR | Core implementado; integração visual incompleta | Desenvolvimento pode começar sem nova entrega: LAB-PVE-01–06 |
+| Save e preferências | Codec/adaptador implementados; persistência/reabertura/recuperação real não aceitas | Desenvolvimento prepara roteiro; usuário executa/avalia depois |
+| Tutorial e telas/resoluções amplas | Preparados parcialmente; não abrangidos pelo aceite geral | Desenvolvimento prepara casos; usuário confirma a experiência |
+| Conteúdo final/novos kits/encontros | Só o recorte já definido está liberado | Usuário entrega amostras/deltas; código provisório não precisa esperar |
+| 3D, rig, animações, áudio e ícones finais | Integração final pendente | Usuário fornece recursos/procedência; desenvolvimento prepara contratos/eventos |
+| Mobile, Shipping, lojas/servidor e MCP | Não validados ou adiados | Repriorização e permissões específicas; não bloqueiam a fila Windows |
+
+Não reenviar ESC-01–07, kit Felipe, Bleed/Poison, Block, ACC/RESIST ou ponto fixo já fechados. P2/P3 abaixo contêm histórico e extensões: nem toda pergunta antiga permanece aberta. Use esta tabela e os relatórios de implementação para distingui-las. Decisões inéditas permanecem no bloco afetado, sem invalidar o que foi concluído.
+
+[Próximos cortes independentes](FILA-DESENVOLVIMENTO-INDEPENDENTE.md) · [Suas entregas por área](../../entregas/NECESSIDADES-ATUAIS.md).
+
+<details>
+<summary>Contratos, perguntas específicas e histórico anterior — estados antigos substituídos pela síntese acima</summary>
+
 > **Diretriz vigente — 22/11:** [base comum dos laboratórios](BASE-COMUM-LABORATORIOS.md). Terminal e Felipe compartilham regras Team e limite de 200 ações/empate; personagens mantêm kits/atributos próprios. Modo clássico fora desta frente. Ajustes visuais de fe6060b aceitos pelo usuário; não reabrir por rotina.
 
 > **22/11 — retorno mais recente:** vídeo/skip e conclusão do piloto sem crash aceitos no teste do usuário. [Placeholders, seletor e escala do Terminal](PLACEHOLDERS-TERMINAL.md): mobilidade corrigida, marcador mais espesso/emissivo e PV do Terminal ampliados. Aceite visual desses ajustes ainda pendente; demo ~25% mantida.
@@ -630,3 +652,5 @@ Usuário informou que aparentemente está correto, mas fará uma segunda confer�
 Bleed (22/11): fórmula/relógio/classificação recebidos em BLEED-FELIPE-CONTRATO.md. Restam escolha de reaplicação da mesma fonte e número de slots do piloto; perguntas enviadas ao usuário. Isso não bloqueia SIS/REG independentes.
 
 REG-03 (22/11): base executável e testes entregues; ver REG-03-CONTROLES.md. Permanecem as integrações de consequências nativas da A2 e efeitos contínuos. Poison e Bleed são contratos distintos; Poison não recebeu duração global, fornecida pela habilidade aplicadora. Não reabrir fórmulas aprovadas.
+
+</details>

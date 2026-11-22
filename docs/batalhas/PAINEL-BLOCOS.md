@@ -1,3 +1,25 @@
+# Painel de blocos — situação consolidada
+
+22/11/2026. Demo ~28% (não somar percentuais de famílias). [Mapa completo de siglas e estimativas](../projeto/MAPA-FAMILIAS-E-PRIORIDADES.md).
+
+| Grupo | Estado vigente | O que falta |
+|---|---|---|
+| FUN / COM / TIME / RES | Fundação e recortes básicos encerrados; manter | Integração/extensões explícitas, sem refazer testes por rotina |
+| SIS / REG / HAB | Contratos e implementações do piloto entregues/testados | Catálogo amplo, atributos/regras inéditos e conteúdo final |
+| ESC / WAVE / PvE / SEQ / PAR | Controladores/escudos/score/fases/frentes locais testados | Rotas/HUD dos modos avançados; não confundir compilação com tela pronta |
+| VIS / ENG / HUB | Entrada, player, placeholders/seletor e piloto via hub aceitos no recorte Windows | Integração visual PvE, save/tutorial/resoluções amplas e feedback |
+| AUT-01–16 | Entregues nos recortes documentados | Persistência real, legendas/mixer, animações, Shipping/mobile e aceites específicos não viram completos por isso |
+| LAB-PVE-01–06 | Planejamento novo, ainda não implementado | Adaptadores/HUD → Ritual → ondas/fases → score/sobrevivência → SEQ → PAR |
+| ART / AUD / EXP | Preparação/escopo parcial | Recursos finais, áudio e expansão; podem ser produzidos em paralelo |
+
+COM combate; TIME tempo/AP; RES resolução causal; FUN fundação; SIS sistemas; REG regras; HAB habilidades; ESC escudos; WAVE ondas; PvE jogador contra ambiente; SEQ confrontos sequenciais; PAR frentes paralelas locais; VIS visual/interação; ENG integração Unreal; HUB navegação; AUT tarefas autônomas transversais; ART arte/animação; AUD áudio; EXP expansão. CIC ciclo/save; AMB ambiente; QA testes; MCP ponte de ferramentas opcional.
+
+Aceites visuais não significam validação universal em todos os dispositivos. Preservar o que foi aceito e retestar quando uma alteração relevante justificar. Base Team comum a Terminal/Felipe, sem moldar clássico nesta frente.
+
+[Próximas entregas sem novos insumos](../projeto/FILA-DESENVOLVIMENTO-INDEPENDENTE.md) · [Dependências de material e aceite](../../entregas/NECESSIDADES-ATUAIS.md).
+
+<details>
+<summary>Painel anterior — histórico, percentuais e marcações antigas substituídos pelo quadro vigente</summary>
 > **Mapa vigente das famílias — 22/11:** [percentuais, tarefas independentes, ajustes, dependências e prioridades](../projeto/MAPA-FAMILIAS-E-PRIORIDADES.md). Organização somente; demo geral mantida em ~25%. Próximo recomendado: cliques/alvos e primeira reprodução. Bases encerradas não são reabertas por rotina.
 
 > **Vigente22/11 — ESC/SIS/PvE concluído no recorte de código:** [entregas e limites](../projeto/ESC-SIS-PVE-CONSOLIDACAO.md). Doze baterias, regressão geral, compilaçãoUE e stage66 aprovados, sem executar o jogo. Cliques/alvos e vídeo continuam **REABERTOS**. Menus/HUD novos, conteúdo final e plataformas são próximos trabalhos separados.
@@ -184,3 +206,5 @@ SIS-02-C2/C3 (22/11): manifesto amplo com contagens/versões protegidas, nove gr
 REG-01-A (22/11): contrato outcomes/RNG v1 e ACC/RESIST preparado, nove grupos aprovados. Ainda sem RNG novo no Battle legado; próximo REG-01-B funil/ligação. Ver REG-01-A-OUTCOMES-RNG.md.
 
 REG-01-B (22/11): funil opt-in integrado, dez grupos próprios e regressão geral aprovados; build18ações. Legacy preservado. Próximo REG-03 e HAB/Felipe. Contratos novos Bleed/Poison e cargas douradas recebidos; ver REG-01-B-FUNIL.md.
+
+</details>

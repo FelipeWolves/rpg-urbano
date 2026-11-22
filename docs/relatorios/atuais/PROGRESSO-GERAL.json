@@ -1,0 +1,102 @@
+{
+  "date": "2026-11-22",
+  "scope": "Primeira demo integrada com Felipe, arena e validação em celular-alvo; não jogo comercial completo",
+  "method": "Mesmos pesos; estimativas de maturidade, não horas ou contagem de tarefas",
+  "weighted_percent": 28.03,
+  "rounded_percent": 28,
+  "range": [
+    26,
+    30
+  ],
+  "areas": [
+    {
+      "Area": "Código core",
+      "Peso": "20",
+      "Progresso": 60,
+      "Base": "ESC/SIS/PvE testados; catálogo completo e integração dos modos pendentes"
+    },
+    {
+      "Area": "Integração Unreal",
+      "Peso": "10",
+      "Progresso": 50,
+      "Base": "Dois laboratórios compilados, placeholders e entrada aceitos; pacote limpo e plataformas pendentes"
+    },
+    {
+      "Area": "Front / interface",
+      "Peso": "10",
+      "Progresso": 30,
+      "Base": "Cliques, seleção, painéis e seletor aceitos no recorte testado; HUD PvE, fluidez e matriz ampla pendentes"
+    },
+    {
+      "Area": "Hub / navegação",
+      "Peso": "7",
+      "Progresso": 30,
+      "Base": "Terminal e piloto Felipe acessíveis pelo hub e aceitos; sete destinos não significam sete sistemas"
+    },
+    {
+      "Area": "Arte 2D",
+      "Peso": "5",
+      "Progresso": 25,
+      "Base": "Panorama e recursos autorais recebidos/conectados; sem nova produção ou aceite integral de arte final"
+    },
+    {
+      "Area": "Cenários 3D",
+      "Peso": "10",
+      "Progresso": 5,
+      "Base": "Arena geométrica provisória; sem cenário 3D final"
+    },
+    {
+      "Area": "Personagens / rig / animação",
+      "Peso": "12",
+      "Progresso": 0,
+      "Base": "Sem personagem, rig ou animações finais integrados"
+    },
+    {
+      "Area": "VFX / cinematics / vídeo",
+      "Peso": "5",
+      "Progresso": 15,
+      "Base": "Player, primeiro clique, hover e skip aceitos no Windows; vídeo por compilação; mobile/legendas/VFX pendentes"
+    },
+    {
+      "Area": "Áudio / música",
+      "Peso": "5",
+      "Progresso": 0,
+      "Base": "Direção recebida; sem mixer, música ou voz finais integrados"
+    },
+    {
+      "Area": "Conteúdo / tutorial",
+      "Peso": "5",
+      "Progresso": 15,
+      "Base": "Tutorial técnico Felipe implementado; sem aceite específico do roteiro/tutorial completo"
+    },
+    {
+      "Area": "Progressão / save",
+      "Peso": "5",
+      "Progresso": 25,
+      "Base": "Save v1 e sessões isoladas; persistência real e recuperação via UI ainda não aceitas"
+    },
+    {
+      "Area": "Mobile / otimização",
+      "Peso": "4",
+      "Progresso": 5,
+      "Base": "AVD com boot anterior; sem APK, toque real, desempenho ou backend mobile validados"
+    },
+    {
+      "Area": "QA integrado",
+      "Peso": "1",
+      "Progresso": 38,
+      "Base": "Retestes Windows aceitos e regressões pertinentes aprovadas; save/resoluções/Shipping/mobile pendentes"
+    },
+    {
+      "Area": "Documentação",
+      "Peso": "1",
+      "Progresso": 85,
+      "Base": "Estado reconciliado com commits e aceites; fila por dependência e recebíveis atualizados"
+    }
+  ],
+  "latest_verified_commit": "e1197d5",
+  "user_acceptance": "fe6060b visual accepted, e1197d5 shared rules native/build verified",
+  "documentation_only_this_update": true,
+  "android_used": false,
+  "engine_opened": false
+}

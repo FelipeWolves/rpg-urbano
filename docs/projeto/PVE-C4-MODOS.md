@@ -1,0 +1,9 @@
+# PvE C4 — ritual, score/sobrevivência e entidades
+
+22/11/2026. PveEncounter usa AP/SPD e distingue Ritual,ScoreAttack,Survival. Ritual termina pela morte do chefe obrigatório mesmo com auxiliares vivos, somente após FIFO/auto-revive/VictoryLock. ScoreAttack encerra janela/queda do time e registra score sem converter seu resultado em derrota punitiva de Ritual. Survival exige número configurado de turnos próprios do chefe e relógio explícito NaturalOnly/EveryTurn. Score só é automático emScoreAttack; Ritual/Survival exigem opt-in. Recompensas econômicas continuam separadas.
+
+Entidades distinguem Fighter,Boss,Auxiliary,Summon. Boss recebe imunidades aos controles rígidos existentes e resistência configurável à redução deAP. Auxiliares têmHP/AP próprios. Summon não mantém o time vivo e é dissipado sem dano/overkill/explosão se o invocador morre. Invocação dinâmica/reservas e fases são a entrega seguinte. Não háSono/morteinstantânea genéricos inventados no catálogo.
+
+ScoreSequence envolve a sequência existente de3equipes, sem retorno cíclico, usandoepochs e recibo único. O coordenadorSEQ anterior não muda sua semântica de resultado; o adaptador de pontuação é separado. DoTs persistentes passam a carregar também o lado do aplicador: fonte de equipe anterior pode estar ausente, mantendo identidade/snapshot/atribuição sem recriar personagem nem reabrir turno. Política de ondas v2 continua removendo comuns.
+
+Sete grupos focados aprovados: chefe comauxiliares, pós-encerramento, janelaScore, sobrevivência por chefe, dissipação/eliminaçãoSummon, imunidade de chefe, fonteausente e sequência pontuada. PilotoFelipe manteve10grupos. Sem telas/Android/internet; novos modos são perfisC++ configuráveis, ainda sem menu/HUD específico ou balanceamento final. Liquidação idempotente local não representa serviço/conta/ranking.

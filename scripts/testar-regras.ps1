@@ -10,6 +10,7 @@ $devcmd=Join-Path $vs[0].installationPath 'Common7/Tools/VsDevCmd.bat'
 foreach($p in @($root,$devcmd)){if($p -match '[%"\r\n&|<>^!]'){throw 'Unsupported batch path'}}
 $vectorPath=Join-Path $build 'oracle.txt'
 $sources=if($Suite -in @('Pipeline','Controls','Periodic','Felipe','Pilot','SpecialShields','Waves','Score','Pve')){@('battle','ability_profile','local_session','team_selection','save_game','reference_encounter','visual_session','battle_presentation','stage','sequential','shared_boss')}else{@()}
+if($Suite -eq 'Pve'){$sources+=@('pve')}
 $test=@{Outcomes='hit_outcome_tests';Pipeline='damage_pipeline_tests';Controls='control_rules_tests';Periodic='periodic_effect_tests';Felipe='felipe_passive_tests';Pilot='felipe_pilot_tests';SpecialShields='special_shield_tests';Waves='wave_v2_tests';Score='score_tests';Pve='pve_mode_tests'}[$Suite]
 $batch=@"
 @echo off

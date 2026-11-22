@@ -13,6 +13,7 @@
 namespace rpg {
 
 enum class Team { A, B };
+enum class EntityRole { Fighter, Boss, Auxiliary, Summon };
 enum class Phase { Running, Finished };
 enum class ActionType { Attack, Guard, Skill, Skip };
 enum class EndReason { Elimination, ActionLimit, TechnicalLimit };
@@ -109,6 +110,7 @@ struct BattleRules {
     std::uint32_t numeric_model = 2; // Quantity domain/version; not a save-format version.
     resolution::CombatModel combat_model=resolution::CombatModel::Legacy;
     std::uint64_t random_seed=0;
+    std::optional<std::string> required_enemy;
     std::uint32_t periodic_stack_limit=3; // Pilot per-kind cap; zero removes gameplay cap, not safety bounds.
     bool operator==(const BattleRules&) const = default;
 };
@@ -123,7 +125,7 @@ enum class EventType {
     RoundStarted, TurnStarted, GuardExpired, BattleFinished,
     SkillUsed, EffectApplied, EffectExpired, Reaction, TurnSkipped, TurnEnded, ExtraTurnSuppressed,
     ReflectedDamage, DeathExplosion, DeathEffectTriggered, DeathPrevented, ReviveScheduled, FighterRevived,
-    ShieldAbsorbed, ShieldBroken, EffectResisted, PeriodicDamage, StackLimitReached, ChargeGained, PassiveTriggered, PassiveCancelled
+    ShieldAbsorbed, ShieldBroken, EffectResisted, PeriodicDamage, StackLimitReached, ChargeGained, PassiveTriggered, PassiveCancelled, SummonRemoved, SummonSpawned
 };
 
 struct VigilDefinition {
@@ -143,6 +145,9 @@ struct Definition {
     bool is_boss=false;
     std::uint32_t formation_slot=0;
     std::optional<VigilDefinition> vigil;
+    EntityRole role=EntityRole::Fighter;
+    std::string summoner_id;
+    numeric::BasisPoints ap_reduction_resistance=0;
     bool operator==(const Definition&) const = default;
 };
 
@@ -156,6 +161,7 @@ struct Status {
     StatusCategory category = StatusCategory::Temporary;
     std::uint64_t instance_id=0;
     std::string source_id;
+    std::optional<Team> source_team;
     bool debuff=false;
     bool native_passive=false;
     StatusBorder border=StatusBorder::Common;
@@ -356,7 +362,7 @@ private:
     void close_action(const ActionContext& context, const std::vector<std::size_t>& guarded,
                       const std::vector<PendingRevive>& revives, std::vector<Event>& events);
     static void stamp_action(std::vector<Event>& events, std::size_t begin, const ActionContext& context);
-    void apply_damage(std::size_t emitter, std::size_t target, numeric::Quantity power, EventType type,
+    void apply_damage(std::optional<std::size_t> emitter, std::size_t target, numeric::Quantity power, EventType type,
                       const ActionContext& context, std::uint32_t hit_index, std::uint32_t planned_hits,
                       std::vector<Event>& events, std::vector<PendingReaction>& reactions,
                       std::vector<std::size_t>& deaths, std::vector<PendingRevive>& revives,std::optional<resolution::HitReport> report=std::nullopt);

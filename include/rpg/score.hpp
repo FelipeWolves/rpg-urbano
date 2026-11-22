@@ -35,8 +35,9 @@ public:
   for(std::size_t i=0;i<result.events.size();++i){const auto& event=result.events[i];if(!event.hit){continue;}
    const auto source=std::ranges::find(roster,event.actor,[](const Fighter& f){return f.definition.id;});
    const auto target=std::ranges::find(roster,event.target,[](const Fighter& f){return f.definition.id;});
-   if(source==roster.end()||target==roster.end()){throw std::invalid_argument("Unknown score damage identity");}
-   if(source->definition.team!=policy_.credited_team||target->definition.team==policy_.credited_team){continue;}
+   if((source==roster.end() && (!event.action_context || event.actor!=event.action_context->actor))||target==roster.end()){throw std::invalid_argument("Unknown score damage identity");}
+   const auto source_team=source==roster.end()?event.action_context->actor_side:source->definition.team;
+   if(source_team!=policy_.credited_team||target->definition.team==policy_.credited_team){continue;}
    const auto& h=*event.hit;
    for(auto v:{h.attempted,h.absorbed,h.health_damage,h.overkill}){if(v<0||v>numeric::quantity_max){throw std::invalid_argument("Invalid damage report quantity");}}
    if(h.absorbed+h.health_damage+h.overkill>h.attempted){throw std::invalid_argument("Inconsistent damage report");}

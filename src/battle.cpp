@@ -86,6 +86,15 @@ Battle::Battle(std::vector<Definition> definitions, BattleRules rules,
         fighters_.back().effective_speed = fighters_.back().definition.speed;
         if(fighters_.back().definition.vigil){fighters_.back().vigil_charges=fighters_.back().definition.vigil->initial_charges;}
     }
+    for(auto& fighter:fighters_){
+        auto& d=fighter.definition;
+        if(d.role!=EntityRole::Fighter && d.role!=EntityRole::Boss && d.role!=EntityRole::Auxiliary && d.role!=EntityRole::Summon){throw std::invalid_argument("Invalid entity role");}
+        resolution::chance_domain(d.ap_reduction_resistance);
+        if(d.role==EntityRole::Boss){d.is_boss=true;for(auto kind:{EffectKind::Block,EffectKind::Stun,EffectKind::Freeze,EffectKind::Petrify}){if(std::ranges::find(d.immune_effects,kind)==d.immune_effects.end()){d.immune_effects.push_back(kind);}}}
+        if(d.role==EntityRole::Summon){const auto owner=index_of(d.summoner_id);if(!owner || *owner==static_cast<std::size_t>(&fighter-fighters_.data()) || fighters_[*owner].definition.team!=d.team || fighters_[*owner].definition.role==EntityRole::Summon){throw std::invalid_argument("Summon requires a non-summon same-team owner");}}
+        else if(!d.summoner_id.empty()){throw std::invalid_argument("Only summon declares owner");}
+    }
+    if(rules_.required_enemy){const auto enemy=index_of(*rules_.required_enemy);if(!enemy || fighters_[*enemy].definition.team!=Team::B || fighters_[*enemy].definition.role!=EntityRole::Boss){throw std::invalid_argument("Required enemy must be a B boss");}}
     std::vector<std::pair<std::string, ExtraTurnSource>> sources;
     for (std::size_t i = 0; i < rules_.skills.size(); ++i) {
         const auto& skill = rules_.skills[i];
@@ -204,8 +213,8 @@ Battle::Battle(std::vector<Definition> definitions, BattleRules rules,
                 throw std::invalid_argument("Invalid initial health");
             }
             fighter.health = state.health;
-            alive_a = alive_a || (state.health > 0 && fighter.definition.team == Team::A);
-            alive_b = alive_b || (state.health > 0 && fighter.definition.team == Team::B);
+            alive_a = alive_a || (state.health > 0 && fighter.definition.team == Team::A && fighter.definition.role!=EntityRole::Summon);
+            alive_b = alive_b || (state.health > 0 && fighter.definition.team == Team::B && fighter.definition.role!=EntityRole::Summon);
         }
         if (!alive_a || !alive_b) { throw std::invalid_argument("Both sides need living fighters"); }
     }
@@ -258,7 +267,9 @@ Battle::Battle(std::vector<Definition> definitions, BattleRules rules,
             }
             if(periodic_effect(status.kind)){
                 status.instance_id=j+1;
-                if(!index_of(status.source_id) || status.magnitude<1 || status.magnitude>numeric::quantity_max || status.clock!=TickPolicy::EveryTurn || status.category!=StatusCategory::Temporary || status.border!=StatusBorder::Common){throw std::invalid_argument("Invalid periodic state");}
+                const auto source=index_of(status.source_id);
+                if(source){if(status.source_team && *status.source_team!=fighters_[*source].definition.team){throw std::invalid_argument("Conflicting periodic source team");}status.source_team=fighters_[*source].definition.team;}
+                if(status.source_id.empty() || (!source && !status.source_team) || (status.source_team && *status.source_team!=Team::A && *status.source_team!=Team::B) || status.magnitude<1 || status.magnitude>numeric::quantity_max || status.clock!=TickPolicy::EveryTurn || status.category!=StatusCategory::Temporary || status.border!=StatusBorder::Common){throw std::invalid_argument("Invalid periodic state");}
                 const auto count=std::ranges::count(statuses,status.kind,&Status::kind);
                 if(rules_.periodic_stack_limit && count>rules_.periodic_stack_limit){throw std::invalid_argument("Periodic stack cap exceeded");}
             }
@@ -385,16 +396,12 @@ void Battle::close_action(const ActionContext& context, const std::vector<std::s
         fighter.guarding = false;
         events.push_back(Event{EventType::FighterRevived, fighter.definition.id, fighter.definition.id, fighter.health, round_, {}});
     }
-    const bool enemy_alive = std::ranges::any_of(fighters_, [&context](const Fighter& candidate) {
-        return candidate.health > 0 && candidate.definition.team != context.actor_side;
-    });
-    const bool own_alive = std::ranges::any_of(fighters_, [&context](const Fighter& candidate) {
-        return candidate.health > 0 && candidate.definition.team == context.actor_side;
-    });
-    if (phase_ == Phase::Running && !enemy_alive) {
-        finish(EndReason::Elimination, context.actor_side, context.actor, events);
-    } else if (phase_ == Phase::Running && !own_alive) {
-        finish(EndReason::Elimination, context.actor_side == Team::A ? Team::B : Team::A, context.actor, events);
+    const auto living=[&](Team team){return std::ranges::any_of(fighters_,[&](const Fighter& f){return f.health>0 && f.definition.team==team && f.definition.role!=EntityRole::Summon;});};
+    const bool a_alive=living(Team::A);
+    const bool b_alive=rules_.required_enemy?find(*rules_.required_enemy)->health>0:living(Team::B);
+    if(phase_==Phase::Running && (!a_alive || !b_alive)){
+        const auto winner=!a_alive&&!b_alive?context.actor_side:!b_alive?Team::A:Team::B;
+        finish(EndReason::Elimination,winner,context.actor,events);
     }
     if (terminal) { events.push_back(*terminal); }
     stamp_action(events, begin, context);
@@ -420,7 +427,7 @@ std::optional<std::size_t> Battle::lowest_health_enemy(Team side) const noexcept
     return selected; // Equal HP uses canonical ordinal ID.
 }
 
-void Battle::apply_damage(std::size_t emitter, std::size_t target_index, numeric::Quantity power, EventType type,
+void Battle::apply_damage(std::optional<std::size_t> emitter, std::size_t target_index, numeric::Quantity power, EventType type,
                           const ActionContext& context, std::uint32_t hit_index, std::uint32_t planned_hits,
                           std::vector<Event>& events, std::vector<PendingReaction>& reactions,
                           std::vector<std::size_t>& deaths, std::vector<PendingRevive>& revives,std::optional<resolution::HitReport> report) {
@@ -452,7 +459,7 @@ void Battle::apply_damage(std::size_t emitter, std::size_t target_index, numeric
     if (prevented && !spend_consequence(context,events)) {return;}
     const numeric::Quantity applied=prevented ? target.health-1 : std::min(power,target.health);
     target.health-=applied;
-    events.push_back(Event{type,fighters_[emitter].definition.id,target.definition.id,applied,round_,{}});
+    events.push_back(Event{type,emitter?fighters_[*emitter].definition.id:context.actor,target.definition.id,applied,round_,{}});
     if(report){report->absorbed=absorbed_total;report->health_damage=applied;report->overkill=target.health==0?std::max<numeric::Quantity>(0,power-health_before):0;events.back().hit=report;}
     if (prevented) {
         --prevention->charges;
@@ -461,6 +468,14 @@ void Battle::apply_damage(std::size_t emitter, std::size_t target_index, numeric
     }
     if (target.health==0) {
         std::erase_if(target.statuses,[](const Status& status){return status.kind==EffectKind::StandardShield || status.kind==EffectKind::SilverShield;});
+        for(std::size_t i=0;i<fighters_.size();++i){auto& summon=fighters_[i];
+            if(summon.health>0 && summon.definition.role==EntityRole::Summon && summon.definition.summoner_id==target.definition.id){
+                summon.health=0;summon.ap=0;summon.guarding=false;
+                events.push_back({EventType::SummonRemoved,target.definition.id,summon.definition.id,0,round_,{}});
+                std::erase_if(reactions,[&](const PendingReaction& r){return r.from==i || r.to==i;});
+                std::erase_if(extras_,[&](const ExtraTurnContext& e){return e.beneficiary==summon.definition.id;});
+            }
+        }
         target.ap=0;
         events.push_back(Event{EventType::FighterDefeated,target.definition.id,{},0,round_,{}});
         deaths.push_back(target_index);
@@ -700,7 +715,7 @@ void Battle::execute_skill(std::size_t from,std::size_t target_index,const Skill
             }
             case EffectKind::StandardShield: standard_shield(from,target_index,events);break;
             case EffectKind::ChangeAP:
-                target.ap = std::clamp(target.ap + effect.amount, std::int64_t{0}, bar_max); break;
+                target.ap = std::clamp(target.ap + (effect.amount<0?-numeric::mul_div_floor(-effect.amount,10000-target.definition.ap_reduction_resistance,10000):effect.amount), std::int64_t{0}, bar_max); break;
             case EffectKind::SetSpeed: target.effective_speed = static_cast<int>(effect.amount); break; // Validated to 1..10000.
             case EffectKind::ExtraTurn: {
                 auto proc = extra_proc_counts_.end();
@@ -732,7 +747,7 @@ void Battle::execute_skill(std::size_t from,std::size_t target_index,const Skill
                 if(target.statuses.size()>=4096){finish(EndReason::TechnicalLimit,std::nullopt,actor.definition.id,events);break;}
                 Status status{effect.kind,effect.duration,TickPolicy::EveryTurn,turn_id_,effect.kind==EffectKind::Bleed?std::max<numeric::Quantity>(1,numeric::mul_div_floor(actor.definition.attack,5000,10000)):actor.definition.attack};
                 for(const auto& old:target.statuses){status.instance_id=std::max(status.instance_id,old.instance_id);}++status.instance_id;
-                status.source_id=actor.definition.id;target.statuses.push_back(std::move(status));break;
+                status.source_id=actor.definition.id;status.source_team=actor.definition.team;target.statuses.push_back(std::move(status));break;
             }
             case EffectKind::Stun: case EffectKind::Freeze: case EffectKind::Petrify: case EffectKind::Silence: case EffectKind::Suppression: case EffectKind::Invincible: case EffectKind::DebuffImmunity:
             case EffectKind::Block: case EffectKind::Marker: case EffectKind::Counter: case EffectKind::FreezeCooldowns:
@@ -896,9 +911,9 @@ void Battle::tick_periodics(std::vector<Event>& events) {
         if(!periodic_effect(status.kind)){continue;}
         const auto found=std::ranges::find(owner.statuses,status.instance_id,&Status::instance_id);
         if(found==owner.statuses.end()){continue;}
-        const auto source=*index_of(status.source_id);
+        const auto source=index_of(status.source_id);
         if(--found->remaining==0){owner.statuses.erase(found);}
-        const auto context=make_context(source,ActionType::Skill,owner.definition.id,status.kind==EffectKind::Bleed?"Bleed-tick":"Poison-tick");
+        const auto context=source?make_context(*source,ActionType::Skill,owner.definition.id,status.kind==EffectKind::Bleed?"Bleed-tick":"Poison-tick"):ActionContext{next_action_id_++,0,next_action_id_-1,status.source_id,*status.source_team,ActionType::Skill,owner.definition.id,status.kind==EffectKind::Bleed?"Bleed-tick":"Poison-tick"};
         last_consequence_events_=0;
         auto points=status.kind==EffectKind::Bleed?status.magnitude:std::max<numeric::Quantity>(1,numeric::mul_div_floor(owner.definition.max_health,400,10000));
         if(status.kind==EffectKind::Poison && owner.definition.is_boss){points=std::min(points,status.magnitude);}

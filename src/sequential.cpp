@@ -77,7 +77,7 @@ SequentialSquads::SequentialSquads(SequentialDefinition definition):definition_(
             runtime.push_back({definition_.boss.id,definition_.boss.speed,definition_.boss_initial_statuses,cooldowns});
         }
         const Battle validate_local(roster,rules,{},runtime);
-        const Battle validate_global(roster,BattleRules{definition_.global_budget});
+        if(definition_.global_budget && (definition_.global_budget->max_actions<1 || (definition_.global_budget->outcome!=LimitOutcome::Draw && definition_.global_budget->outcome!=LimitOutcome::DefeatA && definition_.global_budget->outcome!=LimitOutcome::DefeatB))){throw std::invalid_argument("Invalid sequence global budget");}
         if((!profiled && boss_skills(squad,definition_.boss.id)!=boss_skills(definition_.squads.front(),definition_.boss.id)) ||
            squad.rules.timing!=definition_.squads.front().rules.timing){
             throw std::invalid_argument("Base coordinator requires stable boss kit and timing");

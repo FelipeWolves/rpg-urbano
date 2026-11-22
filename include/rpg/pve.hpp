@@ -1,5 +1,6 @@
 #pragma once
 #include "rpg/score.hpp"
+#include "rpg/ability_profile.hpp"
 #include "rpg/sequential.hpp"
 namespace rpg {
 enum class PveMode { Ritual, ScoreAttack, Survival };
@@ -21,6 +22,7 @@ struct PveDefinition {
  std::vector<PvePhaseRule> phases;
  std::optional<PveTurnCycle> turn_cycle;
  std::vector<std::string> reserve_summons;
+ std::vector<CharacterLoadout> loadouts;
 };
 // Immutable observation: encounter completion may precede Battle::Finished (Survival).
 struct PveSnapshot {
@@ -49,6 +51,10 @@ public:
  PveEncounter(PveDefinition definition,ScoreLedger& ledger);
  [[nodiscard]] const Battle& battle()const noexcept{return *battle_;}
  [[nodiscard]] PveSnapshot snapshot()const;
+ [[nodiscard]] const std::vector<CharacterLoadout>& loadouts()const noexcept{return definition_.loadouts;}
+ [[nodiscard]] std::vector<AbilityView> abilities(std::string_view id)const{return team_abilities(*battle_,definition_.loadouts,id);}
+ [[nodiscard]] PveActionResult apply_slot(std::uint32_t position,std::string target);
+ [[nodiscard]] std::optional<Action> choose_automatic_action()const;
  [[nodiscard]] bool finished()const noexcept{return end_.has_value();}
  [[nodiscard]] std::optional<PveEnd> end_reason()const noexcept{return end_;}
  [[nodiscard]] std::uint64_t boss_turns()const noexcept{return boss_turns_;}

@@ -100,8 +100,12 @@ void ProfileBattle::reset(){
     battle_=std::move(fresh);passive_activations_=std::move(activations);
 }
 ProfileSnapshot ProfileBattle::snapshot() const {return {profile_,loadouts_,battle_->snapshot(),passive_activations_};}
-std::vector<AbilityView> ProfileBattle::abilities(std::string_view fighter) const {
-    std::vector<AbilityView> views;const auto* set=loadout(fighter);const auto* unit=battle_->find(fighter);
+namespace {
+const CharacterLoadout* team_loadout(const std::vector<CharacterLoadout>& sets,std::string_view id){const auto i=std::ranges::find(sets,id,&CharacterLoadout::fighter_id);return i==sets.end()?nullptr:&*i;}
+const AbilitySlot* team_slot(const std::vector<CharacterLoadout>& sets,std::string_view id,std::uint32_t position){const auto* set=team_loadout(sets,id);if(!set){return nullptr;}const auto i=std::ranges::find(set->slots,position,&AbilitySlot::position);return i==set->slots.end()?nullptr:&*i;}
+}
+std::vector<AbilityView> team_abilities(const Battle& battle,const std::vector<CharacterLoadout>& sets,std::string_view fighter) {
+    std::vector<AbilityView> views;const auto* set=team_loadout(sets,fighter);const auto* unit=battle.find(fighter);
     if(!set || !unit){return views;}
     for(const auto& entry:set->slots){
         const bool condition_met=!entry.requirement ||
@@ -110,7 +114,7 @@ std::vector<AbilityView> ProfileBattle::abilities(std::string_view fighter) cons
         int cd=0;if(entry.active_skill){for(const auto& known:unit->cooldowns){if(known.skill==*entry.active_skill){cd=known.remaining;}}}
         auto availability=entry.active_skill?AbilityAvailability::Ready:AbilityAvailability::PassiveOnly;
         if(entry.active_skill){
-            if(battle_->phase()==Phase::Finished){availability=AbilityAvailability::Finished;}
+            if(battle.phase()==Phase::Finished){availability=AbilityAvailability::Finished;}
             else if(unit->health==0 || std::ranges::any_of(unit->statuses,[](const Status& s){return s.kind==EffectKind::Block;})){
                 availability=AbilityAvailability::Incapacitated;
             }else if(cd>0){availability=AbilityAvailability::Cooldown;}
@@ -121,65 +125,44 @@ std::vector<AbilityView> ProfileBattle::abilities(std::string_view fighter) cons
     }
     return views;
 }
+
+std::vector<AbilityView> ProfileBattle::abilities(std::string_view fighter) const {return team_abilities(*battle_,loadouts_,fighter);}
+PreparedTeamAction prepare_team_action(const Battle& battle,const std::vector<CharacterLoadout>& sets,Action action){
+ if(battle.phase()==Phase::Finished){return {std::nullopt,ActionError::BattleFinished};}
+ if(action.type==ActionType::Attack){const auto* basic=team_slot(sets,action.actor,1);if(!basic||!basic->active_skill){return {std::nullopt,ActionError::UnknownActor};}action.type=ActionType::Skill;action.skill=*basic->active_skill;}
+ if(action.type==ActionType::Skill){
+  const auto* set=team_loadout(sets,action.actor);if(!set){return {std::nullopt,ActionError::UnknownActor};}
+  if(!std::ranges::any_of(set->slots,[&](const AbilitySlot& entry){return entry.active_skill==action.skill;})){return {std::nullopt,ActionError::UnknownSkill};}
+  const auto* actor=battle.current_actor();if(actor&&actor->definition.id==action.actor){for(const auto& v:team_abilities(battle,sets,action.actor)){if(v.slot.active_skill==action.skill&&v.availability==AbilityAvailability::ConditionBlocked){return {std::nullopt,ActionError::SkillConditionNotMet};}}}
+ }
+ return {std::move(action),ActionError::None};
+}
+PreparedTeamAction prepare_team_slot(const Battle& battle,const std::vector<CharacterLoadout>& sets,std::uint32_t position,std::string target){
+ if(battle.phase()==Phase::Finished){return {std::nullopt,ActionError::BattleFinished};}
+ const auto* actor=battle.current_actor();const auto* entry=actor?team_slot(sets,actor->definition.id,position):nullptr;
+ if(!entry||!entry->active_skill){return {std::nullopt,ActionError::UnknownSkill};}
+ return prepare_team_action(battle,sets,{actor->definition.id,ActionType::Skill,std::move(target),*entry->active_skill});
+}
 ActionResult ProfileBattle::apply(const Action& action){
-    if(profile_==CombatProfile::Classic){return battle_->apply(action);}
-    if(battle_->phase()==Phase::Finished){return reject(ActionError::BattleFinished);}
-    if(action.type==ActionType::Attack){
-        const auto* basic=slot(action.actor,1);
-        if(!basic){return reject(ActionError::UnknownActor);}
-        return battle_->apply({action.actor,ActionType::Skill,action.target,*basic->active_skill});
-    }
-    if(action.type==ActionType::Skill){
-        const auto* set=loadout(action.actor);
-        if(!set){return reject(ActionError::UnknownActor);}
-        if(!std::ranges::any_of(set->slots,[&](const AbilitySlot& entry){return entry.active_skill==action.skill;})){
-            return reject(ActionError::UnknownSkill);}
-        const auto* actor=battle_->current_actor();
-        if(actor && actor->definition.id==action.actor){
-            for(const auto& view:abilities(action.actor)){
-                if(view.slot.active_skill==action.skill && view.availability==AbilityAvailability::ConditionBlocked){
-                    return reject(ActionError::SkillConditionNotMet);}
-            }
-        }
-    }
-    return battle_->apply(action);
+ if(profile_==CombatProfile::Classic){return battle_->apply(action);}
+ auto prepared=prepare_team_action(*battle_,loadouts_,action);if(!prepared.action){return reject(prepared.error);}return battle_->apply(*prepared.action);
 }
 ActionResult ProfileBattle::apply_slot(std::uint32_t position,std::string target){
-    if(battle_->phase()==Phase::Finished){return reject(ActionError::BattleFinished);}
-    const auto* actor=battle_->current_actor();
-    const auto* entry=actor?slot(actor->definition.id,position):nullptr;
-    if(!entry || !entry->active_skill){return reject(ActionError::UnknownSkill);}
-    return apply({actor->definition.id,ActionType::Skill,std::move(target),*entry->active_skill});
+ auto prepared=prepare_team_slot(*battle_,loadouts_,position,std::move(target));if(!prepared.action){return reject(prepared.error);}return battle_->apply(*prepared.action);
 }
-std::optional<Action> ProfileBattle::choose_basic_action() const {
-    auto action=choose_basic_attack(*battle_);
-    if(action && profile_==CombatProfile::Team && action->type==ActionType::Attack){
-        const auto* basic=slot(action->actor,1);action->type=ActionType::Skill;action->skill=*basic->active_skill;
-    }
-    return action;
+std::optional<Action> choose_team_action(const Battle& battle,const std::vector<CharacterLoadout>& sets,bool specials){
+ auto basic=choose_basic_attack(battle);if(!basic||basic->type==ActionType::Skip){return basic;}
+ const auto* slot=team_slot(sets,basic->actor,1);if(!slot||!slot->active_skill){return std::nullopt;}basic->type=ActionType::Skill;basic->skill=*slot->active_skill;
+ if(!specials){return basic;}
+ const auto* actor=battle.current_actor();const auto* set=team_loadout(sets,actor->definition.id);const auto views=team_abilities(battle,sets,actor->definition.id);const auto rules=battle.snapshot().rules;
+ for(const auto position:set->automatic_priority){
+  const auto view=std::ranges::find(views,position,[](const AbilityView& v){return v.slot.position;});if(view==views.end()||view->availability!=AbilityAvailability::Ready||!view->slot.active_skill){continue;}
+  const auto skill=std::ranges::find(rules.skills,*view->slot.active_skill,&SkillDefinition::id);if(skill==rules.skills.end()){continue;}
+  const Fighter* target=nullptr;if(skill->target==TargetRule::Self){target=actor;}else{for(const auto& candidate:battle.fighters()){const bool same=candidate.definition.team==actor->definition.team;if(candidate.health==0||((skill->target==TargetRule::Enemy||skill->target==TargetRule::EnemyTeam)?same:!same)){continue;}if(!target||candidate.health<target->health||(candidate.health==target->health&&candidate.definition.id<target->definition.id)){target=&candidate;}}}
+  if(target){return Action{actor->definition.id,ActionType::Skill,target->definition.id,skill->id};}
+ }
+ return basic;
 }
-std::optional<Action> ProfileBattle::choose_automatic_action() const {
-    const auto basic=choose_basic_action();
-    if(!basic || profile_==CombatProfile::Classic || basic->type==ActionType::Skip){return basic;}
-    const auto* actor=battle_->current_actor();
-    const auto* set=loadout(actor->definition.id);
-    const auto views=abilities(actor->definition.id);
-    for(const auto position:set->automatic_priority){
-        const auto view=std::ranges::find_if(views,[position](const AbilityView& v){return v.slot.position==position;});
-        if(view==views.end() || view->availability!=AbilityAvailability::Ready || !view->slot.active_skill){continue;}
-        const auto skill=std::ranges::find(rules_.skills,*view->slot.active_skill,&SkillDefinition::id);
-        const Fighter* target=nullptr;
-        if(skill->target==TargetRule::Self){target=actor;}
-        else{
-            for(const auto& candidate:battle_->fighters()){
-                const bool same_side=candidate.definition.team==actor->definition.team;
-                if(candidate.health==0 || ((skill->target==TargetRule::Enemy || skill->target==TargetRule::EnemyTeam)?same_side:!same_side)){continue;}
-                if(!target || candidate.health<target->health ||
-                   (candidate.health==target->health && candidate.definition.id<target->definition.id)){target=&candidate;}
-            }
-        }
-        if(target){return Action{actor->definition.id,ActionType::Skill,target->definition.id,skill->id};}
-    }
-    return basic;
-}
+std::optional<Action> ProfileBattle::choose_basic_action() const {return profile_==CombatProfile::Classic?choose_basic_attack(*battle_):choose_team_action(*battle_,loadouts_,false);}
+std::optional<Action> ProfileBattle::choose_automatic_action() const {return profile_==CombatProfile::Classic?choose_basic_attack(*battle_):choose_team_action(*battle_,loadouts_);}
 } // namespace rpg

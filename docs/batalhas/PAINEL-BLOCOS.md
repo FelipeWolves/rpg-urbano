@@ -1,3 +1,5 @@
+> **22/11 — LAB-PVE:** 01 (contrato) e 02 (Ritual no Terminal) implementados/testados/compilados. Nova rota e HUD aguardam aceite visual; 03–06 continuam planejados. Não considerar toda a família PvE concluída.
+
 # Painel de blocos — situação consolidada
 
 22/11/2026. Demo ~28% (não somar percentuais de famílias). [Mapa completo de siglas e estimativas](../projeto/MAPA-FAMILIAS-E-PRIORIDADES.md).

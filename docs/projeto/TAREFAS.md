@@ -1,3 +1,5 @@
+> **LAB-PVE-02 — 22/11:** [Ritual local integrado ao Terminal](LAB-PVE-02-RITUAL-TERMINAL.md), com objetivo, HUD, resultado e tentativas isoladas. Código/testes/build; aceite visual da nova rota pendente. Próximo LAB-PVE-03, ondas/fases. Demo ~28% mantida.
+
 > **LAB-PVE-01 entregue — 22/11:** [observação e contrato de HUD](LAB-PVE-01-CONTRATO-HUD.md), sem nova tela/rota habilitada. Próximo: **LAB-PVE-02, Ritual no Terminal**; não depende de nova entrega. Demais itens da fila continuam planejados. Progresso global ~28% mantido.
 
 # Tarefas — quadro vigente
@@ -15,7 +17,7 @@
 ## Desenvolvimento sem nova entrega sua
 
 - [x] LAB-PVE-01: adaptadores mapeados, snapshot e contrato de HUD implementados/testados.
-- [ ] LAB-PVE-02: Ritual simples no Terminal e resultado/retorno.
+- [x] LAB-PVE-02: Ritual no Terminal com objetivo, resultado e retorno; aceite visual pendente.
 - [ ] LAB-PVE-03: onda/fase/transição.
 - [ ] LAB-PVE-04: score e sobrevivência.
 - [ ] LAB-PVE-05: equipes sequenciais.

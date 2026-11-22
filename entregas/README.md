@@ -1,3 +1,5 @@
+> **22/11:** LAB-PVE-02 integrado em código, aguardando teste visual do Ritual pelo Terminal. Próximo desenvolvimento LAB-PVE-03. A ficha final de encontro não bloqueia os testes de laboratório.
+
 # Central de entregas
 
 22/11/2026. **Demo ~28%**. Comece por [necessidades por grupo e prioridade](NECESSIDADES-ATUAIS.md). Os 12 READMEs distinguem sua entrega, desenvolvimento independente e aceite posterior.

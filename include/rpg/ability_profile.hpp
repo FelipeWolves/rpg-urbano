@@ -55,6 +55,12 @@ struct ProfileSnapshot {
     std::vector<PassiveActivation> passive_activations;
     bool operator==(const ProfileSnapshot&) const = default;
 };
+// Shared preparation only; the owning controller remains the sole action executor.
+struct PreparedTeamAction { std::optional<Action> action; ActionError error=ActionError::None; };
+[[nodiscard]] std::vector<AbilityView> team_abilities(const Battle&,const std::vector<CharacterLoadout>&,std::string_view fighter);
+[[nodiscard]] PreparedTeamAction prepare_team_action(const Battle&,const std::vector<CharacterLoadout>&,Action);
+[[nodiscard]] PreparedTeamAction prepare_team_slot(const Battle&,const std::vector<CharacterLoadout>&,std::uint32_t,std::string target);
+[[nodiscard]] std::optional<Action> choose_team_action(const Battle&,const std::vector<CharacterLoadout>&,bool specials=true);
 // Validates commands before the unchanged Battle resolver; owns all mutable state.
 class ProfileBattle {
 public:

@@ -232,6 +232,7 @@ void AProbeArenaHUD::DrawPreferences()
 }
 void AProbeArenaHUD::ReturnToHub(){
     if(Flow.screen()!=UiScreen::Hub && !Flow.return_hub()){return;}Gesture.cancel();PopupLines.Empty();SelectedSlot=0;SelectedTarget.Empty();
+    if(RitualActive){Flow.acknowledge_new_attempt();RitualActive=false;RefreshArenaActors();}
     UE_LOG(LogTemp,Display,TEXT("HUB_RETURN attempt=%llu"),static_cast<unsigned long long>(Session.state().progress.attempt));
 }
 int32 AProbeArenaHUD::DrawInfoPanel(const FString& title,const TArray<FString>& paragraphs,int32& page,bool action,const FString& actionLabel,const FString& closeLabel)
@@ -273,7 +274,8 @@ int32 AProbeArenaHUD::DrawInfoPanel(const FString& title,const TArray<FString>& 
     return 0;
 }
 void AProbeArenaHUD::SelectLabScenario(bool felipe){
-    if(felipe==SessionIsFelipe){return;}
+    const bool leavingRitual=RitualActive;RitualActive=false;
+    if(felipe==SessionIsFelipe){if(leavingRitual){RefreshArenaActors();}return;}
     // Preserve each scenario in memory; neither progress ledger is imported into the other.
     if(!AlternateLabSession){
         if(felipe){AlternateLabSession.emplace(rpg::felipe_pilot_setup(PilotTutorial),rpg::CombatProfile::Team);}
@@ -337,6 +339,21 @@ void AProbeArenaHUD::DrawHub(){
         TeamMenuPage=0;HubPanelPage=0;DraftTeam=Session.team().selected;TeamStatus=TEXT("Seleção atual. Aplicar inicia nova tentativa; salvar usa a equipe já aplicada.");Flow.open_team();return;
     }
     if(Flow.screen()==UiScreen::Location){
+        if(HubPanelRoute==HubRoute::Terminal){
+            const double x=layout.safe.x+12,w=std::max(48.0,std::min(400.0,layout.safe.width-24));
+            const double y=layout.header.y+120;
+            DrawText(TEXT("TERMINAL — TESTES LOCAIS"),FColor::Cyan,static_cast<float>(x),static_cast<float>(y-35),HubBodyFont,0.8f);
+            if(button({x,y,w,48},TEXT("Laboratorio de equipe"))){SelectLabScenario(false);enterBattle();return;}
+            if(button({x,y+60,w,48},TEXT("Ritual local — Felipe e ecos"))){
+                if(!Ritual){Ritual=std::make_unique<rpg::presentation::PveVisualSession>();}
+                else if(Ritual->finished() || Ritual->state().stopped){Ritual->reset();}
+                if(Flow.new_attempt_required()){Session.reset();}Flow.acknowledge_new_attempt();
+                if(Flow.enter_arena(Ritual->finished())){RitualActive=true;SelectedSlot=0;SelectedTarget.Empty();Gesture.cancel();Pointer.cancel_until_release();RefreshArenaActors();NextAutomatic=GetWorld()->GetTimeSeconds()+0.5;Message=TEXT("Derrote ECO-1. ECO-2 tem PV independente.");}
+                return;
+            }
+            if(button({x,y+120,w,48},TEXT("Voltar"))){Flow.back(false,false);return;}
+            return;
+        }
         TArray<FString> paragraphs;paragraphs.Add(HubPanelBody);
         const int32 result=DrawInfoPanel(HubPanelTitle,paragraphs,HubPanelPage,HubPanelRoute==HubRoute::Terminal || HubPanelRoute==HubRoute::Battle,HubPanelRoute==HubRoute::Battle?TEXT("Testar Felipe (local)"):TEXT("Abrir batalha"));
         if(result==1){Flow.back(false,false);}else if(result==2){SelectLabScenario(HubPanelRoute==HubRoute::Battle);enterBattle();}return;

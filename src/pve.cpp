@@ -18,7 +18,10 @@ PveEncounter::PveEncounter(PveDefinition definition,ScoreLedger& ledger):definit
  std::vector<InitialHealth> health;std::vector<std::string> reserves;
  for(const auto& f:definition_.roster){const bool reserved=std::ranges::find(definition_.reserve_summons,f.id)!=definition_.reserve_summons.end();if(reserved){if(f.role!=EntityRole::Summon){throw std::invalid_argument("Only summons are reserves");}reserves.push_back(f.id);}health.push_back({f.id,reserved?0:f.max_health});}
  if(reserves.size()!=definition_.reserve_summons.size()){throw std::invalid_argument("Unknown/duplicate reserve");}
- battle_.emplace(definition_.roster,definition_.rules,health);
+ if(definition_.loadouts.empty()){battle_.emplace(definition_.roster,definition_.rules,health);}else{
+  if(!definition_.reserve_summons.empty()){throw std::invalid_argument("Loadout profile with reserve summons needs explicit initialization adapter");}
+  ProfileBattle profile(definition_.roster,definition_.rules,CombatProfile::Team,definition_.loadouts);definition_.loadouts=profile.snapshot().loadouts;battle_=profile.battle();definition_.rules=battle_->snapshot().rules;
+ }
  if(definition_.turn_cycle&&(!definition_.phases.empty()||definition_.turn_cycle->every==0||definition_.turn_cycle->states.size()<2)){throw std::invalid_argument("Cycle needs period/states and separate phase family");}
  std::vector<std::string> phases;auto phase_validation=*battle_;std::uint64_t last_hp=10000,last_turn=0;
  for(const auto& p:definition_.phases){if(p.id.empty()||std::ranges::find(phases,p.id)!=phases.end()||p.threshold==0||
@@ -50,7 +53,9 @@ void PveEncounter::finish(PveEnd reason,bool objective){
 PveActionResult PveEncounter::apply(const Action& action){
  PveActionResult result;
  if(end_){result.action.error=ActionError::BattleFinished;result.attempt_finished=true;result.end=end_;result.objective_met=objective_;result.score=score();return result;}
- result.action=battle_->apply(action);if(!result.action.accepted()){return result;}
+ Action command=action;
+ if(!definition_.loadouts.empty()){auto prepared=prepare_team_action(*battle_,definition_.loadouts,action);if(!prepared.action){result.action.error=prepared.error;return result;}command=std::move(*prepared.action);}
+ result.action=battle_->apply(command);if(!result.action.accepted()){return result;}
  try{if(definition_.score_enabled||definition_.mode==PveMode::ScoreAttack){static_cast<void>(score_.observe(1,result.action,battle_->fighters()));}}catch(const std::length_error&){finish(PveEnd::TechnicalLimit,false);}
  for(const auto& event:result.action.events){if(event.type==EventType::TurnEnded&&event.actor==definition_.boss_id&&(event.turn_kind==TurnKind::Natural||definition_.boss_turn_clock==TickPolicy::EveryTurn)){++boss_turns_;}}
  if(!end_ && battle_->phase()==Phase::Running){update_phases(result.phase_events);}
@@ -62,6 +67,14 @@ PveActionResult PveEncounter::apply(const Action& action){
   }else if(definition_.mode==PveMode::Survival && boss_turns_>=*definition_.boss_turn_goal){finish(PveEnd::SurvivalReached,alive());}
  }
  result.attempt_finished=finished();result.end=end_;result.objective_met=objective_;result.score=score();return result;
+}
+PveActionResult PveEncounter::apply_slot(std::uint32_t position,std::string target){
+ if(finished()){return apply({});}
+ auto prepared=prepare_team_slot(*battle_,definition_.loadouts,position,std::move(target));if(!prepared.action){PveActionResult result;result.action.error=prepared.error;return result;}
+ return apply(*prepared.action);
+}
+std::optional<Action> PveEncounter::choose_automatic_action()const{
+ if(finished()){return std::nullopt;}return definition_.loadouts.empty()?choose_basic_attack(*battle_):choose_team_action(*battle_,definition_.loadouts);
 }
 ScoreSequence::ScoreSequence(SequentialDefinition definition,std::string attempt_id,ScoreLedger& ledger,ScorePolicy policy,std::vector<ScoreTier> tiers)
  :encounter_(std::move(definition)),attempt_(std::move(attempt_id)),ledger_(&ledger),score_(policy),tiers_(std::move(tiers)){

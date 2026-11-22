@@ -3,6 +3,7 @@
 #include "GameFramework/HUD.h"
 #include "GameFramework/GameModeBase.h"
 #include "rpg/battle_presentation.hpp"
+#include "rpg/pve_visual.hpp"
 #include "rpg/startup_presentation.hpp"
 #include "rpg/hub_style.hpp"
 #include "ProbeArena.generated.h"
@@ -17,6 +18,14 @@ public:
     virtual void EndPlay(const EEndPlayReason::Type reason) override;
 private:
     rpg::presentation::VisualSession Session;
+    std::unique_ptr<rpg::presentation::PveVisualSession> Ritual;
+    bool RitualActive=false;
+    rpg::presentation::VisualState ActiveState()const{return RitualActive?Ritual->state():Session.state();}
+    bool ActiveFinished()const{return RitualActive?Ritual->finished():Session.state().combat.battle.phase==rpg::Phase::Finished;}
+    void ResetActiveBattle(){if(RitualActive){Ritual->reset();}else{Session.reset();}}
+    rpg::presentation::VisualResult SubmitActiveSlot(uint64 revision,uint32 slot,std::string target){return RitualActive?Ritual->submit(revision,slot,std::move(target)):Session.submit(revision,slot,std::move(target));}
+    rpg::presentation::VisualResult SubmitActiveAction(uint64 revision,const rpg::Action& action){return RitualActive?Ritual->submit_action(revision,action):Session.submit_action(revision,action);}
+    rpg::presentation::VisualResult StepActiveBattle(){return RitualActive?Ritual->step_automatic():Session.step_automatic();}
     std::optional<rpg::presentation::VisualSession> AlternateLabSession;
     rpg::CombatProfile ReferenceProfile=rpg::CombatProfile::Team;
     bool SessionIsFelipe=false,PilotTutorial=false;

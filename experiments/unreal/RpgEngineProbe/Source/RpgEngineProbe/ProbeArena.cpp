@@ -77,7 +77,7 @@ void AProbeArenaHUD::RefreshArenaActors()
     DestroyTargetMarker();const auto layout=SelectedLayout();if(!layout){return;}
     for(TActorIterator<AStaticMeshActor> it(GetWorld());it;++it){if(it->Tags.Contains(FName(TEXT("RpgPrototypeActor")))){it->Tags.Empty();it->SetActorHiddenInGame(true);it->SetActorEnableCollision(false);it->Destroy();}}
     std::vector<rpg::Definition> roster;
-    const auto snapshot=InspectionMode?InspectionFrames[InspectionIndex].battle:Session.state().combat.battle;
+    const auto snapshot=InspectionMode?InspectionFrames[InspectionIndex].battle:ActiveState().combat.battle;
     for(const auto& fighter:snapshot.fighters){roster.push_back(fighter.definition);}
     auto* mesh=LoadObject<UStaticMesh>(nullptr,TEXT("/Engine/BasicShapes/Sphere.Sphere"));
     for(const auto& placement:rpg::presentation::arena_placements(roster,*layout)){
@@ -125,7 +125,7 @@ void AProbeArenaHUD::ReadPointer()
     const bool focused=InputWindowActive;
     const std::uint8_t screen=IntroActive?128:InspectionMode?(!PopupLines.IsEmpty()?201:200):static_cast<std::uint8_t>(Flow.screen())+(!PopupLines.IsEmpty()?16:0);
     Input=Pointer.update({PlayerOwner->IsInputKeyDown(EKeys::LeftMouseButton),mouseValid && mouse.has_value() && CanvasCoordinatesKnown,mouse?mouse->x:0,mouse?mouse->y:0},
-        {touched,inViewport(LastTouchX,LastTouchY) && touch.has_value() && CanvasCoordinatesKnown,touch?touch->x:0,touch?touch->y:0},focused,GetWorld()->GetTimeSeconds(),{InspectionMode?static_cast<std::uint64_t>(InspectionIndex):Session.state().revision,screen});
+        {touched,inViewport(LastTouchX,LastTouchY) && touch.has_value() && CanvasCoordinatesKnown,touch?touch->x:0,touch?touch->y:0},focused,GetWorld()->GetTimeSeconds(),{InspectionMode?static_cast<std::uint64_t>(InspectionIndex):ActiveState().revision,screen});
     if(Input.cancelled){Gesture.cancel();}
 }
 void AProbeArenaHUD::DrawHUD()
@@ -133,7 +133,7 @@ void AProbeArenaHUD::DrawHUD()
     Super::DrawHUD();if(!Canvas || !PlayerOwner){return;}
     HideTargetMarker();ReadPointer();
     // Optional visual consumers never gate command dispatch or mutate the battle.
-    for(int32 i=0;i<64;++i){const auto cue=Session.next_visual_cue();if(!cue){break;}
+    for(int32 i=0;i<64;++i){const auto cue=RitualActive?Ritual->next_visual_cue():Session.next_visual_cue();if(!cue){break;}
         UE_LOG(LogTemp,VeryVerbose,TEXT("VIS_CUE revision=%llu phase=%d index=%llu"),cue->revision,static_cast<int32>(cue->phase),static_cast<uint64>(cue->index));
     }
     if(IntroActive){DrawIntro();return;}
@@ -143,11 +143,11 @@ void AProbeArenaHUD::DrawHUD()
         if(DrawInfoPanel(PopupTitle,PopupLines,PopupPage)==1){PopupLines.Empty();Pointer.cancel_until_release();}
         return;
     }
-    if(!InspectionMode && Session.state().combat.battle.phase==rpg::Phase::Finished){Flow.finish();}
+    if(!InspectionMode && ActiveFinished()){Flow.finish();}
     if(!InspectionMode && PlayerOwner->WasInputKeyJustPressed(EKeys::Escape)){HandleBack();return;}
     if(HubEnabled && Flow.in_hub()){DrawHub();return;}
     if(!InspectionMode && (Flow.screen()==rpg::presentation::UiScreen::Pause || Flow.screen()==rpg::presentation::UiScreen::AbandonConfirm)){DrawBattleMenu();return;}
-    auto view=Session.state();
+    auto view=ActiveState();
     if(InspectionMode){view={static_cast<std::uint64_t>(InspectionIndex),{SelectedCombatProfile(),{},InspectionFrames[InspectionIndex].battle,{}},{},{},false,true};}
     const double now=GetWorld()->GetTimeSeconds();
     const auto layout=SelectedLayout();
@@ -161,20 +161,20 @@ void AProbeArenaHUD::DrawHUD()
     const bool clicked=Input.tap && !abilityRelease;
     const auto inside=[&](float x,float y,float w,float h){return mx>=x && mx<x+w && my>=y && my<y+h;};
     if(Flow.accepts_actions(!PopupLines.IsEmpty()) && !Gesture.active() && !Input.down && !Input.tap && !abilityRelease && view.automatic && !view.stopped && now>=NextAutomatic){
-        const auto result=Session.step_automatic();
+        const auto result=StepActiveBattle();
         Message=result.accepted()?TEXT("Opponent acted."):TEXT("Presentation stopped; restart to retry.");
-        NextAutomatic=now+0.5;SelectedSlot=0;SelectedTarget.Empty();view=Session.state();
+        NextAutomatic=now+0.5;SelectedSlot=0;SelectedTarget.Empty();view=ActiveState();
     }
     const bool classicRules=view.combat.profile==rpg::CombatProfile::Classic;
-    const bool running=view.combat.battle.phase==rpg::Phase::Running;
+    const bool running=RitualActive?!Ritual->finished():view.combat.battle.phase==rpg::Phase::Running;
     const bool manual=running && !view.automatic && !view.stopped && Flow.accepts_actions(!PopupLines.IsEmpty());
     if(SelectedSlot && SelectionRevision!=view.revision){SelectedSlot=0;SelectedTarget.Empty();}
     const auto candidates=rpg::presentation::target_candidates(view,static_cast<std::uint32_t>(SelectedSlot));
     const auto validTarget=[&](const std::string& id){return std::ranges::find(candidates,id)!=candidates.end();};
     const auto submit=[&](const FString& id){
-        const auto result=classicRules?Session.submit_action(SelectionRevision,{view.combat.battle.current_actor.value_or(""),rpg::ActionType::Attack,TCHAR_TO_UTF8(*id),{}}):Session.submit(SelectionRevision,static_cast<uint32>(SelectedSlot),TCHAR_TO_UTF8(*id));
+        const auto result=classicRules?SubmitActiveAction(SelectionRevision,{view.combat.battle.current_actor.value_or(""),rpg::ActionType::Attack,TCHAR_TO_UTF8(*id),{}}):SubmitActiveSlot(SelectionRevision,static_cast<uint32>(SelectedSlot),TCHAR_TO_UTF8(*id));
         Message=result.accepted()?TEXT("Action accepted."):Label(rpg::presentation::action_error_message(result.action.error));
-        UE_LOG(LogTemp, Display, TEXT("VIS_ACTION accepted=%d revision=%llu"),result.accepted()?1:0,static_cast<unsigned long long>(Session.state().revision));
+        UE_LOG(LogTemp, Display, TEXT("VIS_ACTION accepted=%d revision=%llu"),result.accepted()?1:0,static_cast<unsigned long long>(ActiveState().revision));
         SelectedSlot=0;SelectedTarget.Empty();
     };
     const auto button=[&](float x,float y,float w,float h,const FString& text,bool enabled){
@@ -182,10 +182,16 @@ void AProbeArenaHUD::DrawHUD()
         return clicked && enabled && rpg::presentation::pointer_clicked(Input,{x,y,w,h});
     };
     const FString actor=view.combat.battle.current_actor?Label(*view.combat.battle.current_actor):TEXT("-");
-    DrawText(classic?TEXT("RPG URBANO / Classic lateral arena"):TEXT("RPG URBANO / Standard depth arena"),FColor::White,20,15);
+    DrawText(RitualActive?TEXT("RITUAL LOCAL / Felipe e ecos"):classic?TEXT("RPG URBANO / Classic lateral arena"):TEXT("RPG URBANO / Standard depth arena"),FColor::White,20,15);
     DrawText(FString::Printf(TEXT("Actor %s | Round %llu | Opportunity %llu | Actions %llu"),*actor,
         static_cast<unsigned long long>(view.combat.battle.round),static_cast<unsigned long long>(view.combat.battle.turn_id),static_cast<unsigned long long>(view.combat.battle.accepted_actions)),FColor::White,20,38);
     DrawText(classicRules?TEXT("Rules: Classic / Attack + Defense"):TEXT("Rules: Team / Ability slots"),FColor::Cyan,Canvas->SizeX-320.f,15);
+    if(RitualActive){
+        const auto hud=rpg::presentation::pve_hud(Ritual->observation());
+        DrawText(Label(hud.objective_label)+TEXT(" — ")+Label(hud.boss_id),FColor::Cyan,20,62,nullptr,0.85f);
+        DrawText(FString::Printf(TEXT("Chefe PV %lld/%lld | Acoes %llu/%llu"),static_cast<long long>(hud.boss_health),static_cast<long long>(hud.boss_max_health),static_cast<unsigned long long>(hud.actions.completed),static_cast<unsigned long long>(hud.actions.goal.value_or(0))),FColor::White,20,82,nullptr,0.75f);
+        DrawText(Label(hud.status_label),hud.encounter_finished?FColor::Yellow:FColor::White,20,102,nullptr,0.8f);
+    }
     TArray<FBox2D> occupied;
     std::vector<rpg::presentation::TargetHitRegion> targetRegions;
     const FVector cameraPosition=PlayerOwner->PlayerCameraManager?PlayerOwner->PlayerCameraManager->GetCameraLocation():FVector::ZeroVector;
@@ -202,7 +208,7 @@ void AProbeArenaHUD::DrawHUD()
             if(!labelPosition){continue;}screen=FVector2D(labelPosition->x,labelPosition->y);
             const float width=150.f;
             const float x=FMath::Clamp(static_cast<float>(screen.X)-width/2,4.f,FMath::Max(4.f,Canvas->SizeX-width-4));
-            float y=FMath::Clamp(static_cast<float>(screen.Y)-25,66.f,FMath::Max(66.f,Canvas->SizeY-175));
+            float y=FMath::Clamp(static_cast<float>(screen.Y)-25,(RitualActive?132.f:66.f),FMath::Max((RitualActive?132.f:66.f),Canvas->SizeY-175));
             for(int32 attempt=0;attempt<10;++attempt){
                 const FBox2D box(FVector2D(x,y),FVector2D(x+width,y+44));bool overlap=false;
                 for(const auto& other:occupied){if(box.Intersect(other)){overlap=true;break;}}
@@ -256,7 +262,7 @@ void AProbeArenaHUD::DrawHUD()
         const auto actorIt=std::ranges::find(view.combat.battle.fighters,view.combat.battle.current_actor.value_or(""),[](const rpg::Fighter& f){return f.definition.id;});
         const bool blocked=actorIt!=view.combat.battle.fighters.end() && rpg::incapacitated(*actorIt);
         const auto perform=[&](rpg::ActionType type){
-            const auto result=Session.submit_action(view.revision,{view.combat.battle.current_actor.value_or(""),type,{},{}});
+            const auto result=SubmitActiveAction(view.revision,{view.combat.battle.current_actor.value_or(""),type,{},{}});
             Message=Label(rpg::presentation::action_error_message(result.action.error));SelectedSlot=0;SelectedTarget.Empty();
             UE_LOG(LogTemp,Display,TEXT("VIS_CLASSIC_ACTION accepted=%d"),result.accepted()?1:0);
         };
@@ -313,6 +319,10 @@ void AProbeArenaHUD::DrawHUD()
     }
     if(HubEnabled && PopupLines.IsEmpty() && button(20.f,bottom-42,130,30,running?TEXT("Pausar / Voltar"):TEXT("Voltar ao hub"),true)){if(running){HandleBack();}else{Flow.finish();ReturnToHub();}return;}
     DrawText(Message,FColor::White,20,bottom+60);
+    if(RitualActive && !running && PopupLines.IsEmpty() && button(160,bottom-42,210,30,TEXT("Resultado do Ritual"),true)){
+        const auto hud=rpg::presentation::pve_hud(Ritual->observation());
+        OpenInfo(TEXT("Resultado — Ritual local"),{hud.status_label,"Objetivo: "+hud.objective_label,"Chefe: "+hud.boss_id,"Acoes: "+std::to_string(hud.actions.completed),"Teste local; nenhuma recompensa ou save dos outros laboratorios e alterado."});return;
+    }
     if(!running && !view.progress.completions.empty()){
         const auto& result=view.progress.completions.back();
         if(PopupLines.IsEmpty() && button(20,88,190,32,TEXT("Detalhes do resultado"),true)){
@@ -325,9 +335,9 @@ void AProbeArenaHUD::DrawHUD()
                 "Valores provisorios do laboratorio; consultar nao concede recompensa."});return;
         }
     }
-    if(!running){DrawText(view.combat.battle.winner==rpg::Team::A?TEXT("Team A wins"):view.combat.battle.winner==rpg::Team::B?TEXT("Team B wins"):TEXT("Draw"),FColor::Yellow,20,62);}
+    if(!running && !RitualActive){DrawText(view.combat.battle.winner==rpg::Team::A?TEXT("Team A wins"):view.combat.battle.winner==rpg::Team::B?TEXT("Team B wins"):TEXT("Draw"),FColor::Yellow,20,62);}
     if(!running && PopupLines.IsEmpty() && button(20.f,bottom,100,50,TEXT("Nova tentativa"),true)){
-        Session.reset();Flow.finish();Flow.restart_result();Gesture.cancel();SelectedSlot=0;SelectedTarget.Empty();NextAutomatic=0;Message=TEXT("New attempt.");UE_LOG(LogTemp,Display,TEXT("VIS_RESET"));return;
+        ResetActiveBattle();Flow.finish();Flow.restart_result();Gesture.cancel();SelectedSlot=0;SelectedTarget.Empty();NextAutomatic=0;Message=TEXT("New attempt.");UE_LOG(LogTemp,Display,TEXT("VIS_RESET"));return;
     }
     if(!classic && button(Canvas->SizeX-205.f,bottom+58,180,30,TEXT("Confirm action"),manual && !SelectedTarget.IsEmpty() && SelectedSlot!=0)){
         submit(SelectedTarget);return;
@@ -383,6 +393,7 @@ void AProbeArenaHUD::HandleBack()
     const auto effect=Flow.back(!PopupLines.IsEmpty(),SelectedSlot!=0 || !SelectedTarget.IsEmpty());
     if(effect==rpg::presentation::BackEffect::CloseDetails){PopupLines.Empty();}
     if(effect==rpg::presentation::BackEffect::CancelSelection){SelectedSlot=0;SelectedTarget.Empty();Message=TEXT("Seleção cancelada.");}
+    if(Flow.screen()==rpg::presentation::UiScreen::Hub && RitualActive){ReturnToHub();}
     Gesture.cancel();Pointer.cancel_until_release();NextAutomatic=GetWorld()->GetTimeSeconds()+0.5;
 }
 void AProbeArenaHUD::DrawBattleMenu()
@@ -394,7 +405,7 @@ void AProbeArenaHUD::DrawBattleMenu()
         confirming?TEXT("Confirmar abandono"):TEXT("Abandonar tentativa"),confirming?TEXT("Cancelar"):TEXT("Retomar"));
     if(result==1){BattleMenuPage=0;if(confirming){Flow.back(false,false);}else{Flow.resume();}NextAutomatic=GetWorld()->GetTimeSeconds()+0.5;}
     if(result==2){
-        if(confirming){if(Flow.confirm_abandon()){ReturnToHub();Message=TEXT("Tentativa abandonada sem recompensa.");}}
+        if(confirming){if(Flow.confirm_abandon()){if(RitualActive){Ritual->abandon();}ReturnToHub();Message=TEXT("Tentativa abandonada sem recompensa.");}}
         else{BattleMenuPage=0;Flow.request_abandon();}
     }
 }

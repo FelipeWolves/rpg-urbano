@@ -1,3 +1,5 @@
+> **Novo aceite pendente — LAB-PVE-02:** Terminal → Ritual local — Felipe e ecos. Conferir objetivo ECO-1, auxiliar independente, resultado/nova tentativa e abandono/retorno. Não reabre os aceites anteriores dos outros cenários. [Roteiro](LAB-PVE-02-RITUAL-TERMINAL.md).
+
 > **Diretriz vigente — 22/11:** [base comum dos laboratórios](BASE-COMUM-LABORATORIOS.md). Terminal e Felipe compartilham regras Team e limite de 200 ações/empate; personagens mantêm kits/atributos próprios. Modo clássico fora desta frente. Ajustes visuais de fe6060b aceitos pelo usuário; não reabrir por rotina.
 
 > **22/11 — retorno mais recente:** vídeo/skip e conclusão do piloto sem crash aceitos no teste do usuário. [Placeholders, seletor e escala do Terminal](PLACEHOLDERS-TERMINAL.md): mobilidade corrigida, marcador mais espesso/emissivo e PV do Terminal ampliados. Aceite visual desses ajustes ainda pendente; demo ~25% mantida.

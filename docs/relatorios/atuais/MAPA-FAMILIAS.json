@@ -1,6 +1,6 @@
 {
   "date": "2026-11-22",
-  "purpose": "LAB-PVE-01 read-only snapshot and HUD contract delivered; no new visible mode",
+  "purpose": "Ritual route and visual adapter implemented; awaiting user acceptance",
   "global_demo_estimate": 28,
   "global_range": [
     26,
@@ -27,7 +27,7 @@
       "nome": "Integração Unreal",
       "percentual": 50,
       "prioridade": "P1",
-      "agora": "Adaptar controladores PvE ao projeto padrão e expor snapshots/eventos para UI.",
+      "agora": "Adaptador Ritual e preparação Team compartilhada entregues; mapear transições de ondas/fases para a UI.",
       "ajustes": "Pacote limpo, persistência real, cook/Shipping e backends futuros.",
       "dependencia": "Pode avançar sem MCP, Android ou recursos finais.",
       "motivo": "Reaproveita o core e mantém uma única resolução de combate.",
@@ -53,7 +53,7 @@
       "nome": "Encontros e chefes",
       "percentual": 65,
       "prioridade": "P1",
-      "agora": "Integrar um Ritual de laboratório ao fluxo atual, depois ScoreAttack e Survival; usar dados provisórios identificados.",
+      "agora": "Ritual integrado em código e aguardando aceite; próximo ondas/fases e depois score/sobrevivência.",
       "ajustes": "Menus/HUD, objetivo/resultado, indicadores de fase, kits reais e balanceamento; classes compiladas não são telas prontas.",
       "dependencia": "Regras dos controladores prontas; integração independente de arte final; aceite após UI.",
       "motivo": "Grande retorno por reaproveitar os controladores recém-testados; começar por um encontro simples reduz esforço.",
@@ -284,7 +284,7 @@
   "engine_opened": false,
   "android_used": false,
   "internet_used": false,
-  "snapshot_scope": "Latest technical delivery LAB-PVE-01; family estimates unchanged pending integration",
-  "latest_delivery": "LAB-PVE-01",
-  "next_delivery": "LAB-PVE-02"
+  "snapshot_scope": "LAB-PVE-02 technical delivery; no visual acceptance, estimates unchanged",
+  "latest_delivery": "LAB-PVE-02",
+  "next_delivery": "LAB-PVE-03"
 }

@@ -1,0 +1,12 @@
+{
+  "Date": "2026-11-22",
+  "Suite": "Wide",
+  "Passed": true,
+  "ExitCode": 0,
+  "Result": [
+    "WIDE_NUMERIC_TESTS_RESULT passed=9 total=9"
+  ],
+  "BigIntegerVectors": 256,
+  "EngineExecuted": false,
+  "AndroidExecuted": false
+}

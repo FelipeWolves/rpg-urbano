@@ -29,7 +29,7 @@ ProfileBattle::ProfileBattle(std::vector<Definition> roster,BattleRules rules,Co
             owners.push_back(set.fighter_id);std::ranges::sort(set.slots,{},&AbilitySlot::position);
             std::uint32_t previous=0;
             bool opening_shield=false;
-            for(const auto& entry:set.slots){
+            for(auto& entry:set.slots){
                 if(entry.position<1 || entry.position>3 || entry.position==previous || entry.name.empty() ||
                    (!entry.active_skill && !entry.passive && entry.passive_note.empty())){throw std::invalid_argument("Invalid ability slot");}
                 if(entry.level && *entry.level==0){throw std::invalid_argument("Ability level must be positive when provided");}
@@ -38,6 +38,7 @@ ProfileBattle::ProfileBattle(std::vector<Definition> roster,BattleRules rules,Co
                    entry.requirement->at_most_percent<1 || entry.requirement->at_most_percent>100)){
                     throw std::invalid_argument("Health requirement needs a non-basic active slot and percentage 1..100");}
                 if(entry.passive){
+                    if(entry.passive->shield>0){entry.passive->shield=numeric::quantity(entry.passive->shield);}
                     const auto& passive=*entry.passive;
                     if(passive.id.empty() || passive.trigger!=PassiveTrigger::BattleStart || passive.shield<=0 ||
                        passive.duration<1 || passive.duration>1000 || opening_shield ||

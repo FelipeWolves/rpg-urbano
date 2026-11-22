@@ -7,7 +7,7 @@ enum class PassiveTrigger { BattleStart };
 struct PassiveDefinition {
     std::string id;
     PassiveTrigger trigger = PassiveTrigger::BattleStart;
-    int shield = 10;
+    numeric::Quantity shield = 10;
     int duration = 2;
     bool operator==(const PassiveDefinition&) const = default;
 };

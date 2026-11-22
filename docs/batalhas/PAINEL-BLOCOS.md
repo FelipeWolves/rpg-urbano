@@ -170,3 +170,5 @@ AUT-14 (22/11): schema e manifestos de referência preparados; sete grupos nativ
 AUT-15 (22/11): stage de 53 entradas preparado e verificado por hash/includes; três grupos do verificador aprovados. Sem build/cook/execução do pacote; Shipping/Windows limpo pendentes. Próximo AUT-16. Ver AUT-15-STAGE-VERIFICAVEL.md.
 
 SIS-02-B (22/11): utilitários inteiros seguros entregues; dez grupos, 67.240 combinações pequenas e 256 vetores BigInteger aprovados. Battle ainda não migrado. Próximo SIS-02-C; ver SIS-02-B-ARITMETICA.md.
+
+SIS-02-C1 (22/11): quantidades amplas no executor e consumidores; nove grupos Wide, regressão geral e build Editor aprovados. numeric_model=2; save v1 preservado. C2/C3 ainda seguem, stage anterior histórico. Ver SIS-02-C1-QUANTIDADES.md.

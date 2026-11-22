@@ -201,7 +201,7 @@ void AProbeArenaHUD::DrawHUD()
             DrawLine(static_cast<float>(screen.X),static_cast<float>(screen.Y),x+width/2,y+40,FLinearColor(0.6f,0.7f,0.8f),1);
             const bool active=view.combat.battle.current_actor==fighter.definition.id;
             DrawText((active?TEXT("> "):TEXT(""))+id,active?FColor::Yellow:FColor::White,x,y);
-            DrawText(FString::Printf(TEXT("%d / %d"),fighter.health,fighter.definition.max_health),FColor::White,x,y+14);
+            DrawText(FString::Printf(TEXT("%lld / %lld"),static_cast<long long>(fighter.health),static_cast<long long>(fighter.definition.max_health)),FColor::White,x,y+14);
             const auto shield=rpg::presentation::shield_display(fighter);
             DrawRect(FLinearColor(0.04f,0.04f,0.05f),x,y+31,width,7);
             DrawRect(fighter.definition.team==rpg::Team::A?FLinearColor(0.1f,0.85f,0.7f):FLinearColor(0.95f,0.25f,0.4f),x,y+31,width*static_cast<float>(shield.health_fraction),7);

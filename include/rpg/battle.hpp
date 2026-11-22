@@ -1,5 +1,6 @@
 #pragma once
 
+#include "rpg/numeric.hpp"
 #include <cstddef>
 #include <cstdint>
 #include <optional>
@@ -58,7 +59,7 @@ struct ExtraProcCount {
 
 struct EffectDefinition {
     EffectKind kind;
-    int amount = 0;
+    numeric::Quantity amount = 0;
     int duration = 0;
     TickPolicy clock = TickPolicy::NaturalOnly;
     std::optional<ExtraTurnSource> extra_source;
@@ -93,6 +94,7 @@ struct BattleRules {
     std::vector<SkillDefinition> skills;
     std::uint32_t max_derived_actions = 64;
     std::uint32_t max_consequence_events = 256;
+    std::uint32_t numeric_model = 2; // Quantity domain/version; not a save-format version.
     bool operator==(const BattleRules&) const = default;
 };
 enum class ActionError {
@@ -112,8 +114,8 @@ enum class EventType {
 struct Definition {
     std::string id;
     Team team;
-    int max_health;
-    int attack;
+    numeric::Quantity max_health;
+    numeric::Quantity attack;
     int speed;
     bool operator==(const Definition&) const = default;
 };
@@ -123,7 +125,7 @@ struct Status {
     int remaining;
     TickPolicy clock;
     std::uint64_t applied_turn;
-    int magnitude = 0;
+    numeric::Quantity magnitude = 0;
     std::uint32_t charges = 1;
     StatusCategory category = StatusCategory::Temporary;
     bool operator==(const Status&) const = default;
@@ -137,7 +139,7 @@ struct Cooldown {
 
 struct Fighter {
     Definition definition;
-    int health;
+    numeric::Quantity health;
     bool guarding = false;
     std::int64_t ap = 0;
     int effective_speed = 0;
@@ -150,7 +152,7 @@ struct Fighter {
 
 struct InitialHealth {
     std::string id;
-    int health;
+    numeric::Quantity health;
 };
 
 struct InitialRuntime {
@@ -184,7 +186,7 @@ struct Event {
     EventType type;
     std::string actor;
     std::string target;
-    int amount = 0;
+    numeric::Quantity amount = 0;
     std::uint64_t round = 0;
     std::optional<Team> winner;
     std::optional<EndReason> end_reason;
@@ -287,7 +289,7 @@ private:
     };
     struct PendingRevive {
         std::size_t fighter;
-        int health;
+        numeric::Quantity health;
     };
 
     [[nodiscard]] std::optional<std::size_t> index_of(std::string_view id) const noexcept;
@@ -304,7 +306,7 @@ private:
     void close_action(const ActionContext& context, const std::vector<std::size_t>& guarded,
                       const std::vector<PendingRevive>& revives, std::vector<Event>& events);
     static void stamp_action(std::vector<Event>& events, std::size_t begin, const ActionContext& context);
-    void apply_damage(std::size_t emitter, std::size_t target, int power, EventType type,
+    void apply_damage(std::size_t emitter, std::size_t target, numeric::Quantity power, EventType type,
                       const ActionContext& context, std::uint32_t hit_index, std::uint32_t planned_hits,
                       std::vector<Event>& events, std::vector<PendingReaction>& reactions,
                       std::vector<std::size_t>& deaths, std::vector<PendingRevive>& revives);

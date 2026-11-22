@@ -39,9 +39,9 @@ AbilityCard ability_card(const VisualState& state,std::uint32_t position){
 }
 ShieldDisplay shield_display(const Fighter& fighter){
     std::int64_t shield=0;
-    for(const auto& status:fighter.statuses){if(status.kind==EffectKind::StandardShield || status.kind==EffectKind::Shield || status.kind==EffectKind::StructuralShield){shield+=std::max(0,status.magnitude);}}
+    for(const auto& status:fighter.statuses){if(status.kind==EffectKind::StandardShield || status.kind==EffectKind::Shield || status.kind==EffectKind::StructuralShield){shield+=std::max<numeric::Quantity>(0,status.magnitude);}}
     if(fighter.definition.max_health<=0){throw std::invalid_argument("Positive max HP required");}
-    const int health=std::clamp(fighter.health,0,fighter.definition.max_health);
+    const numeric::Quantity health=std::clamp<numeric::Quantity>(fighter.health,0,fighter.definition.max_health);
     return {shield,static_cast<double>(health)/fighter.definition.max_health,
         static_cast<double>(std::min<std::int64_t>(shield,health))/fighter.definition.max_health};
 }

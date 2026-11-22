@@ -78,7 +78,7 @@ void Stage::start_encounter(const std::vector<Fighter>& previous) {
     roster.insert(roster.end(), encounter.enemies.begin(), encounter.enemies.end());
     std::vector<InitialHealth> health;
     for (const auto& fighter : roster) {
-        int current = fighter.max_health;
+        numeric::Quantity current = fighter.max_health;
         if (fighter.team == Team::A && !previous.empty() && definition_.carry == CarryPolicy::PreserveHealth) {
             for (const auto& old : previous) {
                 if (old.definition.team == Team::A && old.definition.id == fighter.id) { current = old.health; break; }

@@ -9,6 +9,7 @@
 namespace rpg {
 namespace {
 constexpr std::int64_t bar_max = 1000000;
+bool quantity_effect(EffectKind kind){return kind==EffectKind::Reflect || kind==EffectKind::DeathExplosion || kind==EffectKind::AutoRevive || kind==EffectKind::Shield || kind==EffectKind::StructuralShield || kind==EffectKind::StandardShield;}
 bool valid_clock(TickPolicy clock) {
     return clock == TickPolicy::NaturalOnly || clock == TickPolicy::EveryTurn;
 }
@@ -26,7 +27,7 @@ Battle::Battle(std::vector<Definition> definitions, BattleRules rules,
                std::vector<InitialRuntime> initial_runtime) : rules_(std::move(rules)) {
     if ((rules_.timing != TimingProfile::FixedRounds && rules_.timing != TimingProfile::ActionBar) ||
         rules_.max_derived_actions == 0 || rules_.max_derived_actions > 1024 || rules_.skills.size() > 256 ||
-        rules_.max_consequence_events == 0 || rules_.max_consequence_events > 4096) {
+        rules_.max_consequence_events == 0 || rules_.max_consequence_events > 4096 || rules_.numeric_model != 2) {
         throw std::invalid_argument("Invalid timing configuration");
     }
     if (rules_.action_budget) {
@@ -37,6 +38,11 @@ Battle::Battle(std::vector<Definition> definitions, BattleRules rules,
             throw std::invalid_argument("Invalid action budget");
         }
     }
+    // Normalize quantity domains only. AP, speed, counters, durations and IDs keep their contracts.
+    for(auto& definition:definitions){if(definition.max_health>0){definition.max_health=numeric::quantity(definition.max_health);}if(definition.attack>0){definition.attack=numeric::quantity(definition.attack);}}
+    for(auto& skill:rules_.skills){for(auto& effect:skill.effects){if(quantity_effect(effect.kind) && effect.amount>0){effect.amount=numeric::quantity(effect.amount);}}}
+    for(auto& state:initial_health){if(state.health>0){state.health=numeric::quantity(state.health);}}
+    for(auto& state:initial_runtime){for(auto& status:state.statuses){if(quantity_effect(status.kind) && status.magnitude>0){status.magnitude=numeric::quantity(status.magnitude);}}}
     std::ranges::sort(definitions, {}, &Definition::id);
     bool has_a = false;
     bool has_b = false;
@@ -59,7 +65,7 @@ Battle::Battle(std::vector<Definition> definitions, BattleRules rules,
     }
     fighters_.reserve(definitions.size());
     for (auto& definition : definitions) {
-        const int health = definition.max_health;
+        const numeric::Quantity health = definition.max_health;
         fighters_.push_back(Fighter{std::move(definition), health, false});
         fighters_.back().effective_speed = fighters_.back().definition.speed;
     }
@@ -370,7 +376,7 @@ std::optional<std::size_t> Battle::lowest_health_enemy(Team side) const noexcept
     return selected; // Equal HP uses canonical ordinal ID.
 }
 
-void Battle::apply_damage(std::size_t emitter, std::size_t target_index, int power, EventType type,
+void Battle::apply_damage(std::size_t emitter, std::size_t target_index, numeric::Quantity power, EventType type,
                           const ActionContext& context, std::uint32_t hit_index, std::uint32_t planned_hits,
                           std::vector<Event>& events, std::vector<PendingReaction>& reactions,
                           std::vector<std::size_t>& deaths, std::vector<PendingRevive>& revives) {
@@ -381,7 +387,7 @@ void Battle::apply_damage(std::size_t emitter, std::size_t target_index, int pow
     for(const auto kind:{EffectKind::StandardShield,EffectKind::Shield,EffectKind::StructuralShield}) {
         auto shield=std::ranges::find(target.statuses,kind,&Status::kind);
         if(shield==target.statuses.end() || power==0){continue;}
-        const int absorbed=std::min(power,shield->magnitude);
+        const numeric::Quantity absorbed=std::min(power,shield->magnitude);
         power-=absorbed;shield->magnitude-=absorbed;
         events.push_back(Event{EventType::ShieldAbsorbed,target.definition.id,target.definition.id,absorbed,round_,{}});
         events.back().status_kind=kind;
@@ -394,7 +400,7 @@ void Battle::apply_damage(std::size_t emitter, std::size_t target_index, int pow
     auto prevention=std::ranges::find(target.statuses,EffectKind::PreventDeath,&Status::kind);
     const bool prevented=power>=target.health && prevention!=target.statuses.end();
     if (prevented && !spend_consequence(context,events)) {return;}
-    const int applied=prevented ? target.health-1 : std::min(power,target.health);
+    const numeric::Quantity applied=prevented ? target.health-1 : std::min(power,target.health);
     target.health-=applied;
     events.push_back(Event{type,fighters_[emitter].definition.id,target.definition.id,applied,round_,{}});
     if (prevented) {
@@ -409,7 +415,7 @@ void Battle::apply_damage(std::size_t emitter, std::size_t target_index, int pow
         deaths.push_back(target_index);
         auto revive=std::ranges::find(target.statuses,EffectKind::AutoRevive,&Status::kind);
         if (revive!=target.statuses.end()) {
-            const int health=std::min(revive->magnitude,target.definition.max_health);
+            const numeric::Quantity health=std::min(revive->magnitude,target.definition.max_health);
             --revive->charges;
             if (revive->charges==0) {target.statuses.erase(revive);}
             revives.push_back({target_index,health});
@@ -434,9 +440,9 @@ void Battle::hit(std::size_t attacker, std::size_t target_index, bool derived, c
     auto& target=fighters_[target_index];
     const auto& actor=fighters_[attacker];
     const auto begin=events.size();
-    const int power=actor.definition.attack;
-    const int damage=target.guarding?power/2:power;
-    int reflection=0;
+    const numeric::Quantity power=actor.definition.attack;
+    const numeric::Quantity damage=target.guarding?power/2:power;
+    numeric::Quantity reflection=0;
     for(const auto& status:target.statuses) {if(status.kind==EffectKind::Reflect){reflection=status.magnitude;}}
     if(target.guarding && std::ranges::find(guarded,target_index)==guarded.end()){guarded.push_back(target_index);}
     std::vector<std::size_t> pending_deaths;
@@ -451,7 +457,7 @@ void Battle::hit(std::size_t attacker, std::size_t target_index, bool derived, c
     for(std::size_t cursor=0;cursor<pending_deaths.size() && phase_==Phase::Running;++cursor) {
         if(!spend_consequence(context,events)){break;}
         const auto corpse=pending_deaths[cursor];
-        int blast=0;
+        numeric::Quantity blast=0;
         for(const auto& status:fighters_[corpse].statuses){if(status.kind==EffectKind::DeathExplosion){blast=status.magnitude;}}
         if(blast==0){continue;}
         const auto start=events.size();
@@ -589,7 +595,7 @@ ActionResult Battle::apply(const Action& action) {
                 break;
             case EffectKind::StandardShield: {
                 // Integer division computes floor(1% max HP) without multiplication overflow.
-                const int points=std::max(1,actor.definition.max_health/100);
+                const numeric::Quantity points=std::max<numeric::Quantity>(1,actor.definition.max_health/100);
                 auto old=std::ranges::find(target.statuses,EffectKind::StandardShield,&Status::kind);
                 if(old==target.statuses.end()){
                     target.statuses.push_back({EffectKind::StandardShield,3,TickPolicy::NaturalOnly,turn_id_,points});
@@ -602,7 +608,7 @@ ActionResult Battle::apply(const Action& action) {
             }
             case EffectKind::ChangeAP:
                 target.ap = std::clamp(target.ap + effect.amount, std::int64_t{0}, bar_max); break;
-            case EffectKind::SetSpeed: target.effective_speed = effect.amount; break;
+            case EffectKind::SetSpeed: target.effective_speed = static_cast<int>(effect.amount); break; // Validated to 1..10000.
             case EffectKind::ExtraTurn: {
                 auto proc = extra_proc_counts_.end();
                 if (effect.extra_source && effect.extra_source->max_procs_per_natural_turn > 0) {
@@ -787,5 +793,3 @@ std::optional<Action> choose_basic_attack(const Battle& battle) {
 }
 
 } // namespace rpg
-
-

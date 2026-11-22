@@ -266,3 +266,9 @@ Parser JSON do hub, importação do panorama, projeção/clipping dos dois alvos
 
 - Aritmética não negativa int64 saturada, mul/div floor sem overflow intermediário e comparação exata de razões; basis points explícitos.
 - Dez grupos aprovados com oráculo BigInteger local; sem engine/Android/rede. Migração do executor fica no SIS-02-C.
+
+## 2026-11-22 — SIS-02-C1
+
+- HP/dano/escudos/eventos e caminhos de passagem em int64 com normalização de teto; domínios de tempo/IDs preservados.
+- Nove grupos amplos, regressão geral e compilação Editor aprovados; corrigidos fallthrough SetSpeed e colisão de nome em helper de teste.
+- Save v1 mantido; fronteiras de manifesto/stage seguem no próximo corte.

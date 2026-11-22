@@ -1,3 +1,5 @@
+> **Vigente — 22/11, ponto 1 entregue:** [Felipe e efeitos contínuos](HAB-FELIPE-PILOTO.md): Bleed/Poison, A1/A2/A3 e piloto local implementados e testados. Aceites visuais/mobile separados. SIS-02-B/C, REG e A2 não estão mais por iniciar. Próximo grupo possível: ESC/SIS/PvE, **fora da autorização desta entrega**. Notas anteriores são histórico.
+
 > **Atualização 22/11 — REG-03:** base de silêncio, incapacidade, imunidades, teste de debuff e revalidação de reações entregue; oito grupos focados, regressão geral e build Unreal aprovados, sem executar editor/jogo. Ver [REG-03](REG-03-CONTROLES.md). **Ainda pendentes:** executor Bleed/Poison, conexão/testes da A2 e piloto HAB; não confundir contratos recebidos com implementação. Próxima integração segue por esses componentes. Stage anterior não representa REG atual.
 > **SIS-02-A concluído — 22/11:** [mapa numérico e compatibilidade](SIS-02-A-MAPA-NUMERICO.md): 22 âncoras conferidas, cortes de migração e testes futuros definidos. Código/fórmulas/saves intactos; nenhuma bateria ou engine executada. Próxima entrega: **SIS-02-B, aritmética segura**, ainda não iniciada. Save v1 não contém HP; migração de HP não força nova versão por si só. Esta atualização prevalece sobre a indicação histórica de A ainda por iniciar.
 
@@ -5,8 +7,8 @@
 ## Próxima execução planejada
 
 - [x] **SIS-02-A:** mapa concluído, 22 âncoras conferidas e cortes/testes planejados em SIS-02-A-MAPA-NUMERICO.md; sem migração de código.
-- [ ] **SIS-02-B:** aritmética inteira segura e comparação exata, após o mapa.
-- [ ] **SIS-02-C:** migração por partes, preservando baselines e compatibilidade explícita.
+- [x] **SIS-02-B:** aritmética inteira segura e comparação exata, após o mapa.
+- [x] **SIS-02-C:** migração por partes, preservando baselines e compatibilidade explícita.
 
 A sequência posterior e trilhas independentes estão em [ORDEM-EXECUCAO-POS-AUT.md](ORDEM-EXECUCAO-POS-AUT.md). Os itens antigos abaixo são histórico/escopos próprios; não reiniciar AUT-01 ou ESC comum. Não iniciar implementação nesta rodada de planejamento.
 

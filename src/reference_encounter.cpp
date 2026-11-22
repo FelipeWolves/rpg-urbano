@@ -31,6 +31,32 @@ EncounterSetup team_reference_setup(){
     return {std::move(roster),std::move(rules),std::move(sets)};
 }
 EncounterSetup classic_reference_setup(){return {reference_roster(),text_reference_rules(),{}};}
+EncounterSetup felipe_pilot_setup(bool tutorial_preload){
+    auto rules=text_reference_rules();rules.combat_model=resolution::CombatModel::FunnelV1;
+    rules.random_seed=20261122;rules.action_budget=ActionBudget{200,LimitOutcome::DefeatA};
+    Definition felipe{"FELIPE",Team::A,20000,2500,110};
+    felipe.vigil=VigilDefinition{"FELIPE-A1",5,tutorial_preload?4u:0u};
+    std::vector<Definition> roster{felipe,{"ECO-1",Team::B,12000,1800,100},{"ECO-2",Team::B,8000,1200,90}};
+    EffectDefinition basic{EffectKind::Damage};basic.power_ratio=11000;
+    EffectDefinition bleed{EffectKind::Bleed,0,2};bleed.requires_target_debuff=true;
+    EffectDefinition ap{EffectKind::ChangeAP,100000};ap.self_target=true;ap.requires_target_debuff=true;ap.requires_connected_hit=true;
+    SkillDefinition a1{"FELIPE-A1","FELIPE",0,TargetRule::Enemy,{basic,bleed,ap}};a1.basic=true;
+    EffectDefinition ultimate{EffectKind::Damage};ultimate.hit_count=3;ultimate.power_ratio=6500;ultimate.unbuffed_damage_bonus=2500;
+    rules.skills={a1,{"FELIPE-A3","FELIPE",4,TargetRule::EnemyTeam,{{EffectKind::DispelBuffs,2},ultimate}}};
+    PassiveDefinition vigil{"FELIPE-A2",PassiveTrigger::AllyHit,0,0};
+    CharacterLoadout wolf{"FELIPE",{
+        {1,"Garra do Asfalto","FELIPE-A1","",std::nullopt,std::nullopt,std::nullopt,"110% ATK. Se o alvo ja tiver debuff: Sangramento por 2 turnos e +10% AP; efeitos de ataque exigem acerto."},
+        {2,"Postura de Vigilia",std::nullopt,"Passiva: uma carga por aliado atingido em cada habilidade. Ao completar 5, A1 reativa e escudo no aliado vivo com menor PV%.",vigil},
+        {3,"Eclipse na Floresta de Pedra","FELIPE-A3","",std::nullopt,std::nullopt,std::nullopt,"Remove ate 2 buffs comuns antes de 3 hits em area de 65% ATK. +25% dano contra alvos sem buffs. Recarga 4."}
+    }};
+    std::vector<CharacterLoadout> sets{wolf};
+    for(std::size_t i=1;i<roster.size();++i){
+        const auto id=roster[i].id+"-A1";
+        SkillDefinition attack{id,roster[i].id,0,TargetRule::Enemy,{{EffectKind::Damage}}};attack.basic=true;
+        rules.skills.push_back(attack);sets.push_back({roster[i].id,{{1,"Pulso de Dissonancia",id,""}}});
+    }
+    return {std::move(roster),std::move(rules),std::move(sets)};
+}
 }
 
 namespace rpg::presentation {

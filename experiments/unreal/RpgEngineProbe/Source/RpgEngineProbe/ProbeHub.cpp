@@ -432,7 +432,9 @@ void AProbeArenaHUD::DrawTeamSetup(){
         catch(const std::exception& e){TeamStatus=Text(e.what());}OpenInfo(TEXT("Equipe / Save"),{Utf8(TeamStatus)});return;
     }
     const FString directory=FPaths::Combine(FPaths::ProjectSavedDir(),TEXT("LocalProgress"));
-    const FString path=FPaths::Combine(directory,TEXT("progress-v1.save"));
+    const bool pilot=FParse::Param(FCommandLine::Get(),TEXT("FelipePilot"));
+    const FString filename=pilot?(FParse::Param(FCommandLine::Get(),TEXT("FelipeTutorial"))?TEXT("felipe-tutorial-v1.save"):TEXT("felipe-pilot-v1.save")):TEXT("progress-v1.save");
+    const FString path=FPaths::Combine(directory,filename);
     if(button(3,TEXT("Salvar progresso aplicado"))){
         try{
             const auto bytes=Session.export_save();
@@ -443,7 +445,7 @@ void AProbeArenaHUD::DrawTeamSetup(){
             if(!FFileHelper::SaveArrayToFile(data,*temporary) || !IFileManager::Get().Move(*path,*temporary,true,true,false,true)){
                 throw rpg::SaveError("Falha ao salvar; progresso em memoria preservado. Verifique permissao/espaco.");
             }
-            TeamStatus=TEXT("Progresso salvo em Saved/LocalProgress/progress-v1.save.");
+            TeamStatus=FString::Printf(TEXT("Progresso salvo em Saved/LocalProgress/%s."),*filename);
         }catch(const std::exception& e){TeamStatus=Text(e.what());}OpenInfo(TEXT("Equipe / Save"),{Utf8(TeamStatus)});return;
     }
     if(button(4,TEXT("Carregar progresso (nova tentativa)"))){

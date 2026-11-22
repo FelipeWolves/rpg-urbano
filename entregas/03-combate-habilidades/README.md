@@ -1,10 +1,10 @@
 # Core, habilidades e fórmulas — guia vigente
 
-Atualizado em **22/11/2026**. Prioridade: **P1 técnico — SIS-02-B primeiro**. Este guia substitui as perguntas antigas nos temas já respondidos; o histórico abaixo fica apenas para referência.
+Atualizado em **22/11/2026**. Prioridade: **aceite do piloto Felipe e planejamento posterior de ESC/SIS/PvE**. Este guia substitui as perguntas antigas nos temas já respondidos; o histórico abaixo fica apenas para referência.
 
 ## Já recebido ou definido — não reenviar
 
-StandardShield, R04, regras de A2 do Felipe, Block por hit, ACC/RESIST e ponto fixo já têm decisões recebidas. SIS-02-A concluído; migração ainda não feita.
+StandardShield, R04, regras de A2 do Felipe, Block por hit, ACC/RESIST e ponto fixo já têm decisões recebidas. SIS-02-B/C, funil, controles, Bleed/Poison e A2/piloto implementados/testados no recorte local.
 
 ## O que você pode adiantar agora
 
@@ -14,11 +14,11 @@ StandardShield, R04, regras de A2 do Felipe, Block por hit, ACC/RESIST e ponto f
 
 ## Trabalho do desenvolvimento — não precisa virar pesquisa sua
 
-SIS-02-B aritmética → C migração → REG outcomes/RNG/funil/controles → A2. Não há novo material obrigatório para iniciar B.
+Ponto1 entregue. Próximo grupo possível: escudos especializados, operadores de efeitos/ondas e score, em entregas próprias. Não reenviar regras fechadas dos DoTs.
 
 ## Testes e aceites ainda pendentes
 
-Implementação das regras ampliadas e determinismo cross-platform ainda pendentes. Conhecer a regra não é validá-la no código.
+Piloto: Abrir-Piloto-Felipe.cmd e Abrir-Tutorial-Felipe.cmd. Aceite visual, balanceamento, tutorial guiado e determinismo medido em Android/iOS continuam pendentes.
 
 ## Onde entregar
 

@@ -21,9 +21,10 @@
 namespace {
 FString Label(const std::string& value){return UTF8_TO_TCHAR(value.c_str());}
 rpg::CombatProfile SelectedCombatProfile(){FString name;if(FParse::Value(FCommandLine::Get(),TEXT("CombatProfile="),name) && name==TEXT("Classic")){return rpg::CombatProfile::Classic;}if(!name.IsEmpty() && name!=TEXT("Team")){UE_LOG(LogTemp,Warning,TEXT("Unknown CombatProfile; using Team"));}return rpg::CombatProfile::Team;}
+rpg::EncounterSetup SelectedEncounter(){if(SelectedCombatProfile()==rpg::CombatProfile::Classic){return rpg::classic_reference_setup();}if(FParse::Param(FCommandLine::Get(),TEXT("FelipePilot"))){return rpg::felipe_pilot_setup(FParse::Param(FCommandLine::Get(),TEXT("FelipeTutorial")));}return rpg::team_reference_setup();}
 std::optional<rpg::presentation::ArenaLayout> SelectedLayout(){FString name;if(!FParse::Value(FCommandLine::Get(),TEXT("ArenaLayout="),name)){return rpg::presentation::default_arena_layout;}return rpg::presentation::parse_arena_layout(TCHAR_TO_UTF8(*name));}
 }
-AProbeArenaHUD::AProbeArenaHUD():Session(SelectedCombatProfile()==rpg::CombatProfile::Classic?rpg::classic_reference_setup():rpg::team_reference_setup(),SelectedCombatProfile()){static ConstructorHelpers::FObjectFinder<UStaticMesh> marker(TEXT("/Engine/BasicShapes/Cube.Cube"));TargetMarkerMesh=marker.Object;}
+AProbeArenaHUD::AProbeArenaHUD():Session(SelectedEncounter(),SelectedCombatProfile()){static ConstructorHelpers::FObjectFinder<UStaticMesh> marker(TEXT("/Engine/BasicShapes/Cube.Cube"));TargetMarkerMesh=marker.Object;}
 AProbeArenaMode::AProbeArenaMode(){HUDClass=AProbeArenaHUD::StaticClass();DefaultPawnClass=nullptr;}
 void AProbeArenaMode::BeginPlay()
 {

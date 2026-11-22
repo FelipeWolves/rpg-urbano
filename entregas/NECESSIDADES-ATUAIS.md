@@ -9,7 +9,7 @@
 3. **Amostra artística:** um personagem/rig e uma arena pequena, quando disponíveis, com escala/pivô/clips/fonte editável. Não produzir cidade ou elenco inteiro antes da primeira integração.
 4. **Pesquisa opcional:** somente fórmulas/exceções ainda não fechadas, com fonte/data/versão e exemplo. Separar hipótese sobre Dislyte de regra escolhida para nosso jogo.
 
-**O próximo bloco SIS-02-B não depende de nova entrega sua.** O mapa SIS-02-A já foi concluído; o desenvolvimento pode implementar a aritmética segura com os contratos recebidos.
+**Ponto1 entregue:** SIS-02-B/C, REG, Bleed/Poison e Felipe implementados. O que ajuda agora é o aceite do piloto pelos atalhos novos. Não pesquisar novamente regras fechadas; ESC/SIS/PvE será planejado separadamente.
 
 ## Quadro de entregas
 

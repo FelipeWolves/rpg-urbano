@@ -103,6 +103,7 @@ Battle::Battle(std::vector<Definition> definitions, BattleRules rules,
                (effect.damage_kind!=resolution::DamageKind::Normal && effect.damage_kind!=resolution::DamageKind::True && effect.damage_kind!=resolution::DamageKind::Dot && effect.damage_kind!=resolution::DamageKind::TrueDot)){
                 throw std::invalid_argument("Invalid damage effect metadata");
             }
+            if(periodic_effect(effect.kind) && (effect.category!=StatusCategory::Temporary || effect.border!=StatusBorder::Common)){throw std::invalid_argument("Periodic effects require common temporary debuffs");}
             resolution::chance_domain(effect.proc_chance);if(!valid_border(effect.border)){throw std::invalid_argument("Invalid effect border");}
             if (!valid_clock(effect.clock)) { throw std::invalid_argument("Invalid effect clock"); }
             if (effect.hit_count == 0 || effect.hit_count > 64 ||
@@ -860,8 +861,8 @@ void Battle::tick_periodics(std::vector<Event>& events) {
         const auto begin=events.size();
         apply_damage(source,active_,damage.amount,EventType::PeriodicDamage,context,1,1,events,reactions,deaths,revives,resolution::HitReport{damage.outcome,input.kind,damage.amount,0,0,0});
         for(std::size_t e=begin;e<events.size();++e){if(events[e].type==EventType::PeriodicDamage){events[e].status_kind=status.kind;}}
-        drain_deaths(deaths,context,1,1,events,reactions,revives);
         if(status.remaining==1){events.push_back({EventType::EffectExpired,owner.definition.id,owner.definition.id,static_cast<int>(status.kind),round_,{}});events.back().status_kind=status.kind;stamp_action(events,events.size()-1,context);}
+        drain_deaths(deaths,context,1,1,events,reactions,revives);
         close_action(context,{},revives,events);
         stamp(events,begin,turn_id_,turn_kind_);
     }

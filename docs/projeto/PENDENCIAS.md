@@ -1,3 +1,5 @@
+> **Vigente — 22/11, ponto 1 entregue:** [Felipe e efeitos contínuos](HAB-FELIPE-PILOTO.md): Bleed/Poison, A1/A2/A3 e piloto local implementados e testados. Aceites visuais/mobile separados. SIS-02-B/C, REG e A2 não estão mais por iniciar. Próximo grupo possível: ESC/SIS/PvE, **fora da autorização desta entrega**. Notas anteriores são histórico.
+
 > **SIS-02-A concluído — 22/11:** [mapa numérico e compatibilidade](SIS-02-A-MAPA-NUMERICO.md): 22 âncoras conferidas, cortes de migração e testes futuros definidos. Código/fórmulas/saves intactos; nenhuma bateria ou engine executada. Próxima entrega: **SIS-02-B, aritmética segura**, ainda não iniciada. Save v1 não contém HP; migração de HP não força nova versão por si só. Esta atualização prevalece sobre a indicação histórica de A ainda por iniciar.
 
 > **Fila vigente pós-AUT — 22/11:** [ordem reconciliada de execução](ORDEM-EXECUCAO-POS-AUT.md). Próxima tarefa: **SIS-02-A, mapa numérico/compatibilidade**; depois aritmética segura, migração, outcomes/RNG, funil, controles e Felipe A2. Aceites VIS/mídia seguem em trilha própria; ESC/TIME/RES/SEQ/PAR encerrados não são reabertos por rotina. Primeiro clique: provisório, **REVER**. Nesta revisão somente planejamento/documentação, sem execução das próximas tarefas. Esta ordem prevalece sobre prioridades históricas abaixo.
@@ -206,6 +208,8 @@ As respostas ESC também encerram partes dos itens abaixo. **Definido**, **imple
 
 ### REG-01 — defesa clássica e bloqueio automático (explicação9)
 
+**Vigente22/11:** Block por hit, crítico, mitigação, TrueDamage e trilho de debuff implementados em FunnelV1. Defesa clássica preservada. Perguntas históricas respondidas não bloqueiam Felipe; exceções e balanceamento futuros continuam próprios.
+
 **Atualização20/11 — informação recebida:** Grupo03 trouxe chance3%/bases por classe/tetos e mitigação30–50%, que conflita com bloqueio que anulava dano. ENT-01/07/14 precisam reconciliar isso antes de implementação; Defesa atual preservada. [Revisão consolidada](REVISAO-ENTREGAS-2026-11-20.md).
 
 **✅ Definido e implementado:** Defesa clássica continua reduzindo o dano pela metade, para baixo, consumida no fecho de ação que a utilizou ou expirada na próxima oportunidade do dono. Sua redução vem antes da absorção do escudo. Escudo por habilidade, proteção/atributo futuro do clássico e comando Defesa são conceitos distintos. Câmera lateral não habilita defesa no modo Equipes.
@@ -226,19 +230,17 @@ As respostas ESC também encerram partes dos itens abaixo. **Definido**, **imple
 
 ### REG-03 — silêncio, impossibilidade de agir e supressão (explicação11)
 
-**Atualização20/11 — informação recebida:** Matriz concreta recebida no grupo03: silêncio restringeA2/A3, supressão desliga passivas, Freeze/Petrification impedem ação. Não é mais ausência de matriz; falta fechar clocks/extras, pendentes/auras e precedênciaR04 (ENT-06). Diferenciações15/25% são propostas, não código. [Revisão consolidada](REVISAO-ENTREGAS-2026-11-20.md).
+**Implementado/testado no recorte atual:** Silence impede especiais, preserva básica1; Stun/Freeze/Petrify impedem agir/reagir; FreezeCooldowns separado. Debuffs usam hit/chance/ACC/RESIST e imunidade própria. Supressão impede A2/Felipe sem apagar cargas douradas. Reações revalidam vida e incapacidade.
 
-**✅ Respondido:** impedimento de ação deve ser chamado “impossibilitado de agir”; Block técnico atual não é o futuro bloqueio probabilístico. A oportunidade natural impossibilitada ainda reduz duração do escudo padrão. Extras/reações não reduzem esse escudo. Sua aplicação não altera relógios de outros efeitos. Básica na posição1 não é silenciada por decisão anterior do projeto, mas pode não ser executada se o personagem estiver impossibilitado de agir.
+Relógios explícitos por status: StandardShield usa naturais; Bleed/Poison início de natural/extra. Nenhuma das antigas perguntas bloqueia o piloto atual.
 
-**✅ Implementado/testado no escopo do escudo:** contagem por oportunidade natural, inclusive Skip; nenhuma perda em extra mesmo com fonte que solicita tick. Terminologia pública atualizada; nome técnico legado preservado.
-
-**⚠️ Perguntas restantes:** quais condições concretas causam impossibilidade de agir? Silêncio bloqueia quais ativas? Supressão desliga quais passivas de abertura/combate? Congelamento e petrificação fazem quais operações? Como contam recargas e outros efeitos, e o que ocorre com reações/extras já enfileirados? Quais exceções por unidade/efeito? FreezeCooldowns não é personagem congelado.
-
-**Estado:** parcialmente respondido; falta matriz efeito×comando/gatilho/clock para essas famílias. Não pedir novamente a regra do relógio do escudo ou a distinção de termos.
+**Fora desse recorte:** catálogo completo de controles/auras/passivas, imunidades de cada chefe e extras específicos. Diferenciações15/25% da petrificação continuam propostas, sem implementação de dano. Ver REG-03-CONTROLES.md e HAB-FELIPE-PILOTO.md.
 
 ## 🟡 P3 — pesquisa ampla e evolução (explicação12)
 
 ### SIS-01 — origem, permissões, âncoras e quotas
+
+**Vigente22/11:** DoTs com fonte/snapshot/instância/duração e limite piloto3 por tipo; A2 deduplicada por ação/alvo e uma ativação por habilidade. Operadores genéricos de purificação/transferência e quotas de outros efeitos permanecem em SIS/PvE.
 
 **Atualização20/11 — informação recebida:** Grupo03 trouxe molduras, âncoras, scopes e quotas declarativas. Revisar caso a caso e limitações do núcleo; não generalizar esses defaults sobreESC. Esquema anuncia8campos mas enumera7: revisar completude ao formalizar, sem inventar campo. [Revisão consolidada](REVISAO-ENTREGAS-2026-11-20.md).
 
@@ -252,15 +254,17 @@ As respostas ESC também encerram partes dos itens abaixo. **Definido**, **imple
 
 ### SIS-02 — fórmulas, atributos e auditoria de fontes
 
+**Vigente22/11:** SIS-02-B/C e funil implementados: int64, teto1e12, ponto fixo, RNG, ACC/RESIST, Miss/Block/crítico, DEF/mitigação, TrueDamage, overkill observável e Bleed/Poison. As pendências históricas abaixo desses itens estão resolvidas no recorte do piloto. Permanecem afinidade/Boon, equipamentos, cura/MaxHP mutável, bypass específico, catálogo completo e validação entre plataformas. Score não foi implementado.
+
 **Atualização20/11 — informação recebida:** Fórmula e exemplos recebidos; fontes externas não auditadas. ENT-07 separa piso1dano/TrueDamage/limites/aritmética da regra vigente; nenhum mínimo universal ou nova mitigação foi aplicado. [Revisão consolidada](REVISAO-ENTREGAS-2026-11-20.md).
 
 **✅ Respondido/implementado:** força padrão = max(1,HP máximo inteiro positivo do aplicador/100); divisão inteira arredonda o percentual para baixo sem overflow por multiplicação, e aplicação válida garante1 ponto. Sem acúmulo ou cap adicional de gameplay inventado. Reduções aplicáveis→escudo→HP; cada hit consome separado e excesso pode matar. Defesa clássica usa divisão por2 para baixo. Testes incluem limites até INT_MAX. Cobertura da faixa visual não é cap mecânico.
 
-**⚠️ Resta:** afinidade, ACC/RESIST, Miss/Crit/Boon, mitigação por DEF, dano verdadeiro, bypass, overkill e teto de HP; arredondamento de fórmulas compostas/negativas; atributos base/efetivos e HP máximo mutável. Cura e máximo mutável não existem no núcleo atual: acrescentar testes de não recálculo do escudo quando forem implementados. Cap específico de gameplay é extensão opcional, não bloqueia o escudo entregue.
+**⚠️ Resta:** afinidade/Boon, operadores específicos de bypass, equipamentos e derivação completa de atributos base/efetivos, cura e MaxHP mutável. Score ainda não agrega o overkill observado. Fórmulas novas exigem contrato próprio.
 
 **⚠️ Auditoria externa separada:** fórmulas embutidas em imagens precisam ser transcritas/conferidas antes de uso. Ocean não comprova sozinho tick normal de recarga; condição de empate de Toland não comprova desempate universal. Datas conflitantes/catálogo parcial não são baseline confirmado. A pesquisa não foi auditada externamente por termos aprovado regras próprias.
 
-**Estado:** aritmética comum do escudo fechada/testada; fórmulas gerais e auditoria continuam abertas. Auditar apenas o necessário ao próximo contrato, podendo o usuário pesquisar tudo junto.
+**Estado:** núcleo numérico e funil vigente implementados/testados no Windows nativo; catálogo completo, auditoria externa e prova entre plataformas continuam separados.
 
 ### SIS-03 — ondas, times, chefes e persistência
 

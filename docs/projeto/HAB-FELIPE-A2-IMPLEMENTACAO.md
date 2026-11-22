@@ -11,3 +11,4 @@ Depois do contra-ataque, Felipe precisa continuar vivo para aplicar StandardShie
 Treze grupos focados aprovados: multihit, área5, capacidade independente/6 declarada, contato/Block/Miss/invencibilidade/absorção, aliado morto, agressor morto, reação anterior, morte pela reflexão, empates e supressão. Testes: scripts/testar-regras.ps1 -Suite Felipe. Windows nativo não comprova plataformas móveis. Build Unreal/regressão geral fechados na integração do piloto seguinte.
 
 A capacidade6 é dado preparado para futuro modo; não amplia a seleção atual de até5. Persistência de cargas entre encontros, ondas e frentes pertence à política explícita do modo futuro, não é uma alteração automática de SEQ/PAR. Cargas e efeitos têm estado de combate; save v1 continua entre tentativas.
+Integração posterior: piloto, regressão geral, UBT e stage verificado concluídos; ver HAB-FELIPE-PILOTO.md. Aceite visual separado.

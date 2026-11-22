@@ -1,6 +1,6 @@
 # Progresso geral do projeto
 
-Atualizado em **22/11/2026**. **Demo integrada estimada em aproximadamente 22% (faixa orientativa: 20–25%).**
+Atualizado em **22/11/2026**. **Demo integrada estimada em aproximadamente 24% (faixa orientativa: 22–26%).**
 
 Referência: demo com Felipe, uma arena e apresentação integrada testada em um celular-alvo. Não mede o jogo comercial completo, 67 capítulos, todas as lojas ou serviços online. Percentuais são estimativas de maturidade; não medem horas nem garantem prazo.
 
@@ -8,24 +8,28 @@ Referência: demo com Felipe, uma arena e apresentação integrada testada em um
 
 | Área | Progresso | Peso na demo | Base / limite |
 |---|---:|---:|---|
-| Código core | 45% | 20% | Contratos novos ampliaram o trabalho restante; não houve regressão dos testes |
+| Código core | 52% | 20% | Inteiros seguros, funil, controles, DoTs e Felipe testados; demais SIS/PvE e catálogo pendentes |
 | Integração Unreal | 45% | 10% | Projeto estável compilado, mapa salvo e reabertura/Play observados |
 | Front / interface | 22% | 10% | Inspeção dos dois layouts/detalhes aceita; novos cartões compilados aguardam aceite |
 | Hub / navegação | 20% | 7% | Sete locais e painéis informativos implementados; aceite visual pendente |
 | Arte 2D | 25% | 5% | Panorama novo conectado ao catálogo; aceite visual pendente |
 | Cenários 3D | 5% | 10% | Arena geométrica provisória |
 | Personagens / rig / animação | 0% | 12% | Sem recursos finais integrados |
-| VFX / cinematics / vídeo | 5% | 5% | Mídias recebidas; player pendente |
+| VFX / cinematics / vídeo | 5% | 5% | Player local parcial; aceites e acabamento pendentes |
 | Áudio / música | 0% | 5% | Direção documentada; integração pendente |
 | Conteúdo / tutorial | 10% | 5% | Recorte e universo definidos; tutorial não implementado |
 | Progressão / save | 25% | 5% | Save v1/recompensa; menu gráfico compilado, gravação/reabertura pela interface pendentes |
 | Mobile / otimização | 5% | 4% | AVD iniciou; APK e desempenho não validados |
-| QA integrado | 26% | 1% | Aceite do usuário na inspeção e regressões focadas; aparelho e desempenho pendentes |
-| Documentação | 78% | 1% | Entregas reconciliadas e guia de abertura/limites atualizado |
+| QA integrado | 28% | 1% | Baterias nativas e regressão aprovadas; piloto visual/aparelho/desempenho pendentes |
+| Documentação | 79% | 1% | Fila, pendências e guia do piloto reconciliados |
 
-Pesos somam 100; soma ponderada = 22,09%, arredondada para comunicação. Pesos são premissas de planejamento revisáveis, não precisão de medição. Serviços e lojas ficam fora da demo (implementação 0%).
+Pesos somam 100; soma ponderada estimada = 23,52%, arredondada para comunicação. Pesos são premissas de planejamento revisáveis, não precisão de medição. Serviços e lojas ficam fora da demo (implementação 0%).
 
-## O que mudou
+## Fechamento SIS/REG/HAB — 22/11
+
+Core45→52%, QA26→28%, documentação78→79%. Demais áreas mantidas; sem avanço validado de arte3D/mobile ou aceite visual do piloto. São estimativas de maturidade, não medição de esforço restante. [Entrega](HAB-FELIPE-PILOTO.md).
+
+## Histórico de atualizações
 
 A faixa histórica 15–20% não tinha pesos explícitos. Agora a arte recebida e o boot do AVD são reconhecidos dentro de limites pequenos; core passa de 55 para 45% pelo escopo ampliado de atributos, ponto fixo, bloqueio e efeitos, não por perda de funcionalidades. Não comparar diretamente as duas estimativas como velocidade de produção. Novas regras respondidas não recebem crédito de implementação.
 

@@ -11,3 +11,4 @@ TrueDot é uma classificação distinta: não sorteia Miss/Block/crítico nem re
 Dez grupos focados aprovados em scripts/testar-regras.ps1 -Suite Periodic. Regressão geral e compilação Unreal serão refeitas no fechamento da integração Felipe. Sem execução de editor/jogo, Android ou internet.
 
 Bleed/Poison são classificados como debuffs comuns; os comandos genéricos de purificação/transferência e a política nova WAVE continuam na família SIS/PvE, fora desta entrega. Não substituir as políticas de transição SEQ/PAR já aprovadas. UI especializada, aceites visuais e plataformas móveis não são comprovados por testes nativos.
+Fechamento posterior: bateria ampliada para13grupos, incluindo fonte morta, TrueDot fixo e terminal no limite técnico. Regressão/UBT/stage concluídos em HAB-FELIPE-PILOTO.md.

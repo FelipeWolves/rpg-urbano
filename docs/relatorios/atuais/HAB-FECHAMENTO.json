@@ -1,0 +1,80 @@
+{
+  "Date": "2026-11-22",
+  "Scope": "Ponto 1: Bleed, Poison e Felipe",
+  "Tests": [
+    {
+      "Suite": "Outcomes",
+      "Result": [
+        "REG_OUTCOME_TESTS_RESULT passed=9 total=9"
+      ],
+      "Passed": true
+    },
+    {
+      "Suite": "Pipeline",
+      "Result": [
+        "REG_PIPELINE_TESTS_RESULT passed=10 total=10"
+      ],
+      "Passed": true
+    },
+    {
+      "Suite": "Controls",
+      "Result": [
+        "REG_CONTROLS_TESTS_RESULT passed=8 total=8"
+      ],
+      "Passed": true
+    },
+    {
+      "Suite": "Periodic",
+      "Result": [
+        "REG_PERIODIC_TESTS_RESULT passed=13 total=13"
+      ],
+      "Passed": true
+    },
+    {
+      "Suite": "Felipe",
+      "Result": [
+        "REG_FELIPE_TESTS_RESULT passed=13 total=13"
+      ],
+      "Passed": true
+    },
+    {
+      "Suite": "Pilot",
+      "Result": [
+        "REG_PILOT_TESTS_RESULT passed=10 total=10"
+      ],
+      "Passed": true
+    }
+  ],
+  "GeneralRegression": {
+    "Log": "build/hab-final-regression.log",
+    "Passed": true
+  },
+  "UnrealBuild": {
+    "FinalActions": 4,
+    "Log": "build/hab-final-build.log",
+    "Result": "Succeeded"
+  },
+  "Stage": {
+    "CookExecuted": false,
+    "BuildExecuted": false,
+    "VerifiedInputs": 56
+  },
+  "Pilot": {
+    "StatsProvisional": true,
+    "SeparateSaves": true,
+    "TutorialLauncher": "Abrir-Tutorial-Felipe.cmd",
+    "Launcher": "Abrir-Piloto-Felipe.cmd",
+    "VisualAccepted": false
+  },
+  "EstimatedDemoPercent": 23.52,
+  "EngineExecuted": false,
+  "AndroidExecuted": false,
+  "InternetUsed": false,
+  "PushExecuted": false,
+  "Remaining": [
+    "Aceite visual do piloto",
+    "Balanceamento e tutorial guiado",
+    "ESC/SIS/PvE: outros escudos, operadores, ondas, score e modos",
+    "Validação mobile/cross-platform"
+  ]
+}

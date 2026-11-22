@@ -4,7 +4,7 @@
   "Passed": true,
   "ExitCode": 0,
   "Result": [
-    "REG_PERIODIC_TESTS_RESULT passed=10 total=10"
+    "REG_PERIODIC_TESTS_RESULT passed=13 total=13"
   ],
   "BigIntegerVectors": 0,
   "EngineExecuted": false,

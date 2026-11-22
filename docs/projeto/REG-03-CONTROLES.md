@@ -1,3 +1,5 @@
+> **Integração posterior concluída:** Bleed/Poison e A2/Felipe têm executor e testes; ver [HAB](HAB-FELIPE-PILOTO.md). Pendências históricas abaixo sobre esses componentes foram resolvidas; operadores SIS/PvE e aceites ficam separados.
+
 # REG-03 — controles: base executável
 
 22/11/2026. Implementação no modelo opt-in FunnelV1, sem mudar os baselines Legacy.

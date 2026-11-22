@@ -1,6 +1,7 @@
 #pragma once
 
 #include "rpg/numeric.hpp"
+#include "rpg/damage_pipeline.hpp"
 #include <cstddef>
 #include <cstdint>
 #include <optional>
@@ -67,6 +68,8 @@ struct EffectDefinition {
     HitSelection hit_selection = HitSelection::FixedTarget;
     std::uint32_t charges = 1;
     StatusCategory category = StatusCategory::Temporary;
+    resolution::DamageKind damage_kind=resolution::DamageKind::Normal;
+    numeric::BasisPoints power_ratio=10000;
     bool operator==(const EffectDefinition&) const = default;
 };
 struct SkillDefinition {
@@ -95,6 +98,8 @@ struct BattleRules {
     std::uint32_t max_derived_actions = 64;
     std::uint32_t max_consequence_events = 256;
     std::uint32_t numeric_model = 2; // Quantity domain/version; not a save-format version.
+    resolution::CombatModel combat_model=resolution::CombatModel::Legacy;
+    std::uint64_t random_seed=0;
     bool operator==(const BattleRules&) const = default;
 };
 enum class ActionError {
@@ -117,6 +122,7 @@ struct Definition {
     numeric::Quantity max_health;
     numeric::Quantity attack;
     int speed;
+    resolution::FighterStats stats;
     bool operator==(const Definition&) const = default;
 };
 
@@ -199,6 +205,7 @@ struct Event {
     std::uint32_t hit_index = 0;
     std::uint32_t planned_hits = 0;
     std::optional<EffectKind> status_kind;
+    std::optional<resolution::HitReport> hit;
     bool operator==(const Event&) const = default;
 };
 
@@ -300,7 +307,7 @@ private:
     void hit(std::size_t attacker, std::size_t target, bool derived, const std::string& source,
              const ActionContext& context, std::uint32_t hit_index, std::uint32_t planned_hits,
              std::vector<Event>& events, std::vector<PendingReaction>& reactions,
-             std::vector<std::size_t>& guarded, std::vector<PendingRevive>& revives);
+             std::vector<std::size_t>& guarded, std::vector<PendingRevive>& revives,const EffectDefinition* attack_effect=nullptr);
     [[nodiscard]] ActionContext make_context(std::size_t actor, ActionType type, const std::string& target,
                                             const std::string& skill, std::uint64_t parent = 0, std::uint64_t root = 0);
     void close_action(const ActionContext& context, const std::vector<std::size_t>& guarded,
@@ -309,7 +316,7 @@ private:
     void apply_damage(std::size_t emitter, std::size_t target, numeric::Quantity power, EventType type,
                       const ActionContext& context, std::uint32_t hit_index, std::uint32_t planned_hits,
                       std::vector<Event>& events, std::vector<PendingReaction>& reactions,
-                      std::vector<std::size_t>& deaths, std::vector<PendingRevive>& revives);
+                      std::vector<std::size_t>& deaths, std::vector<PendingRevive>& revives,std::optional<resolution::HitReport> report=std::nullopt);
     [[nodiscard]] bool spend_consequence(const ActionContext& context, std::vector<Event>& events);
     [[nodiscard]] std::optional<std::size_t> lowest_health_enemy(Team side) const noexcept;
     void stamp(std::vector<Event>& events, std::size_t begin, std::uint64_t turn, TurnKind kind) const;

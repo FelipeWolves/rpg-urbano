@@ -282,3 +282,8 @@ Parser JSON do hub, importação do panorama, projeção/clipping dos dois alvos
 
 - Outcomes por hit, RNG indexado por identidade/canal e contrato ACC/RESIST com imunidade/irresistível separados.
 - Nove grupos nativos aprovados; integração do funil ao Battle segue no próximo corte.
+
+## 2026-11-22 — REG-01-B
+
+- Funil inteiro racional por modelo explícito, relatórios por hit e compatibilidade Legacy.
+- Dez grupos próprios, regressão geral e build18ações aprovados. Contratos de Bleed/Poison/slots/cargas recebidos e registrados.

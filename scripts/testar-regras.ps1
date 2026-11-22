@@ -9,10 +9,7 @@ if($vs.Count -ne 1){throw 'Installed MSVC required; nothing is installed'}
 $devcmd=Join-Path $vs[0].installationPath 'Common7/Tools/VsDevCmd.bat'
 foreach($p in @($root,$devcmd)){if($p -match '[%"\r\n&|<>^!]'){throw 'Unsupported batch path'}}
 $vectorPath=Join-Path $build 'oracle.txt'
-$random=[Random]::new(22026);$cap=[long]1000000000000
-$lines=for($i=0;$i -lt 256;++$i){$a=$random.NextInt64(0,[long]::MaxValue);$b=$random.NextInt64(0,$cap);$d=$random.NextInt64(1,[long]::MaxValue);$limit=if($i%3 -eq 0){$random.NextInt64(0,$cap)}else{$cap};$value=([System.Numerics.BigInteger]$a*[System.Numerics.BigInteger]$b)/[System.Numerics.BigInteger]$d;if($value -gt $limit){$value=[System.Numerics.BigInteger]$limit};$ratio=([System.Numerics.BigInteger]$a*[System.Numerics.BigInteger]$cap).CompareTo([System.Numerics.BigInteger]$b*[System.Numerics.BigInteger]$d);"$a $b $d $limit $value $ratio"}
-$lines | Set-Content $vectorPath -Encoding ascii
-$sources=if($Suite -in @('Controls','Felipe','Pilot')){@('battle','ability_profile','local_session','team_selection','save_game','reference_encounter','visual_session','battle_presentation','stage','sequential','shared_boss')}else{@()}
+$sources=if($Suite -in @('Pipeline','Controls','Felipe','Pilot')){@('battle','ability_profile','local_session','team_selection','save_game','reference_encounter','visual_session','battle_presentation','stage','sequential','shared_boss')}else{@()}
 $test=@{Outcomes='hit_outcome_tests';Pipeline='damage_pipeline_tests';Controls='control_rules_tests';Felipe='felipe_passive_tests';Pilot='felipe_pilot_tests'}[$Suite]
 $batch=@"
 @echo off

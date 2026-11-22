@@ -598,3 +598,5 @@ Recepção21/11: [novidades e política de versionamento](RECEBIMENTO-NOVIDADES-
 ## Reteste do clique inicial — confirmação ainda provisória (22/11/2026)
 
 Usuário informou que aparentemente está correto, mas fará uma segunda conferência. Marcar **REVER / aceite provisório**, sem encerrar definitivamente o ponto. Conferir primeiro clique logo após Play, equipe/alvos e retorno da mídia. Não reabrir por conta própria nem declarar aceite integral.
+
+Bleed (22/11): fórmula/relógio/classificação recebidos em BLEED-FELIPE-CONTRATO.md. Restam escolha de reaplicação da mesma fonte e número de slots do piloto; perguntas enviadas ao usuário. Isso não bloqueia SIS/REG independentes.

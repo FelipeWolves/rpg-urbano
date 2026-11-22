@@ -31,3 +31,7 @@ Deduplicar por identidade da ação/habilidade e do alvo, não por frame de anim
 Nenhum código/catálogo executável foi alterado por este documento. Nenhum teste ou programa executado. Não reabrir ESC ou aumentar percentuais por especificação.
 
 Adendo técnico consolidado20/11 confirma esta contagem e pré-carga. O destino permanece o aliado vivo com menorHP%,incluindoFelipe,conforme confirmação específica anterior;alternativa parentética do adendo não o substitui. Ver ADENDO-TECNICO-CONTRATOS-2026-11-20.md.
+
+## Bordas recebidas em 22/11 — antes da implementacao
+
+Agressor morto antes da reacao: cancelar disparo; cargas comuns/prateadas zeram, douradas preservam. O usuario confirmou explicitamente cargas **douradas** para a nova Postura de Vigilia. Se Felipe morrer pela reflexao do contra-ataque, nenhum escudo automatico sera aplicado. Nao reutilizar as antigas duas cargas/recuperacao por turno. Casos devem entrar nos testes do bloco.

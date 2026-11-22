@@ -22,7 +22,7 @@ struct HitChances {
     numeric::BasisPoints miss=0,block=300,critical=0;
     bool allow_special_block_cap=false;
 };
-struct HitOutcome {Contact contact=Contact::Connected;bool critical=false;[[nodiscard]] bool counts_for_hit_passive() const noexcept {return contact==Contact::Connected || contact==Contact::Blocked;}};
+struct HitOutcome {Contact contact=Contact::Connected;bool critical=false;bool operator==(const HitOutcome&) const=default;[[nodiscard]] bool counts_for_hit_passive() const noexcept {return contact==Contact::Connected || contact==Contact::Blocked;}};
 [[nodiscard]] inline HitOutcome classify_hit(const HitChances& input,const RollKey& key){
     if(input.kind!=DamageKind::Normal && input.kind!=DamageKind::True && input.kind!=DamageKind::Dot){throw std::invalid_argument("Unknown damage kind");}
     chance_domain(input.miss);chance_domain(input.block);chance_domain(input.critical);

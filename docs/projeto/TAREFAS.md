@@ -218,3 +218,5 @@ SIS-02-C1 (22/11): quantidades amplas no executor e consumidores; nove grupos Wi
 SIS-02-C2/C3 (22/11): manifesto amplo com contagens/versões protegidas, nove grupos aprovados e stage de 54 entradas verificado; save v1 preservado. SIS-02-B/C encerrados neste escopo. Próximo REG-01/SIS-02, outcomes/RNG e funil; ver SIS-02-C2-FRONTEIRAS.md.
 
 REG-01-A (22/11): contrato outcomes/RNG v1 e ACC/RESIST preparado, nove grupos aprovados. Ainda sem RNG novo no Battle legado; próximo REG-01-B funil/ligação. Ver REG-01-A-OUTCOMES-RNG.md.
+
+REG-01-B (22/11): funil opt-in integrado, dez grupos próprios e regressão geral aprovados; build18ações. Legacy preservado. Próximo REG-03 e HAB/Felipe. Contratos novos Bleed/Poison e cargas douradas recebidos; ver REG-01-B-FUNIL.md.

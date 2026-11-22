@@ -27,7 +27,8 @@ Battle::Battle(std::vector<Definition> definitions, BattleRules rules,
                std::vector<InitialRuntime> initial_runtime) : rules_(std::move(rules)) {
     if ((rules_.timing != TimingProfile::FixedRounds && rules_.timing != TimingProfile::ActionBar) ||
         rules_.max_derived_actions == 0 || rules_.max_derived_actions > 1024 || rules_.skills.size() > 256 ||
-        rules_.max_consequence_events == 0 || rules_.max_consequence_events > 4096 || rules_.numeric_model != 2) {
+        rules_.max_consequence_events == 0 || rules_.max_consequence_events > 4096 || rules_.numeric_model != 2 ||
+        (rules_.combat_model!=resolution::CombatModel::Legacy && rules_.combat_model!=resolution::CombatModel::FunnelV1)) {
         throw std::invalid_argument("Invalid timing configuration");
     }
     if (rules_.action_budget) {
@@ -57,6 +58,7 @@ Battle::Battle(std::vector<Definition> definitions, BattleRules rules,
         if (i > 0 && definitions[i - 1].id == definition.id) {
             throw std::invalid_argument("Duplicate fighter ID");
         }
+        resolution::validate_stats(definition.stats);
         has_a = has_a || definition.team == Team::A;
         has_b = has_b || definition.team == Team::B;
     }
@@ -83,6 +85,10 @@ Battle::Battle(std::vector<Definition> definitions, BattleRules rules,
         }
         std::uint32_t planned_hits = 0;
         for (const auto& effect : skill.effects) {
+            if(effect.power_ratio<0 || effect.power_ratio>numeric::quantity_max ||
+               (effect.damage_kind!=resolution::DamageKind::Normal && effect.damage_kind!=resolution::DamageKind::True && effect.damage_kind!=resolution::DamageKind::Dot)){
+                throw std::invalid_argument("Invalid damage effect metadata");
+            }
             if (!valid_clock(effect.clock)) { throw std::invalid_argument("Invalid effect clock"); }
             if (effect.hit_count == 0 || effect.hit_count > 64 ||
                 (effect.kind != EffectKind::Damage && effect.hit_count != 1)) {
@@ -379,16 +385,17 @@ std::optional<std::size_t> Battle::lowest_health_enemy(Team side) const noexcept
 void Battle::apply_damage(std::size_t emitter, std::size_t target_index, numeric::Quantity power, EventType type,
                           const ActionContext& context, std::uint32_t hit_index, std::uint32_t planned_hits,
                           std::vector<Event>& events, std::vector<PendingReaction>& reactions,
-                          std::vector<std::size_t>& deaths, std::vector<PendingRevive>& revives) {
+                          std::vector<std::size_t>& deaths, std::vector<PendingRevive>& revives,std::optional<resolution::HitReport> report) {
     auto& target=fighters_[target_index];
     if (target.health==0 || phase_!=Phase::Running) {return;}
     const auto begin=events.size();
+    const auto health_before=target.health;numeric::Quantity absorbed_total=0;
     // Guard has already mitigated the hit. Ordinary shield precedes the structural layer.
     for(const auto kind:{EffectKind::StandardShield,EffectKind::Shield,EffectKind::StructuralShield}) {
         auto shield=std::ranges::find(target.statuses,kind,&Status::kind);
         if(shield==target.statuses.end() || power==0){continue;}
         const numeric::Quantity absorbed=std::min(power,shield->magnitude);
-        power-=absorbed;shield->magnitude-=absorbed;
+        power-=absorbed;shield->magnitude-=absorbed;absorbed_total+=absorbed;
         events.push_back(Event{EventType::ShieldAbsorbed,target.definition.id,target.definition.id,absorbed,round_,{}});
         events.back().status_kind=kind;
         if(shield->magnitude==0){
@@ -403,6 +410,7 @@ void Battle::apply_damage(std::size_t emitter, std::size_t target_index, numeric
     const numeric::Quantity applied=prevented ? target.health-1 : std::min(power,target.health);
     target.health-=applied;
     events.push_back(Event{type,fighters_[emitter].definition.id,target.definition.id,applied,round_,{}});
+    if(report){report->absorbed=absorbed_total;report->health_damage=applied;report->overkill=target.health==0?std::max<numeric::Quantity>(0,power-health_before):0;events.back().hit=report;}
     if (prevented) {
         --prevention->charges;
         if (prevention->charges==0) {target.statuses.erase(prevention);}
@@ -436,21 +444,31 @@ void Battle::apply_damage(std::size_t emitter, std::size_t target_index, numeric
 void Battle::hit(std::size_t attacker, std::size_t target_index, bool derived, const std::string& source,
                  const ActionContext& context, std::uint32_t hit_index, std::uint32_t planned_hits,
                  std::vector<Event>& events, std::vector<PendingReaction>& reactions, std::vector<std::size_t>& guarded,
-                 std::vector<PendingRevive>& revives) {
+                 std::vector<PendingRevive>& revives,const EffectDefinition* attack_effect) {
     auto& target=fighters_[target_index];
     const auto& actor=fighters_[attacker];
     const auto begin=events.size();
     const numeric::Quantity power=actor.definition.attack;
-    const numeric::Quantity damage=target.guarding?power/2:power;
+    numeric::Quantity damage=target.guarding?power/2:power;
+    std::optional<resolution::HitReport> report;
+    bool can_react=true,used_guard=target.guarding;
+    if(rules_.combat_model==resolution::CombatModel::FunnelV1){
+        resolution::DamageInput input;input.base=power;input.ratio=attack_effect?attack_effect->power_ratio:10000;input.kind=attack_effect?attack_effect->damage_kind:resolution::DamageKind::Normal;
+        input.attacker=actor.definition.stats;input.defender=target.definition.stats;input.guarding=target.guarding;
+        const resolution::RollKey key{rules_.random_seed,context.id,hit_index,resolution::identity(target.definition.id),0};
+        const auto calculated=resolution::calculate_damage(input,key);damage=calculated.amount;can_react=calculated.outcome.counts_for_hit_passive();
+        used_guard=target.guarding && input.kind!=resolution::DamageKind::True && calculated.outcome.contact!=resolution::Contact::Invincible && calculated.outcome.contact!=resolution::Contact::Blocked;
+        report=resolution::HitReport{calculated.outcome,input.kind,damage,0,0,0};
+    }
     numeric::Quantity reflection=0;
     for(const auto& status:target.statuses) {if(status.kind==EffectKind::Reflect){reflection=status.magnitude;}}
-    if(target.guarding && std::ranges::find(guarded,target_index)==guarded.end()){guarded.push_back(target_index);}
+    if(used_guard && std::ranges::find(guarded,target_index)==guarded.end()){guarded.push_back(target_index);}
     std::vector<std::size_t> pending_deaths;
     apply_damage(attacker,target_index,damage,derived?EventType::Reaction:EventType::Attack,
-                 context,hit_index,planned_hits,events,reactions,pending_deaths,revives);
+                 context,hit_index,planned_hits,events,reactions,pending_deaths,revives,report);
     for(std::size_t i=begin;i<events.size();++i){events[i].source_actor=source;}
     // Reflection still resolves if its carrier died in this hit. It precedes death explosions.
-    if(phase_==Phase::Running && reflection>0 && fighters_[attacker].health>0 && spend_consequence(context,events)) {
+    if(phase_==Phase::Running && reflection>0 && (rules_.combat_model==resolution::CombatModel::Legacy || damage>0) && fighters_[attacker].health>0 && spend_consequence(context,events)) {
         apply_damage(target_index,attacker,reflection,EventType::ReflectedDamage,
                      context,hit_index,planned_hits,events,reactions,pending_deaths,revives);
     }
@@ -474,7 +492,7 @@ void Battle::hit(std::size_t attacker, std::size_t target_index, bool derived, c
         }
     }
     // Consequence damage does not reflect or create counters. Only the original live pair can react.
-    if(phase_==Phase::Running && target.health>0 && actor.health>0 && actor.definition.team!=target.definition.team &&
+    if(phase_==Phase::Running && can_react && target.health>0 && actor.health>0 && actor.definition.team!=target.definition.team &&
        !std::ranges::any_of(target.statuses,[](const Status& status){return status.kind==EffectKind::Block;}) &&
         std::ranges::any_of(target.statuses,[](const Status& status){return status.kind==EffectKind::Counter;})) {
         reactions.push_back({target_index,attacker,context.id});
@@ -590,7 +608,7 @@ ActionResult Battle::apply(const Action& action) {
                         lowest_health_enemy(actor.definition.team) :
                         (target.health>0 ? target_index : std::nullopt);
                     if (!chosen) { break; }
-                    hit(active_, *chosen, false, {}, root_context, ++hit_index, planned_hits, result.events, reactions, guarded, revives);
+                    hit(active_, *chosen, false, {}, root_context, ++hit_index, planned_hits, result.events, reactions, guarded, revives,&effect);
                 }
                 break;
             case EffectKind::StandardShield: {

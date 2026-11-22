@@ -1,0 +1,17 @@
+{
+  "Date": "2026-11-22",
+  "PipelineGroups": 10,
+  "GeneralRegressionExitCode": 0,
+  "EditorBuildExitCode": 0,
+  "BuildActions": 18,
+  "Log": "build/reg01-b-build.log",
+  "Model": "FunnelV1 opt-in; Legacy default",
+  "EditorOpened": false,
+  "AndroidExecuted": false,
+  "Pending": [
+    "Controls/debuff application integration",
+    "Periodic true damage",
+    "Felipe passives/pilot",
+    "Cross-platform execution"
+  ]
+}

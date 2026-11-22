@@ -1,3 +1,5 @@
+> **SIS-02-A concluído — 22/11:** [mapa numérico e compatibilidade](SIS-02-A-MAPA-NUMERICO.md): 22 âncoras conferidas, cortes de migração e testes futuros definidos. Código/fórmulas/saves intactos; nenhuma bateria ou engine executada. Próxima entrega: **SIS-02-B, aritmética segura**, ainda não iniciada. Save v1 não contém HP; migração de HP não força nova versão por si só. Esta atualização prevalece sobre a indicação histórica de A ainda por iniciar.
+
 # Ordem de execução após AUT-01–16
 
 22/11/2026. **Plano reconciliado, ainda não executado.** Esta ordem substitui sugestões históricas de começar novamente pelos AUT. Somente documentação nesta rodada: sem implementação, testes, compilação, stage novo, telas, Android ou internet.
@@ -33,7 +35,7 @@ Fontes: [consolidação AUT](CONSOLIDACAO-AUT-12-16.md), [painel](../batalhas/PA
 | **7 — HAB / Felipe A2: Postura de Vigília** | Entregar a primeira passiva representativa com contagem por aliado/habilidade, quota, desempate e StandardShield | 2, 4–6 | Médio/alto | AoE/multi-hit/letal/absorção/Block/Miss/invencibilidade; um disparo após habilidade, empates exatos e janela R04. Não pedir novamente destino do escudo ou regras de cargas já respondidos |
 | **8 — HAB / piloto e CIC: integração do personagem** | Integrar as habilidades já especificadas do recorte Felipe e o encontro de demonstração, refletindo resultados na UI/save existentes | 7; detalhes da ficha no contrato próprio | Médio | Um personagem/encontro ponta a ponta no escopo local; não cadastrar todo o elenco ou economia. Lacuna real de conteúdo vira pendência localizada |
 
-**Próxima tarefa concreta: SIS-02-A (ordem 1).** Nada desta fila foi iniciado por esta revisão documental. A leitura de contratos para priorizar não equivale ao inventário técnico completo dos tipos.
+**Próxima tarefa concreta: SIS-02-B (ordem 2).** SIS-02-A foi concluído em revisão estática e documentação; a implementação de utilitários e a migração continuam não iniciadas. Ver SIS-02-A-MAPA-NUMERICO.md.
 
 Block: 3% base universal e 10% total no Michel, tetos/exceções conforme contrato; não confundir com Defesa. ACC/RESIST e irresistível seguem o complemento final. Os números recebidos não serão reaprovados por perguntas genéricas; dúvidas técnicas novas serão delimitadas no ponto de implementação.
 

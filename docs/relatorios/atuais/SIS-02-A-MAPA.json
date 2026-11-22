@@ -1,0 +1,242 @@
+{
+  "Date": "2026-11-22",
+  "SourceCommit": "2adeb9e0616b9ae3fcb15152893b7f644cc9cded",
+  "Scope": "Read-only review of critical numeric paths; anchor checks are not runtime tests",
+  "Rows": 22,
+  "AnchorsFound": true,
+  "CodeChanged": false,
+  "TestsExecuted": false,
+  "EngineExecuted": false,
+  "AndroidExecuted": false,
+  "InternetUsed": false,
+  "Target": {
+    "IDsAndClocks": "Distinct domains; preserve overflow guards",
+    "QuantityType": "int64",
+    "BasisPointScale": 10000,
+    "GameplayCap": "1000000000000",
+    "SignedModifiers": "Separate validated domain",
+    "Intermediate": "Overflow-safe exact integer multiply/divide; no early saturation"
+  },
+  "Map": [
+    {
+      "Id": "NUM-01",
+      "Path": "include/rpg/battle.hpp",
+      "Anchor": "struct Definition",
+      "Domain": "HP/ATK",
+      "Current": "int max_health/attack; speed int",
+      "Migration": "HP/ATK em int64; SPD com dominio proprio",
+      "Risk": "Nao representa 10^12",
+      "Line": 112
+    },
+    {
+      "Id": "NUM-02",
+      "Path": "include/rpg/battle.hpp",
+      "Anchor": "struct Fighter",
+      "Domain": "Runtime",
+      "Current": "health int; AP int64; effective_speed int",
+      "Migration": "Separar quantidades de gameplay e tempo/AP",
+      "Risk": "Troca cega de todos os int altera dominios distintos",
+      "Line": 138
+    },
+    {
+      "Id": "NUM-03",
+      "Path": "include/rpg/battle.hpp",
+      "Anchor": "struct PendingRevive",
+      "Domain": "Inicializacao/revive",
+      "Current": "InitialHealth.health e PendingRevive.health int",
+      "Migration": "Migrar junto de Fighter e snapshots",
+      "Risk": "Ponte estreita pode truncar revive/persistencia",
+      "Line": 288
+    },
+    {
+      "Id": "NUM-04",
+      "Path": "include/rpg/battle.hpp",
+      "Anchor": "struct EffectDefinition",
+      "Domain": "Efeitos",
+      "Current": "amount int e magnitude int; duracoes/cargas distintas",
+      "Migration": "Separar pontos/AP/SPD/duracao por discriminante; nao substituir todos os int",
+      "Risk": "Campo amount mistura dominios assinados e nao negativos",
+      "Line": 59
+    },
+    {
+      "Id": "NUM-05",
+      "Path": "include/rpg/battle.hpp",
+      "Anchor": "struct Event",
+      "Domain": "Eventos",
+      "Current": "Event.amount int",
+      "Migration": "Migrar payload numerico e consumidores",
+      "Risk": "Cues e logs herdariam truncamento mesmo com HP amplo",
+      "Line": 183
+    },
+    {
+      "Id": "NUM-06",
+      "Path": "src/battle.cpp",
+      "Anchor": "void Battle::apply_damage",
+      "Domain": "Dano",
+      "Current": "power/absorbed/applied int; evento recebe dano efetivo no HP",
+      "Migration": "Aplicar tipo amplo em toda cadeia",
+      "Risk": "Nao guarda overkill bruto para score futuro",
+      "Line": 373
+    },
+    {
+      "Id": "NUM-07",
+      "Path": "src/battle.cpp",
+      "Anchor": "const int damage=target.guarding?power/2:power;",
+      "Domain": "Defesa",
+      "Current": "Divisao inteira por hit",
+      "Migration": "Preservar floor e 1->0 no classico",
+      "Risk": "Nao reaplicar piso minimo apos escudo",
+      "Line": 438
+    },
+    {
+      "Id": "NUM-08",
+      "Path": "src/battle.cpp",
+      "Anchor": "const int points=std::max(1,actor.definition.max_health/100);",
+      "Domain": "StandardShield",
+      "Current": "1% maxHP em pontos com minimo 1; sem multiplicacao",
+      "Migration": "Manter contrato no dominio amplo",
+      "Risk": "Nao converter para recalculo continuo nem mudar duracao",
+      "Line": 592
+    },
+    {
+      "Id": "NUM-09",
+      "Path": "src/ability_profile.cpp",
+      "Anchor": "static_cast<std::int64_t>(unit->health)*100",
+      "Domain": "Condicao HP",
+      "Current": "Razao por produtos int64; percentuais 1..100",
+      "Migration": "Reusar comparacao exata e validar dominio",
+      "Risk": "Comparacao A2 entre duas razoes de 10^12 gera produto ate 10^24",
+      "Line": 100
+    },
+    {
+      "Id": "NUM-10",
+      "Path": "src/battle.cpp",
+      "Anchor": "void Battle::select_bar_actor",
+      "Domain": "AP/tempo",
+      "Current": "bar_max 1000000; SPD <=10000 em ActionBar; wait int64",
+      "Migration": "Preservar escala de AP e limites atuais",
+      "Risk": "Nao confundir AP com basis points de porcentagem",
+      "Line": 735
+    },
+    {
+      "Id": "NUM-11",
+      "Path": "src/stage.cpp",
+      "Anchor": "int current = fighter.max_health;",
+      "Domain": "WAVE",
+      "Current": "Carrega HP atraves de local int",
+      "Migration": "Migrar locals e transporte de runtime",
+      "Risk": "Mudanca so em Definition deixa fronteira estreita",
+      "Line": 81
+    },
+    {
+      "Id": "NUM-12",
+      "Path": "src/sequential.cpp",
+      "Anchor": "std::vector<Definition> roster;",
+      "Domain": "SEQ",
+      "Current": "Copia HP do chefe e runtime entre batalhas",
+      "Migration": "Rever transporte e versoes sem trocar politica",
+      "Risk": "Nao introduzir cura/regen implicitamente",
+      "Line": 59
+    },
+    {
+      "Id": "NUM-13",
+      "Path": "src/shared_boss.cpp",
+      "Anchor": "candidate->health",
+      "Domain": "PAR",
+      "Current": "Chefe/frentes usam estado Battle e comparacao de HP absoluto",
+      "Migration": "Herdar tipos amplos preservando identidade e ordem",
+      "Risk": "Nao confundir menor HP absoluto com menor HP percentual da A2",
+      "Line": 104
+    },
+    {
+      "Id": "NUM-14",
+      "Path": "src/battle_presentation.cpp",
+      "Anchor": "ShieldDisplay shield_display",
+      "Domain": "Apresentacao",
+      "Current": "Soma escudos em int64; health local int; fracoes double",
+      "Migration": "Pontos exatos; double/float somente na geometria",
+      "Risk": "Clamp visual nao pode alimentar HP ou o executor",
+      "Line": 40
+    },
+    {
+      "Id": "NUM-15",
+      "Path": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/ProbeArena.cpp",
+      "Anchor": "TEXT(\"%d / %d\")",
+      "Domain": "HUD",
+      "Current": "Printf de HP em 32 bits; largura de barra float",
+      "Migration": "Formatar quantidade ampla sem cast estreito",
+      "Risk": "Varargs %d com int64 e incompatibilidade de formato",
+      "Line": 204
+    },
+    {
+      "Id": "NUM-16",
+      "Path": "include/rpg/local_session.hpp",
+      "Anchor": "struct LocalProgress",
+      "Domain": "Progresso",
+      "Current": "attempt/actions/credits uint64; historico de conclusoes",
+      "Migration": "Manter dominios separados e validar acumuladores",
+      "Risk": "Teto HP/escudo/dano/score nao se aplica automaticamente a IDs ou moedas",
+      "Line": 13
+    },
+    {
+      "Id": "NUM-17",
+      "Path": "src/local_session.cpp",
+      "Anchor": "void validate_progress",
+      "Domain": "Ledger",
+      "Current": "Checks de overflow/consistencia e recompensa provisoria 10",
+      "Migration": "Preservar idempotencia e validacao",
+      "Risk": "Score futuro nao e o campo credits existente",
+      "Line": 6
+    },
+    {
+      "Id": "NUM-18",
+      "Path": "src/save_game.cpp",
+      "Anchor": "SavedGame decode_save",
+      "Domain": "Codec save",
+      "Current": "v1 com uint64 por from_chars; sem HP/escudo/AP",
+      "Migration": "Reavaliar versao quando semantica de progresso mudar",
+      "Risk": "Ampliar HP nao exige por si so inventar save v2",
+      "Line": 41
+    },
+    {
+      "Id": "NUM-19",
+      "Path": "include/rpg/encounter_manifest.hpp",
+      "Anchor": "const auto number=",
+      "Domain": "Manifesto",
+      "Current": "Parser numerico int; schema de referencia restrito",
+      "Migration": "Parser separado para pontos amplos e contagens",
+      "Risk": "Arquivo de 10^12 hoje e recusado; nao e configuracao runtime",
+      "Line": 48
+    },
+    {
+      "Id": "NUM-20",
+      "Path": "include/rpg/visual_events.hpp",
+      "Anchor": "struct VisualCue",
+      "Domain": "Canal visual",
+      "Current": "Copia Event por tipo e revisao uint64",
+      "Migration": "Migrar Event e verificar consumidores juntos",
+      "Risk": "Fila nao deve tornar-se autoridade de dano",
+      "Line": 8
+    },
+    {
+      "Id": "NUM-21",
+      "Path": "src/save_store_windows.cpp",
+      "Anchor": "std::string bytes(max_save_bytes+1",
+      "Domain": "IO local",
+      "Current": "Leitura limitada por tamanho de arquivo",
+      "Migration": "Manter limites de bytes separados de valores numericos",
+      "Risk": "DWORD/streamsize tratam bytes nao HP",
+      "Line": 9
+    },
+    {
+      "Id": "NUM-22",
+      "Path": "include/rpg/startup_presentation.hpp",
+      "Anchor": "struct CanvasMapping",
+      "Domain": "Geometria/gestos",
+      "Current": "double/float em coordenadas e tempo de UI",
+      "Migration": "Permanecer grafico; fora do calculo autoritativo",
+      "Risk": "Migrar tudo para inteiro prejudicaria UI sem resolver gameplay",
+      "Line": 46
+    }
+  ]
+}

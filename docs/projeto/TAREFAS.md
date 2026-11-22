@@ -1,7 +1,9 @@
+> **SIS-02-A concluído — 22/11:** [mapa numérico e compatibilidade](SIS-02-A-MAPA-NUMERICO.md): 22 âncoras conferidas, cortes de migração e testes futuros definidos. Código/fórmulas/saves intactos; nenhuma bateria ou engine executada. Próxima entrega: **SIS-02-B, aritmética segura**, ainda não iniciada. Save v1 não contém HP; migração de HP não força nova versão por si só. Esta atualização prevalece sobre a indicação histórica de A ainda por iniciar.
+
 > **Fila vigente pós-AUT — 22/11:** [ordem reconciliada de execução](ORDEM-EXECUCAO-POS-AUT.md). Próxima tarefa: **SIS-02-A, mapa numérico/compatibilidade**; depois aritmética segura, migração, outcomes/RNG, funil, controles e Felipe A2. Aceites VIS/mídia seguem em trilha própria; ESC/TIME/RES/SEQ/PAR encerrados não são reabertos por rotina. Primeiro clique: provisório, **REVER**. Nesta revisão somente planejamento/documentação, sem execução das próximas tarefas. Esta ordem prevalece sobre prioridades históricas abaixo.
 ## Próxima execução planejada
 
-- [ ] **SIS-02-A:** mapear tipos/operações numéricas, serialização e fronteiras do adapter; definir cortes de migração e testes relevantes. Ainda não iniciado.
+- [x] **SIS-02-A:** mapa concluído, 22 âncoras conferidas e cortes/testes planejados em SIS-02-A-MAPA-NUMERICO.md; sem migração de código.
 - [ ] **SIS-02-B:** aritmética inteira segura e comparação exata, após o mapa.
 - [ ] **SIS-02-C:** migração por partes, preservando baselines e compatibilidade explícita.
 

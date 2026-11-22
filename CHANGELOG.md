@@ -249,3 +249,9 @@ Parser JSON do hub, importação do panorama, projeção/clipping dos dois alvos
 - Ordem principal: mapa numérico, aritmética segura, migração, outcomes/RNG, funil, controles e Felipe A2.
 - Aceites/mídia e dependências de arte/plataforma separados, preservando contratos encerrados.
 - Planejamento documental somente; sem implementação, testes, compilação ou alteração de percentuais.
+
+## 2026-11-22 — SIS-02-A
+
+- Inventário estático de 22 caminhos numéricos, relatórios Markdown/CSV/JSON e cortes de migração com testes futuros.
+- Separados pontos de gameplay, percentuais, AP, contadores, créditos, IO e geometria; save v1 não contém HP.
+- Código e fórmulas preservados; nenhuma compilação, teste, interface ou Android executado. Próximo SIS-02-B.

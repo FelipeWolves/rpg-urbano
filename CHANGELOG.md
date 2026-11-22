@@ -237,3 +237,9 @@ Parser JSON do hub, importação do panorama, projeção/clipping dos dois alvos
 
 - Stage isolado atualizado e verificador independente de caminhos/hashes/includes/plano desautorizado.
 - 53 entradas verificadas e três grupos de validação aprovados; pacote executável/cook/Shipping não executados.
+
+## 2026-11-22 — AUT-16
+
+- Seletor de verificações nativas/arquivos por área, plano sem execução e códigos de saída por processo.
+- Dez casos de fumaça com evidências separadas; clique inicial provisório, sem autoaprovar visual/mobile.
+- Consolidação AUT-12–16, fila e pendências atualizadas; percentuais mantidos. Internet e programas gráficos não utilizados.

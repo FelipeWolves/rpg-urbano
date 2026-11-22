@@ -1,0 +1,95 @@
+{
+  "Date": "2026-11-22",
+  "Mode": "Execute",
+  "Passed": true,
+  "Checks": [
+    {
+      "Script": "scripts/verificar-stage-unreal.ps1",
+      "Area": "Stage",
+      "Arguments": [],
+      "ExitCode": 0,
+      "Evidence": "Existing stage hashes/includes; no cook/build",
+      "Status": "Passed",
+      "Log": "build\\qa\\051a618c\\Stage.log",
+      "Seconds": 1.02
+    }
+  ],
+  "SmokeCases": [
+    {
+      "id": "SMK-01",
+      "area": "Hub",
+      "scenario": "Abrir hub e consultar destinos sem comandos por tras de painel",
+      "status": "Pending",
+      "evidence": "Conferencia visual/interativa do usuario"
+    },
+    {
+      "id": "SMK-02",
+      "area": "Team",
+      "scenario": "Rascunho 1/3 unidades, recusa vazia, aplicar e conferir roster",
+      "status": "Pending",
+      "evidence": "Interacao na previa"
+    },
+    {
+      "id": "SMK-03",
+      "area": "Battle",
+      "scenario": "Selecionar alvo e executar acao nos dois perfis apos ajuste de captura",
+      "status": "Pending",
+      "evidence": "Interacao na previa; preservar aceites anteriores de regras"
+    },
+    {
+      "id": "SMK-04",
+      "area": "Marker",
+      "scenario": "Anel/losango abaixo do modelo, ocultar em morte/hub/reset",
+      "status": "Pending",
+      "evidence": "Nova malha runtime observada"
+    },
+    {
+      "id": "SMK-05",
+      "area": "Result",
+      "scenario": "Consultar recompensa e voltar sem duplicar ledger",
+      "status": "Pending",
+      "evidence": "Comparacao de saldo em execucao"
+    },
+    {
+      "id": "SMK-06",
+      "area": "Save",
+      "scenario": "Salvar/reabrir/carregar equipe e saldo, nova tentativa sem restaurar batalha",
+      "status": "Pending",
+      "evidence": "I/O da Unreal e nova sessao observados"
+    },
+    {
+      "id": "SMK-07",
+      "area": "Media",
+      "scenario": "Primeiro clique imediatamente apos Play e reproducoes seguintes",
+      "status": "ProvisionalUser",
+      "evidence": "Usuario disse aparentemente correto; aguardando segunda conferencia"
+    },
+    {
+      "id": "SMK-08",
+      "area": "Media",
+      "scenario": "Skip, audio, foco, retomada pausada e flag apos reabrir",
+      "status": "Pending",
+      "evidence": "Playback e persistencia observados"
+    },
+    {
+      "id": "SMK-09",
+      "area": "Platform",
+      "scenario": "Backend Android/iOS, codecs, legenda, audio, orientacao e aparelhos",
+      "status": "Deferred",
+      "evidence": "Teste por plataforma; nao executar nesta entrega"
+    },
+    {
+      "id": "SMK-10",
+      "area": "Package",
+      "scenario": "Cook/Shipping atualizado, dependencias e Windows limpo",
+      "status": "Deferred",
+      "evidence": "Autorizacao de execucao e ambiente proprio"
+    }
+  ],
+  "SmokeAutomaticallyAccepted": false,
+  "EditorOpened": false,
+  "CookExecuted": false,
+  "AndroidExecuted": false,
+  "InternetUsed": false,
+  "Note": "Native/file evidence only; not a graphical, platform, performance or product acceptance"
+}

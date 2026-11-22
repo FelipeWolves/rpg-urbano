@@ -64,3 +64,7 @@ Contrato de mídia local implementado e testado (12 grupos novos; 94 de apresent
 ## AUT-11 — 22/11/2026
 
 Ensaio manual de player local compilado, sem reprodução observada. Flag, codecs, áudio, legendas/mixer e aceites continuam pendentes. Estimativa mantida em 22,09% da demo; integração compilada não recebe aceite de mídia. Ver AUT-11-PLAYER-LOCAL.md.
+
+## AUT-12 a AUT-16 — 22/11/2026
+
+Entregas consolidadas em CONSOLIDACAO-AUT-12-16.md: runtime do marcador, canal de cues, schema de referência, stage e QA por área. Percentuais mantidos até aceites pertinentes; estimativa continua 22,09% (aproximadamente 22%). Sem teste visual/mobile/Shipping nesta rodada. Clique inicial da intro provisório, REVER. Não somar as baterias distintas como suite única.

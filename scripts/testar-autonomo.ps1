@@ -27,6 +27,7 @@ $output=@(& $env:ComSpec /d /c $path 2>&1 | ForEach-Object {$_.ToString()});$cod
 $output | Set-Content (Join-Path $build 'tests.log') -Encoding utf8
 $marker=@($output | Where-Object {$_ -match "^AUT${Block}_TESTS_RESULT passed=(\d+) total=(\d+)$"})
 $passed=$code -eq 0 -and $marker.Count -eq 1
+if($passed){$counts=[regex]::Match($marker[0],'passed=(\d+) total=(\d+)');$passed=$counts.Success -and [int]$counts.Groups[1].Value -gt 0 -and $counts.Groups[1].Value -eq $counts.Groups[2].Value}
 [ordered]@{Date='2026-11-22';Passed=$passed;ExitCode=$code;Result=$marker;Scope='Native contract only; no graphical/mobile execution'} | ConvertTo-Json | Set-Content (Join-Path $root "docs/relatorios/atuais/AUT-$Block-TESTES.json") -Encoding utf8
 $output | Write-Output
 if(!$passed){throw "AUT-$Block tests failed"}

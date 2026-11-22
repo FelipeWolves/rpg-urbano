@@ -156,6 +156,43 @@ void AProbeArenaHUD::ReturnToHub(){
     InHub=true;HubEventOpen=false;Gesture.cancel();PopupLines.Empty();SelectedSlot=0;SelectedTarget.Empty();
     UE_LOG(LogTemp,Display,TEXT("HUB_RETURN attempt=%llu"),static_cast<unsigned long long>(Session.state().progress.attempt));
 }
+int32 AProbeArenaHUD::DrawInfoPanel(const FString& title,const TArray<FString>& paragraphs,int32& page,bool action)
+{
+    if(Canvas->SizeX<1 || Canvas->SizeY<1){return 0;}
+    const auto frame=plan_hub_frame({static_cast<uint32>(Canvas->SizeX),static_cast<uint32>(Canvas->SizeY)},0,HubInsets);
+    if(!frame){DrawText(TEXT("Amplie a janela para ler o painel."),FColor::White,8,20);return PlayerOwner->WasInputKeyJustPressed(EKeys::Escape)?1:0;}
+    float tw=0,th=0;GetTextSize(TEXT("Ágj"),tw,th,HubBodyFont);
+    const double step=std::max(22.0,static_cast<double>(th)+4);
+    const auto layout=plan_info_panel(frame->safe,step,action);
+    if(!layout){return PlayerOwner->WasInputKeyJustPressed(EKeys::Escape)?1:0;}
+    const auto& p=*layout;
+    DrawRect(HubPanel,static_cast<float>(p.box.x),static_cast<float>(p.box.y),static_cast<float>(p.box.width),static_cast<float>(p.box.height));
+    const auto button=[&](Rect r,const FString& text,bool enabled){
+        DrawRect(enabled?FLinearColor(0.08f,0.20f,0.32f):FLinearColor(0.10f,0.10f,0.12f),static_cast<float>(r.x),static_cast<float>(r.y),static_cast<float>(r.width),static_cast<float>(r.height));
+        float w=0,h=0;GetTextSize(text,w,h,HubBodyFont);const float scale=static_cast<float>(std::min(1.0,(r.width-12)/std::max(1.0,static_cast<double>(w))));
+        DrawText(text,enabled?FColor::White:FColor(150,150,150),static_cast<float>(r.x+6),static_cast<float>(r.y+8),HubBodyFont,scale);
+        return enabled && pointer_clicked(Input,r);
+    };
+    std::vector<std::string> lines;
+    try{
+        std::string text=Utf8(title)+"\n\n";
+        for(int32 i=0;i<paragraphs.Num();++i){if(i){text+='\n';}text+=Utf8(paragraphs[i]);}
+        lines=wrap_text(text,p.body.width,[&](std::string_view value){
+            float width=0,height=0;GetTextSize(Text(std::string(value)),width,height,HubBodyFont);return static_cast<double>(width);
+        });
+    }catch(const std::exception&){lines={"Texto indisponível."};}
+    const auto slice=text_page(lines.size(),p.capacity,static_cast<std::size_t>(std::max(0,page)));
+    page=static_cast<int32>(slice.page);
+    for(std::size_t i=slice.begin;i<slice.end;++i){
+        DrawText(Text(lines[i]),i==0?FColor::Cyan:FColor::White,static_cast<float>(p.body.x),static_cast<float>(p.body.y+(i-slice.begin)*step),HubBodyFont);
+    }
+    const FString previous=FString::Printf(TEXT("Anterior (%d/%d)"),page+1,static_cast<int32>(slice.pages));
+    if(button(p.close,TEXT("Fechar"),true) || PlayerOwner->WasInputKeyJustPressed(EKeys::Escape)){return 1;}
+    if(button(p.previous,previous,slice.page>0)){--page;}
+    if(button(p.next,TEXT("Próxima"),slice.page+1<slice.pages)){++page;}
+    if(p.action && button(*p.action,TEXT("Batalha de laboratório"),true)){return 2;}
+    return 0;
+}
 void AProbeArenaHUD::DrawHub(){
     if(Canvas->SizeX<1 || Canvas->SizeY<1){return;}
     const auto framePlan=plan_hub_frame({static_cast<uint32>(Canvas->SizeX),static_cast<uint32>(Canvas->SizeY)},static_cast<uint32>(HubLinks.size()),HubInsets);
@@ -192,42 +229,13 @@ void AProbeArenaHUD::DrawHub(){
     const auto line=[&](double x1,double y1,double x2,double y2,FLinearColor color,double stroke){
         DrawLine(static_cast<float>(x1),static_cast<float>(y1),static_cast<float>(x2),static_cast<float>(y2),color,static_cast<float>(stroke));
     };
-    const auto frame=[&](const Rect& area,FLinearColor color){
-        auto glow=color;glow.A=0.12f;
-        for(double stroke:{5.0,1.5}){
-            const auto c=stroke>2?glow:color;
-            line(area.x,area.y,area.x+area.width,area.y,c,stroke);
-            line(area.x+area.width,area.y,area.x+area.width,area.y+area.height,c,stroke);
-            line(area.x+area.width,area.y+area.height,area.x,area.y+area.height,c,stroke);
-            line(area.x,area.y+area.height,area.x,area.y,c,stroke);
-        }
-    };
     if(HubLogo){DrawTexture(HubLogo,static_cast<float>(layout.header.x+12),static_cast<float>(layout.header.y+4),48,48,0,0,1,1,FLinearColor::White,BLEND_Translucent);}
     DrawText(HubTitle,HubCyan.ToFColorSRGB(),static_cast<float>(layout.header.x+68),static_cast<float>(layout.header.y+4),HubTitleFont);
     DrawText(TEXT("CODINOME: ")+HubCodename,FColor::White,static_cast<float>(layout.header.x+68),static_cast<float>(layout.header.y+28),HubBodyFont,0.75f);
     if(HubEventOpen){
-        const double width=FMath::Min(660.0,layout.safe.width-30.0),height=FMath::Min(360.0,layout.safe.height-30.0);
-        const double x=layout.safe.x+(layout.safe.width-width)/2,y=layout.safe.y+(layout.safe.height-height)/2;
-        DrawRect(HubPanel,static_cast<float>(x),static_cast<float>(y),static_cast<float>(width),static_cast<float>(height));
-        frame({x,y,width,height},HubMagenta);
-        double cursor=y+18;
-        float lineWidth=0,lineHeight=0;GetTextSize(TEXT("Ágj"),lineWidth,lineHeight,HubBodyFont);
-        const double lineStep=std::max(20.0,static_cast<double>(lineHeight)+4);
-        const auto wrapped=[&](const FString& text,FColor color){
-            TArray<FString> words;text.ParseIntoArray(words,TEXT(" "),true);FString current;
-            for(const auto& word:words){
-                const FString candidate=current.IsEmpty()?word:current+TEXT(" ")+word;
-                float textWidth=0,textHeight=0;GetTextSize(candidate,textWidth,textHeight,HubBodyFont);
-                if(textWidth>width-32 && !current.IsEmpty()){
-                    if(cursor+lineStep>y+height-60){return;}
-                    DrawText(current,color,static_cast<float>(x+16),static_cast<float>(cursor),HubBodyFont);cursor+=lineStep;current=word;
-                }else{current=candidate;}
-            }
-            if(!current.IsEmpty() && cursor+lineStep<=y+height-60){DrawText(current,color,static_cast<float>(x+16),static_cast<float>(cursor),HubBodyFont);cursor+=lineStep;}
-        };
-        wrapped(HubPanelTitle,HubCyan.ToFColorSRGB());cursor+=12;wrapped(HubPanelBody,FColor::White);
-        if(HubPanelRoute==HubRoute::Terminal && button({x+148,y+height-56,width-164,48},TEXT("Batalha de laboratório"))){enterBattle();return;}
-        if(button({x+16,y+height-56,120,48},TEXT("Voltar")) || PlayerOwner->WasInputKeyJustPressed(EKeys::Escape)){HubEventOpen=false;}return;
+        TArray<FString> paragraphs;paragraphs.Add(HubPanelBody);
+        const int32 result=DrawInfoPanel(HubPanelTitle,paragraphs,HubPanelPage,HubPanelRoute==HubRoute::Terminal);
+        if(result==1){HubEventOpen=false;}else if(result==2){enterBattle();}return;
     }
     const auto openDestination=[&](const HubHotspot& link){
         if(link.route==HubRoute::Battle){enterBattle();return;}
@@ -236,7 +244,7 @@ void AProbeArenaHUD::DrawHub(){
             HubPanelBody=TEXT("Terminal de destinos. Os modais de transporte e seus destinos serão definidos em outro bloco. Você pode acessar abaixo a batalha de laboratório atual; ela não representa História, PvP ou viagem já implementados.");
         }else if(link.route==HubRoute::SpecialEvent){HubPanelTitle=HubEventTitle;HubPanelBody=HubEventBody;}
         else{HubPanelBody=TEXT("Em breve. Este local está mapeado no panorama, mas seu sistema ainda não foi implementado. Nenhuma compra, recompensa, partida online ou alteração de progresso será executada aqui.");}
-        HubEventOpen=true;
+        HubPanelPage=0;HubEventOpen=true;
     };
     for(std::size_t index=0;index<HubLinks.size();++index){
         const auto& link=HubLinks[index];

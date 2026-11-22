@@ -243,14 +243,7 @@ void AProbeArenaHUD::DrawHUD()
         }
     }
     if(!PopupLines.IsEmpty()){
-        Gesture.cancel();const float w=FMath::Min(760.f,Canvas->SizeX-30.f),h=FMath::Min(490.f,Canvas->SizeY-60.f);
-        const float x=(Canvas->SizeX-w)/2,y=(Canvas->SizeY-h)/2;
-        DrawRect(FLinearColor(0.02f,0.035f,0.06f),x,y,w,h);DrawText(PopupTitle,FColor::Cyan,x+16,y+16);
-        const int32 visible=FMath::Max(1,static_cast<int32>((h-110)/22));const int32 pages=FMath::Max(1,(PopupLines.Num()+visible-1)/visible);PopupPage=FMath::Clamp(PopupPage,0,pages-1);
-        for(int32 line=0;line<visible && PopupPage*visible+line<PopupLines.Num();++line){DrawText(PopupLines[PopupPage*visible+line],FColor::White,x+16,y+55+line*22);}
-        if(button(x+w-105,y+10,90,32,TEXT("Close"),true)){PopupLines.Empty();return;}
-        if(button(x+16,y+h-42,90,30,TEXT("Previous"),PopupPage>0)){--PopupPage;}
-        if(button(x+120,y+h-42,90,30,TEXT("Next"),PopupPage+1<pages)){++PopupPage;}
-        DrawText(FString::Printf(TEXT("%d / %d"),PopupPage+1,pages),FColor::White,x+230,y+h-34);
+        Gesture.cancel();
+        if(DrawInfoPanel(PopupTitle,PopupLines,PopupPage)==1){PopupLines.Empty();}
     }
 }

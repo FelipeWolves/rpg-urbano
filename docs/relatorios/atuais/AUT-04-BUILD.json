@@ -1,0 +1,15 @@
+{
+  "Date": "2026-11-21",
+  "Passed": true,
+  "ExitCode": 0,
+  "Actions": 8,
+  "NativePresentationGroups": 54,
+  "NewTextGroups": 10,
+  "Log": "build/aut04-build.log",
+  "ProjectRoot": "F:\\Testes de jogos\\Contos de Um Lobo - Jogo\\rpg-urbano",
+  "ScreenControlUsed": false,
+  "VisualRuntimeExecuted": false,
+  "AndroidExecuted": false,
+  "BattleRulesChanged": false,
+  "Scope": "Measured UTF-8 scalar wrapping, pagination, shared panel geometry and compiled HUD integration; real-font visual acceptance pending"
+}

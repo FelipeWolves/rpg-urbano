@@ -27,6 +27,7 @@ private:
     rpg::presentation::HubRoute HubPanelRoute=rpg::presentation::HubRoute::SpecialEvent;
     FString HubPanelTitle;
     FString HubPanelBody;
+    int32 HubPanelPage=0;
     rpg::presentation::HubArea HubArea=rpg::presentation::HubArea::Center;
     rpg::presentation::HubView HubView=rpg::presentation::HubView::Auto;
     rpg::presentation::HubRegions HubRegions;
@@ -48,6 +49,7 @@ private:
     bool HubReducedMotionForced=false;
     void LoadHubCatalog();
     void DrawHub();
+    int32 DrawInfoPanel(const FString& title,const TArray<FString>& paragraphs,int32& page,bool action=false);
     void ReturnToHub();
     int32 SelectedSlot=0;
     uint64 SelectionRevision=0;

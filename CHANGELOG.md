@@ -160,3 +160,8 @@ Parser JSON do hub, importação do panorama, projeção/clipping dos dois alvos
 - Entrada amostrada comum de mouse/toque, deduplicação, origem do clique e cancelamentos.
 - Hub/arena integrados; consulta prolongada preservada, regras de combate intactas.
 -44grupos nativos e compilação aprovados; aceite interativo pendente, sem Android ou controle de tela.
+
+## 2026-11-21 — AUT-04
+- Quebra UTF-8 medida, paginação segura e áreas separadas de texto/botões.
+- Painel compartilhado entre habilidades, efeitos e locais do hub.
+-54grupos de apresentação e build8ações aprovados; sem validação visual ou Android.

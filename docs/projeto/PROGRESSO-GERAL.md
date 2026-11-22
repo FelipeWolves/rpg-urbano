@@ -42,3 +42,5 @@ Integração Unreal 38→45%, QA22→24% e documentação75→78% nesta etapa. S
 [AUT-02](AUT-02-GEOMETRIA.md): geometria/margens simuladas implementadas,34grupos de apresentação e build na pasta nova aprovados. Percentuais mantidos até aceite visual; safe area real e Android não validados.
 
 [AUT-03](AUT-03-ENTRADA.md): entrada unificada e cancelamentos implementados/testados,44grupos nativos e build aprovados; percentual mantido até aceite interativo. Android adiado.
+
+[AUT-04](AUT-04-PAINEIS.md): painéis unificados, quebra medida e paginação implementados,54grupos de apresentação e build aprovados. Estimativas mantidas até aceite visual; Android segue adiado.

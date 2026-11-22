@@ -4,9 +4,17 @@
 #include <string>
 #include <string_view>
 #include <vector>
+#include <functional>
 namespace rpg::presentation {
 struct PixelSize { std::uint32_t width; std::uint32_t height; };
 struct Rect { double x; double y; double width; double height; };
+using TextMeasure=std::function<double(std::string_view)>;
+// UTF-8 words/newlines, measured by the caller's real font. No silent truncation.
+[[nodiscard]] std::vector<std::string> wrap_text(std::string_view text,double width,const TextMeasure& measure);
+struct PageSlice { std::size_t begin,end,page,pages; };
+[[nodiscard]] PageSlice text_page(std::size_t lines,std::size_t capacity,std::size_t requested);
+struct InfoPanelLayout { Rect box,body,previous,next,close; std::optional<Rect> action; std::size_t capacity; };
+[[nodiscard]] std::optional<InfoPanelLayout> plan_info_panel(Rect safe,double line_height,bool action=false);
 enum class PointerSource { None, Mouse, Touch };
 struct PointerSample { bool down=false; bool valid=false; double x=0; double y=0; };
 struct PointerContext { std::uint64_t revision=0; std::uint8_t screen=0; bool operator==(const PointerContext&) const = default; };

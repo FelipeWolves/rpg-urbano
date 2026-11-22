@@ -17,6 +17,67 @@ Rect fit(double width,double height,PixelSize viewport){
     return {(viewport.width-w)/2,(viewport.height-h)/2,w,h};
 }
 }
+std::vector<std::string> wrap_text(std::string_view text,double width,const TextMeasure& measure){
+    if(!std::isfinite(width) || width<=0 || !measure || text.size()>1024*1024){throw std::invalid_argument("Invalid text layout request");}
+    std::vector<std::string_view> scalars;
+    for(std::size_t i=0;i<text.size();){
+        const auto first=static_cast<unsigned char>(text[i]);
+        const std::size_t n=first<0x80?1:first>=0xC2 && first<=0xDF?2:first>=0xE0 && first<=0xEF?3:first>=0xF0 && first<=0xF4?4:0;
+        if(!n || n>text.size()-i){throw std::invalid_argument("Invalid UTF-8 text");}
+        std::uint32_t value=first & (n==1?0x7FU:n==2?0x1FU:n==3?0x0FU:0x07U);
+        for(std::size_t j=1;j<n;++j){const auto b=static_cast<unsigned char>(text[i+j]);if((b&0xC0)!=0x80){throw std::invalid_argument("Invalid UTF-8 continuation");}value=(value<<6)|(b&0x3F);}
+        if((n==2 && value<0x80) || (n==3 && value<0x800) || (n==4 && value<0x10000) || value>0x10FFFF || (value>=0xD800 && value<=0xDFFF) || value==0){throw std::invalid_argument("Invalid Unicode scalar");}
+        scalars.push_back(text.substr(i,n));i+=n;
+    }
+    const auto fits=[&](std::string_view value){const double size=measure(value);if(!std::isfinite(size) || size<0){throw std::invalid_argument("Invalid font measurement");}return size<=width;};
+    std::vector<std::string> lines;std::string line,word;
+    const auto flushWord=[&](){
+        if(word.empty()){return;}
+        const auto candidate=line.empty()?word:line+" "+word;
+        if(fits(candidate)){line=candidate;word.clear();return;}
+        if(!line.empty()){lines.push_back(line);line.clear();}
+        for(std::size_t i=0;i<word.size();){
+            const auto first=static_cast<unsigned char>(word[i]);const std::size_t n=first<0x80?1:first<0xE0?2:first<0xF0?3:4;
+            const auto scalar=word.substr(i,n);
+            if(!fits(line+scalar)){
+                if(line.empty() || !fits(scalar)){throw std::invalid_argument("Panel too narrow for a glyph");}
+                lines.push_back(line);line=scalar;
+            }else{line+=scalar;}
+            i+=n;
+        }
+        word.clear();
+    };
+    bool afterCr=false;
+    for(const auto scalar:scalars){
+        if(scalar=="\n" && afterCr){afterCr=false;continue;}
+        afterCr=false;
+        if(scalar=="\n" || scalar=="\r"){flushWord();lines.push_back(line);line.clear();afterCr=scalar=="\r";}
+        else if(scalar==" " || scalar=="\t"){flushWord();}
+        else{word+=scalar;}
+    }
+    flushWord();lines.push_back(line);return lines;
+}
+PageSlice text_page(std::size_t lines,std::size_t capacity,std::size_t requested){
+    if(!capacity){throw std::invalid_argument("Positive page capacity required");}
+    const auto pages=std::max<std::size_t>(1,lines/capacity+(lines%capacity!=0));
+    const auto page=std::min(requested,pages-1),begin=page*capacity;
+    return {begin,begin+std::min(capacity,lines-begin),page,pages};
+}
+std::optional<InfoPanelLayout> plan_info_panel(Rect safe,double line_height,bool action){
+    for(double value:{safe.x,safe.y,safe.width,safe.height,line_height}){if(!std::isfinite(value)){throw std::invalid_argument("Finite panel geometry required");}}
+    if(safe.width<=0 || safe.height<=0 || line_height<1){throw std::invalid_argument("Positive panel geometry required");}
+    const double width=std::min(760.0,safe.width-24),height=std::min(520.0,safe.height-24);
+    const double footer=action?112:56;
+    if(width<256 || height<line_height+footer+32){return {};}
+    const Rect box{safe.x+(safe.width-width)/2,safe.y+(safe.height-height)/2,width,height};
+    const Rect body{box.x+16,box.y+16,width-32,height-footer-24};
+    const auto capacity=static_cast<std::size_t>(std::floor(body.height/line_height));
+    if(!capacity){return {};}
+    const double cell=(width-40)/3,y=box.y+height-56;
+    InfoPanelLayout layout{box,body,{box.x+16,y,cell,48},{box.x+20+cell,y,cell,48},{box.x+24+2*cell,y,cell,48},{},capacity};
+    if(action){layout.action=Rect{box.x+16,y-56,width-32,48};}
+    return layout;
+}
 PointerFrame PointerInput::update(PointerSample mouse,PointerSample touch,bool focused,double seconds,PointerContext context){
     PointerFrame frame;
     const bool mouseStart=mouse.down && !previous_mouse_,touchStart=touch.down && !previous_touch_;

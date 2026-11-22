@@ -1,0 +1,15 @@
+{
+  "Date": "2026-11-22",
+  "PilotPassed": 10,
+  "SwitchPassed": 2,
+  "Build": "Succeeded",
+  "StageInputs": 66,
+  "SharedModel": "FunnelV1",
+  "SharedActionLimit": 200,
+  "SharedLimitOutcome": "Draw",
+  "CharacterKitsPreserved": true,
+  "ClassicChanged": false,
+  "EditorOpened": false,
+  "GameExecuted": false,
+  "UserAcceptedVisualBuild": "fe6060b"
+}

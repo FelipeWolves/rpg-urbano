@@ -1,3 +1,5 @@
+> **Diretriz vigente — 22/11:** [base comum dos laboratórios](docs/projeto/BASE-COMUM-LABORATORIOS.md). Terminal e Felipe compartilham regras Team e limite de 200 ações/empate; personagens mantêm kits/atributos próprios. Modo clássico fora desta frente. Ajustes visuais de fe6060b aceitos pelo usuário; não reabrir por rotina.
+
 > **Vigente — VIS/ENG/HUB P0, 22/11:** [correções, evidências e reteste](docs/projeto/VIS-ENG-HUB-P0-CORRECOES.md). Entrada/alvos e preparação do player atualizados em código; testes nativos aprovados. Aceites visuais continuam abertos; Android adiado e demo ~25% mantida. Próximo: reteste do usuário, depois integração visual dos modos já disponíveis. Esta nota prevalece sobre próximos passos históricos abaixo.
 
 > **Organização vigente — 22/11:** [mapa de famílias e prioridades](docs/projeto/MAPA-FAMILIAS-E-PRIORIDADES.md). Percentuais por família são estimativas não somáveis; não representam novas implementações. Próximo recomendado: entrada/alvos e player. Nesta rodada somente documentação.

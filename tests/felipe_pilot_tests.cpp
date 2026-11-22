@@ -10,6 +10,7 @@ int main(){try{
  check(classic_reference_setup().rules.combat_model==resolution::CombatModel::Legacy,"classic baseline preserved");
  const auto terminalLab=terminal_lab_setup();check(terminalLab.roster[0].max_health==10000 && terminalLab.roster[0].attack==500 && terminalLab.rules.combat_model==resolution::CombatModel::FunnelV1,"terminal visual health scale");
  check(team_reference_setup().roster[0].max_health==100,"small baseline preserved");
+ check(terminal_lab_setup().rules.action_budget==felipe_pilot_setup().rules.action_budget,"shared laboratory action limit");
  // Hub scenario switch preserves both sessions rather than importing their saves.
  presentation::VisualSession hubReference(team_reference_setup()),hubPilot(felipe_pilot_setup());
  const auto referenceBefore=hubReference.state();const auto pilotBefore=hubPilot.state();

@@ -34,7 +34,7 @@ EncounterSetup team_reference_setup(){
 EncounterSetup terminal_lab_setup(){auto setup=team_reference_setup();for(auto& unit:setup.roster){unit.max_health*=100;unit.attack*=25;}return setup;}
 EncounterSetup classic_reference_setup(){return {reference_roster(),text_reference_rules(),{}};}
 EncounterSetup felipe_pilot_setup(bool tutorial_preload){
-    auto rules=team_reference_rules();rules.action_budget=ActionBudget{200,LimitOutcome::DefeatA};
+    auto rules=team_reference_rules();
     Definition felipe{"FELIPE",Team::A,20000,2500,110};
     felipe.vigil=VigilDefinition{"FELIPE-A1",5,tutorial_preload?4u:0u};
     std::vector<Definition> roster{felipe,{"ECO-1",Team::B,12000,1800,100},{"ECO-2",Team::B,8000,1200,90}};

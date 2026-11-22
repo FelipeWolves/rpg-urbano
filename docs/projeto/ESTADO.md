@@ -1,3 +1,5 @@
+> **Diretriz vigente — 22/11:** [base comum dos laboratórios](BASE-COMUM-LABORATORIOS.md). Terminal e Felipe compartilham regras Team e limite de 200 ações/empate; personagens mantêm kits/atributos próprios. Modo clássico fora desta frente. Ajustes visuais de fe6060b aceitos pelo usuário; não reabrir por rotina.
+
 > **22/11 — retorno mais recente:** vídeo/skip e conclusão do piloto sem crash aceitos no teste do usuário. [Placeholders, seletor e escala do Terminal](PLACEHOLDERS-TERMINAL.md): mobilidade corrigida, marcador mais espesso/emissivo e PV do Terminal ampliados. Aceite visual desses ajustes ainda pendente; demo ~25% mantida.
 
 > **Correção vigente — 22/11:** [crash do marcador, placeholders, regras gerais do Terminal e vídeo por compilação](TERMINAL-MARCADOR-MIDIA-CORRECOES.md). Funil compartilhado com Felipe, geometria visual protegida e marca de vídeo vinculada ao binário. Reteste visual pendente; aceite dos cliques únicos preservado.

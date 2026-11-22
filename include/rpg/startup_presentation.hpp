@@ -15,6 +15,30 @@ struct PageSlice { std::size_t begin,end,page,pages; };
 [[nodiscard]] PageSlice text_page(std::size_t lines,std::size_t capacity,std::size_t requested);
 struct InfoPanelLayout { Rect box,body,previous,next,close; std::optional<Rect> action; std::size_t capacity; };
 [[nodiscard]] std::optional<InfoPanelLayout> plan_info_panel(Rect safe,double line_height,bool action=false);
+enum class UiScreen { Hub, Location, Options, Arena, Pause, AbandonConfirm, Result };
+enum class BackEffect { None, CloseDetails, CancelSelection, Transition };
+class ScreenFlow {
+public:
+    explicit ScreenFlow(UiScreen start=UiScreen::Hub);
+    [[nodiscard]] UiScreen screen() const noexcept {return screen_;}
+    [[nodiscard]] bool in_hub() const noexcept;
+    [[nodiscard]] bool accepts_actions(bool details=false) const noexcept {return screen_==UiScreen::Arena && !details;}
+    [[nodiscard]] bool new_attempt_required() const noexcept {return new_attempt_;}
+    bool open_location() noexcept;
+    bool open_options() noexcept;
+    bool enter_arena(bool finished=false) noexcept;
+    bool pause() noexcept;
+    bool resume() noexcept;
+    bool request_abandon() noexcept;
+    bool confirm_abandon() noexcept;
+    bool finish() noexcept;
+    bool restart_result() noexcept;
+    bool return_hub() noexcept;
+    BackEffect back(bool details,bool selection) noexcept;
+private:
+    UiScreen screen_;
+    bool new_attempt_=false;
+};
 enum class PointerSource { None, Mouse, Touch };
 struct PointerSample { bool down=false; bool valid=false; double x=0; double y=0; };
 struct CanvasMapping {

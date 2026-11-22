@@ -1,0 +1,9 @@
+{
+  "Date": "2026-11-22",
+  "Passed": true,
+  "ExitCode": 0,
+  "Groups": 10,
+  "Scope": "Explicit screen transitions, Back priority, modal gating and idempotent abandonment; no visual acceptance",
+  "EngineExecuted": false,
+  "AndroidExecuted": false
+}

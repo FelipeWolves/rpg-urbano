@@ -54,6 +54,10 @@ if errorlevel 1 exit /b 28
 cl.exe %FLAGS% /I"$root/include" "$root/tests/canvas_coordinate_tests.cpp" "$build/startup_presentation.obj" /Fo"$build/canvas_coordinate_tests.obj" /Fe"$build/canvas_coordinate_tests.exe" /link /INCREMENTAL:NO
 if errorlevel 1 exit /b 29
 "$build/canvas_coordinate_tests.exe"
+if errorlevel 1 exit /b 30
+cl.exe %FLAGS% /I"$root/include" "$root/tests/screen_flow_tests.cpp" "$build/startup_presentation.obj" /Fo"$build/screen_flow_tests.obj" /Fe"$build/screen_flow_tests.exe" /link /INCREMENTAL:NO
+if errorlevel 1 exit /b 31
+"$build/screen_flow_tests.exe"
 exit /b %ERRORLEVEL%
 "@
 $batchPath=Join-Path $build 'testar.cmd';$batch | Set-Content $batchPath -Encoding ascii
@@ -85,3 +89,6 @@ if(!$textPassed){throw 'Text panel tests failed'}
 $preferencesPassed=$code -eq 0 -and $output -contains 'PREFERENCES_TESTS_RESULT passed=10 total=10 combinations=324'
 [ordered]@{Date='2026-11-21';Passed=$preferencesPassed;ExitCode=$code;Groups=10;RoundTripCombinations=324;Scope='Versioned preferences codec, validation and primary/backup/default recovery policy; UE filesystem adapter not executed';EngineExecuted=$false;UnrealPersistenceExecuted=$false;AndroidExecuted=$false} | ConvertTo-Json | Set-Content (Join-Path $root 'docs/relatorios/atuais/AUT-07-TESTES.json') -Encoding utf8
 if(!$preferencesPassed){throw 'Preferences tests failed'}
+$flowPassed=$code -eq 0 -and $output -contains 'SCREEN_FLOW_TESTS_RESULT passed=10 total=10'
+[ordered]@{Date='2026-11-22';Passed=$flowPassed;ExitCode=$code;Groups=10;Scope='Explicit screen transitions, Back priority, modal gating and idempotent abandonment; no visual acceptance';EngineExecuted=$false;AndroidExecuted=$false} | ConvertTo-Json | Set-Content (Join-Path $root 'docs/relatorios/atuais/AUT-08-FLUXO.json') -Encoding utf8
+if(!$flowPassed){throw 'Screen flow tests failed'}

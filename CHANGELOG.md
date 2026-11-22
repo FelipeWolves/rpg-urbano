@@ -182,3 +182,9 @@ Parser JSON do hub, importação do panorama, projeção/clipping dos dois alvos
 - Menu Opções e adaptador local separado do save; backup e falhas visíveis.
 -64grupos nativos (324combinações válidas no codec) e build8ações aprovados.
 - Persistência real/aceite visual pendentes; nenhum Android ou controle de tela.
+
+## 2026-11-22 — Correção do ponteiro e AUT-08
+- Conversão viewport/Canvas corrigida e aceita pelo usuário; commit1400d4e.
+- Estados explícitos, pausa/retomada e abandono confirmado sem recompensa.
+-82grupos de apresentação,35focados e compilação8ações aprovados.
+- Aceite interativo dos menus pendente; sem editor ou Android.

@@ -1,0 +1,18 @@
+{
+  "Date": "2026-11-22",
+  "Passed": true,
+  "ExitCode": 0,
+  "BuildActions": 8,
+  "NewFlowGroups": 10,
+  "NewSessionGroups": 3,
+  "PresentationGroups": 82,
+  "FocusedArenaGroups": 35,
+  "Log": "build/aut08-build.log",
+  "ProjectRoot": "F:\\Testes de jogos\\Contos de Um Lobo - Jogo\\rpg-urbano",
+  "ScreenControlUsed": false,
+  "VisualRuntimeExecuted": false,
+  "AndroidExecuted": false,
+  "BattleRulesChanged": false,
+  "SaveWritten": false,
+  "Scope": "Explicit screen states, pause and confirmed abandonment; native session invariants tested, interactive acceptance pending"
+}

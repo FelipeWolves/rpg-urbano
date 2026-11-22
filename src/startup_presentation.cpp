@@ -19,6 +19,30 @@ Rect fit(double width,double height,PixelSize viewport){
     return {(viewport.width-w)/2,(viewport.height-h)/2,w,h};
 }
 }
+ScreenFlow::ScreenFlow(UiScreen start):screen_(start){if(start!=UiScreen::Hub && start!=UiScreen::Arena){throw std::invalid_argument("Invalid initial screen");}}
+bool ScreenFlow::in_hub() const noexcept {return screen_==UiScreen::Hub || screen_==UiScreen::Location || screen_==UiScreen::Options;}
+bool ScreenFlow::open_location() noexcept {if(screen_!=UiScreen::Hub){return false;}screen_=UiScreen::Location;return true;}
+bool ScreenFlow::open_options() noexcept {if(screen_!=UiScreen::Hub){return false;}screen_=UiScreen::Options;return true;}
+bool ScreenFlow::enter_arena(bool finished) noexcept {if(screen_!=UiScreen::Hub && screen_!=UiScreen::Location){return false;}screen_=finished?UiScreen::Result:UiScreen::Arena;new_attempt_=false;return true;}
+bool ScreenFlow::pause() noexcept {if(screen_!=UiScreen::Arena){return false;}screen_=UiScreen::Pause;return true;}
+bool ScreenFlow::resume() noexcept {if(screen_!=UiScreen::Pause){return false;}screen_=UiScreen::Arena;return true;}
+bool ScreenFlow::request_abandon() noexcept {if(screen_!=UiScreen::Pause){return false;}screen_=UiScreen::AbandonConfirm;return true;}
+bool ScreenFlow::confirm_abandon() noexcept {if(screen_!=UiScreen::AbandonConfirm){return false;}screen_=UiScreen::Hub;new_attempt_=true;return true;}
+bool ScreenFlow::finish() noexcept {if(screen_!=UiScreen::Arena){return false;}screen_=UiScreen::Result;return true;}
+bool ScreenFlow::restart_result() noexcept {if(screen_!=UiScreen::Result){return false;}screen_=UiScreen::Arena;return true;}
+bool ScreenFlow::return_hub() noexcept {if(screen_!=UiScreen::Result){return false;}screen_=UiScreen::Hub;return true;}
+BackEffect ScreenFlow::back(bool details,bool selection) noexcept {
+    if(details){return BackEffect::CloseDetails;}
+    if(selection){return BackEffect::CancelSelection;}
+    switch(screen_){
+    case UiScreen::Hub:return BackEffect::None;
+    case UiScreen::Location:case UiScreen::Options:case UiScreen::Result:screen_=UiScreen::Hub;break;
+    case UiScreen::Arena:screen_=UiScreen::Pause;break;
+    case UiScreen::Pause:screen_=UiScreen::Arena;break;
+    case UiScreen::AbandonConfirm:screen_=UiScreen::Pause;break;
+    }
+    return BackEffect::Transition;
+}
 std::vector<std::string> wrap_text(std::string_view text,double width,const TextMeasure& measure){
     if(!std::isfinite(width) || width<=0 || !measure || text.size()>1024*1024){throw std::invalid_argument("Invalid text layout request");}
     std::vector<std::string_view> scalars;

@@ -50,3 +50,5 @@ Integração Unreal 38→45%, QA22→24% e documentação75→78% nesta etapa. S
 AUT-05 aceito pelo usuário nos dois layouts/detalhes. Front20→22% e QA24→26%; soma ponderada22,09%, mantendo comunicação de aproximadamente22% da demo. AUT-06 compilado, aparência ainda pendente; Android adiado. [Registro](AUT-06-HABILIDADES.md).
 
 [AUT-07](AUT-07-PREFERENCIAS.md):64grupos de apresentação e compilação aprovados; codec/recuperação testados, gravação real/menu ainda não executados. Estimativas mantidas, sem antecipar aceite de persistência ou acessibilidade completa.
+
+22/11: ponteiro corrigido e aceito; [AUT-08](AUT-08-FLUXO-TELAS.md) testado e compilado, menus novos ainda sem aceite interativo. Estimativas mantidas em aproximadamente22% da demo; não antecipar conclusão de save gráfico, equipe ou Android.

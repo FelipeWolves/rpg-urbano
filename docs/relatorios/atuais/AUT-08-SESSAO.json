@@ -1,0 +1,9 @@
+{
+  "Date": "2026-11-22",
+  "Passed": true,
+  "ExitCode": 0,
+  "Groups": 3,
+  "Scope": "Pause/resume preserves snapshot; abandonment defers reset without rewards; returning to results does not settle twice",
+  "EngineExecuted": false,
+  "AndroidExecuted": false
+}

@@ -205,7 +205,7 @@ void AProbeArenaHUD::SavePresentationPreferences()
 void AProbeArenaHUD::DrawPreferences()
 {
     const auto frame=plan_hub_frame({static_cast<uint32>(Canvas->SizeX),static_cast<uint32>(Canvas->SizeY)},0,HubInsets);
-    if(!frame){if(PlayerOwner->WasInputKeyJustPressed(EKeys::Escape)){PreferencesOpen=false;}return;}
+    if(!frame){if(PlayerOwner->WasInputKeyJustPressed(EKeys::Escape)){Flow.back(false,false);}return;}
     const double width=std::min(600.0,frame->safe.width-24),height=std::min(400.0,frame->safe.height-24);
     const double x=frame->safe.x+(frame->safe.width-width)/2,y=frame->safe.y+(frame->safe.height-height)/2;
     DrawRect(HubPanel,static_cast<float>(x),static_cast<float>(y),static_cast<float>(width),static_cast<float>(height));
@@ -228,13 +228,13 @@ void AProbeArenaHUD::DrawPreferences()
     const Rect close{x+16,y+height-56,width-32,48};
     DrawRect(FLinearColor(0.08f,0.20f,0.32f),static_cast<float>(close.x),static_cast<float>(close.y),static_cast<float>(close.width),48);
     text(TEXT("Voltar"),close.x+8,close.y+10,FColor::White);
-    if(pointer_clicked(Input,close) || PlayerOwner->WasInputKeyJustPressed(EKeys::Escape)){PreferencesOpen=false;}
+    if(pointer_clicked(Input,close) || PlayerOwner->WasInputKeyJustPressed(EKeys::Escape)){Flow.back(false,false);}
 }
 void AProbeArenaHUD::ReturnToHub(){
-    InHub=true;HubEventOpen=false;Gesture.cancel();PopupLines.Empty();SelectedSlot=0;SelectedTarget.Empty();
+    if(Flow.screen()!=UiScreen::Hub && !Flow.return_hub()){return;}Gesture.cancel();PopupLines.Empty();SelectedSlot=0;SelectedTarget.Empty();
     UE_LOG(LogTemp,Display,TEXT("HUB_RETURN attempt=%llu"),static_cast<unsigned long long>(Session.state().progress.attempt));
 }
-int32 AProbeArenaHUD::DrawInfoPanel(const FString& title,const TArray<FString>& paragraphs,int32& page,bool action)
+int32 AProbeArenaHUD::DrawInfoPanel(const FString& title,const TArray<FString>& paragraphs,int32& page,bool action,const FString& actionLabel,const FString& closeLabel)
 {
     if(Canvas->SizeX<1 || Canvas->SizeY<1){return 0;}
     const auto frame=plan_hub_frame({static_cast<uint32>(Canvas->SizeX),static_cast<uint32>(Canvas->SizeY)},0,HubInsets);
@@ -266,10 +266,10 @@ int32 AProbeArenaHUD::DrawInfoPanel(const FString& title,const TArray<FString>& 
         DrawText(Text(lines[i]),i==0?FColor::Cyan:FColor::White,static_cast<float>(p.body.x),static_cast<float>(p.body.y+(i-slice.begin)*step),HubBodyFont,textScale);
     }
     const FString previous=FString::Printf(TEXT("Anterior (%d/%d)"),page+1,static_cast<int32>(slice.pages));
-    if(button(p.close,TEXT("Fechar"),true) || PlayerOwner->WasInputKeyJustPressed(EKeys::Escape)){return 1;}
+    if(button(p.close,closeLabel,true) || PlayerOwner->WasInputKeyJustPressed(EKeys::Escape)){return 1;}
     if(button(p.previous,previous,slice.page>0)){--page;}
     if(button(p.next,TEXT("Próxima"),slice.page+1<slice.pages)){++page;}
-    if(p.action && button(*p.action,TEXT("Batalha de laboratório"),true)){return 2;}
+    if(p.action && button(*p.action,actionLabel,true)){return 2;}
     return 0;
 }
 void AProbeArenaHUD::DrawHub(){
@@ -289,7 +289,10 @@ void AProbeArenaHUD::DrawHub(){
         return clicked && pointer_clicked(Input,rect);
     };
     const auto enterBattle=[&](){
-        InHub=false;HubEventOpen=false;NextAutomatic=GetWorld()->GetTimeSeconds()+0.5;
+        if(Flow.screen()!=UiScreen::Hub && Flow.screen()!=UiScreen::Location){return;}
+        if(Flow.new_attempt_required()){Session.reset();}
+        if(!Flow.enter_arena(Session.state().combat.battle.phase==rpg::Phase::Finished)){return;}
+        NextAutomatic=GetWorld()->GetTimeSeconds()+0.5;
         Gesture.cancel();SelectedSlot=0;SelectedTarget.Empty();
         UE_LOG(LogTemp,Display,TEXT("HUB_BATTLE attempt=%llu"),static_cast<unsigned long long>(Session.state().progress.attempt));
     };
@@ -311,11 +314,11 @@ void AProbeArenaHUD::DrawHub(){
     if(HubLogo){DrawTexture(HubLogo,static_cast<float>(layout.header.x+12),static_cast<float>(layout.header.y+4),48,48,0,0,1,1,FLinearColor::White,BLEND_Translucent);}
     DrawText(HubTitle,HubCyan.ToFColorSRGB(),static_cast<float>(layout.header.x+68),static_cast<float>(layout.header.y+4),HubTitleFont);
     DrawText(TEXT("CODINOME: ")+HubCodename,FColor::White,static_cast<float>(layout.header.x+68),static_cast<float>(layout.header.y+28),HubBodyFont,0.75f);
-    if(PreferencesOpen){DrawPreferences();return;}
-    if(HubEventOpen){
+    if(Flow.screen()==UiScreen::Options){DrawPreferences();return;}
+    if(Flow.screen()==UiScreen::Location){
         TArray<FString> paragraphs;paragraphs.Add(HubPanelBody);
         const int32 result=DrawInfoPanel(HubPanelTitle,paragraphs,HubPanelPage,HubPanelRoute==HubRoute::Terminal);
-        if(result==1){HubEventOpen=false;}else if(result==2){enterBattle();}return;
+        if(result==1){Flow.back(false,false);}else if(result==2){enterBattle();}return;
     }
     const auto openDestination=[&](const HubHotspot& link){
         if(link.route==HubRoute::Battle){enterBattle();return;}
@@ -324,7 +327,7 @@ void AProbeArenaHUD::DrawHub(){
             HubPanelBody=TEXT("Terminal de destinos. Os modais de transporte e seus destinos serão definidos em outro bloco. Você pode acessar abaixo a batalha de laboratório atual; ela não representa História, PvP ou viagem já implementados.");
         }else if(link.route==HubRoute::SpecialEvent){HubPanelTitle=HubEventTitle;HubPanelBody=HubEventBody;}
         else{HubPanelBody=TEXT("Em breve. Este local está mapeado no panorama, mas seu sistema ainda não foi implementado. Nenhuma compra, recompensa, partida online ou alteração de progresso será executada aqui.");}
-        HubPanelPage=0;HubEventOpen=true;
+        HubPanelPage=0;Flow.open_location();
     };
     for(std::size_t index=0;index<HubLinks.size();++index){
         const auto& link=HubLinks[index];
@@ -366,7 +369,7 @@ void AProbeArenaHUD::DrawHub(){
     if(button(layout.navigation[3],plan.view==rpg::presentation::HubView::Panoramic?TEXT("Focar área"):TEXT("Panorama"))){
         HubView=plan.view==rpg::presentation::HubView::Panoramic?rpg::presentation::HubView::Focused:rpg::presentation::HubView::Panoramic;SavePresentationPreferences();
     }
-    if(button(layout.navigation[4],TEXT("Opções"))){PreferencesOpen=true;}
+    if(button(layout.navigation[4],TEXT("Opções"))){Flow.open_options();}
 }
 
 

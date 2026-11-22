@@ -22,8 +22,8 @@ private:
     UPROPERTY(Transient) TObjectPtr<UFont> HubTitleFont=nullptr;
     UPROPERTY(Transient) TObjectPtr<UFont> HubBodyFont=nullptr;
     bool HubEnabled=false;
-    bool InHub=false;
-    bool HubEventOpen=false;
+    rpg::presentation::ScreenFlow Flow;
+
     rpg::presentation::HubRoute HubPanelRoute=rpg::presentation::HubRoute::SpecialEvent;
     FString HubPanelTitle;
     FString HubPanelBody;
@@ -47,7 +47,7 @@ private:
     rpg::presentation::PulseSettings HubPulse;
     bool HubReducedMotion=false;
     bool HubReducedMotionForced=false;
-    bool PreferencesOpen=false;
+
     rpg::presentation::PresentationPreferences Preferences;
     FLinearColor HubBasePanel=HubPanel;
     FString PreferencesStatus;
@@ -57,8 +57,11 @@ private:
     void DrawPreferences();
     void LoadHubCatalog();
     void DrawHub();
-    int32 DrawInfoPanel(const FString& title,const TArray<FString>& paragraphs,int32& page,bool action=false);
+    int32 DrawInfoPanel(const FString& title,const TArray<FString>& paragraphs,int32& page,bool action=false,const FString& actionLabel=TEXT("Batalha de laboratório"),const FString& closeLabel=TEXT("Fechar"));
     void ReturnToHub();
+    void HandleBack();
+    void DrawBattleMenu();
+    int32 BattleMenuPage=0;
     int32 SelectedSlot=0;
     uint64 SelectionRevision=0;
     double NextAutomatic=0;

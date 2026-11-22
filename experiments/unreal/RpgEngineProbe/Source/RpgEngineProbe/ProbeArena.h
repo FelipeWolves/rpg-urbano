@@ -59,6 +59,11 @@ private:
     rpg::presentation::PointerFrame Input;
     float LastTouchX=0,LastTouchY=0;
     void ReadPointer();
+    bool InspectionMode=false;
+    int32 InspectionIndex=0;
+    std::vector<rpg::presentation::InspectionFrame> InspectionFrames;
+    void RefreshArenaActors();
+    void DrawInspectionControls();
     FString SelectedTarget;
     FString PopupTitle;
     TArray<FString> PopupLines;

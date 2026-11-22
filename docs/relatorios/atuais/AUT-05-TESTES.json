@@ -1,0 +1,13 @@
+{
+  "Date": "2026-11-21",
+  "Passed": true,
+  "ExitCode": 0,
+  "NewInspectionGroups": 10,
+  "RelatedLayoutGroups": 6,
+  "RelatedPresentationGroups": 6,
+  "Cases": 13,
+  "EngineExecuted": false,
+  "VisualAcceptance": false,
+  "AndroidExecuted": false,
+  "Scope": "Real executor snapshots, existing arena placement and shield display; no graphical execution"
+}

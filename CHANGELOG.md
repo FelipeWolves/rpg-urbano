@@ -165,3 +165,8 @@ Parser JSON do hub, importação do panorama, projeção/clipping dos dois alvos
 - Quebra UTF-8 medida, paginação segura e áreas separadas de texto/botões.
 - Painel compartilhado entre habilidades, efeitos e locais do hub.
 -54grupos de apresentação e build8ações aprovados; sem validação visual ou Android.
+
+## 2026-11-21 — AUT-05
+-13snapshots reais de formações/escudo em modo de inspeção somente leitura.
+-Atalhos para profundidade e lateral clássica; nenhum comando/recompensa na inspeção.
+-22grupos focados e compilação9ações aprovados; aceite visual pendente, Android adiado.

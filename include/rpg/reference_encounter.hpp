@@ -5,3 +5,16 @@ namespace rpg {
 [[nodiscard]] EncounterSetup team_reference_setup();
 [[nodiscard]] EncounterSetup classic_reference_setup();
 } // namespace rpg
+
+namespace rpg::presentation {
+struct InspectionFrame {
+    std::string id;
+    std::string description;
+    Snapshot battle;
+    std::string focus;
+    std::vector<std::string> notes;
+    bool operator==(const InspectionFrame&) const = default;
+};
+// Read-only fixtures built with the real Battle executor; not a reward-bearing session.
+[[nodiscard]] std::vector<InspectionFrame> arena_inspection_frames();
+}

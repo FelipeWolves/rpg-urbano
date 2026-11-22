@@ -49,14 +49,31 @@ void AProbeArenaHUD::BeginPlay()
     if(FParse::Param(FCommandLine::Get(),TEXT("Arena"))){HubEnabled=false;}
     InHub=HubEnabled;
     if(HubEnabled){LoadHubCatalog();}
-    const auto layout=SelectedLayout();
-    if(!layout){return;}
+    FString inspection;
+    const bool namedInspection=FParse::Value(FCommandLine::Get(),TEXT("Inspection="),inspection);
+    if(namedInspection || FParse::Param(FCommandLine::Get(),TEXT("Inspection"))){
+        InspectionFrames=rpg::presentation::arena_inspection_frames();
+        InspectionMode=true;InHub=false;
+        if(!HubEnabled){LoadHubCatalog();}
+        if(!inspection.IsEmpty()){
+            const auto found=std::ranges::find(InspectionFrames,TCHAR_TO_UTF8(*inspection),&rpg::presentation::InspectionFrame::id);
+            if(found!=InspectionFrames.end()){InspectionIndex=static_cast<int32>(found-InspectionFrames.begin());}
+            else{UE_LOG(LogTemp,Warning,TEXT("Unknown inspection case; using first read-only case"));}
+        }
+    }
+    RefreshArenaActors();
+}
+void AProbeArenaHUD::RefreshArenaActors()
+{
+    const auto layout=SelectedLayout();if(!layout){return;}
+    for(TActorIterator<AStaticMeshActor> it(GetWorld());it;++it){if(it->Tags.Contains(FName(TEXT("RpgPrototypeActor")))){it->Destroy();}}
     std::vector<rpg::Definition> roster;
-    for(const auto& fighter:Session.state().combat.battle.fighters){roster.push_back(fighter.definition);}
+    const auto snapshot=InspectionMode?InspectionFrames[InspectionIndex].battle:Session.state().combat.battle;
+    for(const auto& fighter:snapshot.fighters){roster.push_back(fighter.definition);}
     auto* mesh=LoadObject<UStaticMesh>(nullptr,TEXT("/Engine/BasicShapes/Sphere.Sphere"));
     for(const auto& placement:rpg::presentation::arena_placements(roster,*layout)){
         auto* sphere=GetWorld()->SpawnActor<AStaticMeshActor>(FVector(placement.x,placement.y,placement.z),FRotator(0,placement.facing_yaw,0));
-        if(sphere && mesh){sphere->GetStaticMeshComponent()->SetStaticMesh(mesh);sphere->Tags.Add(FName(*Label(placement.fighter_id)));}
+        if(sphere && mesh){sphere->GetStaticMeshComponent()->SetStaticMesh(mesh);sphere->Tags.Add(FName(*Label(placement.fighter_id)));sphere->Tags.Add(FName(TEXT("RpgPrototypeActor")));}
     }
 }
 void AProbeArenaHUD::OpenInfo(const FString& title,const std::vector<std::string>& lines)
@@ -64,7 +81,6 @@ void AProbeArenaHUD::OpenInfo(const FString& title,const std::vector<std::string
     PopupTitle=title;PopupLines.Empty();PopupPage=0;
     for(const auto& value:lines){
         FString text=Label(value);
-        while(text.Len()>78){int32 split=78;int32 space=0;if(text.Left(78).FindLastChar(TEXT(' '),space) && space>0){split=space;}PopupLines.Add(text.Left(split));text=text.Mid(split).TrimStart();}
         PopupLines.Add(text);
     }
     if(PopupLines.IsEmpty()){PopupLines.Add(TEXT("No information available."));}
@@ -77,9 +93,9 @@ void AProbeArenaHUD::ReadPointer()
     if(touched){LastTouchX=tx;LastTouchY=ty;}
     const auto* viewport=GetWorld()->GetGameViewport();
     const bool focused=viewport && viewport->Viewport && viewport->Viewport->HasFocus();
-    const std::uint8_t screen=InHub?(HubEventOpen?1:0):(!PopupLines.IsEmpty()?3:2);
+    const std::uint8_t screen=InspectionMode?(!PopupLines.IsEmpty()?5:4):InHub?(HubEventOpen?1:0):(!PopupLines.IsEmpty()?3:2);
     Input=Pointer.update({PlayerOwner->IsInputKeyDown(EKeys::LeftMouseButton),mouseValid,mx,my},
-        {touched,true,LastTouchX,LastTouchY},focused,GetWorld()->GetTimeSeconds(),{Session.state().revision,screen});
+        {touched,true,LastTouchX,LastTouchY},focused,GetWorld()->GetTimeSeconds(),{InspectionMode?static_cast<std::uint64_t>(InspectionIndex):Session.state().revision,screen});
     if(Input.cancelled){Gesture.cancel();}
 }
 void AProbeArenaHUD::DrawHUD()
@@ -87,10 +103,11 @@ void AProbeArenaHUD::DrawHUD()
     Super::DrawHUD();if(!Canvas || !PlayerOwner){return;}
     ReadPointer();
     if(HubEnabled && InHub){DrawHub();return;}
-    if(HubEnabled && PlayerOwner->WasInputKeyJustPressed(EKeys::Escape)){
+    if(HubEnabled && !InspectionMode && PlayerOwner->WasInputKeyJustPressed(EKeys::Escape)){
         if(!PopupLines.IsEmpty()){PopupLines.Empty();Gesture.cancel();}else{ReturnToHub();}return;
     }
     auto view=Session.state();
+    if(InspectionMode){view={static_cast<std::uint64_t>(InspectionIndex),{SelectedCombatProfile(),{},InspectionFrames[InspectionIndex].battle,{}},{},{},false,true};}
     const double now=GetWorld()->GetTimeSeconds();
     const auto layout=SelectedLayout();
     const bool classic=layout==rpg::presentation::ArenaLayout::ClassicLateral;
@@ -175,6 +192,7 @@ void AProbeArenaHUD::DrawHUD()
             }
         }
     }
+    if(InspectionMode){DrawInspectionControls();return;}
     const float bottom=FMath::Max(280.f,Canvas->SizeY-135.f);
     DrawRect(FLinearColor(0.025f,0.035f,0.06f,0.9f),0,bottom-12,Canvas->SizeX,135);
     if(!classic){
@@ -246,4 +264,37 @@ void AProbeArenaHUD::DrawHUD()
         Gesture.cancel();
         if(DrawInfoPanel(PopupTitle,PopupLines,PopupPage)==1){PopupLines.Empty();}
     }
+}
+void AProbeArenaHUD::DrawInspectionControls()
+{
+    const auto& frame=InspectionFrames[InspectionIndex];
+    if(!PopupLines.IsEmpty()){
+        if(DrawInfoPanel(PopupTitle,PopupLines,PopupPage)==1){PopupLines.Empty();}return;
+    }
+    const float top=FMath::Max(80.f,Canvas->SizeY-145.f);
+    DrawRect(FLinearColor(0.02f,0.03f,0.05f,0.95f),0,top,Canvas->SizeX,145);
+    DrawText(FString::Printf(TEXT("INSPECAO SOMENTE LEITURA | %d / %d"),InspectionIndex+1,static_cast<int32>(InspectionFrames.size())),FColor::Yellow,16,top+8);
+    DrawText(Label(frame.id),FColor::White,16,top+32);
+    DrawText(TEXT("Sem comandos de combate, progresso ou recompensa."),FColor::White,16,top+55,nullptr,0.8f);
+    const double width=(Canvas->SizeX-32.0)/3;
+    const auto button=[&](int index,const TCHAR* text){
+        const rpg::presentation::Rect rect{8+index*(width+8),Canvas->SizeY-56.0,width,48};
+        DrawRect(FLinearColor(0.08f,0.20f,0.32f),static_cast<float>(rect.x),static_cast<float>(rect.y),static_cast<float>(rect.width),48);
+        DrawText(text,FColor::White,static_cast<float>(rect.x+8),static_cast<float>(rect.y+10));
+        return rpg::presentation::pointer_clicked(Input,rect);
+    };
+    const int32 count=static_cast<int32>(InspectionFrames.size());
+    int32 next=InspectionIndex;
+    if(button(0,TEXT("Anterior"))){next=(InspectionIndex+count-1)%count;}
+    if(button(1,TEXT("Proximo"))){next=(InspectionIndex+1)%count;}
+    if(button(2,TEXT("Detalhes"))){
+        std::vector<std::string> lines=frame.notes;
+        const auto focus=std::ranges::find(frame.battle.fighters,frame.focus,[](const rpg::Fighter& f){return f.definition.id;});
+        if(focus!=frame.battle.fighters.end()){
+            lines.push_back("Foco: "+frame.focus+" | PV "+std::to_string(focus->health)+"/"+std::to_string(focus->definition.max_health));
+            const auto details=rpg::presentation::effect_details(*focus);lines.insert(lines.end(),details.begin(),details.end());
+        }
+        OpenInfo(Label(frame.id),lines);return;
+    }
+    if(next!=InspectionIndex){InspectionIndex=next;Gesture.cancel();SelectedSlot=0;SelectedTarget.Empty();RefreshArenaActors();}
 }

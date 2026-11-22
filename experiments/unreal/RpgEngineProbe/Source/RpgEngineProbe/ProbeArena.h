@@ -17,6 +17,10 @@ public:
     virtual void EndPlay(const EEndPlayReason::Type reason) override;
 private:
     rpg::presentation::VisualSession Session;
+    std::optional<rpg::presentation::VisualSession> AlternateLabSession;
+    rpg::CombatProfile ReferenceProfile=rpg::CombatProfile::Team;
+    bool SessionIsFelipe=false,PilotTutorial=false;
+    void SelectLabScenario(bool felipe);
     UPROPERTY() TObjectPtr<class UStaticMesh> TargetMarkerMesh=nullptr;
     UPROPERTY(Transient) TObjectPtr<AActor> TargetMarkerActor=nullptr;
     int32 TargetMarkerSegments=0;

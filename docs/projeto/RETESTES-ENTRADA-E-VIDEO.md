@@ -1,15 +1,22 @@
-> **Relato mais recente — 22/11:** abertura do vídeo confirmada pelo usuário com um clique. RET-MEDIA-01 fica aceito nesse recorte; não comprova backend mobile ou todos os fluxos de pausa/skip. Demais botões, menus e batalha continuam exigindo dois cliques. Skip sem feedback visível: novo reteste RET-MEDIA-02.
->
-> **Correção complementar:** trocar NoCapture por CaptureDuringMouseDown, sem prender/ocultar cursor. A engine só encaminha o pressionamento primário quando há captura, captura temporária ou modo permanente incluindo primeiro clique. O polling do controlador dependia desse encaminhamento. Acrescentados hover e progresso de 0,8 s ao skip. RET-INPUT-01 e RET-MEDIA-02 continuam pendentes de teste real do usuário; compilação não é aceite.
 # Retestes do usuário — entrada e vídeo
 
-22/11/2026. Relato após piloto Felipe: sistema funcional, mas cliques continuam estranhos; batalha exige duplos cliques e não permite trocar alvos; vídeo também exige duplo clique para funcionar.
+Atualizado em 22/11/2026, após o teste de 2db703f no RpgEngineProbe.
 
-| ID | Estado | Conferência posterior do usuário |
+| ID | Estado | Evidência e limite |
 |---|---|---|
-| RET-INPUT-01 | REABERTO / não aceito | Escolher habilidade de alvo único; selecionar inimigoA; trocar paraB antes de confirmar; confirmar se seleção acompanha o clique e se o comando exige clique adicional inesperado. Separar habilidade em área, que atinge todos, da seleção visual |
-| RET-MEDIA-01 | ACEITO pelo usuário: início com 1 clique | Primeiro Rever abertura após iniciar; fechar/rever novamente; anotar se primeiro acesso exige dois cliques e se os seguintes usam um |
+| RET-INPUT-01 | ACEITO no cenário testado | Usuário confirmou todos os cliques únicos, inclusive menus e batalha; inimigos selecionáveis com habilidades 1 e 2. Não representa todos os dispositivos/cenários |
+| RET-MEDIA-01 | ACEITO: abertura com 1 clique | Confirmado pelo usuário; backend mobile continua não validado |
+| RET-MEDIA-02 | PARCIAL | Hover confirmado. Skip imediato e ausência de barra observados; condizem com vídeo já marcado como assistido. Barra exige primeiro vídeo não assistido e segurar 800 ms. Essa condição ainda não foi confirmada visualmente |
+| RET-HUB-FELIPE | PENDENTE | Arena PvP → Testar Felipe (local); conferir A1 ativa, A2 passiva, A3 em área, volta ao hub e Terminal separado |
 
-Se possível registrar atalho/cenário, modo janela/PIE, resolução/escala e sequência. Não é necessário gravar vídeo ou investigar implementação. Aceite anterior do alinhamento do ponteiro não comprova estes fluxos. O primeiro clique da mídia deixa de ser considerado aparentemente resolvido: permanece pendência confirmada pelo novo relato.
+## Esclarecimento do escudo no Terminal
 
-Atualização posterior nesta mesma data: investigação e correções de código autorizadas em VIS/ENG/HUB P0; testes nativos aprovados. Retestes permanecem REABERTOS e não aceitos visualmente. Ver VIS-ENG-HUB-P0-CORRECOES.md; compilação não substitui reprodução real.
+O Terminal usa team_reference_setup: A3 Proteção tem TargetRule::Self. Só o próprio personagem é válido. A1/A2 ativas ofensivas usam inimigos; certos personagens têm A2 passiva. A3 do personagem A3 também exige PV <=50%.
+
+Escudo padrão = 1% PV máximo do aplicador, mínimo 1. O elenco de referência tem 80/100/140 PV, portanto esse escudo gera 1 ponto. A faixa é muito pequena; ausência visual aparente não comprova ausência do efeito. Teste nativo confirmou A1 usando slot 3 em si: 1 ponto, recusa atômica de inimigo. Conferir no painel de efeitos durante a batalha.
+
+Felipe é outro cenário: A1 Garra do Asfalto; A2 Postura de Vigília passiva, que gera escudo após contra-ataque válido; A3 Eclipse é ofensiva em área, não uma aplicação direta de escudo.
+
+## Próximos retestes
+
+Preservar os aceites acima; reabrir somente se houver regressão concreta. Testar acesso novo e transições. Se necessário observar barra de skip em primeira exibição, preparar futuramente um modo de QA explícito para ignorar a marca de assistido, sem apagar o estado persistente do usuário. Nenhuma flag/save foi apagada nesta entrega. Android e controle de tela continuam fora do escopo.

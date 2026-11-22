@@ -1,3 +1,5 @@
+> **Atualização — 22/11:** cliques únicos e hover aceitos pelo usuário no RpgEngineProbe. Arena PvP recebe [acesso temporário ao piloto Felipe](HUB-FELIPE-ACESSO-TEMPORARIO.md), sem PvP online; Terminal e saves separados. Reteste do novo acesso e barra de skip não-assistido pendentes. Demo ~25% mantida.
+
 > **Vigente — VIS/ENG/HUB P0, 22/11:** [correções, evidências e reteste](VIS-ENG-HUB-P0-CORRECOES.md). Entrada/alvos e preparação do player atualizados em código; testes nativos aprovados. Aceites visuais continuam abertos; Android adiado e demo ~25% mantida. Próximo: reteste do usuário, depois integração visual dos modos já disponíveis. Esta nota prevalece sobre próximos passos históricos abaixo.
 
 > **Organização vigente — 22/11:** [mapa de famílias e prioridades](MAPA-FAMILIAS-E-PRIORIDADES.md). Percentuais por família são estimativas não somáveis; não representam novas implementações. Próximo recomendado: entrada/alvos e player. Nesta rodada somente documentação.

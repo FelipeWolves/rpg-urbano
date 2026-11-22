@@ -6,6 +6,22 @@
 using namespace rpg;
 void check(bool v,const char* m){if(!v){throw std::runtime_error(m);}}
 int main(){try{
+ // Hub scenario switch preserves both sessions rather than importing their saves.
+ presentation::VisualSession hubReference(team_reference_setup()),hubPilot(felipe_pilot_setup());
+ const auto referenceBefore=hubReference.state();const auto pilotBefore=hubPilot.state();
+ std::optional<presentation::VisualSession> alternate(std::move(hubPilot));
+ std::swap(hubReference,*alternate);
+ check(hubReference.state().combat==pilotBefore.combat && alternate->state().combat==referenceBefore.combat,"hub switch isolates encounters");
+ const auto pilotStep=hubReference.submit(hubReference.state().revision,1,"ECO-1");check(pilotStep.accepted(),"hub pilot executable after move");
+ const auto progressedPilot=hubReference.state();std::swap(hubReference,*alternate);
+ check(hubReference.state().combat==referenceBefore.combat && alternate->state().combat==progressedPilot.combat,"hub return preserves both battles");
+ auto shieldFixture=team_reference_setup();for(auto& unit:shieldFixture.roster){unit.speed=1;}shieldFixture.roster[0].speed=200;
+ ProfileBattle shieldLab(shieldFixture.roster,shieldFixture.rules,CombatProfile::Team,shieldFixture.loadouts);
+ check(shieldLab.battle().current_actor()->definition.id=="A1","shield fixture actor");
+ const auto shieldBefore=shieldLab.snapshot();check(!shieldLab.apply_slot(3,"B1").accepted() && shieldLab.snapshot()==shieldBefore,"reference A3 rejects enemy");
+ check(shieldLab.apply_slot(3,"A1").accepted(),"reference A3 accepts self");
+ check(presentation::shield_display(*shieldLab.battle().find("A1")).points==1,"reference A3 gives one shield point");
+ std::cout<<"HUB_LAB_SWITCH_TESTS_RESULT passed=2 total=2\n";
  auto setup=felipe_pilot_setup();ProfileBattle profile(setup.roster,setup.rules,CombatProfile::Team,setup.loadouts);const auto abilities=profile.abilities("FELIPE");check(abilities.size()==3&&abilities[1].availability==AbilityAvailability::PassiveOnly&&abilities[1].passive_implemented,"passive slot");const auto before=profile.snapshot();check(!profile.apply_slot(2,"ECO-1").accepted()&&profile.snapshot()==before,"A2 not selectable");check(profile.battle().find("FELIPE")->vigil_charges==0,"normal initial charges");
  auto tutorial=felipe_pilot_setup(true);ProfileBattle lesson(tutorial.roster,tutorial.rules,CombatProfile::Team,tutorial.loadouts);check(lesson.battle().find("FELIPE")->vigil_charges==4,"tutorial preload explicit");
  Battle a1(setup.roster,setup.rules);auto result=a1.apply({"FELIPE",ActionType::Skill,"ECO-1","FELIPE-A1"});check(result.accepted()&&a1.find("ECO-1")->health==9250&&!has_status(*a1.find("ECO-1"),EffectKind::Bleed),"110 percent without condition");

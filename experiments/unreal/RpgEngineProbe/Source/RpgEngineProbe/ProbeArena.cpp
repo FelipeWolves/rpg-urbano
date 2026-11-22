@@ -25,7 +25,7 @@ rpg::CombatProfile SelectedCombatProfile(){FString name;if(FParse::Value(FComman
 rpg::EncounterSetup SelectedEncounter(){if(SelectedCombatProfile()==rpg::CombatProfile::Classic){return rpg::classic_reference_setup();}if(FParse::Param(FCommandLine::Get(),TEXT("FelipePilot"))){return rpg::felipe_pilot_setup(FParse::Param(FCommandLine::Get(),TEXT("FelipeTutorial")));}return rpg::team_reference_setup();}
 std::optional<rpg::presentation::ArenaLayout> SelectedLayout(){FString name;if(!FParse::Value(FCommandLine::Get(),TEXT("ArenaLayout="),name)){return rpg::presentation::default_arena_layout;}return rpg::presentation::parse_arena_layout(TCHAR_TO_UTF8(*name));}
 }
-AProbeArenaHUD::AProbeArenaHUD():Session(SelectedEncounter(),SelectedCombatProfile()){static ConstructorHelpers::FObjectFinder<UStaticMesh> marker(TEXT("/Engine/BasicShapes/Cube.Cube"));TargetMarkerMesh=marker.Object;}
+AProbeArenaHUD::AProbeArenaHUD():Session(SelectedEncounter(),SelectedCombatProfile()){ReferenceProfile=SelectedCombatProfile();SessionIsFelipe=ReferenceProfile!=rpg::CombatProfile::Classic && FParse::Param(FCommandLine::Get(),TEXT("FelipePilot"));PilotTutorial=SessionIsFelipe && FParse::Param(FCommandLine::Get(),TEXT("FelipeTutorial"));static ConstructorHelpers::FObjectFinder<UStaticMesh> marker(TEXT("/Engine/BasicShapes/Cube.Cube"));TargetMarkerMesh=marker.Object;}
 AProbeArenaMode::AProbeArenaMode(){HUDClass=AProbeArenaHUD::StaticClass();DefaultPawnClass=nullptr;}
 void AProbeArenaMode::BeginPlay()
 {

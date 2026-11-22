@@ -1,3 +1,5 @@
+> **22/11 — retorno mais recente:** cliques únicos e hover aceitos. Próximo reteste: Arena PvP → Testar Felipe (local), depois voltar ao Terminal; barra de skip somente na condição ainda não assistido. Ver docs/projeto/RETESTES-ENTRADA-E-VIDEO.md.
+
 > **22/11 — candidato a reteste:** correções de entrada/alvos e preparação da mídia em código. Testar primeira abertura/Rever e troca de alvo; aceite visual ainda pendente. Ver docs/projeto/VIS-ENG-HUB-P0-CORRECOES.md. Não é necessário reenviar os recursos já recebidos.
 
 # Interface e retestes — guia vigente

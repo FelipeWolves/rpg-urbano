@@ -6,6 +6,7 @@
   "Result": [
     "REG_PILOT_TESTS_RESULT passed=10 total=10"
   ],
+  "BigIntegerVectors": 0,
   "EngineExecuted": false,
   "AndroidExecuted": false
 }

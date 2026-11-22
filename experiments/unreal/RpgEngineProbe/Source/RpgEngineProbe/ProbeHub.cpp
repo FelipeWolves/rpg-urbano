@@ -272,6 +272,20 @@ int32 AProbeArenaHUD::DrawInfoPanel(const FString& title,const TArray<FString>& 
     if(p.action && button(*p.action,actionLabel,true)){return 2;}
     return 0;
 }
+void AProbeArenaHUD::SelectLabScenario(bool felipe){
+    if(felipe==SessionIsFelipe){return;}
+    // Preserve each scenario in memory; neither progress ledger is imported into the other.
+    if(!AlternateLabSession){
+        if(felipe){AlternateLabSession.emplace(rpg::felipe_pilot_setup(PilotTutorial),rpg::CombatProfile::Team);}
+        else{AlternateLabSession.emplace(ReferenceProfile==rpg::CombatProfile::Classic?rpg::classic_reference_setup():rpg::team_reference_setup(),ReferenceProfile);}
+    }
+    std::swap(Session,*AlternateLabSession);SessionIsFelipe=felipe;
+    Flow.acknowledge_new_attempt();Gesture.cancel();Pointer.cancel_until_release();
+    SelectedSlot=0;SelectedTarget.Empty();PopupLines.Empty();BattleMenuPage=0;
+    DraftTeam=Session.team().selected;RefreshArenaActors();
+    Message=felipe?TEXT("Piloto Felipe — teste local, sem PvP online."):TEXT("Laboratorio de referencia.");
+    UE_LOG(LogTemp,Display,TEXT("HUB_LAB_SCENARIO felipe=%d"),felipe?1:0);
+}
 void AProbeArenaHUD::DrawHub(){
     if(Canvas->SizeX<1 || Canvas->SizeY<1){return;}
     const auto framePlan=plan_hub_frame({static_cast<uint32>(Canvas->SizeX),static_cast<uint32>(Canvas->SizeY)},static_cast<uint32>(HubLinks.size()),HubInsets);
@@ -324,13 +338,14 @@ void AProbeArenaHUD::DrawHub(){
     }
     if(Flow.screen()==UiScreen::Location){
         TArray<FString> paragraphs;paragraphs.Add(HubPanelBody);
-        const int32 result=DrawInfoPanel(HubPanelTitle,paragraphs,HubPanelPage,HubPanelRoute==HubRoute::Terminal);
-        if(result==1){Flow.back(false,false);}else if(result==2){enterBattle();}return;
+        const int32 result=DrawInfoPanel(HubPanelTitle,paragraphs,HubPanelPage,HubPanelRoute==HubRoute::Terminal || HubPanelRoute==HubRoute::Battle,HubPanelRoute==HubRoute::Battle?TEXT("Testar Felipe (local)"):TEXT("Abrir batalha"));
+        if(result==1){Flow.back(false,false);}else if(result==2){SelectLabScenario(HubPanelRoute==HubRoute::Battle);enterBattle();}return;
     }
     const auto openDestination=[&](const HubHotspot& link){
         if(link.route==HubRoute::Battle){enterBattle();return;}
         HubPanelRoute=link.route;HubPanelTitle=Text(link.label);
-        if(link.route==HubRoute::Terminal){
+        if(link.id=="arena-pvp"){HubPanelRoute=HubRoute::Battle;HubPanelTitle=TEXT("Arena PvP — piloto local temporario");HubPanelBody=TEXT("Acesso de teste ao piloto Felipe contra ECO-1 e ECO-2 controlados localmente. A1 ativa, A2 passiva e A3 em area. Nao e PvP, nao ha jogadores remotos ou servico online. Progresso e save separados do laboratorio do Terminal.");}
+        else if(link.route==HubRoute::Terminal){
             HubPanelBody=TEXT("Terminal de destinos. Os modais de transporte e seus destinos serão definidos em outro bloco. Você pode acessar abaixo a batalha de laboratório atual; ela não representa História, PvP ou viagem já implementados.");
         }else if(link.route==HubRoute::SpecialEvent){HubPanelTitle=HubEventTitle;HubPanelBody=HubEventBody;}
         else{HubPanelBody=TEXT("Em breve. Este local está mapeado no panorama, mas seu sistema ainda não foi implementado. Nenhuma compra, recompensa, partida online ou alteração de progresso será executada aqui.");}
@@ -339,7 +354,7 @@ void AProbeArenaHUD::DrawHub(){
     for(std::size_t index=0;index<HubLinks.size();++index){
         const auto& link=HubLinks[index];
         const auto projected=project_hotspot(plan,link);if(!projected){continue;}
-        const bool future=link.route==HubRoute::Unavailable;
+        const bool future=link.route==HubRoute::Unavailable && link.id!="arena-pvp";
         const FString labelText=Text(link.label).ToUpper();
         const FLinearColor color=future?FLinearColor(0.8f,0.85f,0.9f):link.route==HubRoute::SpecialEvent?HubMagenta:HubAmber;
         float tw=0,th=0;GetTextSize(labelText,tw,th,HubBodyFont);
@@ -367,7 +382,7 @@ void AProbeArenaHUD::DrawHub(){
         float tw=0,th=0;GetTextSize(text,tw,th,HubBodyFont);
         const float scale=static_cast<float>(std::min(0.85,(tile.width-12)/std::max(1.0,static_cast<double>(tw))));
         DrawText(text,(hover?HubAmber:FLinearColor::White).ToFColorSRGB(),static_cast<float>(tile.x+(tile.width-tw*scale)/2),static_cast<float>(tile.y+4),HubBodyFont,scale);
-        DrawText(link.route==HubRoute::Unavailable?TEXT("Em breve"):TEXT("Abrir"),FColor(180,190,200),static_cast<float>(tile.x+6),static_cast<float>(tile.y+25),HubBodyFont,0.55f);
+        DrawText(link.id=="arena-pvp"?TEXT("Teste local"):link.route==HubRoute::Unavailable?TEXT("Em breve"):TEXT("Abrir"),FColor(180,190,200),static_cast<float>(tile.x+6),static_cast<float>(tile.y+25),HubBodyFont,0.55f);
         if(pointer_clicked(Input,tile)){openDestination(link);return;}
     }
     if(button(layout.navigation[0],TEXT("Esquerda")) || PlayerOwner->WasInputKeyJustPressed(EKeys::Left)){HubArea=rpg::presentation::HubArea::Left;HubView=rpg::presentation::HubView::Focused;SavePresentationPreferences();}
@@ -432,8 +447,8 @@ void AProbeArenaHUD::DrawTeamSetup(){
         catch(const std::exception& e){TeamStatus=Text(e.what());}OpenInfo(TEXT("Equipe / Save"),{Utf8(TeamStatus)});return;
     }
     const FString directory=FPaths::Combine(FPaths::ProjectSavedDir(),TEXT("LocalProgress"));
-    const bool pilot=FParse::Param(FCommandLine::Get(),TEXT("FelipePilot"));
-    const FString filename=pilot?(FParse::Param(FCommandLine::Get(),TEXT("FelipeTutorial"))?TEXT("felipe-tutorial-v1.save"):TEXT("felipe-pilot-v1.save")):TEXT("progress-v1.save");
+    const bool pilot=SessionIsFelipe;
+    const FString filename=pilot?(PilotTutorial?TEXT("felipe-tutorial-v1.save"):TEXT("felipe-pilot-v1.save")):TEXT("progress-v1.save");
     const FString path=FPaths::Combine(directory,filename);
     if(button(3,TEXT("Salvar progresso aplicado"))){
         try{

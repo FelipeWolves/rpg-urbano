@@ -1,0 +1,21 @@
+{
+  "Date": "2026-11-22",
+  "PilotTestsPassed": 10,
+  "HubLabSwitchGroupsPassed": 2,
+  "ReferenceSelfShieldVerified": 1,
+  "EnemyTargetRejected": true,
+  "Build": "Succeeded",
+  "BuildSeconds": 42.41,
+  "StageInputs": 66,
+  "StageVerified": true,
+  "EditorOpened": false,
+  "GameExecuted": false,
+  "AndroidExecuted": false,
+  "VisualAcceptance": "pending for new Arena PvP local route",
+  "UserAccepted": [
+    "single clicks throughout tested RpgEngineProbe",
+    "skip hover"
+  ],
+  "SkipHoldRetest": "not yet confirmed for unseen video",
+  "PvpOnlineImplemented": false
+}

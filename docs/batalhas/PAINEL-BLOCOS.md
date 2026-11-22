@@ -1,3 +1,5 @@
+> **22/11 — LAB-PVE-03:** ondas e fases integradas em código, HUD/detalhes e testes aprovados; aceite visual pendente (incluindo LAB-PVE-02). Próximo LAB-PVE-04. Core Stage e regras de carry preservados.
+
 > **22/11 — LAB-PVE:** 01 (contrato) e 02 (Ritual no Terminal) implementados/testados/compilados. Nova rota e HUD aguardam aceite visual; 03–06 continuam planejados. Não considerar toda a família PvE concluída.
 
 # Painel de blocos — situação consolidada

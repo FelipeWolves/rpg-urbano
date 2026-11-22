@@ -1,3 +1,5 @@
+> **22/11 — LAB-PVE-03:** novos testes de Ondas consecutivas e Ritual com fases no Terminal, aguardando seu aceite conforme docs/projeto/LAB-PVE-03-ONDAS-FASES.md. Recursos finais não bloqueiam o próximo LAB-PVE-04. Ritual simples também segue com aceite pendente.
+
 > **22/11:** LAB-PVE-02 integrado em código, aguardando teste visual do Ritual pelo Terminal. Próximo desenvolvimento LAB-PVE-03. A ficha final de encontro não bloqueia os testes de laboratório.
 
 # Central de entregas

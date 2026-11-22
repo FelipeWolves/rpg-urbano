@@ -1,4 +1,4 @@
-param([ValidateSet('Outcomes','Pipeline','Controls','Periodic','Felipe','Pilot','SpecialShields','Waves','Score','Pve','Phases','Fronts','Hud','Ritual')][string]$Suite='Outcomes')
+param([ValidateSet('Outcomes','Pipeline','Controls','Periodic','Felipe','Pilot','SpecialShields','Waves','Score','Pve','Phases','Fronts','Hud','Ritual','Transitions')][string]$Suite='Outcomes')
 $ErrorActionPreference='Stop'
 $root=Split-Path $PSScriptRoot -Parent
 $build=Join-Path $root ('build/rules-'+$Suite.ToLowerInvariant())
@@ -9,10 +9,10 @@ if($vs.Count -ne 1){throw 'Installed MSVC required; nothing is installed'}
 $devcmd=Join-Path $vs[0].installationPath 'Common7/Tools/VsDevCmd.bat'
 foreach($p in @($root,$devcmd)){if($p -match '[%"\r\n&|<>^!]'){throw 'Unsupported batch path'}}
 $vectorPath=Join-Path $build 'oracle.txt'
-$sources=if($Suite -in @('Pipeline','Controls','Periodic','Felipe','Pilot','SpecialShields','Waves','Score','Pve','Phases','Fronts','Hud','Ritual')){@('battle','ability_profile','local_session','team_selection','save_game','reference_encounter','visual_session','battle_presentation','stage','sequential','shared_boss')}else{@()}
-if($Suite -in @('Pve','Phases','Fronts','Hud','Ritual')){$sources+=@('pve')}
-if($Suite -eq 'Ritual'){$sources+=@('pve_visual')}
-$test=@{Outcomes='hit_outcome_tests';Pipeline='damage_pipeline_tests';Controls='control_rules_tests';Periodic='periodic_effect_tests';Felipe='felipe_passive_tests';Pilot='felipe_pilot_tests';SpecialShields='special_shield_tests';Waves='wave_v2_tests';Score='score_tests';Pve='pve_mode_tests';Phases='pve_phase_tests';Fronts='front_area_tests';Hud='pve_presentation_tests';Ritual='pve_visual_tests'}[$Suite]
+$sources=if($Suite -in @('Pipeline','Controls','Periodic','Felipe','Pilot','SpecialShields','Waves','Score','Pve','Phases','Fronts','Hud','Ritual','Transitions')){@('battle','ability_profile','local_session','team_selection','save_game','reference_encounter','visual_session','battle_presentation','stage','sequential','shared_boss')}else{@()}
+if($Suite -in @('Pve','Phases','Fronts','Hud','Ritual','Transitions')){$sources+=@('pve')}
+if($Suite -in @('Ritual','Transitions')){$sources+=@('pve_visual')}
+$test=@{Outcomes='hit_outcome_tests';Pipeline='damage_pipeline_tests';Controls='control_rules_tests';Periodic='periodic_effect_tests';Felipe='felipe_passive_tests';Pilot='felipe_pilot_tests';SpecialShields='special_shield_tests';Waves='wave_v2_tests';Score='score_tests';Pve='pve_mode_tests';Phases='pve_phase_tests';Fronts='front_area_tests';Hud='pve_presentation_tests';Ritual='pve_visual_tests';Transitions='wave_phase_visual_tests'}[$Suite]
 $batch=@"
 @echo off
 setlocal

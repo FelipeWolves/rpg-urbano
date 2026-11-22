@@ -1,0 +1,12 @@
+{
+  "Date": "2026-11-22",
+  "Suite": "Transitions",
+  "Passed": true,
+  "ExitCode": 0,
+  "Result": [
+    "REG_TRANSITION_VISUAL_TESTS_RESULT passed=13 total=13"
+  ],
+  "BigIntegerVectors": 0,
+  "EngineExecuted": false,
+  "AndroidExecuted": false
+}

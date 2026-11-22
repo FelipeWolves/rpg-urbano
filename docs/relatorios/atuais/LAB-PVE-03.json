@@ -1,0 +1,31 @@
+{
+  "Date": "2026-11-22",
+  "Block": "LAB-PVE-03",
+  "TransitionsGroups": 13,
+  "WaveV2Groups": 7,
+  "RitualGroups": 12,
+  "PhaseGroups": 11,
+  "Build": "Succeeded",
+  "BuildSeconds": 52.54,
+  "StageInputs": 68,
+  "StageVerified": true,
+  "EditorOpened": false,
+  "GameExecuted": false,
+  "AndroidExecuted": false,
+  "InternetUsed": false,
+  "VisualAcceptance": "pending LAB-PVE-02 and 03",
+  "AddedRoutes": [
+    "Terminal > Ondas consecutivas - Felipe",
+    "Terminal > Ritual - fases do chefe"
+  ],
+  "WaveCount": 2,
+  "WaveCarry": "Stage/WaveV2 unchanged",
+  "PhaseThresholdsBasisPoints": [
+    9000,
+    6000
+  ],
+  "FirstPhaseChangesKit": false,
+  "SecondPhasePreservesSkillId": true,
+  "GlobalPercentUnchanged": 28,
+  "Next": "LAB-PVE-04"
+}

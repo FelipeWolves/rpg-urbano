@@ -1,3 +1,5 @@
+> **Novo aceite LAB-PVE-03:** [roteiro de ondas e fases](LAB-PVE-03-ONDAS-FASES.md). Conferir contadores, reconstrução dos inimigos, transições sem/com alteração de kit, detalhes, resultado e abandono. Não reabre os aceites de cliques/vídeo/placeholder já confirmados.
+
 > **Novo aceite pendente — LAB-PVE-02:** Terminal → Ritual local — Felipe e ecos. Conferir objetivo ECO-1, auxiliar independente, resultado/nova tentativa e abandono/retorno. Não reabre os aceites anteriores dos outros cenários. [Roteiro](LAB-PVE-02-RITUAL-TERMINAL.md).
 
 > **Diretriz vigente — 22/11:** [base comum dos laboratórios](BASE-COMUM-LABORATORIOS.md). Terminal e Felipe compartilham regras Team e limite de 200 ações/empate; personagens mantêm kits/atributos próprios. Modo clássico fora desta frente. Ajustes visuais de fe6060b aceitos pelo usuário; não reabrir por rotina.

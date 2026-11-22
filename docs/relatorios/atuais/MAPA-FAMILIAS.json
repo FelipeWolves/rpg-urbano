@@ -1,6 +1,6 @@
 {
   "date": "2026-11-22",
-  "purpose": "Ritual route and visual adapter implemented; awaiting user acceptance",
+  "purpose": "Wave and phase presentation integrated in code; awaiting visual acceptance",
   "global_demo_estimate": 28,
   "global_range": [
     26,
@@ -27,7 +27,7 @@
       "nome": "Integração Unreal",
       "percentual": 50,
       "prioridade": "P1",
-      "agora": "Adaptador Ritual e preparação Team compartilhada entregues; mapear transições de ondas/fases para a UI.",
+      "agora": "Ritual, ondas e fases integrados em código; próximo adaptador de score/sobrevivência.",
       "ajustes": "Pacote limpo, persistência real, cook/Shipping e backends futuros.",
       "dependencia": "Pode avançar sem MCP, Android ou recursos finais.",
       "motivo": "Reaproveita o core e mantém uma única resolução de combate.",
@@ -53,7 +53,7 @@
       "nome": "Encontros e chefes",
       "percentual": 65,
       "prioridade": "P1",
-      "agora": "Ritual integrado em código e aguardando aceite; próximo ondas/fases e depois score/sobrevivência.",
+      "agora": "Ritual/ondas/fases aguardam aceite; próximo LAB-PVE-04 ScoreAttack/Survival.",
       "ajustes": "Menus/HUD, objetivo/resultado, indicadores de fase, kits reais e balanceamento; classes compiladas não são telas prontas.",
       "dependencia": "Regras dos controladores prontas; integração independente de arte final; aceite após UI.",
       "motivo": "Grande retorno por reaproveitar os controladores recém-testados; começar por um encontro simples reduz esforço.",
@@ -66,7 +66,7 @@
       "nome": "Ondas",
       "percentual": 75,
       "prioridade": "P1",
-      "agora": "Conectar contador de ondas e resumo de limpeza/cura ao encontro; usar WaveV2 já testado.",
+      "agora": "Ondas integradas pelo Stage/WaveV2; aguarda aceite visual de contadores/transições.",
       "ajustes": "Mostrar transições, vida, efeitos e recargas corretamente; testar o fluxo completo sem trocar as políticas antigas.",
       "dependencia": "Um encontro integrado; conteúdo definitivo não impede a primeira versão.",
       "motivo": "Entrega menor que um novo sistema de combate e reutiliza a política pronta de até cinco ondas.",
@@ -284,7 +284,7 @@
   "engine_opened": false,
   "android_used": false,
   "internet_used": false,
-  "snapshot_scope": "LAB-PVE-02 technical delivery; no visual acceptance, estimates unchanged",
-  "latest_delivery": "LAB-PVE-02",
-  "next_delivery": "LAB-PVE-03"
+  "snapshot_scope": "LAB-PVE-03 technical delivery, estimates unchanged",
+  "latest_delivery": "LAB-PVE-03",
+  "next_delivery": "LAB-PVE-04"
 }

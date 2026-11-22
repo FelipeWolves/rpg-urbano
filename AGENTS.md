@@ -1,3 +1,5 @@
+> **LAB-PVE-03 vigente — 22/11:** WaveVisualSession sobre Stage/WaveV2, Ritual com fases estáveis por ID e detalhes de transição. Não recalcular carry no HUD nem misturar eventos de ondas. Aceite visual02/03 pendente; próximo04 ScoreAttack/Survival. Wave opening BattleStart e remapeamento de slots por fase são limitações explícitas, não habilidades implementadas por inferência. Stage permanece68.
+
 > **LAB-PVE-02 vigente — 22/11:** Ritual integrado em código pelo Terminal, PveVisualSession/PveEncounter e preparação Team compartilhada. Aceite visual pendente; não afirmar teste em execução. Próximo LAB-PVE-03. Não aplicar comandos diretamente ao Battle na UI; não conceder créditos/saves do laboratório normal no Ritual. Fonte docs/projeto/LAB-PVE-02-RITUAL-TERMINAL.md. Stage esperado68.
 
 > **LAB-PVE-01 entregue — 22/11:** snapshot PvE e contrato HUD implementados, Hud10/Pve7/Phases11 e build/stage66 aprovados. Próximo LAB-PVE-02 Ritual no Terminal. Não duplicar combate nem inferir encerramento só por Battle.phase; Survival pode encerrar encontro com Battle Running. Sem novo botão ou aceite visual nesta etapa; ~28% mantido.

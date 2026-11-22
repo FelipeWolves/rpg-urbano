@@ -1,3 +1,5 @@
+> **LAB-PVE-03 — 22/11:** [ondas e fases no Terminal](LAB-PVE-03-ONDAS-FASES.md), com HUD/contadores e consulta de transições. Nova integração aguardando aceite visual; LAB-PVE-02 também não teve aceite informado ainda. Próximo LAB-PVE-04, score/sobrevivência. Demo ~28% mantida.
+
 > **LAB-PVE-02 entregue em código:** Ritual no Terminal e ponte Team/PvE, sem novas regras de dano. Aceite visual pendente; próximos ondas/fases em LAB-PVE-03. Percentuais mantidos.
 
 > **22/11 — LAB-PVE-01:** snapshot de encontro e contrato de HUD implementados/testados; mapeamento das demais pontes documentado. Sem novas telas ou aceite visual, percentuais mantidos. Próximo LAB-PVE-02. [Entrega](LAB-PVE-01-CONTRATO-HUD.md).

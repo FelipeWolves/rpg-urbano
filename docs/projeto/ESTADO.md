@@ -167,3 +167,7 @@ API36 confirmada após nova instalação manual: D:\AndroidSDK\platforms\android
 JDK separado confirmado por metadados: D:\AndroidJava\jdk-17.0.21.1+2, Eclipse Adoptium, Java17.0.21.1, x86_64; java.exe e javac.exe presentes. FamíliaJava17 alinhada ao build planejado; não executado. Pendência de localização doJDK resolvida. Próximo: indicar naUnreal os caminhos SDK D:\AndroidSDK, NDK D:\AndroidSDK\ndk\27.2.12479018 e esteJDK, depois validar toolchain/AVD. Nenhuma configuração realizada pelo assistente;buildAndroid ainda não testado.
 
 Recepção21/11: [novidades e política de versionamento](RECEBIMENTO-NOVIDADES-2026-11-21.md).15Markdown recebidos entram noGit;1novo/1alterado noHub,demais13sem mudança.10PNG locais(8variantes+2indicativos).7destinos do novo panorama são direção futura,não sistemas ativados;AUT-01–04 preservados. Sem código/build/teste ou abertura de programas.
+
+### AUT-11 — retorno de playback e correção de foco
+
+Usuário confirmou que reproduz, com segundo clique indevido. Ajuste de foco de janela preparado e instrumentado; reteste pendente. Backends mobile explicitamente pendentes em PENDENCIAS.md. Nenhum percentual alterado.

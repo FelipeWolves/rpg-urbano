@@ -111,7 +111,7 @@ void AProbeArenaHUD::ReadPointer()
     const auto mouse=rpg::presentation::viewport_to_canvas(mx,my,CanvasCoordinates);
     const auto touch=rpg::presentation::viewport_to_canvas(LastTouchX,LastTouchY,CanvasCoordinates);
     const auto* viewport=GetWorld()->GetGameViewport();
-    const bool focused=viewport && viewport->Viewport && viewport->Viewport->HasFocus();
+    const bool focused=viewport && viewport->Viewport && (IntroActive?viewport->Viewport->IsForegroundWindow():viewport->Viewport->HasFocus());
     const std::uint8_t screen=InspectionMode?(!PopupLines.IsEmpty()?201:200):static_cast<std::uint8_t>(Flow.screen())+(!PopupLines.IsEmpty()?16:0);
     Input=Pointer.update({PlayerOwner->IsInputKeyDown(EKeys::LeftMouseButton),mouseValid && mouse.has_value() && CanvasCoordinatesKnown,mouse?mouse->x:0,mouse?mouse->y:0},
         {touched,touch.has_value() && CanvasCoordinatesKnown,touch?touch->x:0,touch?touch->y:0},focused,GetWorld()->GetTimeSeconds(),{InspectionMode?static_cast<std::uint64_t>(InspectionIndex):Session.state().revision,screen});

@@ -52,7 +52,8 @@ void AProbeArenaHUD::StartIntro(){
         // Versioned per variant; checkpoint is separate from battle and UI preferences.
         IntroWatchPath=FPaths::ProjectSavedDir()/TEXT("Media")/(FString(UTF8_TO_TCHAR(asset->id.c_str()))+TEXT("-v1.flag"));
         FString flag;const bool watched=IFileManager::Get().FileSize(*IntroWatchPath)==13 && FFileHelper::LoadFileToString(flag,*IntroWatchPath) && flag==TEXT("INTRO_V1_SEEN");
-        IntroTicket=IntroFlow.begin(*asset,watched);
+        IntroFlow.background(false);IntroTicket=IntroFlow.begin(*asset,watched);
+        UE_LOG(LogTemp,Display,TEXT("INTRO_REQUEST ticket=%llu watched=%d"),IntroTicket,watched?1:0);
         IntroPlayer=NewObject<UMediaPlayer>(this);IntroPlayer->PlayOnOpen=false;IntroPlayer->SetLooping(false);
         IntroPlayer->OnEndReached.AddDynamic(this,&AProbeArenaHUD::IntroEnded);
         IntroTexture=NewObject<UMediaTexture>(this);IntroTexture->SetMediaPlayer(IntroPlayer);IntroTexture->UpdateResource();
@@ -63,7 +64,7 @@ void AProbeArenaHUD::StartIntro(){
         if(!IntroPlayer->OpenFile(path)){IntroFlow.fail(IntroTicket,MediaFailure::OpenFailed);}
     }catch(const std::exception&){StopIntro();Message=TEXT("Abertura indisponível; hub preservado.");OpenInfo(TEXT("Mídia local"),{"Abertura indisponivel. Confira os arquivos locais; o hub continua acessivel."});}
 }
-void AProbeArenaHUD::IntroDeactivate(){IntroFlow.background(true);IntroHold=-1;if(IntroPlayer){IntroPlayer->Pause();}}
+void AProbeArenaHUD::IntroDeactivate(){if(IntroFlow.state()==MediaState::Playing){UE_LOG(LogTemp,Display,TEXT("INTRO_BACKGROUND_PAUSE ticket=%llu"),IntroTicket);}IntroFlow.background(true);IntroHold=-1;if(IntroPlayer){IntroPlayer->Pause();}}
 void AProbeArenaHUD::IntroReactivate(){IntroFlow.background(false);}
 void AProbeArenaHUD::IntroEnded(){IntroFlow.ended(IntroTicket);}
 void AProbeArenaHUD::StopIntro(){
@@ -76,17 +77,19 @@ void AProbeArenaHUD::StopIntro(){
 void AProbeArenaHUD::EndPlay(const EEndPlayReason::Type reason){StopIntro();Super::EndPlay(reason);}
 void AProbeArenaHUD::DrawIntro(){
     const double now=FPlatformTime::Seconds();
-    const bool focused=GetWorld()->GetGameViewport() && GetWorld()->GetGameViewport()->Viewport && GetWorld()->GetGameViewport()->Viewport->HasFocus();
+    const bool focused=GetWorld()->GetGameViewport() && GetWorld()->GetGameViewport()->Viewport && GetWorld()->GetGameViewport()->Viewport->IsForegroundWindow();
     if(!focused){IntroDeactivate();}else{IntroReactivate();}
     if(IntroPlayer && IntroPlayer->HasError()){IntroFlow.fail(IntroTicket,MediaFailure::DecodeFailed);}
     if(IntroFlow.state()==MediaState::Preparing){
         if(now-IntroStarted>15){IntroFlow.fail(IntroTicket,MediaFailure::Timeout);}
         else if(IntroPlayer && IntroPlayer->IsReady()){
             IntroFlow.prepared(IntroTicket);
+            UE_LOG(LogTemp,Display,TEXT("INTRO_PREPARED ticket=%llu state=%d"),IntroTicket,static_cast<int32>(IntroFlow.state()));
             if(IntroFlow.state()==MediaState::Playing && !IntroPlayer->Play()){IntroFlow.fail(IntroTicket,MediaFailure::OpenFailed);}
         }
     }
     if(IntroFlow.return_to_hub()){
+        UE_LOG(LogTemp,Display,TEXT("INTRO_TERMINAL ticket=%llu state=%d failure=%d"),IntroTicket,static_cast<int32>(IntroFlow.state()),static_cast<int32>(IntroFlow.failure()));
         const bool seen=IntroFlow.watched();const bool failed=IntroFlow.state()==MediaState::Failed;
         if(seen){IFileManager::Get().MakeDirectory(*FPaths::GetPath(IntroWatchPath),true);if(!FFileHelper::SaveStringToFile(TEXT("INTRO_V1_SEEN"),*IntroWatchPath,FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM)){Message=TEXT("Vídeo visto; não foi possível salvar essa preferência.");}}
         StopIntro();Pointer.cancel_until_release();

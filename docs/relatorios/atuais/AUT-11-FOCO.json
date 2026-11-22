@@ -1,0 +1,14 @@
+{
+  "Date": "2026-11-22",
+  "Compiled": true,
+  "ExitCode": 0,
+  "BuildActions": 5,
+  "Log": "build/aut11-focus.log",
+  "ExistingMediaGroups": 12,
+  "UserReportedPlayback": true,
+  "SingleClickAccepted": false,
+  "Diagnosis": "Probable viewport focus pause; transition logging added for retest",
+  "MobileBackendValidationPending": true,
+  "EditorOpened": false,
+  "AndroidExecuted": false
+}

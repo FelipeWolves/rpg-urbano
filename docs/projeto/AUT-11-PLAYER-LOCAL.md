@@ -50,3 +50,9 @@ Corrigida apresentação dos pop-ups no hub: DrawHUD mostra o painel e consome a
 Reexecutados os binários nativos existentes: 12 grupos MediaFlow e 10 ScreenFlow aprovados; não são testes de decodificação nem novos casos. Compilação registrada em AUT-11-CORRECAO.json. Não houve execução gráfica/Android. Reprodução continua pendente de novo teste do usuário.
 
 Para testar: reabrir o projeto, iniciar Play e clicar Rever abertura. Apenas abrir o .uproject abre o editor; não inicia o jogo nem a intro. Autoabertura permanece desativada conforme o gate de aceite anterior. Se ainda ocorrer falha, o painel agora deve aparecer imediatamente no hub e o novo log permitirá avaliar codec/backend.
+
+## Retorno do usuário e foco — 22/11
+
+Reprodução confirmada pelo usuário, mas exigiu segundo clique. Isso não encerra o aceite completo de áudio, skip, flag e proporções. Corrigida distinção entre foco de viewport e janela em primeiro plano na mídia/entrada da mídia; início de nova solicitação limpa estado oculto anterior. Pausa por desativação real e retomada explícita preservadas. Logs de transição sem caminhos/credenciais permitem confirmar se o clique chegou e quando o player preparou/pausou. Causa provável, não comprovada pelo log anterior; reteste necessário. Compilação em build/aut11-focus.log.
+
+Backends Android/iOS registrados explicitamente em PENDENCIAS.md: WMF não é portátil; habilitação, codec, orientação, áudio e lifecycle exigem validação por plataforma. Nenhum Android ou tela acessados.

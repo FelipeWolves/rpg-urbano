@@ -212,3 +212,8 @@ Parser JSON do hub, importação do panorama, projeção/clipping dos dois alvos
 - Habilitado WmfMedia já instalado para Win64 após log confirmar ausência de decoder no projeto.
 - Painéis informativos/erros agora interceptam entrada e aparecem no hub, sem depender de abrir equipe.
 - Reteste de reprodução pendente; nenhum editor ou Android executado.
+
+## 2026-11-22 — foco do ensaio de mídia
+
+- Corrigida distinção de foco da janela/viewport na mídia; logs de ciclo para investigar segundo clique.
+- Backend Android/iOS registrado como validação obrigatória futura; reteste do clique pendente.

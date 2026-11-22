@@ -1,3 +1,5 @@
+> **LAB-QA-01B — 22/11:** testes de disco em pasta nova de QA, com codecs reais e backend Windows próprio; saves normais intocados. Não equivale a executar IFileManager/interface Unreal. LQA-14 de integração continua adiado. Próximo independente LAB-QA-01C: contrato compartilhado de persistência; aceites visuais em paralelo. Demo ~28% mantida. Detalhes: docs/projeto/LAB-QA-01B-IO-ISOLADO.md.
+
 > **LAB-QA-01 — 22/11:** feedback de ações e recusas integrado; detalhes consultáveis e matriz de 16 aceites preparada. Código/testes não equivalem a aceite visual ou I/O real. Próximo independente: LAB-QA-01B, I/O em diretório isolado; usuário pode preencher a matriz em paralelo. Demo ~28% mantida. Ver docs/projeto/LAB-QA-01-FEEDBACK-E-ACEITES.md.
 
 > **Estado vigente — 22/11/2026:** demo **~28% (26–30%)**, ponderado28,03%. Cliques/vídeo/skip/esferas/seletor aceitos no Windows. LAB-PVE-01–06 entregues em código, aceites visuais02–06 pendentes; próximo recomendado: LAB-QA-01 e correções dos testes do usuário; não depende de nova entrega. [Progresso](docs/projeto/PROGRESSO-GERAL.md) · [Tarefas](docs/projeto/TAREFAS.md) · [Sua preparação](entregas/NECESSIDADES-ATUAIS.md).

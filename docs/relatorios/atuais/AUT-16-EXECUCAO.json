@@ -4,36 +4,23 @@
   "Passed": true,
   "Checks": [
     {
-      "Evidence": "Native team/session/save contracts; no Unreal IO",
-      "Script": "scripts/testar-inspecao-arena.ps1",
-      "Seconds": 41.89,
+      "Status": "Passed",
+      "Evidence": "QA-only Windows disk IO and real codecs; not Unreal IFileManager or UI acceptance",
+      "ExitCode": 0,
       "Arguments": [],
-      "Log": "build\\qa\\43f01853\\Session.log",
-      "ExitCode": 0,
-      "Status": "Passed",
-      "Area": "Session"
+      "Seconds": 17.76,
+      "Log": "build\\qa\\b6fbe317\\SaveIO.log",
+      "Script": "scripts/testar-save-io-isolado.ps1",
+      "Area": "SaveIO"
     },
     {
-      "Evidence": "Native action feedback; no graphical acceptance",
-      "Script": "scripts/testar-regras.ps1",
-      "Seconds": 23.62,
-      "Arguments": [
-        "-Suite",
-        "Feedback"
-      ],
-      "Log": "build\\qa\\43f01853\\Feedback.log",
-      "ExitCode": 0,
       "Status": "Passed",
-      "Area": "Feedback"
-    },
-    {
       "Evidence": "QA plan schema only; no manual acceptance",
-      "Script": "scripts/verificar-lab-qa.ps1",
-      "Seconds": 0.41,
-      "Arguments": [],
-      "Log": "build\\qa\\43f01853\\LabQaPlan.log",
       "ExitCode": 0,
-      "Status": "Passed",
+      "Arguments": [],
+      "Seconds": 0.47,
+      "Log": "build\\qa\\b6fbe317\\LabQaPlan.log",
+      "Script": "scripts/verificar-lab-qa.ps1",
       "Area": "LabQaPlan"
     }
   ],

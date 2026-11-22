@@ -1,0 +1,31 @@
+{
+  "Date": "2026-11-22",
+  "Passed": true,
+  "ExitCode": 0,
+  "Groups": 10,
+  "Backend": "QA-only Windows filesystem harness with real core codecs, not Unreal IFileManager",
+  "Directory": "build\\qa-save-io\\run-30c06dd71d124c188ecb885f9d6993ae",
+  "NormalSavesTouched": false,
+  "UnrealAdapterExecuted": false,
+  "EditorOpened": false,
+  "GameExecuted": false,
+  "AndroidExecuted": false,
+  "Cases": [
+    "CASE,IO-01,progress disk roundtrip",
+    "CASE,IO-02,replace existing file",
+    "CASE,IO-03,corrupt import preserves memory",
+    "CASE,IO-04,truncated and oversized rejected",
+    "CASE,IO-05,preferences recover backup",
+    "CASE,IO-06,both invalid use defaults",
+    "CASE,IO-07,locked target preserves committed file",
+    "CASE,IO-08,pending ignored no automatic progress backup",
+    "CASE,IO-09,backup copy failure",
+    "CASE,IO-10,missing file handled"
+  ],
+  "Limitations": [
+    "No power-loss durability certification",
+    "No actual disk-full or OS ACL changes",
+    "No automatic progress backup added",
+    "Unreal UI save/reopen remains pending"
+  ]
+}

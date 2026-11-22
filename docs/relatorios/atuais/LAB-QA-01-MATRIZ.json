@@ -1,162 +1,167 @@
-[
-  {
-    "id": "LQA-01",
-    "area": "Feedback",
-    "route": "Todos os laboratorios",
-    "steps": "Apos uma acao, clicar na mensagem [i]; conferir impacto/escudo e motivo de recusa",
-    "expected": "Eventos confirmados sem reaplicar dano; comando antigo nunca parece aceito",
-    "status": "Pending",
-    "evidence": "Novo HUD ainda sem aceite",
-    "dependency": "Aceite visual"
-  },
-  {
-    "id": "LQA-02",
-    "area": "PvE",
-    "route": "Terminal pagina1 / Ritual local",
-    "steps": "Concluir, consultar resultado, nova tentativa e abandonar outra",
-    "expected": "ECO-1 encerra; ECO-2 independente; demais saves intactos",
-    "status": "Pending",
-    "evidence": "LAB-PVE-02",
-    "dependency": "Aceite visual"
-  },
-  {
-    "id": "LQA-03",
-    "area": "PvE",
-    "route": "Terminal pagina1 / Ondas",
-    "steps": "Concluir primeira onda, consultar detalhes e concluir segunda",
-    "expected": "Contador local reinicia; global continua; WaveV2 e inimigos corretos",
-    "status": "Pending",
-    "evidence": "LAB-PVE-03",
-    "dependency": "Aceite visual"
-  },
-  {
-    "id": "LQA-04",
-    "area": "PvE",
-    "route": "Terminal pagina1 / Ritual com fases",
-    "steps": "Usar A1 e A3 e consultar transicoes",
-    "expected": "Fase sem troca e fase com nova forca; ordem dos eventos mantida",
-    "status": "Pending",
-    "evidence": "LAB-PVE-03",
-    "dependency": "Aceite visual"
-  },
-  {
-    "id": "LQA-05",
-    "area": "PvE",
-    "route": "Terminal pagina2 / Pontuacao",
-    "steps": "Completar12acoes e abrir resultado repetidamente",
-    "expected": "Score/recibo nao aumentam por leitura; sem credito comercial",
-    "status": "Pending",
-    "evidence": "LAB-PVE-04",
-    "dependency": "Aceite visual"
-  },
-  {
-    "id": "LQA-06",
-    "area": "PvE",
-    "route": "Terminal pagina2 / Sobrevivencia",
-    "steps": "Observar3turnos naturais do chefe e encerramento",
-    "expected": "Meta separada de acoes; nenhum comando apos conclusao",
-    "status": "Pending",
-    "evidence": "LAB-PVE-04",
-    "dependency": "Aceite visual"
-  },
-  {
-    "id": "LQA-07",
-    "area": "SEQ",
-    "route": "Terminal pagina2 / duas variantes3equipes",
-    "steps": "Observar troca, HP continuo, fase/kit, resultado e abandono",
-    "expected": "Equipe antiga nao age na nova; sem ciclo apos equipe3",
-    "status": "Pending",
-    "evidence": "LAB-PVE-05",
-    "dependency": "Aceite visual"
-  },
-  {
-    "id": "LQA-08",
-    "area": "PAR",
-    "route": "Terminal pagina3 / duas variantes3frentes",
-    "steps": "Observar F1/F2/F3, proximo ataque local e especial global",
-    "expected": "Um chefe/HP/AP; alvos legais e contadores sem duplicacao",
-    "status": "Pending",
-    "evidence": "LAB-PVE-06",
-    "dependency": "Aceite visual"
-  },
-  {
-    "id": "LQA-09",
-    "area": "Save",
-    "route": "Hub / Equipe e Save",
-    "steps": "Registrar equipe/saldo; salvar; fechar e reabrir; carregar",
-    "expected": "Equipe/saldo preservados e nova tentativa; PV/AP/status nao restaurados",
-    "status": "Pending",
-    "evidence": "Codec/modelo testados; I/OUnreal nao executado pelo assistente",
-    "dependency": "Aceite de I/O"
-  },
-  {
-    "id": "LQA-10",
-    "area": "Preferences",
-    "route": "Hub / Opcoes",
-    "steps": "Alterar texto/movimento reduzido, salvar e reabrir",
-    "expected": "Valores persistem; preferencia separada de progresso",
-    "status": "Pending",
-    "evidence": "Codec/backup em modelo; I/Oreal pendente",
-    "dependency": "Aceite de I/O"
-  },
-  {
-    "id": "LQA-11",
-    "area": "Tutorial",
-    "route": "Abrir-Tutorial-Felipe.cmd",
-    "steps": "Confirmar preload4/5 e ativacao da A2 apos impacto elegivel",
-    "expected": "Nao confundir tutorial tecnico com campanha guiada final",
-    "status": "Pending",
-    "evidence": "Contratos e caso nativo prontos; roteiro visual nao aceito",
-    "dependency": "Aceite visual"
-  },
-  {
-    "id": "LQA-12",
-    "area": "Resolution",
-    "route": "Windows horizontal",
-    "steps": "1280x720 e1920x1080; abrir menus/popup e batalhas",
-    "expected": "Registrar corte/sobreposicao e escala atual; sem mudar SO",
-    "status": "Pending",
-    "evidence": "Matriz ampla nao aceita",
-    "dependency": "Aceite visual"
-  },
-  {
-    "id": "LQA-13",
-    "area": "Resolution",
-    "route": "Windows vertical",
-    "steps": "720x1280; 360x800 como estresse opcional; hub e modos",
-    "expected": "Anotar limites; preview Windows nao aprova Android/iOS",
-    "status": "Pending",
-    "evidence": "Sem promessa de compatibilidade nas dimensoes menores",
-    "dependency": "Aceite visual"
-  },
-  {
-    "id": "LQA-14",
-    "area": "Recovery",
-    "route": "Dados de QA isolados futuros",
-    "steps": "Arquivo invalido/backup/falha de escrita somente apos isolamento",
-    "expected": "Nunca danificar save real; progresso nao possui backup automatico hoje",
-    "status": "Deferred",
-    "evidence": "Ponte de diretorio QA ainda nao implementada",
-    "dependency": "Codigo independente"
-  },
-  {
-    "id": "LQA-15",
-    "area": "Media",
-    "route": "Windows / abertura",
-    "steps": "Audio, foco/retomada e reabertura sem recompilar",
-    "expected": "Nao repetir playback/skip aprovados; conferir apenas escopo restante",
-    "status": "Pending",
-    "evidence": "SMK-08",
-    "dependency": "Aceite de I/O/visual"
-  },
-  {
-    "id": "LQA-16",
-    "area": "Platform",
-    "route": "Android / Shipping",
-    "steps": "Aguardar etapa propria",
-    "expected": "Nao executar backend, aparelho ou cook por inferencia",
-    "status": "Deferred",
-    "evidence": "Fora da prioridade/permissoes atuais",
-    "dependency": "Repriorizacao"
-  }
-]
+{
+  "schemaVersion": 1,
+  "date": "2026-11-22",
+  "purpose": "Manual acceptance and dependency plan, never auto-accepted by native tests",
+  "cases": [
+    {
+      "id": "LQA-01",
+      "area": "Feedback",
+      "route": "Todos os laboratorios",
+      "steps": "Apos uma acao, clicar na mensagem [i]; conferir impacto/escudo e motivo de recusa",
+      "expected": "Eventos confirmados sem reaplicar dano; comando antigo nunca parece aceito",
+      "status": "Pending",
+      "evidence": "Novo HUD ainda sem aceite",
+      "dependency": "Aceite visual"
+    },
+    {
+      "id": "LQA-02",
+      "area": "PvE",
+      "route": "Terminal pagina1 / Ritual local",
+      "steps": "Concluir, consultar resultado, nova tentativa e abandonar outra",
+      "expected": "ECO-1 encerra; ECO-2 independente; demais saves intactos",
+      "status": "Pending",
+      "evidence": "LAB-PVE-02",
+      "dependency": "Aceite visual"
+    },
+    {
+      "id": "LQA-03",
+      "area": "PvE",
+      "route": "Terminal pagina1 / Ondas",
+      "steps": "Concluir primeira onda, consultar detalhes e concluir segunda",
+      "expected": "Contador local reinicia; global continua; WaveV2 e inimigos corretos",
+      "status": "Pending",
+      "evidence": "LAB-PVE-03",
+      "dependency": "Aceite visual"
+    },
+    {
+      "id": "LQA-04",
+      "area": "PvE",
+      "route": "Terminal pagina1 / Ritual com fases",
+      "steps": "Usar A1 e A3 e consultar transicoes",
+      "expected": "Fase sem troca e fase com nova forca; ordem dos eventos mantida",
+      "status": "Pending",
+      "evidence": "LAB-PVE-03",
+      "dependency": "Aceite visual"
+    },
+    {
+      "id": "LQA-05",
+      "area": "PvE",
+      "route": "Terminal pagina2 / Pontuacao",
+      "steps": "Completar12acoes e abrir resultado repetidamente",
+      "expected": "Score/recibo nao aumentam por leitura; sem credito comercial",
+      "status": "Pending",
+      "evidence": "LAB-PVE-04",
+      "dependency": "Aceite visual"
+    },
+    {
+      "id": "LQA-06",
+      "area": "PvE",
+      "route": "Terminal pagina2 / Sobrevivencia",
+      "steps": "Observar3turnos naturais do chefe e encerramento",
+      "expected": "Meta separada de acoes; nenhum comando apos conclusao",
+      "status": "Pending",
+      "evidence": "LAB-PVE-04",
+      "dependency": "Aceite visual"
+    },
+    {
+      "id": "LQA-07",
+      "area": "SEQ",
+      "route": "Terminal pagina2 / duas variantes3equipes",
+      "steps": "Observar troca, HP continuo, fase/kit, resultado e abandono",
+      "expected": "Equipe antiga nao age na nova; sem ciclo apos equipe3",
+      "status": "Pending",
+      "evidence": "LAB-PVE-05",
+      "dependency": "Aceite visual"
+    },
+    {
+      "id": "LQA-08",
+      "area": "PAR",
+      "route": "Terminal pagina3 / duas variantes3frentes",
+      "steps": "Observar F1/F2/F3, proximo ataque local e especial global",
+      "expected": "Um chefe/HP/AP; alvos legais e contadores sem duplicacao",
+      "status": "Pending",
+      "evidence": "LAB-PVE-06",
+      "dependency": "Aceite visual"
+    },
+    {
+      "id": "LQA-09",
+      "area": "Save",
+      "route": "Hub / Equipe e Save",
+      "steps": "Registrar equipe/saldo; salvar; fechar e reabrir; carregar",
+      "expected": "Equipe/saldo preservados e nova tentativa; PV/AP/status nao restaurados",
+      "status": "Pending",
+      "evidence": "Codec/modelo testados; I/OUnreal nao executado pelo assistente",
+      "dependency": "Aceite de I/O"
+    },
+    {
+      "id": "LQA-10",
+      "area": "Preferences",
+      "route": "Hub / Opcoes",
+      "steps": "Alterar texto/movimento reduzido, salvar e reabrir",
+      "expected": "Valores persistem; preferencia separada de progresso",
+      "status": "Pending",
+      "evidence": "Codec/backup em modelo; I/Oreal pendente",
+      "dependency": "Aceite de I/O"
+    },
+    {
+      "id": "LQA-11",
+      "area": "Tutorial",
+      "route": "Abrir-Tutorial-Felipe.cmd",
+      "steps": "Confirmar preload4/5 e ativacao da A2 apos impacto elegivel",
+      "expected": "Nao confundir tutorial tecnico com campanha guiada final",
+      "status": "Pending",
+      "evidence": "Contratos e caso nativo prontos; roteiro visual nao aceito",
+      "dependency": "Aceite visual"
+    },
+    {
+      "id": "LQA-12",
+      "area": "Resolution",
+      "route": "Windows horizontal",
+      "steps": "1280x720 e1920x1080; abrir menus/popup e batalhas",
+      "expected": "Registrar corte/sobreposicao e escala atual; sem mudar SO",
+      "status": "Pending",
+      "evidence": "Matriz ampla nao aceita",
+      "dependency": "Aceite visual"
+    },
+    {
+      "id": "LQA-13",
+      "area": "Resolution",
+      "route": "Windows vertical",
+      "steps": "720x1280; 360x800 como estresse opcional; hub e modos",
+      "expected": "Anotar limites; preview Windows nao aprova Android/iOS",
+      "status": "Pending",
+      "evidence": "Sem promessa de compatibilidade nas dimensoes menores",
+      "dependency": "Aceite visual"
+    },
+    {
+      "id": "LQA-14",
+      "area": "Recovery",
+      "route": "Dados de QA isolados futuros",
+      "steps": "Arquivo invalido/backup/falha de escrita somente apos isolamento",
+      "expected": "Nunca danificar save real; progresso nao possui backup automatico hoje",
+      "status": "Deferred",
+      "evidence": "LAB-QA-01B: 10 casos de disco Windows com codecs reais aprovados em pasta isolada; backend de teste proprio, nao IFileManager. Integracao Unreal e falhas reais de espaco/permissao ainda nao executadas.",
+      "dependency": "Contrato compartilhado de persistencia e futuro teste isolado do adaptador Unreal; nunca corromper saves normais"
+    },
+    {
+      "id": "LQA-15",
+      "area": "Media",
+      "route": "Windows / abertura",
+      "steps": "Audio, foco/retomada e reabertura sem recompilar",
+      "expected": "Nao repetir playback/skip aprovados; conferir apenas escopo restante",
+      "status": "Pending",
+      "evidence": "SMK-08",
+      "dependency": "Aceite de I/O/visual"
+    },
+    {
+      "id": "LQA-16",
+      "area": "Platform",
+      "route": "Android / Shipping",
+      "steps": "Aguardar etapa propria",
+      "expected": "Nao executar backend, aparelho ou cook por inferencia",
+      "status": "Deferred",
+      "evidence": "Fora da prioridade/permissoes atuais",
+      "dependency": "Repriorizacao"
+    }
+  ]
+}

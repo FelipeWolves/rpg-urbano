@@ -277,7 +277,7 @@ void AProbeArenaHUD::SelectLabScenario(bool felipe){
     // Preserve each scenario in memory; neither progress ledger is imported into the other.
     if(!AlternateLabSession){
         if(felipe){AlternateLabSession.emplace(rpg::felipe_pilot_setup(PilotTutorial),rpg::CombatProfile::Team);}
-        else{AlternateLabSession.emplace(ReferenceProfile==rpg::CombatProfile::Classic?rpg::classic_reference_setup():rpg::team_reference_setup(),ReferenceProfile);}
+        else{AlternateLabSession.emplace(ReferenceProfile==rpg::CombatProfile::Classic?rpg::classic_reference_setup():rpg::terminal_lab_setup(),ReferenceProfile);}
     }
     std::swap(Session,*AlternateLabSession);SessionIsFelipe=felipe;
     Flow.acknowledge_new_attempt();Gesture.cancel();Pointer.cancel_until_release();

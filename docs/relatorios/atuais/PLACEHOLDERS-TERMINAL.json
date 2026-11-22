@@ -1,0 +1,30 @@
+{
+  "Date": "2026-11-22",
+  "NativePilotPassed": 10,
+  "NativeSwitchPassed": 2,
+  "Build": "Succeeded",
+  "BuildSeconds": 45.46,
+  "StageVerified": true,
+  "StageInputs": 66,
+  "EditorOpened": false,
+  "GameExecuted": false,
+  "TerminalHpRange": [
+    8000,
+    14000
+  ],
+  "TerminalAttackRange": [
+    375,
+    625
+  ],
+  "ReferenceBaselinePreserved": true,
+  "SphereMobility": "Movable before SetStaticMesh",
+  "MarkerWidth": 8,
+  "MarkerMaterial": "Engine M_Emissive_Color provisional",
+  "VisualRetest": "pending spheres, marker and larger Terminal health",
+  "UserAccepted": [
+    "video and skip",
+    "Felipe battle to end without crash",
+    "cooldowns"
+  ],
+  "LocalizationWarning": "exact text unavailable; no setting changed"
+}

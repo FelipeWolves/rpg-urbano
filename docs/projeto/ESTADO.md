@@ -1,3 +1,5 @@
+> **22/11 — retorno mais recente:** vídeo/skip e conclusão do piloto sem crash aceitos no teste do usuário. [Placeholders, seletor e escala do Terminal](PLACEHOLDERS-TERMINAL.md): mobilidade corrigida, marcador mais espesso/emissivo e PV do Terminal ampliados. Aceite visual desses ajustes ainda pendente; demo ~25% mantida.
+
 > **Correção vigente — 22/11:** [crash do marcador, placeholders, regras gerais do Terminal e vídeo por compilação](TERMINAL-MARCADOR-MIDIA-CORRECOES.md). Funil compartilhado com Felipe, geometria visual protegida e marca de vídeo vinculada ao binário. Reteste visual pendente; aceite dos cliques únicos preservado.
 
 > **Atualização — 22/11:** cliques únicos e hover aceitos pelo usuário no RpgEngineProbe. Arena PvP recebe [acesso temporário ao piloto Felipe](HUB-FELIPE-ACESSO-TEMPORARIO.md), sem PvP online; Terminal e saves separados. Reteste do novo acesso e barra de skip não-assistido pendentes. Demo ~25% mantida.

@@ -31,6 +31,7 @@ EncounterSetup team_reference_setup(){
     }
     return {std::move(roster),std::move(rules),std::move(sets)};
 }
+EncounterSetup terminal_lab_setup(){auto setup=team_reference_setup();for(auto& unit:setup.roster){unit.max_health*=100;unit.attack*=25;}return setup;}
 EncounterSetup classic_reference_setup(){return {reference_roster(),text_reference_rules(),{}};}
 EncounterSetup felipe_pilot_setup(bool tutorial_preload){
     auto rules=team_reference_rules();rules.action_budget=ActionBudget{200,LimitOutcome::DefeatA};

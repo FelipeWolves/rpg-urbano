@@ -23,6 +23,7 @@ private:
     void SelectLabScenario(bool felipe);
     UPROPERTY() TObjectPtr<class UStaticMesh> TargetMarkerMesh=nullptr;
     UPROPERTY(Transient) TObjectPtr<AActor> TargetMarkerActor=nullptr;
+    UPROPERTY() TObjectPtr<class UMaterialInterface> TargetMarkerMaterial=nullptr;
     int32 TargetMarkerSegments=0;
     float TargetMarkerRadius=0;
     void UpdateTargetMarker(FVector base,float radius,int32 segments);

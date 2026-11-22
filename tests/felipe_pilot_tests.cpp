@@ -8,6 +8,8 @@ void check(bool v,const char* m){if(!v){throw std::runtime_error(m);}}
 int main(){try{
  check(team_reference_setup().rules.combat_model==resolution::CombatModel::FunnelV1 && felipe_pilot_setup().rules.combat_model==team_reference_setup().rules.combat_model,"shared general funnel");
  check(classic_reference_setup().rules.combat_model==resolution::CombatModel::Legacy,"classic baseline preserved");
+ const auto terminalLab=terminal_lab_setup();check(terminalLab.roster[0].max_health==10000 && terminalLab.roster[0].attack==500 && terminalLab.rules.combat_model==resolution::CombatModel::FunnelV1,"terminal visual health scale");
+ check(team_reference_setup().roster[0].max_health==100,"small baseline preserved");
  // Hub scenario switch preserves both sessions rather than importing their saves.
  presentation::VisualSession hubReference(team_reference_setup()),hubPilot(felipe_pilot_setup());
  const auto referenceBefore=hubReference.state();const auto pilotBefore=hubPilot.state();

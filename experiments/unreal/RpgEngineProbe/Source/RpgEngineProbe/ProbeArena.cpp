@@ -6,6 +6,7 @@
 #include "Misc/ConfigCacheIni.h"
 #include "rpg/arena_layout.hpp"
 #include "Components/StaticMeshComponent.h"
+#include "Materials/MaterialInterface.h"
 #include "Engine/Canvas.h"
 #include "CanvasTypes.h"
 
@@ -22,10 +23,10 @@
 namespace {
 FString Label(const std::string& value){return UTF8_TO_TCHAR(value.c_str());}
 rpg::CombatProfile SelectedCombatProfile(){FString name;if(FParse::Value(FCommandLine::Get(),TEXT("CombatProfile="),name) && name==TEXT("Classic")){return rpg::CombatProfile::Classic;}if(!name.IsEmpty() && name!=TEXT("Team")){UE_LOG(LogTemp,Warning,TEXT("Unknown CombatProfile; using Team"));}return rpg::CombatProfile::Team;}
-rpg::EncounterSetup SelectedEncounter(){if(SelectedCombatProfile()==rpg::CombatProfile::Classic){return rpg::classic_reference_setup();}if(FParse::Param(FCommandLine::Get(),TEXT("FelipePilot"))){return rpg::felipe_pilot_setup(FParse::Param(FCommandLine::Get(),TEXT("FelipeTutorial")));}return rpg::team_reference_setup();}
+rpg::EncounterSetup SelectedEncounter(){if(SelectedCombatProfile()==rpg::CombatProfile::Classic){return rpg::classic_reference_setup();}if(FParse::Param(FCommandLine::Get(),TEXT("FelipePilot"))){return rpg::felipe_pilot_setup(FParse::Param(FCommandLine::Get(),TEXT("FelipeTutorial")));}return rpg::terminal_lab_setup();}
 std::optional<rpg::presentation::ArenaLayout> SelectedLayout(){FString name;if(!FParse::Value(FCommandLine::Get(),TEXT("ArenaLayout="),name)){return rpg::presentation::default_arena_layout;}return rpg::presentation::parse_arena_layout(TCHAR_TO_UTF8(*name));}
 }
-AProbeArenaHUD::AProbeArenaHUD():Session(SelectedEncounter(),SelectedCombatProfile()){ReferenceProfile=SelectedCombatProfile();SessionIsFelipe=ReferenceProfile!=rpg::CombatProfile::Classic && FParse::Param(FCommandLine::Get(),TEXT("FelipePilot"));PilotTutorial=SessionIsFelipe && FParse::Param(FCommandLine::Get(),TEXT("FelipeTutorial"));static ConstructorHelpers::FObjectFinder<UStaticMesh> marker(TEXT("/Engine/BasicShapes/Cube.Cube"));TargetMarkerMesh=marker.Object;}
+AProbeArenaHUD::AProbeArenaHUD():Session(SelectedEncounter(),SelectedCombatProfile()){ReferenceProfile=SelectedCombatProfile();SessionIsFelipe=ReferenceProfile!=rpg::CombatProfile::Classic && FParse::Param(FCommandLine::Get(),TEXT("FelipePilot"));PilotTutorial=SessionIsFelipe && FParse::Param(FCommandLine::Get(),TEXT("FelipeTutorial"));static ConstructorHelpers::FObjectFinder<UStaticMesh> marker(TEXT("/Engine/BasicShapes/Cube.Cube"));TargetMarkerMesh=marker.Object;static ConstructorHelpers::FObjectFinder<UMaterialInterface> markerMaterial(TEXT("/Engine/ArtTools/RenderToTexture/Materials/Debug/M_Emissive_Color.M_Emissive_Color"));TargetMarkerMaterial=markerMaterial.Object;}
 AProbeArenaMode::AProbeArenaMode(){HUDClass=AProbeArenaHUD::StaticClass();DefaultPawnClass=nullptr;}
 void AProbeArenaMode::BeginPlay()
 {
@@ -82,7 +83,7 @@ void AProbeArenaHUD::RefreshArenaActors()
     for(const auto& placement:rpg::presentation::arena_placements(roster,*layout)){
         FActorSpawnParameters spawn;spawn.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
         auto* sphere=GetWorld()->SpawnActor<AStaticMeshActor>(FVector(placement.x,placement.y,placement.z),FRotator(0,placement.facing_yaw,0),spawn);
-        if(sphere && mesh){sphere->GetStaticMeshComponent()->SetStaticMesh(mesh);sphere->GetStaticMeshComponent()->UpdateBounds();sphere->GetStaticMeshComponent()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);sphere->GetStaticMeshComponent()->SetCollisionResponseToAllChannels(ECR_Ignore);sphere->GetStaticMeshComponent()->SetCollisionResponseToChannel(ECC_Visibility,ECR_Block);sphere->Tags.Add(FName(*Label(placement.fighter_id)));sphere->Tags.Add(FName(TEXT("RpgPrototypeActor")));}
+        if(sphere && mesh){sphere->GetStaticMeshComponent()->SetMobility(EComponentMobility::Movable);sphere->GetStaticMeshComponent()->SetStaticMesh(mesh);sphere->GetStaticMeshComponent()->UpdateBounds();sphere->GetStaticMeshComponent()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);sphere->GetStaticMeshComponent()->SetCollisionResponseToAllChannels(ECR_Ignore);sphere->GetStaticMeshComponent()->SetCollisionResponseToChannel(ECC_Visibility,ECR_Block);sphere->Tags.Add(FName(*Label(placement.fighter_id)));sphere->Tags.Add(FName(TEXT("RpgPrototypeActor")));}
     }
 }
 void AProbeArenaHUD::OpenInfo(const FString& title,const std::vector<std::string>& lines)

@@ -4,6 +4,7 @@ namespace rpg {
 [[nodiscard]] BattleRules text_reference_rules();
 [[nodiscard]] BattleRules team_reference_rules();
 [[nodiscard]] EncounterSetup team_reference_setup();
+[[nodiscard]] EncounterSetup terminal_lab_setup();
 [[nodiscard]] EncounterSetup classic_reference_setup();
 [[nodiscard]] EncounterSetup felipe_pilot_setup(bool tutorial_preload=false);
 } // namespace rpg

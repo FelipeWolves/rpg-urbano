@@ -1,0 +1,141 @@
+{
+  "Date": "2026-11-22",
+  "Scope": "ESC/SIS/PvE C1-C6: code frameworks",
+  "Passed": true,
+  "Cuts": [
+    "C1 SilverShield and status operations",
+    "C2 WaveV2",
+    "C3 exact score and idempotent receipts",
+    "C4 ritual score survival and score sequence",
+    "C5 phases reserves and local/global fronts",
+    "C6 native regression Unreal bridge and stage"
+  ],
+  "Tests": [
+    {
+      "Result": [
+        "REG_OUTCOME_TESTS_RESULT passed=9 total=9"
+      ],
+      "Suite": "Outcomes",
+      "Passed": true
+    },
+    {
+      "Result": [
+        "REG_PIPELINE_TESTS_RESULT passed=10 total=10"
+      ],
+      "Suite": "Pipeline",
+      "Passed": true
+    },
+    {
+      "Result": [
+        "REG_CONTROLS_TESTS_RESULT passed=8 total=8"
+      ],
+      "Suite": "Controls",
+      "Passed": true
+    },
+    {
+      "Result": [
+        "REG_PERIODIC_TESTS_RESULT passed=13 total=13"
+      ],
+      "Suite": "Periodic",
+      "Passed": true
+    },
+    {
+      "Result": [
+        "REG_FELIPE_TESTS_RESULT passed=13 total=13"
+      ],
+      "Suite": "Felipe",
+      "Passed": true
+    },
+    {
+      "Result": [
+        "REG_PILOT_TESTS_RESULT passed=10 total=10"
+      ],
+      "Suite": "Pilot",
+      "Passed": true
+    },
+    {
+      "Result": [
+        "REG_SPECIAL_SHIELD_TESTS_RESULT passed=12 total=12"
+      ],
+      "Suite": "SpecialShields",
+      "Passed": true
+    },
+    {
+      "Result": [
+        "REG_WAVE_TESTS_RESULT passed=7 total=7"
+      ],
+      "Suite": "Waves",
+      "Passed": true
+    },
+    {
+      "Result": [
+        "REG_SCORE_TESTS_RESULT passed=10 total=10"
+      ],
+      "Suite": "Score",
+      "Passed": true
+    },
+    {
+      "Result": [
+        "REG_PVE_TESTS_RESULT passed=7 total=7"
+      ],
+      "Suite": "Pve",
+      "Passed": true
+    },
+    {
+      "Result": [
+        "REG_PHASE_TESTS_RESULT passed=11 total=11"
+      ],
+      "Suite": "Phases",
+      "Passed": true
+    },
+    {
+      "Result": [
+        "REG_FRONT_TESTS_RESULT passed=8 total=8"
+      ],
+      "Suite": "Fronts",
+      "Passed": true
+    }
+  ],
+  "BatchCoreCompiledOnce": true,
+  "AdditionalFocusedVerification": "Phases:11 groups, including profiled SEQv2 golden boss charges, after the 12-suite batch",
+  "GeneralRegression": {
+    "InitialSharedScopeFailureCorrected": true,
+    "Log": "build/esc-sis-pve-general.log",
+    "Passed": true
+  },
+  "UnrealBuild": {
+    "Result": "Succeeded",
+    "Log": "build/esc-sis-pve-build.log",
+    "FullModuleBuildActions": 22,
+    "LastIncrementalActions": 4
+  },
+  "Stage": {
+    "Inputs": 66,
+    "BuildExecuted": false,
+    "Passed": true,
+    "CookExecuted": false
+  },
+  "SilverMinimum": {
+    "ConfirmedByUser": true,
+    "Points": 1
+  },
+  "Retests": {
+    "VideoDoubleClick": "REOPENED; not fixed",
+    "TargetSwitch": "REOPENED; not fixed",
+    "BattleClicks": "REOPENED; not fixed"
+  },
+  "EstimatedDemoPercent": 25.15,
+  "NewModeMenusIntegrated": false,
+  "EngineExecuted": false,
+  "AndroidExecuted": false,
+  "InternetUsed": false,
+  "NetworkChanged": false,
+  "PushExecuted": false,
+  "Remaining": [
+    "Input target and media retests/corrections",
+    "New mode menus/HUD and authored content/balance",
+    "Specific future shield/generator/phase-combination contracts",
+    "Score disk persistence and final economy",
+    "Shipping mobile and measured cross-platform behavior"
+  ]
+}

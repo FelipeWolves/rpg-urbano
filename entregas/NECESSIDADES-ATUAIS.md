@@ -1,3 +1,5 @@
+> **Atualização22/11:** código ESC/SIS/PvE implementado; veja docs/projeto/ESC-SIS-PVE-CONSOLIDACAO.md na raiz. Não reenviar Silver/ondas/score fechados. O que ajuda: retestes clique/alvo/vídeo, propostas de menus e dados finais dos modos/chefes com gatilho, alcance, kit, duração, limites e exemplos, sem exigir catálogo inteiro.
+
 # Necessidades atuais por área
 
 22/11/2026. Central prática para preparar entregas enquanto o desenvolvimento segue. **Não é necessário responder tudo, reenviar recursos já existentes ou pesquisar regras fechadas.** Os READMEs de cada grupo trazem os detalhes e mantêm o guia anterior recolhido como histórico.

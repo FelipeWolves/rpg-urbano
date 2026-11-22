@@ -10,3 +10,5 @@
 6. C6: integração, testes por família/regressão pertinente, compilação sem editor, documentos/progresso e commits. Interface completa e conteúdo de todos os chefes não decorrem desses perfis de código.
 
 Clássico completo (itens/MP/Limit/ATBActive), lojas, serviços e recompensas finais continuam em famílias próprias. Falta concreta de regra de produto será registrada/solicitada; não inventar fórmulas ou kits para marcar um bloco como completo. Retestes de clique/alvo/vídeo: RETESTES-ENTRADA-E-VIDEO.md.
+
+Fechamento22/11: C1–C6 entregues no recorte de código; resultados e limites em ESC-SIS-PVE-CONSOLIDACAO.md. MínimoSilver1 confirmado. Retestes de cliques/alvos/vídeo continuam abertos.

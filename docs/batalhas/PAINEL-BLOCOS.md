@@ -1,3 +1,5 @@
+> **Vigente22/11 — ESC/SIS/PvE concluído no recorte de código:** [entregas e limites](../projeto/ESC-SIS-PVE-CONSOLIDACAO.md). Doze baterias, regressão geral, compilaçãoUE e stage66 aprovados, sem executar o jogo. Cliques/alvos e vídeo continuam **REABERTOS**. Menus/HUD novos, conteúdo final e plataformas são próximos trabalhos separados.
+
 > **Vigente — 22/11, ponto 1 entregue:** [Felipe e efeitos contínuos](../projeto/HAB-FELIPE-PILOTO.md): Bleed/Poison, A1/A2/A3 e piloto local implementados e testados. Aceites visuais/mobile separados. SIS-02-B/C, REG e A2 não estão mais por iniciar. Próximo grupo possível: ESC/SIS/PvE, **fora da autorização desta entrega**. Notas anteriores são histórico.
 
 > **SIS-02-A concluído — 22/11:** [mapa numérico e compatibilidade](../projeto/SIS-02-A-MAPA-NUMERICO.md): 22 âncoras conferidas, cortes de migração e testes futuros definidos. Código/fórmulas/saves intactos; nenhuma bateria ou engine executada. Próxima entrega: **SIS-02-B, aritmética segura**, ainda não iniciada. Save v1 não contém HP; migração de HP não força nova versão por si só. Esta atualização prevalece sobre a indicação histórica de A ainda por iniciar.

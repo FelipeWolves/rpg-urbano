@@ -1,0 +1,142 @@
+{
+  "Date": "2026-11-22",
+  "Passed": true,
+  "CoreCompiledOnce": true,
+  "Suites": [
+    {
+      "Date": "2026-11-22",
+      "Suite": "Outcomes",
+      "Passed": true,
+      "ExitCode": 0,
+      "Result": [
+        "REG_OUTCOME_TESTS_RESULT passed=9 total=9"
+      ],
+      "EngineExecuted": false,
+      "AndroidExecuted": false
+    },
+    {
+      "Date": "2026-11-22",
+      "Suite": "Pipeline",
+      "Passed": true,
+      "ExitCode": 0,
+      "Result": [
+        "REG_PIPELINE_TESTS_RESULT passed=10 total=10"
+      ],
+      "EngineExecuted": false,
+      "AndroidExecuted": false
+    },
+    {
+      "Date": "2026-11-22",
+      "Suite": "Controls",
+      "Passed": true,
+      "ExitCode": 0,
+      "Result": [
+        "REG_CONTROLS_TESTS_RESULT passed=8 total=8"
+      ],
+      "EngineExecuted": false,
+      "AndroidExecuted": false
+    },
+    {
+      "Date": "2026-11-22",
+      "Suite": "Periodic",
+      "Passed": true,
+      "ExitCode": 0,
+      "Result": [
+        "REG_PERIODIC_TESTS_RESULT passed=13 total=13"
+      ],
+      "EngineExecuted": false,
+      "AndroidExecuted": false
+    },
+    {
+      "Date": "2026-11-22",
+      "Suite": "Felipe",
+      "Passed": true,
+      "ExitCode": 0,
+      "Result": [
+        "REG_FELIPE_TESTS_RESULT passed=13 total=13"
+      ],
+      "EngineExecuted": false,
+      "AndroidExecuted": false
+    },
+    {
+      "Date": "2026-11-22",
+      "Suite": "Pilot",
+      "Passed": true,
+      "ExitCode": 0,
+      "Result": [
+        "REG_PILOT_TESTS_RESULT passed=10 total=10"
+      ],
+      "EngineExecuted": false,
+      "AndroidExecuted": false
+    },
+    {
+      "Date": "2026-11-22",
+      "Suite": "SpecialShields",
+      "Passed": true,
+      "ExitCode": 0,
+      "Result": [
+        "REG_SPECIAL_SHIELD_TESTS_RESULT passed=12 total=12"
+      ],
+      "EngineExecuted": false,
+      "AndroidExecuted": false
+    },
+    {
+      "Date": "2026-11-22",
+      "Suite": "Waves",
+      "Passed": true,
+      "ExitCode": 0,
+      "Result": [
+        "REG_WAVE_TESTS_RESULT passed=7 total=7"
+      ],
+      "EngineExecuted": false,
+      "AndroidExecuted": false
+    },
+    {
+      "Date": "2026-11-22",
+      "Suite": "Score",
+      "Passed": true,
+      "ExitCode": 0,
+      "Result": [
+        "REG_SCORE_TESTS_RESULT passed=10 total=10"
+      ],
+      "EngineExecuted": false,
+      "AndroidExecuted": false
+    },
+    {
+      "Date": "2026-11-22",
+      "Suite": "Pve",
+      "Passed": true,
+      "ExitCode": 0,
+      "Result": [
+        "REG_PVE_TESTS_RESULT passed=7 total=7"
+      ],
+      "EngineExecuted": false,
+      "AndroidExecuted": false
+    },
+    {
+      "Date": "2026-11-22",
+      "Suite": "Phases",
+      "Passed": true,
+      "ExitCode": 0,
+      "Result": [
+        "REG_PHASE_TESTS_RESULT passed=10 total=10"
+      ],
+      "EngineExecuted": false,
+      "AndroidExecuted": false
+    },
+    {
+      "Date": "2026-11-22",
+      "Suite": "Fronts",
+      "Passed": true,
+      "ExitCode": 0,
+      "Result": [
+        "REG_FRONT_TESTS_RESULT passed=8 total=8"
+      ],
+      "EngineExecuted": false,
+      "AndroidExecuted": false
+    }
+  ],
+  "EngineExecuted": false,
+  "AndroidExecuted": false,
+  "InternetUsed": false
+}

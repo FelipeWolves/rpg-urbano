@@ -35,6 +35,7 @@ SharedBoss::SharedBoss(SharedBossDefinition definition):definition_(std::move(de
     for(const auto& scope:definition_.skill_scopes){
         const auto skill=std::ranges::find(definition_.rules.skills,scope.skill_id,&SkillDefinition::id);
         if(skill==definition_.rules.skills.end() || std::ranges::find(scoped,scope.skill_id)!=scoped.end()){throw std::invalid_argument("Invalid scope identity");}
+        if(std::ranges::any_of(skill->effects,[](const EffectDefinition& effect){return effect.hit_selection!=HitSelection::FixedTarget;})){throw std::invalid_argument("Shared scopes require fixed selection");}
         scoped.push_back(scope.skill_id);const bool boss=skill->owner==definition_.boss.id;const bool enemy=boss||enemy_front(skill->owner).has_value();
         const bool valid=(scope.target==SharedSkillTarget::Self && skill->target==TargetRule::Self) ||
           (scope.target==SharedSkillTarget::OwnSquad&&!enemy&&skill->target==TargetRule::Ally) ||

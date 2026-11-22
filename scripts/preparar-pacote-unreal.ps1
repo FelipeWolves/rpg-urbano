@@ -16,12 +16,14 @@ if(![IO.Path]::GetFullPath($stage).StartsWith($boundary,[StringComparison]::Ordi
 $files=@('RpgEngineProbe.uproject','Source/RpgEngineProbeEditor.Target.cs','Source/RpgEngineProbe.Target.cs','Source/RpgEngineProbe/RpgEngineProbe.Build.cs','Source/RpgEngineProbe/RpgEngineProbe.cpp','Source/RpgEngineProbe/ProbeArena.h','Source/RpgEngineProbe/ProbeArena.cpp','Source/RpgEngineProbe/ProbeHub.cpp','Source/RpgEngineProbe/ProbeMedia.cpp','Source/RpgEngineProbe/ProbeMarker.cpp','Source/RpgEngineProbe/CoreProbe.h','Source/RpgEngineProbe/CoreProbe.cpp','Source/RpgEngineProbe/RpgCoreProbeCommandlet.h','Source/RpgEngineProbe/RpgCoreProbeCommandlet.cpp','Config/DefaultEngine.ini','Config/DefaultEditorSettings.ini','Config/DefaultGame.ini','Content/PrototypeHub.umap')
 $manifest=@()
 foreach($file in $files){$manifest+=@{Original=('experiments/unreal/RpgEngineProbe/'+$file);StagedRelative=$file}}
-foreach($name in @('battle','ability_profile','local_session','team_selection','save_game','reference_encounter','visual_session','arena_layout','battle_presentation','startup_presentation','hub_style')){
+foreach($name in @('battle','ability_profile','local_session','team_selection','save_game','reference_encounter','visual_session','arena_layout','battle_presentation','startup_presentation','hub_style','stage','sequential','shared_boss','pve')){
     $manifest+=@{Original="src/$name.cpp";StagedRelative="Source/RpgEngineProbe/Private/NativeCore/$name.cpp"}
     $manifest+=@{Original="include/rpg/$name.hpp";StagedRelative="Source/RpgEngineProbe/Public/NativeCore/rpg/$name.hpp"}
 }
 $manifest+=@{Original='include/rpg/damage_pipeline.hpp';StagedRelative='Source/RpgEngineProbe/Public/NativeCore/rpg/damage_pipeline.hpp'}
 $manifest+=@{Original='include/rpg/hit_resolution.hpp';StagedRelative='Source/RpgEngineProbe/Public/NativeCore/rpg/hit_resolution.hpp'}
+$manifest+=@{Original='include/rpg/status_operations.hpp';StagedRelative='Source/RpgEngineProbe/Public/NativeCore/rpg/status_operations.hpp'}
+$manifest+=@{Original='include/rpg/score.hpp';StagedRelative='Source/RpgEngineProbe/Public/NativeCore/rpg/score.hpp'}
 $manifest+=@{Original='include/rpg/numeric.hpp';StagedRelative='Source/RpgEngineProbe/Public/NativeCore/rpg/numeric.hpp'}
 $manifest+=@{Original='include/rpg/visual_events.hpp';StagedRelative='Source/RpgEngineProbe/Public/NativeCore/rpg/visual_events.hpp'}
 $manifest+=@{Original='include/rpg/encounter_manifest.hpp';StagedRelative='Source/RpgEngineProbe/Public/NativeCore/rpg/encounter_manifest.hpp'}

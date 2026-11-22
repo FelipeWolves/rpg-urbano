@@ -1,3 +1,5 @@
+> **Vigente22/11 — ESC/SIS/PvE concluído no recorte de código:** [entregas e limites](ESC-SIS-PVE-CONSOLIDACAO.md). Doze baterias, regressão geral, compilaçãoUE e stage66 aprovados, sem executar o jogo. Cliques/alvos e vídeo continuam **REABERTOS**. Menus/HUD novos, conteúdo final e plataformas são próximos trabalhos separados.
+
 > **Vigente22/11:** ESC/SIS/PvE autorizado; execução em ESC-SIS-PVE-EXECUCAO.md. Cliques da batalha/troca de alvo e duplo clique da mídia reabertos para reteste do usuário em RETESTES-ENTRADA-E-VIDEO.md. Sem correção/aceite visual presumido.
 
 > **Vigente — 22/11, ponto 1 entregue:** [Felipe e efeitos contínuos](HAB-FELIPE-PILOTO.md): Bleed/Poison, A1/A2/A3 e piloto local implementados e testados. Aceites visuais/mobile separados. SIS-02-B/C, REG e A2 não estão mais por iniciar. Próximo grupo possível: ESC/SIS/PvE, **fora da autorização desta entrega**. Notas anteriores são histórico.

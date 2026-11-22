@@ -9,3 +9,4 @@ SharedBossv2 conservaHPúnico/barra global e acrescenta área local/área global
 PreserveSpecialBordersV2 é política explícita deSEQversão2, com ou sem troca de kit; preserva especiais sem alterar PreserveClassifiedStates/KeepCooldownsClearStatuses antigos. Perfil não muda habilidade se o kit não for declarado: caso estável permanece mapeado/testado.
 
 Dez grupos de fases e oito de frentes aprovados, incluindo multi-limiar,kitreal,recargas,mutaçãoatômica,kitestável,ciclos,reservas/dissipação/ressurreição e persistência,árealocal/global,auxiliares,frenteincorreta,passiva/escudolocais. Catálogo de kits, auras de campo específicas e composição híbrida de ciclos/HP exigem configuração/contrato próprio; não foram inventados chefes finais nem telas novas.
+Conferência adicional:11grupos de fases, incluindo cargas douradas do chefe preservadas no SEQv2 com kit por equipe.

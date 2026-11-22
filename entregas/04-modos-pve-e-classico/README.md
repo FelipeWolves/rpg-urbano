@@ -1,3 +1,5 @@
+> **Atualização22/11:** código ESC/SIS/PvE implementado; veja docs/projeto/ESC-SIS-PVE-CONSOLIDACAO.md na raiz. Não reenviar Silver/ondas/score fechados. O que ajuda: retestes clique/alvo/vídeo, propostas de menus e dados finais dos modos/chefes com gatilho, alcance, kit, duração, limites e exemplos, sem exigir catálogo inteiro.
+
 # Modos PvE e clássico — guia vigente
 
 Atualizado em **22/11/2026**. Prioridade: **P2 — após base numérica/funil**. Este guia substitui as perguntas antigas nos temas já respondidos; o histórico abaixo fica apenas para referência.

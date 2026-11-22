@@ -1,3 +1,5 @@
+> **Extensão posterior:** ESC/SIS/PvE implementou operadores, ondas, score e fontes deDoT ausentes com identidade/lado/snapshot; a limitação histórica abaixo foi superada. Cliques/alvos/vídeo continuam reabertos para reteste.
+
 # HAB — fechamento do ponto 1: Felipe e efeitos contínuos
 
 22/11/2026. Escopo: Sangramento, Veneno e integração do Felipe. Não inicia escudos especializados, nova política de ondas, score ou novos modos PvE.

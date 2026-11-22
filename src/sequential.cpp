@@ -127,7 +127,7 @@ void SequentialSquads::start_squad(const Fighter* previous_boss) {
         if(previous_boss){
             for(const auto& status:previous_boss->statuses){if(status.category!=StatusCategory::Temporary || (definition_.boss_carry==BossRuntimeCarry::PreserveSpecialBordersV2 && (status.border!=StatusBorder::Common || status.native_passive))){statuses.push_back(status);}}
         }else{statuses=definition_.boss_initial_statuses;}
-        runtime.push_back({definition_.boss.id,definition_.boss.speed,statuses,cooldowns});
+        runtime.push_back({definition_.boss.id,definition_.boss.speed,statuses,cooldowns,previous_boss && definition_.boss_carry==BossRuntimeCarry::PreserveSpecialBordersV2 && definition_.boss.vigil?std::optional<std::uint32_t>{previous_boss->vigil_charges}:std::nullopt});
     }else if(previous_boss && definition_.boss_carry==BossRuntimeCarry::PreserveSpecialBordersV2){
         auto statuses=previous_boss->statuses;std::erase_if(statuses,[](const Status& state){return state.category!=StatusCategory::Structural && state.border==StatusBorder::Common && !state.native_passive;});
         runtime.push_back({definition_.boss.id,definition_.boss.speed,statuses,previous_boss->cooldowns,definition_.boss.vigil?std::optional<std::uint32_t>{previous_boss->vigil_charges}:std::nullopt});

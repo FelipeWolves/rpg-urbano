@@ -762,7 +762,7 @@ void Battle::execute_skill(std::size_t from,std::size_t target_index,const Skill
                 break;
             }
             }
-            if (effect.kind != EffectKind::Damage && effect.kind != EffectKind::StandardShield && effect.kind!=EffectKind::Heal) {
+            if (effect.kind != EffectKind::Damage && effect.kind != EffectKind::StandardShield && effect.kind!=EffectKind::Heal && effect.kind!=EffectKind::DispelBuffs && effect.kind!=EffectKind::CleanseDebuffs && effect.kind!=EffectKind::StealBuffs && effect.kind!=EffectKind::TransferDebuffs) {
                 events.push_back(Event{EventType::EffectApplied, actor.definition.id, target.definition.id,
                                               static_cast<int>(effect.kind), round_, {}});
             }

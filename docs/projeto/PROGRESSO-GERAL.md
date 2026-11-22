@@ -1,14 +1,18 @@
 # Progresso geral do projeto
 
-Atualizado em **22/11/2026**. **Demo integrada estimada em aproximadamente 24% (faixa orientativa: 22–26%).**
+Atualizado em **22/11/2026**. **Demo integrada estimada em aproximadamente 25% (faixa orientativa: 23–27%).**
 
 Referência: demo com Felipe, uma arena e apresentação integrada testada em um celular-alvo. Não mede o jogo comercial completo, 67 capítulos, todas as lojas ou serviços online. Percentuais são estimativas de maturidade; não medem horas nem garantem prazo.
+
+## Atualização ESC/SIS/PvE — 22/11
+
+Core52→60%, QA28→30% e documentação79→80%. Soma orientativa25,15%; demais áreas mantidas. São estimativas de maturidade, não horas ou porcentagem medida de esforço. Nenhuma arte/mobile nova foi aceita. Clique, troca de alvos e vídeo reabertos para reteste. Novos modos estão em código/ponte, sem menu/HUD próprio.
 
 ## Áreas
 
 | Área | Progresso | Peso na demo | Base / limite |
 |---|---:|---:|---|
-| Código core | 52% | 20% | Inteiros seguros, funil, controles, DoTs e Felipe testados; demais SIS/PvE e catálogo pendentes |
+| Código core | 60% | 20% | ESC/SIS/PvE de código testado: escudos, ondas, score, modos/fases/frentes; catálogo completo ainda pendente |
 | Integração Unreal | 45% | 10% | Projeto estável compilado, mapa salvo e reabertura/Play observados |
 | Front / interface | 22% | 10% | Inspeção dos dois layouts/detalhes aceita; novos cartões compilados aguardam aceite |
 | Hub / navegação | 20% | 7% | Sete locais e painéis informativos implementados; aceite visual pendente |
@@ -20,10 +24,10 @@ Referência: demo com Felipe, uma arena e apresentação integrada testada em um
 | Conteúdo / tutorial | 10% | 5% | Recorte e universo definidos; tutorial não implementado |
 | Progressão / save | 25% | 5% | Save v1/recompensa; menu gráfico compilado, gravação/reabertura pela interface pendentes |
 | Mobile / otimização | 5% | 4% | AVD iniciou; APK e desempenho não validados |
-| QA integrado | 28% | 1% | Baterias nativas e regressão aprovadas; piloto visual/aparelho/desempenho pendentes |
-| Documentação | 79% | 1% | Fila, pendências e guia do piloto reconciliados |
+| QA integrado | 30% | 1% | Doze baterias e regressão geral aprovadas; cliques/alvos/vídeo reabertos, mobile/desempenho pendentes |
+| Documentação | 80% | 1% | Consolidação ESC/SIS/PvE, retestes e limites de UI/plataformas atualizados |
 
-Pesos somam 100; soma ponderada estimada = 23,52%, arredondada para comunicação. Pesos são premissas de planejamento revisáveis, não precisão de medição. Serviços e lojas ficam fora da demo (implementação 0%).
+Pesos somam 100; soma ponderada estimada = 25,15%, arredondada para comunicação. Pesos são premissas de planejamento revisáveis, não precisão de medição. Serviços e lojas ficam fora da demo (implementação 0%).
 
 ## Fechamento SIS/REG/HAB — 22/11
 

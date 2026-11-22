@@ -1,3 +1,5 @@
+> **Vigente22/11 — ESC/SIS/PvE concluído no recorte de código:** [entregas e limites](ESC-SIS-PVE-CONSOLIDACAO.md). Doze baterias, regressão geral, compilaçãoUE e stage66 aprovados, sem executar o jogo. Cliques/alvos e vídeo continuam **REABERTOS**. Menus/HUD novos, conteúdo final e plataformas são próximos trabalhos separados.
+
 > **Vigente22/11:** ESC/SIS/PvE autorizado; execução em ESC-SIS-PVE-EXECUCAO.md. Cliques da batalha/troca de alvo e duplo clique da mídia reabertos para reteste do usuário em RETESTES-ENTRADA-E-VIDEO.md. Sem correção/aceite visual presumido.
 
 > **Vigente — 22/11, ponto 1 entregue:** [Felipe e efeitos contínuos](HAB-FELIPE-PILOTO.md): Bleed/Poison, A1/A2/A3 e piloto local implementados e testados. Aceites visuais/mobile separados. SIS-02-B/C, REG e A2 não estão mais por iniciar. Próximo grupo possível: ESC/SIS/PvE, **fora da autorização desta entrega**. Notas anteriores são histórico.
@@ -110,6 +112,8 @@ Esta decisão substitui a proposta inicial de10% do HP atual do protegido para o
 **Estado:** regra comum de ESC-04 definida: ordem das reduções/escudo/vida, consumo por hit, remoção ao zerar e excesso letal. Exceções de bypass adiadas para seus contratos próprios; não bloqueiam o caso comum. Caso comum implementado; exceções futuras não reabrem este aceite. Implementação comum concluída; evidências em ESCUDO-PADRAO.md.
 
 ### ESC-05 — reaplicação e coexistência (explicação5)
+
+**Atualização22/11:** SilverShield e camadas implementados; mínimo1 confirmado,15%/2naturais e permissões próprias. StructuralShield separado. Outros geradores exigem ficha.
 
 **Decisão revisada pelo usuário — maior valor por propriedade:** uma segunda aplicação do escudo padrão nunca reduz a força restante nem a duração restante do primeiro. Comparar as duas propriedades independentemente: pontos resultantes = max(pontos restantes, novos pontos); duração resultante = max(duração restante, duração da nova aplicação). Não somar pontos nem durações. A propriedade menor pode ser substituída pela maior da nova aplicação, mesmo quando a outra propriedade permanece do escudo anterior.
 
@@ -242,6 +246,8 @@ Relógios explícitos por status: StandardShield usa naturais; Bleed/Poison iní
 
 ### SIS-01 — origem, permissões, âncoras e quotas
 
+**Atualização22/11:** permissões Common/Silver/Golden/Estrutural, remoção/roubo/transferência, fontes e instâncias implementadas. Restam equipamentos/gatilhos não especificados.
+
 **Vigente22/11:** DoTs com fonte/snapshot/instância/duração e limite piloto3 por tipo; A2 deduplicada por ação/alvo e uma ativação por habilidade. Operadores genéricos de purificação/transferência e quotas de outros efeitos permanecem em SIS/PvE.
 
 **Atualização20/11 — informação recebida:** Grupo03 trouxe molduras, âncoras, scopes e quotas declarativas. Revisar caso a caso e limitações do núcleo; não generalizar esses defaults sobreESC. Esquema anuncia8campos mas enumera7: revisar completude ao formalizar, sem inventar campo. [Revisão consolidada](REVISAO-ENTREGAS-2026-11-20.md).
@@ -256,6 +262,8 @@ Relógios explícitos por status: StandardShield usa naturais; Bleed/Poison iní
 
 ### SIS-02 — fórmulas, atributos e auditoria de fontes
 
+**Atualização22/11:** score/floorfinal/teto/recibo e relatórios de consequências implementados. Cura em pontos e de onda não constituem fórmula universal/MaxHP mutável.
+
 **Vigente22/11:** SIS-02-B/C e funil implementados: int64, teto1e12, ponto fixo, RNG, ACC/RESIST, Miss/Block/crítico, DEF/mitigação, TrueDamage, overkill observável e Bleed/Poison. As pendências históricas abaixo desses itens estão resolvidas no recorte do piloto. Permanecem afinidade/Boon, equipamentos, cura/MaxHP mutável, bypass específico, catálogo completo e validação entre plataformas. Score não foi implementado.
 
 **Atualização20/11 — informação recebida:** Fórmula e exemplos recebidos; fontes externas não auditadas. ENT-07 separa piso1dano/TrueDamage/limites/aritmética da regra vigente; nenhum mínimo universal ou nova mitigação foi aplicado. [Revisão consolidada](REVISAO-ENTREGAS-2026-11-20.md).
@@ -269,6 +277,8 @@ Relógios explícitos por status: StandardShield usa naturais; Bleed/Poison iní
 **Estado:** núcleo numérico e funil vigente implementados/testados no Windows nativo; catálogo completo, auditoria externa e prova entre plataformas continuam separados.
 
 ### SIS-03 — ondas, times, chefes e persistência
+
+**Atualização22/11:** ondasv2, Ritual/Score/Survival, fases, entidades, sequência pontuada e área local/global implementados/testados. Restam menus/HUD, dados finais, persistência nova e combinação de gatilhos não contratada.
 
 **Atualização20/11 — informação recebida:** Grupo04 trouxe matriz de famílias, score25%overkill, limiares70/35 e entidades. ENT-08 precisa preservar transições/escudo/R04 e fechar pontuação; não repetir pergunta genérica sobre as famílias já descritas. [Revisão consolidada](REVISAO-ENTREGAS-2026-11-20.md).
 

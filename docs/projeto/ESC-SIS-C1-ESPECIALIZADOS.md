@@ -7,3 +7,4 @@ Operações declaram alcance CommonOnly ou Removable. Comum permite remoção/ro
 Oito grupos focados aprovados; piloto Felipe também passou10grupos após a integração. Cenários incluem fórmula/camadas/apresentação/permissões/limpeza/transferência/remoção/cura. Sem telas/Android/internet. Catálogo de geradores e efeitos futuros exige dados próprios; não é implantação do personagem Filhote completo.
 
 Confirmação posterior do usuário22/11: SilverShield também garante mínimo1. Bateria ampliada para11grupos, incluindo mínimo/reaplicação/turnoextra.
+Conferência final:12grupos, incluindo operação resistida sem evento falso de aplicação. Ver ESC-SIS-PVE-TESTES.json.

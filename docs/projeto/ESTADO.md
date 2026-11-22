@@ -1,3 +1,5 @@
+> **Vigente22/11:** ESC/SIS/PvE autorizado; execução em ESC-SIS-PVE-EXECUCAO.md. Cliques da batalha/troca de alvo e duplo clique da mídia reabertos para reteste do usuário em RETESTES-ENTRADA-E-VIDEO.md. Sem correção/aceite visual presumido.
+
 > **Vigente — 22/11, ponto 1 entregue:** [Felipe e efeitos contínuos](HAB-FELIPE-PILOTO.md): Bleed/Poison, A1/A2/A3 e piloto local implementados e testados. Aceites visuais/mobile separados. SIS-02-B/C, REG e A2 não estão mais por iniciar. Próximo grupo possível: ESC/SIS/PvE, **fora da autorização desta entrega**. Notas anteriores são histórico.
 
 > **Atualização 22/11 — REG-03:** base de silêncio, incapacidade, imunidades, teste de debuff e revalidação de reações entregue; oito grupos focados, regressão geral e build Unreal aprovados, sem executar editor/jogo. Ver [REG-03](REG-03-CONTROLES.md). **Ainda pendentes:** executor Bleed/Poison, conexão/testes da A2 e piloto HAB; não confundir contratos recebidos com implementação. Próxima integração segue por esses componentes. Stage anterior não representa REG atual.

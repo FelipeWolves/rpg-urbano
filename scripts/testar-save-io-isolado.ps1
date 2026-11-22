@@ -7,7 +7,7 @@ $vs=@(& $vswhere -latest -products '*' -requires Microsoft.VisualStudio.Componen
 if($vs.Count -ne 1){throw 'Existing C++ tools required; nothing is installed'}
 $devcmd=Join-Path $vs[0].installationPath 'Common7/Tools/VsDevCmd.bat'
 foreach($p in @($root,$devcmd)){if($p -match '[%"\r\n&|<>^!]'){throw 'Unsupported batch path'}}
-New-Item -ItemType Directory -Force -Path $build | Out-Null
+
 $boundary=[IO.Path]::GetFullPath((Join-Path $root 'build'))
 foreach($path in @($root,$boundary,$build)){
  if((Test-Path -LiteralPath $path) -and ((Get-Item -LiteralPath $path).Attributes -band [IO.FileAttributes]::ReparsePoint)){throw 'QA paths must not be junctions or symlinks'}
@@ -33,7 +33,7 @@ $batch+="`nexit /b 0`n"
 $batchPath=Join-Path $build 'testar.cmd';$batch | Set-Content -LiteralPath $batchPath -Encoding ascii
 $output=@(& $env:ComSpec /d /c $batchPath 2>&1 | ForEach-Object {$_.ToString()});$code=$LASTEXITCODE
 $output | Set-Content (Join-Path $build 'resultado.log') -Encoding utf8
-$passed=$code -eq 0 -and $output -contains 'QA_SAVE_IO_RESULT passed=10 total=10'
-[ordered]@{Date='2026-11-22';Passed=$passed;ExitCode=$code;Groups=10;Backend='QA-only Windows filesystem harness with real core codecs, not Unreal IFileManager';Directory=[IO.Path]::GetRelativePath($root,$run);NormalSavesTouched=$false;UnrealAdapterExecuted=$false;EditorOpened=$false;GameExecuted=$false;AndroidExecuted=$false;Cases=@($output | Where-Object {$_ -like 'CASE,*'});Limitations=@('No power-loss durability certification','No actual disk-full or OS ACL changes','No automatic progress backup added','Unreal UI save/reopen remains pending')} | ConvertTo-Json -Depth 6 | Set-Content (Join-Path $root 'docs/relatorios/atuais/LAB-QA-01B.json') -Encoding utf8
+$passed=$code -eq 0 -and $output -contains 'QA_SAVE_IO_RESULT passed=16 total=16'
+[ordered]@{Date='2026-11-22';Passed=$passed;ExitCode=$code;Groups=16;Backend='Shared production persistence orchestration and codecs; Windows QA backend, not Unreal IFileManager';Directory=[IO.Path]::GetRelativePath($root,$run);NormalSavesTouched=$false;UnrealAdapterExecuted=$false;EditorOpened=$false;GameExecuted=$false;AndroidExecuted=$false;Cases=@($output | Where-Object {$_ -like 'CASE,*'});Limitations=@('No power-loss durability certification','No actual disk-full or OS ACL changes','No automatic progress backup added','Unreal UI save/reopen remains pending')} | ConvertTo-Json -Depth 6 | Set-Content (Join-Path $root 'docs/relatorios/atuais/LAB-QA-01C.json') -Encoding utf8
 $output | Select-Object -Last 14
 if(!$passed){throw 'Isolated save IO tests failed'}

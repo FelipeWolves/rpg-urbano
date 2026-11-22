@@ -20,6 +20,7 @@ foreach($name in @('battle','ability_profile','local_session','team_selection','
     $manifest+=@{Original="src/$name.cpp";StagedRelative="Source/RpgEngineProbe/Private/NativeCore/$name.cpp"}
     $manifest+=@{Original="include/rpg/$name.hpp";StagedRelative="Source/RpgEngineProbe/Public/NativeCore/rpg/$name.hpp"}
 }
+$manifest+=@{Original='include/rpg/persistence.hpp';StagedRelative='Source/RpgEngineProbe/Public/NativeCore/rpg/persistence.hpp'}
 $manifest+=@{Original='include/rpg/damage_pipeline.hpp';StagedRelative='Source/RpgEngineProbe/Public/NativeCore/rpg/damage_pipeline.hpp'}
 $manifest+=@{Original='include/rpg/hit_resolution.hpp';StagedRelative='Source/RpgEngineProbe/Public/NativeCore/rpg/hit_resolution.hpp'}
 $manifest+=@{Original='include/rpg/status_operations.hpp';StagedRelative='Source/RpgEngineProbe/Public/NativeCore/rpg/status_operations.hpp'}

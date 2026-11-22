@@ -5,23 +5,23 @@
   "Checks": [
     {
       "Status": "Passed",
-      "Evidence": "QA-only Windows disk IO and real codecs; not Unreal IFileManager or UI acceptance",
-      "ExitCode": 0,
-      "Arguments": [],
-      "Seconds": 17.76,
-      "Log": "build\\qa\\b6fbe317\\SaveIO.log",
+      "Seconds": 20.14,
+      "Log": "build\\qa\\786d2d6a\\SaveIO.log",
       "Script": "scripts/testar-save-io-isolado.ps1",
-      "Area": "SaveIO"
+      "Arguments": [],
+      "ExitCode": 0,
+      "Area": "SaveIO",
+      "Evidence": "QA-only Windows disk IO and real codecs; not Unreal IFileManager or UI acceptance"
     },
     {
       "Status": "Passed",
-      "Evidence": "QA plan schema only; no manual acceptance",
-      "ExitCode": 0,
-      "Arguments": [],
-      "Seconds": 0.47,
-      "Log": "build\\qa\\b6fbe317\\LabQaPlan.log",
+      "Seconds": 0.43,
+      "Log": "build\\qa\\786d2d6a\\LabQaPlan.log",
       "Script": "scripts/verificar-lab-qa.ps1",
-      "Area": "LabQaPlan"
+      "Arguments": [],
+      "ExitCode": 0,
+      "Area": "LabQaPlan",
+      "Evidence": "QA plan schema only; no manual acceptance"
     }
   ],
   "SmokeCases": [

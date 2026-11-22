@@ -1,4 +1,5 @@
 #include "ProbeArena.h"
+#include "rpg/persistence.hpp"
 #include <algorithm>
 #include <cmath>
 #include <stdexcept>
@@ -21,6 +22,29 @@
 #include "Serialization/JsonSerializer.h"
 namespace {
 using namespace rpg::presentation;
+class UnrealSaveFiles final:public rpg::storage::Files {
+ FString Root;bool Progress;
+ FString Path(std::string_view key)const{return Root/UTF8_TO_TCHAR(std::string(key).c_str());}
+public:
+ explicit UnrealSaveFiles(FString root,bool progress=false):Root(MoveTemp(root)),Progress(progress){}
+ bool ensure_directory()override{return IFileManager::Get().MakeDirectory(*Root,true);}
+ rpg::storage::ReadResult read(std::string_view key,std::size_t limit)override{
+  const auto path=Path(key);if(!IFileManager::Get().FileExists(*path)){return {};}
+  TUniquePtr<FArchive> file(IFileManager::Get().CreateFileReader(*path));const int64 size=file?file->TotalSize():-1;
+  if(size<0||size>static_cast<int64>(limit)){return {rpg::storage::ReadState::Failed,{}};}
+  if(!Progress){file.Reset();FString text;if(!FFileHelper::LoadFileToString(text,*path)){return {rpg::storage::ReadState::Failed,{}};}return {rpg::storage::ReadState::Ready,TCHAR_TO_UTF8(*text)};}
+  std::string bytes(static_cast<std::size_t>(size),char{});if(size){file->Serialize(bytes.data(),size);}
+  if(file->IsError()){return {rpg::storage::ReadState::Failed,{}};}return {rpg::storage::ReadState::Ready,MoveTemp(bytes)};
+ }
+ bool copy(std::string_view from,std::string_view to)override{return IFileManager::Get().Copy(*Path(to),*Path(from),true,false)==COPY_OK;}
+ bool write(std::string_view key,std::string_view bytes)override{TArray<uint8> data;data.Append(reinterpret_cast<const uint8*>(bytes.data()),static_cast<int32>(bytes.size()));return FFileHelper::SaveArrayToFile(data,*Path(key));}
+ bool replace(std::string_view target,std::string_view temporary)override{return IFileManager::Get().Move(*Path(target),*Path(temporary),true,Progress,false,true);}
+ void discard(std::string_view key)override{IFileManager::Get().Delete(*Path(key),false,false,true);}
+};
+rpg::storage::Keys StorageKeys(const FString& filename){
+ const std::string name=TCHAR_TO_UTF8(*filename);const std::string id=TCHAR_TO_UTF8(*FGuid::NewGuid().ToString(EGuidFormats::Digits));
+ return {name,name+".tmp-"+id,name+".bak",name+".invalid-"+id};
+}
 FString Text(const std::string& value){return UTF8_TO_TCHAR(value.c_str());}
 std::string Utf8(const FString& value){return TCHAR_TO_UTF8(*value);}
 FString String(const TSharedPtr<FJsonObject>& object,const TCHAR* key){
@@ -165,16 +189,8 @@ void AProbeArenaHUD::LoadPresentationPreferences()
     Preferences.area=HubArea;Preferences.view=HubView;
     FString configured=TEXT("Auto");GConfig->GetString(TEXT("RpgPrototype"),TEXT("PresentationMode"),configured,GGameIni);
     if(const auto mode=parse_presentation_mode(Utf8(configured))){Preferences.mode=*mode;}
-    const FString file=FPaths::ProjectSavedDir()/TEXT("Presentation/preferences-v1.txt");
-    const auto read=[&](const FString& name)->std::optional<std::string>{
-        if(!IFileManager::Get().FileExists(*name)){return {};}
-        const int64 bytes=IFileManager::Get().FileSize(*name);FString text;
-        if(bytes<1 || bytes>4096 || !FFileHelper::LoadFileToString(text,*name)){return std::string("invalid");}
-        return Utf8(text);
-    };
-    const auto primary=read(file),backup=read(file+TEXT(".bak"));
-    const auto result=read_preferences(primary?std::optional<std::string_view>(*primary):std::nullopt,
-        backup?std::optional<std::string_view>(*backup):std::nullopt,Preferences);
+    UnrealSaveFiles files(FPaths::ProjectSavedDir()/TEXT("Presentation"));
+    const auto result=rpg::storage::load_preferences(files,StorageKeys(TEXT("preferences-v1.txt")),Preferences);
     Preferences=result.values;
     PreferencesStatus=result.source==PreferenceSource::Backup?TEXT("Cópia anterior carregada."):result.primary_invalid?TEXT("Arquivo inválido; usando padrões."):TEXT("Preferências locais.");
     ApplyPresentationPreferences();
@@ -182,24 +198,10 @@ void AProbeArenaHUD::LoadPresentationPreferences()
 void AProbeArenaHUD::SavePresentationPreferences()
 {
     Preferences.area=HubArea;Preferences.view=HubView;ApplyPresentationPreferences();
-    const FString directory=FPaths::ProjectSavedDir()/TEXT("Presentation");
-    const FString file=directory/TEXT("preferences-v1.txt");
-    auto& files=IFileManager::Get();
-    if(!files.MakeDirectory(*directory,true)){PreferencesStatus=TEXT("Sem acesso para salvar; alteração só nesta sessão.");return;}
-    if(files.FileExists(*file)){
-        const int64 bytes=files.FileSize(*file);FString old;
-        if(bytes<0 || bytes>4096 || !FFileHelper::LoadFileToString(old,*file)){PreferencesStatus=TEXT("Arquivo anterior preservado; alteração só nesta sessão.");return;}
-        bool valid=true;try{(void)decode_preferences(Utf8(old));}catch(const std::invalid_argument&){valid=false;}
-        const FString backup=valid?file+TEXT(".bak"):file+TEXT(".invalid-")+FGuid::NewGuid().ToString(EGuidFormats::Digits);
-        if(files.Copy(*backup,*file,true,false)!=COPY_OK){PreferencesStatus=TEXT("Falha ao preservar cópia anterior; não salvo.");return;}
-    }
-    const FString temporary=file+TEXT(".tmp-")+FGuid::NewGuid().ToString(EGuidFormats::Digits);
-    const FString encoded=Text(encode_preferences(Preferences));
-    if(!FFileHelper::SaveStringToFile(encoded,*temporary,FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM) ||
-       !files.Move(*file,*temporary,true,false,false,true)){
-        files.Delete(*temporary,false,false,true);
-        PreferencesStatus=TEXT("Falha de gravação; alteração só nesta sessão.");return;
-    }
+    try{
+        UnrealSaveFiles files(FPaths::ProjectSavedDir()/TEXT("Presentation"));
+        rpg::storage::save_preferences(files,StorageKeys(TEXT("preferences-v1.txt")),Preferences);
+    }catch(const std::exception& e){PreferencesStatus=Text(e.what());return;}
     PreferencesStatus=TEXT("Preferências salvas neste dispositivo.");
 }
 void AProbeArenaHUD::DrawPreferences()
@@ -498,27 +500,17 @@ void AProbeArenaHUD::DrawTeamSetup(){
     const FString directory=FPaths::Combine(FPaths::ProjectSavedDir(),TEXT("LocalProgress"));
     const bool pilot=SessionIsFelipe;
     const FString filename=pilot?(PilotTutorial?TEXT("felipe-tutorial-v1.save"):TEXT("felipe-pilot-v1.save")):TEXT("progress-v1.save");
-    const FString path=FPaths::Combine(directory,filename);
+    UnrealSaveFiles files(directory,true);
     if(button(3,TEXT("Salvar progresso aplicado"))){
         try{
             const auto bytes=Session.export_save();
-            if(bytes.size()>rpg::max_save_bytes){throw rpg::SaveError("Save excede o limite de tamanho.");}
-            if(!IFileManager::Get().MakeDirectory(*directory,true)){throw rpg::SaveError("Nao foi possivel criar a pasta de progresso.");}
-            const FString temporary=path+TEXT(".")+FGuid::NewGuid().ToString()+TEXT(".pending");
-            TArray<uint8> data;data.Append(reinterpret_cast<const uint8*>(bytes.data()),static_cast<int32>(bytes.size()));
-            if(!FFileHelper::SaveArrayToFile(data,*temporary) || !IFileManager::Get().Move(*path,*temporary,true,true,false,true)){
-                throw rpg::SaveError("Falha ao salvar; progresso em memoria preservado. Verifique permissao/espaco.");
-            }
+            rpg::storage::save_progress(files,StorageKeys(filename),bytes);
             TeamStatus=FString::Printf(TEXT("Progresso salvo em Saved/LocalProgress/%s."),*filename);
         }catch(const std::exception& e){TeamStatus=Text(e.what());}OpenInfo(TEXT("Equipe / Save"),{Utf8(TeamStatus)});return;
     }
     if(button(4,TEXT("Carregar progresso (nova tentativa)"))){
         try{
-            TUniquePtr<FArchive> reader(IFileManager::Get().CreateFileReader(*path));
-            const int64 size=reader?reader->TotalSize():-1;
-            if(size<=0 || size>static_cast<int64>(rpg::max_save_bytes)){throw rpg::SaveError("Save ausente, vazio ou acima de 1 MiB.");}
-            TArray<uint8> bytes;bytes.SetNumUninitialized(static_cast<int32>(size));reader->Serialize(bytes.GetData(),size);if(reader->IsError()){throw rpg::SaveError("Falha de leitura do save.");}reader.Reset();
-            Session.import_save(std::string_view(reinterpret_cast<const char*>(bytes.GetData()),bytes.Num()));
+            Session.import_save(rpg::storage::load_progress(files,StorageKeys(filename)));
             RefreshArenaActors();SelectedSlot=0;SelectedTarget.Empty();Gesture.cancel();DraftTeam=Session.team().selected;TeamStatus=TEXT("Progresso carregado. Nova tentativa; batalha anterior não é restaurada.");
         }catch(const std::exception& e){TeamStatus=Text(e.what());}OpenInfo(TEXT("Equipe / Save"),{Utf8(TeamStatus)});return;
     }

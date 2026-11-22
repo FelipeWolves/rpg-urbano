@@ -36,3 +36,5 @@ Em paralelo, usuário pode validar LQA-09/10 na interface e os modos novos. LQA-
 ## Resultado registrado
 
 10/10 grupos aprovados, execução pelo verificador por área com código de saída zero. Plano de QA validado separadamente. Relatório: docs/relatorios/atuais/LAB-QA-01B.json. Nenhuma recompilação Unreal necessária: não houve mudança de código runtime, stage ou configuração do jogo.
+
+> Atualização LAB-QA-01C: contrato compartilhado implementado/testado e adaptador Unreal compilado; ver LAB-QA-01C-PERSISTENCIA-COMPARTILHADA.md. A indicação anterior de contrato ainda futuro é histórica. Aceites reais de interface continuam abertos.

@@ -31,3 +31,5 @@ Save de progresso usa arquivo temporário e substituição, mas não possui back
 Feedback: 12/12 grupos; sessão/codec: aprovados; matriz: schema aprovado; UnrealBuildTool: Succeeded; stage: 68 entradas verificadas. Avisos já conhecidos do compilador MSVC e Attribute.h da engine permanecem; sem instalação ou alteração da engine. Não executados: jogo, editor gráfico, Android e I/O real de save pela interface.
 
 > Continuidade: LAB-QA-01B-IO-ISOLADO.md entrega os testes nativos de disco. Integração Unreal de I/O e aceites manuais continuam separados; próximo corte independente é LAB-QA-01C.
+
+> Atualização LAB-QA-01C: contrato compartilhado implementado/testado e adaptador Unreal compilado; ver LAB-QA-01C-PERSISTENCIA-COMPARTILHADA.md. A indicação anterior de contrato ainda futuro é histórica. Aceites reais de interface continuam abertos.

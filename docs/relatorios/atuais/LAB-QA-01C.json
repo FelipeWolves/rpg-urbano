@@ -1,0 +1,42 @@
+{
+  "Date": "2026-11-22",
+  "Passed": true,
+  "ExitCode": 0,
+  "Groups": 16,
+  "Backend": "Shared production persistence orchestration and codecs; Windows QA backend, not Unreal IFileManager",
+  "Directory": "build\\qa-save-io\\run-471e08a8296048d09ab742b7b67d3fc9",
+  "NormalSavesTouched": false,
+  "UnrealAdapterExecuted": false,
+  "EditorOpened": false,
+  "GameExecuted": false,
+  "AndroidExecuted": false,
+  "Cases": [
+    "CASE,IO-01,progress disk roundtrip",
+    "CASE,IO-02,replace existing file",
+    "CASE,IO-03,corrupt import preserves memory",
+    "CASE,IO-04,truncated and oversized rejected",
+    "CASE,IO-05,preferences recover backup",
+    "CASE,IO-06,both invalid use defaults",
+    "CASE,IO-07,locked target preserves committed file",
+    "CASE,IO-08,pending ignored no automatic progress backup",
+    "CASE,IO-09,backup copy failure",
+    "CASE,IO-10,missing file handled",
+    "CASE,IO-11,partial write failure shared orchestration",
+    "CASE,IO-12,replacement failure shared orchestration",
+    "CASE,IO-13,invalid primary quarantined backup preserved",
+    "CASE,IO-14,directory failure shared orchestration",
+    "CASE,IO-15,path and duplicate key guards",
+    "CASE,IO-16,oversize previous preference preserved"
+  ],
+  "Limitations": [
+    "No power-loss durability certification",
+    "No actual disk-full or OS ACL changes",
+    "No automatic progress backup added",
+    "Unreal UI save/reopen remains pending"
+  ],
+  "SharedProductionOrchestration": true,
+  "UnrealBuild": "Succeeded",
+  "StageInputsVerified": 69,
+  "SessionRegressionPassed": true,
+  "ProgressPercent": 28
+}

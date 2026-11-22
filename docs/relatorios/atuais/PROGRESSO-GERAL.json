@@ -99,5 +99,5 @@
   "documentation_only_this_update": false,
   "android_used": false,
   "engine_opened": false,
-  "latest_technical_report": "LAB-QA-01B.json; 10 isolated Windows disk IO groups passed with real codecs; Unreal adapter/UI acceptance pending; estimates unchanged"
+  "latest_technical_report": "LAB-QA-01C.json; shared persistence 16/16, session regression, Unreal build and stage69 passed; UI/runtime backend acceptance pending; estimates unchanged"
 }

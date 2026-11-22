@@ -277,3 +277,8 @@ Parser JSON do hub, importação do panorama, projeção/clipping dos dois alvos
 
 - Parser amplo com limites separados de versão/slot/SPD, sem wrap por narrowing; nove grupos de manifesto aprovados.
 - QA por área Arithmetic/Wide e stage novo de 54 entradas verificado; formatos v1 mantidos onde compatíveis, sem cook/execução.
+
+## 2026-11-22 — REG-01-A
+
+- Outcomes por hit, RNG indexado por identidade/canal e contrato ACC/RESIST com imunidade/irresistível separados.
+- Nove grupos nativos aprovados; integração do funil ao Battle segue no próximo corte.

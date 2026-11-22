@@ -1,0 +1,12 @@
+{
+  "Date": "2026-11-22",
+  "Suite": "Outcomes",
+  "Passed": true,
+  "ExitCode": 0,
+  "Result": [
+    "REG_OUTCOME_TESTS_RESULT passed=9 total=9"
+  ],
+  "BigIntegerVectors": 0,
+  "EngineExecuted": false,
+  "AndroidExecuted": false
+}

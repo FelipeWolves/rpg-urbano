@@ -80,6 +80,28 @@ std::optional<InfoPanelLayout> plan_info_panel(Rect safe,double line_height,bool
     if(action){layout.action=Rect{box.x+16,y-56,width-32,48};}
     return layout;
 }
+namespace {
+bool valid_mapping(const CanvasMapping& m) noexcept {
+    for(double v:{m.origin_x,m.origin_y,m.xx,m.xy,m.yx,m.yy}){if(!std::isfinite(v)){return false;}}
+    const double det=m.xx*m.yy-m.xy*m.yx;return std::isfinite(det) && std::abs(det)>1e-12;
+}
+}
+std::optional<Point2> viewport_to_canvas(double x,double y,const CanvasMapping& m) noexcept {
+    if(!valid_mapping(m) || !std::isfinite(x) || !std::isfinite(y)){return {};}
+    x-=m.origin_x;y-=m.origin_y;const double det=m.xx*m.yy-m.xy*m.yx;
+    const Point2 result{(m.yy*x-m.xy*y)/det,(-m.yx*x+m.xx*y)/det};
+    if(!std::isfinite(result.x) || !std::isfinite(result.y)){return {};}return result;
+}
+std::optional<Point2> canvas_to_viewport(double x,double y,const CanvasMapping& m) noexcept {
+    if(!valid_mapping(m) || !std::isfinite(x) || !std::isfinite(y)){return {};}
+    const Point2 result{m.origin_x+m.xx*x+m.xy*y,m.origin_y+m.yx*x+m.yy*y};
+    if(!std::isfinite(result.x) || !std::isfinite(result.y)){return {};}return result;
+}
+bool same_canvas_mapping(const CanvasMapping& a,const CanvasMapping& b) noexcept {
+    if(!valid_mapping(a) || !valid_mapping(b)){return false;}
+    return std::abs(a.origin_x-b.origin_x)<1e-6 && std::abs(a.origin_y-b.origin_y)<1e-6 &&
+        std::abs(a.xx-b.xx)<1e-6 && std::abs(a.xy-b.xy)<1e-6 && std::abs(a.yx-b.yx)<1e-6 && std::abs(a.yy-b.yy)<1e-6;
+}
 PointerFrame PointerInput::update(PointerSample mouse,PointerSample touch,bool focused,double seconds,PointerContext context){
     PointerFrame frame;
     const bool mouseStart=mouse.down && !previous_mouse_,touchStart=touch.down && !previous_touch_;

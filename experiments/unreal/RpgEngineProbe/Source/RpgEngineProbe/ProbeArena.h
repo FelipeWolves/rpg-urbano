@@ -66,6 +66,8 @@ private:
     rpg::presentation::PointerInput Pointer;
     rpg::presentation::PointerFrame Input;
     float LastTouchX=0,LastTouchY=0;
+    rpg::presentation::CanvasMapping CanvasCoordinates;
+    bool CanvasCoordinatesKnown=false;
     void ReadPointer();
     bool InspectionMode=false;
     int32 InspectionIndex=0;

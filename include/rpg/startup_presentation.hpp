@@ -17,6 +17,13 @@ struct InfoPanelLayout { Rect box,body,previous,next,close; std::optional<Rect> 
 [[nodiscard]] std::optional<InfoPanelLayout> plan_info_panel(Rect safe,double line_height,bool action=false);
 enum class PointerSource { None, Mouse, Touch };
 struct PointerSample { bool down=false; bool valid=false; double x=0; double y=0; };
+struct CanvasMapping {
+    double origin_x=0,origin_y=0,xx=1,xy=0,yx=0,yy=1;
+};
+struct Point2 { double x,y; };
+[[nodiscard]] std::optional<Point2> viewport_to_canvas(double x,double y,const CanvasMapping& mapping) noexcept;
+[[nodiscard]] std::optional<Point2> canvas_to_viewport(double x,double y,const CanvasMapping& mapping) noexcept;
+[[nodiscard]] bool same_canvas_mapping(const CanvasMapping& a,const CanvasMapping& b) noexcept;
 struct PointerContext { std::uint64_t revision=0; std::uint8_t screen=0; bool operator==(const PointerContext&) const = default; };
 struct PointerFrame {
     PointerSource source=PointerSource::None;
@@ -27,6 +34,7 @@ struct PointerFrame {
 // until a fresh mouse press after a short guard. Cancelled gestures require all-up.
 class PointerInput {
 public:
+    void cancel_until_release() noexcept {owner_=PointerSource::None;blocked_=true;}
     [[nodiscard]] PointerFrame update(PointerSample mouse,PointerSample touch,bool focused,
         double seconds,PointerContext context);
 private:

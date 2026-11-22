@@ -1,0 +1,14 @@
+{
+  "Date": "2026-11-22",
+  "NativeTestsPassed": true,
+  "NewGroups": 8,
+  "PresentationGroups": 72,
+  "BuildExitCode": 0,
+  "BuildActions": 8,
+  "Log": "build/pointer-coordinate-build.log",
+  "UserVisualAcceptance": true,
+  "AcceptanceSource": "User confirmed pointer alignment in conversation",
+  "AllDpiDevicesValidated": false,
+  "AssistantVisualRuntimeExecuted": false,
+  "AndroidExecuted": false
+}

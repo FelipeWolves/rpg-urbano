@@ -7,6 +7,7 @@
 #include "rpg/arena_layout.hpp"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/Canvas.h"
+#include "CanvasTypes.h"
 #include "DrawDebugHelpers.h"
 #include "Engine/StaticMesh.h"
 #include "Engine/StaticMeshActor.h"
@@ -92,11 +93,28 @@ void AProbeArenaHUD::ReadPointer()
     const bool mouseValid=PlayerOwner->GetMousePosition(mx,my);
     PlayerOwner->GetInputTouchState(ETouchIndex::Touch1,tx,ty,touched);
     if(touched){LastTouchX=tx;LastTouchY=ty;}
+    if(Canvas->Canvas){
+        // Canvas drawing has a transform in addition to viewport coordinates:
+        // player view origin, safe-zone translation and Canvas DPI scale.
+        const FMatrix transform=Canvas->Canvas->GetTransform();
+        const auto origin=transform.TransformPosition(FVector::ZeroVector);
+        const auto axisX=transform.TransformPosition(FVector(1,0,0));
+        const auto axisY=transform.TransformPosition(FVector(0,1,0));
+        const double dpi=Canvas->Canvas->GetDPIScale();
+        const rpg::presentation::CanvasMapping mapping{origin.X*dpi,origin.Y*dpi,
+            (axisX.X-origin.X)*dpi,(axisY.X-origin.X)*dpi,(axisX.Y-origin.Y)*dpi,(axisY.Y-origin.Y)*dpi};
+        if(CanvasCoordinatesKnown && !rpg::presentation::same_canvas_mapping(CanvasCoordinates,mapping)){
+            Pointer.cancel_until_release();Gesture.cancel();
+        }
+        CanvasCoordinates=mapping;CanvasCoordinatesKnown=true;
+    }
+    const auto mouse=rpg::presentation::viewport_to_canvas(mx,my,CanvasCoordinates);
+    const auto touch=rpg::presentation::viewport_to_canvas(LastTouchX,LastTouchY,CanvasCoordinates);
     const auto* viewport=GetWorld()->GetGameViewport();
     const bool focused=viewport && viewport->Viewport && viewport->Viewport->HasFocus();
     const std::uint8_t screen=InspectionMode?(!PopupLines.IsEmpty()?5:4):InHub?(PreferencesOpen?6:HubEventOpen?1:0):(!PopupLines.IsEmpty()?3:2);
-    Input=Pointer.update({PlayerOwner->IsInputKeyDown(EKeys::LeftMouseButton),mouseValid,mx,my},
-        {touched,true,LastTouchX,LastTouchY},focused,GetWorld()->GetTimeSeconds(),{InspectionMode?static_cast<std::uint64_t>(InspectionIndex):Session.state().revision,screen});
+    Input=Pointer.update({PlayerOwner->IsInputKeyDown(EKeys::LeftMouseButton),mouseValid && mouse.has_value() && CanvasCoordinatesKnown,mouse?mouse->x:0,mouse?mouse->y:0},
+        {touched,touch.has_value() && CanvasCoordinatesKnown,touch?touch->x:0,touch?touch->y:0},focused,GetWorld()->GetTimeSeconds(),{InspectionMode?static_cast<std::uint64_t>(InspectionIndex):Session.state().revision,screen});
     if(Input.cancelled){Gesture.cancel();}
 }
 void AProbeArenaHUD::DrawHUD()
@@ -154,6 +172,8 @@ void AProbeArenaHUD::DrawHUD()
             it->SetActorHiddenInGame(fighter.health<=0);
             FVector2D screen;
             if(!PlayerOwner->ProjectWorldLocationToScreen(it->GetActorLocation()+FVector(0,0,80),screen)){continue;}
+            const auto labelPosition=rpg::presentation::viewport_to_canvas(screen.X,screen.Y,CanvasCoordinates);
+            if(!labelPosition){continue;}screen=FVector2D(labelPosition->x,labelPosition->y);
             const float width=150.f;
             const float x=FMath::Clamp(static_cast<float>(screen.X)-width/2,4.f,FMath::Max(4.f,Canvas->SizeX-width-4));
             float y=FMath::Clamp(static_cast<float>(screen.Y)-25,66.f,FMath::Max(66.f,Canvas->SizeY-175));
@@ -269,8 +289,8 @@ void AProbeArenaHUD::DrawHUD()
         submit(SelectedTarget);return;
     }
     if(PopupLines.IsEmpty() && clicked && manual && SelectedSlot && !classic){
-        FHitResult hit;
-        if(PlayerOwner->GetHitResultAtScreenPosition(FVector2D(mx,my),ECC_Visibility,false,hit) && hit.GetActor()){
+        FHitResult hit;const auto point=rpg::presentation::canvas_to_viewport(mx,my,CanvasCoordinates);
+        if(point && PlayerOwner->GetHitResultAtScreenPosition(FVector2D(point->x,point->y),ECC_Visibility,false,hit) && hit.GetActor()){
             for(const auto& id:candidates){if(hit.GetActor()->Tags.Contains(FName(*Label(id)))){SelectedTarget=Label(id);Message=TEXT("Target changed. Confirm when ready.");break;}}
         }
     }

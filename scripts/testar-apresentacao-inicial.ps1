@@ -50,6 +50,10 @@ if errorlevel 1 exit /b 26
 cl.exe %FLAGS% /I"$root/include" "$root/tests/presentation_preferences_tests.cpp" "$build/startup_presentation.obj" /Fo"$build/presentation_preferences_tests.obj" /Fe"$build/presentation_preferences_tests.exe" /link /INCREMENTAL:NO
 if errorlevel 1 exit /b 27
 "$build/presentation_preferences_tests.exe"
+if errorlevel 1 exit /b 28
+cl.exe %FLAGS% /I"$root/include" "$root/tests/canvas_coordinate_tests.cpp" "$build/startup_presentation.obj" /Fo"$build/canvas_coordinate_tests.obj" /Fe"$build/canvas_coordinate_tests.exe" /link /INCREMENTAL:NO
+if errorlevel 1 exit /b 29
+"$build/canvas_coordinate_tests.exe"
 exit /b %ERRORLEVEL%
 "@
 $batchPath=Join-Path $build 'testar.cmd';$batch | Set-Content $batchPath -Encoding ascii

@@ -189,3 +189,5 @@ ConferênciaAndroid20/11 concluída em leitura:Studio D:\Android presente;SdkPat
 **Complemento final recebido20/11:** [A2, ACC/RESIST e ponto fixo](COMPLEMENTO-FINAL-A2-ACC-PONTO-FIXO.md). Bordas de A2 e equação/irresistível respondidos; teto10^12 por saturação; double substituído por ponto fixo de escala10000 no núcleo futuro. Não repetir as perguntas resolvidas. Determinismo bit a bit é meta a verificar, não aceite existente. Nenhum código/teste executado nesta recepção.
 
 Recepção21/11: [novidades e política de versionamento](RECEBIMENTO-NOVIDADES-2026-11-21.md).15Markdown recebidos entram noGit;1novo/1alterado noHub,demais13sem mudança.10PNG locais(8variantes+2indicativos).7destinos do novo panorama são direção futura,não sistemas ativados;AUT-01–04 preservados. Sem código/build/teste ou abertura de programas.
+
+AUT-12 (22/11): marcador de runtime implementado, cinco grupos de geometria aprovados; compilação em AUT-12-BUILD.json. Visual/Shipping/terreno pendentes. Próximo AUT-13. Clique inicial: aceite provisório, REVER. Ver docs/projeto/AUT-12-MARCADOR-RUNTIME.md.

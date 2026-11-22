@@ -18,4 +18,7 @@ struct ArenaPlacement {
 [[nodiscard]] std::optional<ArenaLayout> parse_arena_layout(std::string_view name);
 [[nodiscard]] std::vector<ArenaPlacement> arena_placements(const std::vector<Definition>& roster,
     ArenaLayout layout=default_arena_layout);
+struct MarkerEdge { float x,y,length,yaw; };
+// Local XY geometry, anchored at feet by the engine adapter. No debug renderer.
+[[nodiscard]] std::vector<MarkerEdge> marker_edges(float radius,std::uint32_t segments);
 } // namespace rpg::presentation

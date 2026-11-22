@@ -154,3 +154,5 @@ Planejamento transversal: [AUT-01–16](../projeto/FILA-DESENVOLVIMENTO-INDEPEND
 20/11:12 entregas estudadas e integradas ao planejamento. [REG/SIS/HAB e conflitosENT](../projeto/REVISAO-ENTREGAS-2026-11-20.md); nenhum aceite novo de implementação. ESC/R04/seletor preservados. [DependênciasAndroid](../projeto/ANDROID-DEPENDENCIAS.md).
 
 ENT-01–15: ✅ decisões respondidas; ⚠️ implementação das expansões e respectivos testes pendentes. [Adendo](../projeto/RESPOSTAS-ENT-2026-11-20.md). Não reabrirESC/seletor;novas regrasWAVE/Block/TrueDamage não estão no runtime atual.
+
+AUT-12 (22/11): marcador de runtime implementado, cinco grupos de geometria aprovados; compilação em AUT-12-BUILD.json. Visual/Shipping/terreno pendentes. Próximo AUT-13. Clique inicial: aceite provisório, REVER. Ver docs/projeto/AUT-12-MARCADOR-RUNTIME.md.

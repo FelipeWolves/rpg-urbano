@@ -217,3 +217,8 @@ Parser JSON do hub, importação do panorama, projeção/clipping dos dois alvos
 
 - Corrigida distinção de foco da janela/viewport na mídia; logs de ciclo para investigar segundo clique.
 - Backend Android/iOS registrado como validação obrigatória futura; reteste do clique pendente.
+
+## 2026-11-22 — AUT-12
+
+- Marcador de seleção em malhas de runtime, sem DrawDebugLine; ciclo próprio e geometria testada.
+- Aceite visual/Shipping/terreno pendentes. Primeiro clique da intro marcado REVER pelo usuário.

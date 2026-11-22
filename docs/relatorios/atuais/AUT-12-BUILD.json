@@ -1,0 +1,17 @@
+{
+  "Date": "2026-11-22",
+  "Compiled": true,
+  "ExitCode": 0,
+  "BuildActions": 9,
+  "NativeGroups": 5,
+  "Log": "build/aut12-build.log",
+  "VisualAcceptance": false,
+  "ShippingValidated": false,
+  "AndroidExecuted": false,
+  "Pending": [
+    "Marker appearance/material",
+    "Uneven ground",
+    "Shipping/cook",
+    "Runtime cleanup acceptance"
+  ]
+}

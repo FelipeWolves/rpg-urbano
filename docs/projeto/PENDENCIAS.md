@@ -588,3 +588,7 @@ Recepção21/11: [novidades e política de versionamento](RECEBIMENTO-NOVIDADES-
 - **Primeiro clique — reteste pendente:** usuário confirmou reprodução após correção WMF, porém somente no segundo clique. Log não registrava transições para concluir causalidade. Revisão encontrou pausa baseada em HasFocus do viewport; ajustada para janela em primeiro plano durante mídia, preservando regra de continuar após interrupção real. Entrada de combate continua com foco estrito. Acrescentados INTRO_REQUEST/PREPARED/BACKGROUND_PAUSE/TERMINAL para diagnóstico. Não declarar causa confirmada ou defeito encerrado antes do reteste.
 
 - **AUT-11 / primeiro clique:** hipótese anterior de pausa não confirmada pelos logs. Ajustado consumo/captura inicial do mouse na entrada Canvas; validar clique único imediatamente após Play e regressão de equipe/alvos. Backend mobile segue pendente.
+
+## Reteste do clique inicial — confirmação ainda provisória (22/11/2026)
+
+Usuário informou que aparentemente está correto, mas fará uma segunda conferência. Marcar **REVER / aceite provisório**, sem encerrar definitivamente o ponto. Conferir primeiro clique logo após Play, equipe/alvos e retorno da mídia. Não reabrir por conta própria nem declarar aceite integral.

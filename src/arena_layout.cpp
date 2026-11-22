@@ -1,6 +1,7 @@
 #include "rpg/arena_layout.hpp"
 #include <algorithm>
 #include <array>
+#include <cmath>
 #include <stdexcept>
 namespace rpg::presentation {
 std::optional<ArenaLayout> parse_arena_layout(std::string_view name){
@@ -36,6 +37,17 @@ std::vector<ArenaPlacement> arena_placements(const std::vector<Definition>& rost
             result.push_back({fighter.id,fighter.team,ally?offsets[slot]:-offsets[slot],
                 ally?-depth:depth,60.f,ally?90.f:-90.f});
         }
+    }
+    return result;
+}
+std::vector<MarkerEdge> marker_edges(float radius,std::uint32_t segments){
+    if(!std::isfinite(radius) || radius<=0 || radius>10000 || segments<3 || segments>64){throw std::invalid_argument("Invalid target marker geometry");}
+    constexpr double pi=3.14159265358979323846;
+    std::vector<MarkerEdge> result;result.reserve(segments);
+    for(std::uint32_t i=0;i<segments;++i){
+        const double a=2*pi*i/segments,b=2*pi*(i+1)/segments;
+        const double x1=radius*std::cos(a),y1=radius*std::sin(a),x2=radius*std::cos(b),y2=radius*std::sin(b);
+        result.push_back({static_cast<float>((x1+x2)/2),static_cast<float>((y1+y2)/2),static_cast<float>(std::hypot(x2-x1,y2-y1)),static_cast<float>(std::atan2(y2-y1,x2-x1)*180/pi)});
     }
     return result;
 }

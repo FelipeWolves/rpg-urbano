@@ -74,7 +74,7 @@ void AProbeArenaHUD::StopIntro(){
     if(IntroTexture){IntroTexture->SetMediaPlayer(nullptr);}
     IntroSound=nullptr;IntroTexture=nullptr;IntroPlayer=nullptr;IntroActive=false;IntroHold=-1;IntroFlow.cancel();
 }
-void AProbeArenaHUD::EndPlay(const EEndPlayReason::Type reason){StopIntro();Super::EndPlay(reason);}
+void AProbeArenaHUD::EndPlay(const EEndPlayReason::Type reason){DestroyTargetMarker();StopIntro();Super::EndPlay(reason);}
 void AProbeArenaHUD::DrawIntro(){
     const double now=FPlatformTime::Seconds();
     const bool focused=GetWorld()->GetGameViewport() && GetWorld()->GetGameViewport()->Viewport && GetWorld()->GetGameViewport()->Viewport->IsForegroundWindow();

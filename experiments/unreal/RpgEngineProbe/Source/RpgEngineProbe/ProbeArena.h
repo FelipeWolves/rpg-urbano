@@ -17,6 +17,13 @@ public:
     virtual void EndPlay(const EEndPlayReason::Type reason) override;
 private:
     rpg::presentation::VisualSession Session;
+    UPROPERTY() TObjectPtr<class UStaticMesh> TargetMarkerMesh=nullptr;
+    UPROPERTY(Transient) TObjectPtr<AActor> TargetMarkerActor=nullptr;
+    int32 TargetMarkerSegments=0;
+    float TargetMarkerRadius=0;
+    void UpdateTargetMarker(FVector base,float radius,int32 segments);
+    void HideTargetMarker();
+    void DestroyTargetMarker();
     UPROPERTY(Transient)
     TObjectPtr<UTexture2D> HubTexture=nullptr;
     UPROPERTY(Transient) TObjectPtr<UTexture2D> HubLogo=nullptr;

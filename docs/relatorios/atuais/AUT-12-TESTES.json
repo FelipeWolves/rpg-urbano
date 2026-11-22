@@ -1,0 +1,9 @@
+{
+  "Date": "2026-11-22",
+  "Passed": true,
+  "ExitCode": 0,
+  "Result": [
+    "AUT12_TESTS_RESULT passed=5 total=5"
+  ],
+  "Scope": "Native contract only; no graphical/mobile execution"
+}

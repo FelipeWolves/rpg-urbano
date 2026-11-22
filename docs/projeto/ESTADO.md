@@ -173,3 +173,5 @@ Recepção21/11: [novidades e política de versionamento](RECEBIMENTO-NOVIDADES-
 Usuário confirmou que reproduz, com segundo clique indevido. Ajuste de foco de janela preparado e instrumentado; reteste pendente. Backends mobile explicitamente pendentes em PENDENCIAS.md. Nenhum percentual alterado.
 
 AUT-11: reteste confirmou segundo clique só na primeira reprodução. Sem pausa registrada; ajuste de captura inicial do mouse preparado. Reteste de clique único/equipe/arena pendente; não declarar problema encerrado.
+
+AUT-12 (22/11): marcador de runtime implementado, cinco grupos de geometria aprovados; compilação em AUT-12-BUILD.json. Visual/Shipping/terreno pendentes. Próximo AUT-13. Clique inicial: aceite provisório, REVER. Ver docs/projeto/AUT-12-MARCADOR-RUNTIME.md.

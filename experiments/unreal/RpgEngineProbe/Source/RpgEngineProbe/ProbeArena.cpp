@@ -8,7 +8,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "Engine/Canvas.h"
 #include "CanvasTypes.h"
-#include "DrawDebugHelpers.h"
+
 #include "Engine/StaticMesh.h"
 #include "Engine/StaticMeshActor.h"
 #include "Engine/World.h"
@@ -23,7 +23,7 @@ FString Label(const std::string& value){return UTF8_TO_TCHAR(value.c_str());}
 rpg::CombatProfile SelectedCombatProfile(){FString name;if(FParse::Value(FCommandLine::Get(),TEXT("CombatProfile="),name) && name==TEXT("Classic")){return rpg::CombatProfile::Classic;}if(!name.IsEmpty() && name!=TEXT("Team")){UE_LOG(LogTemp,Warning,TEXT("Unknown CombatProfile; using Team"));}return rpg::CombatProfile::Team;}
 std::optional<rpg::presentation::ArenaLayout> SelectedLayout(){FString name;if(!FParse::Value(FCommandLine::Get(),TEXT("ArenaLayout="),name)){return rpg::presentation::default_arena_layout;}return rpg::presentation::parse_arena_layout(TCHAR_TO_UTF8(*name));}
 }
-AProbeArenaHUD::AProbeArenaHUD():Session(SelectedCombatProfile()==rpg::CombatProfile::Classic?rpg::classic_reference_setup():rpg::team_reference_setup(),SelectedCombatProfile()){}
+AProbeArenaHUD::AProbeArenaHUD():Session(SelectedCombatProfile()==rpg::CombatProfile::Classic?rpg::classic_reference_setup():rpg::team_reference_setup(),SelectedCombatProfile()){static ConstructorHelpers::FObjectFinder<UStaticMesh> marker(TEXT("/Engine/BasicShapes/Cube.Cube"));TargetMarkerMesh=marker.Object;}
 AProbeArenaMode::AProbeArenaMode(){HUDClass=AProbeArenaHUD::StaticClass();DefaultPawnClass=nullptr;}
 void AProbeArenaMode::BeginPlay()
 {
@@ -71,7 +71,7 @@ void AProbeArenaHUD::BeginPlay()
 }
 void AProbeArenaHUD::RefreshArenaActors()
 {
-    const auto layout=SelectedLayout();if(!layout){return;}
+    DestroyTargetMarker();const auto layout=SelectedLayout();if(!layout){return;}
     for(TActorIterator<AStaticMeshActor> it(GetWorld());it;++it){if(it->Tags.Contains(FName(TEXT("RpgPrototypeActor")))){it->Destroy();}}
     std::vector<rpg::Definition> roster;
     const auto snapshot=InspectionMode?InspectionFrames[InspectionIndex].battle:Session.state().combat.battle;
@@ -124,7 +124,7 @@ void AProbeArenaHUD::ReadPointer()
 void AProbeArenaHUD::DrawHUD()
 {
     Super::DrawHUD();if(!Canvas || !PlayerOwner){return;}
-    ReadPointer();
+    HideTargetMarker();ReadPointer();
     if(IntroActive){DrawIntro();return;}
     // Hub dialogs must be rendered before any underlying hub/team actions.
     if(Flow.in_hub() && !PopupLines.IsEmpty()){
@@ -214,13 +214,7 @@ void AProbeArenaHUD::DrawHUD()
                 FVector center,extent;it->GetActorBounds(false,center,extent);
                 const float radius=FMath::Max(extent.X,extent.Y)*1.5f;
                 const FVector base(center.X,center.Y,center.Z-extent.Z+1.f);
-                FVector previous=base+FVector(radius,0,0);
-                for(int32 step=1;step<=segments;++step){
-                    const float angle=2*PI*step/segments;
-                    const FVector point=base+FVector(radius*FMath::Cos(angle),radius*FMath::Sin(angle),0);
-                    DrawDebugLine(GetWorld(),previous,point,FColor(77,242,255),false,-1.f,0,3.f);
-                    previous=point;
-                }
+                UpdateTargetMarker(base,radius,segments);
             }
         }
     }

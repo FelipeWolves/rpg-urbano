@@ -61,6 +61,7 @@ void AProbeArenaHUD::BeginPlay()
             else{UE_LOG(LogTemp,Warning,TEXT("Unknown inspection case; using first read-only case"));}
         }
     }
+    LoadPresentationPreferences();
     RefreshArenaActors();
 }
 void AProbeArenaHUD::RefreshArenaActors()
@@ -93,7 +94,7 @@ void AProbeArenaHUD::ReadPointer()
     if(touched){LastTouchX=tx;LastTouchY=ty;}
     const auto* viewport=GetWorld()->GetGameViewport();
     const bool focused=viewport && viewport->Viewport && viewport->Viewport->HasFocus();
-    const std::uint8_t screen=InspectionMode?(!PopupLines.IsEmpty()?5:4):InHub?(HubEventOpen?1:0):(!PopupLines.IsEmpty()?3:2);
+    const std::uint8_t screen=InspectionMode?(!PopupLines.IsEmpty()?5:4):InHub?(PreferencesOpen?6:HubEventOpen?1:0):(!PopupLines.IsEmpty()?3:2);
     Input=Pointer.update({PlayerOwner->IsInputKeyDown(EKeys::LeftMouseButton),mouseValid,mx,my},
         {touched,true,LastTouchX,LastTouchY},focused,GetWorld()->GetTimeSeconds(),{InspectionMode?static_cast<std::uint64_t>(InspectionIndex):Session.state().revision,screen});
     if(Input.cancelled){Gesture.cancel();}

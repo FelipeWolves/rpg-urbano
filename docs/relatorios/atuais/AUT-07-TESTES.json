@@ -1,0 +1,11 @@
+{
+  "Date": "2026-11-21",
+  "Passed": true,
+  "ExitCode": 0,
+  "Groups": 10,
+  "RoundTripCombinations": 324,
+  "Scope": "Versioned preferences codec, validation and primary/backup/default recovery policy; UE filesystem adapter not executed",
+  "EngineExecuted": false,
+  "UnrealPersistenceExecuted": false,
+  "AndroidExecuted": false
+}

@@ -48,3 +48,5 @@ Integração Unreal 38→45%, QA22→24% e documentação75→78% nesta etapa. S
 [AUT-05](AUT-05-INSPECAO.md):13cenários de inspeção,22grupos focados e build aprovados. Aceite visual de formações/escudo continua pendente; percentuais mantidos, sem alteração de regras ESC ou do roster padrão.
 
 AUT-05 aceito pelo usuário nos dois layouts/detalhes. Front20→22% e QA24→26%; soma ponderada22,09%, mantendo comunicação de aproximadamente22% da demo. AUT-06 compilado, aparência ainda pendente; Android adiado. [Registro](AUT-06-HABILIDADES.md).
+
+[AUT-07](AUT-07-PREFERENCIAS.md):64grupos de apresentação e compilação aprovados; codec/recuperação testados, gravação real/menu ainda não executados. Estimativas mantidas, sem antecipar aceite de persistência ou acessibilidade completa.

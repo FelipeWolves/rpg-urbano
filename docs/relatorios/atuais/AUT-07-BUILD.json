@@ -1,0 +1,18 @@
+{
+  "Date": "2026-11-21",
+  "Passed": true,
+  "ExitCode": 0,
+  "BuildActions": 8,
+  "NativePresentationGroups": 64,
+  "NewPreferenceGroups": 10,
+  "RoundTripCombinations": 324,
+  "Log": "build/aut07-build.log",
+  "ProjectRoot": "F:\\Testes de jogos\\Contos de Um Lobo - Jogo\\rpg-urbano",
+  "PreferencesPath": "experiments/unreal/RpgEngineProbe/Saved/Presentation/preferences-v1.txt",
+  "ScreenControlUsed": false,
+  "VisualRuntimeExecuted": false,
+  "UnrealPersistenceExecuted": false,
+  "AndroidExecuted": false,
+  "BattleRulesChanged": false,
+  "Scope": "Preferences codec and recovery policy tested; local-file adapter and options menu compiled; actual write/reopen pending"
+}

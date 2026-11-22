@@ -176,3 +176,9 @@ Parser JSON do hub, importação do panorama, projeção/clipping dos dois alvos
 -32grupos focados e compilação7ações aprovados; aceite visual novo pendente.
 -Registrado aceite do usuário nos dois layouts/detalhes da inspeção; progresso ponderado22,09%.
 -Android adiado; sem execução gráfica pelo assistente.
+
+## 2026-11-21 — AUT-07
+- Preferências versionadas de apresentação, movimento, contraste, texto e enquadramento.
+- Menu Opções e adaptador local separado do save; backup e falhas visíveis.
+-64grupos nativos (324combinações válidas no codec) e build8ações aprovados.
+- Persistência real/aceite visual pendentes; nenhum Android ou controle de tela.

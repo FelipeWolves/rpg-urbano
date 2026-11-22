@@ -2,6 +2,8 @@
 #include <algorithm>
 #include <cmath>
 #include <stdexcept>
+#include <sstream>
+#include <locale>
 namespace rpg::presentation {
 namespace {
 void valid_size(PixelSize size){
@@ -147,6 +149,42 @@ std::optional<HubFrame> plan_hub_frame(PixelSize viewport,std::uint32_t count,Sa
 }
 Rect contain(PixelSize media,PixelSize viewport){
     valid_size(media);return fit(media.width,media.height,viewport);
+}
+std::string encode_preferences(const PresentationPreferences& p){
+    if((p.mode!=PresentationMode::Auto && p.mode!=PresentationMode::Desktop && p.mode!=PresentationMode::Mobile) ||
+       (p.text_percent!=100 && p.text_percent!=125 && p.text_percent!=150) ||
+       (p.area!=HubArea::Left && p.area!=HubArea::Center && p.area!=HubArea::Right) ||
+       (p.view!=HubView::Auto && p.view!=HubView::Focused && p.view!=HubView::Panoramic)){
+        throw std::invalid_argument("Invalid presentation preferences");
+    }
+    std::ostringstream out;out.imbue(std::locale::classic());
+    out<<"RPG_PRESENTATION 1\nmode "<<(p.mode==PresentationMode::Auto?"Auto":p.mode==PresentationMode::Desktop?"Desktop":"Mobile")
+       <<"\nmotion "<<(p.reduced_motion?1:0)<<"\ncontrast "<<(p.high_contrast?1:0)<<"\ntext "<<p.text_percent
+       <<"\narea "<<(p.area==HubArea::Left?"Left":p.area==HubArea::Center?"Center":"Right")
+       <<"\nview "<<(p.view==HubView::Auto?"Auto":p.view==HubView::Focused?"Focused":"Panoramic")<<"\nend\n";
+    return out.str();
+}
+PresentationPreferences decode_preferences(std::string_view data){
+    if(data.empty() || data.size()>4096){throw std::invalid_argument("Invalid preferences size");}
+    std::istringstream in(std::string{data});in.imbue(std::locale::classic());
+    const auto token=[&](){std::string value;if(!(in>>value)){throw std::invalid_argument("Truncated preferences");}return value;};
+    const auto expect=[&](std::string_view key){if(token()!=key){throw std::invalid_argument("Unexpected preference field");}};
+    expect("RPG_PRESENTATION");expect("1");PresentationPreferences p;
+    expect("mode");const auto mode=parse_presentation_mode(token());if(!mode){throw std::invalid_argument("Invalid mode");}p.mode=*mode;
+    const auto boolean=[&](){const auto value=token();if(value!="0" && value!="1"){throw std::invalid_argument("Invalid boolean");}return value=="1";};
+    expect("motion");p.reduced_motion=boolean();expect("contrast");p.high_contrast=boolean();
+    expect("text");const auto scale=token();if(scale!="100" && scale!="125" && scale!="150"){throw std::invalid_argument("Invalid text scale");}p.text_percent=scale=="100"?100:scale=="125"?125:150;
+    expect("area");const auto area=token();if(area!="Left" && area!="Center" && area!="Right"){throw std::invalid_argument("Invalid area");}p.area=area=="Left"?HubArea::Left:area=="Center"?HubArea::Center:HubArea::Right;
+    expect("view");const auto view=token();if(view!="Auto" && view!="Focused" && view!="Panoramic"){throw std::invalid_argument("Invalid view");}p.view=view=="Auto"?HubView::Auto:view=="Focused"?HubView::Focused:HubView::Panoramic;
+    expect("end");std::string extra;if(in>>extra){throw std::invalid_argument("Trailing preferences data");}
+    return p;
+}
+PreferenceRead read_preferences(std::optional<std::string_view> primary,std::optional<std::string_view> backup,PresentationPreferences defaults){
+    (void)encode_preferences(defaults);
+    bool invalid=false;
+    if(primary){try{return {decode_preferences(*primary),PreferenceSource::Primary,false};}catch(const std::invalid_argument&){invalid=true;}}
+    if(backup){try{return {decode_preferences(*backup),PreferenceSource::Backup,invalid};}catch(const std::invalid_argument&){}}
+    return {defaults,PreferenceSource::Defaults,invalid};
 }
 std::optional<PresentationMode> parse_presentation_mode(std::string_view name) noexcept {
     if(name=="Auto"){return PresentationMode::Auto;}

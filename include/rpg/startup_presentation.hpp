@@ -84,6 +84,21 @@ struct HubPlan {
 };
 enum class HubRoute { SpecialEvent, Battle, Terminal, Unavailable };
 enum class PresentationMode { Auto, Desktop, Mobile };
+struct PresentationPreferences {
+    PresentationMode mode=PresentationMode::Auto;
+    bool reduced_motion=false;
+    bool high_contrast=false;
+    std::uint32_t text_percent=100;
+    HubArea area=HubArea::Center;
+    HubView view=HubView::Auto;
+    bool operator==(const PresentationPreferences&) const = default;
+};
+enum class PreferenceSource { Defaults, Primary, Backup };
+struct PreferenceRead { PresentationPreferences values; PreferenceSource source; bool primary_invalid; };
+[[nodiscard]] std::string encode_preferences(const PresentationPreferences& values);
+[[nodiscard]] PresentationPreferences decode_preferences(std::string_view data);
+[[nodiscard]] PreferenceRead read_preferences(std::optional<std::string_view> primary,
+    std::optional<std::string_view> backup,PresentationPreferences defaults={});
 [[nodiscard]] std::optional<PresentationMode> parse_presentation_mode(std::string_view name) noexcept;
 [[nodiscard]] Device presentation_device(PresentationMode mode,Device actual);
 struct HubHotspot {

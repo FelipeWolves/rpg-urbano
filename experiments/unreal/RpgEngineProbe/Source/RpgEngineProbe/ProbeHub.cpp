@@ -16,6 +16,7 @@
 #include "Misc/ConfigCacheIni.h"
 #include "Misc/Parse.h"
 #include "Misc/Paths.h"
+#include "Misc/Guid.h"
 #include "Serialization/JsonReader.h"
 #include "Serialization/JsonSerializer.h"
 namespace {
@@ -35,15 +36,14 @@ Rect ReadRect(const TSharedPtr<FJsonObject>& value){return {Number(value,TEXT("x
 const TArray<TSharedPtr<FJsonValue>>& Array(const TSharedPtr<FJsonObject>& object,const TCHAR* key){
     const TArray<TSharedPtr<FJsonValue>>* value=nullptr;if(!object || !object->TryGetArrayField(key,value) || !value){throw std::invalid_argument("Missing array field");}return *value;
 }
-Device DeviceProfile(){
+Device DeviceProfile(PresentationMode preference){
 #if PLATFORM_ANDROID || PLATFORM_IOS
     const Device actual=Device::Mobile;
 #else
     const Device actual=Device::Desktop;
 #endif
-    FString name=TEXT("Auto");
-    GConfig->GetString(TEXT("RpgPrototype"),TEXT("PresentationMode"),name,GGameIni);
-    FParse::Value(FCommandLine::Get(),TEXT("Presentation="),name);
+    FString name;
+    if(!FParse::Value(FCommandLine::Get(),TEXT("Presentation="),name)){return presentation_device(preference,actual);}
     const auto mode=parse_presentation_mode(Utf8(name));
     if(!mode){static bool warned=false;if(!warned){UE_LOG(LogTemp,Warning,TEXT("Unknown Presentation; using Auto"));warned=true;}return actual;}
     return presentation_device(*mode,actual);
@@ -113,6 +113,7 @@ void AProbeArenaHUD::LoadHubCatalog(){
             const auto panel=Object(visual,TEXT("eventPanel"));
             HubEventTitle=String(panel,TEXT("title"));HubEventBody=String(panel,TEXT("body"));
         }
+        Preferences.reduced_motion=HubReducedMotion;
         HubReducedMotionForced=FParse::Param(FCommandLine::Get(),TEXT("ReducedMotion"));
         HubReducedMotion=HubReducedMotion || HubReducedMotionForced;
         std::optional<Asset> panorama;
@@ -139,7 +140,7 @@ void AProbeArenaHUD::LoadHubCatalog(){
             if(std::ranges::any_of(parsed,[&](const HubHotspot& known){return known.id==hotspot.id;})){throw std::invalid_argument("Duplicate hub link");}
             parsed.push_back(std::move(hotspot));
         }
-        (void)plan_hub(panorama->size,{1280,720},DeviceProfile(),HubArea,HubView,HubAspectThreshold,HubRegions);
+        (void)plan_hub(panorama->size,{1280,720},DeviceProfile(Preferences.mode),HubArea,HubView,HubAspectThreshold,HubRegions);
         const FString image=FPaths::ConvertRelativePathToFull(root/Text(panorama->relative_path));
         const int64 imageBytes=IFileManager::Get().FileSize(*image);
         if(!FPaths::IsUnderDirectory(image,root) || imageBytes<1 || imageBytes>32*1024*1024){throw std::invalid_argument("Hub image missing, outside root or too large");}
@@ -152,6 +153,83 @@ void AProbeArenaHUD::LoadHubCatalog(){
         UE_LOG(LogTemp,Warning,TEXT("HUB_UNAVAILABLE %s"),*HubError);
     }
 }
+void AProbeArenaHUD::ApplyPresentationPreferences()
+{
+    HubArea=Preferences.area;HubView=Preferences.view;
+    HubReducedMotion=Preferences.reduced_motion || HubReducedMotionForced;
+    HubPanel=Preferences.high_contrast?FLinearColor(0,0,0,1):HubBasePanel;
+}
+void AProbeArenaHUD::LoadPresentationPreferences()
+{
+    HubBasePanel=HubPanel;HubReducedMotionForced=FParse::Param(FCommandLine::Get(),TEXT("ReducedMotion"));
+    Preferences.area=HubArea;Preferences.view=HubView;
+    FString configured=TEXT("Auto");GConfig->GetString(TEXT("RpgPrototype"),TEXT("PresentationMode"),configured,GGameIni);
+    if(const auto mode=parse_presentation_mode(Utf8(configured))){Preferences.mode=*mode;}
+    const FString file=FPaths::ProjectSavedDir()/TEXT("Presentation/preferences-v1.txt");
+    const auto read=[&](const FString& name)->std::optional<std::string>{
+        if(!IFileManager::Get().FileExists(*name)){return {};}
+        const int64 bytes=IFileManager::Get().FileSize(*name);FString text;
+        if(bytes<1 || bytes>4096 || !FFileHelper::LoadFileToString(text,*name)){return std::string("invalid");}
+        return Utf8(text);
+    };
+    const auto primary=read(file),backup=read(file+TEXT(".bak"));
+    const auto result=read_preferences(primary?std::optional<std::string_view>(*primary):std::nullopt,
+        backup?std::optional<std::string_view>(*backup):std::nullopt,Preferences);
+    Preferences=result.values;
+    PreferencesStatus=result.source==PreferenceSource::Backup?TEXT("Cópia anterior carregada."):result.primary_invalid?TEXT("Arquivo inválido; usando padrões."):TEXT("Preferências locais.");
+    ApplyPresentationPreferences();
+}
+void AProbeArenaHUD::SavePresentationPreferences()
+{
+    Preferences.area=HubArea;Preferences.view=HubView;ApplyPresentationPreferences();
+    const FString directory=FPaths::ProjectSavedDir()/TEXT("Presentation");
+    const FString file=directory/TEXT("preferences-v1.txt");
+    auto& files=IFileManager::Get();
+    if(!files.MakeDirectory(*directory,true)){PreferencesStatus=TEXT("Sem acesso para salvar; alteração só nesta sessão.");return;}
+    if(files.FileExists(*file)){
+        const int64 bytes=files.FileSize(*file);FString old;
+        if(bytes<0 || bytes>4096 || !FFileHelper::LoadFileToString(old,*file)){PreferencesStatus=TEXT("Arquivo anterior preservado; alteração só nesta sessão.");return;}
+        bool valid=true;try{(void)decode_preferences(Utf8(old));}catch(const std::invalid_argument&){valid=false;}
+        const FString backup=valid?file+TEXT(".bak"):file+TEXT(".invalid-")+FGuid::NewGuid().ToString(EGuidFormats::Digits);
+        if(files.Copy(*backup,*file,true,false)!=COPY_OK){PreferencesStatus=TEXT("Falha ao preservar cópia anterior; não salvo.");return;}
+    }
+    const FString temporary=file+TEXT(".tmp-")+FGuid::NewGuid().ToString(EGuidFormats::Digits);
+    const FString encoded=Text(encode_preferences(Preferences));
+    if(!FFileHelper::SaveStringToFile(encoded,*temporary,FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM) ||
+       !files.Move(*file,*temporary,true,false,false,true)){
+        files.Delete(*temporary,false,false,true);
+        PreferencesStatus=TEXT("Falha de gravação; alteração só nesta sessão.");return;
+    }
+    PreferencesStatus=TEXT("Preferências salvas neste dispositivo.");
+}
+void AProbeArenaHUD::DrawPreferences()
+{
+    const auto frame=plan_hub_frame({static_cast<uint32>(Canvas->SizeX),static_cast<uint32>(Canvas->SizeY)},0,HubInsets);
+    if(!frame){if(PlayerOwner->WasInputKeyJustPressed(EKeys::Escape)){PreferencesOpen=false;}return;}
+    const double width=std::min(600.0,frame->safe.width-24),height=std::min(400.0,frame->safe.height-24);
+    const double x=frame->safe.x+(frame->safe.width-width)/2,y=frame->safe.y+(frame->safe.height-height)/2;
+    DrawRect(HubPanel,static_cast<float>(x),static_cast<float>(y),static_cast<float>(width),static_cast<float>(height));
+    const auto text=[&](const FString& value,double tx,double ty,FColor color){
+        float w=0,h=0;GetTextSize(value,w,h,HubBodyFont);const float scale=static_cast<float>(std::min(1.0,(width-32)/std::max(1.0,static_cast<double>(w))));
+        DrawText(value,color,static_cast<float>(tx),static_cast<float>(ty),HubBodyFont,scale);
+    };
+    text(TEXT("PREFERÊNCIAS LOCAIS"),x+16,y+8,FColor::Cyan);text(PreferencesStatus,x+16,y+28,FColor::White);
+    const auto button=[&](int row,const FString& value,bool enabled=true){
+        Rect rect{x+16,y+52+row*52,width-32,48};
+        DrawRect(enabled?FLinearColor(0.08f,0.20f,0.32f):FLinearColor(0.12f,0.12f,0.12f),static_cast<float>(rect.x),static_cast<float>(rect.y),static_cast<float>(rect.width),48);
+        text(value,rect.x+8,rect.y+10,enabled?FColor::White:FColor(160,160,160));return enabled && pointer_clicked(Input,rect);
+    };
+    if(button(0,HubReducedMotionForced?TEXT("Movimento reduzido forçado nesta execução"):Preferences.reduced_motion?TEXT("Movimento: reduzido"):TEXT("Movimento: normal"),!HubReducedMotionForced)){Preferences.reduced_motion=!Preferences.reduced_motion;SavePresentationPreferences();return;}
+    if(button(1,Preferences.high_contrast?TEXT("Contraste: alto"):TEXT("Contraste: padrão"))){Preferences.high_contrast=!Preferences.high_contrast;SavePresentationPreferences();return;}
+    if(button(2,FString::Printf(TEXT("Texto dos painéis: %u%%"),Preferences.text_percent))){Preferences.text_percent=Preferences.text_percent==100?125:Preferences.text_percent==125?150:100;SavePresentationPreferences();return;}
+    const TCHAR* mode=Preferences.mode==PresentationMode::Auto?TEXT("Auto"):Preferences.mode==PresentationMode::Desktop?TEXT("Desktop"):TEXT("Mobile");
+    FString forcedMode;const bool forced=FParse::Value(FCommandLine::Get(),TEXT("Presentation="),forcedMode);
+    if(button(3,forced?FString(TEXT("Apresentação desta execução: "))+forcedMode:FString(TEXT("Apresentação: "))+mode,!forced)){Preferences.mode=Preferences.mode==PresentationMode::Auto?PresentationMode::Desktop:Preferences.mode==PresentationMode::Desktop?PresentationMode::Mobile:PresentationMode::Auto;SavePresentationPreferences();return;}
+    const Rect close{x+16,y+height-56,width-32,48};
+    DrawRect(FLinearColor(0.08f,0.20f,0.32f),static_cast<float>(close.x),static_cast<float>(close.y),static_cast<float>(close.width),48);
+    text(TEXT("Voltar"),close.x+8,close.y+10,FColor::White);
+    if(pointer_clicked(Input,close) || PlayerOwner->WasInputKeyJustPressed(EKeys::Escape)){PreferencesOpen=false;}
+}
 void AProbeArenaHUD::ReturnToHub(){
     InHub=true;HubEventOpen=false;Gesture.cancel();PopupLines.Empty();SelectedSlot=0;SelectedTarget.Empty();
     UE_LOG(LogTemp,Display,TEXT("HUB_RETURN attempt=%llu"),static_cast<unsigned long long>(Session.state().progress.attempt));
@@ -162,7 +240,8 @@ int32 AProbeArenaHUD::DrawInfoPanel(const FString& title,const TArray<FString>& 
     const auto frame=plan_hub_frame({static_cast<uint32>(Canvas->SizeX),static_cast<uint32>(Canvas->SizeY)},0,HubInsets);
     if(!frame){DrawText(TEXT("Amplie a janela para ler o painel."),FColor::White,8,20);return PlayerOwner->WasInputKeyJustPressed(EKeys::Escape)?1:0;}
     float tw=0,th=0;GetTextSize(TEXT("Ágj"),tw,th,HubBodyFont);
-    const double step=std::max(22.0,static_cast<double>(th)+4);
+    const float textScale=Preferences.text_percent/100.f;
+    const double step=std::max(22.0,static_cast<double>(th)*textScale+4);
     const auto layout=plan_info_panel(frame->safe,step,action);
     if(!layout){return PlayerOwner->WasInputKeyJustPressed(EKeys::Escape)?1:0;}
     const auto& p=*layout;
@@ -178,13 +257,13 @@ int32 AProbeArenaHUD::DrawInfoPanel(const FString& title,const TArray<FString>& 
         std::string text=Utf8(title)+"\n\n";
         for(int32 i=0;i<paragraphs.Num();++i){if(i){text+='\n';}text+=Utf8(paragraphs[i]);}
         lines=wrap_text(text,p.body.width,[&](std::string_view value){
-            float width=0,height=0;GetTextSize(Text(std::string(value)),width,height,HubBodyFont);return static_cast<double>(width);
+            float width=0,height=0;GetTextSize(Text(std::string(value)),width,height,HubBodyFont);return static_cast<double>(width)*textScale;
         });
     }catch(const std::exception&){lines={"Texto indisponível."};}
     const auto slice=text_page(lines.size(),p.capacity,static_cast<std::size_t>(std::max(0,page)));
     page=static_cast<int32>(slice.page);
     for(std::size_t i=slice.begin;i<slice.end;++i){
-        DrawText(Text(lines[i]),i==0?FColor::Cyan:FColor::White,static_cast<float>(p.body.x),static_cast<float>(p.body.y+(i-slice.begin)*step),HubBodyFont);
+        DrawText(Text(lines[i]),i==0?FColor::Cyan:FColor::White,static_cast<float>(p.body.x),static_cast<float>(p.body.y+(i-slice.begin)*step),HubBodyFont,textScale);
     }
     const FString previous=FString::Printf(TEXT("Anterior (%d/%d)"),page+1,static_cast<int32>(slice.pages));
     if(button(p.close,TEXT("Fechar"),true) || PlayerOwner->WasInputKeyJustPressed(EKeys::Escape)){return 1;}
@@ -221,7 +300,7 @@ void AProbeArenaHUD::DrawHub(){
         if(button({layout.safe.x+20,layout.safe.y+110,180,48},TEXT("Abrir batalha"))){enterBattle();}return;
     }
     auto plan=plan_hub({static_cast<uint32>(HubTexture->GetSizeX()),static_cast<uint32>(HubTexture->GetSizeY())},
-        {static_cast<uint32>(layout.scene.width),static_cast<uint32>(layout.scene.height)},DeviceProfile(),HubArea,HubView,HubAspectThreshold,HubRegions);
+        {static_cast<uint32>(layout.scene.width),static_cast<uint32>(layout.scene.height)},DeviceProfile(Preferences.mode),HubArea,HubView,HubAspectThreshold,HubRegions);
     plan.content.x+=layout.scene.x;plan.content.y+=layout.scene.y;
     const auto& r=plan.content;const auto& uv=plan.source_uv;
     DrawTexture(HubTexture,static_cast<float>(r.x),static_cast<float>(r.y),static_cast<float>(r.width),static_cast<float>(r.height),
@@ -232,6 +311,7 @@ void AProbeArenaHUD::DrawHub(){
     if(HubLogo){DrawTexture(HubLogo,static_cast<float>(layout.header.x+12),static_cast<float>(layout.header.y+4),48,48,0,0,1,1,FLinearColor::White,BLEND_Translucent);}
     DrawText(HubTitle,HubCyan.ToFColorSRGB(),static_cast<float>(layout.header.x+68),static_cast<float>(layout.header.y+4),HubTitleFont);
     DrawText(TEXT("CODINOME: ")+HubCodename,FColor::White,static_cast<float>(layout.header.x+68),static_cast<float>(layout.header.y+28),HubBodyFont,0.75f);
+    if(PreferencesOpen){DrawPreferences();return;}
     if(HubEventOpen){
         TArray<FString> paragraphs;paragraphs.Add(HubPanelBody);
         const int32 result=DrawInfoPanel(HubPanelTitle,paragraphs,HubPanelPage,HubPanelRoute==HubRoute::Terminal);
@@ -280,13 +360,13 @@ void AProbeArenaHUD::DrawHub(){
         DrawText(link.route==HubRoute::Unavailable?TEXT("Em breve"):TEXT("Abrir"),FColor(180,190,200),static_cast<float>(tile.x+6),static_cast<float>(tile.y+25),HubBodyFont,0.55f);
         if(pointer_clicked(Input,tile)){openDestination(link);return;}
     }
-    if(button(layout.navigation[0],TEXT("Esquerda")) || PlayerOwner->WasInputKeyJustPressed(EKeys::Left)){HubArea=rpg::presentation::HubArea::Left;HubView=rpg::presentation::HubView::Focused;}
-    if(button(layout.navigation[1],TEXT("Centro"))){HubArea=rpg::presentation::HubArea::Center;HubView=rpg::presentation::HubView::Focused;}
-    if(button(layout.navigation[2],TEXT("Direita")) || PlayerOwner->WasInputKeyJustPressed(EKeys::Right)){HubArea=rpg::presentation::HubArea::Right;HubView=rpg::presentation::HubView::Focused;}
+    if(button(layout.navigation[0],TEXT("Esquerda")) || PlayerOwner->WasInputKeyJustPressed(EKeys::Left)){HubArea=rpg::presentation::HubArea::Left;HubView=rpg::presentation::HubView::Focused;SavePresentationPreferences();}
+    if(button(layout.navigation[1],TEXT("Centro"))){HubArea=rpg::presentation::HubArea::Center;HubView=rpg::presentation::HubView::Focused;SavePresentationPreferences();}
+    if(button(layout.navigation[2],TEXT("Direita")) || PlayerOwner->WasInputKeyJustPressed(EKeys::Right)){HubArea=rpg::presentation::HubArea::Right;HubView=rpg::presentation::HubView::Focused;SavePresentationPreferences();}
     if(button(layout.navigation[3],plan.view==rpg::presentation::HubView::Panoramic?TEXT("Focar área"):TEXT("Panorama"))){
-        HubView=plan.view==rpg::presentation::HubView::Panoramic?rpg::presentation::HubView::Focused:rpg::presentation::HubView::Panoramic;
+        HubView=plan.view==rpg::presentation::HubView::Panoramic?rpg::presentation::HubView::Focused:rpg::presentation::HubView::Panoramic;SavePresentationPreferences();
     }
-    if(button(layout.navigation[4],HubReducedMotion?TEXT("Sem movimento"):TEXT("Com movimento")) && !HubReducedMotionForced){HubReducedMotion=!HubReducedMotion;}
+    if(button(layout.navigation[4],TEXT("Opções"))){PreferencesOpen=true;}
 }
 
 

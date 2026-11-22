@@ -47,6 +47,14 @@ private:
     rpg::presentation::PulseSettings HubPulse;
     bool HubReducedMotion=false;
     bool HubReducedMotionForced=false;
+    bool PreferencesOpen=false;
+    rpg::presentation::PresentationPreferences Preferences;
+    FLinearColor HubBasePanel=HubPanel;
+    FString PreferencesStatus;
+    void LoadPresentationPreferences();
+    void SavePresentationPreferences();
+    void ApplyPresentationPreferences();
+    void DrawPreferences();
     void LoadHubCatalog();
     void DrawHub();
     int32 DrawInfoPanel(const FString& title,const TArray<FString>& paragraphs,int32& page,bool action=false);

@@ -1,4 +1,5 @@
 #include "rpg/battle.hpp"
+#include "rpg/status_operations.hpp"
 
 #include <algorithm>
 #include <numeric>
@@ -9,9 +10,9 @@
 namespace rpg {
 namespace {
 constexpr std::int64_t bar_max = 1000000;
-bool quantity_effect(EffectKind kind){return kind==EffectKind::Reflect || kind==EffectKind::DeathExplosion || kind==EffectKind::AutoRevive || kind==EffectKind::Shield || kind==EffectKind::StructuralShield || kind==EffectKind::StandardShield;}
+bool quantity_effect(EffectKind kind){return kind==EffectKind::Reflect || kind==EffectKind::DeathExplosion || kind==EffectKind::AutoRevive || kind==EffectKind::Shield || kind==EffectKind::StructuralShield || kind==EffectKind::StandardShield || kind==EffectKind::SilverShield || kind==EffectKind::Heal;}
 bool control_kind(EffectKind kind){return kind==EffectKind::Stun || kind==EffectKind::Freeze || kind==EffectKind::Petrify || kind==EffectKind::Silence || kind==EffectKind::Suppression || kind==EffectKind::Invincible || kind==EffectKind::DebuffImmunity;}
-bool active_buff(const Status& s){return !s.native_passive && (s.kind==EffectKind::Shield || s.kind==EffectKind::StandardShield || s.kind==EffectKind::Counter || s.kind==EffectKind::Reflect || s.kind==EffectKind::PreventDeath || s.kind==EffectKind::AutoRevive || s.kind==EffectKind::Invincible || s.kind==EffectKind::DebuffImmunity);}
+bool active_buff(const Status& s){return !s.native_passive && (s.kind==EffectKind::Shield || s.kind==EffectKind::StandardShield || s.kind==EffectKind::SilverShield || s.kind==EffectKind::Counter || s.kind==EffectKind::Reflect || s.kind==EffectKind::PreventDeath || s.kind==EffectKind::AutoRevive || s.kind==EffectKind::Invincible || s.kind==EffectKind::DebuffImmunity);}
 bool valid_border(StatusBorder border){return border==StatusBorder::Common || border==StatusBorder::Silver || border==StatusBorder::Golden || border==StatusBorder::Structural;}
 bool valid_clock(TickPolicy clock) {
     return clock == TickPolicy::NaturalOnly || clock == TickPolicy::EveryTurn;
@@ -104,6 +105,9 @@ Battle::Battle(std::vector<Definition> definitions, BattleRules rules,
                 throw std::invalid_argument("Invalid damage effect metadata");
             }
             if(periodic_effect(effect.kind) && (effect.category!=StatusCategory::Temporary || effect.border!=StatusBorder::Common)){throw std::invalid_argument("Periodic effects require common temporary debuffs");}
+            if(effect.operation_scope!=OperationScope::CommonOnly && effect.operation_scope!=OperationScope::Removable){throw std::invalid_argument("Invalid operation scope");}
+            if((effect.kind==EffectKind::StealBuffs || effect.kind==EffectKind::TransferDebuffs) && skill.target!=TargetRule::Enemy){throw std::invalid_argument("Transfer/steal requires an enemy");}
+            if(effect.kind==EffectKind::CleanseDebuffs && skill.target!=TargetRule::Ally && skill.target!=TargetRule::Self){throw std::invalid_argument("Cleanse requires ally target");}
             resolution::chance_domain(effect.proc_chance);if(!valid_border(effect.border)){throw std::invalid_argument("Invalid effect border");}
             if (!valid_clock(effect.clock)) { throw std::invalid_argument("Invalid effect clock"); }
             if (effect.hit_count == 0 || effect.hit_count > 64 ||
@@ -133,7 +137,11 @@ Battle::Battle(std::vector<Definition> definitions, BattleRules rules,
             }
             if(effect.unbuffed_damage_bonus<0 || effect.unbuffed_damage_bonus>numeric::quantity_max){throw std::invalid_argument("Invalid buffless bonus");}
             switch (effect.kind) {
+            case EffectKind::CleanseDebuffs:case EffectKind::StealBuffs:case EffectKind::TransferDebuffs:
             case EffectKind::DispelBuffs: if(effect.amount<1 || effect.amount>32){throw std::invalid_argument("Invalid dispel count");}break;
+            case EffectKind::Heal:
+                if(effect.amount<0 || (skill.target!=TargetRule::Ally && skill.target!=TargetRule::Self)){throw std::invalid_argument("Heal requires nonnegative explicit points and ally target");}break;
+            case EffectKind::SilverShield:
             case EffectKind::StandardShield:
                 if(effect.amount!=0 || effect.duration!=0 || effect.clock!=TickPolicy::NaturalOnly ||
                    effect.category!=StatusCategory::Temporary || effect.charges!=1 ||
@@ -228,22 +236,23 @@ Battle::Battle(std::vector<Definition> definitions, BattleRules rules,
                  status.kind != EffectKind::FreezeCooldowns && status.kind != EffectKind::Reflect &&
                  status.kind != EffectKind::DeathExplosion && status.kind != EffectKind::PreventDeath &&
                  status.kind != EffectKind::AutoRevive && status.kind != EffectKind::Shield &&
-                 status.kind != EffectKind::StructuralShield && status.kind != EffectKind::StandardShield && !control_kind(status.kind) && !periodic_effect(status.kind)) ||
+                 status.kind != EffectKind::StructuralShield && status.kind != EffectKind::StandardShield && status.kind!=EffectKind::SilverShield && !control_kind(status.kind) && !periodic_effect(status.kind)) ||
                 !valid_duration(status.category,status.remaining) || !valid_clock(status.clock) || !valid_border(status.border)) {
                 throw std::invalid_argument("Invalid status state");
             }
             if ((status.kind == EffectKind::Reflect || status.kind == EffectKind::DeathExplosion ||
                  status.kind == EffectKind::AutoRevive || status.kind==EffectKind::Shield ||
-                 status.kind==EffectKind::StructuralShield || status.kind==EffectKind::StandardShield) && status.magnitude <= 0) {
+                 status.kind==EffectKind::StructuralShield || status.kind==EffectKind::StandardShield || status.kind==EffectKind::SilverShield) && status.magnitude <= 0) {
                 throw std::invalid_argument("Invalid consequence magnitude");
             }
-            if(status.kind==EffectKind::StandardShield && (fighter.health==0 || status.clock!=TickPolicy::NaturalOnly || status.category!=StatusCategory::Temporary)){throw std::invalid_argument("Invalid standard shield state");}
+            if((status.kind==EffectKind::StandardShield || status.kind==EffectKind::SilverShield) && (fighter.health==0 || status.clock!=TickPolicy::NaturalOnly || status.category!=StatusCategory::Temporary)){throw std::invalid_argument("Invalid standard shield state");}
             if ((status.kind==EffectKind::Shield && status.category!=StatusCategory::Temporary) ||
                 (status.kind==EffectKind::StructuralShield && status.category!=StatusCategory::Structural)) {
                 throw std::invalid_argument("Invalid shield category");
             }
             if ((status.kind == EffectKind::PreventDeath || status.kind == EffectKind::AutoRevive) &&
                 (status.charges == 0 || status.charges > 1024)) { throw std::invalid_argument("Invalid survival state"); }
+            if(status.kind==EffectKind::SilverShield && status.border!=StatusBorder::Silver){throw std::invalid_argument("SilverShield requires silver border");}
             for (std::size_t k = 0; k < j; ++k) {
                 if (statuses[k].kind == status.kind && !periodic_effect(status.kind)) { throw std::invalid_argument("Duplicate status type"); }
             }
@@ -419,7 +428,7 @@ void Battle::apply_damage(std::size_t emitter, std::size_t target_index, numeric
     const auto begin=events.size();
     const auto health_before=target.health;numeric::Quantity absorbed_total=0;
     // Guard has already mitigated the hit. Ordinary shield precedes the structural layer.
-    for(const auto kind:{EffectKind::StandardShield,EffectKind::Shield,EffectKind::StructuralShield}) {
+    for(const auto kind:{EffectKind::StandardShield,EffectKind::SilverShield,EffectKind::Shield,EffectKind::StructuralShield}) {
         auto shield=std::ranges::find(target.statuses,kind,&Status::kind);
         if(shield==target.statuses.end() || power==0){continue;}
         const numeric::Quantity absorbed=std::min(power,shield->magnitude);
@@ -445,7 +454,7 @@ void Battle::apply_damage(std::size_t emitter, std::size_t target_index, numeric
         events.push_back(Event{EventType::DeathPrevented,target.definition.id,target.definition.id,1,round_,{}});
     }
     if (target.health==0) {
-        std::erase_if(target.statuses,[](const Status& status){return status.kind==EffectKind::StandardShield;});
+        std::erase_if(target.statuses,[](const Status& status){return status.kind==EffectKind::StandardShield || status.kind==EffectKind::SilverShield;});
         target.ap=0;
         events.push_back(Event{EventType::FighterDefeated,target.definition.id,{},0,round_,{}});
         deaths.push_back(target_index);
@@ -548,7 +557,7 @@ void Battle::end_turn(std::vector<Event>& events) {
         }
     }
     for (auto& status : actor.statuses) {
-        const bool advance = status.kind==EffectKind::StandardShield ? turn_kind_==TurnKind::Natural :
+        const bool advance = (status.kind==EffectKind::StandardShield || status.kind==EffectKind::SilverShield) ? turn_kind_==TurnKind::Natural :
             (source ? source->advances_effect_durations : ticks(status.clock, turn_kind_));
         if (!periodic_effect(status.kind) && status.category==StatusCategory::Temporary && status.applied_turn != turn_id_ && advance) { --status.remaining; }
     }
@@ -596,6 +605,35 @@ void Battle::observe_vigil(const ActionContext& context,std::vector<Event>& even
     }
     stamp_action(events,begin,context);
 }
+void Battle::operate_statuses(std::size_t from,std::size_t to,const EffectDefinition& effect,const ActionContext& context,std::uint32_t ordinal,std::vector<Event>& events){
+    auto& actor=fighters_[from];auto& target=fighters_[to];
+    const bool hostile=actor.definition.team!=target.definition.team;
+    const bool immunity=effect.kind==EffectKind::TransferDebuffs && !effect.bypass_immunity && (target.definition.stats.debuff_immunity || has_status(target,EffectKind::DebuffImmunity));
+    if(hostile && !resolution::debuff_applies({},false,immunity,effect.irresistible,effect.proc_chance,actor.definition.stats.accuracy,target.definition.stats.resistance,{rules_.random_seed,context.id,0,resolution::identity(target.definition.id),ordinal})){
+        events.push_back({EventType::EffectResisted,actor.definition.id,target.definition.id,0,round_,{}});return;
+    }
+    const bool transfer=effect.kind==EffectKind::TransferDebuffs,steal=effect.kind==EffectKind::StealBuffs;
+    auto& source=transfer?actor:target;auto& receiver=transfer?target:actor;
+    const auto op=transfer?StatusOperation::Transfer:steal?StatusOperation::Steal:StatusOperation::Remove;
+    numeric::Quantity changed=0;
+    for(std::size_t i=0;i<source.statuses.size() && changed<effect.amount;){
+        const auto state=source.statuses[i];
+        const bool match=(transfer || effect.kind==EffectKind::CleanseDebuffs)?status_is_debuff(state):status_is_buff(state);
+        if((transfer && !effect.bypass_immunity && std::ranges::find(target.definition.immune_effects,state.kind)!=target.definition.immune_effects.end()) || !match || !permits_operation(state,op,effect.operation_scope)){++i;continue;}
+        if(transfer || steal){
+            if(periodic_effect(state.kind) && rules_.periodic_stack_limit && std::ranges::count(receiver.statuses,state.kind,&Status::kind)>=rules_.periodic_stack_limit){++i;continue;}
+            if(receiver.statuses.size()>=4096){finish(EndReason::TechnicalLimit,std::nullopt,actor.definition.id,events);return;}
+            auto incoming=state;incoming.applied_turn=turn_id_;
+            incoming.instance_id=0;for(const auto& s:receiver.statuses){incoming.instance_id=std::max(incoming.instance_id,s.instance_id);}++incoming.instance_id;
+            auto old=std::ranges::find(receiver.statuses,state.kind,&Status::kind);
+            if(periodic_effect(state.kind) || old==receiver.statuses.end()){receiver.statuses.push_back(incoming);}
+            else if(state.kind==EffectKind::StandardShield){old->magnitude=std::max(old->magnitude,incoming.magnitude);old->remaining=std::max(old->remaining,incoming.remaining);old->applied_turn=turn_id_;}
+            else{*old=incoming;}
+        }
+        source.statuses.erase(source.statuses.begin()+static_cast<std::ptrdiff_t>(i));++changed;
+    }
+    events.push_back({EventType::EffectApplied,actor.definition.id,target.definition.id,changed,round_,{}});events.back().status_kind=effect.kind;
+}
 void Battle::execute_skill(std::size_t from,std::size_t target_index,const SkillDefinition& definition,const ActionContext& context,std::vector<Event>& events,std::vector<PendingReaction>& reactions,std::vector<std::size_t>& guarded,std::vector<PendingRevive>& revives,bool derived) {
     const auto* skill=&definition;const auto& actor=fighters_[from];
     const auto primary_target=target_index;
@@ -627,14 +665,10 @@ void Battle::execute_skill(std::size_t from,std::size_t target_index,const Skill
             }
             if(effect.unbuffed_damage_bonus<0 || effect.unbuffed_damage_bonus>numeric::quantity_max){throw std::invalid_argument("Invalid buffless bonus");}
             switch (effect.kind) {
+            case EffectKind::CleanseDebuffs:case EffectKind::StealBuffs:case EffectKind::TransferDebuffs:
             case EffectKind::DispelBuffs: {
-                const auto dispel=[&](Fighter& candidate){
-                    numeric::Quantity removed=0;
-                    std::erase_if(candidate.statuses,[&](const Status& status){if(removed<effect.amount && status.border==StatusBorder::Common && active_buff(status)){++removed;return true;}return false;});
-                };
-                if(skill->target==TargetRule::EnemyTeam){for(auto& candidate:fighters_){if(candidate.health>0 && candidate.definition.team!=actor.definition.team){dispel(candidate);}}}
-                else{dispel(target);}
-                break;
+                if(skill->target==TargetRule::EnemyTeam){for(std::size_t i=0;i<fighters_.size();++i){if(fighters_[i].health>0 && fighters_[i].definition.team!=actor.definition.team){operate_statuses(from,i,effect,context,effect_ordinal,events);}}}
+                else{operate_statuses(from,target_index,effect,context,effect_ordinal,events);}break;
             }
             case EffectKind::Damage:
                 for(std::uint32_t i=0;i<effect.hit_count && phase_==Phase::Running && fighters_[from].health>0;++i){
@@ -651,6 +685,13 @@ void Battle::execute_skill(std::size_t from,std::size_t target_index,const Skill
                     }
                 }
                 break;
+            case EffectKind::Heal: {const auto healed=std::min(effect.amount,target.definition.max_health-target.health);target.health+=healed;events.push_back({EventType::EffectApplied,actor.definition.id,target.definition.id,healed,round_,{}});events.back().status_kind=EffectKind::Heal;break;}
+            case EffectKind::SilverShield: {
+                const auto points=std::max<numeric::Quantity>(1,numeric::mul_div_floor(actor.definition.max_health,1500,10000));
+                auto old=std::ranges::find(target.statuses,EffectKind::SilverShield,&Status::kind);
+                if(old==target.statuses.end()){Status s{EffectKind::SilverShield,2,TickPolicy::NaturalOnly,turn_id_,points};s.border=StatusBorder::Silver;target.statuses.push_back(s);}
+                else{old->magnitude=std::max(old->magnitude,points);old->remaining=std::max(old->remaining,2);old->applied_turn=turn_id_;}break;
+            }
             case EffectKind::StandardShield: standard_shield(from,target_index,events);break;
             case EffectKind::ChangeAP:
                 target.ap = std::clamp(target.ap + effect.amount, std::int64_t{0}, bar_max); break;
@@ -697,7 +738,7 @@ void Battle::execute_skill(std::size_t from,std::size_t target_index,const Skill
                 break;
             }
             }
-            if (effect.kind != EffectKind::Damage && effect.kind != EffectKind::StandardShield) {
+            if (effect.kind != EffectKind::Damage && effect.kind != EffectKind::StandardShield && effect.kind!=EffectKind::Heal) {
                 events.push_back(Event{EventType::EffectApplied, actor.definition.id, target.definition.id,
                                               static_cast<int>(effect.kind), round_, {}});
             }

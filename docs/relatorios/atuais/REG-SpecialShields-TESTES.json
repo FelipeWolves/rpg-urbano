@@ -1,0 +1,12 @@
+{
+  "Date": "2026-11-22",
+  "Suite": "SpecialShields",
+  "Passed": true,
+  "ExitCode": 0,
+  "Result": [
+    "REG_SPECIAL_SHIELD_TESTS_RESULT passed=8 total=8"
+  ],
+  "BigIntegerVectors": 0,
+  "EngineExecuted": false,
+  "AndroidExecuted": false
+}

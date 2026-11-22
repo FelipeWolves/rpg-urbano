@@ -40,7 +40,7 @@ AbilityCard ability_card(const VisualState& state,std::uint32_t position){
 }
 ShieldDisplay shield_display(const Fighter& fighter){
     std::int64_t shield=0;
-    for(const auto& status:fighter.statuses){if(status.kind==EffectKind::StandardShield || status.kind==EffectKind::Shield || status.kind==EffectKind::StructuralShield){shield+=std::max<numeric::Quantity>(0,status.magnitude);}}
+    for(const auto& status:fighter.statuses){if(status.kind==EffectKind::SilverShield || status.kind==EffectKind::StandardShield || status.kind==EffectKind::Shield || status.kind==EffectKind::StructuralShield){shield+=std::max<numeric::Quantity>(0,status.magnitude);}}
     if(fighter.definition.max_health<=0){throw std::invalid_argument("Positive max HP required");}
     const numeric::Quantity health=std::clamp<numeric::Quantity>(fighter.health,0,fighter.definition.max_health);
     return {shield,static_cast<double>(health)/fighter.definition.max_health,
@@ -48,6 +48,7 @@ ShieldDisplay shield_display(const Fighter& fighter){
 }
 std::string effect_name(EffectKind kind){
     switch(kind){
+    case EffectKind::SilverShield:return "Silver shield";case EffectKind::CleanseDebuffs:return "Cleanse";case EffectKind::StealBuffs:return "Steal buffs";case EffectKind::TransferDebuffs:return "Transfer debuffs";case EffectKind::Heal:return "Heal";
     case EffectKind::DispelBuffs:return "Dispel buffs";case EffectKind::Bleed:return "Bleed";case EffectKind::Poison:return "Poison";
     case EffectKind::Stun:return "Stun";case EffectKind::Freeze:return "Freeze";case EffectKind::Petrify:return "Petrify";case EffectKind::Silence:return "Silence";case EffectKind::Suppression:return "Suppression";case EffectKind::Invincible:return "Invincible";case EffectKind::DebuffImmunity:return "Debuff immunity";
     case EffectKind::StandardShield:return "Standard shield";case EffectKind::Shield:return "Shield";case EffectKind::StructuralShield:return "Structural shield";

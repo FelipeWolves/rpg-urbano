@@ -1,0 +1,11 @@
+# PvE C5 — fases autônomas e alcance entre frentes
+
+22/11/2026. Fases declarativas por limiar deHP e contador do chefe; salto de70→35 registra ambas as transições obrigatórias e termina no kit avançado. Transição ocorre após a cadeia da ação, FIFO/auto-revive/R04; não cria turno/ação, nem reinicia AP, contadores ou RNG. Pode manter o kit, manter/resetar/mapear recargas, purificar debuffs comuns explicitamente, aplicar estados declarados, curar pontos explícitos e ativar invocações em reserva. Mutação inválida é recusada sem alterarBattle. Ciclo por turnos alterna estados indefinidamente; ciclo e lista de fases não se combinam sem contrato de precedência, recusados como configuração ambígua.
+
+Invocações em reserva iniciam inativas; ativação explícita usaHPmáximo/AP0 e respeita invocador vivo. Já ativa não é duplicada nem curada por ativação repetida. Morte do invocador dissipa oSummon, inclusive se o invocador reviver depois. Ressurreição pendente não restaura umSummon dissipado. Summons não evitam eliminação do núcleo do time. Auxiliares continuam comHPpróprio.
+
+SharedBossv2 conservaHPúnico/barra global e acrescenta área local/área global explícitas e auxiliares por frente. AOE do jogador atinge chefe+auxiliares da própria frente; AOE local do chefe atinge só a frente selecionada; AllFronts atinge todas. Comandos não podem fornecer um alcance forjado ao coordenador. PassivaFelipe e seu escudo ficam restritos à própria frente, inclusive sob golpe global. Não são threads, rede ou validação de servidor.
+
+PreserveSpecialBordersV2 é política explícita deSEQversão2, com ou sem troca de kit; preserva especiais sem alterar PreserveClassifiedStates/KeepCooldownsClearStatuses antigos. Perfil não muda habilidade se o kit não for declarado: caso estável permanece mapeado/testado.
+
+Dez grupos de fases e oito de frentes aprovados, incluindo multi-limiar,kitreal,recargas,mutaçãoatômica,kitestável,ciclos,reservas/dissipação/ressurreição e persistência,árealocal/global,auxiliares,frenteincorreta,passiva/escudolocais. Catálogo de kits, auras de campo específicas e composição híbrida de ciclos/HP exigem configuração/contrato próprio; não foram inventados chefes finais nem telas novas.

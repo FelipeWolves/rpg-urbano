@@ -4,7 +4,7 @@
   "Passed": true,
   "ExitCode": 0,
   "Result": [
-    "REG_SPECIAL_SHIELD_TESTS_RESULT passed=8 total=8"
+    "REG_SPECIAL_SHIELD_TESTS_RESULT passed=11 total=11"
   ],
   "BigIntegerVectors": 0,
   "EngineExecuted": false,

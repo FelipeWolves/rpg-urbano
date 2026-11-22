@@ -280,6 +280,7 @@ Battle::Battle(std::vector<Definition> definitions, BattleRules rules,
         fighter.statuses = std::move(statuses);
         if(state.vigil_charges){if(!fighter.definition.vigil || *state.vigil_charges>fighter.definition.vigil->max_party_size){throw std::invalid_argument("Invalid carried charges");}fighter.vigil_charges=*state.vigil_charges;}
     }
+    for(auto& f:fighters_){if(f.definition.role==EntityRole::Summon && find(f.definition.summoner_id)->health==0){f.health=0;f.summon_dismissed=true;}}
     for (std::size_t i = 0; i < fighters_.size(); ++i) {
         if (fighters_[i].health > 0) { order_.push_back(i); }
     }
@@ -389,7 +390,7 @@ void Battle::close_action(const ActionContext& context, const std::vector<std::s
     for (const auto& pending : revives) {
         if (phase_ != Phase::Running) { break; }
         auto& fighter = fighters_[pending.fighter];
-        if (fighter.health > 0) { continue; }
+        if (fighter.health > 0 || fighter.summon_dismissed) { continue; }
         if (!spend_consequence(context, events)) { break; }
         fighter.health = pending.health;
         fighter.ap = 0;
@@ -469,9 +470,10 @@ void Battle::apply_damage(std::optional<std::size_t> emitter, std::size_t target
     if (target.health==0) {
         std::erase_if(target.statuses,[](const Status& status){return status.kind==EffectKind::StandardShield || status.kind==EffectKind::SilverShield;});
         for(std::size_t i=0;i<fighters_.size();++i){auto& summon=fighters_[i];
-            if(summon.health>0 && summon.definition.role==EntityRole::Summon && summon.definition.summoner_id==target.definition.id){
+            if(summon.definition.role==EntityRole::Summon && summon.definition.summoner_id==target.definition.id){
+                const bool was_alive=summon.health>0;summon.summon_dismissed=true;
                 summon.health=0;summon.ap=0;summon.guarding=false;
-                events.push_back({EventType::SummonRemoved,target.definition.id,summon.definition.id,0,round_,{}});
+                if(was_alive){events.push_back({EventType::SummonRemoved,target.definition.id,summon.definition.id,0,round_,{}});}
                 std::erase_if(reactions,[&](const PendingReaction& r){return r.from==i || r.to==i;});
                 std::erase_if(extras_,[&](const ExtraTurnContext& e){return e.beneficiary==summon.definition.id;});
             }
@@ -613,7 +615,7 @@ void Battle::observe_vigil(const ActionContext& context,std::vector<Event>& even
         auto& watcher=fighters_[index];
         if(!watcher.definition.vigil || watcher.health==0 || native_suppressed(watcher) || watcher.definition.team==context.actor_side){continue;}
         const auto& passive=*watcher.definition.vigil;
-        const auto added=static_cast<std::uint32_t>(std::ranges::count_if(touched,[&](std::size_t target){return fighters_[target].definition.team==watcher.definition.team;}));
+        const auto added=static_cast<std::uint32_t>(std::ranges::count_if(touched,[&](std::size_t target){return fighters_[target].definition.team==watcher.definition.team && (watcher.definition.front_id.empty() || fighters_[target].definition.front_id==watcher.definition.front_id);}));
         if(added==0){continue;}
         watcher.vigil_charges=std::min(passive.max_party_size,watcher.vigil_charges+added);
         events.push_back({EventType::ChargeGained,watcher.definition.id,context.actor,watcher.vigil_charges,round_,{}});
@@ -655,15 +657,16 @@ void Battle::operate_statuses(std::size_t from,std::size_t to,const EffectDefini
     }
     events.push_back({EventType::EffectApplied,actor.definition.id,target.definition.id,changed,round_,{}});events.back().status_kind=effect.kind;
 }
-void Battle::execute_skill(std::size_t from,std::size_t target_index,const SkillDefinition& definition,const ActionContext& context,std::vector<Event>& events,std::vector<PendingReaction>& reactions,std::vector<std::size_t>& guarded,std::vector<PendingRevive>& revives,bool derived) {
+void Battle::execute_skill(std::size_t from,std::size_t target_index,const SkillDefinition& definition,const ActionContext& context,std::vector<Event>& events,std::vector<PendingReaction>& reactions,std::vector<std::size_t>& guarded,std::vector<PendingRevive>& revives,bool derived,const std::vector<std::string>& scope) {
     const auto* skill=&definition;const auto& actor=fighters_[from];
     const auto primary_target=target_index;
+    const auto in_scope=[&](const Fighter& f){return scope.empty() || std::ranges::find(scope,f.definition.id)!=scope.end();};
     const bool target_had_debuff=std::ranges::any_of(fighters_[target_index].statuses,[](const Status& s){return common_debuff(s.kind) || s.debuff;});
         std::uint32_t planned_hits = 0;
         for (const auto& effect : skill->effects) {
             if (effect.kind == EffectKind::Damage) { planned_hits += effect.hit_count; }
         }
-        if(skill->target==TargetRule::EnemyTeam){planned_hits*=static_cast<std::uint32_t>(std::ranges::count_if(fighters_,[&](const Fighter& f){return f.health>0 && f.definition.team!=actor.definition.team;}));}
+        if(skill->target==TargetRule::EnemyTeam){planned_hits*=static_cast<std::uint32_t>(std::ranges::count_if(fighters_,[&](const Fighter& f){return f.health>0 && f.definition.team!=actor.definition.team && in_scope(f);}));}
         std::uint32_t hit_index = 0,effect_ordinal=0;
         const bool has_attack=std::ranges::any_of(skill->effects,[](const EffectDefinition& e){return e.kind==EffectKind::Damage;});
         for (const auto& effect : skill->effects) {
@@ -688,14 +691,14 @@ void Battle::execute_skill(std::size_t from,std::size_t target_index,const Skill
             switch (effect.kind) {
             case EffectKind::CleanseDebuffs:case EffectKind::StealBuffs:case EffectKind::TransferDebuffs:
             case EffectKind::DispelBuffs: {
-                if(skill->target==TargetRule::EnemyTeam){for(std::size_t i=0;i<fighters_.size();++i){if(fighters_[i].health>0 && fighters_[i].definition.team!=actor.definition.team){operate_statuses(from,i,effect,context,effect_ordinal,events);}}}
+                if(skill->target==TargetRule::EnemyTeam){for(std::size_t i=0;i<fighters_.size();++i){if(fighters_[i].health>0 && fighters_[i].definition.team!=actor.definition.team && in_scope(fighters_[i])){operate_statuses(from,i,effect,context,effect_ordinal,events);}}}
                 else{operate_statuses(from,target_index,effect,context,effect_ordinal,events);}break;
             }
             case EffectKind::Damage:
                 for(std::uint32_t i=0;i<effect.hit_count && phase_==Phase::Running && fighters_[from].health>0;++i){
                     if(skill->target==TargetRule::EnemyTeam){
                         for(std::size_t selected=0;selected<fighters_.size() && phase_==Phase::Running && fighters_[from].health>0;++selected){
-                            if(fighters_[selected].health>0 && fighters_[selected].definition.team!=actor.definition.team){
+                            if(fighters_[selected].health>0 && fighters_[selected].definition.team!=actor.definition.team && in_scope(fighters_[selected])){
                                 hit(from,selected,derived,context.actor,context,++hit_index,planned_hits,events,reactions,guarded,revives,&effect);
                             }
                         }
@@ -805,6 +808,10 @@ ActionResult Battle::apply(const Action& action) {
         }
     }
 
+    if(!action.target_scope.empty()){
+        if(!rules_.allow_scoped_aoe || !skill || skill->target!=TargetRule::EnemyTeam || std::ranges::find(action.target_scope,action.target)==action.target_scope.end()){return reject(ActionError::InvalidSkillTarget);}
+        std::vector<std::string> seen;for(const auto& id:action.target_scope){const auto target=index_of(id);if(!target || fighters_[*target].health==0 || fighters_[*target].definition.team==actor.definition.team || std::ranges::find(seen,id)!=seen.end()){return reject(ActionError::InvalidSkillTarget);}seen.push_back(id);}
+    }
     // Only accepted primary commands (including blocked opportunity resolution) spend a budget unit.
     ActionResult result;
     if(skill && !skill->basic && has_status(actor,EffectKind::Silence)){return reject(ActionError::ActorSilenced);}
@@ -828,7 +835,7 @@ ActionResult Battle::apply(const Action& action) {
         auto& cooldowns = fighters_[active_].cooldowns;
         std::ranges::find(cooldowns, skill->id, &Cooldown::skill)->remaining = skill->cooldown;
         result.events.push_back(Event{EventType::SkillUsed, action.actor, skill->id, 0, round_, {}});
-        execute_skill(active_,*target_index,*skill,root_context,result.events,reactions,guarded,revives,false);
+        execute_skill(active_,*target_index,*skill,root_context,result.events,reactions,guarded,revives,false,action.target_scope);
     }
     observe_vigil(root_context,result.events,reactions);
     close_action(root_context, guarded, revives, result.events);
@@ -862,7 +869,7 @@ ActionResult Battle::apply(const Action& action) {
         if(reaction.vigil && fighters_[from].health>0 && phase_==Phase::Running){
             std::optional<std::size_t> selected;
             for(std::size_t i=0;i<fighters_.size();++i){
-                const auto& candidate=fighters_[i];if(candidate.health==0 || candidate.definition.team!=fighters_[from].definition.team){continue;}
+                const auto& candidate=fighters_[i];if(candidate.health==0 || candidate.definition.team!=fighters_[from].definition.team || (!fighters_[from].definition.front_id.empty()&&candidate.definition.front_id!=fighters_[from].definition.front_id)){continue;}
                 int comparison=selected?numeric::compare_ratio(candidate.health,candidate.definition.max_health,fighters_[*selected].health,fighters_[*selected].definition.max_health):-1;
                 if(!selected || comparison<0 || (comparison==0 && (i==from || (*selected!=from && candidate.definition.formation_slot<fighters_[*selected].definition.formation_slot)))){selected=i;}
             }
@@ -913,6 +920,7 @@ void Battle::tick_periodics(std::vector<Event>& events) {
         if(found==owner.statuses.end()){continue;}
         const auto source=index_of(status.source_id);
         if(--found->remaining==0){owner.statuses.erase(found);}
+        if(!source && next_action_id_==std::numeric_limits<std::uint64_t>::max()){throw std::overflow_error("Detached source action ID overflow");}
         const auto context=source?make_context(*source,ActionType::Skill,owner.definition.id,status.kind==EffectKind::Bleed?"Bleed-tick":"Poison-tick"):ActionContext{next_action_id_++,0,next_action_id_-1,status.source_id,*status.source_team,ActionType::Skill,owner.definition.id,status.kind==EffectKind::Bleed?"Bleed-tick":"Poison-tick"};
         last_consequence_events_=0;
         auto points=status.kind==EffectKind::Bleed?status.magnitude:std::max<numeric::Quantity>(1,numeric::mul_div_floor(owner.definition.max_health,400,10000));
@@ -928,6 +936,53 @@ void Battle::tick_periodics(std::vector<Event>& events) {
         close_action(context,{},revives,events);
         stamp(events,begin,turn_id_,turn_kind_);
     }
+}
+std::vector<Event> Battle::transition_phase(std::string_view boss_id,const PhaseMutation& mutation){
+    const auto boss_index=index_of(boss_id);
+    if(!boss_index || phase_!=Phase::Running || fighters_[*boss_index].health==0 || fighters_[*boss_index].definition.role!=EntityRole::Boss ||
+       mutation.heal_points<0 || mutation.heal_points>numeric::quantity_max ||
+       (mutation.cooldowns!=PhaseCooldowns::KeepMatching && mutation.cooldowns!=PhaseCooldowns::ResetAll && mutation.cooldowns!=PhaseCooldowns::MapExplicit) ||
+       (mutation.cooldowns!=PhaseCooldowns::MapExplicit && !mutation.mappings.empty())){throw std::invalid_argument("Invalid phase mutation");}
+    auto proposed=*this;auto& boss=proposed.fighters_[*boss_index];std::vector<Event> events;
+    if(!mutation.kit.empty()){
+        for(const auto& skill:mutation.kit){if(skill.owner!=boss_id){throw std::invalid_argument("Phase kit must belong to boss");}}
+        std::erase_if(proposed.rules_.skills,[&](const SkillDefinition& s){return s.owner==boss_id;});
+        proposed.rules_.skills.insert(proposed.rules_.skills.end(),mutation.kit.begin(),mutation.kit.end());
+    }
+    const auto old_cooldowns=boss.cooldowns;std::vector<Cooldown> cooldowns;std::vector<std::string> mapped;
+    for(const auto& mapping:mutation.mappings){
+        if(std::ranges::find(old_cooldowns,mapping.first,&Cooldown::skill)==old_cooldowns.end() || std::ranges::find(mapped,mapping.second)!=mapped.end() ||
+           std::ranges::find_if(proposed.rules_.skills,[&](const SkillDefinition& s){return s.owner==boss_id&&s.id==mapping.second;})==proposed.rules_.skills.end()){throw std::invalid_argument("Invalid phase cooldown mapping");}mapped.push_back(mapping.second);
+    }
+    for(const auto& skill:proposed.rules_.skills){if(skill.owner!=boss_id){continue;}int remaining=0;
+        if(mutation.cooldowns==PhaseCooldowns::KeepMatching){const auto old=std::ranges::find(old_cooldowns,skill.id,&Cooldown::skill);if(old!=old_cooldowns.end()){remaining=std::min(old->remaining,skill.cooldown);}}
+        if(mutation.cooldowns==PhaseCooldowns::MapExplicit){const auto map=std::ranges::find_if(mutation.mappings,[&](const auto& p){return p.second==skill.id;});if(map!=mutation.mappings.end()){remaining=std::min(std::ranges::find(old_cooldowns,map->first,&Cooldown::skill)->remaining,skill.cooldown);}}
+        cooldowns.push_back({skill.id,remaining});
+    }boss.cooldowns=std::move(cooldowns);
+    if(mutation.cleanse_common_debuffs){std::erase_if(boss.statuses,[](const Status& s){return status_is_debuff(s)&&permits_operation(s,StatusOperation::Remove,OperationScope::CommonOnly)&&s.border==StatusBorder::Common;});}
+    for(auto state:mutation.applied_states){
+        if(periodic_effect(state.kind)){throw std::invalid_argument("Phase state is not a periodic generator");}
+        state.applied_turn=turn_id_;const auto old=std::ranges::find(boss.statuses,state.kind,&Status::kind);if(old==boss.statuses.end()){boss.statuses.push_back(state);}else{*old=state;}
+        events.push_back({EventType::EffectApplied,boss.definition.id,boss.definition.id,static_cast<int>(state.kind),round_,{}});events.back().status_kind=state.kind;
+    }
+    const auto heal=std::min(mutation.heal_points,boss.definition.max_health-boss.health);boss.health+=heal;
+    if(heal>0){events.push_back({EventType::EffectApplied,boss.definition.id,boss.definition.id,heal,round_,{}});events.back().status_kind=EffectKind::Heal;}
+    std::vector<std::string> activated;
+    for(const auto& id:mutation.activate_summons){
+        const auto index=proposed.index_of(id);if(!index || std::ranges::find(activated,id)!=activated.end()){throw std::invalid_argument("Invalid summon activation");}
+        auto& f=proposed.fighters_[*index];const auto owner=proposed.index_of(f.definition.summoner_id);
+        if(f.definition.role!=EntityRole::Summon||!owner||proposed.fighters_[*owner].health==0){throw std::invalid_argument("Summon is not an available reserve");}
+        activated.push_back(id);if(f.health>0){continue;}f.summon_dismissed=false;f.health=f.definition.max_health;f.ap=0;f.guarding=false;f.statuses.clear();f.effective_speed=f.definition.speed;
+        for(auto& cooldown:f.cooldowns){cooldown.remaining=0;}f.vigil_charges=f.definition.vigil?f.definition.vigil->initial_charges:0;
+        if(std::ranges::find(proposed.order_,*index)==proposed.order_.end()){proposed.order_.push_back(*index);}
+        events.push_back({EventType::SummonSpawned,boss.definition.id,id,0,round_,{}});
+    }
+    std::ranges::sort(proposed.order_,[&](std::size_t a,std::size_t b){const auto& x=proposed.fighters_[a].definition;const auto& y=proposed.fighters_[b].definition;return x.speed!=y.speed?x.speed>y.speed:x.id<y.id;});
+    proposed.cursor_=static_cast<std::size_t>(std::ranges::find(proposed.order_,proposed.active_)-proposed.order_.begin());
+    std::vector<Definition> definitions;for(const auto& f:proposed.fighters_){definitions.push_back(f.definition);}
+    auto checked_statuses=boss.statuses;std::erase_if(checked_statuses,[](const Status& s){return periodic_effect(s.kind);});
+    const Battle validate(definitions,proposed.rules_,{},{{boss.definition.id,boss.effective_speed,checked_statuses,boss.cooldowns,boss.definition.vigil?std::optional<std::uint32_t>{boss.vigil_charges}:std::nullopt}});
+    *this=std::move(proposed);return events;
 }
 void Battle::advance(std::vector<Event>& events) {
     do {

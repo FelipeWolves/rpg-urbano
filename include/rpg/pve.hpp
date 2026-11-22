@@ -4,6 +4,10 @@
 namespace rpg {
 enum class PveMode { Ritual, ScoreAttack, Survival };
 enum class PveEnd { BossDefeated, TeamDefeated, WindowClosed, SurvivalReached, TechnicalLimit };
+enum class PvePhaseTrigger { HealthThreshold, BossTurnCount };
+struct PvePhaseRule { std::string id; PvePhaseTrigger trigger; std::uint64_t threshold; PhaseMutation mutation; };
+struct PveTurnCycle { std::uint64_t every; std::vector<std::pair<std::string,PhaseMutation>> states; };
+struct PvePhaseEvent { std::string id;std::vector<Event> effects; };
 struct PveDefinition {
  std::string id,attempt_id,boss_id;
  std::vector<Definition> roster;
@@ -14,12 +18,16 @@ struct PveDefinition {
  TickPolicy boss_turn_clock=TickPolicy::NaturalOnly;
  ScorePolicy score;
  std::vector<ScoreTier> tiers;
+ std::vector<PvePhaseRule> phases;
+ std::optional<PveTurnCycle> turn_cycle;
+ std::vector<std::string> reserve_summons;
 };
 struct PveActionResult {
  ActionResult action;
  bool attempt_finished=false,objective_met=false;
  std::optional<PveEnd> end;
  numeric::Quantity score=0;
+ std::vector<PvePhaseEvent> phase_events;
 };
 class PveEncounter {
 public:
@@ -33,6 +41,8 @@ public:
 private:
  PveDefinition definition_;ScoreLedger* ledger_;ScoreAccumulator score_;std::optional<Battle> battle_;
  std::optional<PveEnd> end_;std::uint64_t boss_turns_=0;bool objective_=false;
+ std::size_t next_phase_=0;std::uint64_t cycle_steps_=0;
+ void update_phases(std::vector<PvePhaseEvent>& events);
  [[nodiscard]] bool alive()const;
  void finish(PveEnd reason,bool objective);
 };

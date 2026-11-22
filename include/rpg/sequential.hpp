@@ -12,7 +12,7 @@ struct SquadDefinition {
     BattleRules rules;
 };
 // Both base policies clear statuses and reset AP/guard/effective speed at a squad boundary.
-enum class BossRuntimeCarry { KeepCooldownsClearStatuses, ResetRuntime, PreserveClassifiedStates };
+enum class BossRuntimeCarry { KeepCooldownsClearStatuses, ResetRuntime, PreserveClassifiedStates, PreserveSpecialBordersV2 };
 enum class BossCooldownTransition { KeepMatching, ResetAll, MapExplicit };
 struct CooldownMapping {
     std::string from_skill;

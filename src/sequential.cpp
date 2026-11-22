@@ -26,10 +26,10 @@ SequentialDefinition::SequentialDefinition(std::string stage_id,std::uint32_t ve
 SequentialSquads::SequentialSquads(SequentialDefinition definition):definition_(std::move(definition)) {
     if(definition_.id.empty() || definition_.config_version==0 || definition_.squads.size()!=3 ||
        definition_.boss.team!=Team::B || (definition_.boss_carry!=BossRuntimeCarry::KeepCooldownsClearStatuses &&
-       definition_.boss_carry!=BossRuntimeCarry::ResetRuntime && definition_.boss_carry!=BossRuntimeCarry::PreserveClassifiedStates)){
+       definition_.boss_carry!=BossRuntimeCarry::ResetRuntime && definition_.boss_carry!=BossRuntimeCarry::PreserveClassifiedStates && definition_.boss_carry!=BossRuntimeCarry::PreserveSpecialBordersV2)){
         throw std::invalid_argument("Invalid sequential configuration");}
     const bool profiled=!definition_.boss_phases.empty();
-    if(profiled!=(definition_.boss_carry==BossRuntimeCarry::PreserveClassifiedStates) ||
+    if((definition_.boss_carry==BossRuntimeCarry::PreserveSpecialBordersV2 && definition_.config_version<2) || (definition_.boss_carry!=BossRuntimeCarry::PreserveSpecialBordersV2 && profiled!=(definition_.boss_carry==BossRuntimeCarry::PreserveClassifiedStates)) ||
        (profiled && definition_.boss_phases.size()!=3)){throw std::invalid_argument("Profiles require explicit classified-state policy");}
     for(std::size_t i=0;i<definition_.boss_phases.size();++i){
         const auto& phase=definition_.boss_phases[i];
@@ -125,9 +125,12 @@ void SequentialSquads::start_squad(const Fighter* previous_boss) {
         }
         std::vector<Status> statuses;
         if(previous_boss){
-            for(const auto& status:previous_boss->statuses){if(status.category!=StatusCategory::Temporary){statuses.push_back(status);}}
+            for(const auto& status:previous_boss->statuses){if(status.category!=StatusCategory::Temporary || (definition_.boss_carry==BossRuntimeCarry::PreserveSpecialBordersV2 && (status.border!=StatusBorder::Common || status.native_passive))){statuses.push_back(status);}}
         }else{statuses=definition_.boss_initial_statuses;}
         runtime.push_back({definition_.boss.id,definition_.boss.speed,statuses,cooldowns});
+    }else if(previous_boss && definition_.boss_carry==BossRuntimeCarry::PreserveSpecialBordersV2){
+        auto statuses=previous_boss->statuses;std::erase_if(statuses,[](const Status& state){return state.category!=StatusCategory::Structural && state.border==StatusBorder::Common && !state.native_passive;});
+        runtime.push_back({definition_.boss.id,definition_.boss.speed,statuses,previous_boss->cooldowns,definition_.boss.vigil?std::optional<std::uint32_t>{previous_boss->vigil_charges}:std::nullopt});
     }else if(previous_boss && definition_.boss_carry==BossRuntimeCarry::KeepCooldownsClearStatuses){
         runtime.push_back({definition_.boss.id,definition_.boss.speed,{},previous_boss->cooldowns});
     }else if(!previous_boss && !definition_.boss_initial_statuses.empty()){

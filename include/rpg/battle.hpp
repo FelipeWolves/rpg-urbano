@@ -111,6 +111,7 @@ struct BattleRules {
     resolution::CombatModel combat_model=resolution::CombatModel::Legacy;
     std::uint64_t random_seed=0;
     std::optional<std::string> required_enemy;
+    bool allow_scoped_aoe=false;
     std::uint32_t periodic_stack_limit=3; // Pilot per-kind cap; zero removes gameplay cap, not safety bounds.
     bool operator==(const BattleRules&) const = default;
 };
@@ -144,6 +145,7 @@ struct Definition {
     std::vector<EffectKind> immune_effects;
     bool is_boss=false;
     std::uint32_t formation_slot=0;
+    std::string front_id;
     std::optional<VigilDefinition> vigil;
     EntityRole role=EntityRole::Fighter;
     std::string summoner_id;
@@ -185,6 +187,7 @@ struct Fighter {
     std::vector<Status> statuses;
     std::vector<Cooldown> cooldowns;
     std::uint32_t vigil_charges=0;
+    bool summon_dismissed=false;
     bool operator==(const Fighter&) const = default;
 };
 
@@ -194,6 +197,16 @@ struct Fighter {
 [[nodiscard]] bool status_native_enabled(const Fighter& unit,const Status& status) noexcept;
 [[nodiscard]] bool periodic_effect(EffectKind kind) noexcept;
 [[nodiscard]] bool common_debuff(EffectKind kind) noexcept;
+enum class PhaseCooldowns { KeepMatching, ResetAll, MapExplicit };
+struct PhaseMutation {
+    std::vector<SkillDefinition> kit;
+    PhaseCooldowns cooldowns=PhaseCooldowns::KeepMatching;
+    std::vector<std::pair<std::string,std::string>> mappings;
+    bool cleanse_common_debuffs=false;
+    numeric::Quantity heal_points=0;
+    std::vector<Status> applied_states;
+    std::vector<std::string> activate_summons;
+};
 struct InitialHealth {
     std::string id;
     numeric::Quantity health;
@@ -212,6 +225,7 @@ struct Action {
     ActionType type;
     std::string target;
     std::string skill;
+    std::vector<std::string> target_scope;
     bool operator==(const Action&) const = default;
 };
 
@@ -304,6 +318,7 @@ public:
     [[nodiscard]] ActionResult apply(const Action& action);
     [[nodiscard]] bool current_actor_blocked() const noexcept;
     [[nodiscard]] bool current_actor_cooldowns_frozen() const noexcept;
+    [[nodiscard]] std::vector<Event> transition_phase(std::string_view boss,const PhaseMutation& mutation);
 
 private:
     std::vector<Event> initial_events_;
@@ -345,7 +360,7 @@ private:
     [[nodiscard]] std::optional<std::size_t> index_of(std::string_view id) const noexcept;
     void advance(std::vector<Event>& events);
     void tick_periodics(std::vector<Event>& events);
-    void execute_skill(std::size_t from,std::size_t target_index,const SkillDefinition& definition,const ActionContext& context,std::vector<Event>& events,std::vector<PendingReaction>& reactions,std::vector<std::size_t>& guarded,std::vector<PendingRevive>& revives,bool derived);
+    void execute_skill(std::size_t from,std::size_t target_index,const SkillDefinition& definition,const ActionContext& context,std::vector<Event>& events,std::vector<PendingReaction>& reactions,std::vector<std::size_t>& guarded,std::vector<PendingRevive>& revives,bool derived,const std::vector<std::string>& scope={});
     void observe_vigil(const ActionContext& context,std::vector<Event>& events,std::vector<PendingReaction>& reactions);
     void standard_shield(std::size_t source,std::size_t target,std::vector<Event>& events);
     void operate_statuses(std::size_t source,std::size_t target,const EffectDefinition& effect,const ActionContext& context,std::uint32_t ordinal,std::vector<Event>& events);

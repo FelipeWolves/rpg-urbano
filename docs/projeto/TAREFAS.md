@@ -1,3 +1,5 @@
+> **LAB-PVE-04 — 22/11:** [score/sobrevivência e recibo no Terminal](LAB-PVE-04-SCORE-SOBREVIVENCIA.md). Acessos na página2; janela12ações e meta3turnos naturais são parâmetros de laboratório. Aceites visuais02–04 pendentes; próximo05equipes sequenciais. Demo ~28% mantida.
+
 > **LAB-PVE-03 — 22/11:** [ondas e fases no Terminal](LAB-PVE-03-ONDAS-FASES.md), com HUD/contadores e consulta de transições. Nova integração aguardando aceite visual; LAB-PVE-02 também não teve aceite informado ainda. Próximo LAB-PVE-04, score/sobrevivência. Demo ~28% mantida.
 
 > **LAB-PVE-02 — 22/11:** [Ritual local integrado ao Terminal](LAB-PVE-02-RITUAL-TERMINAL.md), com objetivo, HUD, resultado e tentativas isoladas. Código/testes/build; aceite visual da nova rota pendente. Próximo LAB-PVE-03, ondas/fases. Demo ~28% mantida.
@@ -21,7 +23,7 @@
 - [x] LAB-PVE-01: adaptadores mapeados, snapshot e contrato de HUD implementados/testados.
 - [x] LAB-PVE-02: Ritual no Terminal com objetivo, resultado e retorno; aceite visual pendente.
 - [x] LAB-PVE-03: ondas/fases e detalhes de transição implementados; aceite visual pendente.
-- [ ] LAB-PVE-04: score e sobrevivência.
+- [x] LAB-PVE-04: score/sobrevivência e recibos implementados; aceite visual pendente.
 - [ ] LAB-PVE-05: equipes sequenciais.
 - [ ] LAB-PVE-06: frentes locais e chefe compartilhado.
 - [ ] LAB-QA-01 em paralelo: feedback e roteiro de save/tutorial/resoluções.

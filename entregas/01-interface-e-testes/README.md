@@ -1,3 +1,5 @@
+> **22/11 — LAB-PVE-04:** Terminal → Mais modos > → Pontuação/Sobrevivência. Roteiro em docs/projeto/LAB-PVE-04-SCORE-SOBREVIVENCIA.md; testar paginação, contadores e consulta de recibo, sem concessão de créditos. Fixtures não esperam conteúdo final; próximo05equipes sequenciais. Aceites02–04 ainda pendentes.
+
 > **22/11 — LAB-PVE-03:** novos testes de Ondas consecutivas e Ritual com fases no Terminal, aguardando seu aceite conforme docs/projeto/LAB-PVE-03-ONDAS-FASES.md. Recursos finais não bloqueiam o próximo LAB-PVE-04. Ritual simples também segue com aceite pendente.
 
 > **22/11 — LAB-PVE-02:** Ritual disponível pelo Terminal na compilação atual; roteiro em docs/projeto/LAB-PVE-02-RITUAL-TERMINAL.md. Sua próxima avaliação é da nova rota/HUD, resultado, abandono e volta aos outros laboratórios. Conteúdo final pode continuar em paralelo. Próximo desenvolvimento: ondas/fases (LAB-PVE-03).

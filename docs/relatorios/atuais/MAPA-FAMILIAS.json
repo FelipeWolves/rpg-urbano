@@ -1,6 +1,6 @@
 {
   "date": "2026-11-22",
-  "purpose": "Wave and phase presentation integrated in code; awaiting visual acceptance",
+  "purpose": "ScoreAttack/Survival presentation and read-only receipts integrated; awaiting acceptance",
   "global_demo_estimate": 28,
   "global_range": [
     26,
@@ -27,7 +27,7 @@
       "nome": "Integração Unreal",
       "percentual": 50,
       "prioridade": "P1",
-      "agora": "Ritual, ondas e fases integrados em código; próximo adaptador de score/sobrevivência.",
+      "agora": "Variantes PvE isoladas e Terminal paginado; próximo integração sequencial.",
       "ajustes": "Pacote limpo, persistência real, cook/Shipping e backends futuros.",
       "dependencia": "Pode avançar sem MCP, Android ou recursos finais.",
       "motivo": "Reaproveita o core e mantém uma única resolução de combate.",
@@ -53,7 +53,7 @@
       "nome": "Encontros e chefes",
       "percentual": 65,
       "prioridade": "P1",
-      "agora": "Ritual/ondas/fases aguardam aceite; próximo LAB-PVE-04 ScoreAttack/Survival.",
+      "agora": "Ritual, ondas/fases e score/sobrevivência integrados em código; aguardar aceites e seguir sequenciais.",
       "ajustes": "Menus/HUD, objetivo/resultado, indicadores de fase, kits reais e balanceamento; classes compiladas não são telas prontas.",
       "dependencia": "Regras dos controladores prontas; integração independente de arte final; aceite após UI.",
       "motivo": "Grande retorno por reaproveitar os controladores recém-testados; começar por um encontro simples reduz esforço.",
@@ -79,7 +79,7 @@
       "nome": "Ciclo de jogo e persistência",
       "percentual": 25,
       "prioridade": "P1",
-      "agora": "Definir identidade de encontro/modo nos dados e preparar persistência versionada de resultados/recibos; manter idempotência.",
+      "agora": "Recibo de score consultável sem concessão duplicada; preparar persistência real em etapa própria.",
       "ajustes": "Save atual é entre tentativas; score em memória não é persistência em disco; validar salvar/carregar pela interface.",
       "dependencia": "Definições econômicas para recompensas finais; armazenamento local pode avançar sem lojas/servidor.",
       "motivo": "Evita perda ou duplicação de progresso quando os novos modos entrarem na interface.",
@@ -284,7 +284,7 @@
   "engine_opened": false,
   "android_used": false,
   "internet_used": false,
-  "snapshot_scope": "LAB-PVE-03 technical delivery, estimates unchanged",
-  "latest_delivery": "LAB-PVE-03",
-  "next_delivery": "LAB-PVE-04"
+  "snapshot_scope": "LAB-PVE-04 technical delivery; estimates unchanged",
+  "latest_delivery": "LAB-PVE-04",
+  "next_delivery": "LAB-PVE-05"
 }

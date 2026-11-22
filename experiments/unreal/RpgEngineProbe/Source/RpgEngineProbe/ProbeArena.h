@@ -4,6 +4,7 @@
 #include "GameFramework/GameModeBase.h"
 #include "rpg/battle_presentation.hpp"
 #include "rpg/pve_visual.hpp"
+#include <array>
 #include "rpg/startup_presentation.hpp"
 #include "rpg/hub_style.hpp"
 #include "ProbeArena.generated.h"
@@ -18,18 +19,19 @@ public:
     virtual void EndPlay(const EEndPlayReason::Type reason) override;
 private:
     rpg::presentation::VisualSession Session;
-    std::unique_ptr<rpg::presentation::PveVisualSession> Ritual,PhasedRitual;
+    std::array<std::unique_ptr<rpg::presentation::PveVisualSession>,4> PveLabs;
     std::unique_ptr<rpg::presentation::WaveVisualSession> Waves;
-    bool RitualActive=false,PhasedRitualActive=false,WavesActive=false;
-    int32 WaveGeometryIndex=-1;
-    rpg::presentation::PveVisualSession* ActiveRitual(){return PhasedRitualActive?PhasedRitual.get():Ritual.get();}
-    const rpg::presentation::PveVisualSession* ActiveRitual()const{return PhasedRitualActive?PhasedRitual.get():Ritual.get();}
-    rpg::presentation::VisualState ActiveState()const{return WavesActive?Waves->state():RitualActive?ActiveRitual()->state():Session.state();}
-    bool ActiveFinished()const{return WavesActive?Waves->finished():RitualActive?ActiveRitual()->finished():Session.state().combat.battle.phase==rpg::Phase::Finished;}
-    void ResetActiveBattle(){if(WavesActive){Waves->reset();}else if(RitualActive){ActiveRitual()->reset();}else{Session.reset();}}
-    rpg::presentation::VisualResult SubmitActiveSlot(uint64 revision,uint32 slot,std::string target){return WavesActive?Waves->submit(revision,slot,std::move(target)):RitualActive?ActiveRitual()->submit(revision,slot,std::move(target)):Session.submit(revision,slot,std::move(target));}
-    rpg::presentation::VisualResult SubmitActiveAction(uint64 revision,const rpg::Action& action){return WavesActive?Waves->submit_action(revision,action):RitualActive?ActiveRitual()->submit_action(revision,action):Session.submit_action(revision,action);}
-    rpg::presentation::VisualResult StepActiveBattle(){return WavesActive?Waves->step_automatic():RitualActive?ActiveRitual()->step_automatic():Session.step_automatic();}
+    bool PveActive=false,WavesActive=false;
+    rpg::presentation::PveLabKind SelectedPveLab=rpg::presentation::PveLabKind::Ritual;
+    int32 WaveGeometryIndex=-1,TerminalMenuPage=0;
+    rpg::presentation::PveVisualSession* ActivePve(){return PveLabs[static_cast<std::size_t>(SelectedPveLab)].get();}
+    const rpg::presentation::PveVisualSession* ActivePve()const{return PveLabs[static_cast<std::size_t>(SelectedPveLab)].get();}
+    rpg::presentation::VisualState ActiveState()const{return WavesActive?Waves->state():PveActive?ActivePve()->state():Session.state();}
+    bool ActiveFinished()const{return WavesActive?Waves->finished():PveActive?ActivePve()->finished():Session.state().combat.battle.phase==rpg::Phase::Finished;}
+    void ResetActiveBattle(){if(WavesActive){Waves->reset();}else if(PveActive){ActivePve()->reset();}else{Session.reset();}}
+    rpg::presentation::VisualResult SubmitActiveSlot(uint64 revision,uint32 slot,std::string target){return WavesActive?Waves->submit(revision,slot,std::move(target)):PveActive?ActivePve()->submit(revision,slot,std::move(target)):Session.submit(revision,slot,std::move(target));}
+    rpg::presentation::VisualResult SubmitActiveAction(uint64 revision,const rpg::Action& action){return WavesActive?Waves->submit_action(revision,action):PveActive?ActivePve()->submit_action(revision,action):Session.submit_action(revision,action);}
+    rpg::presentation::VisualResult StepActiveBattle(){return WavesActive?Waves->step_automatic():PveActive?ActivePve()->step_automatic():Session.step_automatic();}
     std::optional<rpg::presentation::VisualSession> AlternateLabSession;
     rpg::CombatProfile ReferenceProfile=rpg::CombatProfile::Team;
     bool SessionIsFelipe=false,PilotTutorial=false;

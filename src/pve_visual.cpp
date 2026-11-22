@@ -15,6 +15,23 @@ PveDefinition phased_ritual_lab_definition(){
  d.phases={{"Vigilia-90",PvePhaseTrigger::HealthThreshold,9000,{}},{"Furia-60",PvePhaseTrigger::HealthThreshold,6000,std::move(fury)}};
  return d;
 }
+PveDefinition score_lab_definition(){
+ auto d=ritual_lab_definition();d.id="score-lab";d.attempt_id="score-lab-1";d.mode=PveMode::ScoreAttack;d.rules.action_budget=ActionBudget{12,LimitOutcome::Draw};
+ auto boss=std::ranges::find(d.roster,d.boss_id,&Definition::id);boss->max_health=1000000;return d;
+}
+PveDefinition survival_lab_definition(){
+ auto d=ritual_lab_definition();d.id="survival-lab";d.attempt_id="survival-lab-1";d.mode=PveMode::Survival;d.boss_turn_goal=3;d.boss_turn_clock=TickPolicy::NaturalOnly;d.score_enabled=true;
+ auto boss=std::ranges::find(d.roster,d.boss_id,&Definition::id);boss->max_health=1000000;return d;
+}
+PveDefinition pve_lab_definition(PveLabKind kind){
+ switch(kind){case PveLabKind::Ritual:return ritual_lab_definition();case PveLabKind::Phased:return phased_ritual_lab_definition();case PveLabKind::Score:return score_lab_definition();case PveLabKind::Survival:return survival_lab_definition();}
+ throw std::invalid_argument("Unknown local PvE variant");
+}
+std::optional<ScoreReceipt> PveVisualSession::receipt()const{
+ if(!finished()){return std::nullopt;}
+ const auto id=encounter_->snapshot().attempt_id;const auto& receipts=ledger_->receipts();const auto found=std::ranges::find(receipts,id,&ScoreReceipt::attempt_id);
+ return found==receipts.end()?std::nullopt:std::optional<ScoreReceipt>{*found};
+}
 PveVisualSession::PveVisualSession(PveDefinition definition):definition_(std::move(definition)),ledger_(std::make_unique<ScoreLedger>()),encounter_(std::make_unique<PveEncounter>(definition_,*ledger_)){
  if(definition_.loadouts.empty()){throw std::invalid_argument("Visual PvE requires declared team slots");}
 }

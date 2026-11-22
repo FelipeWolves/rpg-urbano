@@ -4,7 +4,11 @@
 #include "rpg/stage.hpp"
 #include <memory>
 namespace rpg::presentation {
+enum class PveLabKind { Ritual, Phased, Score, Survival };
+[[nodiscard]] PveDefinition pve_lab_definition(PveLabKind kind);
 [[nodiscard]] PveDefinition ritual_lab_definition();
+[[nodiscard]] PveDefinition score_lab_definition();
+[[nodiscard]] PveDefinition survival_lab_definition();
 [[nodiscard]] PveDefinition phased_ritual_lab_definition();
 // Owns its ledger on the heap: moving the adapter cannot invalidate PveEncounter's ledger pointer.
 class PveVisualSession {
@@ -12,6 +16,8 @@ public:
  explicit PveVisualSession(PveDefinition definition=ritual_lab_definition());
  [[nodiscard]] VisualState state()const;
  [[nodiscard]] PveSnapshot observation()const{return encounter_->snapshot();}
+ [[nodiscard]] std::optional<ScoreReceipt> receipt()const;
+ [[nodiscard]] std::size_t receipt_count()const noexcept{return ledger_->receipts().size();}
  [[nodiscard]] bool finished()const noexcept{return encounter_->finished();}
  [[nodiscard]] const std::vector<PvePhaseEvent>& phase_events()const noexcept{return phase_events_;}
  [[nodiscard]] VisualResult submit(std::uint64_t revision,std::uint32_t slot,std::string target);

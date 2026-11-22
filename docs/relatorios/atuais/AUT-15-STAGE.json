@@ -1,0 +1,14 @@
+{
+  "Date": "2026-11-22",
+  "Passed": true,
+  "StageRelative": "build\\p\\79855ac5\\RpgEngineProbe",
+  "Inputs": 53,
+  "VerifiedHashes": 53,
+  "Failures": [],
+  "IncludeClosureChecked": true,
+  "BuildExecuted": false,
+  "CookExecuted": false,
+  "EditorOpened": false,
+  "PackageValidated": false,
+  "AndroidExecuted": false
+}

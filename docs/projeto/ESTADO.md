@@ -179,3 +179,5 @@ AUT-12 (22/11): marcador de runtime implementado, cinco grupos de geometria apro
 AUT-13 (22/11): fila de cues confirmados integrada à sessão, sete grupos próprios aprovados; regressão/build em AUT-13-BUILD.json. Sem animação final, relógio novo ou reaplicação de dano. Próximo AUT-14. Ver AUT-13-EVENTOS-VISUAIS.md.
 
 AUT-14 (22/11): schema e manifestos de referência preparados; sete grupos nativos aprovados. Roster e referências explícitos; sem migração de regras/carga runtime. Pendências em AUT-14-DADOS-CENARIO.md. Próximo AUT-15, somente preparo sob as restrições.
+
+AUT-15 (22/11): stage de 53 entradas preparado e verificado por hash/includes; três grupos do verificador aprovados. Sem build/cook/execução do pacote; Shipping/Windows limpo pendentes. Próximo AUT-16. Ver AUT-15-STAGE-VERIFICAVEL.md.

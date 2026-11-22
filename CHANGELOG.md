@@ -232,3 +232,8 @@ Parser JSON do hub, importação do panorama, projeção/clipping dos dois alvos
 
 - Esquema e codec limitado para manifestos dos cenários Equipes/Clássico; paridade integral ao recompor o baseline.
 - Arquivos divergentes recusados; regras/semântica continuam em código, sem migração runtime implícita.
+
+## 2026-11-22 — AUT-15
+
+- Stage isolado atualizado e verificador independente de caminhos/hashes/includes/plano desautorizado.
+- 53 entradas verificadas e três grupos de validação aprovados; pacote executável/cook/Shipping não executados.

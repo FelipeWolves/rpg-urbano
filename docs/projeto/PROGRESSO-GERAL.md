@@ -1,3 +1,5 @@
+> **Mapa vigente das famílias — 22/11:** [percentuais, tarefas independentes, ajustes, dependências e prioridades](MAPA-FAMILIAS-E-PRIORIDADES.md). Organização somente; demo geral mantida em ~25%. Próximo recomendado: cliques/alvos e primeira reprodução. Bases encerradas não são reabertas por rotina.
+
 # Progresso geral do projeto
 
 Atualizado em **22/11/2026**. **Demo integrada estimada em aproximadamente 25% (faixa orientativa: 23–27%).**

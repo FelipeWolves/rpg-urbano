@@ -1,3 +1,5 @@
+> **Organização vigente — 22/11:** [mapa de famílias e prioridades](MAPA-FAMILIAS-E-PRIORIDADES.md). Percentuais por família são estimativas não somáveis; não representam novas implementações. Próximo recomendado: entrada/alvos e player. Nesta rodada somente documentação.
+
 > **Vigente22/11 — ESC/SIS/PvE concluído no recorte de código:** [entregas e limites](ESC-SIS-PVE-CONSOLIDACAO.md). Doze baterias, regressão geral, compilaçãoUE e stage66 aprovados, sem executar o jogo. Cliques/alvos e vídeo continuam **REABERTOS**. Menus/HUD novos, conteúdo final e plataformas são próximos trabalhos separados.
 
 > **Vigente22/11:** ESC/SIS/PvE autorizado; execução em ESC-SIS-PVE-EXECUCAO.md. Cliques da batalha/troca de alvo e duplo clique da mídia reabertos para reteste do usuário em RETESTES-ENTRADA-E-VIDEO.md. Sem correção/aceite visual presumido.

@@ -1,3 +1,5 @@
+> **Mapa vigente das famílias — 22/11:** [percentuais, tarefas independentes, ajustes, dependências e prioridades](MAPA-FAMILIAS-E-PRIORIDADES.md). Organização somente; demo geral mantida em ~25%. Próximo recomendado: cliques/alvos e primeira reprodução. Bases encerradas não são reabertas por rotina.
+
 > **Vigente22/11 — ESC/SIS/PvE concluído no recorte de código:** [entregas e limites](ESC-SIS-PVE-CONSOLIDACAO.md). Doze baterias, regressão geral, compilaçãoUE e stage66 aprovados, sem executar o jogo. Cliques/alvos e vídeo continuam **REABERTOS**. Menus/HUD novos, conteúdo final e plataformas são próximos trabalhos separados.
 
 > **Vigente — 22/11, ponto 1 entregue:** [Felipe e efeitos contínuos](HAB-FELIPE-PILOTO.md): Bleed/Poison, A1/A2/A3 e piloto local implementados e testados. Aceites visuais/mobile separados. SIS-02-B/C, REG e A2 não estão mais por iniciar. Próximo grupo possível: ESC/SIS/PvE, **fora da autorização desta entrega**. Notas anteriores são histórico.

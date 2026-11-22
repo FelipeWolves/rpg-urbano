@@ -3,7 +3,7 @@
   "Passed": true,
   "ExitCode": 0,
   "Result": [
-    "AUT14_TESTS_RESULT passed=7 total=7"
+    "AUT14_TESTS_RESULT passed=9 total=9"
   ],
   "Scope": "Native contract only; no graphical/mobile execution"
 }

@@ -191,3 +191,5 @@ AUT-15 (22/11): stage de 53 entradas preparado e verificado por hash/includes; t
 SIS-02-B (22/11): utilitários inteiros seguros entregues; dez grupos, 67.240 combinações pequenas e 256 vetores BigInteger aprovados. Battle ainda não migrado. Próximo SIS-02-C; ver SIS-02-B-ARITMETICA.md.
 
 SIS-02-C1 (22/11): quantidades amplas no executor e consumidores; nove grupos Wide, regressão geral e build Editor aprovados. numeric_model=2; save v1 preservado. C2/C3 ainda seguem, stage anterior histórico. Ver SIS-02-C1-QUANTIDADES.md.
+
+SIS-02-C2/C3 (22/11): manifesto amplo com contagens/versões protegidas, nove grupos aprovados e stage de 54 entradas verificado; save v1 preservado. SIS-02-B/C encerrados neste escopo. Próximo REG-01/SIS-02, outcomes/RNG e funil; ver SIS-02-C2-FRONTEIRAS.md.

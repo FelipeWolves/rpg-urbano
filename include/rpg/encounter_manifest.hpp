@@ -2,6 +2,7 @@
 #include "rpg/reference_encounter.hpp"
 #include <charconv>
 #include <locale>
+#include <limits>
 #include <sstream>
 #include <algorithm>
 namespace rpg {
@@ -45,12 +46,12 @@ inline EncounterManifest decode_manifest(std::string_view text){
     std::istringstream in{std::string(text)};in.imbue(std::locale::classic());
     const auto token=[&](){std::string s;if(!(in>>s) || s.size()>128){throw ManifestError("Manifesto truncado/token invalido.");}return s;};
     const auto expect=[&](std::string_view s){if(token()!=s){throw ManifestError("Campo de manifesto inesperado.");}};
-    const auto number=[&](){const auto s=token();int n=0;auto [end,error]=std::from_chars(s.data(),s.data()+s.size(),n);if(error!=std::errc{} || end!=s.data()+s.size() || n<0){throw ManifestError("Numero invalido no manifesto.");}return n;};
-    const auto count=[&](){const auto n=number();if(n>64){throw ManifestError("Contagem excede limite de 64.");}return n;};
-    EncounterManifest result;expect("RPG_ENCOUNTER");result.schema=static_cast<std::uint32_t>(number());expect("scenario");result.scenario=token();expect("profile");const auto profile=token();if(profile!="team" && profile!="classic"){throw ManifestError("Perfil invalido.");}result.profile=profile=="team"?CombatProfile::Team:CombatProfile::Classic;
-    expect("roster");const int units=count();for(int i=0;i<units;++i){auto id=token();auto side=token();if(side!="A" && side!="B"){throw ManifestError("Lado invalido.");}const auto hp=number(),attack=number(),speed=number();result.roster.push_back({std::move(id),side=="A"?Team::A:Team::B,hp,attack,speed});}
+    const auto number=[&](){const auto s=token();std::int64_t n=0;auto [end,error]=std::from_chars(s.data(),s.data()+s.size(),n);if(error!=std::errc{} || end!=s.data()+s.size() || n<0){throw ManifestError("Numero invalido no manifesto.");}return n;};
+    const auto count=[&](){const auto n=number();if(n>64){throw ManifestError("Contagem excede limite de 64.");}return static_cast<int>(n);};
+    EncounterManifest result;expect("RPG_ENCOUNTER");if(number()!=1){throw ManifestError("Schema de cenario nao suportado.");}result.schema=1;expect("scenario");result.scenario=token();expect("profile");const auto profile=token();if(profile!="team" && profile!="classic"){throw ManifestError("Perfil invalido.");}result.profile=profile=="team"?CombatProfile::Team:CombatProfile::Classic;
+    expect("roster");const int units=count();for(int i=0;i<units;++i){auto id=token();auto side=token();if(side!="A" && side!="B"){throw ManifestError("Lado invalido.");}const auto hp=number(),attack=number(),speed=number();if(speed>std::numeric_limits<int>::max()){throw ManifestError("Velocidade fora do dominio int.");}result.roster.push_back({std::move(id),side=="A"?Team::A:Team::B,hp,attack,static_cast<int>(speed)});}
     expect("skills");const int skills=count();for(int i=0;i<skills;++i){auto owner=token();auto id=token();result.skills.emplace_back(std::move(owner),std::move(id));}
-    expect("bindings");const int bindings=count();for(int i=0;i<bindings;++i){auto owner=token();const auto slot=number();auto active=token();auto passive=token();result.bindings.push_back({std::move(owner),static_cast<std::uint32_t>(slot),std::move(active),std::move(passive)});}
+    expect("bindings");const int bindings=count();for(int i=0;i<bindings;++i){auto owner=token();const auto slot=number();if(slot<1 || slot>3){throw ManifestError("Slot de habilidade fora de 1..3.");}auto active=token();auto passive=token();result.bindings.push_back({std::move(owner),static_cast<std::uint32_t>(slot),std::move(active),std::move(passive)});}
     expect("end");std::string extra;if(in>>extra){throw ManifestError("Conteudo extra apos o manifesto.");}validate_manifest(result);return result;
 }
 inline EncounterSetup compose_manifest(const EncounterManifest& value){validate_manifest(value);return value.profile==CombatProfile::Team?team_reference_setup():classic_reference_setup();}

@@ -4,61 +4,45 @@
   "Passed": null,
   "Checks": [
     {
-      "Status": "Planned",
-      "Evidence": "Native marker geometry",
-      "Area": "Marker",
+      "Script": "scripts/testar-numerico.ps1",
+      "Area": "Arithmetic",
       "ExitCode": null,
-      "Script": "scripts/testar-autonomo.ps1",
       "Arguments": [
-        "-Block",
-        "12"
-      ]
+        "-Suite",
+        "Arithmetic"
+      ],
+      "Status": "Planned",
+      "Evidence": "Exact integer arithmetic and BigInteger oracle"
     },
     {
-      "Status": "Planned",
-      "Evidence": "Native cue contract",
-      "Area": "Events",
+      "Script": "scripts/testar-numerico.ps1",
+      "Area": "Wide",
       "ExitCode": null,
-      "Script": "scripts/testar-autonomo.ps1",
       "Arguments": [
-        "-Block",
-        "13"
-      ]
+        "-Suite",
+        "Wide"
+      ],
+      "Status": "Planned",
+      "Evidence": "Wide battle quantities and compatibility; no graphical acceptance"
     },
     {
-      "Status": "Planned",
-      "Evidence": "Native manifest codec and parity",
+      "Script": "scripts/testar-autonomo.ps1",
       "Area": "Data",
       "ExitCode": null,
-      "Script": "scripts/testar-autonomo.ps1",
       "Arguments": [
         "-Block",
         "14"
-      ]
+      ],
+      "Status": "Planned",
+      "Evidence": "Native manifest codec and parity"
     },
     {
-      "Status": "Planned",
-      "Evidence": "Native lifecycle/geometry/input; no playback",
-      "Area": "Media",
-      "ExitCode": null,
-      "Script": "scripts/testar-apresentacao-inicial.ps1",
-      "Arguments": []
-    },
-    {
-      "Status": "Planned",
-      "Evidence": "Native team/session/save contracts; no Unreal IO",
-      "Area": "Session",
-      "ExitCode": null,
-      "Script": "scripts/testar-inspecao-arena.ps1",
-      "Arguments": []
-    },
-    {
-      "Status": "Planned",
-      "Evidence": "Existing stage hashes/includes; no cook/build",
+      "Script": "scripts/verificar-stage-unreal.ps1",
       "Area": "Stage",
       "ExitCode": null,
-      "Script": "scripts/verificar-stage-unreal.ps1",
-      "Arguments": []
+      "Arguments": [],
+      "Status": "Planned",
+      "Evidence": "Existing stage hashes/includes; no cook/build"
     }
   ],
   "SmokeCases": [

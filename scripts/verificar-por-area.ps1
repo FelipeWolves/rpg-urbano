@@ -1,11 +1,13 @@
 # Selects native/file checks only. Never launches Unreal, a package or an Android tool.
 param(
-    [ValidateSet('Marker','Events','Data','Media','Session','Stage')][string[]]$Areas=@('Marker','Events','Data'),
+    [ValidateSet('Marker','Events','Data','Media','Session','Stage','Arithmetic','Wide')][string[]]$Areas=@('Marker','Events','Data'),
     [switch]$Execute
 )
 $ErrorActionPreference='Stop'
 $root=Split-Path $PSScriptRoot -Parent
 $map=@{
+    Arithmetic=@{Script='testar-numerico.ps1';Arguments=@('-Suite','Arithmetic');Evidence='Exact integer arithmetic and BigInteger oracle'}
+    Wide=@{Script='testar-numerico.ps1';Arguments=@('-Suite','Wide');Evidence='Wide battle quantities and compatibility; no graphical acceptance'}
     Marker=@{Script='testar-autonomo.ps1';Arguments=@('-Block','12');Evidence='Native marker geometry'}
     Events=@{Script='testar-autonomo.ps1';Arguments=@('-Block','13');Evidence='Native cue contract'}
     Data=@{Script='testar-autonomo.ps1';Arguments=@('-Block','14');Evidence='Native manifest codec and parity'}

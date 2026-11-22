@@ -1,280 +1,285 @@
 {
-  "CheckedUtc": "2026-11-22T11:20:03.7905915Z",
+  "CheckedUtc": "2026-11-22T12:16:37.2828577Z",
   "Status": "prepared_not_built",
   "EngineVersion": "5.8.4",
   "EngineChangelist": 58902052,
-  "Stage": "F:\\Testes de jogos\\Contos de Um Lobo - Jogo\\rpg-urbano\\build\\p\\79855ac5\\RpgEngineProbe",
-  "Archive": "F:\\Testes de jogos\\Contos de Um Lobo - Jogo\\rpg-urbano\\build\\p\\79855ac5\\archive",
-  "Plan": "F:\\Testes de jogos\\Contos de Um Lobo - Jogo\\rpg-urbano\\build\\p\\79855ac5\\package-plan.json",
+  "Stage": "F:\\Testes de jogos\\Contos de Um Lobo - Jogo\\rpg-urbano\\build\\p\\a75afa31\\RpgEngineProbe",
+  "Archive": "F:\\Testes de jogos\\Contos de Um Lobo - Jogo\\rpg-urbano\\build\\p\\a75afa31\\archive",
+  "Plan": "F:\\Testes de jogos\\Contos de Um Lobo - Jogo\\rpg-urbano\\build\\p\\a75afa31\\package-plan.json",
   "Target": "RpgEngineProbe",
   "Platform": "Win64",
   "Configuration": "Development",
   "Map": "/Game/PrototypeHub",
   "SourceManifest": [
     {
-      "StagedRelative": "RpgEngineProbe.uproject",
       "SHA256": "407E604C49AFEE6E00581179C6B6DEE9FEDB2373149273C7F5F7D30C5A23521C",
-      "Original": "experiments/unreal/RpgEngineProbe/RpgEngineProbe.uproject"
+      "Original": "experiments/unreal/RpgEngineProbe/RpgEngineProbe.uproject",
+      "StagedRelative": "RpgEngineProbe.uproject"
     },
     {
-      "StagedRelative": "Source/RpgEngineProbeEditor.Target.cs",
       "SHA256": "1B7A2DF54D5D6C60F0A410A24FFA875411474E49456C1D2DC29DB796E86E89B7",
-      "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbeEditor.Target.cs"
+      "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbeEditor.Target.cs",
+      "StagedRelative": "Source/RpgEngineProbeEditor.Target.cs"
     },
     {
-      "StagedRelative": "Source/RpgEngineProbe.Target.cs",
       "SHA256": "7B996DE773017A6B84F9DD4874ED8216406EF7DAF38378F1FC2F92518D464FB4",
-      "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe.Target.cs"
+      "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe.Target.cs",
+      "StagedRelative": "Source/RpgEngineProbe.Target.cs"
     },
     {
-      "StagedRelative": "Source/RpgEngineProbe/RpgEngineProbe.Build.cs",
       "SHA256": "76548EBC0FADA36BEEEB09DFF9F4B6C421D7F0E9AA8A424C34F2EAFF4EE59D00",
-      "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/RpgEngineProbe.Build.cs"
+      "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/RpgEngineProbe.Build.cs",
+      "StagedRelative": "Source/RpgEngineProbe/RpgEngineProbe.Build.cs"
     },
     {
-      "StagedRelative": "Source/RpgEngineProbe/RpgEngineProbe.cpp",
       "SHA256": "5B81A612622DE4A51819528132824A0E14AA04E840A89D7F5554F7639D691E96",
-      "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/RpgEngineProbe.cpp"
+      "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/RpgEngineProbe.cpp",
+      "StagedRelative": "Source/RpgEngineProbe/RpgEngineProbe.cpp"
     },
     {
-      "StagedRelative": "Source/RpgEngineProbe/ProbeArena.h",
       "SHA256": "55C34F69E7099835159E7EC7ED789712F63CAEF103A1BB67536BC4F4E257CAB1",
-      "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/ProbeArena.h"
+      "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/ProbeArena.h",
+      "StagedRelative": "Source/RpgEngineProbe/ProbeArena.h"
     },
     {
-      "StagedRelative": "Source/RpgEngineProbe/ProbeArena.cpp",
-      "SHA256": "FB3FE2BAB23F41D95C7A1141266F6D2E8D5A7443937936B6629B2DE2E4F22D87",
-      "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/ProbeArena.cpp"
+      "SHA256": "CA89FD449731B59869E2DB509AB1D251E86663F9BC3D5E296D981EBA7A2EA8B1",
+      "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/ProbeArena.cpp",
+      "StagedRelative": "Source/RpgEngineProbe/ProbeArena.cpp"
     },
     {
-      "StagedRelative": "Source/RpgEngineProbe/ProbeHub.cpp",
       "SHA256": "3B3BD209B6DDF84B06DF51DEF60EA3FAC79F69D7EA7EB226100B5657EFC946FA",
-      "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/ProbeHub.cpp"
+      "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/ProbeHub.cpp",
+      "StagedRelative": "Source/RpgEngineProbe/ProbeHub.cpp"
     },
     {
-      "StagedRelative": "Source/RpgEngineProbe/ProbeMedia.cpp",
       "SHA256": "C48BF070FDF33CE6DACA1BD029D1F5257109235FCFCA91D05A45FDBDC0CBEDFF",
-      "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/ProbeMedia.cpp"
+      "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/ProbeMedia.cpp",
+      "StagedRelative": "Source/RpgEngineProbe/ProbeMedia.cpp"
     },
     {
-      "StagedRelative": "Source/RpgEngineProbe/ProbeMarker.cpp",
       "SHA256": "4C6532EFE3AC4B0A7F567F04F1E4C2EF12DF33575A845784ADA090A0F9A7A1F5",
-      "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/ProbeMarker.cpp"
+      "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/ProbeMarker.cpp",
+      "StagedRelative": "Source/RpgEngineProbe/ProbeMarker.cpp"
     },
     {
-      "StagedRelative": "Source/RpgEngineProbe/CoreProbe.h",
       "SHA256": "14155E17335DF8522AFCB6B4CBBE26C7329DC4AEB3550F670E3C942D86206F49",
-      "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/CoreProbe.h"
+      "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/CoreProbe.h",
+      "StagedRelative": "Source/RpgEngineProbe/CoreProbe.h"
     },
     {
-      "StagedRelative": "Source/RpgEngineProbe/CoreProbe.cpp",
       "SHA256": "42748D2E3E684A4DD24076097C02FB3F79AA84B7EA261DAA8F94F4F8DFCBB879",
-      "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/CoreProbe.cpp"
+      "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/CoreProbe.cpp",
+      "StagedRelative": "Source/RpgEngineProbe/CoreProbe.cpp"
     },
     {
-      "StagedRelative": "Source/RpgEngineProbe/RpgCoreProbeCommandlet.h",
       "SHA256": "056F913617BBAF584D23E26F15A83ADA6C6607F00A8AC64743A154810500B383",
-      "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/RpgCoreProbeCommandlet.h"
+      "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/RpgCoreProbeCommandlet.h",
+      "StagedRelative": "Source/RpgEngineProbe/RpgCoreProbeCommandlet.h"
     },
     {
-      "StagedRelative": "Source/RpgEngineProbe/RpgCoreProbeCommandlet.cpp",
       "SHA256": "582552BF1930569E75508B50E2651F75E4BBA4EE53BA6AF66BB56E655A2206FA",
-      "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/RpgCoreProbeCommandlet.cpp"
+      "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/RpgCoreProbeCommandlet.cpp",
+      "StagedRelative": "Source/RpgEngineProbe/RpgCoreProbeCommandlet.cpp"
     },
     {
-      "StagedRelative": "Config/DefaultEngine.ini",
       "SHA256": "8D144FA208AE9475202CC27827F165205CACDD2CA5DB371746D1A12F317FDA38",
-      "Original": "experiments/unreal/RpgEngineProbe/Config/DefaultEngine.ini"
+      "Original": "experiments/unreal/RpgEngineProbe/Config/DefaultEngine.ini",
+      "StagedRelative": "Config/DefaultEngine.ini"
     },
     {
-      "StagedRelative": "Config/DefaultEditorSettings.ini",
       "SHA256": "AB68B065253E667F37794460068705D04F5D6C13412FFF5544C04B91AD4127F8",
-      "Original": "experiments/unreal/RpgEngineProbe/Config/DefaultEditorSettings.ini"
+      "Original": "experiments/unreal/RpgEngineProbe/Config/DefaultEditorSettings.ini",
+      "StagedRelative": "Config/DefaultEditorSettings.ini"
     },
     {
-      "StagedRelative": "Config/DefaultGame.ini",
       "SHA256": "F64E04AE2911794C143FC8C63054A629984AFE819A203478F63604537A08F533",
-      "Original": "experiments/unreal/RpgEngineProbe/Config/DefaultGame.ini"
+      "Original": "experiments/unreal/RpgEngineProbe/Config/DefaultGame.ini",
+      "StagedRelative": "Config/DefaultGame.ini"
     },
     {
-      "StagedRelative": "Content/PrototypeHub.umap",
       "SHA256": "02CF284A3DD7E555260A5695D46B9BD3D8E4EB591830F26145DC419CBA34EC65",
-      "Original": "experiments/unreal/RpgEngineProbe/Content/PrototypeHub.umap"
+      "Original": "experiments/unreal/RpgEngineProbe/Content/PrototypeHub.umap",
+      "StagedRelative": "Content/PrototypeHub.umap"
     },
     {
-      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/battle.cpp",
-      "SHA256": "D6E5EBF5BD17991BD5E6629322F754A346EB8ED5B4EF1BA0B016BA7C7612FD41",
-      "Original": "src/battle.cpp"
+      "SHA256": "985433D4AB3CD93C55E33AE6DD176EFA8C00B012DF8C3029D36ECE515AC077A8",
+      "Original": "src/battle.cpp",
+      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/battle.cpp"
     },
     {
-      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/battle.hpp",
-      "SHA256": "DBEC6519097E949F2DECD9493DD13911C3B94CF45F01FC649295DC029D4647DD",
-      "Original": "include/rpg/battle.hpp"
+      "SHA256": "637DCE83054CF025D132A7592657780F6EFC26D8C143A36FB8DE4715F0239690",
+      "Original": "include/rpg/battle.hpp",
+      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/battle.hpp"
     },
     {
-      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/ability_profile.cpp",
-      "SHA256": "85ADCA90DC568D627B550F297D298180F7675C0C31304B0257437247D5789CF1",
-      "Original": "src/ability_profile.cpp"
+      "SHA256": "063B938654F8B80662E32F24D382A77B2E33312C66F25FAAA6F2002FD35BDAE7",
+      "Original": "src/ability_profile.cpp",
+      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/ability_profile.cpp"
     },
     {
-      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/ability_profile.hpp",
-      "SHA256": "F7EB11EC00397AC78B7C926E16142009A3D4B811239713F1D104765641302F6A",
-      "Original": "include/rpg/ability_profile.hpp"
+      "SHA256": "8B38D0B7D0525EF849C632BB9EE23D44C0CD06C073F08EB01F41333E24F5573C",
+      "Original": "include/rpg/ability_profile.hpp",
+      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/ability_profile.hpp"
     },
     {
-      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/local_session.cpp",
       "SHA256": "8FF467AD75D760A742D5C6A46C895B5F998768AD0B7137E7B2F6ED5144C99884",
-      "Original": "src/local_session.cpp"
+      "Original": "src/local_session.cpp",
+      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/local_session.cpp"
     },
     {
-      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/local_session.hpp",
       "SHA256": "7AA7DBA55C6B7E8A6108B474F6C278F2C523A67856CEFE9F638E85432DEAC607",
-      "Original": "include/rpg/local_session.hpp"
+      "Original": "include/rpg/local_session.hpp",
+      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/local_session.hpp"
     },
     {
-      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/team_selection.cpp",
       "SHA256": "E0C62F92BA457B866BCC48F5643EE41083ABDC3A3A26FFEC024612110CDAE91B",
-      "Original": "src/team_selection.cpp"
+      "Original": "src/team_selection.cpp",
+      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/team_selection.cpp"
     },
     {
-      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/team_selection.hpp",
       "SHA256": "A66C4DF2F85B4489074FB0E35245D5E3726003EB07ABCEB067A737AF705D4D39",
-      "Original": "include/rpg/team_selection.hpp"
+      "Original": "include/rpg/team_selection.hpp",
+      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/team_selection.hpp"
     },
     {
-      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/save_game.cpp",
       "SHA256": "70A548324307E9D23D67633B13435B8E0CFA79E686F74EF37274C7B2E483464C",
-      "Original": "src/save_game.cpp"
+      "Original": "src/save_game.cpp",
+      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/save_game.cpp"
     },
     {
-      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/save_game.hpp",
       "SHA256": "163C153D7B00790FCEEF78A6928B39B74AEED54153E1C49D790F740E549230BB",
-      "Original": "include/rpg/save_game.hpp"
+      "Original": "include/rpg/save_game.hpp",
+      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/save_game.hpp"
     },
     {
-      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/reference_encounter.cpp",
       "SHA256": "F64F5B0E76798516479EEB28C838B13BFEA899DDF5B0F8442F7FFF87F23330E8",
-      "Original": "src/reference_encounter.cpp"
+      "Original": "src/reference_encounter.cpp",
+      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/reference_encounter.cpp"
     },
     {
-      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/reference_encounter.hpp",
       "SHA256": "599C2F2D1101EC8F3AC79DD4FE4FE184019635ABAAD199E090091D073EEBB669",
-      "Original": "include/rpg/reference_encounter.hpp"
+      "Original": "include/rpg/reference_encounter.hpp",
+      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/reference_encounter.hpp"
     },
     {
-      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/visual_session.cpp",
       "SHA256": "7EE833F1E8ABD7C485982675AB40C555B820D3E073110D808E8F54EE5E0FA003",
-      "Original": "src/visual_session.cpp"
+      "Original": "src/visual_session.cpp",
+      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/visual_session.cpp"
     },
     {
-      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/visual_session.hpp",
       "SHA256": "ECFB02F7608C325EBF2873292703F8CB69732A1408A1D3B853D52C5D24D235F7",
-      "Original": "include/rpg/visual_session.hpp"
+      "Original": "include/rpg/visual_session.hpp",
+      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/visual_session.hpp"
     },
     {
-      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/arena_layout.cpp",
       "SHA256": "B10667E06A231037484A16C135245A7AAEF891A030A8910B9DB8DE2F7AAD2D02",
-      "Original": "src/arena_layout.cpp"
+      "Original": "src/arena_layout.cpp",
+      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/arena_layout.cpp"
     },
     {
-      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/arena_layout.hpp",
       "SHA256": "3BA0A84AC45EEB8A238673F610012F281A29BB55668C1D83D60CAF114D99262E",
-      "Original": "include/rpg/arena_layout.hpp"
+      "Original": "include/rpg/arena_layout.hpp",
+      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/arena_layout.hpp"
     },
     {
-      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/battle_presentation.cpp",
-      "SHA256": "02199C1CC8D0AC4219405DA97F76577E60FB8C52AC16BACFD94B960F11FC79F6",
-      "Original": "src/battle_presentation.cpp"
+      "SHA256": "91505AAF56CF11547AB3960DC9D53A5AAA362CD9A55F44F17D898FF275BB85D2",
+      "Original": "src/battle_presentation.cpp",
+      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/battle_presentation.cpp"
     },
     {
-      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/battle_presentation.hpp",
       "SHA256": "695871ABCD4A68B1A10B73475D981CE1121F39B133DEF7D99FF1283E7ADE2E8F",
-      "Original": "include/rpg/battle_presentation.hpp"
+      "Original": "include/rpg/battle_presentation.hpp",
+      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/battle_presentation.hpp"
     },
     {
-      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/startup_presentation.cpp",
       "SHA256": "767D13BD753C96DD736CF30436BE234E6AF5F1558CC3D20CA7C6DA619AA846C5",
-      "Original": "src/startup_presentation.cpp"
+      "Original": "src/startup_presentation.cpp",
+      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/startup_presentation.cpp"
     },
     {
-      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/startup_presentation.hpp",
       "SHA256": "CA72DCE0F163D00F3531C1AC1740C9E1E9F6A2F0D7BC77D153AE3E00BB9656CE",
-      "Original": "include/rpg/startup_presentation.hpp"
+      "Original": "include/rpg/startup_presentation.hpp",
+      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/startup_presentation.hpp"
     },
     {
-      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/hub_style.cpp",
       "SHA256": "9BF8FC3FE1EFE4E29F204E1F8A9D1D76A8F3A657636A17B42A80C00B43845F51",
-      "Original": "src/hub_style.cpp"
+      "Original": "src/hub_style.cpp",
+      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/hub_style.cpp"
     },
     {
-      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/hub_style.hpp",
       "SHA256": "72E661E3E5088478971D9D4D89E4FE1493C51E31A48EE151191859489CB6EFFE",
-      "Original": "include/rpg/hub_style.hpp"
+      "Original": "include/rpg/hub_style.hpp",
+      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/hub_style.hpp"
     },
     {
-      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/visual_events.hpp",
+      "SHA256": "A3A0C282595C2EC24222624710609EAAC42AD9D4BA9707BEA46D351C87F6BB7E",
+      "Original": "include/rpg/numeric.hpp",
+      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/numeric.hpp"
+    },
+    {
       "SHA256": "3C725A0545576C18A9415CFD8CEF094BF21E69A15FAD096F94FF3A086CF66D97",
-      "Original": "include/rpg/visual_events.hpp"
+      "Original": "include/rpg/visual_events.hpp",
+      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/visual_events.hpp"
     },
     {
-      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/encounter_manifest.hpp",
-      "SHA256": "C8DA7920903A0F78AB1C6679D0C33C1670DF774F5EB8FD2CD0F99B636BC80135",
-      "Original": "include/rpg/encounter_manifest.hpp"
+      "SHA256": "25D06F535294791A024D3EB293AA8497665266163454614DB1213A60DDD21B45",
+      "Original": "include/rpg/encounter_manifest.hpp",
+      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/encounter_manifest.hpp"
     },
     {
-      "StagedRelative": "Content/Presentation/data/encounters/team-reference-v1.rpgmanifest",
       "SHA256": "BEB22FAE4211D6DFA2E1B86D032EE7F364D6220D824F6298A6D9B065E493A654",
-      "Original": "data/encounters/team-reference-v1.rpgmanifest"
+      "Original": "data/encounters/team-reference-v1.rpgmanifest",
+      "StagedRelative": "Content/Presentation/data/encounters/team-reference-v1.rpgmanifest"
     },
     {
-      "StagedRelative": "Content/Presentation/data/encounters/classic-reference-v1.rpgmanifest",
       "SHA256": "5DFC0D5C68F99C3231B7CE6134F4E4F4076A5463698987B95A4E9AA3F01980CA",
-      "Original": "data/encounters/classic-reference-v1.rpgmanifest"
+      "Original": "data/encounters/classic-reference-v1.rpgmanifest",
+      "StagedRelative": "Content/Presentation/data/encounters/classic-reference-v1.rpgmanifest"
     },
     {
-      "StagedRelative": "Content/Presentation/data/presentation/startup.json",
       "SHA256": "6546DF284BDB759600E772B14C28D240DA733D968D7BB8FF5F2F1C996E80D972",
-      "Original": "data/presentation/startup.json"
+      "Original": "data/presentation/startup.json",
+      "StagedRelative": "Content/Presentation/data/presentation/startup.json"
     },
     {
-      "StagedRelative": "Content/Presentation/assets/runtime/hub/bg-home-day-sunny.png",
       "SHA256": "F0A4FABF2EF619DE05E3AD77C100B354AE837E62CC3573DFBE6075FE14D54049",
-      "Original": "assets/runtime/hub/bg-home-day-sunny.png"
+      "Original": "assets/runtime/hub/bg-home-day-sunny.png",
+      "StagedRelative": "Content/Presentation/assets/runtime/hub/bg-home-day-sunny.png"
     },
     {
-      "StagedRelative": "Content/Presentation/assets/runtime/hub/logo-lobo.png",
       "SHA256": "C17D0E93A760E1917110609E3D080CC3E67BFD931B7BD30F72EE2B7A47F402B9",
-      "Original": "assets/runtime/hub/logo-lobo.png"
+      "Original": "assets/runtime/hub/logo-lobo.png",
+      "StagedRelative": "Content/Presentation/assets/runtime/hub/logo-lobo.png"
     },
     {
-      "StagedRelative": "Content/Presentation/assets/runtime/fonts/CormorantGaramond.ttf",
       "SHA256": "B20B7D9626DD956B2C5E558692AD328B1F19E3275E2782DB4FA07670D83F35E0",
-      "Original": "assets/runtime/fonts/CormorantGaramond.ttf"
+      "Original": "assets/runtime/fonts/CormorantGaramond.ttf",
+      "StagedRelative": "Content/Presentation/assets/runtime/fonts/CormorantGaramond.ttf"
     },
     {
-      "StagedRelative": "Content/Presentation/assets/runtime/fonts/CormorantGaramond-OFL.txt",
       "SHA256": "60700D351CAC4650C51F3F9DB318D2A420F8B45052DBA2715EB5FEC41F0F6956",
-      "Original": "assets/runtime/fonts/CormorantGaramond-OFL.txt"
+      "Original": "assets/runtime/fonts/CormorantGaramond-OFL.txt",
+      "StagedRelative": "Content/Presentation/assets/runtime/fonts/CormorantGaramond-OFL.txt"
     },
     {
-      "StagedRelative": "Content/Presentation/assets/runtime/fonts/Lora.ttf",
       "SHA256": "822A6621CCBE8D97D20AC88C1C41F5615C9C2C202EAA75F272CD452AAC6475A7",
-      "Original": "assets/runtime/fonts/Lora.ttf"
+      "Original": "assets/runtime/fonts/Lora.ttf",
+      "StagedRelative": "Content/Presentation/assets/runtime/fonts/Lora.ttf"
     },
     {
-      "StagedRelative": "Content/Presentation/assets/runtime/fonts/Lora-OFL.txt",
       "SHA256": "1D9A970809AC804B582A6CE7F0EBC4E7FEFCBFD7FF6299CAD35EE656A21BE716",
-      "Original": "assets/runtime/fonts/Lora-OFL.txt"
+      "Original": "assets/runtime/fonts/Lora-OFL.txt",
+      "StagedRelative": "Content/Presentation/assets/runtime/fonts/Lora-OFL.txt"
     },
     {
-      "StagedRelative": "Content/Presentation/assets/runtime/video/intro-desk.mp4",
       "SHA256": "00507FEE3417059F4C909271D09D0C9D1D71E053B2E7103AE78E2DFE772D2ABB",
-      "Original": "assets/runtime/video/intro-desk.mp4"
+      "Original": "assets/runtime/video/intro-desk.mp4",
+      "StagedRelative": "Content/Presentation/assets/runtime/video/intro-desk.mp4"
     },
     {
-      "StagedRelative": "Content/Presentation/assets/runtime/video/intro-mobile.mp4",
       "SHA256": "C6BFE9F1BC89A964B62E98A5DB1B1B10D1640E0A61EA09EDBB3828B375308EB4",
-      "Original": "assets/runtime/video/intro-mobile.mp4"
+      "Original": "assets/runtime/video/intro-mobile.mp4",
+      "StagedRelative": "Content/Presentation/assets/runtime/video/intro-mobile.mp4"
     }
   ],
   "BuildExecuted": false,

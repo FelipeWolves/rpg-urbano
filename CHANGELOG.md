@@ -272,3 +272,8 @@ Parser JSON do hub, importação do panorama, projeção/clipping dos dois alvos
 - HP/dano/escudos/eventos e caminhos de passagem em int64 com normalização de teto; domínios de tempo/IDs preservados.
 - Nove grupos amplos, regressão geral e compilação Editor aprovados; corrigidos fallthrough SetSpeed e colisão de nome em helper de teste.
 - Save v1 mantido; fronteiras de manifesto/stage seguem no próximo corte.
+
+## 2026-11-22 — SIS-02-C2/C3
+
+- Parser amplo com limites separados de versão/slot/SPD, sem wrap por narrowing; nove grupos de manifesto aprovados.
+- QA por área Arithmetic/Wide e stage novo de 54 entradas verificado; formatos v1 mantidos onde compatíveis, sem cook/execução.

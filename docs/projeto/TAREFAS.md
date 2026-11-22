@@ -1,3 +1,12 @@
+> **Fila vigente pós-AUT — 22/11:** [ordem reconciliada de execução](ORDEM-EXECUCAO-POS-AUT.md). Próxima tarefa: **SIS-02-A, mapa numérico/compatibilidade**; depois aritmética segura, migração, outcomes/RNG, funil, controles e Felipe A2. Aceites VIS/mídia seguem em trilha própria; ESC/TIME/RES/SEQ/PAR encerrados não são reabertos por rotina. Primeiro clique: provisório, **REVER**. Nesta revisão somente planejamento/documentação, sem execução das próximas tarefas. Esta ordem prevalece sobre prioridades históricas abaixo.
+## Próxima execução planejada
+
+- [ ] **SIS-02-A:** mapear tipos/operações numéricas, serialização e fronteiras do adapter; definir cortes de migração e testes relevantes. Ainda não iniciado.
+- [ ] **SIS-02-B:** aritmética inteira segura e comparação exata, após o mapa.
+- [ ] **SIS-02-C:** migração por partes, preservando baselines e compatibilidade explícita.
+
+A sequência posterior e trilhas independentes estão em [ORDEM-EXECUCAO-POS-AUT.md](ORDEM-EXECUCAO-POS-AUT.md). Os itens antigos abaixo são histórico/escopos próprios; não reiniciar AUT-01 ou ESC comum. Não iniciar implementação nesta rodada de planejamento.
+
 > **Estado vigente — AUT-12 a AUT-16 (22/11):** [entregas, verificações e próximos passos](CONSOLIDACAO-AUT-12-16.md). Marcador runtime, fila visual, schema de referência, stage verificado e QA por área entregues em escopos próprios. Aceites gráficos/Shipping/mobile permanecem pendentes; AUT-11 ainda parcial. Clique inicial: aparentemente correto, **REVER** pelo usuário. Sem telas/editor/cook/Android/internet nesta rodada. Esta nota prevalece sobre os estados históricos abaixo.
 
 > **Correção AUT-11 (22/11):** teste do usuário revelou ausência de decoder habilitado; WmfMedia da engine agora habilitado somente em Win64. Avisos de mídia passam a abrir no próprio hub, bloqueando ações por trás. Reteste de playback pendente; abertura automática continua desativada. Ver AUT-11-PLAYER-LOCAL.md e AUT-11-CORRECAO.json.

@@ -243,3 +243,9 @@ Parser JSON do hub, importação do panorama, projeção/clipping dos dois alvos
 - Seletor de verificações nativas/arquivos por área, plano sem execução e códigos de saída por processo.
 - Dez casos de fumaça com evidências separadas; clique inicial provisório, sem autoaprovar visual/mobile.
 - Consolidação AUT-12–16, fila e pendências atualizadas; percentuais mantidos. Internet e programas gráficos não utilizados.
+
+## 2026-11-22 — fila reconciliada após AUT
+
+- Ordem principal: mapa numérico, aritmética segura, migração, outcomes/RNG, funil, controles e Felipe A2.
+- Aceites/mídia e dependências de arte/plataforma separados, preservando contratos encerrados.
+- Planejamento documental somente; sem implementação, testes, compilação ou alteração de percentuais.

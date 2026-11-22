@@ -1,3 +1,5 @@
+> **LAB-PVE-05 vigente — 22/11:** SequentialVisualSession observa SequentialSquads sem recriar carry. Fixtures Felipe/A1/B1aliado, CHEFE-SEQ12.500PV/SPD10, janela local4ações totais e global200; duas variantes isoladas. Sem BattleStart de abertura no adaptador/scoreSequence/persistência por inferência. Aceites02–05 pendentes; próximo06, stage68 e~28% mantidos.
+
 > **LAB-PVE-04 vigente — 22/11:** quatro variantes PvE por PveLabKind em sessões isoladas; score12ações, sobrevivência3naturais e chefe1M PV são fixtures explícitas. Recibo é cópia de consulta, não moeda/recompensa. Não inferir vitória por HP ou survived. Terminal paginado; aceites02–04 pendentes. Próximo05, stage68, ~28% mantido. Fonte docs/projeto/LAB-PVE-04-SCORE-SOBREVIVENCIA.md.
 
 > **LAB-PVE-03 vigente — 22/11:** WaveVisualSession sobre Stage/WaveV2, Ritual com fases estáveis por ID e detalhes de transição. Não recalcular carry no HUD nem misturar eventos de ondas. Aceite visual02/03 pendente; próximo04 ScoreAttack/Survival. Wave opening BattleStart e remapeamento de slots por fase são limitações explícitas, não habilidades implementadas por inferência. Stage permanece68.

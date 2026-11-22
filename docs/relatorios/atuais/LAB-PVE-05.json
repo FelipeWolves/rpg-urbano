@@ -1,0 +1,37 @@
+{
+  "Date": "2026-11-22",
+  "Block": "LAB-PVE-05",
+  "SequentialVisualGroups": 13,
+  "PhaseRegressionGroups": 11,
+  "ScoredRegressionGroups": 13,
+  "TransitionRegressionGroups": 13,
+  "Build": "Succeeded",
+  "InitialBuildSeconds": 54.28,
+  "FinalIncrementalBuildSeconds": 22.3,
+  "StageInputs": 68,
+  "StageVerified": true,
+  "EditorOpened": false,
+  "GameExecuted": false,
+  "AndroidExecuted": false,
+  "InternetUsed": false,
+  "VisualAcceptance": "pending LAB-PVE-02 through05",
+  "AddedRoutes": [
+    "Terminal page2 > 3 equipes - fases do chefe",
+    "Terminal page2 > 3 equipes - kit fixo do chefe"
+  ],
+  "Squads": [
+    "FELIPE",
+    "A1",
+    "B1 as local ally"
+  ],
+  "FixtureBoss": "CHEFE-SEQ",
+  "FixtureBossHp": 12500,
+  "FixtureBossSpeed": 10,
+  "LocalActionsPerSquad": 4,
+  "GlobalActions": 200,
+  "CoreSequentialRulesChanged": false,
+  "BossHpContinuous": true,
+  "GenericRewardsAdded": false,
+  "GlobalPercentUnchanged": 28,
+  "Next": "LAB-PVE-06"
+}

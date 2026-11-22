@@ -1,6 +1,6 @@
 {
   "date": "2026-11-22",
-  "purpose": "ScoreAttack/Survival presentation and read-only receipts integrated; awaiting acceptance",
+  "purpose": "Sequential squads, continuous boss HP and stable/profiled kits integrated; pending visual acceptance",
   "global_demo_estimate": 28,
   "global_range": [
     26,
@@ -27,7 +27,7 @@
       "nome": "Integração Unreal",
       "percentual": 50,
       "prioridade": "P1",
-      "agora": "Variantes PvE isoladas e Terminal paginado; próximo integração sequencial.",
+      "agora": "Adaptadores PvE/ondas/sequenciais ligados ao HUD; próximo frentes locais compartilhadas.",
       "ajustes": "Pacote limpo, persistência real, cook/Shipping e backends futuros.",
       "dependencia": "Pode avançar sem MCP, Android ou recursos finais.",
       "motivo": "Reaproveita o core e mantém uma única resolução de combate.",
@@ -53,7 +53,7 @@
       "nome": "Encontros e chefes",
       "percentual": 65,
       "prioridade": "P1",
-      "agora": "Ritual, ondas/fases e score/sobrevivência integrados em código; aguardar aceites e seguir sequenciais.",
+      "agora": "Ritual, ondas/fases, score/sobrevivência e sequenciais em código; próximo LAB-PVE-06 e aceites.",
       "ajustes": "Menus/HUD, objetivo/resultado, indicadores de fase, kits reais e balanceamento; classes compiladas não são telas prontas.",
       "dependencia": "Regras dos controladores prontas; integração independente de arte final; aceite após UI.",
       "motivo": "Grande retorno por reaproveitar os controladores recém-testados; começar por um encontro simples reduz esforço.",
@@ -144,7 +144,7 @@
       "nome": "Equipes sequenciais",
       "percentual": 75,
       "prioridade": "P2 / após Ritual e ondas",
-      "agora": "Preparar apresentação da equipe ativa, troca e resultado, usando o coordenador e a política v2.",
+      "agora": "Duas variantes sequenciais no Terminal em código; aguardar aceite de equipes/HP/fases e limites.",
       "ajustes": "Mostrar persistência/recargas/kit estável ou variável e evitar sugerir retorno cíclico.",
       "dependencia": "Interface de um encontro e seus resultados integrada primeiro.",
       "motivo": "Código pronto no recorte; a apresentação é mais complexa e rende mais depois do fluxo simples.",
@@ -284,7 +284,7 @@
   "engine_opened": false,
   "android_used": false,
   "internet_used": false,
-  "snapshot_scope": "LAB-PVE-04 technical delivery; estimates unchanged",
-  "latest_delivery": "LAB-PVE-04",
-  "next_delivery": "LAB-PVE-05"
+  "snapshot_scope": "LAB-PVE-05 technical delivery; estimates unchanged",
+  "latest_delivery": "LAB-PVE-05",
+  "next_delivery": "LAB-PVE-06"
 }

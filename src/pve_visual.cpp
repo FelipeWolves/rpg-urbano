@@ -119,4 +119,65 @@ VisualResult WaveVisualSession::step_automatic(){
  const auto check=preflight(revision_,true);if(!check.accepted()){return check;}if(automatic_count_>=256){stopped_=true;return {VisualError::SafetyStop,{}};}
  check_capacity();const auto action=choose_team_action(stage_.battle(),loadouts());if(!action){stopped_=true;return {VisualError::SafetyStop,{}};}auto result=accept(stage_.apply(*action),true);if(!result.accepted()){stopped_=true;}return result;
 }
-void WaveVisualSession::reset(){check_capacity();if(attempt_==std::numeric_limits<std::uint64_t>::max()){throw std::overflow_error("Wave attempt exhausted");}stage_.reset();++revision_;++attempt_;automatic_count_=0;stopped_=false;cues_.clear();transition_events_.clear();previous_wave_.reset();}}
+void WaveVisualSession::reset(){check_capacity();if(attempt_==std::numeric_limits<std::uint64_t>::max()){throw std::overflow_error("Wave attempt exhausted");}stage_.reset();++revision_;++attempt_;automatic_count_=0;stopped_=false;cues_.clear();transition_events_.clear();previous_wave_.reset();}namespace {
+SequentialVisualDefinition validate_sequence(SequentialVisualDefinition d){
+ if(d.encounter.squads.size()!=3 || d.loadouts.size()!=3 || (!d.encounter.boss_phases.empty() && d.encounter.boss_phases.size()!=3)){throw std::invalid_argument("Visual sequence requires three catalogs/squads");}
+ for(std::size_t i=0;i<3;++i){
+  auto& squad=d.encounter.squads[i];std::vector<Definition> roster;for(const auto& member:squad.members){roster.push_back(member.fighter);}roster.push_back(d.encounter.boss);
+  for(const auto& set:d.loadouts[i]){for(const auto& entry:set.slots){if(entry.passive&&entry.passive->trigger==PassiveTrigger::BattleStart){throw std::invalid_argument("Sequential opening passives require explicit runtime adapter");}}}
+  auto rules=squad.rules;if(!d.encounter.boss_phases.empty()){const auto& kit=d.encounter.boss_phases[i].skills;rules.skills.insert(rules.skills.end(),kit.begin(),kit.end());}
+  ProfileBattle profile(roster,rules,CombatProfile::Team,d.loadouts[i]);const auto view=profile.snapshot();squad.rules=view.battle.rules;d.loadouts[i]=view.loadouts;
+  if(!d.encounter.boss_phases.empty()){
+   std::vector<SkillDefinition> kit;for(const auto& skill:squad.rules.skills){if(skill.owner==d.encounter.boss.id){kit.push_back(skill);}}d.encounter.boss_phases[i].skills=std::move(kit);
+   std::erase_if(squad.rules.skills,[&](const SkillDefinition& skill){return skill.owner==d.encounter.boss.id;});
+  }
+ }
+ return d;
+}
+}
+SequentialVisualDefinition sequential_lab_definition(bool phases){
+ const auto pilot=felipe_pilot_setup(),generic=terminal_lab_setup();
+ auto boss=*std::ranges::find(pilot.roster,std::string("ECO-1"),&Definition::id);boss.id="CHEFE-SEQ";boss.max_health=12500;boss.speed=10;boss.role=EntityRole::Boss;boss.is_boss=true;
+ auto boss_skill=*std::ranges::find(pilot.rules.skills,std::string("ECO-1-A1"),&SkillDefinition::id);boss_skill.id="CHEFE-SEQ-A1";boss_skill.owner=boss.id;
+ CharacterLoadout boss_set{boss.id,{{1,"Pulso do chefe",boss_skill.id,""}}};
+ std::vector<SquadDefinition> squads;std::vector<std::vector<CharacterLoadout>> sets;std::vector<BossPhaseDefinition> kits;
+ const std::vector<std::string> ids={"FELIPE","A1","B1"};
+ for(std::size_t i=0;i<ids.size();++i){
+  const auto& source=i==0?pilot:generic;auto member=*std::ranges::find(source.roster,ids[i],&Definition::id);member.team=Team::A;
+  auto rules=team_reference_rules();rules.action_budget=ActionBudget{4,LimitOutcome::Draw};for(const auto& skill:source.rules.skills){if(skill.owner==member.id){rules.skills.push_back(skill);}}
+  auto kit=boss_skill;if(phases){kit.effects[0].power_ratio=10000+static_cast<numeric::BasisPoints>(i)*2500;kits.emplace_back("SEQ-"+std::to_string(i+1),std::vector<SkillDefinition>{kit},BossCooldownTransition::KeepMatching);}else{rules.skills.push_back(kit);}
+  squads.push_back({"equipe-"+std::to_string(i+1),{{member.id,member}},std::move(rules)});
+  sets.push_back({*std::ranges::find(source.loadouts,member.id,&CharacterLoadout::fighter_id),boss_set});
+ }
+ return {SequentialDefinition{phases?"seq-phases-lab":"seq-fixed-lab",2,std::move(squads),boss,BossRuntimeCarry::PreserveSpecialBordersV2,ActionBudget{200,LimitOutcome::Draw},std::move(kits)},std::move(sets)};
+}
+SequentialVisualSession::SequentialVisualSession(SequentialVisualDefinition definition):definition_(validate_sequence(std::move(definition))),encounter_(definition_.encounter){}
+VisualState SequentialVisualSession::state()const{
+ const auto* actor=encounter_.battle().current_actor();return {revision_,{CombatProfile::Team,loadouts(),encounter_.battle().snapshot(),{}},{attempt_,0,{}},actor?team_abilities(encounter_.battle(),loadouts(),actor->definition.id):std::vector<AbilityView>{},!finished()&&actor&&actor->definition.team==Team::B,stopped_||finished()};
+}
+SequentialHud SequentialVisualSession::hud()const{
+ const auto s=encounter_.snapshot();const auto* boss=encounter_.battle().find(s.boss_id);std::string status="Em andamento";
+ if(s.end_reason){switch(*s.end_reason){case SequentialEndReason::BossDefeated:status="Chefe derrotado";break;case SequentialEndReason::SquadsExhausted:status="Equipes esgotadas";break;case SequentialEndReason::GlobalActionLimit:status="Limite global de acoes atingido";break;case SequentialEndReason::TechnicalLimit:status="Interrupcao por limite tecnico";break;case SequentialEndReason::MutualElimination:status="Eliminacao mutua; resultado definido pelo nucleo";break;}}
+ const auto local=s.battle.rules.action_budget?std::optional<std::uint64_t>{static_cast<std::uint64_t>(s.battle.rules.action_budget->max_actions)}:std::nullopt;
+ const auto global=definition_.encounter.global_budget?std::optional<std::uint64_t>{static_cast<std::uint64_t>(definition_.encounter.global_budget->max_actions)}:std::nullopt;
+ const auto next=!finished()&&s.squad_index+1<definition_.encounter.squads.size()?std::optional<std::string>{definition_.encounter.squads[s.squad_index+1].id}:std::nullopt;
+ return {s.stage_id,s.squad_id,s.boss_id,s.boss_phase_id,std::move(status),s.squad_index+1,definition_.encounter.squads.size(),boss->health,boss->definition.max_health,s.accepted_actions,s.battle.accepted_actions,global,encounter_.remaining_actions(),local,encounter_.battle().remaining_actions(),next,previous_squad_,previous_phase_,s.boss_carry,finished(),s.end_reason==SequentialEndReason::BossDefeated};
+}
+void SequentialVisualSession::check_capacity()const{if(revision_==std::numeric_limits<std::uint64_t>::max()){throw std::overflow_error("Sequence revision exhausted");}}
+VisualResult SequentialVisualSession::preflight(std::uint64_t revision,bool automatic)const{
+ if(revision!=revision_){return {VisualError::StaleCommand,{}};}if(finished()){return {VisualError::Finished,{}};}if(stopped_){return {VisualError::SafetyStop,{}};}const auto* actor=encounter_.battle().current_actor();if(!actor||(actor->definition.team==Team::B)!=automatic){return {VisualError::NotPlayerTurn,{}};}return {};
+}
+VisualResult SequentialVisualSession::accept(SequentialActionResult result,bool automatic){
+ if(!result.action.accepted()){return {VisualError::CoreRejected,std::move(result.action)};}if(result.squad_advanced){previous_squad_=result.squad_id;previous_phase_=result.boss_phase_id;}
+ ++revision_;automatic_count_=automatic?automatic_count_+1:0;static_cast<void>(cues_.observe(revision_,result.action));return {VisualError::None,std::move(result.action)};
+}
+VisualResult SequentialVisualSession::submit(std::uint64_t revision,std::uint32_t slot,std::string target){
+ const auto check=preflight(revision,false);if(!check.accepted()){return check;}check_capacity();auto prepared=prepare_team_slot(encounter_.battle(),loadouts(),slot,std::move(target));if(!prepared.action){return {VisualError::CoreRejected,ActionResult{prepared.error}};}return accept(encounter_.apply(*prepared.action),false);
+}
+VisualResult SequentialVisualSession::submit_action(std::uint64_t revision,const Action& action){
+ const auto check=preflight(revision,false);if(!check.accepted()){return check;}check_capacity();auto prepared=prepare_team_action(encounter_.battle(),loadouts(),action);if(!prepared.action){return {VisualError::CoreRejected,ActionResult{prepared.error}};}return accept(encounter_.apply(*prepared.action),false);
+}
+VisualResult SequentialVisualSession::step_automatic(){
+ const auto check=preflight(revision_,true);if(!check.accepted()){return check;}if(automatic_count_>=256){stopped_=true;return {VisualError::SafetyStop,{}};}check_capacity();const auto action=choose_team_action(encounter_.battle(),loadouts());if(!action){stopped_=true;return {VisualError::SafetyStop,{}};}auto result=accept(encounter_.apply(*action),true);if(!result.accepted()){stopped_=true;}return result;
+}
+void SequentialVisualSession::reset(){check_capacity();if(attempt_==std::numeric_limits<std::uint64_t>::max()){throw std::overflow_error("Sequence attempt exhausted");}encounter_.reset();++revision_;++attempt_;automatic_count_=0;stopped_=false;cues_.clear();previous_squad_.reset();previous_phase_.reset();}}

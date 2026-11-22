@@ -1,3 +1,5 @@
+> **22/11 — LAB-PVE-05:** duas variantes de3equipes sequenciais integradas em código sobre SequentialSquads; HP contínuo e janelas local/global distintas. Aceites02–05 pendentes; próximo06frentes compartilhadas. Global~28% mantido.
+
 > **22/11 — LAB-PVE-04:** pontuação/sobrevivência e recibos integrados em código; menu em duas páginas. Aceites02–04 pendentes. Próximo05equipes sequenciais; global~28% mantido.
 
 > **22/11 — LAB-PVE-03:** ondas e fases integradas em código, HUD/detalhes e testes aprovados; aceite visual pendente (incluindo LAB-PVE-02). Próximo LAB-PVE-04. Core Stage e regras de carry preservados.

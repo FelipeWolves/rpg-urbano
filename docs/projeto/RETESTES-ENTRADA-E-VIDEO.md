@@ -1,3 +1,5 @@
+> **Novo aceite LAB-PVE-05:** [equipes sequenciais](LAB-PVE-05-EQUIPES-SEQUENCIAIS.md), transição de identidade, HP contínuo, kit fixo/fases, resultado/abandono/retorno. Não substitui os aceites pendentes02–04.
+
 > **Novo aceite LAB-PVE-04:** [pontuação/sobrevivência](LAB-PVE-04-SCORE-SOBREVIVENCIA.md), página2doTerminal, resultado/recibo sem repetição e meta de turnos do chefe. Não substitui os aceites pendentes02/03 nem reabre controles já aceitos.
 
 > **Novo aceite LAB-PVE-03:** [roteiro de ondas e fases](LAB-PVE-03-ONDAS-FASES.md). Conferir contadores, reconstrução dos inimigos, transições sem/com alteração de kit, detalhes, resultado e abandono. Não reabre os aceites de cliques/vídeo/placeholder já confirmados.

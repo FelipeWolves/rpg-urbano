@@ -222,3 +222,8 @@ Parser JSON do hub, importação do panorama, projeção/clipping dos dois alvos
 
 - Marcador de seleção em malhas de runtime, sem DrawDebugLine; ciclo próprio e geometria testada.
 - Aceite visual/Shipping/terreno pendentes. Primeiro clique da intro marcado REVER pelo usuário.
+
+## 2026-11-22 — AUT-13
+
+- Canal visual limitado e deduplicado para resultados aceitos; Begin/Impact/State/End, metadados de hits preservados.
+- Limpeza em reset/troca/load e consumo opcional no HUD; sem autoridade sobre combate. Rig/VFX/fluidez pendentes.

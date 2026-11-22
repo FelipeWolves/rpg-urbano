@@ -1,0 +1,9 @@
+{
+  "Date": "2026-11-22",
+  "Passed": true,
+  "ExitCode": 0,
+  "Result": [
+    "AUT13_TESTS_RESULT passed=7 total=7"
+  ],
+  "Scope": "Native contract only; no graphical/mobile execution"
+}

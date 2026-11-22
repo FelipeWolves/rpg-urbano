@@ -1,0 +1,16 @@
+{
+  "Date": "2026-11-22",
+  "Compiled": true,
+  "ExitCode": 0,
+  "BuildActions": 11,
+  "NativeCueGroups": 7,
+  "ExistingSessionGroups": 64,
+  "Log": "build/aut13-build.log",
+  "VisualPlaybackExecuted": false,
+  "CombatRulesChanged": false,
+  "Pending": [
+    "Animation/VFX/sound consumers",
+    "Visual timing and interpolation",
+    "Graphical cancellation acceptance"
+  ]
+}

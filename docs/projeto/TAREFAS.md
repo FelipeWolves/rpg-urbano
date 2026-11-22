@@ -191,3 +191,5 @@ ConferênciaAndroid20/11 concluída em leitura:Studio D:\Android presente;SdkPat
 Recepção21/11: [novidades e política de versionamento](RECEBIMENTO-NOVIDADES-2026-11-21.md).15Markdown recebidos entram noGit;1novo/1alterado noHub,demais13sem mudança.10PNG locais(8variantes+2indicativos).7destinos do novo panorama são direção futura,não sistemas ativados;AUT-01–04 preservados. Sem código/build/teste ou abertura de programas.
 
 AUT-12 (22/11): marcador de runtime implementado, cinco grupos de geometria aprovados; compilação em AUT-12-BUILD.json. Visual/Shipping/terreno pendentes. Próximo AUT-13. Clique inicial: aceite provisório, REVER. Ver docs/projeto/AUT-12-MARCADOR-RUNTIME.md.
+
+AUT-13 (22/11): fila de cues confirmados integrada à sessão, sete grupos próprios aprovados; regressão/build em AUT-13-BUILD.json. Sem animação final, relógio novo ou reaplicação de dano. Próximo AUT-14. Ver AUT-13-EVENTOS-VISUAIS.md.

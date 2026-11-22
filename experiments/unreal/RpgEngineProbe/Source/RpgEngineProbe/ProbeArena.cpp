@@ -125,6 +125,10 @@ void AProbeArenaHUD::DrawHUD()
 {
     Super::DrawHUD();if(!Canvas || !PlayerOwner){return;}
     HideTargetMarker();ReadPointer();
+    // Optional visual consumers never gate command dispatch or mutate the battle.
+    for(int32 i=0;i<64;++i){const auto cue=Session.next_visual_cue();if(!cue){break;}
+        UE_LOG(LogTemp,VeryVerbose,TEXT("VIS_CUE revision=%llu phase=%d index=%llu"),cue->revision,static_cast<int32>(cue->phase),static_cast<uint64>(cue->index));
+    }
     if(IntroActive){DrawIntro();return;}
     // Hub dialogs must be rendered before any underlying hub/team actions.
     if(Flow.in_hub() && !PopupLines.IsEmpty()){

@@ -156,3 +156,5 @@ Planejamento transversal: [AUT-01–16](../projeto/FILA-DESENVOLVIMENTO-INDEPEND
 ENT-01–15: ✅ decisões respondidas; ⚠️ implementação das expansões e respectivos testes pendentes. [Adendo](../projeto/RESPOSTAS-ENT-2026-11-20.md). Não reabrirESC/seletor;novas regrasWAVE/Block/TrueDamage não estão no runtime atual.
 
 AUT-12 (22/11): marcador de runtime implementado, cinco grupos de geometria aprovados; compilação em AUT-12-BUILD.json. Visual/Shipping/terreno pendentes. Próximo AUT-13. Clique inicial: aceite provisório, REVER. Ver docs/projeto/AUT-12-MARCADOR-RUNTIME.md.
+
+AUT-13 (22/11): fila de cues confirmados integrada à sessão, sete grupos próprios aprovados; regressão/build em AUT-13-BUILD.json. Sem animação final, relógio novo ou reaplicação de dano. Próximo AUT-14. Ver AUT-13-EVENTOS-VISUAIS.md.

@@ -2,6 +2,7 @@
 #include "rpg/local_session.hpp"
 #include "rpg/reference_encounter.hpp"
 #include "rpg/save_game.hpp"
+#include "rpg/visual_events.hpp"
 namespace rpg::presentation {
 enum class VisualError { None, StaleCommand, NotPlayerTurn, Finished, SafetyStop, CoreRejected };
 struct VisualResult {
@@ -26,12 +27,15 @@ public:
     [[nodiscard]] VisualResult submit_action(std::uint64_t revision,const Action& action);
     [[nodiscard]] VisualResult step_automatic();
     void reset();
+    [[nodiscard]] std::optional<VisualCue> next_visual_cue(){return visual_events_.pop();}
+    [[nodiscard]] std::size_t pending_visual_cues() const noexcept {return visual_events_.size();}
     [[nodiscard]] TeamSelectionSnapshot team() const {return selection_.snapshot();}
     // Between battles only. Success starts a fresh attempt and expires old commands.
     [[nodiscard]] SelectionError select_team(std::vector<std::string> ids);
     [[nodiscard]] std::string export_save() const;
     void import_save(std::string_view bytes);
 private:
+    VisualEventQueue visual_events_;
     TeamSelection selection_;
     CombatProfile profile_;
     LocalSession session_;

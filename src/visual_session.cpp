@@ -25,7 +25,7 @@ VisualResult VisualSession::submit(std::uint64_t revision,std::uint32_t slot,std
     check_revision_capacity();
     auto result=session_.apply_slot(slot,std::move(target));
     if(!result.accepted()){return {VisualError::CoreRejected,std::move(result)};}
-    ++revision_;automatic_count_=0;return {VisualError::None,std::move(result)};
+    ++revision_;automatic_count_=0;static_cast<void>(visual_events_.observe(revision_,result));return {VisualError::None,std::move(result)};
 }
 VisualResult VisualSession::submit_action(std::uint64_t revision,const Action& action){
     if(revision!=revision_){return {VisualError::StaleCommand,{}};}
@@ -35,7 +35,7 @@ VisualResult VisualSession::submit_action(std::uint64_t revision,const Action& a
     if(!actor || actor->definition.team!=Team::A){return {VisualError::NotPlayerTurn,{}};}
     check_revision_capacity();auto result=session_.apply(action);
     if(!result.accepted()){return {VisualError::CoreRejected,std::move(result)};}
-    ++revision_;automatic_count_=0;return {VisualError::None,std::move(result)};
+    ++revision_;automatic_count_=0;static_cast<void>(visual_events_.observe(revision_,result));return {VisualError::None,std::move(result)};
 }
 VisualResult VisualSession::step_automatic(){
     if(stopped_){return {VisualError::SafetyStop,{}};}
@@ -47,9 +47,9 @@ VisualResult VisualSession::step_automatic(){
     if(!action){stopped_=true;return {VisualError::SafetyStop,{}};}
     auto result=session_.apply(*action);
     if(!result.accepted()){stopped_=true;return {VisualError::CoreRejected,std::move(result)};}
-    ++revision_;++automatic_count_;return {VisualError::None,std::move(result)};
+    ++revision_;++automatic_count_;static_cast<void>(visual_events_.observe(revision_,result));return {VisualError::None,std::move(result)};
 }
-void VisualSession::reset(){check_revision_capacity();session_.reset();++revision_;automatic_count_=0;stopped_=false;}
+void VisualSession::reset(){check_revision_capacity();session_.reset();++revision_;automatic_count_=0;stopped_=false;visual_events_.clear();}
 void VisualSession::require_between_battles() const {
     const auto& battle=session_.battle().battle();
     if(battle.phase()==Phase::Running && battle.accepted_actions()!=0){
@@ -65,7 +65,7 @@ SelectionError VisualSession::select_team(std::vector<std::string> ids){
     LocalSession replacement(std::move(setup.roster),std::move(setup.rules),profile_,std::move(setup.loadouts));
     replacement.restore_progress(session_.progress());
     selection_=std::move(candidate);session_=std::move(replacement);
-    ++revision_;automatic_count_=0;stopped_=false;return SelectionError::None;
+    ++revision_;automatic_count_=0;stopped_=false;visual_events_.clear();return SelectionError::None;
 }
 std::string VisualSession::export_save() const {
     require_between_battles();
@@ -81,6 +81,6 @@ void VisualSession::import_save(std::string_view bytes){
     LocalSession replacement(std::move(setup.roster),std::move(setup.rules),profile_,std::move(setup.loadouts));
     replacement.restore_progress(saved.progress);
     selection_=std::move(candidate);session_=std::move(replacement);
-    ++revision_;automatic_count_=0;stopped_=false;
+    ++revision_;automatic_count_=0;stopped_=false;visual_events_.clear();
 }
 } // namespace rpg::presentation

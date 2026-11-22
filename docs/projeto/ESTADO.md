@@ -175,3 +175,5 @@ Usuário confirmou que reproduz, com segundo clique indevido. Ajuste de foco de 
 AUT-11: reteste confirmou segundo clique só na primeira reprodução. Sem pausa registrada; ajuste de captura inicial do mouse preparado. Reteste de clique único/equipe/arena pendente; não declarar problema encerrado.
 
 AUT-12 (22/11): marcador de runtime implementado, cinco grupos de geometria aprovados; compilação em AUT-12-BUILD.json. Visual/Shipping/terreno pendentes. Próximo AUT-13. Clique inicial: aceite provisório, REVER. Ver docs/projeto/AUT-12-MARCADOR-RUNTIME.md.
+
+AUT-13 (22/11): fila de cues confirmados integrada à sessão, sete grupos próprios aprovados; regressão/build em AUT-13-BUILD.json. Sem animação final, relógio novo ou reaplicação de dano. Próximo AUT-14. Ver AUT-13-EVENTOS-VISUAIS.md.

@@ -161,8 +161,8 @@ void AProbeArenaHUD::DrawHub(){
     const auto framePlan=plan_hub_frame({static_cast<uint32>(Canvas->SizeX),static_cast<uint32>(Canvas->SizeY)},static_cast<uint32>(HubLinks.size()),HubInsets);
     if(!framePlan){DrawText(TEXT("Amplie a janela ou reduza as margens simuladas."),FColor::White,8,20);return;}
     const auto& layout=*framePlan;
-    float mx=0,my=0;PlayerOwner->GetMousePosition(mx,my);
-    const bool clicked=PlayerOwner->WasInputKeyJustReleased(EKeys::LeftMouseButton);
+    const float mx=static_cast<float>(Input.x),my=static_cast<float>(Input.y);
+    const bool clicked=Input.tap;
     const auto button=[&](const Rect& rect,const FString& label){
         const bool hover=contains(rect,mx,my);
         DrawRect(hover?FLinearColor(HubCyan.R*0.15f,HubCyan.G*0.15f,HubCyan.B*0.15f,0.92f):HubPanel,
@@ -170,7 +170,7 @@ void AProbeArenaHUD::DrawHub(){
         float width=0,height=0;GetTextSize(label,width,height,HubBodyFont);
         const float scale=static_cast<float>(std::min({1.0,(rect.width-16)/std::max(1.0,static_cast<double>(width)),(rect.height-12)/std::max(1.0,static_cast<double>(height))}));
         DrawText(label,FColor::White,static_cast<float>(rect.x+8),static_cast<float>(rect.y+6),HubBodyFont,scale);
-        return clicked && hover;
+        return clicked && pointer_clicked(Input,rect);
     };
     const auto enterBattle=[&](){
         InHub=false;HubEventOpen=false;NextAutomatic=GetWorld()->GetTimeSeconds()+0.5;
@@ -256,7 +256,7 @@ void AProbeArenaHUD::DrawHub(){
         auto glow=color;glow.A=static_cast<float>(motion.glow_opacity);
         line(label.x+5,label.y+label.height,label.x+label.width-5,label.y+label.height,glow,hover?4:2);
         DrawText(labelText,color.ToFColorSRGB(),static_cast<float>(label.x+12),static_cast<float>(label.y+6+motion.offset_y),HubBodyFont,static_cast<float>(scale));
-        if(clicked && hover){openDestination(link);return;}
+        if(pointer_clicked(Input,*hit)){openDestination(link);return;}
     }
     // Fixed dock keeps every destination reachable when its source region is cropped.
 
@@ -270,7 +270,7 @@ void AProbeArenaHUD::DrawHub(){
         const float scale=static_cast<float>(std::min(0.85,(tile.width-12)/std::max(1.0,static_cast<double>(tw))));
         DrawText(text,(hover?HubAmber:FLinearColor::White).ToFColorSRGB(),static_cast<float>(tile.x+(tile.width-tw*scale)/2),static_cast<float>(tile.y+4),HubBodyFont,scale);
         DrawText(link.route==HubRoute::Unavailable?TEXT("Em breve"):TEXT("Abrir"),FColor(180,190,200),static_cast<float>(tile.x+6),static_cast<float>(tile.y+25),HubBodyFont,0.55f);
-        if(clicked && hover){openDestination(link);return;}
+        if(pointer_clicked(Input,tile)){openDestination(link);return;}
     }
     if(button(layout.navigation[0],TEXT("Esquerda")) || PlayerOwner->WasInputKeyJustPressed(EKeys::Left)){HubArea=rpg::presentation::HubArea::Left;HubView=rpg::presentation::HubView::Focused;}
     if(button(layout.navigation[1],TEXT("Centro"))){HubArea=rpg::presentation::HubArea::Center;HubView=rpg::presentation::HubView::Focused;}

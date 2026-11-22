@@ -1,0 +1,17 @@
+{
+  "Date": "2026-11-21",
+  "Passed": true,
+  "ExitCode": 0,
+  "InitialBuildActions": 8,
+  "FinalBuildActions": 4,
+  "Log": "build/aut03-build.log",
+  "NativePresentationGroups": 44,
+  "NewPointerGroups": 10,
+  "ProjectRoot": "F:\\Testes de jogos\\Contos de Um Lobo - Jogo\\rpg-urbano",
+  "ScreenControlUsed": false,
+  "VisualRuntimeExecuted": false,
+  "AndroidExecuted": false,
+  "BattleRulesChanged": false,
+  "ActualTouchValidated": false,
+  "Scope": "Sampled single-pointer ownership, deduplication and cancellation; compiled HUD adapter; interactive acceptance pending"
+}

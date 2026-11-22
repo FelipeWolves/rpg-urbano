@@ -17,6 +17,46 @@ Rect fit(double width,double height,PixelSize viewport){
     return {(viewport.width-w)/2,(viewport.height-h)/2,w,h};
 }
 }
+PointerFrame PointerInput::update(PointerSample mouse,PointerSample touch,bool focused,double seconds,PointerContext context){
+    PointerFrame frame;
+    const bool mouseStart=mouse.down && !previous_mouse_,touchStart=touch.down && !previous_touch_;
+    if(!touch.down && previous_touch_ && std::isfinite(seconds) && seconds>=0){touch_guard_=std::max(seconds,last_time_)+0.35;}
+    previous_mouse_=mouse.down;previous_touch_=touch.down;
+    const auto valid=[](const PointerSample& p){return p.valid && std::isfinite(p.x) && std::isfinite(p.y);};
+    if(valid(mouse)){frame.x=mouse.x;frame.y=mouse.y;}
+    const auto cancel=[&](){
+        frame.cancelled=owner_!=PointerSource::None;
+        owner_=PointerSource::None;blocked_=mouse.down || touch.down;
+    };
+    if(!focused){cancel();blocked_=true;return frame;}
+    if(!std::isfinite(seconds) || seconds<last_time_){cancel();return frame;}
+    last_time_=seconds;
+    if(blocked_){if(!mouse.down && !touch.down){blocked_=false;}return frame;}
+    if(owner_!=PointerSource::None && context!=context_){cancel();return frame;}
+    if(touchStart && valid(touch)){
+        if(owner_==PointerSource::Mouse){frame.cancelled=true;}
+        owner_=PointerSource::Touch;context_=context;started_=seconds;origin_x_=touch.x;origin_y_=touch.y;frame.pressed=true;
+    }else if(owner_==PointerSource::None && mouseStart && !touch.down && seconds>=touch_guard_ && valid(mouse)){
+        owner_=PointerSource::Mouse;context_=context;started_=seconds;origin_x_=mouse.x;origin_y_=mouse.y;frame.pressed=true;
+    }
+    if(owner_==PointerSource::None){return frame;}
+    const auto sample=owner_==PointerSource::Touch?touch:mouse;
+    frame.source=owner_;frame.x=sample.x;frame.y=sample.y;frame.origin_x=origin_x_;frame.origin_y=origin_y_;
+    if(!valid(sample) || std::hypot(sample.x-origin_x_,sample.y-origin_y_)>12){
+        if(owner_==PointerSource::Touch){touch_guard_=seconds+0.35;}
+        cancel();return frame;
+    }
+    frame.down=sample.down;
+    if(!sample.down){
+        frame.released=true;frame.tap=seconds-started_<0.5;
+        if(owner_==PointerSource::Touch){touch_guard_=seconds+0.35;}
+        owner_=PointerSource::None;
+    }
+    return frame;
+}
+bool pointer_clicked(const PointerFrame& frame,const Rect& target) noexcept {
+    return frame.tap && !frame.cancelled && contains(target,frame.origin_x,frame.origin_y) && contains(target,frame.x,frame.y);
+}
 std::optional<HubFrame> plan_hub_frame(PixelSize viewport,std::uint32_t count,SafeInsets insets){
     valid_size(viewport);
     if(count>16){throw std::invalid_argument("At most 16 hub destinations supported");}

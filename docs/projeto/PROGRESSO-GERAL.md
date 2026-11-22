@@ -40,3 +40,5 @@ Integração Unreal 38→45%, QA22→24% e documentação75→78% nesta etapa. S
 [Hub da cidade](HUB-PANORAMA-CIDADE.md): código/compilação e26grupos nativos aprovados; percentuais mantidos até aceite visual, sem confundir os sete painéis com sete sistemas completos. AUT-01 implementado; Android adiado.
 
 [AUT-02](AUT-02-GEOMETRIA.md): geometria/margens simuladas implementadas,34grupos de apresentação e build na pasta nova aprovados. Percentuais mantidos até aceite visual; safe area real e Android não validados.
+
+[AUT-03](AUT-03-ENTRADA.md): entrada unificada e cancelamentos implementados/testados,44grupos nativos e build aprovados; percentual mantido até aceite interativo. Android adiado.

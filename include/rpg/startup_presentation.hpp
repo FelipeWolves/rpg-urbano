@@ -7,6 +7,27 @@
 namespace rpg::presentation {
 struct PixelSize { std::uint32_t width; std::uint32_t height; };
 struct Rect { double x; double y; double width; double height; };
+enum class PointerSource { None, Mouse, Touch };
+struct PointerSample { bool down=false; bool valid=false; double x=0; double y=0; };
+struct PointerContext { std::uint64_t revision=0; std::uint8_t screen=0; bool operator==(const PointerContext&) const = default; };
+struct PointerFrame {
+    PointerSource source=PointerSource::None;
+    double x=0,y=0,origin_x=0,origin_y=0;
+    bool pressed=false,down=false,released=false,tap=false,cancelled=false;
+};
+// One owner per gesture. Touch wins simultaneous starts; suppresses synthetic mouse
+// until a fresh mouse press after a short guard. Cancelled gestures require all-up.
+class PointerInput {
+public:
+    [[nodiscard]] PointerFrame update(PointerSample mouse,PointerSample touch,bool focused,
+        double seconds,PointerContext context);
+private:
+    PointerSource owner_=PointerSource::None;
+    PointerContext context_;
+    bool previous_mouse_=false,previous_touch_=false,blocked_=false;
+    double started_=0,last_time_=0,origin_x_=0,origin_y_=0,touch_guard_=0;
+};
+[[nodiscard]] bool pointer_clicked(const PointerFrame& frame,const Rect& target) noexcept;
 struct SafeInsets { double left=0; double top=0; double right=0; double bottom=0; };
 struct HubFrame {
     Rect safe;

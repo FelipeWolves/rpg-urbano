@@ -38,6 +38,10 @@ if errorlevel 1 exit /b 20
 cl.exe %FLAGS% /I"$root/include" "$root/tests/hub_frame_tests.cpp" "$build/startup_presentation.obj" /Fo"$build/hub_frame_tests.obj" /Fe"$build/hub_frame_tests.exe" /link /INCREMENTAL:NO
 if errorlevel 1 exit /b 21
 "$build/hub_frame_tests.exe"
+if errorlevel 1 exit /b 22
+cl.exe %FLAGS% /I"$root/include" "$root/tests/pointer_input_tests.cpp" "$build/startup_presentation.obj" /Fo"$build/pointer_input_tests.obj" /Fe"$build/pointer_input_tests.exe" /link /INCREMENTAL:NO
+if errorlevel 1 exit /b 23
+"$build/pointer_input_tests.exe"
 exit /b %ERRORLEVEL%
 "@
 $batchPath=Join-Path $build 'testar.cmd';$batch | Set-Content $batchPath -Encoding ascii
@@ -60,3 +64,6 @@ if(!$expansionPassed){throw 'Hub expansion tests failed'}
 $framePassed=$code -eq 0 -and $output -contains 'HUB_FRAME_TESTS_RESULT passed=8 total=8'
 [ordered]@{CheckedUtc=[DateTime]::UtcNow.ToString('o');Passed=$framePassed;Groups=8;ExitCode=$code;Scope='Safe margins, nonoverlapping hub regions and minimum 48px targets; pure native geometry, no editor/device';EngineExecuted=$false} | ConvertTo-Json | Set-Content (Join-Path $root 'docs/relatorios/atuais/AUT-02-GEOMETRIA.json') -Encoding utf8
 if(!$framePassed){throw 'Safe frame tests failed'}
+$pointerPassed=$code -eq 0 -and $output -contains 'POINTER_INPUT_TESTS_RESULT passed=10 total=10'
+[ordered]@{CheckedUtc=[DateTime]::UtcNow.ToString('o');Passed=$pointerPassed;Groups=10;ExitCode=$code;Scope='Pointer ownership, touch/mouse deduplication, focus/revision/drag cancellation and tap thresholds; no physical device or visual acceptance';EngineExecuted=$false} | ConvertTo-Json | Set-Content (Join-Path $root 'docs/relatorios/atuais/AUT-03-ENTRADA.json') -Encoding utf8
+if(!$pointerPassed){throw 'Pointer input tests failed'}

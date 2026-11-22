@@ -11,6 +11,8 @@
 #include "Engine/StaticMesh.h"
 #include "Engine/StaticMeshActor.h"
 #include "Engine/World.h"
+#include "Engine/GameViewportClient.h"
+#include "UnrealClient.h"
 #include "EngineUtils.h"
 #include "GameFramework/PlayerController.h"
 #include "InputCoreTypes.h"
@@ -67,9 +69,23 @@ void AProbeArenaHUD::OpenInfo(const FString& title,const std::vector<std::string
     }
     if(PopupLines.IsEmpty()){PopupLines.Add(TEXT("No information available."));}
 }
+void AProbeArenaHUD::ReadPointer()
+{
+    float mx=0,my=0,tx=0,ty=0;bool touched=false;
+    const bool mouseValid=PlayerOwner->GetMousePosition(mx,my);
+    PlayerOwner->GetInputTouchState(ETouchIndex::Touch1,tx,ty,touched);
+    if(touched){LastTouchX=tx;LastTouchY=ty;}
+    const auto* viewport=GetWorld()->GetGameViewport();
+    const bool focused=viewport && viewport->Viewport && viewport->Viewport->HasFocus();
+    const std::uint8_t screen=InHub?(HubEventOpen?1:0):(!PopupLines.IsEmpty()?3:2);
+    Input=Pointer.update({PlayerOwner->IsInputKeyDown(EKeys::LeftMouseButton),mouseValid,mx,my},
+        {touched,true,LastTouchX,LastTouchY},focused,GetWorld()->GetTimeSeconds(),{Session.state().revision,screen});
+    if(Input.cancelled){Gesture.cancel();}
+}
 void AProbeArenaHUD::DrawHUD()
 {
     Super::DrawHUD();if(!Canvas || !PlayerOwner){return;}
+    ReadPointer();
     if(HubEnabled && InHub){DrawHub();return;}
     if(HubEnabled && PlayerOwner->WasInputKeyJustPressed(EKeys::Escape)){
         if(!PopupLines.IsEmpty()){PopupLines.Empty();Gesture.cancel();}else{ReturnToHub();}return;
@@ -78,15 +94,15 @@ void AProbeArenaHUD::DrawHUD()
     const double now=GetWorld()->GetTimeSeconds();
     const auto layout=SelectedLayout();
     const bool classic=layout==rpg::presentation::ArenaLayout::ClassicLateral;
-    float mx=0,my=0;PlayerOwner->GetMousePosition(mx,my);
-    const bool pressed=PlayerOwner->WasInputKeyJustPressed(EKeys::LeftMouseButton);
-    const bool released=PlayerOwner->WasInputKeyJustReleased(EKeys::LeftMouseButton);
+    const float mx=static_cast<float>(Input.x),my=static_cast<float>(Input.y);
+    const bool pressed=Input.pressed;
+    const bool released=Input.released;
     if(auto held=Gesture.hold(now,view.revision)){OpenInfo(TEXT("Ability details"),rpg::presentation::ability_details(view,*held));}
     const bool abilityRelease=Gesture.active() && released;
     const auto shortSlot=released?Gesture.release(now,view.revision):std::optional<std::uint32_t>{};
-    const bool clicked=released && !abilityRelease;
+    const bool clicked=Input.tap && !abilityRelease;
     const auto inside=[&](float x,float y,float w,float h){return mx>=x && mx<x+w && my>=y && my<y+h;};
-    if(PopupLines.IsEmpty() && !Gesture.active() && !abilityRelease && view.automatic && !view.stopped && now>=NextAutomatic){
+    if(PopupLines.IsEmpty() && !Gesture.active() && !Input.down && !abilityRelease && view.automatic && !view.stopped && now>=NextAutomatic){
         const auto result=Session.step_automatic();
         Message=result.accepted()?TEXT("Opponent acted."):TEXT("Presentation stopped; restart to retry.");
         NextAutomatic=now+0.5;SelectedSlot=0;SelectedTarget.Empty();view=Session.state();
@@ -105,7 +121,7 @@ void AProbeArenaHUD::DrawHUD()
     };
     const auto button=[&](float x,float y,float w,float h,const FString& text,bool enabled){
         DrawRect(enabled?FLinearColor(0.08f,0.20f,0.32f):FLinearColor(0.12f,0.12f,0.12f),x,y,w,h);DrawText(text,FColor::White,x+8,y+8);
-        return clicked && enabled && inside(x,y,w,h);
+        return clicked && enabled && rpg::presentation::pointer_clicked(Input,{x,y,w,h});
     };
     const FString actor=view.combat.battle.current_actor?Label(*view.combat.battle.current_actor):TEXT("-");
     DrawText(classic?TEXT("RPG URBANO / Classic lateral arena"):TEXT("RPG URBANO / Standard depth arena"),FColor::White,20,15);
@@ -138,8 +154,8 @@ void AProbeArenaHUD::DrawHUD()
             DrawRect(fighter.definition.team==rpg::Team::A?FLinearColor(0.1f,0.85f,0.7f):FLinearColor(0.95f,0.25f,0.4f),x,y+31,width*static_cast<float>(shield.health_fraction),7);
             DrawRect(FLinearColor(0.65f,0.9f,1.f),x,y+31,width*static_cast<float>(shield.overlay_fraction),7);
             DrawText(TEXT("[i]"),FColor::Cyan,x+width-25,y+8);
-            if(clicked && PopupLines.IsEmpty() && inside(x+width-28,y,28,28)){OpenInfo(TEXT("Effects / ")+id,rpg::presentation::effect_details(fighter));return;}
-            if(clicked && manual && validTarget(fighter.definition.id) && inside(x,y,width-28,40)){
+            if(clicked && PopupLines.IsEmpty() && rpg::presentation::pointer_clicked(Input,{x+width-28,y,28,28})){OpenInfo(TEXT("Effects / ")+id,rpg::presentation::effect_details(fighter));return;}
+            if(clicked && manual && validTarget(fighter.definition.id) && rpg::presentation::pointer_clicked(Input,{x,y,width-28,40})){
                 if(classic){submit(id);}else{SelectedTarget=id;Message=TEXT("Target selected. Confirm when ready.");}return;
             }
             if(fighter.health>0 && (SelectedTarget==id || (classic && validTarget(fighter.definition.id) && inside(x,y,width-28,40)))){
@@ -222,7 +238,7 @@ void AProbeArenaHUD::DrawHUD()
     }
     if(PopupLines.IsEmpty() && clicked && manual && SelectedSlot && !classic){
         FHitResult hit;
-        if(PlayerOwner->GetHitResultUnderCursor(ECC_Visibility,false,hit) && hit.GetActor()){
+        if(PlayerOwner->GetHitResultAtScreenPosition(FVector2D(mx,my),ECC_Visibility,false,hit) && hit.GetActor()){
             for(const auto& id:candidates){if(hit.GetActor()->Tags.Contains(FName(*Label(id)))){SelectedTarget=Label(id);Message=TEXT("Target changed. Confirm when ready.");break;}}
         }
     }

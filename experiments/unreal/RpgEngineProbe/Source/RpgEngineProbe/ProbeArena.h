@@ -53,6 +53,10 @@ private:
     uint64 SelectionRevision=0;
     double NextAutomatic=0;
     rpg::presentation::AbilityGesture Gesture;
+    rpg::presentation::PointerInput Pointer;
+    rpg::presentation::PointerFrame Input;
+    float LastTouchX=0,LastTouchY=0;
+    void ReadPointer();
     FString SelectedTarget;
     FString PopupTitle;
     TArray<FString> PopupLines;

@@ -155,3 +155,8 @@ Parser JSON do hub, importação do panorama, projeção/clipping dos dois alvos
 -34grupos de apresentação e compilação limpa22ações aprovados na pasta nova.
 - Cache absoluto copiado identificado, preservado e regenerado; resultado antigo não aceito como validação.
 - Sem execução gráfica; próximo AUT-03, Android adiado.
+
+## 2026-11-21 — AUT-03
+- Entrada amostrada comum de mouse/toque, deduplicação, origem do clique e cancelamentos.
+- Hub/arena integrados; consulta prolongada preservada, regras de combate intactas.
+-44grupos nativos e compilação aprovados; aceite interativo pendente, sem Android ou controle de tela.

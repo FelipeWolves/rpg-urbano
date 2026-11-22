@@ -1,0 +1,15 @@
+{
+  "Date": "2026-11-22",
+  "Passed": true,
+  "ExitCode": 0,
+  "BuildActions": 13,
+  "Log": "build/aut10-build.log",
+  "PresentationGroups": 94,
+  "NewMediaGroups": 12,
+  "PlayerExecuted": false,
+  "EditorOpened": false,
+  "AndroidExecuted": false,
+  "NetworkUsed": false,
+  "Scope": "Pure lifecycle contract compiled through existing Unreal bridge; backend playback and UI integration reserved for AUT-11",
+  "KnownWarnings": "Existing non-preferred MSVC and engine C4864"
+}

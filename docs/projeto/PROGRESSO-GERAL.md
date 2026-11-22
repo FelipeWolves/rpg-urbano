@@ -56,3 +56,7 @@ AUT-05 aceito pelo usuário nos dois layouts/detalhes. Front20→22% e QA24→26
 ## AUT-09 — 22/11/2026
 
 Equipe, resumo de resultado e adaptador de save implementados/compilados; 64 grupos focados aprovados. Aceite interativo e persistência pela interface ainda pendentes. Estimativa ponderada mantida em 22,09% (aproximadamente 22%); compilação não equivale a demo aceita em celular. Ver [entrega e roteiro](AUT-09-EQUIPE-RESULTADO-SAVE.md).
+
+## AUT-10 — 22/11/2026
+
+Contrato de mídia local implementado e testado (12 grupos novos; 94 de apresentação no total desta bateria). Sem reprodução ou alteração visual. Percentuais mantidos, incluindo estimativa ponderada de 22,09% da demo. Próximo: AUT-11, backend e integração. Ver AUT-10-MIDIA-LOCAL.md.

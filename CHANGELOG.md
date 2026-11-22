@@ -194,3 +194,9 @@ Parser JSON do hub, importação do panorama, projeção/clipping dos dois alvos
 - Equipe / Save no hub, rascunho validado de 1–5 IDs, detalhes de resultado e adaptador Unreal para codec v1.
 - Restauração inicia nova tentativa e preserva histórico; validação por perfil/catálogo, recusa em combate e invalidação de comandos antigos.
 - 64 grupos nativos focados aprovados; Editor compilado. Interface e I/O real pendentes, Android adiado. Estimativa global mantida.
+
+## 2026-11-22 — AUT-10
+
+- Contrato puro de mídia local: preparação, reprodução lógica, pausa, conclusão, skip, falha e cancelamento; callbacks identificados e fallback ao hub.
+- Regras recebidas de hold 800 ms, rever imediato e retomada pausada; reaproveitamento da geometria de vídeo. Sem player/interface nova; integração no AUT-11.
+- 94 grupos de apresentação aprovados, incluindo 12 novos; nenhuma tela ou Android acessados.

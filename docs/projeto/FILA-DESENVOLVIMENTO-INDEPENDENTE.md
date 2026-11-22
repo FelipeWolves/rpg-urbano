@@ -1,3 +1,5 @@
+> **AUT-10 vigente (22/11):** [contrato de mídia local](AUT-10-MIDIA-LOCAL.md) implementado; 12 grupos novos e 82 regressões aprovados. Estados, skip, pausa, callbacks e fallback preparados; sem player ou alteração visual. Compilação registrada em AUT-10-BUILD.json. Próximo: AUT-11, backend e integração efetiva; Android continua adiado. Aceites e I/O de AUT-08/09 permanecem pendentes. Notas anteriores são históricas.
+
 > **AUT-09 vigente (22/11):** [equipe, resultado e save local](AUT-09-EQUIPE-RESULTADO-SAVE.md) implementados; 64 grupos nativos focados e compilação Editor aprovados. Menu Equipe / Save, seleção validada, detalhes do resultado e codec v1 ligados ao adaptador Unreal. Aceite interativo e gravação/reabertura pela interface pendentes. Catálogo provisório continua com três aliados. Próximo código: AUT-10 (contrato de mídia); Android adiado. Notas anteriores são históricas.
 
 > **AUT-08 vigente:** [estados de tela, pausa e abandono](AUT-08-FLUXO-TELAS.md) implementados/testados e compilados;82grupos de apresentação e35focados aprovados. Menus novos pendentes de aceite interativo. Correção do ponteiro aceita pelo usuário e salva no commit1400d4e. Próximo: AUT-09 (equipe/resultado/save). Android adiado; notas anteriores são históricas.
@@ -86,7 +88,7 @@ Telas podem usar componentes simples e dados fictícios claramente identificados
 
 | ID / blocos existentes | Estado | Trabalho que cabe ao desenvolvimento | Critério de conclusão / limite |
 |---|---|---|---|
-| AUT-10 — HUB/ENG | Preparação apenas | Criar interface/estados de mídia local e ligação com planos de proporção existentes: preparar, reproduzir, terminar, falhar e cancelar; fallback direto ao hub quando indisponível | Contrato e fluxo verificáveis sem player/hardware. Usar mídias recebidas; não decidir ainda regras definitivas de repetição/pular/áudio/retomada |
+| AUT-10 — HUB/ENG | Contrato implementado/testado; sem player | Criar interface/estados de mídia local e ligação com planos de proporção existentes: preparar, reproduzir, terminar, falhar e cancelar; fallback direto ao hub quando indisponível | Contrato e fluxo verificáveis sem player/hardware. Usar mídias recebidas; não decidir ainda regras definitivas de repetição/pular/áudio/retomada |
 | AUT-11 — HUB/AUD | Após AUT-10; preparação parcial | Provar backend de reprodução local em ensaio isolado usando APIs instaladas, com tamanho/codec tratados como validação por plataforma; abrir/fechar recurso e retornar ao hub | Reprodução só aprovada onde efetivamente testada. Sem download/plugin antecipado. Integrar regras de interrupção/legendas/volume apenas após contrato; orientação real e áudio final não se resolvem pela interface abstrata |
 
 Não exigir vídeo novo para construir o contrato; não confundir MP4 presente no disco com player implementado. As perguntas de produto permanecem em entregas/06-video-e-cinematics e08-audio-musica-e-dj.

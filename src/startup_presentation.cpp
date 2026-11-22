@@ -4,6 +4,7 @@
 #include <stdexcept>
 #include <sstream>
 #include <locale>
+#include <limits>
 namespace rpg::presentation {
 namespace {
 void valid_size(PixelSize size){
@@ -343,4 +344,37 @@ std::optional<ProjectedHotspot> project_hotspot(const HubPlan& plan,const HubHot
     const auto py=[&](double value){return content.y+(value-uv.y)*content.height/uv.height;};
     return ProjectedHotspot{{px(x),py(y),px(right)-px(x),py(bottom)-py(y)},
         px(std::clamp(h.anchor_x,x,right)),py(std::clamp(h.anchor_y,y,bottom))};
-}} // namespace rpg::presentation
+}bool MediaFlow::active() const noexcept {return state_==MediaState::Preparing || state_==MediaState::Playing || state_==MediaState::Paused;}
+bool MediaFlow::return_to_hub() const noexcept {return state_==MediaState::Completed || state_==MediaState::Skipped || state_==MediaState::Failed || state_==MediaState::Cancelled;}
+std::uint64_t MediaFlow::begin(std::optional<Asset> asset,bool previously_watched){
+    if(ticket_==std::numeric_limits<std::uint64_t>::max()){throw std::overflow_error("Media ticket exhausted");}
+    ++ticket_;asset_.reset();watched_=previously_watched;failure_=MediaFailure::None;state_=MediaState::Preparing;
+    if(!asset){state_=MediaState::Failed;failure_=MediaFailure::MissingAsset;return ticket_;}
+    try{validate_asset(*asset);}catch(const std::invalid_argument&){state_=MediaState::Failed;failure_=MediaFailure::InvalidAsset;return ticket_;}
+    asset_=std::move(asset);return ticket_;
+}
+bool MediaFlow::prepared(std::uint64_t ticket) noexcept {
+    if(ticket!=ticket_ || state_!=MediaState::Preparing){return false;}
+    state_=background_?MediaState::Paused:MediaState::Playing;return true;
+}
+bool MediaFlow::ended(std::uint64_t ticket) noexcept {
+    if(ticket!=ticket_ || state_!=MediaState::Playing){return false;}
+    state_=MediaState::Completed;watched_=true;return true;
+}
+bool MediaFlow::fail(std::uint64_t ticket,MediaFailure reason) noexcept {
+    if(ticket!=ticket_ || !active() || (reason!=MediaFailure::OpenFailed && reason!=MediaFailure::Timeout && reason!=MediaFailure::DecodeFailed)){return false;}
+    state_=MediaState::Failed;failure_=reason;return true;
+}
+bool MediaFlow::pause() noexcept {if(state_!=MediaState::Playing){return false;}state_=MediaState::Paused;return true;}
+bool MediaFlow::resume() noexcept {if(state_!=MediaState::Paused || background_){return false;}state_=MediaState::Playing;return true;}
+void MediaFlow::background(bool hidden) noexcept {background_=hidden;if(hidden){pause();}}
+bool MediaFlow::skip(std::uint64_t held_milliseconds) noexcept {
+    if((state_!=MediaState::Playing && state_!=MediaState::Paused) || background_ || (!watched_ && held_milliseconds<800)){return false;}
+    state_=MediaState::Skipped;watched_=true;return true;
+}
+bool MediaFlow::cancel() noexcept {if(!active()){return false;}state_=MediaState::Cancelled;return true;}
+std::optional<VideoPlan> MediaFlow::layout(PixelSize viewport,Device device,bool allow_rotation) const {
+    if(!asset_ || !active()){return std::nullopt;}
+    return plan_video(asset_->size,viewport,device,allow_rotation);
+}
+} // namespace rpg::presentation

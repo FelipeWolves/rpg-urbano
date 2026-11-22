@@ -163,4 +163,32 @@ void validate_hotspot(const HubHotspot& hotspot);
 [[nodiscard]] bool valid_asset_path(std::string_view path) noexcept;
 void validate_asset(const Asset& asset);
 void validate_display(const StartupDisplay& display);
+// Local media lifecycle only. The backend resolves validated relative assets in AUT-11.
+enum class MediaState { Idle, Preparing, Playing, Paused, Completed, Skipped, Failed, Cancelled };
+enum class MediaFailure { None, MissingAsset, InvalidAsset, OpenFailed, Timeout, DecodeFailed };
+class MediaFlow {
+public:
+    std::uint64_t begin(std::optional<Asset> asset,bool previously_watched=false);
+    [[nodiscard]] MediaState state() const noexcept {return state_;}
+    [[nodiscard]] MediaFailure failure() const noexcept {return failure_;}
+    [[nodiscard]] bool watched() const noexcept {return watched_;}
+    [[nodiscard]] bool return_to_hub() const noexcept;
+    [[nodiscard]] bool accepts_gameplay() const noexcept {return state_==MediaState::Idle || return_to_hub();}
+    bool prepared(std::uint64_t ticket) noexcept;
+    bool ended(std::uint64_t ticket) noexcept;
+    bool fail(std::uint64_t ticket,MediaFailure reason) noexcept;
+    bool pause() noexcept;
+    bool resume() noexcept;
+    void background(bool hidden) noexcept;
+    bool skip(std::uint64_t held_milliseconds) noexcept;
+    bool cancel() noexcept;
+    [[nodiscard]] std::optional<VideoPlan> layout(PixelSize viewport,Device device,bool allow_rotation=true) const;
+private:
+    std::uint64_t ticket_=0;
+    MediaState state_=MediaState::Idle;
+    MediaFailure failure_=MediaFailure::None;
+    std::optional<Asset> asset_;
+    bool watched_=false,background_=false;
+    [[nodiscard]] bool active() const noexcept;
+};
 } // namespace rpg::presentation

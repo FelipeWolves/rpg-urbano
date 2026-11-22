@@ -60,6 +60,14 @@ if errorlevel 1 exit /b 31
 "$build/screen_flow_tests.exe"
 exit /b %ERRORLEVEL%
 "@
+$batch=$batch.Replace('exit /b %ERRORLEVEL%',@"
+if errorlevel 1 exit /b 79
+cl.exe %FLAGS% /I"$root/include" "$root/tests/media_flow_tests.cpp" "$build/startup_presentation.obj" /Fo"$build/media_flow_tests.obj" /Fe"$build/media_flow_tests.exe" /link /INCREMENTAL:NO
+if errorlevel 1 exit /b 80
+"$build/media_flow_tests.exe"
+if errorlevel 1 exit /b 81
+exit /b 0
+"@)
 $batchPath=Join-Path $build 'testar.cmd';$batch | Set-Content $batchPath -Encoding ascii
 $output=@(& $env:ComSpec /d /c $batchPath 2>&1 | ForEach-Object {$_.ToString()});$code=$LASTEXITCODE
 $output | Set-Content (Join-Path $build 'resultado.log') -Encoding utf8
@@ -92,3 +100,6 @@ if(!$preferencesPassed){throw 'Preferences tests failed'}
 $flowPassed=$code -eq 0 -and $output -contains 'SCREEN_FLOW_TESTS_RESULT passed=10 total=10'
 [ordered]@{Date='2026-11-22';Passed=$flowPassed;ExitCode=$code;Groups=10;Scope='Explicit screen transitions, Back priority, modal gating and idempotent abandonment; no visual acceptance';EngineExecuted=$false;AndroidExecuted=$false} | ConvertTo-Json | Set-Content (Join-Path $root 'docs/relatorios/atuais/AUT-08-FLUXO.json') -Encoding utf8
 if(!$flowPassed){throw 'Screen flow tests failed'}
+$mediaPassed=$code -eq 0 -and $output -contains 'MEDIA_FLOW_TESTS_RESULT passed=12 total=12'
+[ordered]@{Date='2026-11-22';Passed=$mediaPassed;ExitCode=$code;Groups=12;Scope='Pure local media lifecycle, stale callbacks, watch state, pause/skip/failure and existing video geometry; no player or file IO';PlayerExecuted=$false;EditorOpened=$false;AndroidExecuted=$false} | ConvertTo-Json | Set-Content (Join-Path $root 'docs/relatorios/atuais/AUT-10-TESTES.json') -Encoding utf8
+if(!$mediaPassed){throw 'Media flow tests failed'}

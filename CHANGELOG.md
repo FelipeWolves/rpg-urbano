@@ -206,3 +206,9 @@ Parser JSON do hub, importação do panorama, projeção/clipping dos dois alvos
 - Ensaio manual Rever abertura no hub; backend local instalado de mídia/áudio, pausa/skip/fallback, flag por variante e limpeza de recursos.
 - Compilação aprovada após correção de linker. Vídeos copiados somente ao runtime ignorado e manifesto atualizado; originais preservados.
 - Sem execução de player/telas/Android. Aceite de reprodução, legendas, mixer, arte lateral e autoabertura ainda pendentes.
+
+## 2026-11-22 — correção do ensaio AUT-11
+
+- Habilitado WmfMedia já instalado para Win64 após log confirmar ausência de decoder no projeto.
+- Painéis informativos/erros agora interceptam entrada e aparecem no hub, sem depender de abrir equipe.
+- Reteste de reprodução pendente; nenhum editor ou Android executado.

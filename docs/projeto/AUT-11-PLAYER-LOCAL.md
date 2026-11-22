@@ -38,3 +38,15 @@ Reexecutado binário nativo dos 12 grupos de contrato de mídia do AUT-10, aprov
 - Rotação/restauração física de orientação, Android/iOS, downscaling/decodificação e pacote final exigem testes próprios. Não há transcodificação automática implementada.
 
 Próxima prioridade do AUT-11 é aceite de reprodução; AUT-12 (marcador de runtime) pode avançar como código independente por nova solicitação. Nenhum percentual global aumentado apenas por compilação.
+
+## Correção após teste do usuário — 22/11/2026
+
+O usuário relatou flash ao clicar Rever abertura e erro aparecendo apenas ao abrir Equipe / Save. Log local confirmou `no media player plug-ins are installed and enabled in this project`. Causa: DisableEnginePluginsByDefault=true no .uproject; MediaAssets sozinho não habilita decoder.
+
+Habilitado explicitamente WmfMedia, fornecido pela Epic e já presente na UE5.8, somente para Win64. Nenhuma instalação, download ou alteração global; não habilitar outros plugins indiscriminadamente. A afirmação anterior de nenhum plugin habilitado descreve apenas a entrega inicial.
+
+Corrigida apresentação dos pop-ups no hub: DrawHUD mostra o painel e consome a entrada antes de navegação/equipe. O aviso não deve ficar oculto até abrir outra tela. Falha de reprodução ainda não concede watched.
+
+Reexecutados os binários nativos existentes: 12 grupos MediaFlow e 10 ScreenFlow aprovados; não são testes de decodificação nem novos casos. Compilação registrada em AUT-11-CORRECAO.json. Não houve execução gráfica/Android. Reprodução continua pendente de novo teste do usuário.
+
+Para testar: reabrir o projeto, iniciar Play e clicar Rever abertura. Apenas abrir o .uproject abre o editor; não inicia o jogo nem a intro. Autoabertura permanece desativada conforme o gate de aceite anterior. Se ainda ocorrer falha, o painel agora deve aparecer imediatamente no hub e o novo log permitirá avaliar codec/backend.

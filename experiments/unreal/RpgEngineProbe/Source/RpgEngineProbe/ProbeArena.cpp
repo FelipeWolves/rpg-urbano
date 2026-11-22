@@ -122,6 +122,12 @@ void AProbeArenaHUD::DrawHUD()
     Super::DrawHUD();if(!Canvas || !PlayerOwner){return;}
     ReadPointer();
     if(IntroActive){DrawIntro();return;}
+    // Hub dialogs must be rendered before any underlying hub/team actions.
+    if(Flow.in_hub() && !PopupLines.IsEmpty()){
+        DrawRect(HubPanel,0,0,Canvas->SizeX,Canvas->SizeY);
+        if(DrawInfoPanel(PopupTitle,PopupLines,PopupPage)==1){PopupLines.Empty();Pointer.cancel_until_release();}
+        return;
+    }
     if(!InspectionMode && Session.state().combat.battle.phase==rpg::Phase::Finished){Flow.finish();}
     if(!InspectionMode && PlayerOwner->WasInputKeyJustPressed(EKeys::Escape)){HandleBack();return;}
     if(HubEnabled && Flow.in_hub()){DrawHub();return;}

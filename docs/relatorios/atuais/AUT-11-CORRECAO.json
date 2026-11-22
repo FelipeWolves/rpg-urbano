@@ -1,0 +1,16 @@
+{
+  "Date": "2026-11-22",
+  "RootCause": "Project disabled engine plugins by default; log confirmed no enabled media player",
+  "Fix": "Enable installed Epic WmfMedia for Win64; render hub dialogs before navigation",
+  "Compiled": true,
+  "ExitCode": 0,
+  "BuildActions": 7,
+  "Log": "build/aut11-fix-player.log",
+  "ExistingMediaGroups": 12,
+  "ExistingScreenGroups": 10,
+  "PlaybackRetested": false,
+  "EditorOpened": false,
+  "AndroidExecuted": false,
+  "AutoplayEnabled": false,
+  "UserRetestRequired": true
+}

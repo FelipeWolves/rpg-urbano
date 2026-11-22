@@ -177,3 +177,5 @@ AUT-11: reteste confirmou segundo clique só na primeira reprodução. Sem pausa
 AUT-12 (22/11): marcador de runtime implementado, cinco grupos de geometria aprovados; compilação em AUT-12-BUILD.json. Visual/Shipping/terreno pendentes. Próximo AUT-13. Clique inicial: aceite provisório, REVER. Ver docs/projeto/AUT-12-MARCADOR-RUNTIME.md.
 
 AUT-13 (22/11): fila de cues confirmados integrada à sessão, sete grupos próprios aprovados; regressão/build em AUT-13-BUILD.json. Sem animação final, relógio novo ou reaplicação de dano. Próximo AUT-14. Ver AUT-13-EVENTOS-VISUAIS.md.
+
+AUT-14 (22/11): schema e manifestos de referência preparados; sete grupos nativos aprovados. Roster e referências explícitos; sem migração de regras/carga runtime. Pendências em AUT-14-DADOS-CENARIO.md. Próximo AUT-15, somente preparo sob as restrições.

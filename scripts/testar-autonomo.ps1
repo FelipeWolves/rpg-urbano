@@ -21,7 +21,7 @@ set "FLAGS=/nologo /std:c++20 /permissive- /Zc:__cplusplus /EHsc /W4 /WX /utf-8 
 "@
 foreach($name in $sources[$Block]){$batch+="`ncl.exe %FLAGS% /I`"$root/include`" /c `"$root/src/$name.cpp`" /Fo`"$build/$name.obj`"`nif errorlevel 1 exit /b 11"}
 $objects=($sources[$Block] | ForEach-Object {'"'+$build+'/'+$_+'.obj"'}) -join ' '
-$batch+="`ncl.exe %FLAGS% /I`"$root/include`" `"$root/tests/$test.cpp`" $objects /Fo`"$build/tests.obj`" /Fe`"$build/tests.exe`" /link /INCREMENTAL:NO`nif errorlevel 1 exit /b 12`n`"$build/tests.exe`"`nexit /b %ERRORLEVEL%`n"
+$batch+="`ncl.exe %FLAGS% /I`"$root/include`" `"$root/tests/$test.cpp`" $objects /Fo`"$build/tests.obj`" /Fe`"$build/tests.exe`" /link /INCREMENTAL:NO`nif errorlevel 1 exit /b 12`n`"$build/tests.exe`" `"$root/data/encounters`"`nexit /b %ERRORLEVEL%`n"
 $path=Join-Path $build 'testar.cmd';$batch | Set-Content $path -Encoding ascii
 $output=@(& $env:ComSpec /d /c $path 2>&1 | ForEach-Object {$_.ToString()});$code=$LASTEXITCODE
 $output | Set-Content (Join-Path $build 'tests.log') -Encoding utf8

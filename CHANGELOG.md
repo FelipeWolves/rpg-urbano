@@ -227,3 +227,8 @@ Parser JSON do hub, importação do panorama, projeção/clipping dos dois alvos
 
 - Canal visual limitado e deduplicado para resultados aceitos; Begin/Impact/State/End, metadados de hits preservados.
 - Limpeza em reset/troca/load e consumo opcional no HUD; sem autoridade sobre combate. Rig/VFX/fluidez pendentes.
+
+## 2026-11-22 — AUT-14
+
+- Esquema e codec limitado para manifestos dos cenários Equipes/Clássico; paridade integral ao recompor o baseline.
+- Arquivos divergentes recusados; regras/semântica continuam em código, sem migração runtime implícita.

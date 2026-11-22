@@ -261,3 +261,8 @@ Parser JSON do hub, importação do panorama, projeção/clipping dos dois alvos
 - Atualizados central, doze guias, controle e modelo com pendências/materiais por área após AUT/SIS-02-A.
 - Perguntas já respondidas não são reabertas; guias antigos recolhidos como histórico e estados anteriores do controle preservados.
 - Sem alteração dos recebidos, mídias, código ou inventário de recebimento; próxima etapa SIS-02-B segue independente de nova pesquisa.
+
+## 2026-11-22 — SIS-02-B
+
+- Aritmética não negativa int64 saturada, mul/div floor sem overflow intermediário e comparação exata de razões; basis points explícitos.
+- Dez grupos aprovados com oráculo BigInteger local; sem engine/Android/rede. Migração do executor fica no SIS-02-C.

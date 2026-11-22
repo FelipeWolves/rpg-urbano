@@ -168,3 +168,5 @@ AUT-13 (22/11): fila de cues confirmados integrada à sessão, sete grupos próp
 AUT-14 (22/11): schema e manifestos de referência preparados; sete grupos nativos aprovados. Roster e referências explícitos; sem migração de regras/carga runtime. Pendências em AUT-14-DADOS-CENARIO.md. Próximo AUT-15, somente preparo sob as restrições.
 
 AUT-15 (22/11): stage de 53 entradas preparado e verificado por hash/includes; três grupos do verificador aprovados. Sem build/cook/execução do pacote; Shipping/Windows limpo pendentes. Próximo AUT-16. Ver AUT-15-STAGE-VERIFICAVEL.md.
+
+SIS-02-B (22/11): utilitários inteiros seguros entregues; dez grupos, 67.240 combinações pequenas e 256 vetores BigInteger aprovados. Battle ainda não migrado. Próximo SIS-02-C; ver SIS-02-B-ARITMETICA.md.

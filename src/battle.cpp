@@ -28,13 +28,14 @@ bool has_status(const Fighter& unit,EffectKind kind) noexcept {return std::range
 bool incapacitated(const Fighter& unit) noexcept {return has_status(unit,EffectKind::Block) || has_status(unit,EffectKind::Stun) || has_status(unit,EffectKind::Freeze) || has_status(unit,EffectKind::Petrify);}
 bool native_suppressed(const Fighter& unit) noexcept {return has_status(unit,EffectKind::Suppression);}
 bool status_native_enabled(const Fighter& unit,const Status& status) noexcept {return !status.native_passive || !native_suppressed(unit) || status.border==StatusBorder::Golden || status.border==StatusBorder::Structural;}
-bool common_debuff(EffectKind kind) noexcept {return kind==EffectKind::Block || kind==EffectKind::Stun || kind==EffectKind::Freeze || kind==EffectKind::Petrify || kind==EffectKind::Silence || kind==EffectKind::Suppression;}
+bool periodic_effect(EffectKind kind) noexcept {return kind==EffectKind::Bleed || kind==EffectKind::Poison;}
+bool common_debuff(EffectKind kind) noexcept {return periodic_effect(kind) || kind==EffectKind::Block || kind==EffectKind::Stun || kind==EffectKind::Freeze || kind==EffectKind::Petrify || kind==EffectKind::Silence || kind==EffectKind::Suppression;}
 Battle::Battle(std::vector<Definition> definitions, BattleRules rules,
                std::vector<InitialHealth> initial_health,
                std::vector<InitialRuntime> initial_runtime) : rules_(std::move(rules)) {
     if ((rules_.timing != TimingProfile::FixedRounds && rules_.timing != TimingProfile::ActionBar) ||
         rules_.max_derived_actions == 0 || rules_.max_derived_actions > 1024 || rules_.skills.size() > 256 ||
-        rules_.max_consequence_events == 0 || rules_.max_consequence_events > 4096 || rules_.numeric_model != 2 ||
+        rules_.periodic_stack_limit>4096 || rules_.max_consequence_events == 0 || rules_.max_consequence_events > 4096 || rules_.numeric_model != 2 ||
         (rules_.combat_model!=resolution::CombatModel::Legacy && rules_.combat_model!=resolution::CombatModel::FunnelV1)) {
         throw std::invalid_argument("Invalid timing configuration");
     }
@@ -93,7 +94,7 @@ Battle::Battle(std::vector<Definition> definitions, BattleRules rules,
         std::uint32_t planned_hits = 0;
         for (const auto& effect : skill.effects) {
             if(effect.power_ratio<0 || effect.power_ratio>numeric::quantity_max ||
-               (effect.damage_kind!=resolution::DamageKind::Normal && effect.damage_kind!=resolution::DamageKind::True && effect.damage_kind!=resolution::DamageKind::Dot)){
+               (effect.damage_kind!=resolution::DamageKind::Normal && effect.damage_kind!=resolution::DamageKind::True && effect.damage_kind!=resolution::DamageKind::Dot && effect.damage_kind!=resolution::DamageKind::TrueDot)){
                 throw std::invalid_argument("Invalid damage effect metadata");
             }
             resolution::chance_domain(effect.proc_chance);if(!valid_border(effect.border)){throw std::invalid_argument("Invalid effect border");}
@@ -141,6 +142,7 @@ Battle::Battle(std::vector<Definition> definitions, BattleRules rules,
                     throw std::invalid_argument("Invalid speed effect");
                 }
                 break;
+            case EffectKind::Bleed: case EffectKind::Poison:
             case EffectKind::Stun: case EffectKind::Freeze: case EffectKind::Petrify: case EffectKind::Silence: case EffectKind::Suppression: case EffectKind::Invincible: case EffectKind::DebuffImmunity:
             case EffectKind::Block: case EffectKind::Marker: case EffectKind::Counter: case EffectKind::FreezeCooldowns:
             case EffectKind::Reflect: case EffectKind::DeathExplosion: case EffectKind::PreventDeath: case EffectKind::AutoRevive:
@@ -205,7 +207,7 @@ Battle::Battle(std::vector<Definition> definitions, BattleRules rules,
                 throw std::invalid_argument("Invalid cooldown state");
             }
         }
-        if (state.statuses.size() > (rules_.combat_model==resolution::CombatModel::Legacy?10u:32u)) { throw std::invalid_argument("Too many status types"); }
+        if (state.statuses.size() > (rules_.combat_model==resolution::CombatModel::Legacy?10u:4096u)) { throw std::invalid_argument("Too many status types"); }
         auto statuses = state.statuses;
         for (std::size_t j = 0; j < statuses.size(); ++j) {
             auto& status = statuses[j];
@@ -213,7 +215,7 @@ Battle::Battle(std::vector<Definition> definitions, BattleRules rules,
                  status.kind != EffectKind::FreezeCooldowns && status.kind != EffectKind::Reflect &&
                  status.kind != EffectKind::DeathExplosion && status.kind != EffectKind::PreventDeath &&
                  status.kind != EffectKind::AutoRevive && status.kind != EffectKind::Shield &&
-                 status.kind != EffectKind::StructuralShield && status.kind != EffectKind::StandardShield && !control_kind(status.kind)) ||
+                 status.kind != EffectKind::StructuralShield && status.kind != EffectKind::StandardShield && !control_kind(status.kind) && !periodic_effect(status.kind)) ||
                 !valid_duration(status.category,status.remaining) || !valid_clock(status.clock) || !valid_border(status.border)) {
                 throw std::invalid_argument("Invalid status state");
             }
@@ -230,7 +232,13 @@ Battle::Battle(std::vector<Definition> definitions, BattleRules rules,
             if ((status.kind == EffectKind::PreventDeath || status.kind == EffectKind::AutoRevive) &&
                 (status.charges == 0 || status.charges > 1024)) { throw std::invalid_argument("Invalid survival state"); }
             for (std::size_t k = 0; k < j; ++k) {
-                if (statuses[k].kind == status.kind) { throw std::invalid_argument("Duplicate status type"); }
+                if (statuses[k].kind == status.kind && !periodic_effect(status.kind)) { throw std::invalid_argument("Duplicate status type"); }
+            }
+            if(periodic_effect(status.kind)){
+                status.instance_id=j+1;
+                if(!index_of(status.source_id) || status.magnitude<1 || status.magnitude>numeric::quantity_max || status.clock!=TickPolicy::EveryTurn || status.category!=StatusCategory::Temporary || status.border!=StatusBorder::Common){throw std::invalid_argument("Invalid periodic state");}
+                const auto count=std::ranges::count(statuses,status.kind,&Status::kind);
+                if(rules_.periodic_stack_limit && count>rules_.periodic_stack_limit){throw std::invalid_argument("Periodic stack cap exceeded");}
             }
             status.applied_turn = 0; // Entered from the preceding encounter, never a newly-applied local status.
         }
@@ -249,6 +257,8 @@ Battle::Battle(std::vector<Definition> definitions, BattleRules rules,
     });
     active_ = order_.front();
     if (rules_.timing == TimingProfile::ActionBar) { select_bar_actor(); }
+    tick_periodics(initial_events_);
+    if(phase_==Phase::Running && fighters_[active_].health==0){advance(initial_events_);}
 }
 
 std::optional<std::size_t> Battle::index_of(std::string_view id) const noexcept {
@@ -477,6 +487,15 @@ void Battle::hit(std::size_t attacker, std::size_t target_index, bool derived, c
         apply_damage(target_index,attacker,reflection,EventType::ReflectedDamage,
                      context,hit_index,planned_hits,events,reactions,pending_deaths,revives);
     }
+    drain_deaths(pending_deaths,context,hit_index,planned_hits,events,reactions,revives);
+    // Consequence damage does not reflect or create counters. Only the original live pair can react.
+    if(phase_==Phase::Running && can_react && target.health>0 && actor.health>0 && actor.definition.team!=target.definition.team &&
+       !std::ranges::any_of(target.statuses,[](const Status& status){return status.kind==EffectKind::Block;}) &&
+        std::ranges::any_of(target.statuses,[&](const Status& status){return status.kind==EffectKind::Counter && status_native_enabled(target,status) && !incapacitated(target);})) {
+        reactions.push_back({target_index,attacker,context.id});
+    }
+}
+void Battle::drain_deaths(std::vector<std::size_t>& pending_deaths,const ActionContext& context,std::uint32_t hit_index,std::uint32_t planned_hits,std::vector<Event>& events,std::vector<PendingReaction>& reactions,std::vector<PendingRevive>& revives) {
     for(std::size_t cursor=0;cursor<pending_deaths.size() && phase_==Phase::Running;++cursor) {
         if(!spend_consequence(context,events)){break;}
         const auto corpse=pending_deaths[cursor];
@@ -496,13 +515,8 @@ void Battle::hit(std::size_t attacker, std::size_t target_index, bool derived, c
                          context,hit_index,planned_hits,events,reactions,pending_deaths,revives);
         }
     }
-    // Consequence damage does not reflect or create counters. Only the original live pair can react.
-    if(phase_==Phase::Running && can_react && target.health>0 && actor.health>0 && actor.definition.team!=target.definition.team &&
-       !std::ranges::any_of(target.statuses,[](const Status& status){return status.kind==EffectKind::Block;}) &&
-        std::ranges::any_of(target.statuses,[&](const Status& status){return status.kind==EffectKind::Counter && status_native_enabled(target,status) && !incapacitated(target);})) {
-        reactions.push_back({target_index,attacker,context.id});
-    }
 }
+
 void Battle::end_turn(std::vector<Event>& events) {
     auto& actor = fighters_[active_];
     if (turn_kind_ == TurnKind::Natural) { ++natural_turns_; ++actor.natural_turns; }
@@ -523,7 +537,7 @@ void Battle::end_turn(std::vector<Event>& events) {
     for (auto& status : actor.statuses) {
         const bool advance = status.kind==EffectKind::StandardShield ? turn_kind_==TurnKind::Natural :
             (source ? source->advances_effect_durations : ticks(status.clock, turn_kind_));
-        if (status.category==StatusCategory::Temporary && status.applied_turn != turn_id_ && advance) { --status.remaining; }
+        if (!periodic_effect(status.kind) && status.category==StatusCategory::Temporary && status.applied_turn != turn_id_ && advance) { --status.remaining; }
     }
     std::erase_if(actor.statuses, [&events, this, &actor](const Status& status) {
         if (status.category!=StatusCategory::Temporary || status.remaining > 0) { return false; }
@@ -668,6 +682,14 @@ ActionResult Battle::apply(const Action& action) {
                 }
                 break;
             }
+            case EffectKind::Bleed: case EffectKind::Poison: {
+                const auto count=std::ranges::count(target.statuses,effect.kind,&Status::kind);
+                if(rules_.periodic_stack_limit && count>=rules_.periodic_stack_limit){result.events.push_back({EventType::StackLimitReached,action.actor,target.definition.id,0,round_,{}});continue;}
+                if(target.statuses.size()>=4096){finish(EndReason::TechnicalLimit,std::nullopt,action.actor,result.events);break;}
+                Status status{effect.kind,effect.duration,TickPolicy::EveryTurn,turn_id_,effect.kind==EffectKind::Bleed?std::max<numeric::Quantity>(1,numeric::mul_div_floor(actor.definition.attack,5000,10000)):actor.definition.attack};
+                for(const auto& old:target.statuses){status.instance_id=std::max(status.instance_id,old.instance_id);}++status.instance_id;
+                status.source_id=action.actor;target.statuses.push_back(std::move(status));break;
+            }
             case EffectKind::Stun: case EffectKind::Freeze: case EffectKind::Petrify: case EffectKind::Silence: case EffectKind::Suppression: case EffectKind::Invincible: case EffectKind::DebuffImmunity:
             case EffectKind::Block: case EffectKind::Marker: case EffectKind::Counter: case EffectKind::FreezeCooldowns:
             case EffectKind::Reflect: case EffectKind::DeathExplosion: case EffectKind::PreventDeath: case EffectKind::AutoRevive:
@@ -731,7 +753,35 @@ void Battle::finish(EndReason reason, std::optional<Team> winner, const std::str
     events.push_back(Event{EventType::BattleFinished, actor, {}, 0, round_, winner_, reason});
 }
 
+void Battle::tick_periodics(std::vector<Event>& events) {
+    if(phase_!=Phase::Running || fighters_[active_].health==0){return;}
+    auto& owner=fighters_[active_];
+    const auto pending=owner.statuses;
+    for(const auto& status:pending){
+        if(phase_!=Phase::Running || owner.health==0){break;}
+        if(!periodic_effect(status.kind)){continue;}
+        const auto found=std::ranges::find(owner.statuses,status.instance_id,&Status::instance_id);
+        if(found==owner.statuses.end()){continue;}
+        const auto source=*index_of(status.source_id);
+        if(--found->remaining==0){owner.statuses.erase(found);}
+        const auto context=make_context(source,ActionType::Skill,owner.definition.id,status.kind==EffectKind::Bleed?"Bleed-tick":"Poison-tick");
+        last_consequence_events_=0;
+        auto points=status.kind==EffectKind::Bleed?status.magnitude:std::max<numeric::Quantity>(1,numeric::mul_div_floor(owner.definition.max_health,400,10000));
+        if(status.kind==EffectKind::Poison && owner.definition.is_boss){points=std::min(points,status.magnitude);}
+        resolution::DamageInput input;input.base=points;input.kind=resolution::DamageKind::TrueDot;input.defender=owner.definition.stats;input.defender.invincible=input.defender.invincible || has_status(owner,EffectKind::Invincible);
+        const auto damage=resolution::calculate_damage(input,{rules_.random_seed,context.id,1,resolution::identity(owner.definition.id),0});
+        std::vector<PendingReaction> reactions;std::vector<PendingRevive> revives;std::vector<std::size_t> deaths;
+        const auto begin=events.size();
+        apply_damage(source,active_,damage.amount,EventType::PeriodicDamage,context,1,1,events,reactions,deaths,revives,resolution::HitReport{damage.outcome,input.kind,damage.amount,0,0,0});
+        for(std::size_t e=begin;e<events.size();++e){if(events[e].type==EventType::PeriodicDamage){events[e].status_kind=status.kind;}}
+        drain_deaths(deaths,context,1,1,events,reactions,revives);
+        if(status.remaining==1){events.push_back({EventType::EffectExpired,owner.definition.id,owner.definition.id,static_cast<int>(status.kind),round_,{}});events.back().status_kind=status.kind;stamp_action(events,events.size()-1,context);}
+        close_action(context,{},revives,events);
+        stamp(events,begin,turn_id_,turn_kind_);
+    }
+}
 void Battle::advance(std::vector<Event>& events) {
+    do {
     const auto begin = events.size();
     std::erase_if(extras_, [this](const ExtraTurnContext& extra) { return find(extra.beneficiary)->health == 0; });
     if (!extras_.empty()) {
@@ -772,6 +822,8 @@ void Battle::advance(std::vector<Event>& events) {
     }
     events.push_back(Event{EventType::TurnStarted, next.definition.id, {}, 0, round_, {}});
     stamp(events, begin, turn_id_, turn_kind_);
+    tick_periodics(events);
+    } while(phase_==Phase::Running && fighters_[active_].health==0);
 }
 
 void Battle::select_bar_actor() {

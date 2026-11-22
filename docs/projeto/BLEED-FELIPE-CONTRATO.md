@@ -15,3 +15,5 @@ Este contrato passa a preencher a pendência da fórmula e do relógio da A1; n�
 ## Fechamento de instancias — resposta posterior de 22/11
 
 Cada reaplicacao cria instancia independente, inclusive da mesma fonte. Piloto: ate 3 slots por debuff (nao 3 debuffs totais). No limite, nao substituir instancias existentes para introduzir outra. Direcao final: Sangramento/Veneno sem teto de gameplay de quantidade, podendo receber restricoes por situacao; demais debuffs ocupam um slot renovado. Limite tecnico de recursos e formula de Veneno sao contratos separados. A pergunta anterior de empilhamento/numero foi respondida.
+
+Implementação 22/11: executor e dez grupos focados aprovados; ver HAB-PERIODICOS.md. Os parágrafos anteriores sobre ausência de implementação são histórico.

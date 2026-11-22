@@ -22,7 +22,7 @@ enum class TurnKind { Natural, Extra };
 enum class TickPolicy { NaturalOnly, EveryTurn };
 enum class TargetRule { Enemy, Ally, Self };
 enum class EffectKind { Damage, ChangeAP, SetSpeed, ExtraTurn, Block, Marker, Counter, FreezeCooldowns,
-                        Reflect, DeathExplosion, PreventDeath, AutoRevive, Shield, StructuralShield, StandardShield, Stun, Freeze, Petrify, Silence, Suppression, Invincible, DebuffImmunity };
+                        Reflect, DeathExplosion, PreventDeath, AutoRevive, Shield, StructuralShield, StandardShield, Stun, Freeze, Petrify, Silence, Suppression, Invincible, DebuffImmunity, Bleed, Poison };
 enum class ExtraOrigin { Ability, Equipment, Custom };
 enum class HitSelection { FixedTarget, LowestHealthEnemy };
 enum class StatusCategory { Temporary, Permanent, Structural };
@@ -105,6 +105,7 @@ struct BattleRules {
     std::uint32_t numeric_model = 2; // Quantity domain/version; not a save-format version.
     resolution::CombatModel combat_model=resolution::CombatModel::Legacy;
     std::uint64_t random_seed=0;
+    std::uint32_t periodic_stack_limit=3; // Pilot per-kind cap; zero removes gameplay cap, not safety bounds.
     bool operator==(const BattleRules&) const = default;
 };
 enum class ActionError {
@@ -118,7 +119,7 @@ enum class EventType {
     RoundStarted, TurnStarted, GuardExpired, BattleFinished,
     SkillUsed, EffectApplied, EffectExpired, Reaction, TurnSkipped, TurnEnded, ExtraTurnSuppressed,
     ReflectedDamage, DeathExplosion, DeathEffectTriggered, DeathPrevented, ReviveScheduled, FighterRevived,
-    ShieldAbsorbed, ShieldBroken, EffectResisted
+    ShieldAbsorbed, ShieldBroken, EffectResisted, PeriodicDamage, StackLimitReached
 };
 
 struct Definition {
@@ -141,6 +142,8 @@ struct Status {
     numeric::Quantity magnitude = 0;
     std::uint32_t charges = 1;
     StatusCategory category = StatusCategory::Temporary;
+    std::uint64_t instance_id=0;
+    std::string source_id;
     bool native_passive=false;
     StatusBorder border=StatusBorder::Common;
     bool operator==(const Status&) const = default;
@@ -169,6 +172,7 @@ struct Fighter {
 [[nodiscard]] bool incapacitated(const Fighter& unit) noexcept;
 [[nodiscard]] bool native_suppressed(const Fighter& unit) noexcept;
 [[nodiscard]] bool status_native_enabled(const Fighter& unit,const Status& status) noexcept;
+[[nodiscard]] bool periodic_effect(EffectKind kind) noexcept;
 [[nodiscard]] bool common_debuff(EffectKind kind) noexcept;
 struct InitialHealth {
     std::string id;
@@ -265,6 +269,7 @@ public:
     explicit Battle(std::vector<Definition> definitions, BattleRules rules = {},
                     std::vector<InitialHealth> initial_health = {},
                     std::vector<InitialRuntime> initial_runtime = {});
+    [[nodiscard]] const std::vector<Event>& initial_events() const noexcept { return initial_events_; }
     [[nodiscard]] const std::vector<Fighter>& fighters() const noexcept { return fighters_; }
     [[nodiscard]] const Fighter* find(std::string_view id) const noexcept;
     [[nodiscard]] const Fighter* current_actor() const noexcept;
@@ -280,6 +285,7 @@ public:
     [[nodiscard]] bool current_actor_cooldowns_frozen() const noexcept;
 
 private:
+    std::vector<Event> initial_events_;
     std::vector<Fighter> fighters_;
     std::vector<std::size_t> order_;
     std::size_t cursor_ = 0;
@@ -316,6 +322,8 @@ private:
 
     [[nodiscard]] std::optional<std::size_t> index_of(std::string_view id) const noexcept;
     void advance(std::vector<Event>& events);
+    void tick_periodics(std::vector<Event>& events);
+    void drain_deaths(std::vector<std::size_t>& deaths,const ActionContext& context,std::uint32_t hit_index,std::uint32_t planned_hits,std::vector<Event>& events,std::vector<PendingReaction>& reactions,std::vector<PendingRevive>& revives);
     void finish(EndReason reason, std::optional<Team> winner, const std::string& actor, std::vector<Event>& events);
     void select_bar_actor();
     void end_turn(std::vector<Event>& events);

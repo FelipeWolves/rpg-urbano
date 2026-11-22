@@ -7,3 +7,5 @@ Tick no início da oportunidade natural ou extra do alvo, antes da ação. Após
 Por tick: floor(MaxHP do alvo ×400/10000), mínimo1. Contra chefes: mínimo entre essa base e ATK do aplicador registrado na aplicação. Instâncias independentes com duração própria; usar limite do piloto de3 por efeito decidido na mesma conversa. Não inventar duração padrão: vem da habilidade aplicadora.
 
 Debuff comum, purificável/transferível/removido entre ondas, True Damage contínuo. Ignora DEF/mitigação/Defesa/Block, respeita escudos e invencibilidade. ATK-teto é snapshot; MaxHP ainda é imutável no núcleo. Se máximo mutável for introduzido depois, confirmar a dinâmica do percentual sem retroagir uma decisão não recebida. Na direção final, Bleed/Poison não têm limite de gameplay por quantidade; limites técnicos e exceções de modo são separados.
+
+Implementação 22/11: executor e dez grupos focados aprovados; ver HAB-PERIODICOS.md. Registros anteriores de ausência de implementação são histórico; duração continua fornecida por habilidade.

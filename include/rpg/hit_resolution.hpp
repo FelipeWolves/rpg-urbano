@@ -14,7 +14,7 @@ struct RollKey {std::uint64_t seed=0,action=0,hit=0,target=0,effect=0;};
 }
 inline void chance_domain(numeric::BasisPoints value){if(value<0 || value>10000){throw std::invalid_argument("Chance outside 0..10000 basis points");}}
 [[nodiscard]] inline bool chance(numeric::BasisPoints value,const RollKey& key,RollChannel channel){chance_domain(value);return value==10000 || (value!=0 && roll(key,channel)<value);}
-enum class DamageKind { Normal,True,Dot };
+enum class DamageKind { Normal,True,Dot,TrueDot };
 enum class Contact { Connected,Miss,Blocked,Invincible };
 struct HitChances {
     DamageKind kind=DamageKind::Normal;
@@ -24,10 +24,10 @@ struct HitChances {
 };
 struct HitOutcome {Contact contact=Contact::Connected;bool critical=false;bool operator==(const HitOutcome&) const=default;[[nodiscard]] bool counts_for_hit_passive() const noexcept {return contact==Contact::Connected || contact==Contact::Blocked;}};
 [[nodiscard]] inline HitOutcome classify_hit(const HitChances& input,const RollKey& key){
-    if(input.kind!=DamageKind::Normal && input.kind!=DamageKind::True && input.kind!=DamageKind::Dot){throw std::invalid_argument("Unknown damage kind");}
+    if(input.kind!=DamageKind::Normal && input.kind!=DamageKind::True && input.kind!=DamageKind::Dot && input.kind!=DamageKind::TrueDot){throw std::invalid_argument("Unknown damage kind");}
     chance_domain(input.miss);chance_domain(input.block);chance_domain(input.critical);
     if(input.invincible){return {Contact::Invincible,false};}
-    if(input.kind!=DamageKind::Dot && chance(input.miss,key,RollChannel::Miss)){return {Contact::Miss,false};}
+    if(input.kind!=DamageKind::Dot && input.kind!=DamageKind::TrueDot && chance(input.miss,key,RollChannel::Miss)){return {Contact::Miss,false};}
     const auto cap=input.allow_special_block_cap?10000:5000;
     if(input.kind==DamageKind::Normal && chance(input.block>cap?cap:input.block,key,RollChannel::Block)){return {Contact::Blocked,false};}
     return {Contact::Connected,input.kind==DamageKind::Normal && chance(input.critical,key,RollChannel::Critical)};

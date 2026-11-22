@@ -48,6 +48,7 @@ ShieldDisplay shield_display(const Fighter& fighter){
 }
 std::string effect_name(EffectKind kind){
     switch(kind){
+    case EffectKind::Bleed:return "Bleed";case EffectKind::Poison:return "Poison";
     case EffectKind::Stun:return "Stun";case EffectKind::Freeze:return "Freeze";case EffectKind::Petrify:return "Petrify";case EffectKind::Silence:return "Silence";case EffectKind::Suppression:return "Suppression";case EffectKind::Invincible:return "Invincible";case EffectKind::DebuffImmunity:return "Debuff immunity";
     case EffectKind::StandardShield:return "Standard shield";case EffectKind::Shield:return "Shield";case EffectKind::StructuralShield:return "Structural shield";
     case EffectKind::Block:return "Unable to act";case EffectKind::FreezeCooldowns:return "Cooldowns frozen";

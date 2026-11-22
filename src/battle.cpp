@@ -101,7 +101,7 @@ Battle::Battle(std::vector<Definition> definitions, BattleRules rules,
         std::uint32_t planned_hits = 0;
         for (const auto& effect : skill.effects) {
             if(effect.power_ratio<0 || effect.power_ratio>numeric::quantity_max ||
-               (effect.damage_kind!=resolution::DamageKind::Normal && effect.damage_kind!=resolution::DamageKind::True && effect.damage_kind!=resolution::DamageKind::Dot && effect.damage_kind!=resolution::DamageKind::TrueDot)){
+               (effect.damage_kind!=resolution::DamageKind::Normal && effect.damage_kind!=resolution::DamageKind::True && effect.damage_kind!=resolution::DamageKind::Dot && effect.damage_kind!=resolution::DamageKind::TrueDot && effect.damage_kind!=resolution::DamageKind::Consequence)){
                 throw std::invalid_argument("Invalid damage effect metadata");
             }
             if(periodic_effect(effect.kind) && (effect.category!=StatusCategory::Temporary || effect.border!=StatusBorder::Common)){throw std::invalid_argument("Periodic effects require common temporary debuffs");}
@@ -427,6 +427,11 @@ void Battle::apply_damage(std::size_t emitter, std::size_t target_index, numeric
     auto& target=fighters_[target_index];
     if (target.health==0 || phase_!=Phase::Running) {return;}
     const auto begin=events.size();
+    if(!report && rules_.combat_model==resolution::CombatModel::FunnelV1){
+        resolution::DamageInput input;input.base=power;input.kind=resolution::DamageKind::Consequence;input.defender=target.definition.stats;input.defender.invincible=input.defender.invincible||has_status(target,EffectKind::Invincible);
+        const auto damage=resolution::calculate_damage(input,{rules_.random_seed,context.id,hit_index,resolution::identity(target.definition.id),0});power=damage.amount;
+        report=resolution::HitReport{damage.outcome,input.kind,power,0,0,0};
+    }
     const auto health_before=target.health;numeric::Quantity absorbed_total=0;
     // Guard has already mitigated the hit. Ordinary shield precedes the structural layer.
     for(const auto kind:{EffectKind::StandardShield,EffectKind::SilverShield,EffectKind::Shield,EffectKind::StructuralShield}) {

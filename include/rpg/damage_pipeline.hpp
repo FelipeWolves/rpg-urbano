@@ -71,14 +71,14 @@ struct HitReport {
     std::vector<Factor> factors{{input.ratio,10000}};
     if(outcome.contact==Contact::Miss){factors.push_back({7500,10000});}
     if(outcome.critical){factors.push_back({input.attacker.critical_total,10000});}
-    if(input.kind!=DamageKind::True && input.kind!=DamageKind::TrueDot){
+    if(input.kind!=DamageKind::True && input.kind!=DamageKind::TrueDot && input.kind!=DamageKind::Consequence){
         if(input.defender.defense){factors.push_back({18000000,5700000+*input.defender.defense*(10000-input.attacker.defense_ignore)});}
         const auto cap=input.defender.special_mitigation_cap?10000:5000;
         const auto reduction=std::min<std::int64_t>(cap,input.defender.mitigation);
         factors.push_back({10000+input.attacker.damage_bonus-reduction,10000});
     }
     if(input.kind==DamageKind::True){factors.push_back({10000+input.attacker.damage_bonus,10000});}
-    const bool guard=input.kind!=DamageKind::True && input.kind!=DamageKind::TrueDot && input.guarding;
+    const bool guard=input.kind!=DamageKind::True && input.kind!=DamageKind::TrueDot && input.kind!=DamageKind::Consequence && input.guarding;
     if(guard){factors.push_back({1,2});}
     auto amount=product_floor(numeric::quantity(input.base),factors);
     if(input.kind==DamageKind::Normal && !guard){amount=std::max<numeric::Quantity>(1,amount);}

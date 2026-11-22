@@ -255,3 +255,9 @@ Parser JSON do hub, importação do panorama, projeção/clipping dos dois alvos
 - Inventário estático de 22 caminhos numéricos, relatórios Markdown/CSV/JSON e cortes de migração com testes futuros.
 - Separados pontos de gameplay, percentuais, AP, contadores, créditos, IO e geometria; save v1 não contém HP.
 - Código e fórmulas preservados; nenhuma compilação, teste, interface ou Android executado. Próximo SIS-02-B.
+
+## 2026-11-22 — necessidades de entregas reconciliadas
+
+- Atualizados central, doze guias, controle e modelo com pendências/materiais por área após AUT/SIS-02-A.
+- Perguntas já respondidas não são reabertas; guias antigos recolhidos como histórico e estados anteriores do controle preservados.
+- Sem alteração dos recebidos, mídias, código ou inventário de recebimento; próxima etapa SIS-02-B segue independente de nova pesquisa.

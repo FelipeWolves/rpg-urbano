@@ -1,3 +1,29 @@
+# Central de entregas — estado vigente
+
+Atualizado em **22/11/2026**. Comece pelo [quadro de necessidades atuais](NECESSIDADES-ATUAIS.md): cada uma das 12 áreas agora separa o que já foi recebido, o que você pode adiantar, o trabalho do desenvolvimento e os aceites pendentes.
+
+**Próximo código: SIS-02-B, aritmética segura. Não depende de nova pesquisa sua.** AUT-01–16 tiveram entregas em escopos próprios; isso não encerra legendas/mixer/aceites, animações finais, pacote Shipping ou mobile. [Ordem principal reconciliada](../docs/projeto/ORDEM-EXECUCAO-POS-AUT.md).
+
+## Prioridade prática para suas entregas
+
+1. Segunda conferência do clique inicial em Rever abertura e testes pequenos dos controles novos. Estado atual: **aparentemente correto / REVER**.
+2. Legendas ou indicação de ausência de fala; textos finais do piloto/tutorial. Vídeos e narrativa já recebidos não precisam ser reenviados.
+3. Uma amostra de personagem/rig/cena e áudio próprio, quando disponíveis; produção extensa espera integração/orçamento.
+4. Somente fórmulas/variações ainda abertas, com exemplo/fonte/versão; não repetir ENT, StandardShield, A2, Block ou ACC/RESIST já respondidos.
+
+## Navegação e preservação
+
+- [Necessidades por grupo e links dos guias](NECESSIDADES-ATUAIS.md)
+- [Controle atualizado por área](CONTROLE.csv) — não é aprovação automática dos materiais nem inventário novo de arquivos.
+- [Modelo de entrega](MODELO-ENTREGA.md)
+- Coloque material em **NN-area/recebidos/**; se não souber a área, use **00-entrada-geral/recebidos/**. Revisões devem ter versão nova e citar o que substituem, sem apagar originais.
+- Não mover/reenviar mídias já existentes. Arquivos recebidos ficaram intactos nesta atualização; imagens/vídeos continuam fora do Git e precisam de backup próprio.
+
+O histórico abaixo é preservado; suas prioridades e perguntas antigas não devem ser preenchidas novamente quando já respondidas. Não houve nova implementação/teste, revisão integral dos recebidos, internet, tela ou Android nesta atualização.
+
+<details>
+<summary>Central anterior — histórico de recebimento e orientações substituídas</summary>
+
 > **Entrega concluída:** [projeto Unreal estável e guia de abertura](../docs/projeto/UNREAL-PROJETO-ESTAVEL.md). Controle de tela encerrado por solicitação; nova interação com o editor exige nova liberação. Atualização documental/Git apenas após essa solicitação.
 
 > **Estado vigente — 21/11/2026:** [consolidação das 15 entregas e decisões posteriores](../docs/projeto/CONSOLIDACAO-2026-11-21.md). ENG-ESTAVEL concluído no Windows local: projeto fixo, mapa próprio, abertura/reabertura e Play observados. Próximo: AUT-01–04. ESC comum e seletor já aceitos não são reabertos. Android SDK/NDK/JDK localizados e boot do AVD confirmado pelo usuário; caminhos já persistem, mas ValidatePlatforms retorna Android INVALID r27c; diagnóstico e APK pendentes. Percentuais recalculados no painel de progresso. As notas datadas abaixo preservam histórico e não reabrem decisões substituídas.
@@ -66,3 +92,5 @@ Recebimento final em20/11/2026: documento de Distribuição, Serviços e Direito
 Adendo20/11: respostasENT-01–15 recebidas e estudadas no grupo00;13 originais locais ao todo. [Decisões consolidadas](../docs/projeto/RESPOSTAS-ENT-2026-11-20.md). Não editar documentos antigos para apagar alternativas:adendo prevalece nos pontos respondidos;implementação ainda pendente.
 
 Novo adendo técnico20/11 estudado no grupo00;14originais locais registrados. [Consolidação](../docs/projeto/ADENDO-TECNICO-CONTRATOS-2026-11-20.md). Sem edição dos originais nem implementação;originais permanecem fora do Git.
+
+</details>

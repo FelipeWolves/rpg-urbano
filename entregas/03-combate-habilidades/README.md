@@ -1,3 +1,34 @@
+# Core, habilidades e fórmulas — guia vigente
+
+Atualizado em **22/11/2026**. Prioridade: **P1 técnico — SIS-02-B primeiro**. Este guia substitui as perguntas antigas nos temas já respondidos; o histórico abaixo fica apenas para referência.
+
+## Já recebido ou definido — não reenviar
+
+StandardShield, R04, regras de A2 do Felipe, Block por hit, ACC/RESIST e ponto fixo já têm decisões recebidas. SIS-02-A concluído; migração ainda não feita.
+
+## O que você pode adiantar agora
+
+- [ ] Não repetir chance de Block, destino/desempate do escudo da A2, contagem multi-hit, teto numérico ou arredondamento já fechados.
+- [ ] Se reunir fórmulas ainda não fechadas, especialmente DEF/cura, informar entradas, ordem, exceções e exemplo numérico; separar referência externa de regra desejada.
+- [ ] Para habilidade fora do recorte conhecido, fornecer somente a ficha nova/delta: alvo, gatilho, duração/relógio, recarga, limites e exemplo. Felipe continua o piloto; não é preciso produzir elenco inteiro.
+
+## Trabalho do desenvolvimento — não precisa virar pesquisa sua
+
+SIS-02-B aritmética → C migração → REG outcomes/RNG/funil/controles → A2. Não há novo material obrigatório para iniciar B.
+
+## Testes e aceites ainda pendentes
+
+Implementação das regras ampliadas e determinismo cross-platform ainda pendentes. Conhecer a regra não é validá-la no código.
+
+## Onde entregar
+
+Use **recebidos/** deste grupo; para revisão, crie versão nova e cite o arquivo substituído sem apagar o original. Informe ID/versão, finalidade, o que mudou, fonte/autoria e resultado esperado quando cabível. Entrega parcial é válida e não autoriza implementação, instalação ou execução automática.
+
+[Resumo de necessidades](../NECESSIDADES-ATUAIS.md) · [Ordem de execução](../../docs/projeto/ORDEM-EXECUCAO-POS-AUT.md) · [Mapa SIS-02-A](../../docs/projeto/SIS-02-A-MAPA-NUMERICO.md) · [Modelo](../MODELO-ENTREGA.md)
+
+<details>
+<summary>Guia anterior — histórico; não preencher novamente o que já foi respondido</summary>
+
 > **Revisão 21/11/2026:** materiais recebidos desta área reconciliados na [consolidação vigente](../../docs/projeto/CONSOLIDACAO-2026-11-21.md). Não reenviar respostas ENT já fechadas. Novos arquivos finais podem continuar em recebidos; implementação e testes permanecem separados. Prioridade atual: abertura padrão Unreal; depois fila AUT.
 
 # Core, habilidades, efeitos e fórmulas
@@ -30,3 +61,5 @@ Fichas e pesquisa independem de cena final. Não ampliar catálogo inteiro antes
 Coloque documentos/imagens/vídeos desta área em **recebidos/**, nesta pasta. Pode entregar parcialmente; use NÃO SEI / PROPOSTA / REFERÊNCIA / DECISÃO DESEJADA. Copie o modelo geral se ajudar. Não sobrescreva versões anteriores. Desde21/11,Markdown recebido é versionado por autorização do usuário; imagens/vídeos ficam locais, fora doGit.
 
 [Instruções gerais](../README.md) · [Modelo](../MODELO-ENTREGA.md) · [Pendências vigentes](../../docs/projeto/PENDENCIAS.md).
+
+</details>

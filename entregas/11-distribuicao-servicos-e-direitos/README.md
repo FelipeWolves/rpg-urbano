@@ -1,3 +1,34 @@
+# Distribuição, serviços e direitos — guia vigente
+
+Atualizado em **22/11/2026**. Prioridade: **P3 — posterior ao recorte local**. Este guia substitui as perguntas antigas nos temas já respondidos; o histórico abaixo fica apenas para referência.
+
+## Já recebido ou definido — não reenviar
+
+Direção Windows, Android e iOS posterior já foi recebida. AUT-15 preparou stage, não um executável novo aceito. Steam/loja não substitui backend de vídeo.
+
+## O que você pode adiantar agora
+
+- [ ] Somente novidades de escopo de publicação/serviços, público/idiomas e requisitos: descrever função/dados necessários, sem escolher fornecedor/plugin automaticamente.
+- [ ] Complementar autoria/licença/restrições dos recursos finais; não enviar documentos pessoais, senhas, certificados privados ou tokens.
+- [ ] Pesquisa externa futura: trazer fonte oficial/data/versão e impacto de requisitos de loja/plataforma; não instalar nem abrir contas por isso.
+
+## Trabalho do desenvolvimento — não precisa virar pesquisa sua
+
+Build/cook/Shipping, Windows limpo e serviços só nas etapas autorizadas; manter ausência de conta/cloud como escopo do laboratório atual, sem inferir política comercial final.
+
+## Testes e aceites ainda pendentes
+
+Distribuição, serviços online, loja, direitos finais e desempenho não são aprovados pelo stage verificado.
+
+## Onde entregar
+
+Use **recebidos/** deste grupo; para revisão, crie versão nova e cite o arquivo substituído sem apagar o original. Informe ID/versão, finalidade, o que mudou, fonte/autoria e resultado esperado quando cabível. Entrega parcial é válida e não autoriza implementação, instalação ou execução automática.
+
+[Resumo de necessidades](../NECESSIDADES-ATUAIS.md) · [Ordem de execução](../../docs/projeto/ORDEM-EXECUCAO-POS-AUT.md) · [Mapa SIS-02-A](../../docs/projeto/SIS-02-A-MAPA-NUMERICO.md) · [Modelo](../MODELO-ENTREGA.md)
+
+<details>
+<summary>Guia anterior — histórico; não preencher novamente o que já foi respondido</summary>
+
 > **Revisão 21/11/2026:** materiais recebidos desta área reconciliados na [consolidação vigente](../../docs/projeto/CONSOLIDACAO-2026-11-21.md). Não reenviar respostas ENT já fechadas. Novos arquivos finais podem continuar em recebidos; implementação e testes permanecem separados. Prioridade atual: abertura padrão Unreal; depois fila AUT.
 
 # Distribuição, serviços e direitos
@@ -28,3 +59,5 @@ Inventário de decisões pode chegar agora; publicação exige produto/contas/au
 Coloque documentos/imagens/vídeos desta área em **recebidos/**, nesta pasta. Pode entregar parcialmente; use NÃO SEI / PROPOSTA / REFERÊNCIA / DECISÃO DESEJADA. Copie o modelo geral se ajudar. Não sobrescreva versões anteriores. Desde21/11,Markdown recebido é versionado por autorização do usuário; imagens/vídeos ficam locais, fora doGit.
 
 [Instruções gerais](../README.md) · [Modelo](../MODELO-ENTREGA.md) · [Pendências vigentes](../../docs/projeto/PENDENCIAS.md).
+
+</details>

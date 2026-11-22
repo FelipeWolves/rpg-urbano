@@ -13,14 +13,14 @@ $run=Join-Path $packageRoot ([Guid]::NewGuid().ToString('N').Substring(0,8))
 $stage=Join-Path $run 'RpgEngineProbe'
 $boundary=[IO.Path]::GetFullPath($packageRoot)+[IO.Path]::DirectorySeparatorChar
 if(![IO.Path]::GetFullPath($stage).StartsWith($boundary,[StringComparison]::OrdinalIgnoreCase)){throw 'Invalid package staging boundary'}
-$files=@('RpgEngineProbe.uproject','Source/RpgEngineProbeEditor.Target.cs','Source/RpgEngineProbe.Target.cs','Source/RpgEngineProbe/RpgEngineProbe.Build.cs','Source/RpgEngineProbe/RpgEngineProbe.cpp','Source/RpgEngineProbe/ProbeArena.h','Source/RpgEngineProbe/ProbeArena.cpp','Source/RpgEngineProbe/ProbeHub.cpp','Source/RpgEngineProbe/CoreProbe.h','Source/RpgEngineProbe/CoreProbe.cpp','Source/RpgEngineProbe/RpgCoreProbeCommandlet.h','Source/RpgEngineProbe/RpgCoreProbeCommandlet.cpp','Config/DefaultEngine.ini','Config/DefaultEditorSettings.ini','Config/DefaultGame.ini','Content/PrototypeHub.umap')
+$files=@('RpgEngineProbe.uproject','Source/RpgEngineProbeEditor.Target.cs','Source/RpgEngineProbe.Target.cs','Source/RpgEngineProbe/RpgEngineProbe.Build.cs','Source/RpgEngineProbe/RpgEngineProbe.cpp','Source/RpgEngineProbe/ProbeArena.h','Source/RpgEngineProbe/ProbeArena.cpp','Source/RpgEngineProbe/ProbeHub.cpp','Source/RpgEngineProbe/ProbeMedia.cpp','Source/RpgEngineProbe/CoreProbe.h','Source/RpgEngineProbe/CoreProbe.cpp','Source/RpgEngineProbe/RpgCoreProbeCommandlet.h','Source/RpgEngineProbe/RpgCoreProbeCommandlet.cpp','Config/DefaultEngine.ini','Config/DefaultEditorSettings.ini','Config/DefaultGame.ini','Content/PrototypeHub.umap')
 $manifest=@()
 foreach($file in $files){$manifest+=@{Original=('experiments/unreal/RpgEngineProbe/'+$file);StagedRelative=$file}}
 foreach($name in @('battle','ability_profile','local_session','team_selection','save_game','reference_encounter','visual_session','arena_layout','battle_presentation','startup_presentation','hub_style')){
     $manifest+=@{Original="src/$name.cpp";StagedRelative="Source/RpgEngineProbe/Private/NativeCore/$name.cpp"}
     $manifest+=@{Original="include/rpg/$name.hpp";StagedRelative="Source/RpgEngineProbe/Public/NativeCore/rpg/$name.hpp"}
 }
-# Local hub presentation resources; videos and editable originals are not copied.
+# Local hub resources and the two authored intro variants; editable originals remain excluded.
 & (Join-Path $PSScriptRoot 'validar-identidade-hub.ps1') | Out-Null
 $hubCatalog=Get-Content -LiteralPath (Join-Path $root 'data/presentation/startup.json') -Raw | ConvertFrom-Json
 $hubAssets=@($hubCatalog.assets | Where-Object role -eq 'HubPanorama')
@@ -34,6 +34,7 @@ $manifest+=@{Original=$hubPath;StagedRelative=('Content/Presentation/'+$hubPath)
 foreach($resource in @('assets/runtime/hub/logo-lobo.png','assets/runtime/fonts/CormorantGaramond.ttf','assets/runtime/fonts/CormorantGaramond-OFL.txt','assets/runtime/fonts/Lora.ttf','assets/runtime/fonts/Lora-OFL.txt')){
     $manifest+=@{Original=$resource;StagedRelative=('Content/Presentation/'+$resource)}
 }
+foreach($resource in @('assets/runtime/video/intro-desk.mp4','assets/runtime/video/intro-mobile.mp4')){$manifest+=@{Original=$resource;StagedRelative=('Content/Presentation/'+$resource)}}
 # Validate all inputs before staging; no generated source is treated as canonical.
 foreach($item in $manifest){if(!(Test-Path -LiteralPath (Join-Path $root $item.Original) -PathType Leaf)){throw 'Missing canonical input'}}
 foreach($item in $manifest){
@@ -51,5 +52,3 @@ $planPath=Join-Path $run 'package-plan.json'
 $plan | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath $planPath -Encoding utf8
 [ordered]@{CheckedUtc=[DateTime]::UtcNow.ToString('o');Status='prepared_not_built';EngineVersion='5.8.4';EngineChangelist=$version.Changelist;Stage=$stage;Archive=$archive;Plan=$planPath;Target='RpgEngineProbe';Platform='Win64';Configuration='Development';Map='/Game/PrototypeHub';SourceManifest=$manifest;BuildExecuted=$false;CookExecuted=$false;EditorOpened=$false;PackageValidated=$false;NetworkChanged=$false;ProductPortugueseLocalizationValidated=$false} | ConvertTo-Json -Depth 7 | Set-Content -LiteralPath (Join-Path $root 'docs/relatorios/atuais/ENG-01-PACOTE-PREPARACAO.json') -Encoding utf8
 Write-Output "PACKAGE_PREPARED_ONLY inputs=$($manifest.Count) plan=$planPath"
-
-

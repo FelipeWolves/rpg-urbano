@@ -200,3 +200,9 @@ Parser JSON do hub, importação do panorama, projeção/clipping dos dois alvos
 - Contrato puro de mídia local: preparação, reprodução lógica, pausa, conclusão, skip, falha e cancelamento; callbacks identificados e fallback ao hub.
 - Regras recebidas de hold 800 ms, rever imediato e retomada pausada; reaproveitamento da geometria de vídeo. Sem player/interface nova; integração no AUT-11.
 - 94 grupos de apresentação aprovados, incluindo 12 novos; nenhuma tela ou Android acessados.
+
+## 2026-11-22 — AUT-11 parcial
+
+- Ensaio manual Rever abertura no hub; backend local instalado de mídia/áudio, pausa/skip/fallback, flag por variante e limpeza de recursos.
+- Compilação aprovada após correção de linker. Vídeos copiados somente ao runtime ignorado e manifesto atualizado; originais preservados.
+- Sem execução de player/telas/Android. Aceite de reprodução, legendas, mixer, arte lateral e autoabertura ainda pendentes.

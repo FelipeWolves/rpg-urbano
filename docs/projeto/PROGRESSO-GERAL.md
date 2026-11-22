@@ -60,3 +60,7 @@ Equipe, resumo de resultado e adaptador de save implementados/compilados; 64 gru
 ## AUT-10 — 22/11/2026
 
 Contrato de mídia local implementado e testado (12 grupos novos; 94 de apresentação no total desta bateria). Sem reprodução ou alteração visual. Percentuais mantidos, incluindo estimativa ponderada de 22,09% da demo. Próximo: AUT-11, backend e integração. Ver AUT-10-MIDIA-LOCAL.md.
+
+## AUT-11 — 22/11/2026
+
+Ensaio manual de player local compilado, sem reprodução observada. Flag, codecs, áudio, legendas/mixer e aceites continuam pendentes. Estimativa mantida em 22,09% da demo; integração compilada não recebe aceite de mídia. Ver AUT-11-PLAYER-LOCAL.md.

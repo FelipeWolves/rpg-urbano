@@ -121,6 +121,7 @@ void AProbeArenaHUD::DrawHUD()
 {
     Super::DrawHUD();if(!Canvas || !PlayerOwner){return;}
     ReadPointer();
+    if(IntroActive){DrawIntro();return;}
     if(!InspectionMode && Session.state().combat.battle.phase==rpg::Phase::Finished){Flow.finish();}
     if(!InspectionMode && PlayerOwner->WasInputKeyJustPressed(EKeys::Escape)){HandleBack();return;}
     if(HubEnabled && Flow.in_hub()){DrawHub();return;}

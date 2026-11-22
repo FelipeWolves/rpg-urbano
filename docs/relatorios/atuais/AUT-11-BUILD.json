@@ -1,0 +1,35 @@
+{
+  "Date": "2026-11-22",
+  "Compiled": true,
+  "ExitCode": 0,
+  "BuildActions": 7,
+  "Log": "build/aut11-build-final.log",
+  "ReusedNativeContractGroups": 12,
+  "NewPlayerTests": 0,
+  "PlaybackExecuted": false,
+  "EditorOpened": false,
+  "ScreenControlUsed": false,
+  "AndroidExecuted": false,
+  "PlayerFlagWritten": false,
+  "MediaCopies": [
+    {
+      "Bytes": 184788524,
+      "Name": "intro-desk.mp4"
+    },
+    {
+      "Bytes": 33907001,
+      "Name": "intro-mobile.mp4"
+    }
+  ],
+  "ProductAccepted": false,
+  "AutoplayEnabled": false,
+  "Pending": [
+    "Playback/codec/audio acceptance",
+    "Subtitles",
+    "Master/media volume integration",
+    "Side art and narrow layout",
+    "Watched file persistence acceptance",
+    "First-launch autoplay after acceptance",
+    "Platform orientation and packaging"
+  ]
+}

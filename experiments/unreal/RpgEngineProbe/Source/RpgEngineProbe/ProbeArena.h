@@ -14,6 +14,7 @@ public:
     AProbeArenaHUD();
     virtual void DrawHUD() override;
     virtual void BeginPlay() override;
+    virtual void EndPlay(const EEndPlayReason::Type reason) override;
 private:
     rpg::presentation::VisualSession Session;
     UPROPERTY(Transient)
@@ -21,6 +22,20 @@ private:
     UPROPERTY(Transient) TObjectPtr<UTexture2D> HubLogo=nullptr;
     UPROPERTY(Transient) TObjectPtr<UFont> HubTitleFont=nullptr;
     UPROPERTY(Transient) TObjectPtr<UFont> HubBodyFont=nullptr;
+    UPROPERTY(Transient) TObjectPtr<class UMediaPlayer> IntroPlayer=nullptr;
+    UPROPERTY(Transient) TObjectPtr<class UMediaTexture> IntroTexture=nullptr;
+    UPROPERTY(Transient) TObjectPtr<class UMediaSoundComponent> IntroSound=nullptr;
+    rpg::presentation::MediaFlow IntroFlow;
+    uint64 IntroTicket=0;
+    double IntroStarted=0,IntroHold=-1;
+    bool IntroActive=false;
+    FString IntroWatchPath;
+    void StartIntro();
+    void DrawIntro();
+    void StopIntro();
+    void IntroDeactivate();
+    void IntroReactivate();
+    UFUNCTION() void IntroEnded();
     bool HubEnabled=false;
     rpg::presentation::ScreenFlow Flow;
 
@@ -95,4 +110,5 @@ class RPGENGINEPROBE_API AProbeArenaMode : public AGameModeBase
 public:
     AProbeArenaMode();
     virtual void BeginPlay() override;
+
 };

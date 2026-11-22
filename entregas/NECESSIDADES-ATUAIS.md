@@ -10,7 +10,7 @@
 4. **10 e 06 Conteúdo:** roteiro curto do piloto e indicação de fala/legendas.
 5. **11 Direitos:** procedência por recurso; resolver/substituir logo externa antes de uso final.
 
-Nenhum item acima bloqueia meu próximo corte LAB-PVE-01: adaptadores e HUD com dados existentes. Ritual, ondas/fases, score e sequências podem avançar com placeholders. Save/reabertura, tutorial e telas novas precisam de seu aceite depois de preparados; não exigem que você crie arte.
+LAB-PVE-01 (observação/HUD) já foi entregue em código. Nenhum item acima bloqueia meu próximo corte LAB-PVE-02: Ritual no Terminal com dados existentes. Ritual, ondas/fases, score e sequências podem avançar com placeholders. Save/reabertura, tutorial e telas novas precisam de seu aceite depois de preparados; não exigem que você crie arte.
 
 ## Quadro por grupo
 

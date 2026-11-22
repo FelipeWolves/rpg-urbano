@@ -1,3 +1,5 @@
+> **LAB-PVE-01 entregue — 22/11:** snapshot PvE e contrato HUD implementados, Hud10/Pve7/Phases11 e build/stage66 aprovados. Próximo LAB-PVE-02 Ritual no Terminal. Não duplicar combate nem inferir encerramento só por Battle.phase; Survival pode encerrar encontro com Battle Running. Sem novo botão ou aceite visual nesta etapa; ~28% mantido.
+
 > **Fila vigente — 22/11, revisão de progresso:** demo ~28% (28,03 ponderado); priorizar LAB-PVE-01–06 em docs/projeto/FILA-DESENVOLVIMENTO-INDEPENDENTE.md. Clique/vídeo/placeholder/seletor aceitos no recorte Windows; não reabrir por rotina. Separar implementação independente, material do usuário e aceite posterior. Guias atuais prevalecem sobre sugestões históricas de reiniciar AUT/SIS. Android/MCP/clássico ampliado adiados; sem telas por inferência.
 
 > **Diretriz vigente — 22/11:** [base comum dos laboratórios](docs/projeto/BASE-COMUM-LABORATORIOS.md). Terminal e Felipe compartilham regras Team e limite de 200 ações/empate; personagens mantêm kits/atributos próprios. Modo clássico fora desta frente. Ajustes visuais de fe6060b aceitos pelo usuário; não reabrir por rotina.

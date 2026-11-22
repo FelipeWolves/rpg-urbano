@@ -1,3 +1,5 @@
+> **22/11 — desenvolvimento:** LAB-PVE-01 entregue em código; próximo Ritual no Terminal (LAB-PVE-02) sem esperar ficha final/arte. Sua ficha de encontro poderá substituir os valores provisórios depois. Nenhuma nova tela disponível nesta etapa.
+
 # Modos e encontros — guia vigente
 
 Atualizado em **22/11/2026**. Demo **~28%**. Sua preparação e o desenvolvimento são frentes paralelas: entregar amostras é suficiente; nada aqui pede para refazer material já definido.

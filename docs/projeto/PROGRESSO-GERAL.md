@@ -1,3 +1,5 @@
+> **22/11 — LAB-PVE-01:** snapshot de encontro e contrato de HUD implementados/testados; mapeamento das demais pontes documentado. Sem novas telas ou aceite visual, percentuais mantidos. Próximo LAB-PVE-02. [Entrega](LAB-PVE-01-CONTRATO-HUD.md).
+
 # Progresso geral do projeto
 
 Atualizado em **22/11/2026**, após os aceites visuais de fe6060b e alinhamento e1197d5.

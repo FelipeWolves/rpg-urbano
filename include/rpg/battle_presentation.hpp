@@ -1,6 +1,26 @@
 #pragma once
 #include "rpg/visual_session.hpp"
+#include "rpg/pve.hpp"
 namespace rpg::presentation {
+struct PveCounter {
+ std::uint64_t completed;
+ std::optional<std::uint64_t> goal;
+ bool operator==(const PveCounter&) const=default;
+};
+// Read-only HUD model, never a reward grant or permission to bypass command validation.
+struct PveHud {
+ std::string encounter_id,attempt_id,boss_id,mode_label,objective_label,status_label;
+ std::optional<std::string> phase_id;
+ numeric::Quantity boss_health,boss_max_health;
+ PveCounter actions,boss_turns;
+ TickPolicy boss_turn_clock;
+ std::optional<std::uint64_t> remaining_actions;
+ std::optional<numeric::Quantity> score;
+ bool encounter_finished,objective_met,commands_open;
+ std::optional<PveEnd> end;
+ bool operator==(const PveHud&) const=default;
+};
+[[nodiscard]] PveHud pve_hud(const PveSnapshot& snapshot);
 enum class AbilityBadge { Ready, Cooldown, Passive, Locked, Unavailable };
 struct AbilityCard {
     std::string kind;

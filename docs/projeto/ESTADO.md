@@ -1,3 +1,5 @@
+> **LAB-PVE-01 entregue — 22/11:** [observação e contrato de HUD](LAB-PVE-01-CONTRATO-HUD.md), sem nova tela/rota habilitada. Próximo: **LAB-PVE-02, Ritual no Terminal**; não depende de nova entrega. Demais itens da fila continuam planejados. Progresso global ~28% mantido.
+
 # Estado vigente do projeto
 
 22/11/2026. **Demo ~28% (26–30%; ponderado 28,03%).** Ver PROGRESSO-GERAL.md para pesos e limites.

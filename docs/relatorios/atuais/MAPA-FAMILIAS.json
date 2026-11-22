@@ -1,13 +1,13 @@
 {
   "date": "2026-11-22",
-  "purpose": "Reconciliation of implemented scope and user acceptances; no new gameplay",
+  "purpose": "LAB-PVE-01 read-only snapshot and HUD contract delivered; no new visible mode",
   "global_demo_estimate": 28,
   "global_range": [
     26,
     30
   ],
   "family_estimates_not_additive": true,
-  "new_completion_credit": true,
+  "new_completion_credit": false,
   "families": [
     {
       "sigla": "VIS",
@@ -279,10 +279,12 @@
     "AUT": "cross-family queue; no additive percent",
     "PESQ": "research; no fixed denominator"
   },
-  "implementation_started": false,
-  "tests_run": false,
+  "implementation_started": true,
+  "tests_run": true,
   "engine_opened": false,
   "android_used": false,
   "internet_used": false,
-  "snapshot_scope": "Planning update only; implementation_started/tests_run describe this documentation turn, not cumulative project history"
+  "snapshot_scope": "Latest technical delivery LAB-PVE-01; family estimates unchanged pending integration",
+  "latest_delivery": "LAB-PVE-01",
+  "next_delivery": "LAB-PVE-02"
 }

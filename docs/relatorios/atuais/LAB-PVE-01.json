@@ -1,0 +1,22 @@
+{
+  "Date": "2026-11-22",
+  "Block": "LAB-PVE-01",
+  "Status": "implemented and verified, no visible integration yet",
+  "HudGroups": 10,
+  "PveRegressionGroups": 7,
+  "PhaseRegressionGroups": 11,
+  "Build": "Succeeded",
+  "BuildSeconds": 61.27,
+  "StageInputs": 66,
+  "StageVerified": true,
+  "EditorOpened": false,
+  "GameExecuted": false,
+  "AndroidExecuted": false,
+  "InternetUsed": false,
+  "NewTerminalRouteEnabled": false,
+  "GameplayRulesChanged": false,
+  "GlobalPercentUnchanged": 28,
+  "Next": "LAB-PVE-02 Ritual in Terminal",
+  "RequiredNewUserDeliveries": [],
+  "UserVisualAcceptanceRequiredNow": false
+}

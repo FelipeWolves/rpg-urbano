@@ -22,6 +22,21 @@ struct PveDefinition {
  std::optional<PveTurnCycle> turn_cycle;
  std::vector<std::string> reserve_summons;
 };
+// Immutable observation: encounter completion may precede Battle::Finished (Survival).
+struct PveSnapshot {
+ std::string encounter_id,attempt_id,boss_id;
+ PveMode mode;
+ Snapshot battle;
+ std::optional<std::string> phase_id;
+ std::uint64_t boss_turns;
+ std::optional<std::uint64_t> boss_turn_goal;
+ TickPolicy boss_turn_clock;
+ std::optional<std::uint64_t> remaining_actions;
+ std::optional<numeric::Quantity> score;
+ bool finished,objective_met;
+ std::optional<PveEnd> end;
+ bool operator==(const PveSnapshot&) const=default;
+};
 struct PveActionResult {
  ActionResult action;
  bool attempt_finished=false,objective_met=false;
@@ -33,6 +48,7 @@ class PveEncounter {
 public:
  PveEncounter(PveDefinition definition,ScoreLedger& ledger);
  [[nodiscard]] const Battle& battle()const noexcept{return *battle_;}
+ [[nodiscard]] PveSnapshot snapshot()const;
  [[nodiscard]] bool finished()const noexcept{return end_.has_value();}
  [[nodiscard]] std::optional<PveEnd> end_reason()const noexcept{return end_;}
  [[nodiscard]] std::uint64_t boss_turns()const noexcept{return boss_turns_;}
@@ -41,7 +57,7 @@ public:
 private:
  PveDefinition definition_;ScoreLedger* ledger_;ScoreAccumulator score_;std::optional<Battle> battle_;
  std::optional<PveEnd> end_;std::uint64_t boss_turns_=0;bool objective_=false;
- std::size_t next_phase_=0;std::uint64_t cycle_steps_=0;
+ std::size_t next_phase_=0;std::uint64_t cycle_steps_=0;std::optional<std::string> phase_id_;
  void update_phases(std::vector<PvePhaseEvent>& events);
  [[nodiscard]] bool alive()const;
  void finish(PveEnd reason,bool objective);

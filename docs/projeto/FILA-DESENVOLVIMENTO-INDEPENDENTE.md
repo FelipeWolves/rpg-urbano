@@ -1,3 +1,5 @@
+> **LAB-PVE-01 entregue — 22/11:** [observação e contrato de HUD](LAB-PVE-01-CONTRATO-HUD.md), sem nova tela/rota habilitada. Próximo: **LAB-PVE-02, Ritual no Terminal**; não depende de nova entrega. Demais itens da fila continuam planejados. Progresso global ~28% mantido.
+
 # Fila de desenvolvimento independente das entregas
 
 22/11/2026. Planejamento vigente, sem executar os itens nesta revisão. Não espera arte, áudio ou pesquisa adicionais para os cortes abaixo. Cada entrega segue código → teste pertinente → compile se aplicável → documentação/commit → aceite visual posterior. Sem processo autônomo em segundo plano.

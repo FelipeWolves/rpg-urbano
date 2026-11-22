@@ -3,6 +3,29 @@
 #include <cmath>
 #include <stdexcept>
 namespace rpg::presentation {
+PveHud pve_hud(const PveSnapshot& s){
+ const auto boss=std::ranges::find(s.battle.fighters,s.boss_id,[](const Fighter& f){return f.definition.id;});
+ if(boss==s.battle.fighters.end() || boss->definition.team!=Team::B || s.finished!=s.end.has_value()){
+  throw std::invalid_argument("Invalid PvE observation");
+ }
+ std::string mode,objective,status="Em andamento";
+ switch(s.mode){
+  case PveMode::Ritual:mode="Ritual";objective="Derrotar o chefe";break;
+  case PveMode::ScoreAttack:mode="Ataque por pontuacao";objective="Acumular dano na janela de acoes";break;
+  case PveMode::Survival:mode="Sobrevivencia";objective="Sobreviver aos turnos do chefe";break;
+  default:throw std::invalid_argument("Unknown PvE presentation mode");
+ }
+ if(s.end){switch(*s.end){
+  case PveEnd::BossDefeated:status=s.objective_met?"Objetivo concluido":"Chefe derrotado; tentativa encerrada";break;
+  case PveEnd::TeamDefeated:status="Equipe derrotada";break;
+  case PveEnd::WindowClosed:status=s.mode==PveMode::ScoreAttack?"Janela de pontuacao encerrada":"Limite de acoes atingido";break;
+  case PveEnd::SurvivalReached:status=s.objective_met?"Sobrevivencia concluida":"Sobrevivencia encerrada";break;
+  case PveEnd::TechnicalLimit:status="Interrupcao por limite tecnico";break;
+ }}
+ const auto goal=s.battle.rules.action_budget?std::optional<std::uint64_t>{static_cast<std::uint64_t>(s.battle.rules.action_budget->max_actions)}:std::nullopt;
+ return {s.encounter_id,s.attempt_id,s.boss_id,std::move(mode),std::move(objective),std::move(status),s.phase_id,boss->health,boss->definition.max_health,
+  {s.battle.accepted_actions,goal},{s.boss_turns,s.boss_turn_goal},s.boss_turn_clock,s.remaining_actions,s.score,s.finished,s.objective_met,!s.finished&&s.battle.phase==Phase::Running,s.end};
+}
 AbilityCard ability_card(const VisualState& state,std::uint32_t position){
     AbilityCard card{"HABILIDADE","Indisponível","Esta posição não possui habilidade."};
     const auto found=std::ranges::find(state.abilities,position,[](const AbilityView& a){return a.slot.position;});

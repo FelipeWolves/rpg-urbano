@@ -96,7 +96,8 @@
   ],
   "latest_verified_commit": "e1197d5",
   "user_acceptance": "fe6060b visual accepted, e1197d5 shared rules native/build verified",
-  "documentation_only_this_update": true,
+  "documentation_only_this_update": false,
   "android_used": false,
-  "engine_opened": false
+  "engine_opened": false,
+  "latest_technical_report": "LAB-PVE-01.json; estimates unchanged"
 }

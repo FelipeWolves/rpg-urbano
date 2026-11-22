@@ -26,16 +26,20 @@ PveEncounter::PveEncounter(PveDefinition definition,ScoreLedger& ledger):definit
     (p.trigger==PvePhaseTrigger::HealthThreshold&&p.threshold>=10000)){throw std::invalid_argument("Invalid phase trigger");}if(p.trigger==PvePhaseTrigger::HealthThreshold){if(p.threshold>=last_hp){throw std::invalid_argument("HP thresholds must descend");}last_hp=p.threshold;}else{if(p.threshold<=last_turn){throw std::invalid_argument("Turn thresholds must ascend");}last_turn=p.threshold;}phases.push_back(p.id);auto mutation=p.mutation;for(const auto& id:mutation.activate_summons){const auto* f=battle_->find(id);if(!f||f->definition.role!=EntityRole::Summon){throw std::invalid_argument("Invalid declared reserve");}}mutation.activate_summons.clear();static_cast<void>(phase_validation.transition_phase(definition_.boss_id,mutation));}
  if(definition_.turn_cycle){for(const auto& p:definition_.turn_cycle->states){if(p.first.empty()){throw std::invalid_argument("Empty cycle phase");}auto check=*battle_;static_cast<void>(check.transition_phase(definition_.boss_id,p.second));}}
 }
+PveSnapshot PveEncounter::snapshot()const{
+ return {definition_.id,definition_.attempt_id,definition_.boss_id,definition_.mode,battle_->snapshot(),phase_id_,boss_turns_,definition_.boss_turn_goal,definition_.boss_turn_clock,battle_->remaining_actions(),
+  (definition_.score_enabled||definition_.mode==PveMode::ScoreAttack)?std::optional<numeric::Quantity>{score()}:std::nullopt,finished(),objective_,end_};
+}
 void PveEncounter::update_phases(std::vector<PvePhaseEvent>& events){
  while(next_phase_<definition_.phases.size()){
   const auto& boss=*battle_->find(definition_.boss_id);
   const auto& p=definition_.phases[next_phase_];const bool ready=p.trigger==PvePhaseTrigger::HealthThreshold?
     numeric::compare_ratio(boss.health,boss.definition.max_health,static_cast<std::int64_t>(p.threshold),10000)<=0:boss_turns_>=p.threshold;
-  if(!ready){break;}events.push_back({p.id,battle_->transition_phase(definition_.boss_id,p.mutation)});++next_phase_;
+  if(!ready){break;}events.push_back({p.id,battle_->transition_phase(definition_.boss_id,p.mutation)});phase_id_=p.id;++next_phase_;
  }
  if(definition_.turn_cycle){
   const auto& cycle=*definition_.turn_cycle;const auto reached=boss_turns_/cycle.every;
-  while(cycle_steps_<reached){const auto& p=cycle.states[static_cast<std::size_t>(cycle_steps_%cycle.states.size())];events.push_back({p.first,battle_->transition_phase(definition_.boss_id,p.second)});++cycle_steps_;}
+  while(cycle_steps_<reached){const auto& p=cycle.states[static_cast<std::size_t>(cycle_steps_%cycle.states.size())];events.push_back({p.first,battle_->transition_phase(definition_.boss_id,p.second)});phase_id_=p.first;++cycle_steps_;}
  }
 }
 bool PveEncounter::alive()const{return std::ranges::any_of(battle_->fighters(),[](const Fighter& f){return f.definition.team==Team::A&&f.definition.role!=EntityRole::Summon&&f.health>0;});}

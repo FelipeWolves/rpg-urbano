@@ -1,3 +1,5 @@
+> **LAB-PVE-01 entregue — 22/11:** [observação e contrato de HUD](LAB-PVE-01-CONTRATO-HUD.md), sem nova tela/rota habilitada. Próximo: **LAB-PVE-02, Ritual no Terminal**; não depende de nova entrega. Demais itens da fila continuam planejados. Progresso global ~28% mantido.
+
 # Tarefas — quadro vigente
 
 22/11/2026. Demo ~28% (26–30%). Percentual não é quantidade de tarefas concluídas.
@@ -12,7 +14,7 @@
 
 ## Desenvolvimento sem nova entrega sua
 
-- [ ] LAB-PVE-01: mapear adaptadores e contrato de HUD/rotas.
+- [x] LAB-PVE-01: adaptadores mapeados, snapshot e contrato de HUD implementados/testados.
 - [ ] LAB-PVE-02: Ritual simples no Terminal e resultado/retorno.
 - [ ] LAB-PVE-03: onda/fase/transição.
 - [ ] LAB-PVE-04: score e sobrevivência.

@@ -1,0 +1,23 @@
+{
+  "Date": "2026-11-22",
+  "GeneralRegressionPassed": true,
+  "GeneralGroups": 245,
+  "MarkerGroups": 5,
+  "PilotGroups": 10,
+  "ScenarioSwitchGroups": 2,
+  "Build": "Succeeded",
+  "BuildSeconds": 52.14,
+  "StageInputs": 66,
+  "StageVerified": true,
+  "TerminalCombatModel": "FunnelV1",
+  "FelipeCombatModel": "FunnelV1",
+  "ClassicBaseline": "Legacy preserved",
+  "MarkerFallbackRadius": 75,
+  "VideoWatchScope": "module binary timestamp; executable fallback",
+  "EditorOpened": false,
+  "GameExecuted": false,
+  "AndroidExecuted": false,
+  "VisualRetest": "pending",
+  "CrashReproducedLocally": false,
+  "PersonalCrashIdentifiersStored": false
+}

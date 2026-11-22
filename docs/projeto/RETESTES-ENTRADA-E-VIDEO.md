@@ -1,3 +1,5 @@
+> **Correção vigente — 22/11:** [crash do marcador, placeholders, regras gerais do Terminal e vídeo por compilação](TERMINAL-MARCADOR-MIDIA-CORRECOES.md). Funil compartilhado com Felipe, geometria visual protegida e marca de vídeo vinculada ao binário. Reteste visual pendente; aceite dos cliques únicos preservado.
+
 # Retestes do usuário — entrada e vídeo
 
 Atualizado em 22/11/2026, após o teste de 2db703f no RpgEngineProbe.
@@ -7,7 +9,7 @@ Atualizado em 22/11/2026, após o teste de 2db703f no RpgEngineProbe.
 | RET-INPUT-01 | ACEITO no cenário testado | Usuário confirmou todos os cliques únicos, inclusive menus e batalha; inimigos selecionáveis com habilidades 1 e 2. Não representa todos os dispositivos/cenários |
 | RET-MEDIA-01 | ACEITO: abertura com 1 clique | Confirmado pelo usuário; backend mobile continua não validado |
 | RET-MEDIA-02 | PARCIAL | Hover confirmado. Skip imediato e ausência de barra observados; condizem com vídeo já marcado como assistido. Barra exige primeiro vídeo não assistido e segurar 800 ms. Essa condição ainda não foi confirmada visualmente |
-| RET-HUB-FELIPE | PENDENTE | Arena PvP → Testar Felipe (local); conferir A1 ativa, A2 passiva, A3 em área, volta ao hub e Terminal separado |
+| RET-HUB-FELIPE | REABERTO: crash relatado, correção em código | Arena PvP → Testar Felipe (local); conferir A1 ativa, A2 passiva, A3 em área, volta ao hub e Terminal separado |
 
 ## Esclarecimento do escudo no Terminal
 
@@ -19,4 +21,4 @@ Felipe é outro cenário: A1 Garra do Asfalto; A2 Postura de Vigília passiva, q
 
 ## Próximos retestes
 
-Preservar os aceites acima; reabrir somente se houver regressão concreta. Testar acesso novo e transições. Se necessário observar barra de skip em primeira exibição, preparar futuramente um modo de QA explícito para ignorar a marca de assistido, sem apagar o estado persistente do usuário. Nenhuma flag/save foi apagada nesta entrega. Android e controle de tela continuam fora do escopo.
+Preservar os aceites acima; reabrir somente se houver regressão concreta. Testar acesso novo e transições. Marca de assistido agora vinculada ao binário: primeira exibição após nova compilação deve mostrar a barra ao segurar. Ver TERMINAL-MARCADOR-MIDIA-CORRECOES.md. Nenhuma flag/save foi apagada nesta entrega. Android e controle de tela continuam fora do escopo.

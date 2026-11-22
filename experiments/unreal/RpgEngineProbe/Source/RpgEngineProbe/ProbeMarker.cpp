@@ -7,6 +7,7 @@ void AProbeArenaHUD::HideTargetMarker(){if(TargetMarkerActor){TargetMarkerActor-
 void AProbeArenaHUD::DestroyTargetMarker(){if(TargetMarkerActor){TargetMarkerActor->Destroy();}TargetMarkerActor=nullptr;TargetMarkerSegments=0;TargetMarkerRadius=0;}
 void AProbeArenaHUD::UpdateTargetMarker(FVector base,float radius,int32 segments){
     if(!TargetMarkerMesh || !GetWorld()){return;}
+    if(base.ContainsNaN() || !FMath::IsFinite(radius) || radius<=0 || radius>10000 || segments<3 || segments>64){HideTargetMarker();return;}
     if(!TargetMarkerActor || TargetMarkerSegments!=segments || !FMath::IsNearlyEqual(TargetMarkerRadius,radius)){
         DestroyTargetMarker();TargetMarkerActor=GetWorld()->SpawnActor<AActor>();if(!TargetMarkerActor){return;}
         TargetMarkerActor->SetOwner(this);

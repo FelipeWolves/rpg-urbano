@@ -4,8 +4,9 @@ namespace rpg {
 BattleRules text_reference_rules(){
     BattleRules rules;rules.timing=TimingProfile::ActionBar;rules.action_budget=ActionBudget{200,LimitOutcome::Draw};return rules;
 }
+BattleRules team_reference_rules(){auto rules=text_reference_rules();rules.combat_model=resolution::CombatModel::FunnelV1;rules.random_seed=20261122;return rules;}
 EncounterSetup team_reference_setup(){
-    auto roster=reference_roster();auto rules=text_reference_rules();std::vector<CharacterLoadout> sets;
+    auto roster=reference_roster();auto rules=team_reference_rules();std::vector<CharacterLoadout> sets;
     for(const auto& unit:roster){
         const auto basic=unit.id+"-basica",special=unit.id+"-especial",third=unit.id+"-terceira";
         rules.skills.push_back({basic,unit.id,0,TargetRule::Enemy,{{EffectKind::Damage}}});
@@ -32,8 +33,7 @@ EncounterSetup team_reference_setup(){
 }
 EncounterSetup classic_reference_setup(){return {reference_roster(),text_reference_rules(),{}};}
 EncounterSetup felipe_pilot_setup(bool tutorial_preload){
-    auto rules=text_reference_rules();rules.combat_model=resolution::CombatModel::FunnelV1;
-    rules.random_seed=20261122;rules.action_budget=ActionBudget{200,LimitOutcome::DefeatA};
+    auto rules=team_reference_rules();rules.action_budget=ActionBudget{200,LimitOutcome::DefeatA};
     Definition felipe{"FELIPE",Team::A,20000,2500,110};
     felipe.vigil=VigilDefinition{"FELIPE-A1",5,tutorial_preload?4u:0u};
     std::vector<Definition> roster{felipe,{"ECO-1",Team::B,12000,1800,100},{"ECO-2",Team::B,8000,1200,90}};

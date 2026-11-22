@@ -74,14 +74,15 @@ void AProbeArenaHUD::BeginPlay()
 void AProbeArenaHUD::RefreshArenaActors()
 {
     DestroyTargetMarker();const auto layout=SelectedLayout();if(!layout){return;}
-    for(TActorIterator<AStaticMeshActor> it(GetWorld());it;++it){if(it->Tags.Contains(FName(TEXT("RpgPrototypeActor")))){it->Destroy();}}
+    for(TActorIterator<AStaticMeshActor> it(GetWorld());it;++it){if(it->Tags.Contains(FName(TEXT("RpgPrototypeActor")))){it->Tags.Empty();it->SetActorHiddenInGame(true);it->SetActorEnableCollision(false);it->Destroy();}}
     std::vector<rpg::Definition> roster;
     const auto snapshot=InspectionMode?InspectionFrames[InspectionIndex].battle:Session.state().combat.battle;
     for(const auto& fighter:snapshot.fighters){roster.push_back(fighter.definition);}
     auto* mesh=LoadObject<UStaticMesh>(nullptr,TEXT("/Engine/BasicShapes/Sphere.Sphere"));
     for(const auto& placement:rpg::presentation::arena_placements(roster,*layout)){
-        auto* sphere=GetWorld()->SpawnActor<AStaticMeshActor>(FVector(placement.x,placement.y,placement.z),FRotator(0,placement.facing_yaw,0));
-        if(sphere && mesh){sphere->GetStaticMeshComponent()->SetStaticMesh(mesh);sphere->GetStaticMeshComponent()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);sphere->GetStaticMeshComponent()->SetCollisionResponseToAllChannels(ECR_Ignore);sphere->GetStaticMeshComponent()->SetCollisionResponseToChannel(ECC_Visibility,ECR_Block);sphere->Tags.Add(FName(*Label(placement.fighter_id)));sphere->Tags.Add(FName(TEXT("RpgPrototypeActor")));}
+        FActorSpawnParameters spawn;spawn.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+        auto* sphere=GetWorld()->SpawnActor<AStaticMeshActor>(FVector(placement.x,placement.y,placement.z),FRotator(0,placement.facing_yaw,0),spawn);
+        if(sphere && mesh){sphere->GetStaticMeshComponent()->SetStaticMesh(mesh);sphere->GetStaticMeshComponent()->UpdateBounds();sphere->GetStaticMeshComponent()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);sphere->GetStaticMeshComponent()->SetCollisionResponseToAllChannels(ECR_Ignore);sphere->GetStaticMeshComponent()->SetCollisionResponseToChannel(ECC_Visibility,ECR_Block);sphere->Tags.Add(FName(*Label(placement.fighter_id)));sphere->Tags.Add(FName(TEXT("RpgPrototypeActor")));}
     }
 }
 void AProbeArenaHUD::OpenInfo(const FString& title,const std::vector<std::string>& lines)
@@ -188,6 +189,7 @@ void AProbeArenaHUD::DrawHUD()
     std::vector<rpg::presentation::TargetHitRegion> targetRegions;
     const FVector cameraPosition=PlayerOwner->PlayerCameraManager?PlayerOwner->PlayerCameraManager->GetCameraLocation():FVector::ZeroVector;
     for(TActorIterator<AStaticMeshActor> it(GetWorld());it;++it){
+        if(!IsValid(*it) || !it->Tags.Contains(FName(TEXT("RpgPrototypeActor")))){continue;}
         for(const auto& fighter:view.combat.battle.fighters){
             const FString id=Label(fighter.definition.id);
             if(!it->Tags.Contains(FName(*id))){continue;}
@@ -236,7 +238,7 @@ void AProbeArenaHUD::DrawHUD()
                 const int32 segments=style==TEXT("Diamond")?4:28;
                 // World-depth lines sit at the model's feet instead of painting over its silhouette.
                 FVector center,extent;it->GetActorBounds(false,center,extent);
-                const float radius=FMath::Max(extent.X,extent.Y)*1.5f;
+                const float radius=rpg::presentation::marker_radius(static_cast<float>(extent.X),static_cast<float>(extent.Y));
                 const FVector base(center.X,center.Y,center.Z-extent.Z+1.f);
                 UpdateTargetMarker(base,radius,segments);
             }

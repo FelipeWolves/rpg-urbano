@@ -12,6 +12,8 @@
 #include "Misc/FileHelper.h"
 #include "Misc/Paths.h"
 #include "HAL/FileManager.h"
+#include "HAL/PlatformProcess.h"
+#include "Modules/ModuleManager.h"
 #include "Dom/JsonObject.h"
 #include "Serialization/JsonReader.h"
 #include "Serialization/JsonSerializer.h"
@@ -52,7 +54,11 @@ void AProbeArenaHUD::StartIntro(){
         if(!FPaths::IsUnderDirectory(path,root) || IFileManager::Get().FileSize(*path)<=0){throw std::runtime_error("Arquivo de abertura ausente.");}
         // Versioned per variant; checkpoint is separate from battle and UI preferences.
         IntroWatchPath=FPaths::ProjectSavedDir()/TEXT("Media")/(FString(UTF8_TO_TCHAR(asset->id.c_str()))+TEXT("-v1.flag"));
-        FString flag;const bool watched=IFileManager::Get().FileSize(*IntroWatchPath)==13 && FFileHelper::LoadFileToString(flag,*IntroWatchPath) && flag==TEXT("INTRO_V1_SEEN");
+        FString binary=FModuleManager::Get().GetModuleFilename(TEXT("RpgEngineProbe"));
+        if(binary.IsEmpty() || !IFileManager::Get().FileExists(*binary)){binary=FPlatformProcess::ExecutablePath();}
+        const auto stamp=IFileManager::Get().GetTimeStamp(*binary);
+        IntroWatchToken=TEXT("INTRO_V2_SEEN|")+stamp.ToIso8601();
+        FString flag;const bool watched=stamp!=FDateTime::MinValue() && IFileManager::Get().FileSize(*IntroWatchPath)<=256 && FFileHelper::LoadFileToString(flag,*IntroWatchPath) && flag==IntroWatchToken;
         IntroFlow.background(false);IntroTicket=IntroFlow.begin(*asset,watched);
         UE_LOG(LogTemp,Display,TEXT("INTRO_REQUEST ticket=%llu watched=%d"),IntroTicket,watched?1:0);
         IntroPlayer=NewObject<UMediaPlayer>(this);IntroPlayer->PlayOnOpen=false;IntroPlayer->SetLooping(false);
@@ -97,7 +103,7 @@ void AProbeArenaHUD::DrawIntro(){
     if(IntroFlow.return_to_hub()){
         UE_LOG(LogTemp,Display,TEXT("INTRO_TERMINAL ticket=%llu state=%d failure=%d"),IntroTicket,static_cast<int32>(IntroFlow.state()),static_cast<int32>(IntroFlow.failure()));
         const bool seen=IntroFlow.watched();const bool failed=IntroFlow.state()==MediaState::Failed;
-        if(seen){IFileManager::Get().MakeDirectory(*FPaths::GetPath(IntroWatchPath),true);if(!FFileHelper::SaveStringToFile(TEXT("INTRO_V1_SEEN"),*IntroWatchPath,FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM)){Message=TEXT("Vídeo visto; não foi possível salvar essa preferência.");}}
+        if(seen){IFileManager::Get().MakeDirectory(*FPaths::GetPath(IntroWatchPath),true);if(!FFileHelper::SaveStringToFile(IntroWatchToken,*IntroWatchPath,FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM)){Message=TEXT("Vídeo visto; não foi possível salvar essa preferência.");}}
         StopIntro();Pointer.cancel_until_release();
         if(failed){OpenInfo(TEXT("Mídia local"),{"Nao foi possivel reproduzir a abertura. Retorno seguro ao hub; video nao marcado como assistido."});}return;
     }

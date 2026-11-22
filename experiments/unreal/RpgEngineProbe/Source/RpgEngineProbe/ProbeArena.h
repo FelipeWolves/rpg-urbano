@@ -42,6 +42,7 @@ private:
     double IntroStarted=0,IntroHold=-1;
     bool IntroActive=false;
     FString IntroWatchPath;
+    FString IntroWatchToken;
     void StartIntro();
     void DrawIntro();
     void StopIntro();

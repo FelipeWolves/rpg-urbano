@@ -6,6 +6,8 @@
 using namespace rpg;
 void check(bool v,const char* m){if(!v){throw std::runtime_error(m);}}
 int main(){try{
+ check(team_reference_setup().rules.combat_model==resolution::CombatModel::FunnelV1 && felipe_pilot_setup().rules.combat_model==team_reference_setup().rules.combat_model,"shared general funnel");
+ check(classic_reference_setup().rules.combat_model==resolution::CombatModel::Legacy,"classic baseline preserved");
  // Hub scenario switch preserves both sessions rather than importing their saves.
  presentation::VisualSession hubReference(team_reference_setup()),hubPilot(felipe_pilot_setup());
  const auto referenceBefore=hubReference.state();const auto pilotBefore=hubPilot.state();

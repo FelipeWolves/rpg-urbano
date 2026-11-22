@@ -1,3 +1,5 @@
+> **Correção vigente — 22/11:** [crash do marcador, placeholders, regras gerais do Terminal e vídeo por compilação](TERMINAL-MARCADOR-MIDIA-CORRECOES.md). Funil compartilhado com Felipe, geometria visual protegida e marca de vídeo vinculada ao binário. Reteste visual pendente; aceite dos cliques únicos preservado.
+
 > **Atualização — 22/11:** cliques únicos e hover aceitos pelo usuário no RpgEngineProbe. Arena PvP recebe [acesso temporário ao piloto Felipe](HUB-FELIPE-ACESSO-TEMPORARIO.md), sem PvP online; Terminal e saves separados. Reteste do novo acesso e barra de skip não-assistido pendentes. Demo ~25% mantida.
 
 > **Vigente — VIS/ENG/HUB P0, 22/11:** [correções, evidências e reteste](VIS-ENG-HUB-P0-CORRECOES.md). Entrada/alvos e preparação do player atualizados em código; testes nativos aprovados. Aceites visuais continuam abertos; Android adiado e demo ~25% mantida. Próximo: reteste do usuário, depois integração visual dos modos já disponíveis. Esta nota prevalece sobre próximos passos históricos abaixo.

@@ -1,3 +1,5 @@
+> **Correção vigente — 22/11:** [crash do marcador, placeholders, regras gerais do Terminal e vídeo por compilação](TERMINAL-MARCADOR-MIDIA-CORRECOES.md). Funil compartilhado com Felipe, geometria visual protegida e marca de vídeo vinculada ao binário. Reteste visual pendente; aceite dos cliques únicos preservado.
+
 # Arena PvP — acesso temporário ao piloto Felipe
 
 22/11/2026. Solicitação do usuário após aceite dos cliques únicos.

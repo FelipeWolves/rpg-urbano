@@ -40,6 +40,10 @@ std::vector<ArenaPlacement> arena_placements(const std::vector<Definition>& rost
     }
     return result;
 }
+float marker_radius(float x,float y) noexcept {
+    if(!std::isfinite(x) || !std::isfinite(y) || x<=0 || y<=0){return 75.f;}
+    return std::clamp(std::max(x,y),1.f,10000.f/1.5f)*1.5f;
+}
 std::vector<MarkerEdge> marker_edges(float radius,std::uint32_t segments){
     if(!std::isfinite(radius) || radius<=0 || radius>10000 || segments<3 || segments>64){throw std::invalid_argument("Invalid target marker geometry");}
     constexpr double pi=3.14159265358979323846;

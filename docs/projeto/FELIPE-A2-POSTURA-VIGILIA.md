@@ -35,3 +35,5 @@ Adendo técnico consolidado20/11 confirma esta contagem e pré-carga. O destino 
 ## Bordas recebidas em 22/11 — antes da implementacao
 
 Agressor morto antes da reacao: cancelar disparo; cargas comuns/prateadas zeram, douradas preservam. O usuario confirmou explicitamente cargas **douradas** para a nova Postura de Vigilia. Se Felipe morrer pela reflexao do contra-ataque, nenhum escudo automatico sera aplicado. Nao reutilizar as antigas duas cargas/recuperacao por turno. Casos devem entrar nos testes do bloco.
+
+Implementação 22/11: A2 e treze grupos focados aprovados; ver HAB-FELIPE-A2-IMPLEMENTACAO.md. As indicações anteriores de implementação pendente são histórico; integração completa do piloto segue no bloco próprio.

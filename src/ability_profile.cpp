@@ -40,11 +40,17 @@ ProfileBattle::ProfileBattle(std::vector<Definition> roster,BattleRules rules,Co
                 if(entry.passive){
                     if(entry.passive->shield>0){entry.passive->shield=numeric::quantity(entry.passive->shield);}
                     const auto& passive=*entry.passive;
+                    if(passive.trigger==PassiveTrigger::AllyHit){
+                        const auto owner=std::ranges::find(roster_,set.fighter_id,&Definition::id);
+                        if(passive.id.empty() || !owner->vigil || std::ranges::find(passive_ids,passive.id)!=passive_ids.end()){throw std::invalid_argument("Invalid reactive passive");}
+                        passive_ids.push_back(passive.id);
+                    }else{
                     if(passive.id.empty() || passive.trigger!=PassiveTrigger::BattleStart || passive.shield<=0 ||
                        passive.duration<1 || passive.duration>1000 || opening_shield ||
                        std::ranges::find(passive_ids,passive.id)!=passive_ids.end()){
                         throw std::invalid_argument("Invalid or conflicting opening passive");}
                     opening_shield=true;passive_ids.push_back(passive.id);
+                    }
                 }
                 if(entry.active_skill){
                     const auto skill=std::ranges::find(rules_.skills,*entry.active_skill,&SkillDefinition::id);
@@ -82,7 +88,7 @@ void ProfileBattle::reset(){
     for(const auto& fighter:fresh.fighters()){
         InitialRuntime state{fighter.definition.id,fighter.effective_speed,{},fighter.cooldowns};
         if(const auto* set=loadout(fighter.definition.id)){
-            for(const auto& entry:set->slots){if(entry.passive){
+            for(const auto& entry:set->slots){if(entry.passive && entry.passive->trigger==PassiveTrigger::BattleStart){
                 const auto& passive=*entry.passive;
                 state.statuses.push_back({EffectKind::Shield,passive.duration,TickPolicy::NaturalOnly,0,passive.shield});
                 activations.push_back({set->fighter_id,entry.position,passive});
@@ -167,7 +173,7 @@ std::optional<Action> ProfileBattle::choose_automatic_action() const {
         else{
             for(const auto& candidate:battle_->fighters()){
                 const bool same_side=candidate.definition.team==actor->definition.team;
-                if(candidate.health==0 || (skill->target==TargetRule::Enemy?same_side:!same_side)){continue;}
+                if(candidate.health==0 || ((skill->target==TargetRule::Enemy || skill->target==TargetRule::EnemyTeam)?same_side:!same_side)){continue;}
                 if(!target || candidate.health<target->health ||
                    (candidate.health==target->health && candidate.definition.id<target->definition.id)){target=&candidate;}
             }

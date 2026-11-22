@@ -20,9 +20,9 @@ enum class LimitOutcome { Draw, DefeatA, DefeatB };
 enum class TimingProfile { FixedRounds, ActionBar };
 enum class TurnKind { Natural, Extra };
 enum class TickPolicy { NaturalOnly, EveryTurn };
-enum class TargetRule { Enemy, Ally, Self };
+enum class TargetRule { Enemy, Ally, Self, EnemyTeam };
 enum class EffectKind { Damage, ChangeAP, SetSpeed, ExtraTurn, Block, Marker, Counter, FreezeCooldowns,
-                        Reflect, DeathExplosion, PreventDeath, AutoRevive, Shield, StructuralShield, StandardShield, Stun, Freeze, Petrify, Silence, Suppression, Invincible, DebuffImmunity, Bleed, Poison };
+                        Reflect, DeathExplosion, PreventDeath, AutoRevive, Shield, StructuralShield, StandardShield, Stun, Freeze, Petrify, Silence, Suppression, Invincible, DebuffImmunity, Bleed, Poison, DispelBuffs };
 enum class ExtraOrigin { Ability, Equipment, Custom };
 enum class HitSelection { FixedTarget, LowestHealthEnemy };
 enum class StatusCategory { Temporary, Permanent, Structural };
@@ -74,6 +74,8 @@ struct EffectDefinition {
     numeric::BasisPoints proc_chance=10000;
     bool irresistible=false,bypass_immunity=false,debuff=false;
     StatusBorder border=StatusBorder::Common;
+    bool self_target=false,requires_target_debuff=false,requires_connected_hit=false;
+    numeric::BasisPoints unbuffed_damage_bonus=0;
     bool operator==(const EffectDefinition&) const = default;
 };
 struct SkillDefinition {
@@ -119,9 +121,15 @@ enum class EventType {
     RoundStarted, TurnStarted, GuardExpired, BattleFinished,
     SkillUsed, EffectApplied, EffectExpired, Reaction, TurnSkipped, TurnEnded, ExtraTurnSuppressed,
     ReflectedDamage, DeathExplosion, DeathEffectTriggered, DeathPrevented, ReviveScheduled, FighterRevived,
-    ShieldAbsorbed, ShieldBroken, EffectResisted, PeriodicDamage, StackLimitReached
+    ShieldAbsorbed, ShieldBroken, EffectResisted, PeriodicDamage, StackLimitReached, ChargeGained, PassiveTriggered, PassiveCancelled
 };
 
+struct VigilDefinition {
+    std::string counter_skill;
+    std::uint32_t max_party_size=5,initial_charges=0;
+    StatusBorder charge_border=StatusBorder::Golden;
+    bool operator==(const VigilDefinition&) const=default;
+};
 struct Definition {
     std::string id;
     Team team;
@@ -131,6 +139,8 @@ struct Definition {
     resolution::FighterStats stats;
     std::vector<EffectKind> immune_effects;
     bool is_boss=false;
+    std::uint32_t formation_slot=0;
+    std::optional<VigilDefinition> vigil;
     bool operator==(const Definition&) const = default;
 };
 
@@ -144,6 +154,7 @@ struct Status {
     StatusCategory category = StatusCategory::Temporary;
     std::uint64_t instance_id=0;
     std::string source_id;
+    bool debuff=false;
     bool native_passive=false;
     StatusBorder border=StatusBorder::Common;
     bool operator==(const Status&) const = default;
@@ -165,6 +176,7 @@ struct Fighter {
     std::uint64_t extra_turns = 0;
     std::vector<Status> statuses;
     std::vector<Cooldown> cooldowns;
+    std::uint32_t vigil_charges=0;
     bool operator==(const Fighter&) const = default;
 };
 
@@ -314,6 +326,7 @@ private:
         std::size_t to;
         std::uint64_t parent_id;
         bool native=false;
+        bool vigil=false;
     };
     struct PendingRevive {
         std::size_t fighter;
@@ -323,6 +336,9 @@ private:
     [[nodiscard]] std::optional<std::size_t> index_of(std::string_view id) const noexcept;
     void advance(std::vector<Event>& events);
     void tick_periodics(std::vector<Event>& events);
+    void execute_skill(std::size_t from,std::size_t target_index,const SkillDefinition& definition,const ActionContext& context,std::vector<Event>& events,std::vector<PendingReaction>& reactions,std::vector<std::size_t>& guarded,std::vector<PendingRevive>& revives,bool derived);
+    void observe_vigil(const ActionContext& context,std::vector<Event>& events,std::vector<PendingReaction>& reactions);
+    void standard_shield(std::size_t source,std::size_t target,std::vector<Event>& events);
     void drain_deaths(std::vector<std::size_t>& deaths,const ActionContext& context,std::uint32_t hit_index,std::uint32_t planned_hits,std::vector<Event>& events,std::vector<PendingReaction>& reactions,std::vector<PendingRevive>& revives);
     void finish(EndReason reason, std::optional<Team> winner, const std::string& actor, std::vector<Event>& events);
     void select_bar_actor();

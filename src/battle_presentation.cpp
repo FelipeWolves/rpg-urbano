@@ -48,7 +48,7 @@ ShieldDisplay shield_display(const Fighter& fighter){
 }
 std::string effect_name(EffectKind kind){
     switch(kind){
-    case EffectKind::Bleed:return "Bleed";case EffectKind::Poison:return "Poison";
+    case EffectKind::DispelBuffs:return "Dispel buffs";case EffectKind::Bleed:return "Bleed";case EffectKind::Poison:return "Poison";
     case EffectKind::Stun:return "Stun";case EffectKind::Freeze:return "Freeze";case EffectKind::Petrify:return "Petrify";case EffectKind::Silence:return "Silence";case EffectKind::Suppression:return "Suppression";case EffectKind::Invincible:return "Invincible";case EffectKind::DebuffImmunity:return "Debuff immunity";
     case EffectKind::StandardShield:return "Standard shield";case EffectKind::Shield:return "Shield";case EffectKind::StructuralShield:return "Structural shield";
     case EffectKind::Block:return "Unable to act";case EffectKind::FreezeCooldowns:return "Cooldowns frozen";
@@ -62,9 +62,11 @@ std::string effect_name(EffectKind kind){
 }
 std::vector<std::string> effect_details(const Fighter& fighter){
     std::vector<std::string> lines;
+    if(fighter.definition.vigil){lines.push_back("Postura de Vigilia | "+std::to_string(fighter.vigil_charges)+"/"+std::to_string(fighter.definition.vigil->max_party_size)+" cargas douradas");}
     if(fighter.guarding){lines.push_back("Defending: incoming hit damage is halved, rounded down.");}
     for(const auto& effect:fighter.statuses){
         lines.push_back(effect_name(effect.kind)+" | value "+std::to_string(effect.magnitude)+" | charges "+std::to_string(effect.charges));
+        if(periodic_effect(effect.kind)){lines.push_back("  Source: "+effect.source_id+(effect.kind==EffectKind::Poison?" | snapshotted boss ATK cap":" | snapshotted tick damage"));}
         if(effect.category==StatusCategory::Permanent){lines.push_back("  Permanent");}
         else {lines.push_back("  Remaining: "+std::to_string(effect.remaining)+(effect.clock==TickPolicy::NaturalOnly?" natural turns":" all owner turns"));}
     }
@@ -92,7 +94,7 @@ std::vector<std::string> target_candidates(const VisualState& state,std::uint32_
         if(fighter.health<=0){continue;}
         const bool same=fighter.definition.team==actor->definition.team;
         if((skill->target==TargetRule::Self && fighter.definition.id==actor->definition.id) ||
-           (skill->target==TargetRule::Enemy && !same) || (skill->target==TargetRule::Ally && same)){ids.push_back(fighter.definition.id);}
+           ((skill->target==TargetRule::Enemy || skill->target==TargetRule::EnemyTeam) && !same) || (skill->target==TargetRule::Ally && same)){ids.push_back(fighter.definition.id);}
     }
     return ids;
 }

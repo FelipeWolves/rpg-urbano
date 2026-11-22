@@ -21,7 +21,7 @@ public:
         if(result.events.size()>capacity_-2 || queue_.size()>capacity_-result.events.size()-2){++dropped_;return false;}
         queue_.push_back({revision,0,CuePhase::Begin,{}});
         for(std::size_t i=0;i<result.events.size();++i){const auto& event=result.events[i];
-            const bool impact=event.type==EventType::Attack || event.type==EventType::ReflectedDamage || event.type==EventType::DeathExplosion || event.type==EventType::ShieldAbsorbed;
+            const bool impact=event.type==EventType::PeriodicDamage || event.type==EventType::Attack || event.type==EventType::ReflectedDamage || event.type==EventType::DeathExplosion || event.type==EventType::ShieldAbsorbed;
             queue_.push_back({revision,i+1,impact?CuePhase::Impact:CuePhase::State,event});
         }
         queue_.push_back({revision,result.events.size()+1,CuePhase::End,{}});return true;

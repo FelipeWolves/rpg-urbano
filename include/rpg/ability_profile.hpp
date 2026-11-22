@@ -3,7 +3,7 @@
 
 namespace rpg {
 enum class CombatProfile { Classic, Team };
-enum class PassiveTrigger { BattleStart };
+enum class PassiveTrigger { BattleStart, AllyHit };
 struct PassiveDefinition {
     std::string id;
     PassiveTrigger trigger = PassiveTrigger::BattleStart;

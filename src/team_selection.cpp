@@ -30,6 +30,7 @@ EncounterSetup TeamSelection::compose() const {
     const auto absent=[&result](std::string_view id){return std::ranges::find(result.roster,id,&Definition::id)==result.roster.end();};
     std::erase_if(result.loadouts,[&absent](const CharacterLoadout& set){return absent(set.fighter_id);});
     std::erase_if(result.rules.skills,[&absent](const SkillDefinition& skill){return absent(skill.owner);});
+    if(result.rules.combat_model==resolution::CombatModel::FunnelV1){for(auto& f:result.roster){if(f.team==side_){f.formation_slot=static_cast<std::uint32_t>(std::ranges::find(selected_,f.id)-selected_.begin())+1;}}}
     return result;
 }
 } // namespace rpg

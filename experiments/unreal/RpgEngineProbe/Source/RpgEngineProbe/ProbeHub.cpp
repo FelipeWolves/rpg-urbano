@@ -452,7 +452,7 @@ void AProbeArenaHUD::DrawHub(){
             const float sx=tw*ts/static_cast<float>(geometry->X),sy=th*ts/static_cast<float>(geometry->Y);
             const FLinearColor glowColor(0.18f,0.75f,1.f,FMath::Lerp(0.28f,0.85f,hoverAmount));
             DrawTexture(texture,tx-static_cast<float>(geometry->Z)*sx,ty-static_cast<float>(geometry->W)*sy,
-                texture->GetSizeX()*sx,texture->GetSizeY()*sy,0,0,1,1,glowColor,BLEND_Additive);
+                texture->GetSizeX()*sx,texture->GetSizeY()*sy,0,0,1,1,glowColor,BLEND_Translucent);
         }
         DrawText(labelText,ink,tx,ty,font,ts);
         if(pointer_clicked(Input,*hit)){openDestination(link);return;}

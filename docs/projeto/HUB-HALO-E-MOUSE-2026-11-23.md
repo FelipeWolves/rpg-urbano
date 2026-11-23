@@ -30,3 +30,5 @@ DefaultInput.ini do projeto desativa captura ao iniciar e define captura tempor�
 3. Conferir halo atrás das letras, sem contorno duro/caixa e sem engrossar o texto. Passar/retirar o mouse deve manter a mudança suave.
 
 Esse relato reabre o aceite de liberdade do cursor; aceites anteriores de logo/PRAÇA/família tipográfica permanecem. Não afirmar correção física validada até o usuário testar. Demo~28% mantida.
+
+No reteste, o usuário observou retângulos ciano. O halo passou a usar composição translúcida para respeitar o alpha do PNG. Compilação aprovada em build/hub-halo-alpha-build.log. Aceite visual pendente.

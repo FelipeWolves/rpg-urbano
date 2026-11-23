@@ -16,4 +16,13 @@ void invalid(){PointerInput p;(void)p.update(sample(true),{},true,1,c);check(p.u
 void hold(){PointerInput p;(void)p.update(sample(true),{},true,0,c);auto f=p.update(sample(true),{},true,.5,c);check(f.down && !f.tap && !f.released);f=p.update(sample(false),{},true,.6,c);check(f.released && !f.tap);}
 void handoff(){PointerInput p;(void)p.update(sample(true),{},true,0,c);auto f=p.update(sample(true),sample(true),true,.1,c);check(f.cancelled && f.pressed && f.source==PointerSource::Touch);f=p.update(sample(false),sample(false),true,.2,c);check(f.tap && f.source==PointerSource::Touch);}
 void origin(){PointerInput p;(void)p.update(sample(true,47),{},true,0,c);auto f=p.update(sample(false,50),{},true,.1,c);check(f.tap && !pointer_clicked(f,{48,0,48,48}));auto hover=p.update(sample(false,90,70),{},true,.2,c);check(!hover.tap && hover.x==90 && hover.y==70);}
-int main(){try{mouse();touch();guard();drag();revision();focus();invalid();hold();handoff();origin();std::cout<<"POINTER_INPUT_TESTS_RESULT passed=10 total=10\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}
+void panorama_drag(){
+    const PointerContext drag_context{0,0,true};
+    PointerInput pointer;
+    (void)pointer.update(sample(true,50),{},true,0,drag_context);
+    auto moved=pointer.update(sample(true,125),{},true,0.1,drag_context);
+    check(moved.down && !moved.cancelled && moved.origin_x==50 && moved.x==125);
+    auto released=pointer.update(sample(false,50),{},true,0.2,drag_context);
+    check(released.released && !released.tap);
+}
+int main(){try{panorama_drag();mouse();touch();guard();drag();revision();focus();invalid();hold();handoff();origin();std::cout<<"POINTER_INPUT_TESTS_RESULT passed=11 total=11\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}

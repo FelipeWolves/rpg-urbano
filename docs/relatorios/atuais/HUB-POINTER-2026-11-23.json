@@ -1,7 +1,7 @@
 {
   "Date": "2026-11-23",
   "Passed": true,
-  "Groups": 10,
+  "Groups": 11,
   "ExitCode": 0,
   "Scope": "Existing pointer model only; not runtime mouse confinement or engine event delivery",
   "EditorOpened": false

@@ -298,7 +298,7 @@ void AProbeArenaHUD::SelectLabScenario(bool felipe){
     Message=felipe?TEXT("Piloto Felipe — teste local, sem PvP online."):TEXT("Laboratorio de referencia.");
     UE_LOG(LogTemp,Display,TEXT("HUB_LAB_SCENARIO felipe=%d"),felipe?1:0);
 }
-void AProbeArenaHUD::DrawAnimatedHubLabel(const rpg::presentation::HubHotspot& link,std::size_t index,const FString& labelText,float tx,float ty,float ts,float tw,float th,bool hover)
+void AProbeArenaHUD::DrawAnimatedHubLabel(const rpg::presentation::HubHotspot& link,std::size_t index,const FString& labelText,float tx,float ty,float ts,float tw,float th,bool hover,float opacity)
 {
     using namespace rpg::presentation;
     const bool future=link.route==HubRoute::Unavailable && link.id!="arena-pvp";
@@ -308,12 +308,13 @@ void AProbeArenaHUD::DrawAnimatedHubLabel(const rpg::presentation::HubHotspot& l
     ty+=static_cast<float>(motion.offset_y);
     auto* font=HubLabelFont?HubLabelFont.Get():HubTitleFont.Get();
     const FLinearColor idleInk=((future?FLinearColor(0.32f,0.55f,0.67f):FLinearColor(0.38f,0.72f,0.84f))*1.3f).GetClamped();
-    const FColor ink=FMath::Lerp(idleInk,FLinearColor(0.82f,0.98f,1.f),hoverAmount).ToFColorSRGB();
+    FColor ink=FMath::Lerp(idleInk,FLinearColor(0.82f,0.98f,1.f),hoverAmount).ToFColorSRGB();
+    ink.A=static_cast<uint8>(255.f*opacity);
     const FString glowId=TEXT("halo_label_")+Text(link.id);
     const auto* geometry=LabelGlowGeometry.Find(glowId);
     if(auto* texture=UiTexture(glowId);texture && geometry && LabelGlowText.FindRef(glowId)==labelText){
         const float sx=tw*ts/static_cast<float>(geometry->X),sy=th*ts/static_cast<float>(geometry->Y);
-        const FLinearColor glowColor(0.18f,0.75f,1.f,FMath::Lerp(0.28f,0.85f,hoverAmount));
+        const FLinearColor glowColor(0.18f,0.75f,1.f,FMath::Lerp(0.28f,0.85f,hoverAmount)*opacity);
         DrawTexture(texture,tx-static_cast<float>(geometry->Z)*sx,ty-static_cast<float>(geometry->W)*sy,
             texture->GetSizeX()*sx,texture->GetSizeY()*sy,0,0,1,1,glowColor,BLEND_Translucent);
     }
@@ -360,6 +361,7 @@ void AProbeArenaHUD::DrawHub(){
     if(preview3D || HubReducedMotion || Flow.screen()!=UiScreen::Hub){
         PanoramaFrom.reset();
         PanoramaTarget.reset();
+        PanoramaDragBase.reset();PanoramaDragPlan.reset();PanoramaDragging=false;
     }else{
         const double now=GetWorld()->GetTimeSeconds();
         constexpr double duration=0.45;
@@ -392,10 +394,82 @@ void AProbeArenaHUD::DrawHub(){
         if(PanoramaFrom && now-PanoramaStarted>=duration){
             PanoramaFrom.reset();
             // A press that began on a moving image cannot select an arriving label.
-            if(Input.down || Input.tap){Pointer.cancel_until_release();Input.tap=false;}
+            if(!PanoramaDragBase && (Input.down || Input.tap)){Pointer.cancel_until_release();Input.tap=false;}
         }
         panoramaMoving=PanoramaFrom.has_value();
         plan=displayed();
+    }
+    if(!preview3D && Flow.screen()==UiScreen::Hub && plan.view==HubView::Focused && !HubReducedMotion){
+        const double now=GetWorld()->GetTimeSeconds();
+        if(Input.pressed && contains(plan.content,Input.x,Input.y)){
+            PanoramaDragBase=plan;
+            PanoramaDragPlan=plan;
+            PanoramaDragLastX=Input.x;
+            PanoramaDragLastTime=now;
+            PanoramaDragVelocity=0;
+            PanoramaDragging=false;
+        }
+        if(PanoramaDragBase && (Input.down || Input.released) && !Input.cancelled){
+            const double dx=Input.x-Input.origin_x;
+            const double dy=Input.y-Input.origin_y;
+            if(!PanoramaDragging && FMath::Abs(dx)>=12 && FMath::Abs(dx)>1.25*FMath::Abs(dy)){
+                PanoramaDragging=true;
+            }
+            if(now>PanoramaDragLastTime){
+                if(!Input.released || Input.x!=PanoramaDragLastX){
+                    PanoramaDragVelocity=(Input.x-PanoramaDragLastX)/(now-PanoramaDragLastTime);
+                    PanoramaDragLastTime=now;
+                    PanoramaDragLastX=Input.x;
+                }
+            }
+            if(PanoramaDragging){
+                auto dragged=*PanoramaDragBase;
+                const auto& viewport=dragged.content;
+                auto& crop=dragged.source_uv;
+                crop.x=FMath::Clamp(crop.x-dx*crop.width/viewport.width,0.0,1.0-crop.width);
+                PanoramaDragPlan=dragged;
+            }
+        }
+        if(PanoramaDragBase && (Input.released || Input.cancelled || !Input.down)){
+            if(PanoramaDragging && PanoramaDragPlan){
+                PanoramaFrom=*PanoramaDragPlan;
+                PanoramaStarted=now;
+                const double dx=Input.x-Input.origin_x;
+                const double velocity=now-PanoramaDragLastTime<=0.10?PanoramaDragVelocity:0;
+                const bool advance=FMath::Abs(dx)>=PanoramaDragBase->content.width*0.18
+                    || (FMath::Abs(dx)>=24 && FMath::Abs(velocity)>=550 && velocity*dx>0);
+                if(Input.released && !Input.cancelled && advance){
+                    const int area=HubArea==HubArea::Left?0:HubArea==HubArea::Center?1:2;
+                    const int next=FMath::Clamp(area+(dx<0?1:-1),0,2);
+                    if(next!=area){
+                        HubArea=next==0?HubArea::Left:next==1?HubArea::Center:HubArea::Right;
+                        HubView=HubView::Focused;
+                        SavePresentationPreferences();
+                    }
+                }
+                plan=*PanoramaDragPlan;
+                panoramaMoving=true;
+                Input.tap=false;
+                Pointer.cancel_until_release();
+            }
+            PanoramaDragBase.reset();
+            PanoramaDragPlan.reset();
+            PanoramaDragging=false;
+        }else if(PanoramaDragging && PanoramaDragPlan){
+            plan=*PanoramaDragPlan;
+            panoramaMoving=true;
+            Input.tap=false;
+        }
+    }
+
+    if(preview3D || HubReducedMotion || Flow.screen()!=UiScreen::Hub || !PanoramaLabels){
+        PanoramaLabels=plan;
+        PanoramaLabelOpacity=1.f;
+    }else if(panoramaMoving){
+        PanoramaLabelOpacity=FMath::Max(0.f,PanoramaLabelOpacity-GetWorld()->GetDeltaSeconds()/0.14f);
+    }else{
+        PanoramaLabels=plan;
+        PanoramaLabelOpacity=FMath::Min(1.f,PanoramaLabelOpacity+GetWorld()->GetDeltaSeconds()/0.18f);
     }
     const auto& r=plan.content;const auto& uv=plan.source_uv;
     if(!preview3D){DrawTexture(HubTexture,static_cast<float>(r.x),static_cast<float>(r.y),static_cast<float>(r.width),static_cast<float>(r.height),
@@ -497,9 +571,9 @@ void AProbeArenaHUD::DrawHub(){
         HubPanelPage=0;TerminalMenuPage=0;Flow.open_location();
     };
     if(preview3D){if(const auto* destination=DrawHub3DScene(layout.scene)){openDestination(*destination);return;}}
-    if(!preview3D) for(std::size_t index=0;index<HubLinks.size();++index){
+    if(!preview3D && PanoramaLabelOpacity>0.f) for(std::size_t index=0;index<HubLinks.size();++index){
         const auto& link=HubLinks[index];
-        const auto projected=project_hotspot(plan,link);if(!projected){continue;}
+        const auto projected=project_hotspot(*PanoramaLabels,link);if(!projected){continue;}
         const FString labelText=Text(rpg::presentation::hub_uppercase(link.label));
         float tw=0,th=0;GetTextSize(labelText,tw,th,HubLabelFont?HubLabelFont.Get():HubTitleFont.Get());
         const double scale=std::min(0.9,(r.width-24)/std::max(1.0,static_cast<double>(tw)));
@@ -507,11 +581,11 @@ void AProbeArenaHUD::DrawHub(){
         const Rect label{std::clamp(projected->label_x-width/2,r.x,r.x+r.width-width),
             std::clamp(projected->label_y-height/2,r.y,r.y+r.height-height),width,height};
         const auto hit=minimum_target(label,r,48);if(!hit){continue;}
-        const bool hover=!panoramaMoving && InputWindowActive && contains(*hit,mx,my);
+        const bool hover=!panoramaMoving && PanoramaLabelOpacity>=1.f && InputWindowActive && contains(*hit,mx,my);
         if(Preferences.high_contrast){DrawRect(HubPanel,static_cast<float>(label.x),static_cast<float>(label.y-3),static_cast<float>(label.width),static_cast<float>(label.height+6));}
         if(Preferences.high_contrast){line(label.x+5,label.y+label.height,label.x+label.width-5,label.y+label.height,HubCyan,1);}
-        DrawAnimatedHubLabel(link,index,labelText,label.x+12,label.y+6,scale,tw,th,hover);
-        if(!panoramaMoving && pointer_clicked(Input,*hit)){openDestination(link);return;}
+        DrawAnimatedHubLabel(link,index,labelText,label.x+12,label.y+6,scale,tw,th,hover,PanoramaLabelOpacity);
+        if(!panoramaMoving && PanoramaLabelOpacity>=1.f && pointer_clicked(Input,*hit)){openDestination(link);return;}
     }
     // Fixed dock keeps every destination reachable when its source region is cropped.
 

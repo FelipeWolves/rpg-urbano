@@ -93,8 +93,8 @@ if(!$expansionPassed){throw 'Hub expansion tests failed'}
 $framePassed=$code -eq 0 -and $output -contains 'HUB_FRAME_TESTS_RESULT passed=8 total=8'
 [ordered]@{CheckedUtc=[DateTime]::UtcNow.ToString('o');Passed=$framePassed;Groups=8;ExitCode=$code;Scope='Safe margins, nonoverlapping hub regions and minimum 48px targets; pure native geometry, no editor/device';EngineExecuted=$false} | ConvertTo-Json | Set-Content (Join-Path $root 'docs/relatorios/atuais/AUT-02-GEOMETRIA.json') -Encoding utf8
 if(!$framePassed){throw 'Safe frame tests failed'}
-$pointerPassed=$code -eq 0 -and $output -contains 'POINTER_INPUT_TESTS_RESULT passed=10 total=10'
-[ordered]@{CheckedUtc=[DateTime]::UtcNow.ToString('o');Passed=$pointerPassed;Groups=10;ExitCode=$code;Scope='Pointer ownership, touch/mouse deduplication, focus/revision/drag cancellation and tap thresholds; no physical device or visual acceptance';EngineExecuted=$false} | ConvertTo-Json | Set-Content (Join-Path $root 'docs/relatorios/atuais/AUT-03-ENTRADA.json') -Encoding utf8
+$pointerPassed=$code -eq 0 -and $output -contains 'POINTER_INPUT_TESTS_RESULT passed=11 total=11'
+[ordered]@{CheckedUtc=[DateTime]::UtcNow.ToString('o');Passed=$pointerPassed;Groups=11;ExitCode=$code;Scope='Pointer ownership, touch/mouse deduplication, focus/revision/drag cancellation and tap thresholds; no physical device or visual acceptance';EngineExecuted=$false} | ConvertTo-Json | Set-Content (Join-Path $root 'docs/relatorios/atuais/AUT-03-ENTRADA.json') -Encoding utf8
 if(!$pointerPassed){throw 'Pointer input tests failed'}
 $textPassed=$code -eq 0 -and $output -contains 'TEXT_PANEL_TESTS_RESULT passed=10 total=10'
 [ordered]@{CheckedUtc=[DateTime]::UtcNow.ToString('o');Passed=$textPassed;Groups=10;ExitCode=$code;Scope='UTF-8 scalar wrapping with injected font metrics, pagination and nonoverlapping panel geometry; no visual acceptance';EngineExecuted=$false} | ConvertTo-Json | Set-Content (Join-Path $root 'docs/relatorios/atuais/AUT-04-TEXTO.json') -Encoding utf8

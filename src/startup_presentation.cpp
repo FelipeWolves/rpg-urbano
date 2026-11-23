@@ -146,20 +146,21 @@ PointerFrame PointerInput::update(PointerSample mouse,PointerSample touch,bool f
     if(owner_!=PointerSource::None && context!=context_){cancel();return frame;}
     if(touchStart && valid(touch)){
         if(owner_==PointerSource::Mouse){frame.cancelled=true;}
-        owner_=PointerSource::Touch;context_=context;started_=seconds;origin_x_=touch.x;origin_y_=touch.y;frame.pressed=true;
+        owner_=PointerSource::Touch;context_=context;started_=seconds;moved_=false;origin_x_=touch.x;origin_y_=touch.y;frame.pressed=true;
     }else if(owner_==PointerSource::None && mouseStart && !touch.down && seconds>=touch_guard_ && valid(mouse)){
-        owner_=PointerSource::Mouse;context_=context;started_=seconds;origin_x_=mouse.x;origin_y_=mouse.y;frame.pressed=true;
+        owner_=PointerSource::Mouse;context_=context;started_=seconds;moved_=false;origin_x_=mouse.x;origin_y_=mouse.y;frame.pressed=true;
     }
     if(owner_==PointerSource::None){return frame;}
     const auto sample=owner_==PointerSource::Touch?touch:mouse;
     frame.source=owner_;frame.x=sample.x;frame.y=sample.y;frame.origin_x=origin_x_;frame.origin_y=origin_y_;
-    if(!valid(sample) || std::hypot(sample.x-origin_x_,sample.y-origin_y_)>12){
+    moved_=moved_ || std::hypot(sample.x-origin_x_,sample.y-origin_y_)>12;
+    if(!valid(sample) || (moved_ && !context.allow_drag)){
         if(owner_==PointerSource::Touch){touch_guard_=seconds+0.35;}
         cancel();return frame;
     }
     frame.down=sample.down;
     if(!sample.down){
-        frame.released=true;frame.tap=seconds-started_<0.5;
+        frame.released=true;frame.tap=!moved_ && seconds-started_<0.5;
         if(owner_==PointerSource::Touch){touch_guard_=seconds+0.35;}
         owner_=PointerSource::None;
     }

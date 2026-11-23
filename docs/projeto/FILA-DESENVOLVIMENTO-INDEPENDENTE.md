@@ -1,3 +1,4 @@
+> **Entrega em teste.** Fade dos letreiros e arraste no panorama focado implementados. O limiar inicial de arraste é 12 unidades de tela e o encaixe usa 18% da largura ou um gesto rápido de pelo menos 24 unidades a 550 unidades/s. São valores iniciais a calibrar em aparelho. Com movimento reduzido, use os botões para a troca imediata. A prévia de combate usa um indicador temporário ligado aos eventos e som de teste opcional por `-CombatCueAudio`. O molde 3D tem materiais provisórios nos sete destinos. O aceite em janela, a arte do Terminal, a avaliação do mapa editável e da câmera lateral 3D e o teste Android seguem pendentes.
 # Fila vigente — 23/11/2026
 
 Esta ordem substitui as prioridades de execução do histórico abaixo. LAB-PVE-01 a 06 e LAB-QA-01, 01B e 01C já foram entregues em código. A transição por botões no panorama foi confirmada pelo usuário. O acabamento e o gesto abaixo são novos trabalhos. Esta revisão é de planejamento.

@@ -6,6 +6,7 @@
 #include "Engine/StaticMeshActor.h"
 #include "Engine/StaticMesh.h"
 #include "Engine/Texture2D.h"
+#include "Materials/MaterialInstanceDynamic.h"
 #include "Components/PointLightComponent.h"
 #include "Engine/PointLight.h"
 #include "Engine/World.h"
@@ -41,12 +42,31 @@ bool AProbeArenaHUD::UpdateHub3D()
         Hub3DCamera=GetWorld()->SpawnActor<ACameraActor>();
         if(!Hub3DCamera){return false;}
         Hub3DCamera->GetCameraComponent()->SetFieldOfView(75);
+        const auto finish=[&](FLinearColor color,float roughness){
+            auto* parent=cube->GetMaterial(0);
+            if(!parent){return static_cast<UMaterialInstanceDynamic*>(nullptr);}
+            auto* material=UMaterialInstanceDynamic::Create(parent,this);
+            material->SetVectorParameterValue(TEXT("Color"),color);
+            material->SetScalarParameterValue(TEXT("Roughness"),roughness);
+            return material;
+        };
+        auto* stone=finish({0.71f,0.57f,0.39f,1},0.85f);
+        auto* pavement=finish({0.38f,0.43f,0.46f,1},0.82f);
+        auto* terminal=finish({0.14f,0.29f,0.36f,1},0.34f);
+        auto* labMaterial=finish({0.26f,0.15f,0.37f,1},0.55f);
+        auto* arenaMaterial=finish({0.38f,0.16f,0.29f,1},0.61f);
+        auto* pubMaterial=finish({0.39f,0.21f,0.095f,1},0.75f);
+        auto* gamesMaterial=finish({0.08f,0.44f,0.39f,1},0.47f);
+        auto* rail=finish({0.24f,0.26f,0.29f,1},0.63f);
+        auto* foliage=finish({0.11f,0.32f,0.14f,1},0.88f);
+        UMaterialInterface* current=pavement;
         const auto volume=[&](UStaticMesh* mesh,FVector center,FVector scale,FRotator rotation=FRotator::ZeroRotator){
             auto* actor=GetWorld()->SpawnActor<AStaticMeshActor>(PlazaOrigin+center,rotation);
             if(!actor){return;}
             auto* component=actor->GetStaticMeshComponent();
             component->SetMobility(EComponentMobility::Movable);
             component->SetStaticMesh(mesh);
+            if(current){component->SetMaterial(0,current);}
             component->SetCollisionEnabled(ECollisionEnabled::NoCollision);
             actor->SetActorScale3D(scale);
         };
@@ -57,11 +77,13 @@ bool AProbeArenaHUD::UpdateHub3D()
         for(int step=0;step<6;++step){
             volume(cube,{70-step*54.0,934,-13-step*24.5},{0.54,3.0,0.2});
         }
+        current=terminal;
         volume(cube,{1080,0,230},{3,12,4.6});
         volume(cube,{890,0,460},{1.8,13,0.35});
         for(double y:{-430.,-220.,220.,430.}){
             volume(cube,{900,y,225},{0.45,0.45,4.5});
         }
+        current=stone;
         volume(cylinder,{-425,-345,35},{2.6,2.6,0.7});
         volume(cylinder,{-425,-345,94},{0.75,0.75,1.18});
         volume(cylinder,{-425,-345,160},{1.5,1.5,0.22});
@@ -76,16 +98,21 @@ bool AProbeArenaHUD::UpdateHub3D()
         for(double y:{-180.,0.,180.}){
             facade(cylinder,library,-35,{-185,y,213},{0.44,0.44,4.2});
         }
+        current=labMaterial;
         facade(cube,lab,-48,{0,0,140},{2.4,4.2,2.8});
         facade(cube,lab,-48,{-121,0,294},{2.8,4.8,0.28});
+        current=arenaMaterial;
         facade(cube,arena,42,{0,0,135},{3.5,5.3,2.7});
         facade(cube,arena,42,{-100,0,267},{2.4,5.7,0.18});
+        current=gamesMaterial;
         volume(cylinder,{205,105,100},{3.2,4.3,2.0});
         volume(cylinder,{205,105,204},{3.7,4.7,0.3});
+        current=pubMaterial;
         volume(cube,{-260,1150,-55},{3.0,3.8,1.9});
         volume(cube,{-290,923,31},{2.6,0.7,0.18});
 
         // Track turns out of the Terminal and advances toward the near right edge.
+        current=rail;
         const FVector track[]={{930,365,378},{865,610,369},{655,835,359},
             {355,1045,350},{30,1230,342},{-410,1430,334}};
         for(int i=1;i<UE_ARRAY_COUNT(track);++i){
@@ -106,8 +133,10 @@ bool AProbeArenaHUD::UpdateHub3D()
             }
         }
         // Lower Terminal annex feeds a separate monorail beam on the left.
+        current=terminal;
         volume(cube,{1090,-700,157},{2.8,3.4,3.14});
         volume(cube,{1080,-714,318},{3.0,3.6,0.2});
+        current=rail;
         const FVector monorail[]={{1075,-835,316},{1040,-1190,306},{850,-1510,296},{500,-1890,290}};
         for(int i=1;i<UE_ARRAY_COUNT(monorail);++i){
             const FVector delta=monorail[i]-monorail[i-1];
@@ -118,10 +147,12 @@ bool AProbeArenaHUD::UpdateHub3D()
             }
         }
         // Skyline blocks and planters provide depth references during the camera move.
+        current=pavement;
         for(int i=0;i<7;++i){
             const double height=5.0+(i%3)*1.4;
             volume(cube,{1970.0+(i%2)*140,-1500.0+i*500,height*50},{2.8,3.1,height});
         }
+        current=foliage;
         for(double y:{-660.,580.}){
             volume(cylinder,{145,y,32},{1.2,1.2,0.64});
             volume(cylinder,{145,y,108},{0.21,0.21,1.5});

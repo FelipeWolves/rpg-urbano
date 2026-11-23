@@ -50,7 +50,7 @@ struct Point2 { double x,y; };
 [[nodiscard]] std::optional<Point2> viewport_to_canvas(double x,double y,const CanvasMapping& mapping) noexcept;
 [[nodiscard]] std::optional<Point2> canvas_to_viewport(double x,double y,const CanvasMapping& mapping) noexcept;
 [[nodiscard]] bool same_canvas_mapping(const CanvasMapping& a,const CanvasMapping& b) noexcept;
-struct PointerContext { std::uint64_t revision=0; std::uint8_t screen=0; bool operator==(const PointerContext&) const = default; };
+struct PointerContext { std::uint64_t revision=0; std::uint8_t screen=0; bool allow_drag=false; bool operator==(const PointerContext&) const = default; };
 struct PointerFrame {
     PointerSource source=PointerSource::None;
     double x=0,y=0,origin_x=0,origin_y=0;
@@ -66,7 +66,7 @@ public:
 private:
     PointerSource owner_=PointerSource::None;
     PointerContext context_;
-    bool previous_mouse_=false,previous_touch_=false,blocked_=false;
+    bool previous_mouse_=false,previous_touch_=false,blocked_=false,moved_=false;
     double started_=0,last_time_=0,origin_x_=0,origin_y_=0,touch_guard_=0;
 };
 [[nodiscard]] bool pointer_clicked(const PointerFrame& frame,const Rect& target) noexcept;

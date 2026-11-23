@@ -8,6 +8,8 @@
 #include "Components/StaticMeshComponent.h"
 #include "Materials/MaterialInterface.h"
 #include "Engine/Canvas.h"
+#include "Kismet/GameplayStatics.h"
+#include "Sound/SoundBase.h"
 #include "Widgets/SViewport.h"
 #include "Engine/Texture2D.h"
 #include "CanvasTypes.h"
@@ -140,7 +142,7 @@ void AProbeArenaHUD::ReadPointer()
     const bool focused=InputWindowActive;
     const std::uint8_t screen=SearchActive?180:TutorialActive && Tutorial->awaiting_lesson()?181:IntroActive?128:InspectionMode?(!PopupLines.IsEmpty()?201:200):static_cast<std::uint8_t>(Flow.screen())+(!PopupLines.IsEmpty()?16:0);
     Input=Pointer.update({PlayerOwner->IsInputKeyDown(EKeys::LeftMouseButton),mouseValid && mouse.has_value() && CanvasCoordinatesKnown,mouse?mouse->x:0,mouse?mouse->y:0},
-        {touched,inViewport(LastTouchX,LastTouchY) && touch.has_value() && CanvasCoordinatesKnown,touch?touch->x:0,touch?touch->y:0},focused,GetWorld()->GetTimeSeconds(),{SearchActive?Search.state().revision:InspectionMode?static_cast<std::uint64_t>(InspectionIndex):ActiveState().revision,screen});
+        {touched,inViewport(LastTouchX,LastTouchY) && touch.has_value() && CanvasCoordinatesKnown,touch?touch->x:0,touch?touch->y:0},focused,GetWorld()->GetTimeSeconds(),{SearchActive?Search.state().revision:InspectionMode?static_cast<std::uint64_t>(InspectionIndex):ActiveState().revision,screen,HubEnabled && !Hub3DEnabled && !IntroActive && !InspectionMode && PopupLines.IsEmpty() && Flow.screen()==rpg::presentation::UiScreen::Hub});
     if(Input.cancelled){Gesture.cancel();}
 }
 void AProbeArenaHUD::DrawHUD()
@@ -152,6 +154,18 @@ void AProbeArenaHUD::DrawHUD()
     HideTargetMarker();ReadPointer();
     // Optional visual consumers never gate command dispatch or mutate the battle.
     for(int32 i=0;i<64;++i){const auto cue=TutorialActive?Tutorial->next_visual_cue():SharedActive?ActiveShared()->next_visual_cue():SequenceActive?ActiveSequence()->next_visual_cue():WavesActive?Waves->next_visual_cue():PveActive?ActivePve()->next_visual_cue():Session.next_visual_cue();if(!cue){break;}
+        if(!InspectionMode && Flow.screen()==rpg::presentation::UiScreen::Arena){
+            if(cue->phase==rpg::presentation::CuePhase::Begin){
+                CombatCueTime=GetWorld()->GetTimeSeconds();
+                CombatCueImpact=false;
+            }else if(cue->phase==rpg::presentation::CuePhase::Impact && !CombatCueImpact){
+                CombatCueImpact=true;
+                if(FParse::Param(FCommandLine::Get(),TEXT("CombatCueAudio"))){
+                    auto* ping=LoadObject<USoundBase>(nullptr,TEXT("/Engine/EngineSounds/1kSineTonePing.1kSineTonePing"));
+                    if(ping){UGameplayStatics::PlaySound2D(this,ping,0.08f);}
+                }
+            }
+        }
         UE_LOG(LogTemp,VeryVerbose,TEXT("VIS_CUE revision=%llu phase=%d index=%llu"),cue->revision,static_cast<int32>(cue->phase),static_cast<uint64>(cue->index));
     }
     if(IntroActive){DrawIntro();return;}
@@ -325,6 +339,12 @@ void AProbeArenaHUD::DrawHUD()
         }
     }
     if(InspectionMode){DrawInspectionControls();return;}
+    const double cueAge=now-CombatCueTime;
+    if(CombatCueTime>=0 && cueAge>=0 && cueAge<0.32){
+        const float alpha=HubReducedMotion?0.6f:static_cast<float>(1.0-cueAge/0.32);
+        const auto color=CombatCueImpact?FLinearColor(0.95f,0.49f,0.1f,alpha):FLinearColor(0.15f,0.63f,0.82f,alpha);
+        DrawRect(color,20,48,FMath::Min(112.f,Canvas->SizeX*0.25f),3);
+    }
     const float bottom=FMath::Max(280.f,Canvas->SizeY-135.f);
     DrawRect(FLinearColor(0.025f,0.035f,0.06f,0.9f),0,bottom-12,Canvas->SizeX,135);
     if(!classic){

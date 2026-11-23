@@ -24,7 +24,7 @@ $batch+="`ncl.exe %FLAGS% /I`"$root/include`" `"$root/tests/$test.cpp`" $objects
 $path=Join-Path $build 'testar.cmd';$batch | Set-Content $path -Encoding ascii
 $output=@(& $env:ComSpec /d /c $path 2>&1 | ForEach-Object {$_.ToString()});$code=$LASTEXITCODE
 $output | Set-Content (Join-Path $build 'tests.log') -Encoding utf8
-$passed=$code -eq 0 -and $output -contains 'POINTER_INPUT_TESTS_RESULT passed=10 total=10'
-[ordered]@{Date='2026-11-23';Passed=$passed;Groups=10;ExitCode=$code;Scope='Existing pointer model only; not runtime mouse confinement or engine event delivery';EditorOpened=$false} | ConvertTo-Json | Set-Content (Join-Path $root 'docs/relatorios/atuais/HUB-POINTER-2026-11-23.json') -Encoding utf8
+$passed=$code -eq 0 -and $output -contains 'POINTER_INPUT_TESTS_RESULT passed=11 total=11'
+[ordered]@{Date='2026-11-23';Passed=$passed;Groups=11;ExitCode=$code;Scope='Existing pointer model only; not runtime mouse confinement or engine event delivery';EditorOpened=$false} | ConvertTo-Json | Set-Content (Join-Path $root 'docs/relatorios/atuais/HUB-POINTER-2026-11-23.json') -Encoding utf8
 $output | Select-Object -Last 4
 if(!$passed){throw 'Pointer model failed'}

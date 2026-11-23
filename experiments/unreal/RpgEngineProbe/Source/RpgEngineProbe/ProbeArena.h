@@ -134,9 +134,15 @@ private:
     int32 TeamMenuPage=0;
     void LoadHubCatalog();
     void DrawHub();
+    double CombatCueTime=-1;
+    bool CombatCueImpact=false;
     std::optional<rpg::presentation::HubPlan> PanoramaFrom, PanoramaTarget;
     double PanoramaStarted=0;
-    void DrawAnimatedHubLabel(const rpg::presentation::HubHotspot& link,std::size_t index,const FString& labelText,float tx,float ty,float ts,float tw,float th,bool hover);
+    std::optional<rpg::presentation::HubPlan> PanoramaLabels, PanoramaDragBase, PanoramaDragPlan;
+    float PanoramaLabelOpacity=1.f;
+    bool PanoramaDragging=false;
+    double PanoramaDragLastX=0, PanoramaDragLastTime=0, PanoramaDragVelocity=0;
+    void DrawAnimatedHubLabel(const rpg::presentation::HubHotspot& link,std::size_t index,const FString& labelText,float tx,float ty,float ts,float tw,float th,bool hover,float opacity=1.f);
     bool UpdateHub3D();
     const rpg::presentation::HubHotspot* DrawHub3DScene(const rpg::presentation::Rect& scene);
     void RestoreHub3DCamera();

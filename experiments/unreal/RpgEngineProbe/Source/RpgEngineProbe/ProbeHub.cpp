@@ -572,7 +572,22 @@ void AProbeArenaHUD::DrawHub(){
         else{HubPanelBody=TEXT("Em breve. Este local está mapeado no panorama, mas seu sistema ainda não foi implementado. Nenhuma compra, recompensa, partida online ou alteração de progresso será executada aqui.");}
         HubPanelPage=0;TerminalMenuPage=0;Flow.open_location();
     };
-    if(preview3D){if(const auto* destination=DrawHub3DScene(layout.scene)){openDestination(*destination);return;}}
+    if(preview3D){
+        auto visibleScene=layout.scene;
+        if(focused3D){
+            const double width=FMath::Min(static_cast<double>(Canvas->SizeX),Canvas->SizeY*9.0/16.0);
+            const double height=width*16.0/9.0;
+            const double left=(Canvas->SizeX-width)*0.5;
+            const double top=(Canvas->SizeY-height)*0.5;
+            const double right=FMath::Min(visibleScene.x+visibleScene.width,left+width);
+            const double bottom=FMath::Min(visibleScene.y+visibleScene.height,top+height);
+            visibleScene.x=FMath::Max(visibleScene.x,left);
+            visibleScene.y=FMath::Max(visibleScene.y,top);
+            visibleScene.width=right-visibleScene.x;
+            visibleScene.height=bottom-visibleScene.y;
+        }
+        if(const auto* destination=DrawHub3DScene(visibleScene)){openDestination(*destination);return;}
+    }
     if(!preview3D && PanoramaLabelOpacity>0.f) for(std::size_t index=0;index<HubLinks.size();++index){
         const auto& link=HubLinks[index];
         const auto projected=project_hotspot(*PanoramaLabels,link);if(!projected){continue;}

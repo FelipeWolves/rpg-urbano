@@ -41,6 +41,10 @@ bool AProbeArenaHUD::UpdateHub3D(bool focused)
         if(!cube || !cylinder){return false;}
         Hub3DCamera=GetWorld()->SpawnActor<ACameraActor>();
         if(!Hub3DCamera){return false;}
+    auto* camera=Hub3DCamera->GetCameraComponent();
+    camera->SetAspectRatio(9.f/16.f);
+    camera->SetConstraintAspectRatio(focused);
+    camera->SetFieldOfView(focused?40.f:75.f);
         Hub3DCamera->GetCameraComponent()->SetFieldOfView(75);
         const auto finish=[&](FLinearColor color,float roughness){
             auto* parent=LoadObject<UMaterialInterface>(nullptr,TEXT("/Engine/BasicShapes/BasicShapeMaterial.BasicShapeMaterial"));
@@ -174,6 +178,10 @@ bool AProbeArenaHUD::UpdateHub3D(bool focused)
         }
     }
     if(!Hub3DCamera){return false;}
+    auto* camera=Hub3DCamera->GetCameraComponent();
+    camera->SetAspectRatio(9.f/16.f);
+    camera->SetConstraintAspectRatio(focused);
+    camera->SetFieldOfView(focused?40.f:75.f);
     if(PlayerOwner->GetViewTarget()!=Hub3DCamera){
         Hub3DOriginalCamera=PlayerOwner->GetViewTarget();
         PlayerOwner->SetViewTarget(Hub3DCamera);
@@ -209,16 +217,19 @@ const rpg::presentation::HubHotspot* AProbeArenaHUD::DrawHub3DScene(const rpg::p
             if(candidate.id==link.id){anchor=&candidate;break;}
         }
         if(!anchor){continue;}
-        const FVector point=Canvas->Project(PlazaOrigin+anchor->point);
-        if(point.Z<=0 || !contains(scene,point.X,point.Y)){continue;}
+        FVector2D projected;
+        if(!PlayerOwner->ProjectWorldLocationToScreen(PlazaOrigin+anchor->point,projected)){continue;}
+        const auto point=viewport_to_canvas(projected.X,projected.Y,CanvasCoordinates);
+        if(!point || !contains(scene,point->x,point->y)){continue;}
         const auto upper=hub_uppercase(link.label);
         const FString label=UTF8_TO_TCHAR(upper.c_str());
         float width=0,height=0;
         GetTextSize(label,width,height,HubLabelFont?HubLabelFont.Get():HubTitleFont.Get());
-        const Rect target{point.X-width/2-12,point.Y-24,width+24,48};
-        const bool hover=InputWindowActive && contains(target,Input.x,Input.y);
-        DrawAnimatedHubLabel(link,index,label,point.X-width/2,point.Y-height/2,1.f,width,height,hover);
-        if(pointer_clicked(Input,target)){return &link;}
+        const auto target=minimum_target({point->x-width/2-12,point->y-24,width+24,48},scene);
+        if(!target){continue;}
+        const bool hover=InputWindowActive && contains(*target,Input.x,Input.y);
+        DrawAnimatedHubLabel(link,index,label,point->x-width/2,point->y-height/2,1.f,width,height,hover);
+        if(pointer_clicked(Input,*target)){return &link;}
     }
     return nullptr;
 }

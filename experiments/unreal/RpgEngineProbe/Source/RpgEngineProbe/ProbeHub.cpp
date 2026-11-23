@@ -356,6 +356,47 @@ void AProbeArenaHUD::DrawHub(){
     auto plan=plan_hub({static_cast<uint32>(HubTexture->GetSizeX()),static_cast<uint32>(HubTexture->GetSizeY())},
         {static_cast<uint32>(layout.scene.width),static_cast<uint32>(layout.scene.height)},DeviceProfile(Preferences.mode),HubArea,HubView,HubAspectThreshold,HubRegions);
     plan.content.x+=layout.scene.x;plan.content.y+=layout.scene.y;
+    bool panoramaMoving=false;
+    if(preview3D || HubReducedMotion || Flow.screen()!=UiScreen::Hub){
+        PanoramaFrom.reset();
+        PanoramaTarget.reset();
+    }else{
+        const double now=GetWorld()->GetTimeSeconds();
+        constexpr double duration=0.45;
+        const auto blendRect=[](const Rect& from,const Rect& to,double t){
+            return Rect{FMath::Lerp(from.x,to.x,t),FMath::Lerp(from.y,to.y,t),
+                FMath::Lerp(from.width,to.width,t),FMath::Lerp(from.height,to.height,t)};
+        };
+        const auto sameRect=[](const Rect& a,const Rect& b){
+            return a.x==b.x && a.y==b.y && a.width==b.width && a.height==b.height;
+        };
+        const auto displayed=[&](){
+            auto current=*PanoramaTarget;
+            if(PanoramaFrom){
+                const double t=FMath::SmoothStep(0.0,1.0,(now-PanoramaStarted)/duration);
+                current.source_uv=blendRect(PanoramaFrom->source_uv,current.source_uv,t);
+                current.content=blendRect(PanoramaFrom->content,current.content,t);
+            }
+            return current;
+        };
+
+        if(!PanoramaTarget || (sameRect(PanoramaTarget->source_uv,plan.source_uv)
+            && !sameRect(PanoramaTarget->content,plan.content))){
+            PanoramaTarget=plan;
+            PanoramaFrom.reset();
+        }else if(!sameRect(PanoramaTarget->source_uv,plan.source_uv)){
+            PanoramaFrom=displayed();
+            PanoramaTarget=plan;
+            PanoramaStarted=now;
+        }
+        if(PanoramaFrom && now-PanoramaStarted>=duration){
+            PanoramaFrom.reset();
+            // A press that began on a moving image cannot select an arriving label.
+            if(Input.down || Input.tap){Pointer.cancel_until_release();Input.tap=false;}
+        }
+        panoramaMoving=PanoramaFrom.has_value();
+        plan=displayed();
+    }
     const auto& r=plan.content;const auto& uv=plan.source_uv;
     if(!preview3D){DrawTexture(HubTexture,static_cast<float>(r.x),static_cast<float>(r.y),static_cast<float>(r.width),static_cast<float>(r.height),
         static_cast<float>(uv.x),static_cast<float>(uv.y),static_cast<float>(uv.width),static_cast<float>(uv.height),FLinearColor::White,BLEND_Opaque);}
@@ -466,11 +507,11 @@ void AProbeArenaHUD::DrawHub(){
         const Rect label{std::clamp(projected->label_x-width/2,r.x,r.x+r.width-width),
             std::clamp(projected->label_y-height/2,r.y,r.y+r.height-height),width,height};
         const auto hit=minimum_target(label,r,48);if(!hit){continue;}
-        const bool hover=InputWindowActive && contains(*hit,mx,my);
+        const bool hover=!panoramaMoving && InputWindowActive && contains(*hit,mx,my);
         if(Preferences.high_contrast){DrawRect(HubPanel,static_cast<float>(label.x),static_cast<float>(label.y-3),static_cast<float>(label.width),static_cast<float>(label.height+6));}
         if(Preferences.high_contrast){line(label.x+5,label.y+label.height,label.x+label.width-5,label.y+label.height,HubCyan,1);}
         DrawAnimatedHubLabel(link,index,labelText,label.x+12,label.y+6,scale,tw,th,hover);
-        if(pointer_clicked(Input,*hit)){openDestination(link);return;}
+        if(!panoramaMoving && pointer_clicked(Input,*hit)){openDestination(link);return;}
     }
     // Fixed dock keeps every destination reachable when its source region is cropped.
 

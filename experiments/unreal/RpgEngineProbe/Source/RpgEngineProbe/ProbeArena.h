@@ -134,6 +134,8 @@ private:
     int32 TeamMenuPage=0;
     void LoadHubCatalog();
     void DrawHub();
+    std::optional<rpg::presentation::HubPlan> PanoramaFrom, PanoramaTarget;
+    double PanoramaStarted=0;
     void DrawAnimatedHubLabel(const rpg::presentation::HubHotspot& link,std::size_t index,const FString& labelText,float tx,float ty,float ts,float tw,float th,bool hover);
     bool UpdateHub3D();
     const rpg::presentation::HubHotspot* DrawHub3DScene(const rpg::presentation::Rect& scene);

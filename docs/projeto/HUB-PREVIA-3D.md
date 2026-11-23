@@ -19,3 +19,7 @@ No reteste, alterne duas vezes, confira os sete destinos, volte da batalha do Te
 ## Composição panorâmica
 
 Praça no primeiro plano à esquerda, Biblioteca acima dela, Terminal no centro superior, trilho elevado avançando pela direita e Arena PvP abaixo dele. Pub no canto inferior direito, com acesso por degraus a um piso rebaixado. A câmera de abertura foi recuada e ampliada. Compilação aprovada, 102 arquivos verificados. Enquadramento em jogo aguarda aceite.
+
+## Movimento da imagem panorâmica
+
+Na tela 2D, Esquerda, Centro e Direita deslizam o recorte em 450 ms. Os letreiros usam o recorte exibido em cada quadro e seus cliques ficam suspensos durante a passagem. Com Movimento reduzido, a troca é imediata. Para o reteste em janela vertical, alterne as áreas, clique rapidamente em outra direção e confira que os letreiros acompanham a imagem.

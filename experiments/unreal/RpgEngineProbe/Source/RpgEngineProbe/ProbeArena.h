@@ -134,6 +134,13 @@ private:
     int32 TeamMenuPage=0;
     void LoadHubCatalog();
     void DrawHub();
+    bool UpdateHub3D();
+    void DrawHub3DScene();
+    void RestoreHub3DCamera();
+    UPROPERTY(Transient) TObjectPtr<class ACameraActor> Hub3DCamera;
+    UPROPERTY(Transient) TObjectPtr<AActor> Hub3DOriginalCamera;
+    double Hub3DApproach=0;
+    bool Hub3DConfigured=false;
     int32 DrawInfoPanel(const FString& title,const TArray<FString>& paragraphs,int32& page,bool action=false,const FString& actionLabel=TEXT("Batalha de laboratório"),const FString& closeLabel=TEXT("Fechar"));
     void ReturnToHub();
     void HandleBack();

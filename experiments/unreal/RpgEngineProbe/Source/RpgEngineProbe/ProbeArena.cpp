@@ -164,6 +164,7 @@ void AProbeArenaHUD::DrawHUD()
     if(!InspectionMode && ActiveFinished()){Flow.finish();}
     if(!InspectionMode && PlayerOwner->WasInputKeyJustPressed(EKeys::Escape)){HandleBack();return;}
     if(HubEnabled && Flow.in_hub()){DrawHub();return;}
+    RestoreHub3DCamera();
     if(!InspectionMode && (Flow.screen()==rpg::presentation::UiScreen::Pause || Flow.screen()==rpg::presentation::UiScreen::AbandonConfirm)){DrawBattleMenu();return;}
     if(TutorialActive && Tutorial->awaiting_lesson()){DrawTutorialLesson();return;}
     auto view=ActiveState();

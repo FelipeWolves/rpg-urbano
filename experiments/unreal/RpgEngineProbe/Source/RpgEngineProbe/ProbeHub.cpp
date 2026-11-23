@@ -300,6 +300,7 @@ void AProbeArenaHUD::SelectLabScenario(bool felipe){
 }
 void AProbeArenaHUD::DrawHub(){
     if(Canvas->SizeX<1 || Canvas->SizeY<1){return;}
+    const bool preview3D=UpdateHub3D();
     const auto framePlan=plan_hub_frame({static_cast<uint32>(Canvas->SizeX),static_cast<uint32>(Canvas->SizeY)},static_cast<uint32>(HubLinks.size()),HubInsets);
     if(!framePlan){DrawText(TEXT("Amplie a janela ou reduza as margens simuladas."),FColor::White,8,20);return;}
     const auto& layout=*framePlan;
@@ -322,7 +323,7 @@ void AProbeArenaHUD::DrawHub(){
         Gesture.cancel();SelectedSlot=0;SelectedTarget.Empty();
         UE_LOG(LogTemp,Display,TEXT("HUB_BATTLE attempt=%llu"),static_cast<unsigned long long>(Session.state().progress.attempt));
     };
-    DrawRect(FLinearColor(0.015f,0.02f,0.03f),0,0,Canvas->SizeX,Canvas->SizeY);
+    if(!preview3D){DrawRect(FLinearColor(0.015f,0.02f,0.03f),0,0,Canvas->SizeX,Canvas->SizeY);}
     if(Flow.screen()==UiScreen::TeamSetup){DrawTeamSetup();return;}
     if(!HubTexture){
         if(button({layout.safe.x+20,layout.safe.y+170,180,48},TEXT("Equipe / Save"))){if(Flow.new_attempt_required()){Session.reset();Flow.acknowledge_new_attempt();}TeamMenuPage=0;HubPanelPage=0;DraftTeam=Session.team().selected;Flow.open_team();return;}
@@ -334,8 +335,8 @@ void AProbeArenaHUD::DrawHub(){
         {static_cast<uint32>(layout.scene.width),static_cast<uint32>(layout.scene.height)},DeviceProfile(Preferences.mode),HubArea,HubView,HubAspectThreshold,HubRegions);
     plan.content.x+=layout.scene.x;plan.content.y+=layout.scene.y;
     const auto& r=plan.content;const auto& uv=plan.source_uv;
-    DrawTexture(HubTexture,static_cast<float>(r.x),static_cast<float>(r.y),static_cast<float>(r.width),static_cast<float>(r.height),
-        static_cast<float>(uv.x),static_cast<float>(uv.y),static_cast<float>(uv.width),static_cast<float>(uv.height),FLinearColor::White,BLEND_Opaque);
+    if(!preview3D){DrawTexture(HubTexture,static_cast<float>(r.x),static_cast<float>(r.y),static_cast<float>(r.width),static_cast<float>(r.height),
+        static_cast<float>(uv.x),static_cast<float>(uv.y),static_cast<float>(uv.width),static_cast<float>(uv.height),FLinearColor::White,BLEND_Opaque);}
     const auto line=[&](double x1,double y1,double x2,double y2,FLinearColor color,double stroke){
         DrawLine(static_cast<float>(x1),static_cast<float>(y1),static_cast<float>(x2),static_cast<float>(y2),color,static_cast<float>(stroke));
     };
@@ -353,6 +354,7 @@ void AProbeArenaHUD::DrawHub(){
         const auto result=DrawInfoPanel(TEXT("LAB - EXP | EVENTOS ESPECIAIS"),text,HubPanelPage,true,TEXT("Iniciar busca classica"),TEXT("Voltar ao hub"));
         if(result==1){Flow.back(false,false);}else if(result==2){Search.reset();SearchActive=true;HubPanelPage=0;Pointer.cancel_until_release();}return;
     }
+    if(preview3D && Flow.screen()==UiScreen::Location && HubPanelRoute==HubRoute::Terminal && Hub3DApproach<0.99){return;}
     if(Flow.screen()==UiScreen::Location){
         if(HubPanelRoute==HubRoute::Terminal){
             const double x=layout.safe.x+12,w=std::max(48.0,std::min(400.0,layout.safe.width-24)),y=layout.header.y+104;
@@ -415,6 +417,7 @@ void AProbeArenaHUD::DrawHub(){
         const int32 result=DrawInfoPanel(HubPanelTitle,paragraphs,HubPanelPage,HubPanelRoute==HubRoute::Terminal || HubPanelRoute==HubRoute::Battle,HubPanelRoute==HubRoute::Battle?TEXT("Testar Felipe (local)"):TEXT("Abrir batalha"));
         if(result==1){Flow.back(false,false);}else if(result==2){SelectLabScenario(HubPanelRoute==HubRoute::Battle);enterBattle();}return;
     }
+    if(preview3D){DrawHub3DScene();return;}
     const auto openDestination=[&](const HubHotspot& link){
         if(link.route==HubRoute::Battle){enterBattle();return;}
         HubPanelRoute=link.route;HubPanelTitle=Text(link.label);

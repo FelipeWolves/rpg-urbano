@@ -1,3 +1,5 @@
+> **Recebidos22/11:** 5documentos e19imagens novos revisados; originais preservados, sem integração. Tutorial padrão requer fechar debuff prévio para Sangramento, ordem guiada, variante jovem e persistência isolada. Ícones JPG/caminhos e status353×307 diferem das fichas; avatar recebido chama-se portrait-felipe-v01.png. Ver docs/projeto/RECEBIMENTO-NOVIDADES-2026-11-22.md. Demo~28% mantida.
+
 # Hub e arte 2D — guia vigente
 
 Atualizado em **22/11/2026**. Demo **~28%**. Sua preparação e o desenvolvimento são frentes paralelas: entregar amostras é suficiente; nada aqui pede para refazer material já definido.

@@ -323,7 +323,9 @@ void AProbeArenaHUD::DrawAnimatedHubLabel(const rpg::presentation::HubHotspot& l
 
 void AProbeArenaHUD::DrawHub(){
     if(Canvas->SizeX<1 || Canvas->SizeY<1){return;}
-    const bool preview3D=UpdateHub3D();
+    const bool focused3D=HubView==HubView::Focused || (HubView==HubView::Auto &&
+        (DeviceProfile(Preferences.mode)==Device::Mobile || Canvas->SizeX/float(Canvas->SizeY)<HubAspectThreshold));
+    const bool preview3D=UpdateHub3D(focused3D);
     const auto framePlan=plan_hub_frame({static_cast<uint32>(Canvas->SizeX),static_cast<uint32>(Canvas->SizeY)},static_cast<uint32>(HubLinks.size()),HubInsets);
     if(!framePlan){DrawText(TEXT("Amplie a janela ou reduza as margens simuladas."),FColor::White,8,20);return;}
     const auto& layout=*framePlan;
@@ -601,13 +603,11 @@ void AProbeArenaHUD::DrawHub(){
         DrawText(link.id=="arena-pvp"?TEXT("Teste local"):link.route==HubRoute::Unavailable?TEXT("Em breve"):TEXT("Abrir"),FColor(180,190,200),static_cast<float>(tile.x+6),static_cast<float>(tile.y+25),HubBodyFont,0.55f);
         if(pointer_clicked(Input,tile)){openDestination(link);return;}
     }
-    if(!preview3D){
     if(button(layout.navigation[0],TEXT("Esquerda")) || PlayerOwner->WasInputKeyJustPressed(EKeys::Left)){HubArea=rpg::presentation::HubArea::Left;HubView=rpg::presentation::HubView::Focused;SavePresentationPreferences();}
     if(button(layout.navigation[1],TEXT("Centro"))){HubArea=rpg::presentation::HubArea::Center;HubView=rpg::presentation::HubView::Focused;SavePresentationPreferences();}
     if(button(layout.navigation[2],TEXT("Direita")) || PlayerOwner->WasInputKeyJustPressed(EKeys::Right)){HubArea=rpg::presentation::HubArea::Right;HubView=rpg::presentation::HubView::Focused;SavePresentationPreferences();}
-    if(button(layout.navigation[3],plan.view==rpg::presentation::HubView::Panoramic?TEXT("Focar área"):TEXT("Panorama"))){
-        HubView=plan.view==rpg::presentation::HubView::Panoramic?rpg::presentation::HubView::Focused:rpg::presentation::HubView::Panoramic;SavePresentationPreferences();
-    }
+    if(button(layout.navigation[3],(preview3D?!focused3D:plan.view==rpg::presentation::HubView::Panoramic)?TEXT("Focar área"):TEXT("Panorama"))){
+        HubView=(preview3D?!focused3D:plan.view==rpg::presentation::HubView::Panoramic)?rpg::presentation::HubView::Focused:rpg::presentation::HubView::Panoramic;SavePresentationPreferences();
     }
     if(button(layout.navigation[4],TEXT("Opções"))){Flow.open_options();}
 }

@@ -31,7 +31,7 @@ const DestinationAnchor DestinationAnchors[]={
 };
 }
 
-bool AProbeArenaHUD::UpdateHub3D()
+bool AProbeArenaHUD::UpdateHub3D(bool focused)
 {
     if(!Hub3DEnabled){RestoreHub3DCamera();return false;}
     if(!Hub3DConfigured){
@@ -43,9 +43,15 @@ bool AProbeArenaHUD::UpdateHub3D()
         if(!Hub3DCamera){return false;}
         Hub3DCamera->GetCameraComponent()->SetFieldOfView(75);
         const auto finish=[&](FLinearColor color,float roughness){
-            auto* parent=cube->GetMaterial(0);
+            auto* parent=LoadObject<UMaterialInterface>(nullptr,TEXT("/Engine/BasicShapes/BasicShapeMaterial.BasicShapeMaterial"));
+            FLinearColor defaultColor;
+            if(!parent || !parent->GetVectorParameterValue(FMaterialParameterInfo(TEXT("Color")),defaultColor)){
+                // The arena marker uses this same color-parameter material.
+                parent=TargetMarkerMaterial.Get();
+            }
             if(!parent){return static_cast<UMaterialInstanceDynamic*>(nullptr);}
             auto* material=UMaterialInstanceDynamic::Create(parent,this);
+            if(!material){return material;}
             material->SetVectorParameterValue(TEXT("Color"),color);
             material->SetScalarParameterValue(TEXT("Roughness"),roughness);
             return material;
@@ -177,8 +183,9 @@ bool AProbeArenaHUD::UpdateHub3D()
     const double target=approaching?1.0:0.0;
     Hub3DApproach=HubReducedMotion?target:FMath::FInterpConstantTo(Hub3DApproach,target,static_cast<double>(GetWorld()->GetDeltaSeconds()),1.35);
     const double blend=FMath::SmoothStep(0.0,1.0,Hub3DApproach);
-    const FVector eye=FMath::Lerp(FVector(-1520,0,715),FVector(390,-82,318),blend);
-    const FVector look=FMath::Lerp(FVector(660,0,250),FVector(960,0,275),blend);
+    const double side=focused?(HubArea==HubArea::Left?-1.0:HubArea==HubArea::Right?1.0:0.0):0.0;
+    const FVector eye=FMath::Lerp(FVector(focused?-1160:-1520,side*470,715),FVector(390,-82,318),blend);
+    const FVector look=FMath::Lerp(FVector(660,side*850,250),FVector(960,0,275),blend);
     Hub3DCamera->SetActorLocationAndRotation(PlazaOrigin+eye,(look-eye).Rotation());
     return true;
 }

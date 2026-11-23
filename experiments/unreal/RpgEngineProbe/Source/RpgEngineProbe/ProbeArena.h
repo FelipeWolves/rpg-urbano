@@ -143,7 +143,7 @@ private:
     bool PanoramaDragging=false;
     double PanoramaDragLastX=0, PanoramaDragLastTime=0, PanoramaDragVelocity=0;
     void DrawAnimatedHubLabel(const rpg::presentation::HubHotspot& link,std::size_t index,const FString& labelText,float tx,float ty,float ts,float tw,float th,bool hover,float opacity=1.f);
-    bool UpdateHub3D();
+    bool UpdateHub3D(bool focused);
     const rpg::presentation::HubHotspot* DrawHub3DScene(const rpg::presentation::Rect& scene);
     void RestoreHub3DCamera();
     UPROPERTY(Transient) TObjectPtr<class ACameraActor> Hub3DCamera;

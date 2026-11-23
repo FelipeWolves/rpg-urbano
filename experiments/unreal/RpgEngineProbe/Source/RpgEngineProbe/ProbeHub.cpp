@@ -322,6 +322,7 @@ void AProbeArenaHUD::DrawAnimatedHubLabel(const rpg::presentation::HubHotspot& l
 }
 
 void AProbeArenaHUD::DrawHub(){
+    RequestAndroidOrientation(HubView==HubView::Panoramic);
     if(Canvas->SizeX<1 || Canvas->SizeY<1){return;}
     const bool focused3D=HubView==HubView::Focused || (HubView==HubView::Auto &&
         (DeviceProfile(Preferences.mode)==Device::Mobile || Canvas->SizeX/float(Canvas->SizeY)<HubAspectThreshold));

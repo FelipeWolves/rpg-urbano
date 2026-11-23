@@ -1,6 +1,7 @@
 #include "ProbeArena.h"
 #include <algorithm>
 #include "Camera/CameraActor.h"
+#include "Camera/CameraComponent.h"
 #include "Misc/CommandLine.h"
 #include "Misc/Parse.h"
 #include "Misc/ConfigCacheIni.h"
@@ -42,7 +43,12 @@ void AProbeArenaMode::BeginPlay()
         const FVector location=classic?FVector(0,-850,560):FVector(0,-1200,1050);
         const FRotator rotation=classic?FRotator(-33,90,0):FRotator(-40,90,0);
         auto* camera=GetWorld()->SpawnActor<ACameraActor>(location,rotation);
-        if(camera){pc->SetViewTarget(camera);}
+        if(camera){
+#if PLATFORM_ANDROID || PLATFORM_IOS
+            camera->GetCameraComponent()->SetConstraintAspectRatio(false);
+#endif
+            pc->SetViewTarget(camera);
+        }
         pc->bShowMouseCursor=true;
         // GameOnly queues a Slate lock/high-precision capture even if the viewport enum is changed later.
         // GameAndUI releases that lock, and temporary mouse-down capture forwards the first click.
@@ -142,7 +148,7 @@ void AProbeArenaHUD::ReadPointer()
     const bool focused=InputWindowActive;
     const std::uint8_t screen=SearchActive?180:TutorialActive && Tutorial->awaiting_lesson()?181:IntroActive?128:InspectionMode?(!PopupLines.IsEmpty()?201:200):static_cast<std::uint8_t>(Flow.screen())+(!PopupLines.IsEmpty()?16:0);
     Input=Pointer.update({PlayerOwner->IsInputKeyDown(EKeys::LeftMouseButton),mouseValid && mouse.has_value() && CanvasCoordinatesKnown,mouse?mouse->x:0,mouse?mouse->y:0},
-        {touched,inViewport(LastTouchX,LastTouchY) && touch.has_value() && CanvasCoordinatesKnown,touch?touch->x:0,touch?touch->y:0},focused,GetWorld()->GetTimeSeconds(),{SearchActive?Search.state().revision:InspectionMode?static_cast<std::uint64_t>(InspectionIndex):ActiveState().revision,screen,HubEnabled && !Hub3DEnabled && !IntroActive && !InspectionMode && PopupLines.IsEmpty() && Flow.screen()==rpg::presentation::UiScreen::Hub});
+        {touched,inViewport(LastTouchX,LastTouchY) && touch.has_value() && CanvasCoordinatesKnown,touch?touch->x:0,touch?touch->y:0},focused,GetWorld()->GetTimeSeconds(),{SearchActive?Search.state().revision:InspectionMode?static_cast<std::uint64_t>(InspectionIndex):ActiveState().revision,screen,HubEnabled && !IntroActive && !InspectionMode && PopupLines.IsEmpty() && Flow.screen()==rpg::presentation::UiScreen::Hub});
     if(Input.cancelled){Gesture.cancel();}
 }
 void AProbeArenaHUD::DrawHUD()

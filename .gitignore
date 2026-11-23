@@ -63,3 +63,7 @@ Thumbs.db
 
 # Local presentation copies in the stable editor project (canonical catalog tracked separately).
 /experiments/unreal/**/Content/Presentation/
+
+# Java glue and file-open order produced by Unreal Android packaging.
+/experiments/unreal/**/Build/Android/src/com/
+/experiments/unreal/**/Build/Android_*/FileOpenOrder/

@@ -63,7 +63,7 @@ EncounterSetup felipe_pilot_setup(bool tutorial_preload){
 namespace rpg::presentation {
 std::vector<InspectionFrame> arena_inspection_frames(){
     std::vector<InspectionFrame> frames;
-    for(const auto pair:std::vector<std::pair<int,int>>{{1,1},{2,1},{3,3},{5,5},{1,5},{5,1}}){
+    for(const auto& pair:std::vector<std::pair<int,int>>{{1,1},{2,1},{3,3},{5,5},{1,5},{5,1}}){
         std::vector<Definition> roster;
         for(const auto side:{Team::A,Team::B}){
             const int count=side==Team::A?pair.first:pair.second;

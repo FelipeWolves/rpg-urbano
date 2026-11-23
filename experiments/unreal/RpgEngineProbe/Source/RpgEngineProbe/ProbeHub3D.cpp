@@ -44,7 +44,7 @@ bool AProbeArenaHUD::UpdateHub3D(bool focused)
     auto* camera=Hub3DCamera->GetCameraComponent();
     camera->SetAspectRatio(9.f/16.f);
     camera->SetConstraintAspectRatio(focused);
-    camera->SetFieldOfView(focused?40.f:75.f);
+    camera->SetFieldOfView(focused?40.f:55.f);
         Hub3DCamera->GetCameraComponent()->SetFieldOfView(75);
         const auto finish=[&](FLinearColor color,float roughness){
             auto* parent=LoadObject<UMaterialInterface>(nullptr,TEXT("/Engine/BasicShapes/BasicShapeMaterial.BasicShapeMaterial"));
@@ -181,7 +181,7 @@ bool AProbeArenaHUD::UpdateHub3D(bool focused)
     auto* camera=Hub3DCamera->GetCameraComponent();
     camera->SetAspectRatio(9.f/16.f);
     camera->SetConstraintAspectRatio(focused);
-    camera->SetFieldOfView(focused?40.f:75.f);
+    camera->SetFieldOfView(focused?40.f:55.f);
     if(PlayerOwner->GetViewTarget()!=Hub3DCamera){
         Hub3DOriginalCamera=PlayerOwner->GetViewTarget();
         PlayerOwner->SetViewTarget(Hub3DCamera);
@@ -191,9 +191,77 @@ bool AProbeArenaHUD::UpdateHub3D(bool focused)
     const double target=approaching?1.0:0.0;
     Hub3DApproach=HubReducedMotion?target:FMath::FInterpConstantTo(Hub3DApproach,target,static_cast<double>(GetWorld()->GetDeltaSeconds()),1.35);
     const double blend=FMath::SmoothStep(0.0,1.0,Hub3DApproach);
-    const double side=focused?(HubArea==HubArea::Left?-1.0:HubArea==HubArea::Right?1.0:0.0):0.0;
-    const FVector eye=FMath::Lerp(FVector(focused?-1160:-1520,side*470,715),FVector(390,-82,318),blend);
-    const FVector look=FMath::Lerp(FVector(660,side*850,250),FVector(960,0,275),blend);
+    const auto selectedSide=[&](){return HubArea==HubArea::Left?-1.0:HubArea==HubArea::Right?1.0:0.0;};
+    const double now=GetWorld()->GetTimeSeconds();
+    constexpr double slideDuration=0.45;
+    const double width=FMath::Min(static_cast<double>(Canvas->SizeX),Canvas->SizeY*9.0/16.0);
+    const double height=width*16.0/9.0;
+    const Rect portrait{(Canvas->SizeX-width)*0.5,(Canvas->SizeY-height)*0.5,width,height};
+    if(!focused || HubReducedMotion || Flow.screen()!=UiScreen::Hub || width<=0){
+        Hub3DTrackingDrag=false;
+        Hub3DDragging=false;
+    }else if(Input.pressed && contains(portrait,Input.x,Input.y)){
+        Hub3DTrackingDrag=true;
+        Hub3DDragging=false;
+        Hub3DDragOrigin=Hub3DSide;
+        Hub3DDragLastX=Input.x;
+        Hub3DDragLastTime=now;
+        Hub3DDragVelocity=0;
+    }
+    if(Hub3DTrackingDrag){
+        const double dx=Input.x-Input.origin_x;
+        const double dy=Input.y-Input.origin_y;
+        if((Input.down || Input.released) && !Input.cancelled){
+            if(FMath::Abs(dx)>=12 && FMath::Abs(dx)>1.25*FMath::Abs(dy)){
+                Hub3DDragging=true;
+            }
+            if(now>Hub3DDragLastTime && (!Input.released || Input.x!=Hub3DDragLastX)){
+                Hub3DDragVelocity=(Input.x-Hub3DDragLastX)/(now-Hub3DDragLastTime);
+                Hub3DDragLastX=Input.x;
+                Hub3DDragLastTime=now;
+            }
+            if(Hub3DDragging){
+                Hub3DSide=FMath::Clamp(Hub3DDragOrigin-dx/width,-1.0,1.0);
+            }
+        }
+        if(Input.released || Input.cancelled || !Input.down){
+            if(Hub3DDragging){
+                const double velocity=now-Hub3DDragLastTime<=0.10?Hub3DDragVelocity:0;
+                const bool advance=FMath::Abs(dx)>=width*0.18
+                    || (FMath::Abs(dx)>=24 && FMath::Abs(velocity)>=550 && velocity*dx>0);
+                if(Input.released && !Input.cancelled && advance){
+                    const double next=FMath::Clamp(selectedSide()+(dx<0?1.0:-1.0),-1.0,1.0);
+                    HubArea=next<0?HubArea::Left:next>0?HubArea::Right:HubArea::Center;
+                    HubView=HubView::Focused;
+                    SavePresentationPreferences();
+                }
+                Hub3DSideFrom=Hub3DSide;
+                Hub3DSideTarget=selectedSide();
+                Hub3DSlideStart=now;
+                Input.tap=false;
+                Pointer.cancel_until_release();
+            }
+            Hub3DTrackingDrag=false;
+            Hub3DDragging=false;
+        }
+    }
+    const double sideTarget=focused?selectedSide():0.0;
+    if(HubReducedMotion){
+        Hub3DSide=Hub3DSideFrom=Hub3DSideTarget=sideTarget;
+    }else if(!Hub3DDragging){
+        if(sideTarget!=Hub3DSideTarget){
+            Hub3DSideFrom=Hub3DSide;
+            Hub3DSideTarget=sideTarget;
+            Hub3DSlideStart=now;
+        }
+        const double progress=FMath::SmoothStep(0.0,1.0,(now-Hub3DSlideStart)/slideDuration);
+        Hub3DSide=FMath::Lerp(Hub3DSideFrom,Hub3DSideTarget,progress);
+    }
+    const bool sliding=Hub3DDragging || !FMath::IsNearlyEqual(Hub3DSide,sideTarget,0.001);
+    Hub3DLabelOpacity=HubReducedMotion?1.f:FMath::FInterpConstantTo(
+        Hub3DLabelOpacity,sliding?0.f:1.f,GetWorld()->GetDeltaSeconds(),8.f);
+    const FVector eye=FMath::Lerp(FVector(focused?-1160:-1360,Hub3DSide*470,715),FVector(390,-82,318),blend);
+    const FVector look=FMath::Lerp(FVector(660,Hub3DSide*850,focused?250:130),FVector(960,0,275),blend);
     Hub3DCamera->SetActorLocationAndRotation(PlazaOrigin+eye,(look-eye).Rotation());
     return true;
 }
@@ -203,13 +271,15 @@ void AProbeArenaHUD::RestoreHub3DCamera()
     if(Hub3DCamera && PlayerOwner->GetViewTarget()==Hub3DCamera && IsValid(Hub3DOriginalCamera)){
         PlayerOwner->SetViewTarget(Hub3DOriginalCamera);
         Hub3DApproach=0;
+        Hub3DTrackingDrag=Hub3DDragging=false;
     }
 }
 
 const rpg::presentation::HubHotspot* AProbeArenaHUD::DrawHub3DScene(const rpg::presentation::Rect& scene)
 {
     using namespace rpg::presentation;
-    if(Flow.screen()!=UiScreen::Hub || Hub3DApproach>0.01){return nullptr;}
+    if(Flow.screen()!=UiScreen::Hub || Hub3DApproach>0.01 || Hub3DLabelOpacity<=0.f){return nullptr;}
+    const bool interactive=Hub3DLabelOpacity>=1.f && !Hub3DDragging;
     for(std::size_t index=0;index<HubLinks.size();++index){
         const auto& link=HubLinks[index];
         const DestinationAnchor* anchor=nullptr;
@@ -227,9 +297,9 @@ const rpg::presentation::HubHotspot* AProbeArenaHUD::DrawHub3DScene(const rpg::p
         GetTextSize(label,width,height,HubLabelFont?HubLabelFont.Get():HubTitleFont.Get());
         const auto target=minimum_target({point->x-width/2-12,point->y-24,width+24,48},scene);
         if(!target){continue;}
-        const bool hover=InputWindowActive && contains(*target,Input.x,Input.y);
-        DrawAnimatedHubLabel(link,index,label,point->x-width/2,point->y-height/2,1.f,width,height,hover);
-        if(pointer_clicked(Input,*target)){return &link;}
+        const bool hover=interactive && InputWindowActive && contains(*target,Input.x,Input.y);
+        DrawAnimatedHubLabel(link,index,label,point->x-width/2,point->y-height/2,1.f,width,height,hover,Hub3DLabelOpacity);
+        if(interactive && pointer_clicked(Input,*target)){return &link;}
     }
     return nullptr;
 }

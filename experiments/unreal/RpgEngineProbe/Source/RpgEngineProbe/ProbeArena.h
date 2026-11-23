@@ -89,6 +89,9 @@ private:
     FString IntroWatchPath;
     FString IntroWatchToken;
     void StartIntro();
+    void RequestAndroidOrientation(bool landscape);
+    rpg::presentation::Orientation IntroAndroidOrientation=rpg::presentation::Orientation::Keep;
+    double IntroRotationStarted=0;
     void DrawIntro();
     void StopIntro();
     void IntroDeactivate();
@@ -149,6 +152,10 @@ private:
     UPROPERTY(Transient) TObjectPtr<class ACameraActor> Hub3DCamera;
     UPROPERTY(Transient) TObjectPtr<AActor> Hub3DOriginalCamera;
     double Hub3DApproach=0;
+    double Hub3DSide=0, Hub3DSideFrom=0, Hub3DSideTarget=0, Hub3DSlideStart=0;
+    double Hub3DDragOrigin=0, Hub3DDragLastX=0, Hub3DDragLastTime=0, Hub3DDragVelocity=0;
+    bool Hub3DTrackingDrag=false, Hub3DDragging=false;
+    float Hub3DLabelOpacity=1.f;
     bool Hub3DConfigured=false,Hub3DEnabled=false;
     int32 DrawInfoPanel(const FString& title,const TArray<FString>& paragraphs,int32& page,bool action=false,const FString& actionLabel=TEXT("Batalha de laboratório"),const FString& closeLabel=TEXT("Fechar"));
     void ReturnToHub();

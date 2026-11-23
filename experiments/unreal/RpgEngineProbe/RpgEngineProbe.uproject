@@ -4,7 +4,11 @@
   "Category": "Games",
   "Description": "Original urban RPG prototype. Stable editor project; independent C++20 core in the repository.",
   "DisableEnginePluginsByDefault": true,
-  "Plugins": [{ "Name": "WmfMedia", "Enabled": true, "PlatformAllowList": ["Win64"] }],
+  "Plugins": [
+    { "Name": "WmfMedia", "Enabled": true, "PlatformAllowList": ["Win64"] },
+    { "Name": "AndroidMedia", "Enabled": true, "PlatformAllowList": ["Android"] },
+    { "Name": "AndroidPermission", "Enabled": true, "PlatformAllowList": ["Android"] }
+  ],
   "Modules": [
     {
       "Name": "RpgEngineProbe",

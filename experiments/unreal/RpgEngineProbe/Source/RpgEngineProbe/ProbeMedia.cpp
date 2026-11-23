@@ -9,6 +9,8 @@
 #include "GameFramework/PlayerController.h"
 #include "InputCoreTypes.h"
 #include "Misc/CoreDelegates.h"
+#include "Misc/ConfigCacheIni.h"
+#include "HAL/PlatformMisc.h"
 #include "Misc/FileHelper.h"
 #include "Misc/Paths.h"
 #include "HAL/FileManager.h"
@@ -22,6 +24,18 @@ namespace {
 FString MediaString(const TSharedPtr<FJsonObject>& object,const TCHAR* key){FString value;if(!object || !object->TryGetStringField(key,value)){throw std::runtime_error("Campo textual de midia invalido.");}return value;}
 double MediaNumber(const TSharedPtr<FJsonObject>& object,const TCHAR* key){double value=0;if(!object || !object->TryGetNumberField(key,value)){throw std::runtime_error("Campo numerico de midia invalido.");}return value;}
 }
+void AProbeArenaHUD::RequestAndroidOrientation(bool landscape){
+#if PLATFORM_ANDROID
+    const auto orientation=landscape?EDeviceScreenOrientation::LandscapeLeft:EDeviceScreenOrientation::Portrait;
+    if(FPlatformMisc::GetAllowedDeviceOrientation()!=orientation){
+        FPlatformMisc::SetAllowedDeviceOrientation(orientation);
+        Pointer.cancel_until_release();
+    }
+#else
+    (void)landscape;
+#endif
+}
+
 void AProbeArenaHUD::StartIntro(){
     if(IntroActive || Flow.screen()!=UiScreen::Hub){return;}
     StopIntro();Gesture.cancel();Input={};
@@ -47,18 +61,34 @@ void AProbeArenaHUD::StartIntro(){
             auto& target=role==TEXT("IntroMobile")?variants.mobile:variants.desktop;
             if(target){throw std::runtime_error("Variante de video duplicada.");}target=std::move(asset);
         }
+#if PLATFORM_ANDROID
+        bool preferLandscape=false;
+        GConfig->GetBool(TEXT("RpgPrototype"),TEXT("AndroidIntroPreferLandscape"),preferLandscape,GGameIni);
+        const bool mobile=!preferLandscape;
+#else
         const bool mobile=Preferences.mode==PresentationMode::Mobile || (Preferences.mode==PresentationMode::Auto && Canvas && Canvas->SizeY>Canvas->SizeX);
+#endif
         const auto* asset=select_variant(variants,mobile?Device::Mobile:Device::Desktop);
         if(!asset){throw std::runtime_error("Nenhuma abertura local cadastrada.");}
         const FString path=FPaths::ConvertRelativePathToFull(root/UTF8_TO_TCHAR(asset->relative_path.c_str()));
         if(!FPaths::IsUnderDirectory(path,root) || IFileManager::Get().FileSize(*path)<=0){throw std::runtime_error("Arquivo de abertura ausente.");}
         // Versioned per variant; checkpoint is separate from battle and UI preferences.
         IntroWatchPath=FPaths::ProjectSavedDir()/TEXT("Media")/(FString(UTF8_TO_TCHAR(asset->id.c_str()))+TEXT("-v1.flag"));
-        FString binary=FModuleManager::Get().GetModuleFilename(TEXT("RpgEngineProbe"));
+#if PLATFORM_ANDROID
+        // Android loads this code from libUnreal.so, without a supported executable path.
+        IntroWatchToken=TEXT("INTRO_V2_SEEN|")+FString(ANSI_TO_TCHAR(__DATE__ " " __TIME__));
+        const bool canRememberIntro=true;
+#else
+        FString binary;
+#if !IS_MONOLITHIC
+        binary=FModuleManager::Get().GetModuleFilename(TEXT("RpgEngineProbe"));
+#endif
         if(binary.IsEmpty() || !IFileManager::Get().FileExists(*binary)){binary=FPlatformProcess::ExecutablePath();}
         const auto stamp=IFileManager::Get().GetTimeStamp(*binary);
         IntroWatchToken=TEXT("INTRO_V2_SEEN|")+stamp.ToIso8601();
-        FString flag;const bool watched=stamp!=FDateTime::MinValue() && IFileManager::Get().FileSize(*IntroWatchPath)<=256 && FFileHelper::LoadFileToString(flag,*IntroWatchPath) && flag==IntroWatchToken;
+        const bool canRememberIntro=stamp!=FDateTime::MinValue();
+#endif
+        FString flag;const bool watched=canRememberIntro && IFileManager::Get().FileSize(*IntroWatchPath)<=256 && FFileHelper::LoadFileToString(flag,*IntroWatchPath) && flag==IntroWatchToken;
         IntroFlow.background(false);IntroTicket=IntroFlow.begin(*asset,watched);
         UE_LOG(LogTemp,Display,TEXT("INTRO_REQUEST ticket=%llu watched=%d"),IntroTicket,watched?1:0);
         IntroPlayer=NewObject<UMediaPlayer>(this);IntroPlayer->PlayOnOpen=false;IntroPlayer->SetLooping(false);
@@ -68,6 +98,13 @@ void AProbeArenaHUD::StartIntro(){
         FCoreDelegates::ApplicationWillDeactivateDelegate.AddUObject(this,&AProbeArenaHUD::IntroDeactivate);
         FCoreDelegates::ApplicationHasReactivatedDelegate.AddUObject(this,&AProbeArenaHUD::IntroReactivate);
         IntroActive=true;IntroStarted=FPlatformTime::Seconds();IntroHold=-1;Pointer.cancel_until_release();
+#if PLATFORM_ANDROID
+        RestoreHub3DCamera();
+        const bool wide=asset->size.width>asset->size.height;
+        IntroAndroidOrientation=wide?Orientation::Landscape:Orientation::Portrait;
+        IntroRotationStarted=IntroStarted;
+        RequestAndroidOrientation(wide);
+#endif
         if(!IntroPlayer->OpenFile(path)){IntroFlow.fail(IntroTicket,MediaFailure::OpenFailed);}
     }catch(const std::exception&){StopIntro();Message=TEXT("Abertura indisponível; hub preservado.");OpenInfo(TEXT("Mídia local"),{"Abertura indisponivel. Confira os arquivos locais; o hub continua acessivel."});}
 }
@@ -79,6 +116,14 @@ void AProbeArenaHUD::StopIntro(){
     if(IntroPlayer){IntroPlayer->OnEndReached.RemoveAll(this);IntroPlayer->Close();}
     if(IntroSound){IntroSound->SetMediaPlayer(nullptr);IntroSound->DestroyComponent();}
     if(IntroTexture){IntroTexture->SetMediaPlayer(nullptr);}
+#if PLATFORM_ANDROID
+    if(IntroActive){
+        HubView=HubView::Focused;
+        RequestAndroidOrientation(false);
+        if(!IsActorBeingDestroyed()){SavePresentationPreferences();}
+    }
+    IntroAndroidOrientation=Orientation::Keep;
+#endif
     IntroSound=nullptr;IntroTexture=nullptr;IntroPlayer=nullptr;IntroActive=false;IntroHold=-1;IntroFlow.cancel();IntroStartGate.reset();
 }
 void AProbeArenaHUD::EndPlay(const EEndPlayReason::Type reason){DestroyTargetMarker();StopIntro();Super::EndPlay(reason);}
@@ -90,6 +135,10 @@ void AProbeArenaHUD::DrawIntro(){
     if(IntroFlow.state()==MediaState::Preparing){
         if(now-IntroStarted>15){IntroFlow.fail(IntroTicket,MediaFailure::Timeout);}
         else if(IntroPlayer && IntroPlayer->IsReady()){
+            const bool orientationSettled=IntroAndroidOrientation==Orientation::Keep ||
+                (IntroAndroidOrientation==Orientation::Landscape?Canvas->SizeX>Canvas->SizeY:Canvas->SizeY>=Canvas->SizeX);
+            // Fit into the available surface if the OS declines to rotate.
+            if(!orientationSettled && now-IntroRotationStarted<3.0){return;}
             // Ready is not proof of playback. Keep preparing while asynchronous Play settles.
             if(IntroPlayer->IsPlaying() || !focused){
                 IntroFlow.prepared(IntroTicket);

@@ -15,3 +15,7 @@ Na tela inicial, use **Ver hub 3D** e **Voltar ao panorama**. A escolha vale dur
 O molde cobre Praça, Terminal, Biblioteca, Lab - Exp, Games, Arena PvP e Pub. A fonte e os canteiros ficam em primeiro plano, o Terminal ocupa o centro e a ala direita tem uma plataforma elevada e escada. O panorama do projeto orienta a posição relativa dos volumes. Os letreiros e os atalhos fixos abrem as mesmas rotas do hub normal. A aproximação de câmera continua no Terminal, e destinos ainda em desenvolvimento mantêm os painéis informativos existentes.
 
 No reteste, alterne duas vezes, confira os sete destinos, volte da batalha do Terminal e confira a composição em janela estreita.
+
+## Composição panorâmica
+
+Praça no primeiro plano à esquerda, Biblioteca acima dela, Terminal no centro superior, trilho elevado avançando pela direita e Arena PvP abaixo dele. Pub no canto inferior direito, com acesso por degraus a um piso rebaixado. A câmera de abertura foi recuada e ampliada. Compilação aprovada, 102 arquivos verificados. Enquadramento em jogo aguarda aceite.

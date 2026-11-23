@@ -20,13 +20,13 @@ struct DestinationAnchor {
     FVector point;
 };
 const DestinationAnchor DestinationAnchors[]={
-    {"terminal",{820,0,510}},
-    {"library",{995,-920,480}},
-    {"lab-exp",{550,-840,320}},
-    {"plaza",{55,-320,190}},
-    {"games",{430,315,240}},
-    {"arena-pvp",{1050,970,460}},
-    {"pub",{435,960,215}},
+    {"terminal",{820,-55,555}},
+    {"library",{945,-950,540}},
+    {"lab-exp",{595,-1230,320}},
+    {"plaza",{-300,-580,165}},
+    {"games",{470,195,225}},
+    {"arena-pvp",{655,900,275}},
+    {"pub",{-160,880,52}},
 };
 }
 
@@ -40,9 +40,9 @@ bool AProbeArenaHUD::UpdateHub3D()
         if(!cube || !cylinder){return false;}
         Hub3DCamera=GetWorld()->SpawnActor<ACameraActor>();
         if(!Hub3DCamera){return false;}
-        Hub3DCamera->GetCameraComponent()->SetFieldOfView(65);
-        const auto volume=[&](UStaticMesh* mesh,FVector center,FVector scale){
-            auto* actor=GetWorld()->SpawnActor<AStaticMeshActor>(PlazaOrigin+center,FRotator::ZeroRotator);
+        Hub3DCamera->GetCameraComponent()->SetFieldOfView(75);
+        const auto volume=[&](UStaticMesh* mesh,FVector center,FVector scale,FRotator rotation=FRotator::ZeroRotator){
+            auto* actor=GetWorld()->SpawnActor<AStaticMeshActor>(PlazaOrigin+center,rotation);
             if(!actor){return;}
             auto* component=actor->GetStaticMeshComponent();
             component->SetMobility(EComponentMobility::Movable);
@@ -50,34 +50,56 @@ bool AProbeArenaHUD::UpdateHub3D()
             component->SetCollisionEnabled(ECollisionEnabled::NoCollision);
             actor->SetActorScale3D(scale);
         };
-        volume(cube,{480,0,-28},{28,28,0.5});
+        // The main terrace leaves a lower pocket on the right for the Pub.
+        volume(cube,{570,-470,-28},{32,22,0.5});
+        volume(cube,{1130,1030,-28},{20.8,8,0.5});
+        volume(cube,{-340,1030,-175},{8.6,8,0.5});
+        for(int step=0;step<6;++step){
+            volume(cube,{70-step*54.0,934,-13-step*24.5},{0.54,3.0,0.2});
+        }
         volume(cube,{1080,0,230},{3,12,4.6});
         volume(cube,{890,0,460},{1.8,13,0.35});
         for(double y:{-430.,-220.,220.,430.}){
             volume(cube,{900,y,225},{0.45,0.45,4.5});
         }
-        volume(cylinder,{40,-205,35},{2.6,2.6,0.7});
-        volume(cylinder,{40,-205,94},{0.75,0.75,1.18});
-        volume(cylinder,{40,-205,160},{1.5,1.5,0.22});
-        volume(cube,{220,300,35},{0.6,2,0.65});
+        volume(cylinder,{-300,-580,35},{2.6,2.6,0.7});
+        volume(cylinder,{-300,-580,94},{0.75,0.75,1.18});
+        volume(cylinder,{-300,-580,160},{1.5,1.5,0.22});
+        volume(cube,{-170,-330,35},{0.6,2,0.65});
         // Library and Lab occupy the left wing. Games is a low pavilion near the square.
-        volume(cube,{1120,-930,220},{3.5,5.8,4.4});
-        volume(cube,{1010,-930,450},{2.8,6.4,0.38});
+        volume(cube,{1120,-995,240},{3.5,5.8,4.8});
+        volume(cube,{1010,-995,492},{2.8,6.4,0.38});
         for(double y:{-1110.,-930.,-750.}){
             volume(cylinder,{935,y,213},{0.44,0.44,4.2});
         }
-        volume(cube,{680,-860,140},{2.4,4.2,2.8});
-        volume(cube,{559,-860,294},{2.8,4.8,0.28});
-        volume(cylinder,{510,340,100},{3.2,4.3,2.0});
-        volume(cylinder,{510,340,204},{3.7,4.7,0.3});
-        // Arena deck and rail above the right wing, with a separate pub at street level.
-        volume(cube,{1200,970,190},{4.8,6,3.8});
-        volume(cube,{1080,975,390},{5.4,7,0.3});
-        volume(cube,{1080,975,430},{4.8,6.4,0.5});
-        volume(cube,{570,970,95},{2.8,4.1,1.9});
-        volume(cube,{417,980,194},{1.4,4.7,0.22});
-        for(int step=0;step<5;++step){
-            volume(cube,{590+step*67.0,680,20+step*20.0},{0.9,1.5,0.4+step*0.4});
+        volume(cube,{680,-1230,140},{2.4,4.2,2.8});
+        volume(cube,{559,-1230,294},{2.8,4.8,0.28});
+        volume(cylinder,{510,195,100},{3.2,4.3,2.0});
+        volume(cylinder,{510,195,204},{3.7,4.7,0.3});
+        volume(cube,{835,935,135},{3.5,5.3,2.7});
+        volume(cube,{735,935,267},{2.4,5.7,0.18});
+        volume(cube,{-260,1150,-55},{3.0,3.8,1.9});
+        volume(cube,{-290,923,31},{2.6,0.7,0.18});
+
+        // Track turns out of the Terminal and advances toward the near right edge.
+        const FVector track[]={{930,365,440},{865,610,423},{655,835,405},
+            {355,1045,390},{30,1230,375},{-410,1430,362}};
+        for(int i=1;i<UE_ARRAY_COUNT(track);++i){
+            const FVector start=track[i-1],end=track[i];
+            const FVector delta=end-start;
+            const FVector midpoint=(start+end)*0.5;
+            const FVector lateral=FVector::CrossProduct(FVector::UpVector,delta).GetSafeNormal();
+            const FRotator heading=delta.Rotation();
+            const double length=(delta.Size()+15.0)/100.0;
+            volume(cube,midpoint,{length,1.32,0.22},heading);
+            for(double offset:{-41.,41.}){
+                volume(cube,midpoint+lateral*offset+FVector(0,0,16),{length,0.075,0.075},heading);
+            }
+            if(i>=2){
+                const double base=midpoint.X<100 && midpoint.Y>630?-150.0:0.0;
+                volume(cube,{midpoint.X,midpoint.Y,(midpoint.Z+base)*0.5},
+                    {0.5,0.48,(midpoint.Z-base)/100.0});
+            }
         }
         // Skyline blocks and planters provide depth references during the camera move.
         for(int i=0;i<7;++i){
@@ -108,8 +130,8 @@ bool AProbeArenaHUD::UpdateHub3D()
     const double target=approaching?1.0:0.0;
     Hub3DApproach=HubReducedMotion?target:FMath::FInterpConstantTo(Hub3DApproach,target,static_cast<double>(GetWorld()->GetDeltaSeconds()),1.35);
     const double blend=FMath::SmoothStep(0.0,1.0,Hub3DApproach);
-    const FVector eye=FMath::Lerp(FVector(-1050,-150,620),FVector(390,-82,318),blend);
-    const FVector look=FMath::Lerp(FVector(780,0,220),FVector(960,0,275),blend);
+    const FVector eye=FMath::Lerp(FVector(-1520,0,715),FVector(390,-82,318),blend);
+    const FVector look=FMath::Lerp(FVector(660,0,250),FVector(960,0,275),blend);
     Hub3DCamera->SetActorLocationAndRotation(PlazaOrigin+eye,(look-eye).Rotation());
     return true;
 }

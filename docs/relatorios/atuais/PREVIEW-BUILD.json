@@ -6,5 +6,6 @@
   "Project": "experiments/unreal/RpgEngineProbe/RpgEngineProbe.uproject",
   "Log": "build/integration-2026-11-23-build.log",
   "Report": "docs/relatorios/atuais/INTEGRACAO-VIS-TUTORIAIS-2026-11-23.json",
-  "Scope": "Stable canonical project: UI textures, standard tutorial and classic Lab-Exp search"
+  "Scope": "Stable canonical project: UI textures, standard tutorial and classic Lab-Exp search",
+  "SourceCommit": "a60b7ea"
 }

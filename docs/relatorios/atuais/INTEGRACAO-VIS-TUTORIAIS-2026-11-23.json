@@ -19,5 +19,6 @@
   "GlobalEstimatePercent": 28,
   "Report": "docs/projeto/INTEGRACAO-VIS-TUTORIAIS-2026-11-23.md",
   "BinarySHA256": "8E840EA8F099E69EF63CDE760D359AD1EFAD4B100A618E7A422B61D0DF1F2C93",
-  "ManualCases": 7
+  "ManualCases": 7,
+  "SourceCommit": "a60b7ea"
 }

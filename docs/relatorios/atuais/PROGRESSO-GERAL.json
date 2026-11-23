@@ -94,7 +94,7 @@
       "Base": "Estado reconciliado com commits e aceites; fila por dependência e recebíveis atualizados"
     }
   ],
-  "latest_verified_commit": "e1197d5",
+  "latest_verified_commit": "a60b7ea",
   "user_acceptance": "fe6060b visual accepted, e1197d5 shared rules native/build verified",
   "documentation_only_this_update": false,
   "android_used": false,

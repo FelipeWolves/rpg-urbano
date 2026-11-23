@@ -73,6 +73,14 @@ Device DeviceProfile(PresentationMode preference){
     return presentation_device(*mode,actual);
 }
 }
+void AProbeArenaHUD::LoadTutorialProgress(){
+ try{UnrealSaveFiles files(FPaths::ProjectSavedDir()/TEXT("Tutorials"),true);TutorialCompleted=rpg::presentation::load_tutorial_completion(files,StorageKeys(TEXT("bola-perdida-v1.txt")));TutorialSaveStatus=TEXT("Conclusoes locais carregadas.");}
+ catch(const std::exception& e){TutorialSaveStatus=Text(e.what());}
+}
+void AProbeArenaHUD::RecordTutorialCompletion(bool classic){
+ try{UnrealSaveFiles files(FPaths::ProjectSavedDir()/TEXT("Tutorials"),true);TutorialCompleted=rpg::presentation::record_tutorial_completion(files,StorageKeys(TEXT("bola-perdida-v1.txt")),classic);TutorialSaveStatus=TEXT("Conclusao salva em Saved/Tutorials/bola-perdida-v1.txt; sem moedas.");}
+ catch(const std::exception& e){TutorialSaveStatus=Text(e.what());}
+}
 void AProbeArenaHUD::LoadHubCatalog(){
     HubTexture=nullptr;HubLogo=nullptr;HubTitleFont=nullptr;HubBodyFont=nullptr;HubLinks.clear();
     const auto inset=[&](const TCHAR* key){
@@ -234,7 +242,7 @@ void AProbeArenaHUD::DrawPreferences()
 }
 void AProbeArenaHUD::ReturnToHub(){
     if(Flow.screen()!=UiScreen::Hub && !Flow.return_hub()){return;}HasActionFeedback=false;Gesture.cancel();PopupLines.Empty();SelectedSlot=0;SelectedTarget.Empty();
-    if(PveActive || WavesActive || SequenceActive || SharedActive){Flow.acknowledge_new_attempt();PveActive=false;WavesActive=false;SequenceActive=false;SharedActive=false;RefreshArenaActors();}
+    if(PveActive || WavesActive || SequenceActive || SharedActive || TutorialActive){Flow.acknowledge_new_attempt();PveActive=false;WavesActive=false;SequenceActive=false;SharedActive=false;TutorialActive=false;RefreshArenaActors();}
     UE_LOG(LogTemp,Display,TEXT("HUB_RETURN attempt=%llu"),static_cast<unsigned long long>(Session.state().progress.attempt));
 }
 int32 AProbeArenaHUD::DrawInfoPanel(const FString& title,const TArray<FString>& paragraphs,int32& page,bool action,const FString& actionLabel,const FString& closeLabel)
@@ -276,7 +284,7 @@ int32 AProbeArenaHUD::DrawInfoPanel(const FString& title,const TArray<FString>& 
     return 0;
 }
 void AProbeArenaHUD::SelectLabScenario(bool felipe){
-    const bool leavingRitual=PveActive || WavesActive || SequenceActive || SharedActive;PveActive=false;WavesActive=false;SequenceActive=false;SharedActive=false;
+    const bool leavingRitual=PveActive || WavesActive || SequenceActive || SharedActive || TutorialActive;PveActive=false;WavesActive=false;SequenceActive=false;SharedActive=false;TutorialActive=false;
     if(felipe==SessionIsFelipe){if(leavingRitual){RefreshArenaActors();}return;}
     // Preserve each scenario in memory; neither progress ledger is imported into the other.
     if(!AlternateLabSession){
@@ -340,6 +348,11 @@ void AProbeArenaHUD::DrawHub(){
         if(Flow.new_attempt_required()){Session.reset();Flow.acknowledge_new_attempt();}
         TeamMenuPage=0;HubPanelPage=0;DraftTeam=Session.team().selected;TeamStatus=TEXT("Seleção atual. Aplicar inicia nova tentativa; salvar usa a equipe já aplicada.");Flow.open_team();return;
     }
+    if(Flow.screen()==UiScreen::Location && HubPanelRoute==HubRoute::SpecialEvent){
+        TArray<FString> text={TEXT("A BOLA PERDIDA — EVENTO CLASSICO"),TEXT("Nas nuvens, um garoto chuta e o jovem Lobo espalma a bola para a Terra. Com as maes proibindo a descida, as criancas organizam uma busca secreta."),TEXT("Recupere a bola antes que a tempestade atinja100%. Tres acoes proprias de busca; nao altera o combate padrao."),TEXT("Parametros provisorios do laboratorio: busca+25; concentracao+25na proxima busca; tempestade+15poracao; avancar reduz20antes do avanco. Dialogo em50%. Sem economia ou save de combate; conclusao local em arquivo proprio.")};
+        const auto result=DrawInfoPanel(TEXT("LAB - EXP | EVENTOS ESPECIAIS"),text,HubPanelPage,true,TEXT("Iniciar busca classica"),TEXT("Voltar ao hub"));
+        if(result==1){Flow.back(false,false);}else if(result==2){Search.reset();SearchActive=true;HubPanelPage=0;Pointer.cancel_until_release();}return;
+    }
     if(Flow.screen()==UiScreen::Location){
         if(HubPanelRoute==HubRoute::Terminal){
             const double x=layout.safe.x+12,w=std::max(48.0,std::min(400.0,layout.safe.width-24)),y=layout.header.y+104;
@@ -348,9 +361,19 @@ void AProbeArenaHUD::DrawHub(){
                 if(!selected){selected=std::make_unique<rpg::presentation::PveVisualSession>(rpg::presentation::pve_lab_definition(kind));}
                 else if(selected->finished() || selected->state().stopped){selected->reset();}
                 if(Flow.new_attempt_required()){Session.reset();}Flow.acknowledge_new_attempt();
-                if(Flow.enter_arena(selected->finished())){PveActive=true;SelectedPveLab=kind;WavesActive=false;SequenceActive=false;SharedActive=false;SelectedSlot=0;SelectedTarget.Empty();Gesture.cancel();Pointer.cancel_until_release();RefreshArenaActors();NextAutomatic=GetWorld()->GetTimeSeconds()+0.5;Message=TEXT("Teste local; consulte objetivo e limites no HUD.");}
+                if(Flow.enter_arena(selected->finished())){TutorialActive=false;PveActive=true;SelectedPveLab=kind;WavesActive=false;SequenceActive=false;SharedActive=false;SelectedSlot=0;SelectedTarget.Empty();Gesture.cancel();Pointer.cancel_until_release();RefreshArenaActors();NextAutomatic=GetWorld()->GetTimeSeconds()+0.5;Message=TEXT("Teste local; consulte objetivo e limites no HUD.");}
             };
-            DrawText(FString::Printf(TEXT("TERMINAL — TESTES LOCAIS %d/3"),TerminalMenuPage+1),FColor::Cyan,static_cast<float>(x),static_cast<float>(y-35),HubBodyFont,0.8f);
+            if(TerminalMenuPage!=3 && button({x,y+290,w,48},TEXT("Tutorial A Bola Perdida >"))){TerminalMenuPage=3;Pointer.cancel_until_release();return;}
+            DrawText(FString::Printf(TEXT("TERMINAL — TESTES LOCAIS %d/4"),TerminalMenuPage+1),FColor::Cyan,static_cast<float>(x),static_cast<float>(y-35),HubBodyFont,0.8f);
+            if(TerminalMenuPage==3){
+                if(button({x,y,w,48},TEXT("Tutorial padrao — A Bola Perdida"))){
+                    if(!Tutorial){Tutorial=std::make_unique<rpg::presentation::TutorialSession>();}else{Tutorial->reset();}
+                    Flow.acknowledge_new_attempt();
+                    if(Flow.enter_arena(false)){TutorialActive=true;PveActive=false;WavesActive=false;SequenceActive=false;SharedActive=false;HasActionFeedback=false;SelectedSlot=0;SelectedTarget.Empty();HubPanelPage=0;Gesture.cancel();Pointer.cancel_until_release();RefreshArenaActors();NextAutomatic=GetWorld()->GetTimeSeconds()+0.5;Message=TEXT("Tutorial padrao de teste; conclusao local separada, sem moedas.");}return;
+                }
+                if(button({x,y+54,w,48},TEXT("< Outros laboratorios"))){TerminalMenuPage=0;Pointer.cancel_until_release();return;}
+                if(button({x,y+108,w,48},TEXT("Voltar ao hub"))){Flow.back(false,false);Pointer.cancel_until_release();return;}return;
+            }
             if(TerminalMenuPage==0){
                 if(button({x,y,w,48},TEXT("Laboratorio de equipe"))){SelectLabScenario(false);enterBattle();return;}
                 if(button({x,y+54,w,48},TEXT("Ritual local — Felipe e ecos"))){enterPve(rpg::presentation::PveLabKind::Ritual);return;}
@@ -358,7 +381,7 @@ void AProbeArenaHUD::DrawHub(){
                 if(button({x,y+162,w,48},TEXT("Ondas consecutivas — Felipe"))){
                     if(!Waves){Waves=std::make_unique<rpg::presentation::WaveVisualSession>();}else if(Waves->finished() || Waves->state().stopped){Waves->reset();}
                     if(Flow.new_attempt_required()){Session.reset();}Flow.acknowledge_new_attempt();
-                    if(Flow.enter_arena(Waves->finished())){WavesActive=true;PveActive=false;SequenceActive=false;SharedActive=false;SelectedSlot=0;SelectedTarget.Empty();Gesture.cancel();Pointer.cancel_until_release();RefreshArenaActors();NextAutomatic=GetWorld()->GetTimeSeconds()+0.5;Message=TEXT("Conclua as duas ondas; transicoes seguem WaveV2.");}return;
+                    if(Flow.enter_arena(Waves->finished())){TutorialActive=false;WavesActive=true;PveActive=false;SequenceActive=false;SharedActive=false;SelectedSlot=0;SelectedTarget.Empty();Gesture.cancel();Pointer.cancel_until_release();RefreshArenaActors();NextAutomatic=GetWorld()->GetTimeSeconds()+0.5;Message=TEXT("Conclua as duas ondas; transicoes seguem WaveV2.");}return;
                 }
             }else if(TerminalMenuPage==1){
                 if(button({x,y,w,48},TEXT("Pontuacao — janela de 12 acoes"))){enterPve(rpg::presentation::PveLabKind::Score);return;}
@@ -369,7 +392,7 @@ void AProbeArenaHUD::DrawHub(){
                     auto& selected=SequenceLabs[phases?1:0];
                     if(!selected){selected=std::make_unique<rpg::presentation::SequentialVisualSession>(rpg::presentation::sequential_lab_definition(phases));}else if(selected->finished() || selected->state().stopped){selected->reset();}
                     if(Flow.new_attempt_required()){Session.reset();}Flow.acknowledge_new_attempt();
-                    if(Flow.enter_arena(selected->finished())){SequenceActive=true;SequencePhased=phases;WavesActive=false;PveActive=false;SharedActive=false;SelectedSlot=0;SelectedTarget.Empty();Gesture.cancel();Pointer.cancel_until_release();RefreshArenaActors();NextAutomatic=GetWorld()->GetTimeSeconds()+0.5;Message=TEXT("Chefe com HP continuo; janela de 4 acoes por equipe.");}
+                    if(Flow.enter_arena(selected->finished())){TutorialActive=false;SequenceActive=true;SequencePhased=phases;WavesActive=false;PveActive=false;SharedActive=false;SelectedSlot=0;SelectedTarget.Empty();Gesture.cancel();Pointer.cancel_until_release();RefreshArenaActors();NextAutomatic=GetWorld()->GetTimeSeconds()+0.5;Message=TEXT("Chefe com HP continuo; janela de 4 acoes por equipe.");}
                 };
                 if(button({x,y+108,w,48},TEXT("3 equipes — fases do chefe"))){enterSequence(true);return;}
                 if(button({x,y+162,w,48},TEXT("3 equipes — kit fixo do chefe"))){enterSequence(false);return;}
@@ -379,7 +402,7 @@ void AProbeArenaHUD::DrawHub(){
                     auto& selected=SharedLabs[global?1:0];
                     if(!selected){selected=std::make_unique<rpg::presentation::SharedVisualSession>(rpg::presentation::shared_lab_definition(global));}else if(selected->finished() || selected->state().stopped){selected->reset();}
                     if(Flow.new_attempt_required()){Session.reset();}Flow.acknowledge_new_attempt();
-                    if(Flow.enter_arena(selected->finished())){SharedActive=true;SharedGlobalSpecial=global;SequenceActive=false;WavesActive=false;PveActive=false;SelectedSlot=0;SelectedTarget.Empty();Gesture.cancel();Pointer.cancel_until_release();RefreshArenaActors();NextAutomatic=GetWorld()->GetTimeSeconds()+0.5;Message=TEXT("Tres frentes ativas, um chefe. Consulte escopos e proximo ataque local.");}
+                    if(Flow.enter_arena(selected->finished())){TutorialActive=false;SharedActive=true;SharedGlobalSpecial=global;SequenceActive=false;WavesActive=false;PveActive=false;SelectedSlot=0;SelectedTarget.Empty();Gesture.cancel();Pointer.cancel_until_release();RefreshArenaActors();NextAutomatic=GetWorld()->GetTimeSeconds()+0.5;Message=TEXT("Tres frentes ativas, um chefe. Consulte escopos e proximo ataque local.");}
                 };
                 if(button({x,y,w,48},TEXT("3 frentes — ataques locais"))){enterShared(false);return;}
                 if(button({x,y+54,w,48},TEXT("3 frentes — especial global"))){enterShared(true);return;}
@@ -406,9 +429,9 @@ void AProbeArenaHUD::DrawHub(){
         const auto& link=HubLinks[index];
         const auto projected=project_hotspot(plan,link);if(!projected){continue;}
         const bool future=link.route==HubRoute::Unavailable && link.id!="arena-pvp";
-        const FString labelText=Text(link.label).ToUpper();
-        const FLinearColor color=future?FLinearColor(0.8f,0.85f,0.9f):link.route==HubRoute::SpecialEvent?HubMagenta:HubAmber;
-        float tw=0,th=0;GetTextSize(labelText,tw,th,HubBodyFont);
+        const FString labelText=Text(rpg::presentation::hub_uppercase(link.label));
+        const FLinearColor color=future?FLinearColor(0.25f,0.45f,0.6f):link.route==HubRoute::SpecialEvent?HubCyan:HubCyan;
+        float tw=0,th=0;GetTextSize(labelText,tw,th,HubLabelFont?HubLabelFont.Get():HubTitleFont.Get());
         const double scale=std::min(1.0,(r.width-24)/std::max(1.0,static_cast<double>(tw)));
         const double width=std::min(tw*scale+24,r.width),height=std::max(32.0,th*scale+12.0);
         const Rect label{std::clamp(projected->label_x-width/2,r.x,r.x+r.width-width),
@@ -416,10 +439,15 @@ void AProbeArenaHUD::DrawHub(){
         const auto hit=minimum_target(label,r,48);if(!hit){continue;}
         const bool hover=contains(*hit,mx,my);
         const auto motion=label_motion(GetWorld()->GetTimeSeconds(),HubReducedMotion,static_cast<double>(index)*0.65);
-        DrawRect(HubPanel,static_cast<float>(label.x),static_cast<float>(label.y-3),static_cast<float>(label.width),static_cast<float>(label.height+6));
+        if(hover || Preferences.high_contrast){DrawRect(HubPanel,static_cast<float>(label.x),static_cast<float>(label.y-3),static_cast<float>(label.width),static_cast<float>(label.height+6));}
         auto glow=color;glow.A=static_cast<float>(motion.glow_opacity);
         line(label.x+5,label.y+label.height,label.x+label.width-5,label.y+label.height,glow,hover?4:2);
-        DrawText(labelText,color.ToFColorSRGB(),static_cast<float>(label.x+12),static_cast<float>(label.y+6+motion.offset_y),HubBodyFont,static_cast<float>(scale));
+        const float tx=static_cast<float>(label.x+12),ty=static_cast<float>(label.y+6+motion.offset_y),ts=static_cast<float>(scale);
+        auto* font=HubLabelFont?HubLabelFont.Get():HubTitleFont.Get();
+        const FColor halo=FColor(8,55,105),edge=hover?FColor(150,245,255):color.ToFColorSRGB();
+        for(const auto offset:{FVector2D(-2,0),FVector2D(2,0),FVector2D(0,-2),FVector2D(0,2)}){DrawText(labelText,halo,tx+offset.X,ty+offset.Y,font,ts);}
+        for(const auto offset:{FVector2D(-1,0),FVector2D(1,0),FVector2D(0,-1),FVector2D(0,1)}){DrawText(labelText,edge,tx+offset.X,ty+offset.Y,font,ts);}
+        DrawText(labelText,FColor(215,240,255),tx,ty,font,ts);
         if(pointer_clicked(Input,*hit)){openDestination(link);return;}
     }
     // Fixed dock keeps every destination reachable when its source region is cropped.
@@ -429,7 +457,7 @@ void AProbeArenaHUD::DrawHub(){
         const Rect& tile=layout.destinations[index];
         const bool hover=contains(tile,mx,my);
         DrawRect(HubPanel,static_cast<float>(tile.x),static_cast<float>(tile.y),static_cast<float>(tile.width),static_cast<float>(tile.height));
-        const FString text=Text(link.label);
+        const FString text=Text(rpg::presentation::hub_uppercase(link.label));
         float tw=0,th=0;GetTextSize(text,tw,th,HubBodyFont);
         const float scale=static_cast<float>(std::min(0.85,(tile.width-12)/std::max(1.0,static_cast<double>(tw))));
         DrawText(text,(hover?HubAmber:FLinearColor::White).ToFColorSRGB(),static_cast<float>(tile.x+(tile.width-tw*scale)/2),static_cast<float>(tile.y+4),HubBodyFont,scale);

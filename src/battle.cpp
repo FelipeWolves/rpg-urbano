@@ -11,8 +11,8 @@ namespace rpg {
 namespace {
 constexpr std::int64_t bar_max = 1000000;
 bool quantity_effect(EffectKind kind){return kind==EffectKind::Reflect || kind==EffectKind::DeathExplosion || kind==EffectKind::AutoRevive || kind==EffectKind::Shield || kind==EffectKind::StructuralShield || kind==EffectKind::StandardShield || kind==EffectKind::SilverShield || kind==EffectKind::Heal;}
-bool control_kind(EffectKind kind){return kind==EffectKind::Stun || kind==EffectKind::Freeze || kind==EffectKind::Petrify || kind==EffectKind::Silence || kind==EffectKind::Suppression || kind==EffectKind::Invincible || kind==EffectKind::DebuffImmunity;}
-bool active_buff(const Status& s){return !s.native_passive && (s.kind==EffectKind::Shield || s.kind==EffectKind::StandardShield || s.kind==EffectKind::SilverShield || s.kind==EffectKind::Counter || s.kind==EffectKind::Reflect || s.kind==EffectKind::PreventDeath || s.kind==EffectKind::AutoRevive || s.kind==EffectKind::Invincible || s.kind==EffectKind::DebuffImmunity);}
+bool control_kind(EffectKind kind){return kind==EffectKind::Stun || kind==EffectKind::Freeze || kind==EffectKind::Petrify || kind==EffectKind::Silence || kind==EffectKind::Suppression || kind==EffectKind::Invincible || kind==EffectKind::DebuffImmunity || kind==EffectKind::AttackUp || kind==EffectKind::SpeedDown;}
+bool active_buff(const Status& s){return !s.native_passive && (s.kind==EffectKind::Shield || s.kind==EffectKind::StandardShield || s.kind==EffectKind::SilverShield || s.kind==EffectKind::Counter || s.kind==EffectKind::Reflect || s.kind==EffectKind::PreventDeath || s.kind==EffectKind::AutoRevive || s.kind==EffectKind::Invincible || s.kind==EffectKind::DebuffImmunity || s.kind==EffectKind::AttackUp);}
 bool valid_border(StatusBorder border){return border==StatusBorder::Common || border==StatusBorder::Silver || border==StatusBorder::Golden || border==StatusBorder::Structural;}
 bool valid_clock(TickPolicy clock) {
     return clock == TickPolicy::NaturalOnly || clock == TickPolicy::EveryTurn;
@@ -26,12 +26,14 @@ bool valid_duration(StatusCategory category,int remaining) {
 }
 }
 
+numeric::Quantity effective_attack(const Fighter& unit){const auto found=std::ranges::find(unit.statuses,EffectKind::AttackUp,&Status::kind);return found==unit.statuses.end()?unit.definition.attack:numeric::mul_div_floor(unit.definition.attack,10000+found->magnitude,10000);}
+int action_speed(const Fighter& unit){const auto found=std::ranges::find(unit.statuses,EffectKind::SpeedDown,&Status::kind);return found==unit.statuses.end()?unit.effective_speed:static_cast<int>(std::max<numeric::Quantity>(1,numeric::mul_div_floor(unit.effective_speed,10000-found->magnitude,10000)));}
 bool has_status(const Fighter& unit,EffectKind kind) noexcept {return std::ranges::any_of(unit.statuses,[kind](const Status& s){return s.kind==kind;});}
 bool incapacitated(const Fighter& unit) noexcept {return has_status(unit,EffectKind::Block) || has_status(unit,EffectKind::Stun) || has_status(unit,EffectKind::Freeze) || has_status(unit,EffectKind::Petrify);}
 bool native_suppressed(const Fighter& unit) noexcept {return has_status(unit,EffectKind::Suppression);}
 bool status_native_enabled(const Fighter& unit,const Status& status) noexcept {return !status.native_passive || !native_suppressed(unit) || status.border==StatusBorder::Golden || status.border==StatusBorder::Structural;}
 bool periodic_effect(EffectKind kind) noexcept {return kind==EffectKind::Bleed || kind==EffectKind::Poison;}
-bool common_debuff(EffectKind kind) noexcept {return periodic_effect(kind) || kind==EffectKind::Block || kind==EffectKind::Stun || kind==EffectKind::Freeze || kind==EffectKind::Petrify || kind==EffectKind::Silence || kind==EffectKind::Suppression || kind==EffectKind::FreezeCooldowns;}
+bool common_debuff(EffectKind kind) noexcept {return periodic_effect(kind) || kind==EffectKind::Block || kind==EffectKind::Stun || kind==EffectKind::Freeze || kind==EffectKind::Petrify || kind==EffectKind::Silence || kind==EffectKind::Suppression || kind==EffectKind::FreezeCooldowns || kind==EffectKind::SpeedDown;}
 Battle::Battle(std::vector<Definition> definitions, BattleRules rules,
                std::vector<InitialHealth> initial_health,
                std::vector<InitialRuntime> initial_runtime) : rules_(std::move(rules)) {
@@ -113,6 +115,7 @@ Battle::Battle(std::vector<Definition> definitions, BattleRules rules,
                (effect.damage_kind!=resolution::DamageKind::Normal && effect.damage_kind!=resolution::DamageKind::True && effect.damage_kind!=resolution::DamageKind::Dot && effect.damage_kind!=resolution::DamageKind::TrueDot && effect.damage_kind!=resolution::DamageKind::Consequence)){
                 throw std::invalid_argument("Invalid damage effect metadata");
             }
+            if((effect.kind==EffectKind::AttackUp || effect.kind==EffectKind::SpeedDown) && (effect.amount<1 || effect.amount>9999 || effect.clock!=TickPolicy::NaturalOnly || effect.category!=StatusCategory::Temporary || effect.border!=StatusBorder::Common)){throw std::invalid_argument("Invalid temporary stat effect" );}
             if(periodic_effect(effect.kind) && (effect.category!=StatusCategory::Temporary || effect.border!=StatusBorder::Common)){throw std::invalid_argument("Periodic effects require common temporary debuffs");}
             if(effect.operation_scope!=OperationScope::CommonOnly && effect.operation_scope!=OperationScope::Removable){throw std::invalid_argument("Invalid operation scope");}
             if((effect.kind==EffectKind::StealBuffs || effect.kind==EffectKind::TransferDebuffs) && skill.target!=TargetRule::Enemy){throw std::invalid_argument("Transfer/steal requires an enemy");}
@@ -169,7 +172,7 @@ Battle::Battle(std::vector<Definition> definitions, BattleRules rules,
                 }
                 break;
             case EffectKind::Bleed: case EffectKind::Poison:
-            case EffectKind::Stun: case EffectKind::Freeze: case EffectKind::Petrify: case EffectKind::Silence: case EffectKind::Suppression: case EffectKind::Invincible: case EffectKind::DebuffImmunity:
+            case EffectKind::AttackUp: case EffectKind::SpeedDown: case EffectKind::Stun: case EffectKind::Freeze: case EffectKind::Petrify: case EffectKind::Silence: case EffectKind::Suppression: case EffectKind::Invincible: case EffectKind::DebuffImmunity:
             case EffectKind::Block: case EffectKind::Marker: case EffectKind::Counter: case EffectKind::FreezeCooldowns:
             case EffectKind::Reflect: case EffectKind::DeathExplosion: case EffectKind::PreventDeath: case EffectKind::AutoRevive:
             case EffectKind::Shield: case EffectKind::StructuralShield:
@@ -249,6 +252,7 @@ Battle::Battle(std::vector<Definition> definitions, BattleRules rules,
                 !valid_duration(status.category,status.remaining) || !valid_clock(status.clock) || !valid_border(status.border)) {
                 throw std::invalid_argument("Invalid status state");
             }
+            if((status.kind==EffectKind::AttackUp || status.kind==EffectKind::SpeedDown) && (status.magnitude<1 || status.magnitude>9999 || status.clock!=TickPolicy::NaturalOnly || status.category!=StatusCategory::Temporary || status.border!=StatusBorder::Common)){throw std::invalid_argument("Invalid temporary stat state" );}
             if ((status.kind == EffectKind::Reflect || status.kind == EffectKind::DeathExplosion ||
                  status.kind == EffectKind::AutoRevive || status.kind==EffectKind::Shield ||
                  status.kind==EffectKind::StructuralShield || status.kind==EffectKind::StandardShield || status.kind==EffectKind::SilverShield) && status.magnitude <= 0) {
@@ -508,7 +512,7 @@ void Battle::hit(std::size_t attacker, std::size_t target_index, bool derived, c
     auto& target=fighters_[target_index];
     const auto& actor=fighters_[attacker];
     const auto begin=events.size();
-    const numeric::Quantity power=actor.definition.attack;
+    const numeric::Quantity power=effective_attack(actor);
     numeric::Quantity damage=target.guarding?power/2:power;
     std::optional<resolution::HitReport> report;
     bool can_react=true,used_guard=target.guarding;
@@ -748,11 +752,11 @@ void Battle::execute_skill(std::size_t from,std::size_t target_index,const Skill
                 const auto count=std::ranges::count(target.statuses,effect.kind,&Status::kind);
                 if(rules_.periodic_stack_limit && count>=rules_.periodic_stack_limit){events.push_back({EventType::StackLimitReached,actor.definition.id,target.definition.id,0,round_,{}});continue;}
                 if(target.statuses.size()>=4096){finish(EndReason::TechnicalLimit,std::nullopt,actor.definition.id,events);break;}
-                Status status{effect.kind,effect.duration,TickPolicy::EveryTurn,turn_id_,effect.kind==EffectKind::Bleed?std::max<numeric::Quantity>(1,numeric::mul_div_floor(actor.definition.attack,5000,10000)):actor.definition.attack};
+                Status status{effect.kind,effect.duration,TickPolicy::EveryTurn,turn_id_,effect.kind==EffectKind::Bleed?std::max<numeric::Quantity>(1,numeric::mul_div_floor(effective_attack(actor),5000,10000)):effective_attack(actor)};
                 for(const auto& old:target.statuses){status.instance_id=std::max(status.instance_id,old.instance_id);}++status.instance_id;
                 status.source_id=actor.definition.id;status.source_team=actor.definition.team;target.statuses.push_back(std::move(status));break;
             }
-            case EffectKind::Stun: case EffectKind::Freeze: case EffectKind::Petrify: case EffectKind::Silence: case EffectKind::Suppression: case EffectKind::Invincible: case EffectKind::DebuffImmunity:
+            case EffectKind::AttackUp: case EffectKind::SpeedDown: case EffectKind::Stun: case EffectKind::Freeze: case EffectKind::Petrify: case EffectKind::Silence: case EffectKind::Suppression: case EffectKind::Invincible: case EffectKind::DebuffImmunity:
             case EffectKind::Block: case EffectKind::Marker: case EffectKind::Counter: case EffectKind::FreezeCooldowns:
             case EffectKind::Reflect: case EffectKind::DeathExplosion: case EffectKind::PreventDeath: case EffectKind::AutoRevive:
             case EffectKind::Shield: case EffectKind::StructuralShield: {
@@ -1037,7 +1041,7 @@ void Battle::select_bar_actor() {
         if (fighter.health == 0) { continue; }
         if (fighter.ap >= bar_max) { ready = true; break; }
         const auto distance = bar_max - fighter.ap;
-        const auto delta = (distance + fighter.effective_speed - 1) / fighter.effective_speed;
+        const auto delta = (distance + action_speed(fighter) - 1) / action_speed(fighter);
         wait = std::min(wait, delta);
     }
     if (!ready) {
@@ -1046,7 +1050,7 @@ void Battle::select_bar_actor() {
         }
         logical_time_ += static_cast<std::uint64_t>(wait);
         for (auto& fighter : fighters_) {
-            if (fighter.health > 0) { fighter.ap += fighter.effective_speed * wait; }
+            if (fighter.health > 0) { fighter.ap += action_speed(fighter) * wait; }
         }
     }
     std::optional<std::size_t> selected;
@@ -1054,7 +1058,7 @@ void Battle::select_bar_actor() {
         const auto& fighter = fighters_[i];
         if (fighter.health == 0 || fighter.ap < bar_max) { continue; }
         if (!selected || fighter.ap > fighters_[*selected].ap ||
-            (fighter.ap == fighters_[*selected].ap && fighter.effective_speed > fighters_[*selected].effective_speed)) {
+            (fighter.ap == fighters_[*selected].ap && action_speed(fighter) > action_speed(fighters_[*selected]))) {
             selected = i;
         }
     }

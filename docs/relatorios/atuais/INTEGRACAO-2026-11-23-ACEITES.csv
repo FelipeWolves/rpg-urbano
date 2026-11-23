@@ -1,0 +1,8 @@
+"id","area","route","status","steps","expected"
+"IT-01","Hub","Hub","Pending","Conferir logo e letreiros em duas proporcoes","PRAÇA inteiramente em maiusculas, fonte correta e cores do projeto; sem corte"
+"IT-02","HUD","Arena piloto e Terminal","Pending","Usar A1/A3, provocar A2, abrir efeitos e manter habilidade pressionada","Sprites, cargas, recargas e detalhes coerentes com eventos reais"
+"IT-03","Tutorial","Terminal > Tutorial A Bola Perdida","Pending","Continuar, A1 inicial, duas ondas, orientacoes e resultado","Sem acao por tras de painel; tutorial vencivel e resultado correto"
+"IT-04","Search","Lab - Exp > Iniciar busca classica","Pending","Buscar, concentrar, avancar, dialogo50%, vencer e perder","Valores aprovados, pausa e encerramento causais, sem moeda"
+"IT-05","Save","Conclusoes dos dois tutoriais","Pending","Vencer, fechar/reabrir e conferir arquivo proprio","Flags distintas em Saved/Tutorials; LocalProgress e saves dos laboratorios preservados"
+"IT-06","Navigation","Hub/Terminal/Lab-Exp","Pending","Pausar, abandonar, retornar, trocar modo e reiniciar","Nenhum input atravessa transicao; sessoes independentes"
+"IT-07","Layout","Janelas Windows horizontais e verticais","Pending","Conferir icones, retrato, selecao, nomes e descricoes","Sem distorcao, sobreposicao ou perda de alvo; nao constitui aceite Android"

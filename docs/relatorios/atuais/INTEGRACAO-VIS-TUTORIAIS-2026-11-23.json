@@ -1,0 +1,23 @@
+{
+  "Date": "2026-11-23",
+  "Delivery": "VIS-INT-01 / TUT-01 / EVT-EXP-01 / HUB-TIP-01",
+  "NativeRegressionExecutables": 13,
+  "NativeRegressionGroups": 142,
+  "FinalTutorialGroups": 18,
+  "OverlappingCounts": true,
+  "UnrealBuild": "Succeeded",
+  "StageVerified": 92,
+  "Textures": 19,
+  "GlyphsVerified": 4,
+  "ManualAcceptance": "Pending",
+  "NormalSavesTouched": false,
+  "TutorialCompletionBackendExecuted": false,
+  "EditorOpened": false,
+  "GameExecuted": false,
+  "AndroidExecuted": false,
+  "NetworkUsed": false,
+  "GlobalEstimatePercent": 28,
+  "Report": "docs/projeto/INTEGRACAO-VIS-TUTORIAIS-2026-11-23.md",
+  "BinarySHA256": "8E840EA8F099E69EF63CDE760D359AD1EFAD4B100A618E7A422B61D0DF1F2C93",
+  "ManualCases": 7
+}

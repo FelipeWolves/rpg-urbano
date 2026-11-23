@@ -1,10 +1,10 @@
 {
-  "CheckedUtc": "2026-11-19T23:14:24.2538684Z",
-  "Log": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\p\\09a2c038/marker-output.log",
-  "RuntimeExecuted": false,
+  "Date": "2026-11-23",
   "Passed": true,
-  "ExitCode": 0,
-  "Stage": "C:\\Users\\Ergo_\\.codex\\visualizations\\2026\\11\\10\\01a1c6b1-a9ff-77a3-885b-1f6b2311fa2e\\rpg-urbano\\build\\p\\09a2c038\\RpgEngineProbe",
-  "Scope": "Depth-tested world marker compilation only",
-  "VisualAcceptance": "Confirmed by user after compilation; no agent runtime check"
+  "RuntimeExecuted": false,
+  "VisualAcceptance": "Pending for UI/tutorial integration; previous basic click/video acceptances preserved separately",
+  "Project": "experiments/unreal/RpgEngineProbe/RpgEngineProbe.uproject",
+  "Log": "build/integration-2026-11-23-build.log",
+  "Report": "docs/relatorios/atuais/INTEGRACAO-VIS-TUTORIAIS-2026-11-23.json",
+  "Scope": "Stable canonical project: UI textures, standard tutorial and classic Lab-Exp search"
 }

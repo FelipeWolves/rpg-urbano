@@ -66,7 +66,8 @@ Stage::Stage(StageDefinition definition) : definition_(std::move(definition)) {
                 throw std::invalid_argument("Preserved squad requires consistent skill/timing configuration");
             }
         }
-        const Battle validate_local(roster, encounter.rules);
+        for(const auto& state:encounter.initial_runtime){if(std::ranges::find(encounter.enemies,state.id,&Definition::id)==encounter.enemies.end()){throw std::invalid_argument("Wave initial runtime must belong to an enemy");}}
+        const Battle validate_local(roster, encounter.rules,{},encounter.initial_runtime);
         // Global budget is validated independently; do not revalidate reactive rosters without their skills.
     }
     reset();
@@ -120,6 +121,7 @@ void Stage::start_encounter(const std::vector<Fighter>& incoming,std::vector<Eve
             }
         }
     }
+    runtime.insert(runtime.end(),encounter.initial_runtime.begin(),encounter.initial_runtime.end());
     battle_.emplace(std::move(roster), rules, std::move(health), std::move(runtime));
 }
 

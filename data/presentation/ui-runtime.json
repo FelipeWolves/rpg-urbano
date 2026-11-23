@@ -1,0 +1,216 @@
+{
+  "SchemaVersion": 1,
+  "Date": "2026-11-23",
+  "Resources": [
+    {
+      "Id": "ico_skill_felipe_a1",
+      "Source": "assets/runtime/ui/2026-11-22-v02/icones-habilidades-felipe-adulto/ico_skill_felipe_a1.png",
+      "SourceSHA256": "730EEC4552B0070D77CEBB63EE5FDB8FAB83C51F5D61755CA4D299CDADFB733F",
+      "Path": "assets/runtime/ui/2026-11-23-runtime-v01/icones-habilidades-felipe-adulto/ico_skill_felipe_a1.png",
+      "Width": 512,
+      "Height": 512,
+      "SHA256": "60711A3090C90F828BBE15F9DDB96A18350641A448A0C45143F2C0E17E2AC3F7",
+      "Cropped": false,
+      "Status": "RuntimeReadyNotVisuallyAccepted"
+    },
+    {
+      "Id": "ico_skill_felipe_a2",
+      "Source": "assets/runtime/ui/2026-11-22-v02/icones-habilidades-felipe-adulto/ico_skill_felipe_a2.png",
+      "SourceSHA256": "53DE8FB603582E132BFF4EC775D7E8AAB69DCA9CDC6E96251FA399D4164520A2",
+      "Path": "assets/runtime/ui/2026-11-23-runtime-v01/icones-habilidades-felipe-adulto/ico_skill_felipe_a2.png",
+      "Width": 512,
+      "Height": 512,
+      "SHA256": "E37D0F9F41FB8196E40CDE9262BD542839BD6C1B56A3994062C830F865CB316C",
+      "Cropped": false,
+      "Status": "RuntimeReadyNotVisuallyAccepted"
+    },
+    {
+      "Id": "ico_skill_felipe_a2_active",
+      "Source": "assets/runtime/ui/2026-11-22-v02/icones-habilidades-felipe-adulto/ico_skill_felipe_a2_active.png",
+      "SourceSHA256": "682AA0E3D17BBB094C32739AC97D0B6AFA5A7C898EAB81B7696F43276FF96FB0",
+      "Path": "assets/runtime/ui/2026-11-23-runtime-v01/icones-habilidades-felipe-adulto/ico_skill_felipe_a2_active.png",
+      "Width": 512,
+      "Height": 512,
+      "SHA256": "0DD18477F0454C0E4CD790D649F0FB70D821CE603F3CC5FBE1E12A624BB01DFB",
+      "Cropped": false,
+      "Status": "RuntimeReadyNotVisuallyAccepted"
+    },
+    {
+      "Id": "ico_skill_felipe_a3",
+      "Source": "assets/runtime/ui/2026-11-22-v02/icones-habilidades-felipe-adulto/ico_skill_felipe_a3.png",
+      "SourceSHA256": "D7DF75E7BD62EB22ADAE3800F7D818A0A82D52B69B2FD43BD3BCF0B4DC032D38",
+      "Path": "assets/runtime/ui/2026-11-23-runtime-v01/icones-habilidades-felipe-adulto/ico_skill_felipe_a3.png",
+      "Width": 512,
+      "Height": 512,
+      "SHA256": "EEC311A4D40E510BBCFD7D108CDF46E8FEA10A03BF79BB4D307710C693927682",
+      "Cropped": false,
+      "Status": "RuntimeReadyNotVisuallyAccepted"
+    },
+    {
+      "Id": "ico_skill_jovem_lobo_a1",
+      "Source": "assets/runtime/ui/2026-11-22-v02/icones-habilidades-jovem-lobo/ico_skill_jovem_lobo_a1.png",
+      "SourceSHA256": "2DC2855337D28B541F1EBFE8D0C00A75F5AF7D50B77056F4BAF0F33426EFB3A0",
+      "Path": "assets/runtime/ui/2026-11-23-runtime-v01/icones-habilidades-jovem-lobo/ico_skill_jovem_lobo_a1.png",
+      "Width": 512,
+      "Height": 512,
+      "SHA256": "1409800F03D70F62EB45B237DB5404E827C908E183C24912E0967974F310381D",
+      "Cropped": false,
+      "Status": "RuntimeReadyNotVisuallyAccepted"
+    },
+    {
+      "Id": "ico_skill_jovem_lobo_a2",
+      "Source": "assets/runtime/ui/2026-11-22-v02/icones-habilidades-jovem-lobo/ico_skill_jovem_lobo_a2.png",
+      "SourceSHA256": "7631873CFDAD551459724BC32CACA95B06B49AAABE845B2F050DBA571CEC6BE9",
+      "Path": "assets/runtime/ui/2026-11-23-runtime-v01/icones-habilidades-jovem-lobo/ico_skill_jovem_lobo_a2.png",
+      "Width": 512,
+      "Height": 512,
+      "SHA256": "1F8EA1F75344B089E5F5D519A32A621EF26CE18C143868D64459577C2AF8CB29",
+      "Cropped": false,
+      "Status": "RuntimeReadyNotVisuallyAccepted"
+    },
+    {
+      "Id": "ico_skill_jovem_lobo_a2_active",
+      "Source": "assets/runtime/ui/2026-11-22-v02/icones-habilidades-jovem-lobo/ico_skill_jovem_lobo_a2_active.png",
+      "SourceSHA256": "D28D5EC54AAEEF6C31B3C76B1A4F981D9F6B6B2C47EE6DD9FEE12A82A6E9BF44",
+      "Path": "assets/runtime/ui/2026-11-23-runtime-v01/icones-habilidades-jovem-lobo/ico_skill_jovem_lobo_a2_active.png",
+      "Width": 512,
+      "Height": 512,
+      "SHA256": "D67CD37591106B380ECBA958B8EE50DA3FCFC969C4E922E538C6BCED33275144",
+      "Cropped": false,
+      "Status": "RuntimeReadyNotVisuallyAccepted"
+    },
+    {
+      "Id": "ico_skill_jovem_lobo_a3",
+      "Source": "assets/runtime/ui/2026-11-22-v02/icones-habilidades-jovem-lobo/ico_skill_jovem_lobo_a3.png",
+      "SourceSHA256": "BFAE4A3F53CA7E974E100BFB505FC8B45D5AEADD347E5BF7FE0685308AEE82B1",
+      "Path": "assets/runtime/ui/2026-11-23-runtime-v01/icones-habilidades-jovem-lobo/ico_skill_jovem_lobo_a3.png",
+      "Width": 512,
+      "Height": 512,
+      "SHA256": "FE5E619B4E9032B6C3E2B6FCA09B28B356FD619AAEB7C82AEAB15147F18995BC",
+      "Cropped": false,
+      "Status": "RuntimeReadyNotVisuallyAccepted"
+    },
+    {
+      "Id": "ico_status_immunity_invincible",
+      "Source": "assets/runtime/ui/2026-11-22-v02/icones-status/buffs-defesas/ico_status_immunity_invincible.png",
+      "SourceSHA256": "7095D4D43A451C38591A8DDD16F648E18330A3AF60F362E1C8549623DFEC35B0",
+      "Path": "assets/runtime/ui/2026-11-23-runtime-v01/icones-status/buffs-defesas/ico_status_immunity_invincible.png",
+      "Width": 128,
+      "Height": 128,
+      "SHA256": "AA956BC676C3E1EA73EE7BECBEAB8D9F093AFAF463610B4A067EC4E8E4843059",
+      "Cropped": false,
+      "Status": "RuntimeReadyNotVisuallyAccepted"
+    },
+    {
+      "Id": "ico_status_shield_silver",
+      "Source": "assets/runtime/ui/2026-11-22-v02/icones-status/buffs-defesas/ico_status_shield_silver.png",
+      "SourceSHA256": "5C40F4E1D675B4B137080EE35BCDC3D180403FFD6B7FB1BD358F4C7EF14289A7",
+      "Path": "assets/runtime/ui/2026-11-23-runtime-v01/icones-status/buffs-defesas/ico_status_shield_silver.png",
+      "Width": 128,
+      "Height": 128,
+      "SHA256": "77067439CEA594F92BAE97B7A52FC7B9ECA743E53896A3C690C276521BFC0BA2",
+      "Cropped": false,
+      "Status": "RuntimeReadyNotVisuallyAccepted"
+    },
+    {
+      "Id": "ico_status_shield_standard",
+      "Source": "assets/runtime/ui/2026-11-22-v02/icones-status/buffs-defesas/ico_status_shield_standard.png",
+      "SourceSHA256": "2027C1A846D185CD337662D3F11F658668760FAE5C3C669557694893E7A13C4E",
+      "Path": "assets/runtime/ui/2026-11-23-runtime-v01/icones-status/buffs-defesas/ico_status_shield_standard.png",
+      "Width": 128,
+      "Height": 128,
+      "SHA256": "B5F71AE4E20E7BE3A45783EEDA7D209F07FACC5C4AA527F5236EF2271D296AFE",
+      "Cropped": false,
+      "Status": "RuntimeReadyNotVisuallyAccepted"
+    },
+    {
+      "Id": "ico_status_bleed",
+      "Source": "assets/runtime/ui/2026-11-22-v02/icones-status/debuffs/ico_status_bleed.png",
+      "SourceSHA256": "FFBD76899DAE203AACCD531316ACFE84FABFADBD7C185C00B3E7A193EF74C4D1",
+      "Path": "assets/runtime/ui/2026-11-23-runtime-v01/icones-status/debuffs/ico_status_bleed.png",
+      "Width": 128,
+      "Height": 128,
+      "SHA256": "815D40DF56C563335F83FEB0086DEB40792A3A6FE805037452DAAD3F9B825A30",
+      "Cropped": false,
+      "Status": "RuntimeReadyNotVisuallyAccepted"
+    },
+    {
+      "Id": "ico_status_freeze",
+      "Source": "assets/runtime/ui/2026-11-22-v02/icones-status/debuffs/ico_status_freeze.png",
+      "SourceSHA256": "4FF65608C3316A9FD1245CC021A5B0A9CD933D112DE7FD05C93FFB9BB85B36F6",
+      "Path": "assets/runtime/ui/2026-11-23-runtime-v01/icones-status/debuffs/ico_status_freeze.png",
+      "Width": 128,
+      "Height": 128,
+      "SHA256": "ABEFFC1C94E9A5C3E598B3AA8B7013BADEF4560772933C7D31C19DAA9D9C83B6",
+      "Cropped": false,
+      "Status": "RuntimeReadyNotVisuallyAccepted"
+    },
+    {
+      "Id": "ico_status_petrification",
+      "Source": "assets/runtime/ui/2026-11-22-v02/icones-status/debuffs/ico_status_petrification.png",
+      "SourceSHA256": "A490F35E4FA7E864D6E6FFC16C1FE0EFBB5D7520BC53BC607CA73C84896DB396",
+      "Path": "assets/runtime/ui/2026-11-23-runtime-v01/icones-status/debuffs/ico_status_petrification.png",
+      "Width": 128,
+      "Height": 128,
+      "SHA256": "CD15FD1FA6E600E7DD596D99F29D04CACEEBEA84570054A80BBB6E05EAFCB7DC",
+      "Cropped": false,
+      "Status": "RuntimeReadyNotVisuallyAccepted"
+    },
+    {
+      "Id": "ico_status_poison",
+      "Source": "assets/runtime/ui/2026-11-22-v02/icones-status/debuffs/ico_status_poison.png",
+      "SourceSHA256": "D5F74F017A367CA64B1DAA65A90384644C44158831A60A33B5FDE1D51D921EEE",
+      "Path": "assets/runtime/ui/2026-11-23-runtime-v01/icones-status/debuffs/ico_status_poison.png",
+      "Width": 128,
+      "Height": 128,
+      "SHA256": "8F1A0C12ED9313C730614B315115C3C7D14E9449F7858107A312D0038A1C7A8F",
+      "Cropped": false,
+      "Status": "RuntimeReadyNotVisuallyAccepted"
+    },
+    {
+      "Id": "ico_status_silence",
+      "Source": "assets/runtime/ui/2026-11-22-v02/icones-status/debuffs/ico_status_silence.png",
+      "SourceSHA256": "3688E6B6E60BA3B2A7404ABC3138DEBF0515FA7B7511B29112A025D7B64F5FE0",
+      "Path": "assets/runtime/ui/2026-11-23-runtime-v01/icones-status/debuffs/ico_status_silence.png",
+      "Width": 128,
+      "Height": 128,
+      "SHA256": "133833A4144516E276C817E2B2F8819F14FDDE2952EFD61714C9F65066D4201E",
+      "Cropped": false,
+      "Status": "RuntimeReadyNotVisuallyAccepted"
+    },
+    {
+      "Id": "ico_status_suppression",
+      "Source": "assets/runtime/ui/2026-11-22-v02/icones-status/debuffs/ico_status_suppression.png",
+      "SourceSHA256": "60B69B710A773D7323D649C9925777B72FCA148DA4A2BBC0EB5486097EC41EAF",
+      "Path": "assets/runtime/ui/2026-11-23-runtime-v01/icones-status/debuffs/ico_status_suppression.png",
+      "Width": 128,
+      "Height": 128,
+      "SHA256": "167FB117A2447DCF84A899ADC26C4947955A233819AFB3DDA524A757B8CC71BB",
+      "Cropped": false,
+      "Status": "RuntimeReadyNotVisuallyAccepted"
+    },
+    {
+      "Id": "logo-lobo-v01",
+      "Source": "assets/runtime/ui/2026-11-22-v02/logo-lobo-v01.png",
+      "SourceSHA256": "EDE745DB2823A19610F90D59B3F261387E6917EC87E4185CD2437B520C055012",
+      "Path": "assets/runtime/ui/2026-11-23-runtime-v01/logo-lobo-v01.png",
+      "Width": 256,
+      "Height": 256,
+      "SHA256": "00044A643DE6F386F76CC7E5171188FCE25BED010A9A1572C4FBBBC5DD4793A8",
+      "Cropped": false,
+      "Status": "RuntimeReadyNotVisuallyAccepted"
+    },
+    {
+      "Id": "avatar-felipe-v01",
+      "Source": "assets/runtime/ui/2026-11-22-v02/avatar-felipe-v01.png",
+      "SourceSHA256": "76C97C2BCA2B5F3DDF1118C3F897D910AE20BA3CB7765C3225D7E3C926DE47D8",
+      "Path": "assets/runtime/ui/2026-11-23-runtime-v01/avatar-felipe-v01.png",
+      "Width": 256,
+      "Height": 256,
+      "SHA256": "D54149C407C44A7D31EF242A1390986E9C31D03A3728AB0E7374BE1BD310E112",
+      "Cropped": false,
+      "Status": "RuntimeReadyNotVisuallyAccepted"
+    }
+  ],
+  "Note": "Runtime variants retain full canvas and aspect; full-size prepared images and originals preserved"
+}

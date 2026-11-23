@@ -1,0 +1,12 @@
+{
+  "Date": "2026-11-23",
+  "Suite": "Tutorial",
+  "Passed": true,
+  "ExitCode": 0,
+  "Result": [
+    "REG_TUTORIAL_TESTS_RESULT passed=18 total=18"
+  ],
+  "BigIntegerVectors": 0,
+  "EngineExecuted": false,
+  "AndroidExecuted": false
+}

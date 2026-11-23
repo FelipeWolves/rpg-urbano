@@ -13,10 +13,10 @@ $run=Join-Path $packageRoot ([Guid]::NewGuid().ToString('N').Substring(0,8))
 $stage=Join-Path $run 'RpgEngineProbe'
 $boundary=[IO.Path]::GetFullPath($packageRoot)+[IO.Path]::DirectorySeparatorChar
 if(![IO.Path]::GetFullPath($stage).StartsWith($boundary,[StringComparison]::OrdinalIgnoreCase)){throw 'Invalid package staging boundary'}
-$files=@('RpgEngineProbe.uproject','Source/RpgEngineProbeEditor.Target.cs','Source/RpgEngineProbe.Target.cs','Source/RpgEngineProbe/RpgEngineProbe.Build.cs','Source/RpgEngineProbe/RpgEngineProbe.cpp','Source/RpgEngineProbe/ProbeArena.h','Source/RpgEngineProbe/ProbeArena.cpp','Source/RpgEngineProbe/ProbeHub.cpp','Source/RpgEngineProbe/ProbeMedia.cpp','Source/RpgEngineProbe/ProbeMarker.cpp','Source/RpgEngineProbe/CoreProbe.h','Source/RpgEngineProbe/CoreProbe.cpp','Source/RpgEngineProbe/RpgCoreProbeCommandlet.h','Source/RpgEngineProbe/RpgCoreProbeCommandlet.cpp','Config/DefaultEngine.ini','Config/DefaultEditorSettings.ini','Config/DefaultGame.ini','Content/PrototypeHub.umap')
+$files=@('RpgEngineProbe.uproject','Source/RpgEngineProbeEditor.Target.cs','Source/RpgEngineProbe.Target.cs','Source/RpgEngineProbe/RpgEngineProbe.Build.cs','Source/RpgEngineProbe/RpgEngineProbe.cpp','Source/RpgEngineProbe/ProbeArena.h','Source/RpgEngineProbe/ProbeArena.cpp','Source/RpgEngineProbe/ProbeHub.cpp','Source/RpgEngineProbe/ProbeTutorial.cpp','Source/RpgEngineProbe/ProbeMedia.cpp','Source/RpgEngineProbe/ProbeMarker.cpp','Source/RpgEngineProbe/CoreProbe.h','Source/RpgEngineProbe/CoreProbe.cpp','Source/RpgEngineProbe/RpgCoreProbeCommandlet.h','Source/RpgEngineProbe/RpgCoreProbeCommandlet.cpp','Config/DefaultEngine.ini','Config/DefaultEditorSettings.ini','Config/DefaultGame.ini','Content/PrototypeHub.umap')
 $manifest=@()
 foreach($file in $files){$manifest+=@{Original=('experiments/unreal/RpgEngineProbe/'+$file);StagedRelative=$file}}
-foreach($name in @('battle','ability_profile','local_session','team_selection','save_game','reference_encounter','visual_session','arena_layout','battle_presentation','startup_presentation','hub_style','stage','sequential','shared_boss','pve','pve_visual')){
+foreach($name in @('battle','ability_profile','local_session','team_selection','save_game','reference_encounter','visual_session','arena_layout','battle_presentation','startup_presentation','hub_style','stage','sequential','shared_boss','pve','pve_visual','tutorial')){
     $manifest+=@{Original="src/$name.cpp";StagedRelative="Source/RpgEngineProbe/Private/NativeCore/$name.cpp"}
     $manifest+=@{Original="include/rpg/$name.hpp";StagedRelative="Source/RpgEngineProbe/Public/NativeCore/rpg/$name.hpp"}
 }
@@ -29,6 +29,9 @@ $manifest+=@{Original='include/rpg/numeric.hpp';StagedRelative='Source/RpgEngine
 $manifest+=@{Original='include/rpg/visual_events.hpp';StagedRelative='Source/RpgEngineProbe/Public/NativeCore/rpg/visual_events.hpp'}
 $manifest+=@{Original='include/rpg/encounter_manifest.hpp';StagedRelative='Source/RpgEngineProbe/Public/NativeCore/rpg/encounter_manifest.hpp'}
 foreach($resource in @('data/encounters/team-reference-v1.rpgmanifest','data/encounters/classic-reference-v1.rpgmanifest')){$manifest+=@{Original=$resource;StagedRelative=('Content/Presentation/'+$resource)}}
+$ui=Get-Content -LiteralPath (Join-Path $root 'data/presentation/ui-runtime.json') -Raw | ConvertFrom-Json
+$manifest+=@{Original='data/presentation/ui-runtime.json';StagedRelative='Content/Presentation/data/presentation/ui-runtime.json'}
+foreach($asset in $ui.Resources){if(!$asset.Path.StartsWith('assets/runtime/ui/') -or $asset.Path.Split('/') -contains '..'){throw 'Invalid UI path'};if((Get-FileHash -LiteralPath (Join-Path $root $asset.Path)).Hash -ne $asset.SHA256){throw 'UI hash mismatch'};$manifest+=@{Original=$asset.Path;StagedRelative=('Content/Presentation/'+$asset.Path)}}
 # Local hub resources and the two authored intro variants; editable originals remain excluded.
 & (Join-Path $PSScriptRoot 'validar-identidade-hub.ps1') | Out-Null
 $hubCatalog=Get-Content -LiteralPath (Join-Path $root 'data/presentation/startup.json') -Raw | ConvertFrom-Json

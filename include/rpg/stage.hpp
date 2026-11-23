@@ -11,6 +11,7 @@ struct EncounterDefinition {
     std::string id;
     std::vector<Definition> enemies;
     BattleRules rules;
+    std::vector<InitialRuntime> initial_runtime;
 };
 
 struct StageDefinition {

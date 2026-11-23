@@ -8,6 +8,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "Materials/MaterialInterface.h"
 #include "Engine/Canvas.h"
+#include "Engine/Texture2D.h"
 #include "CanvasTypes.h"
 
 #include "Engine/StaticMesh.h"
@@ -56,7 +57,7 @@ void AProbeArenaHUD::BeginPlay()
     if(FParse::Param(FCommandLine::Get(),TEXT("Hub"))){startInHub=true;}
     if(FParse::Param(FCommandLine::Get(),TEXT("Arena"))){startInHub=false;}
     Flow=rpg::presentation::ScreenFlow(startInHub?rpg::presentation::UiScreen::Hub:rpg::presentation::UiScreen::Arena);
-    LoadHubCatalog();
+    LoadHubCatalog();LoadUiResources();LoadTutorialProgress();
     FString inspection;
     const bool namedInspection=FParse::Value(FCommandLine::Get(),TEXT("Inspection="),inspection);
     if(namedInspection || FParse::Param(FCommandLine::Get(),TEXT("Inspection"))){
@@ -86,7 +87,7 @@ void AProbeArenaHUD::RefreshArenaActors()
         auto* sphere=GetWorld()->SpawnActor<AStaticMeshActor>(FVector(placement.x,placement.y,placement.z),FRotator(0,placement.facing_yaw,0),spawn);
         if(sphere && mesh){sphere->GetStaticMeshComponent()->SetMobility(EComponentMobility::Movable);sphere->GetStaticMeshComponent()->SetStaticMesh(mesh);sphere->GetStaticMeshComponent()->UpdateBounds();sphere->GetStaticMeshComponent()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);sphere->GetStaticMeshComponent()->SetCollisionResponseToAllChannels(ECR_Ignore);sphere->GetStaticMeshComponent()->SetCollisionResponseToChannel(ECC_Visibility,ECR_Block);sphere->Tags.Add(FName(*Label(placement.fighter_id)));sphere->Tags.Add(FName(TEXT("RpgPrototypeActor")));}
     }
-    if(WavesActive){WaveGeometryIndex=static_cast<int32>(Waves->wave_index());}
+    if(TutorialActive){WaveGeometryIndex=static_cast<int32>(Tutorial->wave_index());}else if(WavesActive){WaveGeometryIndex=static_cast<int32>(Waves->wave_index());}
     if(SequenceActive){SequenceGeometryIndex=static_cast<int32>(ActiveSequence()->squad_index());}
 }
 void AProbeArenaHUD::OpenInfo(const FString& title,const std::vector<std::string>& lines)
@@ -100,6 +101,8 @@ void AProbeArenaHUD::OpenInfo(const FString& title,const std::vector<std::string
 }
 void AProbeArenaHUD::ShowActionFeedback(const rpg::presentation::VisualResult& result)
 {
+    for(const auto& event:result.action.events){if(event.type==rpg::EventType::PassiveTriggered){VigilFlashActor=Label(event.actor);VigilFlashUntil=GetWorld()->GetTimeSeconds()+0.8;}}
+    if(result.accepted() && TutorialActive && Tutorial->finished() && Tutorial->hud().objective_met){RecordTutorialCompletion(false);}
     LastActionFeedback=rpg::presentation::action_feedback(result);HasActionFeedback=true;Message=Label(LastActionFeedback.summary);
 }
 void AProbeArenaHUD::ReadPointer()
@@ -130,22 +133,24 @@ void AProbeArenaHUD::ReadPointer()
     const auto* viewport=GetWorld()->GetGameViewport();
     InputWindowActive=viewport && viewport->Viewport && rpg::presentation::canvas_input_active(viewport->Viewport->IsForegroundWindow(),viewport->Viewport->HasFocus());
     const bool focused=InputWindowActive;
-    const std::uint8_t screen=IntroActive?128:InspectionMode?(!PopupLines.IsEmpty()?201:200):static_cast<std::uint8_t>(Flow.screen())+(!PopupLines.IsEmpty()?16:0);
+    const std::uint8_t screen=SearchActive?180:TutorialActive && Tutorial->awaiting_lesson()?181:IntroActive?128:InspectionMode?(!PopupLines.IsEmpty()?201:200):static_cast<std::uint8_t>(Flow.screen())+(!PopupLines.IsEmpty()?16:0);
     Input=Pointer.update({PlayerOwner->IsInputKeyDown(EKeys::LeftMouseButton),mouseValid && mouse.has_value() && CanvasCoordinatesKnown,mouse?mouse->x:0,mouse?mouse->y:0},
-        {touched,inViewport(LastTouchX,LastTouchY) && touch.has_value() && CanvasCoordinatesKnown,touch?touch->x:0,touch?touch->y:0},focused,GetWorld()->GetTimeSeconds(),{InspectionMode?static_cast<std::uint64_t>(InspectionIndex):ActiveState().revision,screen});
+        {touched,inViewport(LastTouchX,LastTouchY) && touch.has_value() && CanvasCoordinatesKnown,touch?touch->x:0,touch?touch->y:0},focused,GetWorld()->GetTimeSeconds(),{SearchActive?Search.state().revision:InspectionMode?static_cast<std::uint64_t>(InspectionIndex):ActiveState().revision,screen});
     if(Input.cancelled){Gesture.cancel();}
 }
 void AProbeArenaHUD::DrawHUD()
 {
     Super::DrawHUD();if(!Canvas || !PlayerOwner){return;}
     if(SequenceActive && SequenceGeometryIndex!=static_cast<int32>(ActiveSequence()->squad_index())){RefreshArenaActors();}
+    if(TutorialActive && WaveGeometryIndex!=static_cast<int32>(Tutorial->wave_index())){RefreshArenaActors();}
     if(WavesActive && WaveGeometryIndex!=static_cast<int32>(Waves->wave_index())){RefreshArenaActors();}
     HideTargetMarker();ReadPointer();
     // Optional visual consumers never gate command dispatch or mutate the battle.
-    for(int32 i=0;i<64;++i){const auto cue=SharedActive?ActiveShared()->next_visual_cue():SequenceActive?ActiveSequence()->next_visual_cue():WavesActive?Waves->next_visual_cue():PveActive?ActivePve()->next_visual_cue():Session.next_visual_cue();if(!cue){break;}
+    for(int32 i=0;i<64;++i){const auto cue=TutorialActive?Tutorial->next_visual_cue():SharedActive?ActiveShared()->next_visual_cue():SequenceActive?ActiveSequence()->next_visual_cue():WavesActive?Waves->next_visual_cue():PveActive?ActivePve()->next_visual_cue():Session.next_visual_cue();if(!cue){break;}
         UE_LOG(LogTemp,VeryVerbose,TEXT("VIS_CUE revision=%llu phase=%d index=%llu"),cue->revision,static_cast<int32>(cue->phase),static_cast<uint64>(cue->index));
     }
     if(IntroActive){DrawIntro();return;}
+    if(SearchActive){DrawClassicSearch();return;}
     // Hub dialogs must be rendered before any underlying hub/team actions.
     if(Flow.in_hub() && !PopupLines.IsEmpty()){
         DrawRect(HubPanel,0,0,Canvas->SizeX,Canvas->SizeY);
@@ -156,6 +161,7 @@ void AProbeArenaHUD::DrawHUD()
     if(!InspectionMode && PlayerOwner->WasInputKeyJustPressed(EKeys::Escape)){HandleBack();return;}
     if(HubEnabled && Flow.in_hub()){DrawHub();return;}
     if(!InspectionMode && (Flow.screen()==rpg::presentation::UiScreen::Pause || Flow.screen()==rpg::presentation::UiScreen::AbandonConfirm)){DrawBattleMenu();return;}
+    if(TutorialActive && Tutorial->awaiting_lesson()){DrawTutorialLesson();return;}
     auto view=ActiveState();
     if(InspectionMode){view={static_cast<std::uint64_t>(InspectionIndex),{SelectedCombatProfile(),{},InspectionFrames[InspectionIndex].battle,{}},{},{},false,true};}
     const double now=GetWorld()->GetTimeSeconds();
@@ -215,8 +221,8 @@ void AProbeArenaHUD::DrawHUD()
         else{text=FString::Printf(TEXT("Score %lld — %s"),static_cast<long long>(*pveHud->score),pveHud->encounter_finished?TEXT("consolidado"):TEXT("parcial"));}
         DrawText(text,FColor::Orange,20,122,nullptr,0.7f);
     }
-    if(WavesActive){
-        const auto hud=Waves->hud();
+    if(WavesActive || TutorialActive){
+        const auto hud=TutorialActive?Tutorial->hud():Waves->hud();
         DrawText(FString::Printf(TEXT("Onda %llu/%llu — %s"),static_cast<unsigned long long>(hud.wave_number),static_cast<unsigned long long>(hud.wave_count),*Label(hud.wave_id)),FColor::Cyan,20,62,nullptr,0.85f);
         DrawText(FString::Printf(TEXT("Acoes globais %llu/%llu | Nesta onda %llu"),static_cast<unsigned long long>(hud.global_actions),static_cast<unsigned long long>(hud.global_goal.value_or(0)),static_cast<unsigned long long>(hud.local_actions)),FColor::White,20,82,nullptr,0.75f);
         DrawText(Label(hud.status),hud.finished?FColor::Yellow:FColor::White,20,102,nullptr,0.8f);
@@ -253,7 +259,7 @@ void AProbeArenaHUD::DrawHUD()
             if(!labelPosition){continue;}screen=FVector2D(labelPosition->x,labelPosition->y);
             const float width=150.f;
             const float x=FMath::Clamp(static_cast<float>(screen.X)-width/2,4.f,FMath::Max(4.f,Canvas->SizeX-width-4));
-            const float labelMin=SharedActive?174.f:(PveActive || WavesActive || SequenceActive)?154.f:66.f;
+            const float labelMin=(SharedActive?174.f:(PveActive || WavesActive || SequenceActive || TutorialActive)?154.f:66.f)+(fighter.statuses.empty()?0.f:24.f);
             const float labelMax=FMath::Max(labelMin,Canvas->SizeY-175);
             const float idealY=FMath::Clamp(static_cast<float>(screen.Y)-25,labelMin,labelMax);
             float y=idealY;
@@ -279,6 +285,11 @@ void AProbeArenaHUD::DrawHUD()
             DrawRect(FLinearColor(0.04f,0.04f,0.05f),x,y+31,width,7);
             DrawRect(fighter.definition.team==rpg::Team::A?FLinearColor(0.1f,0.85f,0.7f):FLinearColor(0.95f,0.25f,0.4f),x,y+31,width*static_cast<float>(shield.health_fraction),7);
             DrawRect(FLinearColor(0.65f,0.9f,1.f),x,y+31,width*static_cast<float>(shield.overlay_fraction),7);
+            int32 effectIndex=0;for(const auto& status:fighter.statuses){
+                FString effectName;switch(status.kind){case rpg::EffectKind::Bleed:effectName=TEXT("bleed");break;case rpg::EffectKind::Poison:effectName=TEXT("poison");break;case rpg::EffectKind::StandardShield:effectName=TEXT("shield_standard");break;case rpg::EffectKind::SilverShield:effectName=TEXT("shield_silver");break;case rpg::EffectKind::Silence:effectName=TEXT("silence");break;case rpg::EffectKind::Suppression:effectName=TEXT("suppression");break;case rpg::EffectKind::Freeze:effectName=TEXT("freeze");break;case rpg::EffectKind::Petrify:effectName=TEXT("petrification");break;case rpg::EffectKind::Invincible:case rpg::EffectKind::DebuffImmunity:effectName=TEXT("immunity_invincible");break;default:break;}
+                if(!effectName.IsEmpty() && effectIndex<5){if(auto* texture=UiTexture(TEXT("ico_status_")+effectName)){const float ex=x+effectIndex*22;DrawTexture(texture,ex,y-24,22,22,0,0,1,1,FLinearColor::White,BLEND_Translucent);if(status.remaining>0){DrawText(FString::FromInt(status.remaining),FColor::White,ex+13,y-16,nullptr,0.6f);}++effectIndex;}}
+            }
+            if(effectIndex>0 && clicked && PopupLines.IsEmpty() && rpg::presentation::pointer_clicked(Input,{x,y-24,110,24})){OpenInfo(TEXT("Efeitos / ")+id,rpg::presentation::effect_details(fighter));return;}
             DrawText(TEXT("[i]"),FColor::Cyan,x+width-25,y+8);
             if(clicked && PopupLines.IsEmpty() && rpg::presentation::pointer_clicked(Input,{x+width-28,y,28,28})){OpenInfo(TEXT("Effects / ")+id,rpg::presentation::effect_details(fighter));return;}
             if(manual && validTarget(fighter.definition.id)){
@@ -312,7 +323,7 @@ void AProbeArenaHUD::DrawHUD()
     DrawRect(FLinearColor(0.025f,0.035f,0.06f,0.9f),0,bottom-12,Canvas->SizeX,135);
     if(!classic){
         const float portraitX=Canvas->SizeX-795.f;DrawRect(FLinearColor(0.06f,0.12f,0.2f),portraitX,bottom-20,120,95);
-        DrawText(TEXT("ACTIVE UNIT"),FColor::Cyan,portraitX+8,bottom-12);DrawText(actor,FColor::White,portraitX+15,bottom+8,nullptr,2.f);DrawText(TEXT("Portrait pending"),FColor::White,portraitX+8,bottom+55);
+        DrawText(TEXT("ACTIVE UNIT"),FColor::Cyan,portraitX+8,bottom-12);DrawText(actor,FColor::White,portraitX+15,bottom+8,nullptr,2.f);if((actor.Contains(TEXT("FELIPE")) || actor.Contains(TEXT("JOVEM"))) && UiTexture(TEXT("avatar-felipe-v01"))){DrawTexture(UiTexture(TEXT("avatar-felipe-v01")),portraitX,bottom-20,95,95,0,0,1,1,FLinearColor::White,BLEND_Translucent);}else{DrawText(TEXT("Retrato provisório"),FColor::White,portraitX+8,bottom+55);}
     }
     if(classicRules){
         const auto actorIt=std::ranges::find(view.combat.battle.fighters,view.combat.battle.current_actor.value_or(""),[](const rpg::Fighter& f){return f.definition.id;});
@@ -342,18 +353,26 @@ void AProbeArenaHUD::DrawHUD()
     }
     for(const auto& ability:view.abilities){
         const auto card=rpg::presentation::ability_card(view,ability.slot.position);
-        const bool ready=manual && card.selectable;
-        const float x=Canvas->SizeX-660.f+(ability.slot.position-1)*215.f;
+        const bool ready=manual && card.selectable && (!TutorialActive || Tutorial->allowed_slot(ability.slot.position));
+        const float cardStart=Canvas->SizeX>=840?Canvas->SizeX-660.f:Canvas->SizeX>=640?140.f:20.f;
+        const float cardWidth=FMath::Max(48.f,(Canvas->SizeX-cardStart-20.f)/3.f-8.f);
+        const float x=cardStart+(ability.slot.position-1)*(cardWidth+8.f);
         const FString text=FString::Printf(TEXT("%u / %s"),ability.slot.position,*Label(card.kind));
-        button(x,bottom,205,50,text,ready);
+        button(x,bottom,cardWidth,50,TEXT(""),ready);
+        float textW=0,textH=0;GetTextSize(text,textW,textH);DrawText(text,FColor::White,x+54,bottom+6,nullptr,FMath::Min(0.8f,FMath::Max(0.25f,(cardWidth-58)/FMath::Max(1.f,textW))));
+        const bool young=actor.Contains(TEXT("JOVEM"));
+        const bool felipe=young || actor.Contains(TEXT("FELIPE"));
+        FString icon=young?FString::Printf(TEXT("ico_skill_jovem_lobo_a%u"),ability.slot.position):FString::Printf(TEXT("ico_skill_felipe_a%u"),ability.slot.position);
+        if(ability.slot.position==2){const auto unit=std::ranges::find(view.combat.battle.fighters,view.combat.battle.current_actor.value_or(""),[](const rpg::Fighter& f){return f.definition.id;});if((VigilFlashActor==actor && now<VigilFlashUntil) || (unit!=view.combat.battle.fighters.end()&&unit->definition.vigil&&unit->vigil_charges>=unit->definition.vigil->max_party_size)){icon+=TEXT("_active");}}
+        if(felipe){if(auto* texture=UiTexture(icon)){DrawTexture(texture,x+6,bottom+3,44,44,0,0,1,1,ready?FLinearColor::White:FLinearColor(0.5f,0.5f,0.6f,1.f),BLEND_Translucent);}}
         const FColor color=card.badge==rpg::presentation::AbilityBadge::Passive?FColor(180,130,240):card.badge==rpg::presentation::AbilityBadge::Ready?FColor::Cyan:card.badge==rpg::presentation::AbilityBadge::Unavailable?FColor(180,180,180):FColor(245,158,11);
         const bool selected=ready && SelectedSlot==static_cast<int32>(ability.slot.position);
-        DrawText(selected?TEXT("Selecionada"):Label(card.status),color,x+8,bottom+30);
-        const float cx=x+189,cy=bottom+15;
+        DrawText(selected?TEXT("Selecionada"):Label(card.status),color,x+54,bottom+30,nullptr,Canvas->SizeX<640?0.5f:0.75f);
+        const float cx=x+cardWidth-16,cy=bottom+15;
         if(card.cooldown>0){
             const FString timer=FString::FromInt(card.cooldown);float width=0,height=0;GetTextSize(timer,width,height);
             const float scale=FMath::Min(1.f,32.f/FMath::Max(1.f,width));
-            DrawText(timer,FColor(245,158,11),x+165,bottom+30,nullptr,scale);
+            DrawText(timer,FColor(245,158,11),x+cardWidth-40,bottom+30,nullptr,scale);
         }
         if(card.badge==rpg::presentation::AbilityBadge::Locked){
             DrawLine(cx-6,cy-1,cx+6,cy-1,FLinearColor(color),1.5f);DrawLine(cx-6,cy-1,cx-6,cy+7,FLinearColor(color),1.5f);
@@ -363,10 +382,10 @@ void AProbeArenaHUD::DrawHUD()
             for(int i=0;i<20;++i){const float a=2*PI*i/20,b=2*PI*(i+1)/20;DrawLine(cx+7*FMath::Cos(a),cy+7*FMath::Sin(a),cx+7*FMath::Cos(b),cy+7*FMath::Sin(b),FLinearColor(color),1.5f);}
             DrawLine(cx-5,cy+5,cx+5,cy-5,FLinearColor(color),1.5f);
         }else if(card.badge==rpg::presentation::AbilityBadge::Passive){DrawText(TEXT("i"),color,cx-3,cy-9);}
-        if(selected){DrawLine(x+2,bottom+2,x+203,bottom+2,FLinearColor::Yellow,2);}
-        if(pressed && PopupLines.IsEmpty() && inside(x,bottom,205,50)){Gesture.press(ability.slot.position,now,view.revision);}
-        if(shortSlot==ability.slot.position && inside(x,bottom,205,50)){
-            if(!ready){SelectedSlot=0;SelectedTarget.Empty();Message=Label(card.reason);return;}
+        if(selected){DrawLine(x+2,bottom+2,x+cardWidth-2,bottom+2,FLinearColor::Yellow,2);}
+        if(pressed && PopupLines.IsEmpty() && inside(x,bottom,cardWidth,50)){Gesture.press(ability.slot.position,now,view.revision);}
+        if(shortSlot==ability.slot.position && inside(x,bottom,cardWidth,50)){
+            if(!ready){SelectedSlot=0;SelectedTarget.Empty();Message=TutorialActive && !Tutorial->allowed_slot(ability.slot.position)?TEXT("Neste primeiro passo, use A1 — Garra do Asfalto."):Label(card.reason);return;}
             SelectedSlot=static_cast<int32>(ability.slot.position);SelectionRevision=view.revision;
             const auto ids=ActiveTargets(view,ability.slot.position);SelectedTarget.Empty();
             if(!classic && !ids.empty()){SelectedTarget=Label(ids[static_cast<std::size_t>(FMath::RandHelper(static_cast<int32>(ids.size())))]);}
@@ -390,7 +409,7 @@ void AProbeArenaHUD::DrawHUD()
         else{lines.push_back("Nenhuma tentativa de acao registrada nesta sessao de tela.");}
         OpenInfo(TEXT("Mensagem / ultima acao"),lines);return;
     }
-    if((PveActive || WavesActive || SequenceActive || SharedActive) && PopupLines.IsEmpty() && button(160,bottom-42,FMath::Max(48.f,FMath::Min(210.f,Canvas->SizeX-180.f)),30,running?TEXT("Detalhes do encontro"):TEXT("Resultado do encontro"),true)){
+    if((PveActive || WavesActive || SequenceActive || SharedActive || TutorialActive) && PopupLines.IsEmpty() && button(160,bottom-42,FMath::Max(48.f,FMath::Min(210.f,Canvas->SizeX-180.f)),30,running?TEXT("Detalhes do encontro"):TEXT("Resultado do encontro"),true)){
         std::vector<std::string> lines;
         if(SharedActive){const auto hud=ActiveShared()->hud();lines={hud.status,"Chefe unico: "+hud.boss_id+" | PV "+std::to_string(hud.boss_health)+"/"+std::to_string(hud.boss_max_health),"Acoes globais: "+std::to_string(hud.global_actions),"Acoes do chefe: "+std::to_string(hud.boss_actions),"Proximo ataque local: "+hud.next_local_front.value_or("nenhuma"),"Ultimo ataque local: "+hud.last_local_front.value_or("nenhum")};
             for(std::size_t i=0;i<hud.fronts.size();++i){const auto& front=hud.fronts[i];lines.push_back("F"+std::to_string(i+1)+" = "+front.id+(front.active?" | ativa":" | sem sobreviventes")+" | acoes aliadas "+std::to_string(front.allied_actions));}
@@ -398,9 +417,9 @@ void AProbeArenaHUD::DrawHUD()
             lines.push_back("Sem limite local novo por frente; HP/AP/recargas do chefe sao globais. Simulacao local, sem servidor.");
         }else if(SequenceActive){const auto hud=ActiveSequence()->hud();lines={hud.status,"Equipe "+std::to_string(hud.squad_number)+"/"+std::to_string(hud.squad_count)+": "+hud.squad_id,"Chefe: "+hud.boss_id+" | PV "+std::to_string(hud.boss_health)+"/"+std::to_string(hud.boss_max_health),"Fase: "+hud.boss_phase,"Acoes globais: "+std::to_string(hud.global_actions),"Acoes da janela local (ambos os lados): "+std::to_string(hud.local_actions),"HP do chefe continuo; politica de estados/recargas V2 do coordenador."};
             if(hud.next_squad){lines.push_back("Proxima equipe: "+*hud.next_squad);}if(hud.previous_squad){lines.push_back("Transicao anterior: "+*hud.previous_squad+" -> "+hud.squad_id);}if(hud.previous_phase){lines.push_back("Fase anterior: "+*hud.previous_phase);}
-        }else if(WavesActive){const auto hud=Waves->hud();lines={hud.status,"Onda "+std::to_string(hud.wave_number)+"/"+std::to_string(hud.wave_count)+": "+hud.wave_id,"Acoes globais: "+std::to_string(hud.global_actions),"Acoes nesta onda: "+std::to_string(hud.local_actions)};
+        }else if(WavesActive || TutorialActive){const auto hud=TutorialActive?Tutorial->hud():Waves->hud();lines={hud.status,"Onda "+std::to_string(hud.wave_number)+"/"+std::to_string(hud.wave_count)+": "+hud.wave_id,"Acoes globais: "+std::to_string(hud.global_actions),"Acoes nesta onda: "+std::to_string(hud.local_actions)};
             if(hud.previous_wave){lines.push_back("Transicao anterior: "+*hud.previous_wave+" -> "+hud.wave_id);}
-            for(const auto& event:Waves->transition_events()){if(event.status_kind){lines.push_back(event.target+" | "+rpg::presentation::effect_name(*event.status_kind)+" | "+std::to_string(event.amount));}}
+            for(const auto& event:(TutorialActive?Tutorial->transition_events():Waves->transition_events())){if(event.status_kind){lines.push_back(event.target+" | "+rpg::presentation::effect_name(*event.status_kind)+" | "+std::to_string(event.amount));}}
         }else{const auto hud=rpg::presentation::pve_hud(ActivePve()->observation());lines={hud.status_label,"Objetivo: "+hud.objective_label,"Chefe: "+hud.boss_id,"Acoes: "+std::to_string(hud.actions.completed)};
             for(const auto& phase:ActivePve()->phase_events()){lines.push_back("Transicao aplicada: "+phase.id);}
             if(hud.boss_turns.goal){lines.push_back("Turnos naturais do chefe: "+std::to_string(hud.boss_turns.completed)+"/"+std::to_string(*hud.boss_turns.goal));}
@@ -480,7 +499,7 @@ void AProbeArenaHUD::HandleBack()
     const auto effect=Flow.back(!PopupLines.IsEmpty(),SelectedSlot!=0 || !SelectedTarget.IsEmpty());
     if(effect==rpg::presentation::BackEffect::CloseDetails){PopupLines.Empty();}
     if(effect==rpg::presentation::BackEffect::CancelSelection){SelectedSlot=0;SelectedTarget.Empty();Message=TEXT("Seleção cancelada.");}
-    if(Flow.screen()==rpg::presentation::UiScreen::Hub && (PveActive || WavesActive || SequenceActive || SharedActive)){ReturnToHub();}
+    if(Flow.screen()==rpg::presentation::UiScreen::Hub && (PveActive || WavesActive || SequenceActive || SharedActive || TutorialActive)){ReturnToHub();}
     Gesture.cancel();Pointer.cancel_until_release();NextAutomatic=GetWorld()->GetTimeSeconds()+0.5;
 }
 void AProbeArenaHUD::DrawBattleMenu()
@@ -492,7 +511,7 @@ void AProbeArenaHUD::DrawBattleMenu()
         confirming?TEXT("Confirmar abandono"):TEXT("Abandonar tentativa"),confirming?TEXT("Cancelar"):TEXT("Retomar"));
     if(result==1){BattleMenuPage=0;if(confirming){Flow.back(false,false);}else{Flow.resume();}NextAutomatic=GetWorld()->GetTimeSeconds()+0.5;}
     if(result==2){
-        if(confirming){if(Flow.confirm_abandon()){if(SharedActive){ActiveShared()->abandon();}else if(SequenceActive){ActiveSequence()->abandon();}else if(WavesActive){Waves->abandon();}else if(PveActive){ActivePve()->abandon();}ReturnToHub();Message=TEXT("Tentativa abandonada sem recompensa.");}}
+        if(confirming){if(Flow.confirm_abandon()){if(TutorialActive){Tutorial->abandon();}else if(SharedActive){ActiveShared()->abandon();}else if(SequenceActive){ActiveSequence()->abandon();}else if(WavesActive){Waves->abandon();}else if(PveActive){ActivePve()->abandon();}ReturnToHub();Message=TEXT("Tentativa abandonada sem recompensa.");}}
         else{BattleMenuPage=0;Flow.request_abandon();}
     }
 }

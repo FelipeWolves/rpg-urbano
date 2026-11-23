@@ -84,7 +84,7 @@
       },
       {
         "id": "plaza",
-        "label": "Praça",
+        "label": "PRAÇA",
         "route": "Unavailable",
         "anchor": {
           "x": 0.17,
@@ -196,8 +196,8 @@
       },
       "reducedMotion": false,
       "eventPanel": {
-        "title": "LAB - EXP — EVENTOS EM PREPARAÇÃO",
-        "body": "Área reservada para eventos e experiências, incluindo um futuro evento de RPG clássico. O conteúdo ainda não está implementado; este painel apenas permite conferir o novo hub."
+        "title": "LAB - EXP — EVENTOS ESPECIAIS",
+        "body": "Eventos e experiências. A Bola Perdida oferece uma busca clássica de teste; os demais eventos serão adicionados depois."
       }
     }
   },

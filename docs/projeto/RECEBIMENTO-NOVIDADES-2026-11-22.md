@@ -46,3 +46,5 @@ Amostra da A2 inativa é escura: validar contraste em tamanho real antes de decl
 Inventário e metadados: docs/relatorios/atuais/RECEBIMENTO-2026-11-22.csv e .json. Originais Markdown podem entrar no Git; imagens permanecem locais. Percentual da demo mantido em ~28%: nova entrega de material não é implementação nem aceite.
 
 > Atualização autorizada: derivados transparentes e nomes consolidados em VIS-ICONS-PNG-2026-11-22.md. P1 de escolha do debuff fechado: inimigo já com Sangramento no tutorial; integração guiada ainda pendente. Mapeamentos recebidos foram corrigidos por autorização posterior, sem alterar fontes de imagem.
+
+> Continuidade23/11: derivados menores integrados à HUD, dois tutoriais ligados aos menus e conclusão local própria; ver INTEGRACAO-VIS-TUTORIAIS-2026-11-23.md. As indicações anteriores de integração ainda futura são históricas; aceites gráficos continuam pendentes.

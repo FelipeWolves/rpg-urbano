@@ -33,6 +33,6 @@ if($plan.ExecutionAuthorized){$failures.Add('Build plan unexpectedly authorized'
 $project=Get-Content -LiteralPath (Join-Path $stage 'RpgEngineProbe.uproject') -Raw | ConvertFrom-Json
 $wmf=@($project.Plugins | Where-Object {$_.Name -eq 'WmfMedia' -and $_.Enabled -and 'Win64' -in $_.PlatformAllowList})
 if($wmf.Count -ne 1){$failures.Add('Expected Win64 decoder not enabled')}
-[ordered]@{Date='2026-11-22';Passed=$failures.Count -eq 0;StageRelative=[IO.Path]::GetRelativePath($root,$stage);Inputs=$report.SourceManifest.Count;VerifiedHashes=$verified;Failures=@($failures);IncludeClosureChecked=$true;BuildExecuted=$false;CookExecuted=$false;EditorOpened=$false;PackageValidated=$false;AndroidExecuted=$false} | ConvertTo-Json -Depth 5 | Set-Content (Join-Path $root 'docs/relatorios/atuais/AUT-15-STAGE.json') -Encoding utf8
+[ordered]@{Date='2026-11-23';Passed=$failures.Count -eq 0;StageRelative=[IO.Path]::GetRelativePath($root,$stage);Inputs=$report.SourceManifest.Count;VerifiedHashes=$verified;Failures=@($failures);IncludeClosureChecked=$true;BuildExecuted=$false;CookExecuted=$false;EditorOpened=$false;PackageValidated=$false;AndroidExecuted=$false} | ConvertTo-Json -Depth 5 | Set-Content (Join-Path $root 'docs/relatorios/atuais/AUT-15-STAGE.json') -Encoding utf8
 if($failures.Count){throw ($failures -join '; ')}
 Write-Output "AUT15_STAGE_VERIFIED inputs=$verified build=False cook=False"

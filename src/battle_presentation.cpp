@@ -71,7 +71,7 @@ ShieldDisplay shield_display(const Fighter& fighter){
 }
 std::string effect_name(EffectKind kind){
     switch(kind){
-    case EffectKind::SilverShield:return "Silver shield";case EffectKind::CleanseDebuffs:return "Cleanse";case EffectKind::StealBuffs:return "Steal buffs";case EffectKind::TransferDebuffs:return "Transfer debuffs";case EffectKind::Heal:return "Heal";
+    case EffectKind::AttackUp:return "ATK aumentado";case EffectKind::SpeedDown:return "SPD reduzida";case EffectKind::SilverShield:return "Silver shield";case EffectKind::CleanseDebuffs:return "Cleanse";case EffectKind::StealBuffs:return "Steal buffs";case EffectKind::TransferDebuffs:return "Transfer debuffs";case EffectKind::Heal:return "Heal";
     case EffectKind::DispelBuffs:return "Dispel buffs";case EffectKind::Bleed:return "Bleed";case EffectKind::Poison:return "Poison";
     case EffectKind::Stun:return "Stun";case EffectKind::Freeze:return "Freeze";case EffectKind::Petrify:return "Petrify";case EffectKind::Silence:return "Silence";case EffectKind::Suppression:return "Suppression";case EffectKind::Invincible:return "Invincible";case EffectKind::DebuffImmunity:return "Debuff immunity";
     case EffectKind::StandardShield:return "Standard shield";case EffectKind::Shield:return "Shield";case EffectKind::StructuralShield:return "Structural shield";
@@ -89,7 +89,7 @@ std::vector<std::string> effect_details(const Fighter& fighter){
     if(fighter.definition.vigil){lines.push_back("Postura de Vigilia | "+std::to_string(fighter.vigil_charges)+"/"+std::to_string(fighter.definition.vigil->max_party_size)+" cargas douradas");}
     if(fighter.guarding){lines.push_back("Defending: incoming hit damage is halved, rounded down.");}
     for(const auto& effect:fighter.statuses){
-        lines.push_back(effect_name(effect.kind)+" | value "+std::to_string(effect.magnitude)+" | charges "+std::to_string(effect.charges));
+        if(effect.kind==EffectKind::AttackUp || effect.kind==EffectKind::SpeedDown){lines.push_back(effect_name(effect.kind)+" | "+std::to_string(effect.magnitude/100)+"% | sem acumulo");}else{lines.push_back(effect_name(effect.kind)+" | value "+std::to_string(effect.magnitude)+" | charges "+std::to_string(effect.charges));}
         if(periodic_effect(effect.kind)){lines.push_back("  Source: "+effect.source_id+(effect.kind==EffectKind::Poison?" | snapshotted boss ATK cap":" | snapshotted tick damage"));}
         if(effect.category==StatusCategory::Permanent){lines.push_back("  Permanent");}
         else {lines.push_back("  Remaining: "+std::to_string(effect.remaining)+(effect.clock==TickPolicy::NaturalOnly?" natural turns":" all owner turns"));}
@@ -204,7 +204,7 @@ std::string feedback_error(ActionError error){
  return "Acao recusada.";
 }
 std::string feedback_effect(EffectKind kind){
- switch(kind){case EffectKind::StandardShield:return "escudo";case EffectKind::SilverShield:return "escudo prateado";case EffectKind::Shield:return "protecao";case EffectKind::Bleed:return "sangramento";case EffectKind::Poison:return "veneno";default:return effect_name(kind);}
+ switch(kind){case EffectKind::StandardShield:return "escudo";case EffectKind::AttackUp:return "ATK aumentado";case EffectKind::SpeedDown:return "SPD reduzida";case EffectKind::SilverShield:return "escudo prateado";case EffectKind::Shield:return "protecao";case EffectKind::Bleed:return "sangramento";case EffectKind::Poison:return "veneno";default:return effect_name(kind);}
 }
 std::optional<std::string> feedback_event(const Event& e){
  if(e.type==EventType::Attack || e.type==EventType::PeriodicDamage || e.type==EventType::ReflectedDamage || e.type==EventType::DeathExplosion){

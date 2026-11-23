@@ -1,5 +1,5 @@
 {
-  "date": "2026-11-22",
+  "date": "2026-11-23",
   "scope": "Primeira demo integrada com Felipe, arena e validação em celular-alvo; não jogo comercial completo",
   "method": "Mesmos pesos; estimativas de maturidade, não horas ou contagem de tarefas",
   "weighted_percent": 28.03,
@@ -19,13 +19,13 @@
       "Area": "Integração Unreal",
       "Peso": "10",
       "Progresso": 50,
-      "Base": "Dois laboratórios compilados, placeholders e entrada aceitos; pacote limpo e plataformas pendentes"
+      "Base": "Laboratorios e dois tutoriais integrados/compilados; 19texturas ligadas e stage92; aceites e plataformas pendentes"
     },
     {
       "Area": "Front / interface",
       "Peso": "10",
       "Progresso": 30,
-      "Base": "Cliques, seleção, painéis e seletor aceitos no recorte testado; HUD PvE, fluidez e matriz ampla pendentes"
+      "Base": "Sprites, retrato, letreiros e paineis didaticos ligados; aceite da integracao e matriz ampla pendentes"
     },
     {
       "Area": "Hub / navegação",
@@ -99,5 +99,5 @@
   "documentation_only_this_update": false,
   "android_used": false,
   "engine_opened": false,
-  "latest_technical_report": "VIS-ICONS-PNG-2026-11-22.json; 19 derivatives verified, 17 transparent icons; Pilot11/11; no runtime integration or percentage increase"
+  "latest_technical_report": "INTEGRACAO-VIS-TUTORIAIS-2026-11-23.json; UI textures and both tutorials integrated, build/stage92 verified; visual/real IO/mobile acceptance pending; estimate28 unchanged"
 }

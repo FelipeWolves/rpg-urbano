@@ -1,3 +1,5 @@
+> **Integração23/11:** recursos ligados à HUD; tutorial padrão no Terminal; busca clássica no Lab - Exp; conclusão local própria, PRAÇA/letreiros corrigidos. Código/testes/build e stage92 aprovados; aceites gráficos/I-O real/mobile separados. Demo~28% mantida. Fonte: docs/projeto/INTEGRACAO-VIS-TUTORIAIS-2026-11-23.md. Próximo: aceite da versão integrada, sem depender da arte futura do Terminal.
+
 > **Ícones22/11:** 17ícones transparentes preparados em assets/runtime/ui/2026-11-22-v02/, logo/avatar nomeados e catálogo conferido; não integrados à HUD. Sangramento inicial do inimigo aprovado para tutorial e validado no núcleo; sequência guiada/variante/save ainda pendentes. Fonte docs/projeto/VIS-ICONS-PNG-2026-11-22.md. Demo~28% mantida.
 
 > **Recebidos22/11:** 5documentos e19imagens novos revisados; originais preservados, sem integração. Tutorial padrão requer fechar debuff prévio para Sangramento, ordem guiada, variante jovem e persistência isolada. Ícones JPG/caminhos e status353×307 diferem das fichas; avatar recebido chama-se portrait-felipe-v01.png. Ver docs/projeto/RECEBIMENTO-NOVIDADES-2026-11-22.md. Demo~28% mantida.

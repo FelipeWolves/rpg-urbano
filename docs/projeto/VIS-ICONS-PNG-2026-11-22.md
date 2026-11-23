@@ -25,3 +25,5 @@ O teste usa InitialRuntime, 2turnos e1250pontos do ATK2500 do Felipe atual; não
 1. Integrar catálogo/imagens no adaptador HUD em entrega própria, mantendo relação de aspecto e molduras mecânicas separadas da arte.
 2. Usar decisões restantes do tutorial para montar o encontro guiado; não iniciar evento clássico por inferência.
 3. Aceite visual de ícones em tamanho real fica aberto. Demo~28% mantida.
+
+> Continuidade23/11: derivados menores integrados à HUD, dois tutoriais ligados aos menus e conclusão local própria; ver INTEGRACAO-VIS-TUTORIAIS-2026-11-23.md. As indicações anteriores de integração ainda futura são históricas; aceites gráficos continuam pendentes.

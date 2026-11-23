@@ -4,6 +4,7 @@
 #include "GameFramework/GameModeBase.h"
 #include "rpg/battle_presentation.hpp"
 #include "rpg/pve_visual.hpp"
+#include "rpg/tutorial.hpp"
 #include <array>
 #include "rpg/startup_presentation.hpp"
 #include "rpg/hub_style.hpp"
@@ -19,8 +20,20 @@ public:
     virtual void EndPlay(const EEndPlayReason::Type reason) override;
 private:
     rpg::presentation::VisualSession Session;
+    std::unique_ptr<rpg::presentation::TutorialSession> Tutorial;
+    rpg::presentation::ClassicSearchSession Search;
+    bool TutorialActive=false,SearchActive=false;
+    rpg::presentation::TutorialCompletion TutorialCompleted;FString TutorialSaveStatus;
+    void LoadTutorialProgress();
+    void RecordTutorialCompletion(bool classic);
+    UPROPERTY(Transient) TMap<FString,TObjectPtr<UTexture2D>> UiTextures;
+    UPROPERTY(Transient) TObjectPtr<UFont> HubLabelFont=nullptr;
+    void LoadUiResources();
+    UTexture2D* UiTexture(const FString& id)const;
+    void DrawTutorialLesson();
+    void DrawClassicSearch();
     rpg::presentation::ActionFeedback LastActionFeedback;
-    bool HasActionFeedback=false;
+    bool HasActionFeedback=false;double VigilFlashUntil=0;FString VigilFlashActor;
     void ShowActionFeedback(const rpg::presentation::VisualResult& result);
     std::array<std::unique_ptr<rpg::presentation::SharedVisualSession>,2> SharedLabs;
     bool SharedActive=false,SharedGlobalSpecial=false;
@@ -39,12 +52,12 @@ private:
     int32 WaveGeometryIndex=-1,TerminalMenuPage=0;
     rpg::presentation::PveVisualSession* ActivePve(){return PveLabs[static_cast<std::size_t>(SelectedPveLab)].get();}
     const rpg::presentation::PveVisualSession* ActivePve()const{return PveLabs[static_cast<std::size_t>(SelectedPveLab)].get();}
-    rpg::presentation::VisualState ActiveState()const{return SharedActive?ActiveShared()->state():SequenceActive?ActiveSequence()->state():WavesActive?Waves->state():PveActive?ActivePve()->state():Session.state();}
-    bool ActiveFinished()const{return SharedActive?ActiveShared()->finished():SequenceActive?ActiveSequence()->finished():WavesActive?Waves->finished():PveActive?ActivePve()->finished():Session.state().combat.battle.phase==rpg::Phase::Finished;}
-    void ResetActiveBattle(){if(SharedActive){ActiveShared()->reset();}else if(SequenceActive){ActiveSequence()->reset();}else if(WavesActive){Waves->reset();}else if(PveActive){ActivePve()->reset();}else{Session.reset();}HasActionFeedback=false;}
-    rpg::presentation::VisualResult SubmitActiveSlot(uint64 revision,uint32 slot,std::string target){return SharedActive?ActiveShared()->submit(revision,slot,std::move(target)):SequenceActive?ActiveSequence()->submit(revision,slot,std::move(target)):WavesActive?Waves->submit(revision,slot,std::move(target)):PveActive?ActivePve()->submit(revision,slot,std::move(target)):Session.submit(revision,slot,std::move(target));}
-    rpg::presentation::VisualResult SubmitActiveAction(uint64 revision,const rpg::Action& action){return SharedActive?ActiveShared()->submit_action(revision,action):SequenceActive?ActiveSequence()->submit_action(revision,action):WavesActive?Waves->submit_action(revision,action):PveActive?ActivePve()->submit_action(revision,action):Session.submit_action(revision,action);}
-    rpg::presentation::VisualResult StepActiveBattle(){return SharedActive?ActiveShared()->step_automatic():SequenceActive?ActiveSequence()->step_automatic():WavesActive?Waves->step_automatic():PveActive?ActivePve()->step_automatic():Session.step_automatic();}
+    rpg::presentation::VisualState ActiveState()const{return TutorialActive?Tutorial->state():SharedActive?ActiveShared()->state():SequenceActive?ActiveSequence()->state():WavesActive?Waves->state():PveActive?ActivePve()->state():Session.state();}
+    bool ActiveFinished()const{return TutorialActive?Tutorial->finished():SharedActive?ActiveShared()->finished():SequenceActive?ActiveSequence()->finished():WavesActive?Waves->finished():PveActive?ActivePve()->finished():Session.state().combat.battle.phase==rpg::Phase::Finished;}
+    void ResetActiveBattle(){if(TutorialActive){Tutorial->reset();}else if(SharedActive){ActiveShared()->reset();}else if(SequenceActive){ActiveSequence()->reset();}else if(WavesActive){Waves->reset();}else if(PveActive){ActivePve()->reset();}else{Session.reset();}HasActionFeedback=false;}
+    rpg::presentation::VisualResult SubmitActiveSlot(uint64 revision,uint32 slot,std::string target){return TutorialActive?Tutorial->submit(revision,slot,std::move(target)):SharedActive?ActiveShared()->submit(revision,slot,std::move(target)):SequenceActive?ActiveSequence()->submit(revision,slot,std::move(target)):WavesActive?Waves->submit(revision,slot,std::move(target)):PveActive?ActivePve()->submit(revision,slot,std::move(target)):Session.submit(revision,slot,std::move(target));}
+    rpg::presentation::VisualResult SubmitActiveAction(uint64 revision,const rpg::Action& action){return TutorialActive?Tutorial->submit_action(revision,action):SharedActive?ActiveShared()->submit_action(revision,action):SequenceActive?ActiveSequence()->submit_action(revision,action):WavesActive?Waves->submit_action(revision,action):PveActive?ActivePve()->submit_action(revision,action):Session.submit_action(revision,action);}
+    rpg::presentation::VisualResult StepActiveBattle(){return TutorialActive?Tutorial->step_automatic():SharedActive?ActiveShared()->step_automatic():SequenceActive?ActiveSequence()->step_automatic():WavesActive?Waves->step_automatic():PveActive?ActivePve()->step_automatic():Session.step_automatic();}
     std::optional<rpg::presentation::VisualSession> AlternateLabSession;
     rpg::CombatProfile ReferenceProfile=rpg::CombatProfile::Team;
     bool SessionIsFelipe=false,PilotTutorial=false;

@@ -1,0 +1,29 @@
+{
+  "Date": "2026-11-23",
+  "Passed": true,
+  "Textures": 19,
+  "RuntimeRawRGBABytes": 9502720,
+  "LabelFont": "Engine Roboto Bold Condensed",
+  "FontSHA256": "2C9245C0246A9C745793C7EAA9CC1FC964A12570009031EA0223115BEC6E9426",
+  "Glyphs": [
+    {
+      "Character": "Ç",
+      "Glyph": 137
+    },
+    {
+      "Character": "Ã",
+      "Glyph": 133
+    },
+    {
+      "Character": "Õ",
+      "Glyph": 151
+    },
+    {
+      "Character": "É",
+      "Glyph": 139
+    }
+  ],
+  "OriginalsPreserved": true,
+  "EditorOpened": false,
+  "VisualAcceptance": false
+}

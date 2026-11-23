@@ -23,7 +23,7 @@ enum class TurnKind { Natural, Extra };
 enum class TickPolicy { NaturalOnly, EveryTurn };
 enum class TargetRule { Enemy, Ally, Self, EnemyTeam };
 enum class EffectKind { Damage, ChangeAP, SetSpeed, ExtraTurn, Block, Marker, Counter, FreezeCooldowns,
-                        Reflect, DeathExplosion, PreventDeath, AutoRevive, Shield, StructuralShield, StandardShield, Stun, Freeze, Petrify, Silence, Suppression, Invincible, DebuffImmunity, Bleed, Poison, DispelBuffs, SilverShield, CleanseDebuffs, StealBuffs, TransferDebuffs, Heal };
+                        Reflect, DeathExplosion, PreventDeath, AutoRevive, Shield, StructuralShield, StandardShield, Stun, Freeze, Petrify, Silence, Suppression, Invincible, DebuffImmunity, Bleed, Poison, DispelBuffs, SilverShield, CleanseDebuffs, StealBuffs, TransferDebuffs, Heal, AttackUp, SpeedDown };
 enum class ExtraOrigin { Ability, Equipment, Custom };
 enum class HitSelection { FixedTarget, LowestHealthEnemy };
 enum class StatusCategory { Temporary, Permanent, Structural };
@@ -191,7 +191,9 @@ struct Fighter {
     bool operator==(const Fighter&) const = default;
 };
 
-[[nodiscard]] bool has_status(const Fighter& unit,EffectKind kind) noexcept;
+[[nodiscard]] numeric::Quantity effective_attack(const Fighter& unit);
+int action_speed(const Fighter& unit);
+bool has_status(const Fighter& unit,EffectKind kind) noexcept;
 [[nodiscard]] bool incapacitated(const Fighter& unit) noexcept;
 [[nodiscard]] bool native_suppressed(const Fighter& unit) noexcept;
 [[nodiscard]] bool status_native_enabled(const Fighter& unit,const Status& status) noexcept;

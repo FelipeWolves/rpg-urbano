@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-23",
+  "manualAutomaticallyAccepted": 0,
+  "cases": [
+    {
+      "id": "IT-01",
+      "area": "Hub",
+      "route": "Hub",
+      "status": "Pending",
+      "steps": "Conferir logo e letreiros em duas proporcoes",
+      "expected": "PRAÇA inteiramente em maiusculas, fonte correta e cores do projeto; sem corte"
+    },
+    {
+      "id": "IT-02",
+      "area": "HUD",
+      "route": "Arena piloto e Terminal",
+      "status": "Pending",
+      "steps": "Usar A1/A3, provocar A2, abrir efeitos e manter habilidade pressionada",
+      "expected": "Sprites, cargas, recargas e detalhes coerentes com eventos reais"
+    },
+    {
+      "id": "IT-03",
+      "area": "Tutorial",
+      "route": "Terminal > Tutorial A Bola Perdida",
+      "status": "Pending",
+      "steps": "Continuar, A1 inicial, duas ondas, orientacoes e resultado",
+      "expected": "Sem acao por tras de painel; tutorial vencivel e resultado correto"
+    },
+    {
+      "id": "IT-04",
+      "area": "Search",
+      "route": "Lab - Exp > Iniciar busca classica",
+      "status": "Pending",
+      "steps": "Buscar, concentrar, avancar, dialogo50%, vencer e perder",
+      "expected": "Valores aprovados, pausa e encerramento causais, sem moeda"
+    },
+    {
+      "id": "IT-05",
+      "area": "Save",
+      "route": "Conclusoes dos dois tutoriais",
+      "status": "Pending",
+      "steps": "Vencer, fechar/reabrir e conferir arquivo proprio",
+      "expected": "Flags distintas em Saved/Tutorials; LocalProgress e saves dos laboratorios preservados"
+    },
+    {
+      "id": "IT-06",
+      "area": "Navigation",
+      "route": "Hub/Terminal/Lab-Exp",
+      "status": "Pending",
+      "steps": "Pausar, abandonar, retornar, trocar modo e reiniciar",
+      "expected": "Nenhum input atravessa transicao; sessoes independentes"
+    },
+    {
+      "id": "IT-07",
+      "area": "Layout",
+      "route": "Janelas Windows horizontais e verticais",
+      "status": "Pending",
+      "steps": "Conferir icones, retrato, selecao, nomes e descricoes",
+      "expected": "Sem distorcao, sobreposicao ou perda de alvo; nao constitui aceite Android"
+    }
+  ]
+}

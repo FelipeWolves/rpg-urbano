@@ -1,3 +1,5 @@
+> **Reteste23/11:** usuário aceitou logo, PRAÇA e direção tipográfica. Letreiros agora Light/menores, hover só luminoso no padrão; alto contraste preservado. Content/Presentation excluído da importação automática apenas no projeto. Build/stage93 aprovados; acabamento e supressão do aviso aguardam reteste. Fonte docs/projeto/HUB-LETREIROS-E-IMPORTACAO-2026-11-23.md. Demo~28% mantida.
+
 > **Integração23/11:** recursos ligados à HUD; tutorial padrão no Terminal; busca clássica no Lab - Exp; conclusão local própria, PRAÇA/letreiros corrigidos. Código/testes/build e stage92 aprovados; aceites gráficos/I-O real/mobile separados. Demo~28% mantida. Fonte: docs/projeto/INTEGRACAO-VIS-TUTORIAIS-2026-11-23.md. Próximo: aceite da versão integrada, sem depender da arte futura do Terminal.
 
 > **Ícones22/11:** 17ícones transparentes preparados em assets/runtime/ui/2026-11-22-v02/, logo/avatar nomeados e catálogo conferido; não integrados à HUD. Sangramento inicial do inimigo aprovado para tutorial e validado no núcleo; sequência guiada/variante/save ainda pendentes. Fonte docs/projeto/VIS-ICONS-PNG-2026-11-22.md. Demo~28% mantida.

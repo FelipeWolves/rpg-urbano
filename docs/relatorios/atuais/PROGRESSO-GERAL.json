@@ -95,9 +95,9 @@
     }
   ],
   "latest_verified_commit": "a60b7ea",
-  "user_acceptance": "fe6060b visual accepted, e1197d5 shared rules native/build verified",
+  "user_acceptance": "Previous basic click/video/marker acceptances preserved; 23Nov logo, uppercase PRAÇA and font/style direction accepted; revised weight/size/hover pending",
   "documentation_only_this_update": false,
   "android_used": false,
   "engine_opened": false,
-  "latest_technical_report": "INTEGRACAO-VIS-TUTORIAIS-2026-11-23.json; UI textures and both tutorials integrated, build/stage92 verified; visual/real IO/mobile acceptance pending; estimate28 unchanged"
+  "latest_technical_report": "HUB-LETREIROS-2026-11-23.json; logo/uppercase/font direction accepted by user, Light finish compiled and stage93; hover/import notice retest pending"
 }

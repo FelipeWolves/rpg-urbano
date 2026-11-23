@@ -47,3 +47,5 @@ Regressão em lote: 13executáveis, 142grupos aprovados; núcleo compilado uma v
 Sem telas, editor/game/commandlet executados, cook/Shipping, Android, rede, ferramentas externas, mudanças de SO ou push. Persistência validada em backend simulado nesta nova modalidade e contrato compartilhado; I/O pela interface Unreal continua pendente. Avisos conhecidos do MSVC14.52 e Attribute.h da engine não foram tratados como falhas novas nem motivaram instalação.
 
 Sem novo aceite visual informado e sem validação em celular, demo global~28% mantida. Próximo passo recomendado: aceitar esta versão integrada e tratar defeitos concretos; a arte futura do Terminal não bloqueia os acessos atuais. Roteiro de QA em data/qa/tutorial-acceptance.json.
+
+> Atualização do reteste: logo/fonte/direção/PRAÇA confirmados pelo usuário. Acabamento revisto com Roboto Light, escala menor e hover luminoso; estágio93 com exclusão local de reimportação. Fonte atual HUB-LETREIROS-E-IMPORTACAO-2026-11-23.md prevalece sobre a menção anterior a Bold Condensed. Tutoriais continuam aguardando aceite próprio.

@@ -1,0 +1,32 @@
+{
+  "Date": "2026-11-23",
+  "AcceptedByUser": [
+    "Logo",
+    "Uppercase PRAÇA",
+    "Font family and style direction"
+  ],
+  "Pending": [
+    "Revised smaller Light labels",
+    "Luminous hover",
+    "Import monitor exclusion on next editor startup"
+  ],
+  "LabelFont": "Engine Roboto Light",
+  "NominalSize": 20,
+  "MaximumScale": 0.9,
+  "HoverBackgroundDefault": false,
+  "HoverUnderlineDefault": false,
+  "HighContrastPreserved": true,
+  "ClickTargetMinimum": 48,
+  "ImportExclusion": "Only /Game/Presentation/*; Localization exclusion retained",
+  "CachedProjectSettingUpdated": true,
+  "GlobalSettingsChanged": false,
+  "AssetImportExecuted": false,
+  "UnrealBuild": "Succeeded",
+  "StageInputs": 93,
+  "EditorOpened": false,
+  "GameExecuted": false,
+  "AndroidExecuted": false,
+  "CombatCodeChanged": false,
+  "ProgressPercent": 28,
+  "BinarySHA256": "F6FEBC5726802A7EBFA44D85541C5555C083059EFAC1C26F0C2E4954E5FFC98E"
+}

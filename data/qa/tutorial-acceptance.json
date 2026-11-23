@@ -7,9 +7,10 @@
       "id": "IT-01",
       "area": "Hub",
       "route": "Hub",
-      "status": "Pending",
-      "steps": "Conferir logo e letreiros em duas proporcoes",
-      "expected": "PRAÇA inteiramente em maiusculas, fonte correta e cores do projeto; sem corte"
+      "status": "ProvisionalUser",
+      "steps": "Confirmados logo, maiusculas e direcao da fonte/estilo; retestar somente tamanho/peso/hover revisados e aviso de importacao",
+      "expected": "Letreiro leve, menor e luminoso; sem caixa de hover no modo padrao; importacao Presentation excluida",
+      "evidence": "Relato e capturas do usuario23/11: logo/fonte/direcao/PRAÇA aceitos; acabamento novo ainda pendente"
     },
     {
       "id": "IT-02",

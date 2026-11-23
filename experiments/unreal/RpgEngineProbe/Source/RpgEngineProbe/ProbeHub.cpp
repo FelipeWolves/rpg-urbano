@@ -430,24 +430,27 @@ void AProbeArenaHUD::DrawHub(){
         const auto projected=project_hotspot(plan,link);if(!projected){continue;}
         const bool future=link.route==HubRoute::Unavailable && link.id!="arena-pvp";
         const FString labelText=Text(rpg::presentation::hub_uppercase(link.label));
-        const FLinearColor color=future?FLinearColor(0.25f,0.45f,0.6f):link.route==HubRoute::SpecialEvent?HubCyan:HubCyan;
         float tw=0,th=0;GetTextSize(labelText,tw,th,HubLabelFont?HubLabelFont.Get():HubTitleFont.Get());
-        const double scale=std::min(1.0,(r.width-24)/std::max(1.0,static_cast<double>(tw)));
+        const double scale=std::min(0.9,(r.width-24)/std::max(1.0,static_cast<double>(tw)));
         const double width=std::min(tw*scale+24,r.width),height=std::max(32.0,th*scale+12.0);
         const Rect label{std::clamp(projected->label_x-width/2,r.x,r.x+r.width-width),
             std::clamp(projected->label_y-height/2,r.y,r.y+r.height-height),width,height};
         const auto hit=minimum_target(label,r,48);if(!hit){continue;}
-        const bool hover=contains(*hit,mx,my);
+        const bool hover=InputWindowActive && contains(*hit,mx,my);
+        float& hoverAmount=HubLabelHover.FindOrAdd(Text(link.id));
+        hoverAmount=HubReducedMotion?(hover?1.f:0.f):FMath::FInterpTo(hoverAmount,hover?1.f:0.f,FMath::Min(GetWorld()->GetDeltaSeconds(),0.1f),8.f);
         const auto motion=label_motion(GetWorld()->GetTimeSeconds(),HubReducedMotion,static_cast<double>(index)*0.65);
-        if(hover || Preferences.high_contrast){DrawRect(HubPanel,static_cast<float>(label.x),static_cast<float>(label.y-3),static_cast<float>(label.width),static_cast<float>(label.height+6));}
-        auto glow=color;glow.A=static_cast<float>(motion.glow_opacity);
-        line(label.x+5,label.y+label.height,label.x+label.width-5,label.y+label.height,glow,hover?4:2);
+        if(Preferences.high_contrast){DrawRect(HubPanel,static_cast<float>(label.x),static_cast<float>(label.y-3),static_cast<float>(label.width),static_cast<float>(label.height+6));}
+        if(Preferences.high_contrast){line(label.x+5,label.y+label.height,label.x+label.width-5,label.y+label.height,HubCyan,1);}
         const float tx=static_cast<float>(label.x+12),ty=static_cast<float>(label.y+6+motion.offset_y),ts=static_cast<float>(scale);
         auto* font=HubLabelFont?HubLabelFont.Get():HubTitleFont.Get();
-        const FColor halo=FColor(8,55,105),edge=hover?FColor(150,245,255):color.ToFColorSRGB();
-        for(const auto offset:{FVector2D(-2,0),FVector2D(2,0),FVector2D(0,-2),FVector2D(0,2)}){DrawText(labelText,halo,tx+offset.X,ty+offset.Y,font,ts);}
-        for(const auto offset:{FVector2D(-1,0),FVector2D(1,0),FVector2D(0,-1),FVector2D(0,1)}){DrawText(labelText,edge,tx+offset.X,ty+offset.Y,font,ts);}
-        DrawText(labelText,FColor(215,240,255),tx,ty,font,ts);
+        const FLinearColor idleInk=future?FLinearColor(0.32f,0.55f,0.67f):FLinearColor(0.38f,0.72f,0.84f);
+        const FColor ink=FMath::Lerp(idleInk,FLinearColor(0.82f,0.98f,1.f),hoverAmount).ToFColorSRGB();
+        const float haloStrength=FMath::Lerp(static_cast<float>(motion.glow_opacity)*0.12f,0.17f,hoverAmount);
+        const FColor halo(30,155,220,static_cast<uint8>(FMath::Clamp(haloStrength*255.f,0.f,255.f)));
+        const float radius=FMath::Lerp(0.6f,1.4f,hoverAmount);
+        for(const auto offset:{FVector2D(-radius,0),FVector2D(radius,0),FVector2D(0,-radius),FVector2D(0,radius)}){DrawText(labelText,halo,tx+offset.X,ty+offset.Y,font,ts);}
+        DrawText(labelText,ink,tx,ty,font,ts);
         if(pointer_clicked(Input,*hit)){openDestination(link);return;}
     }
     // Fixed dock keeps every destination reachable when its source region is cropped.

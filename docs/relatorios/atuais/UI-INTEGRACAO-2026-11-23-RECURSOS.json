@@ -3,24 +3,24 @@
   "Passed": true,
   "Textures": 19,
   "RuntimeRawRGBABytes": 9502720,
-  "LabelFont": "Engine Roboto Bold Condensed",
-  "FontSHA256": "2C9245C0246A9C745793C7EAA9CC1FC964A12570009031EA0223115BEC6E9426",
+  "LabelFont": "Engine Roboto Light",
+  "FontSHA256": "A6D343D425BC38DB90152FA06058B1C7391ECA9264F334EF65C1CE175085C6F6",
   "Glyphs": [
     {
       "Character": "Ç",
-      "Glyph": 137
+      "Glyph": 646
     },
     {
       "Character": "Ã",
-      "Glyph": 133
+      "Glyph": 642
     },
     {
       "Character": "Õ",
-      "Glyph": 151
+      "Glyph": 659
     },
     {
       "Character": "É",
-      "Glyph": 139
+      "Glyph": 648
     }
   ],
   "OriginalsPreserved": true,

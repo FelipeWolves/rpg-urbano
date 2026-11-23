@@ -28,6 +28,7 @@ private:
     void RecordTutorialCompletion(bool classic);
     UPROPERTY(Transient) TMap<FString,TObjectPtr<UTexture2D>> UiTextures;
     UPROPERTY(Transient) TObjectPtr<UFont> HubLabelFont=nullptr;
+    TMap<FString,float> HubLabelHover;
     void LoadUiResources();
     UTexture2D* UiTexture(const FString& id)const;
     void DrawTutorialLesson();

@@ -2,10 +2,9 @@
   "Date": "2026-11-23",
   "Passed": true,
   "RuntimeExecuted": false,
-  "VisualAcceptance": "Pending for UI/tutorial integration; previous basic click/video acceptances preserved separately",
+  "VisualAcceptance": "User accepted logo/uppercase/font direction; revised Light size/hover pending",
   "Project": "experiments/unreal/RpgEngineProbe/RpgEngineProbe.uproject",
-  "Log": "build/integration-2026-11-23-build.log",
-  "Report": "docs/relatorios/atuais/INTEGRACAO-VIS-TUTORIAIS-2026-11-23.json",
-  "Scope": "Stable canonical project: UI textures, standard tutorial and classic Lab-Exp search",
-  "SourceCommit": "a60b7ea"
+  "Log": "build/hub-letreiros-2026-11-23-build.log",
+  "Report": "docs/relatorios/atuais/HUB-LETREIROS-2026-11-23.json",
+  "Scope": "Light label styling and project-only Presentation auto-reimport exclusion"
 }

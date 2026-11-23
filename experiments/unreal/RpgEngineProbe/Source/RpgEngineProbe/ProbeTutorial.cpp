@@ -13,9 +13,9 @@
 #include "Serialization/JsonSerializer.h"
 UTexture2D* AProbeArenaHUD::UiTexture(const FString& id)const{const auto* entry=UiTextures.Find(id);return entry?entry->Get():nullptr;}
 void AProbeArenaHUD::LoadUiResources(){
- UiTextures.Empty();
- HubLabelFont=NewObject<UFont>(this);HubLabelFont->FontCacheType=EFontCacheType::Runtime;HubLabelFont->LegacyFontSize=22;
- const FString font=FPaths::EngineContentDir()/TEXT("Slate/Fonts/Roboto-BoldCondensed.ttf");
+ UiTextures.Empty();HubLabelHover.Empty();
+ HubLabelFont=NewObject<UFont>(this);HubLabelFont->FontCacheType=EFontCacheType::Runtime;HubLabelFont->LegacyFontSize=20;
+ const FString font=FPaths::EngineContentDir()/TEXT("Slate/Fonts/Roboto-Light.ttf");
  HubLabelFont->GetMutableInternalCompositeFont()=FCompositeFont(FName(TEXT("Regular")),font,EFontHinting::Default,EFontLoadingPolicy::LazyLoad);
  const FString root=FPaths::ConvertRelativePathToFull(FPaths::ProjectContentDir()/TEXT("Presentation"));
  FString text;const FString manifest=root/TEXT("data/presentation/ui-runtime.json");if(IFileManager::Get().FileSize(*manifest)>256*1024||!FFileHelper::LoadFileToString(text,*manifest)){UE_LOG(LogTemp,Warning,TEXT("UI runtime catalog unavailable; fallbacks retained"));return;}

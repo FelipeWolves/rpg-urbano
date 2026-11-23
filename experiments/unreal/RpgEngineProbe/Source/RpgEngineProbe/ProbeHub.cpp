@@ -344,6 +344,12 @@ void AProbeArenaHUD::DrawHub(){
     DrawText(HubTitle,HubCyan.ToFColorSRGB(),static_cast<float>(layout.header.x+68),static_cast<float>(layout.header.y+4),HubTitleFont);
     DrawText(TEXT("CODINOME: ")+HubCodename,FColor::White,static_cast<float>(layout.header.x+68),static_cast<float>(layout.header.y+28),HubBodyFont,0.75f);
     if(Flow.screen()==UiScreen::Options){DrawPreferences();return;}
+    if(Flow.screen()==UiScreen::Hub && button({layout.safe.x+12,layout.header.y+112,160,48},Hub3DEnabled?TEXT("Voltar ao panorama"):TEXT("Ver hub 3D"))){
+        Hub3DEnabled=!Hub3DEnabled;
+        if(!Hub3DEnabled){RestoreHub3DCamera();}
+        Pointer.cancel_until_release();
+        return;
+    }
     if(Flow.screen()==UiScreen::Hub && button({layout.safe.x+184,layout.header.y+60,160,48},TEXT("Rever abertura"))){Message=TEXT("Preparando abertura local...");StartIntro();return;}
     if(Flow.screen()==UiScreen::Hub && button({layout.safe.x+12,layout.header.y+60,160,48},TEXT("Equipe / Save"))){
         if(Flow.new_attempt_required()){Session.reset();Flow.acknowledge_new_attempt();}
@@ -417,7 +423,6 @@ void AProbeArenaHUD::DrawHub(){
         const int32 result=DrawInfoPanel(HubPanelTitle,paragraphs,HubPanelPage,HubPanelRoute==HubRoute::Terminal || HubPanelRoute==HubRoute::Battle,HubPanelRoute==HubRoute::Battle?TEXT("Testar Felipe (local)"):TEXT("Abrir batalha"));
         if(result==1){Flow.back(false,false);}else if(result==2){SelectLabScenario(HubPanelRoute==HubRoute::Battle);enterBattle();}return;
     }
-    if(preview3D){DrawHub3DScene();return;}
     const auto openDestination=[&](const HubHotspot& link){
         if(link.route==HubRoute::Battle){enterBattle();return;}
         HubPanelRoute=link.route;HubPanelTitle=Text(link.label);
@@ -428,7 +433,8 @@ void AProbeArenaHUD::DrawHub(){
         else{HubPanelBody=TEXT("Em breve. Este local está mapeado no panorama, mas seu sistema ainda não foi implementado. Nenhuma compra, recompensa, partida online ou alteração de progresso será executada aqui.");}
         HubPanelPage=0;TerminalMenuPage=0;Flow.open_location();
     };
-    for(std::size_t index=0;index<HubLinks.size();++index){
+    if(preview3D){if(const auto* destination=DrawHub3DScene(layout.scene)){openDestination(*destination);return;}}
+    if(!preview3D) for(std::size_t index=0;index<HubLinks.size();++index){
         const auto& link=HubLinks[index];
         const auto projected=project_hotspot(plan,link);if(!projected){continue;}
         const bool future=link.route==HubRoute::Unavailable && link.id!="arena-pvp";
@@ -474,11 +480,13 @@ void AProbeArenaHUD::DrawHub(){
         DrawText(link.id=="arena-pvp"?TEXT("Teste local"):link.route==HubRoute::Unavailable?TEXT("Em breve"):TEXT("Abrir"),FColor(180,190,200),static_cast<float>(tile.x+6),static_cast<float>(tile.y+25),HubBodyFont,0.55f);
         if(pointer_clicked(Input,tile)){openDestination(link);return;}
     }
+    if(!preview3D){
     if(button(layout.navigation[0],TEXT("Esquerda")) || PlayerOwner->WasInputKeyJustPressed(EKeys::Left)){HubArea=rpg::presentation::HubArea::Left;HubView=rpg::presentation::HubView::Focused;SavePresentationPreferences();}
     if(button(layout.navigation[1],TEXT("Centro"))){HubArea=rpg::presentation::HubArea::Center;HubView=rpg::presentation::HubView::Focused;SavePresentationPreferences();}
     if(button(layout.navigation[2],TEXT("Direita")) || PlayerOwner->WasInputKeyJustPressed(EKeys::Right)){HubArea=rpg::presentation::HubArea::Right;HubView=rpg::presentation::HubView::Focused;SavePresentationPreferences();}
     if(button(layout.navigation[3],plan.view==rpg::presentation::HubView::Panoramic?TEXT("Focar área"):TEXT("Panorama"))){
         HubView=plan.view==rpg::presentation::HubView::Panoramic?rpg::presentation::HubView::Focused:rpg::presentation::HubView::Panoramic;SavePresentationPreferences();
+    }
     }
     if(button(layout.navigation[4],TEXT("Opções"))){Flow.open_options();}
 }

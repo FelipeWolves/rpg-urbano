@@ -61,6 +61,7 @@ void AProbeArenaHUD::BeginPlay()
     if(FParse::Param(FCommandLine::Get(),TEXT("Hub"))){startInHub=true;}
     if(FParse::Param(FCommandLine::Get(),TEXT("Arena"))){startInHub=false;}
     Flow=rpg::presentation::ScreenFlow(startInHub?rpg::presentation::UiScreen::Hub:rpg::presentation::UiScreen::Arena);
+    Hub3DEnabled=FParse::Param(FCommandLine::Get(),TEXT("Hub3D"));
     LoadHubCatalog();LoadUiResources();LoadTutorialProgress();
     FString inspection;
     const bool namedInspection=FParse::Value(FCommandLine::Get(),TEXT("Inspection="),inspection);

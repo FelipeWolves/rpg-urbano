@@ -1,6 +1,6 @@
 > **Entrega concluída:** [projeto Unreal estável e guia de abertura](UNREAL-PROJETO-ESTAVEL.md). Controle de tela encerrado por solicitação; nova interação com o editor exige nova liberação. Atualização documental/Git apenas após essa solicitação.
 
-> **Estado vigente — 21/11/2026:** [consolidação das 15 entregas e decisões posteriores](CONSOLIDACAO-2026-11-21.md). ENG-ESTAVEL concluído no Windows local: projeto fixo, mapa próprio, abertura/reabertura e Play observados. Próximo: AUT-01–04. ESC comum e seletor já aceitos não são reabertos. Android SDK/NDK/JDK localizados e boot do AVD confirmado pelo usuário; caminhos já persistem, mas ValidatePlatforms retorna Android INVALID r27c; diagnóstico e APK pendentes. Percentuais recalculados no painel de progresso. As notas datadas abaixo preservam histórico e não reabrem decisões substituídas.
+> **23/11/2026.** SDK validado pelo Turnkey e APK de desenvolvimento testado no Pixel 7 virtual. As notas anteriores preservam o histórico. O resultado vigente está nas seções de teste e orientação abaixo.
 
 # Android — instalação observada e dependências de teste
 
@@ -47,3 +47,24 @@ SDK confirmado em **D:\AndroidSDK**. NDK27.2.12479018,CMake3.22.1,BuildTools36.0
 API36 confirmada após nova instalação manual: D:\AndroidSDK\platforms\android-36\android.jar presente, ApiLevel36/revisão2. Pendência da Platform36 resolvida; restam confirmar caminho JDK17 e preparar/validar AVD e build. D:\Java\jdk-17 não localizado; isso não exclui instalação em outro caminho. Nenhuma ferramenta executada.
 
 JDK separado confirmado por metadados: D:\AndroidJava\jdk-17.0.21.1+2, Eclipse Adoptium, Java17.0.21.1, x86_64; java.exe e javac.exe presentes. FamíliaJava17 alinhada ao build planejado; não executado. Pendência de localização doJDK resolvida. Próximo: indicar naUnreal os caminhos SDK D:\AndroidSDK, NDK D:\AndroidSDK\ndk\27.2.12479018 e esteJDK, depois validar toolchain/AVD. Nenhuma configuração realizada pelo assistente;buildAndroid ainda não testado.
+
+## Teste no Pixel 7 virtual em 23/11/2026
+
+O Turnkey da Unreal 5.8.4 validou o NDK r27c com os caminhos de SDK, NDK e JDK fornecidos à sessão do build. O Pixel 7 virtual com API 36 e imagem x86_64 anunciou suporte à tradução ARM64. O APK de desenvolvimento ARM64/ASTC foi gerado e instalado pelo ADB.
+
+O primeiro APK abriu em paisagem, mas encerrou ao criar uma textura no OpenGL do emulador. A configuração Android passou a usar retrato e habilitar Vulkan no perfil genérico. O APK passou a incluir os dados locais. A câmera padrão libera o viewport em dispositivos móveis e a interface Android dispensa os joysticks virtuais padrão.
+
+O Hub carregou os sete destinos, o gesto horizontal mudou a área do panorama 2D e do Hub 3D e o Terminal abriu a batalha de equipe. A seleção de habilidade e alvo seguida de confirmação foi aceita pelo núcleo. O player Android abriu o vídeo na primeira tentativa, desenhou a imagem e concluiu a reprodução e o comando de segurar para pular em testes separados.
+
+O AndroidMedia com Vulkan exibiu cores incorretas no AVD. Um quadro do MP4 original, decodificado no Windows, confirmou que as asas eram brancas e o fundo azulado, enquanto o Android exibiu vermelho e verde na mesma cena. Esse é um problema de apresentação do vídeo, separado de abertura e controle de reprodução. O Electra chegou ao fim da reprodução, mas exibiu tela preta no AVD. Com AndroidMedia e Android.EnableMediaPlayerBRIR=0, a cópia dos quadros pela CPU restaurou as cores esperadas no emulador sem alterar o MP4.
+
+O indicador de vídeo assistido não persistiu entre reproduções no AVD. Revisar o armazenamento do aplicativo e validar o áudio, o acabamento em retrato, uma batalha completa, o desempenho e a compatibilidade em aparelho físico. O APK de desenvolvimento é local, em build/android-smoke-media-cpu, e fica fora do Git.
+
+## Orientação do Hub e da abertura no Android
+
+- Os Hubs 2D e 3D abrem em retrato por padrão. **Panorama** pede paisagem e **Focar área**, **Esquerda**, **Centro** ou **Direita** pedem retrato.
+- O panorama horizontal no Android é experimental em ambos os Hubs. O retrato permanece o formato de referência do jogo mobile. A visão horizontal continua disponível para PC/Windows e para a futura distribuição pela Steam.
+- A abertura pede a orientação correspondente às dimensões cadastradas do vídeo, independentemente do Hub que a abriu. O player ajusta o vídeo inteiro à área disponível. Ao terminar, pular ou falhar após iniciar, retorna ao mesmo Hub em retrato, com a área anterior em foco.
+- Este pacote de teste prefere o MP4 horizontal existente. AndroidIntroPreferLandscape=False restaura a preferência pela variante vertical, com fallback para o outro vídeo cadastrado. Essa opção seleciona o arquivo, e a proporção do arquivo selecionado determina a orientação.
+
+Reteste de orientação no Pixel 7 virtual (API 36): Panorama 2D e 3D alternaram de 1080 × 2400 para 2400 × 1080. Focar área restaurou 1080 × 2400 nos dois. O MP4 horizontal girou a tela ao abrir nos dois Hubs e preservou o quadro inteiro. O fim natural no Hub 2D e o comando de pular no Hub 3D restauraram retrato sem falha. O APK de teste da variante vertical manteve 1080 × 2400 durante a reprodução. A opção do projeto foi restaurada para preferir o MP4 horizontal no pacote principal de teste.

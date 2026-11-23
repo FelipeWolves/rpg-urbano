@@ -10,6 +10,6 @@
 "Áudio / música","5","0","Direção recebida; sem mixer, música ou voz finais integrados"
 "Conteúdo / tutorial","5","15","Tutorial técnico Felipe implementado; sem aceite específico do roteiro/tutorial completo"
 "Progressão / save","5","25","Save v1 e sessões isoladas; persistência real e recuperação via UI ainda não aceitas"
-"Mobile / otimização","4","5","AVD com boot anterior; sem APK, toque real, desempenho ou backend mobile validados"
+"Mobile / otimização","4","15","APK ARM64 instalado no Pixel 7 virtual, com toque, rotação, vídeo e uma ação de combate validados. Aparelho físico, áudio, persistência e desempenho pendentes."
 "QA integrado","1","38","Retestes Windows aceitos e regressões pertinentes aprovadas; save/resoluções/Shipping/mobile pendentes"
 "Documentação","1","85","Estado reconciliado com commits e aceites; fila por dependência e recebíveis atualizados"

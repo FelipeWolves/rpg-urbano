@@ -6,7 +6,7 @@
 
 > **LAB-QA-01 — 22/11:** feedback de ações e recusas integrado; detalhes consultáveis e matriz de 16 aceites preparada. Código/testes não equivalem a aceite visual ou I/O real. Próximo independente: LAB-QA-01B, I/O em diretório isolado; usuário pode preencher a matriz em paralelo. Demo ~28% mantida. Ver docs/projeto/LAB-QA-01-FEEDBACK-E-ACEITES.md.
 
-> **Estado vigente — 22/11/2026:** demo **~28% (26–30%)**, ponderado28,03%. Cliques/vídeo/skip/esferas/seletor aceitos no Windows. LAB-PVE-01–06 entregues em código, aceites visuais02–06 pendentes; próximo recomendado: LAB-QA-01 e correções dos testes do usuário; não depende de nova entrega. [Progresso](docs/projeto/PROGRESSO-GERAL.md) · [Tarefas](docs/projeto/TAREFAS.md) · [Sua preparação](entregas/NECESSIDADES-ATUAIS.md).
+> **Estado vigente • 23/11/2026.** Demo em aproximadamente **28%** (28,43% ponderados). O Pixel 7 virtual executou o APK com navegação, vídeo em ambas as orientações e uma ação de combate. [Progresso](docs/projeto/PROGRESSO-GERAL.md) · [Testes Android](docs/projeto/ANDROID-DEPENDENCIAS.md) · [Fila atual](docs/projeto/FILA-DESENVOLVIMENTO-INDEPENDENTE.md)
 # RPG Urbano — Mundus Lupis Disco / codinome LOBO
 
 Protótipo original de RPG urbano e musical. Núcleo C++20 independente, apresentação atual na Unreal Engine 5.8.4 e laboratório textual preservado. Demo recortada: Felipe, uma arena e inimigos provisórios; não é o escopo comercial completo.
@@ -49,7 +49,7 @@ Histórico:213 testes gerais e suítes incrementais aprovados; ponte anterior11 
 
 ## Estado e próximo trabalho
 
-Base Team compartilhada no Terminal e piloto Felipe; personagens e saves individuais. Core SIS/REG/HAB e ESC/SIS/PvE entregues em seus escopos; menus/HUD dos modos avançados ainda por integrar. [Fila atual](docs/projeto/FILA-DESENVOLVIMENTO-INDEPENDENTE.md). Save/reabertura, tutorial, resoluções e futuras telas aguardam aceites próprios. Android, MCP e clássico ampliado adiados.
+Base Team compartilhada no Terminal e piloto Felipe; personagens e saves individuais. Core SIS/REG/HAB e ESC/SIS/PvE entregues em seus escopos; menus/HUD dos modos avançados ainda por integrar. [Fila atual](docs/projeto/FILA-DESENVOLVIMENTO-INDEPENDENTE.md). Save/reabertura, tutorial, resoluções e futuras telas aguardam aceites próprios. O próximo marco Android é o teste em aparelho físico. MCP e clássico ampliado seguem em frentes próprias.
 
 ## Colaboração e direitos
 

@@ -1,4 +1,4 @@
-> **Fila vigente de 23/11.** Próximo corte: fade dos letreiros e arraste do panorama, seguidos de validação em janela. Mapa editável e deslocamento lateral da câmera 3D aguardam avaliação. A ordem, os aceites e as dependências estão na [fila de desenvolvimento](FILA-DESENVOLVIMENTO-INDEPENDENTE.md).
+> **23/11/2026.** Hubs 2D e 3D com deslize validado. APK no Pixel 7 virtual confirmou toque, rotação, vídeo e uma ação de combate. A próxima rodada Android cobre persistência, áudio e desempenho em aparelho físico. Mapa editável e acabamento de combate seguem na [fila de desenvolvimento](FILA-DESENVOLVIMENTO-INDEPENDENTE.md).
 
 > **Halo/mouse23/11:** glow por mascara Gaussiana dos glifos, texto nitido; GameOnly substituido por GameAndUI/DoNotLock e foco explicito. Fonte/brilho anterior preservados. Ponteiro10/10, build e stage101 aprovados; confinamento real/clique/halo aguardam reteste. Fonte docs/projeto/HUB-HALO-E-MOUSE-2026-11-23.md. Demo~28% mantida.
 

@@ -2,7 +2,7 @@
   "date": "2026-11-23",
   "scope": "Primeira demo integrada com Felipe, arena e validação em celular-alvo; não jogo comercial completo",
   "method": "Mesmos pesos; estimativas de maturidade, não horas ou contagem de tarefas",
-  "weighted_percent": 28.03,
+  "weighted_percent": 28.43,
   "rounded_percent": 28,
   "range": [
     26,
@@ -78,8 +78,8 @@
     {
       "Area": "Mobile / otimização",
       "Peso": "4",
-      "Progresso": 5,
-      "Base": "AVD com boot anterior; sem APK, toque real, desempenho ou backend mobile validados"
+      "Progresso": 15,
+      "Base": "APK ARM64 instalado no Pixel 7 virtual, com toque, rotação, vídeo e uma ação de combate validados. Aparelho físico, áudio, persistência e desempenho pendentes."
     },
     {
       "Area": "QA integrado",
@@ -94,10 +94,10 @@
       "Base": "Estado reconciliado com commits e aceites; fila por dependência e recebíveis atualizados"
     }
   ],
-  "latest_verified_commit": "9916dd7",
+  "latest_verified_commit": "8e7d7a3",
   "user_acceptance": "Previous basic click/video/marker acceptances preserved; 23Nov logo, uppercase PRAÇA and font/style direction accepted; revised weight/size/hover pending",
   "documentation_only_this_update": false,
-  "android_used": false,
+  "android_used": true,
   "engine_opened": false,
-  "latest_technical_report": "HUB-HALO-MOUSE-2026-11-23.json; blurred glyph masks, unlocked Slate mode, pointer10/10 and build/stage101; physical cursor and glow retest pending"
+  "latest_technical_report": "docs/projeto/ANDROID-DEPENDENCIAS.md"
 }

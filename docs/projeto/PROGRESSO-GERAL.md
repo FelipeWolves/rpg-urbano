@@ -1,3 +1,5 @@
+> **23/11/2026.** O Hub 3D teve o enquadramento e o deslize aceitos no teste do usuário. O APK abriu no Pixel 7 virtual e confirmou toque, vídeo e rotação. [Testes Android](ANDROID-DEPENDENCIAS.md)
+
 > **Halo/mouse23/11:** glow por mascara Gaussiana dos glifos, texto nitido; GameOnly substituido por GameAndUI/DoNotLock e foco explicito. Fonte/brilho anterior preservados. Ponteiro10/10, build e stage101 aprovados; confinamento real/clique/halo aguardam reteste. Fonte docs/projeto/HUB-HALO-E-MOUSE-2026-11-23.md. Demo~28% mantida.
 
 > **Reteste23/11:** usuário aceitou logo, PRAÇA e direção tipográfica. Letreiros agora Light/menores, hover só luminoso no padrão; alto contraste preservado. Content/Presentation excluído da importação automática apenas no projeto. Build/stage93 aprovados; acabamento e supressão do aviso aguardam reteste. Fonte docs/projeto/HUB-LETREIROS-E-IMPORTACAO-2026-11-23.md. Demo~28% mantida.
@@ -26,7 +28,7 @@
 
 Atualizado em **22/11/2026**, após os aceites visuais de fe6060b e alinhamento e1197d5.
 
-**Demo integrada: aproximadamente 28% (faixa orientativa 26–30%).** Soma ponderada: **28.03%**. Anterior: 25,15%. Mesmos pesos; diferença reconhece integração e aceites já realizados, não implementação nova nesta revisão.
+**Demo integrada: aproximadamente 28% (faixa orientativa 26–30%).** Soma ponderada: **28,43%**. Anterior: 28,03%. A validação no Pixel 7 virtual elevou Mobile de 5% para 15% com o mesmo peso de 4%.
 
 O denominador é a primeira demo com Felipe, uma arena, apresentação e teste em celular-alvo. Não mede o jogo comercial, elenco/campanha completos, multiplayer ou lojas. Estimativas de maturidade; não são medição de horas nem promessa de prazo.
 
@@ -43,7 +45,7 @@ O denominador é a primeira demo com Felipe, uma arena, apresentação e teste e
 | Áudio / música | 0% | 5% | Direção recebida; sem mixer, música ou voz finais integrados |
 | Conteúdo / tutorial | 15% | 5% | Tutorial técnico Felipe implementado; sem aceite específico do roteiro/tutorial completo |
 | Progressão / save | 25% | 5% | Save v1 e sessões isoladas; persistência real e recuperação via UI ainda não aceitas |
-| Mobile / otimização | 5% | 4% | AVD com boot anterior; sem APK, toque real, desempenho ou backend mobile validados |
+| Mobile / otimização | 15% | 4% | APK ARM64 instalado no Pixel 7 virtual, com toque, rotação, vídeo e uma ação de combate validados. Aparelho físico, áudio, persistência e desempenho pendentes. |
 | QA integrado | 38% | 1% | Retestes Windows aceitos e regressões pertinentes aprovadas; save/resoluções/Shipping/mobile pendentes |
 | Documentação | 85% | 1% | Estado reconciliado com commits e aceites; fila por dependência e recebíveis atualizados |
 
@@ -71,7 +73,7 @@ Recursos finais 3D/rig/animações, áudio/voz, ícones/retratos e direitos, rot
 4. Integrar trocas sequenciais; depois frentes paralelas/chefe compartilhado, que exigem apresentação mais complexa.
 5. Melhorar feedback de ações/efeitos/recusas e preparar a matriz de aceite de save/tutorial/resoluções.
 
-Esta lista é planejamento, não execução nesta atualização. Android, instalações, MCP e controle de tela continuam fora da fila imediata. Regras inéditas não serão inventadas para desbloquear conteúdo final.
+Esta lista é planejamento, não execução nesta atualização. A próxima rodada Android exige aparelho físico. Instalações, MCP e controle de tela ficam em frentes próprias. Regras inéditas não serão inventadas para desbloquear conteúdo final.
 
 [Dependências e sua preparação](../../entregas/NECESSIDADES-ATUAIS.md) · [Fila do desenvolvimento](FILA-DESENVOLVIMENTO-INDEPENDENTE.md) · [Famílias e siglas](MAPA-FAMILIAS-E-PRIORIDADES.md) · [Pendências](PENDENCIAS.md).
 

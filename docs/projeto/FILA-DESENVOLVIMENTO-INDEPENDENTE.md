@@ -1,16 +1,16 @@
-> **Aceite do usuário.** O panorama com arraste e fade foi aprovado no teste atual. As batalhas foram bem avaliadas quanto à jogabilidade. Para uma rodada posterior de acabamento, ficam a indicação de quem está agindo, a leitura do foco e do alvo, o acesso à descrição das habilidades e os detalhes visuais. O Hub 3D foi visto sem as cores dos materiais. A correção de material e os enquadramentos focados de esquerda, centro e direita em janela vertical aguardam novo aceite. O teste em aparelho e a transição animada da câmera 3D ficam para etapas próprias.
-> **Entrega em teste.** Fade dos letreiros e arraste no panorama focado implementados. O limiar inicial de arraste é 12 unidades de tela e o encaixe usa 18% da largura ou um gesto rápido de pelo menos 24 unidades a 550 unidades/s. São valores iniciais a calibrar em aparelho. Com movimento reduzido, use os botões para a troca imediata. A prévia de combate usa um indicador temporário ligado aos eventos e som de teste opcional por `-CombatCueAudio`. O molde 3D tem materiais provisórios nos sete destinos. O aceite em janela, a arte do Terminal, a avaliação do mapa editável e da câmera lateral 3D e o teste Android seguem pendentes.
+> **Validação de 23/11/2026.** Arraste e fade dos Hubs 2D e 3D entregues e aprovados no Windows no recorte testado. Toque, rotação, vídeo e uma ação de combate validados no Pixel 7 virtual. O mapa editável, materiais finais e acabamento de combate seguem em aberto.
+
 # Fila vigente — 23/11/2026
 
-Esta ordem substitui as prioridades de execução do histórico abaixo. LAB-PVE-01 a 06 e LAB-QA-01, 01B e 01C já foram entregues em código. A transição por botões no panorama foi confirmada pelo usuário. O acabamento e o gesto abaixo são novos trabalhos. Esta revisão é de planejamento.
+Esta ordem substitui as prioridades de execução do histórico abaixo. LAB-PVE-01 a 06 e LAB-QA-01, 01B e 01C já foram entregues em código. A transição por botões no panorama foi confirmada pelo usuário. As três primeiras entregas passaram pelo recorte Windows e pelo teste de toque no emulador. As próximas frentes independentes são o acabamento de combate e a preparação do mapa editável.
 
 | Ordem | Bloco | Próxima entrega e critério |
 |---|---|---|
-| 1 | HUB / VIS — Fade do panorama | Fazer os letreiros da área atual desaparecerem na saída. Exibir por fade apenas os destinos visíveis depois do encaixe. Reutilizar o comportamento para botões e arraste. Retomar cliques dos letreiros quando a vista estiver estável e legível. Movimento reduzido usa troca imediata. |
-| 2 | HUB / VIS — Arraste e encaixe | Permitir arraste horizontal com mouse e toque, usando o recorte atual. A imagem acompanha o gesto. Ao soltar, distância e velocidade horizontal determinam encaixe na área vizinha ou retorno à área atual. Preservar os três botões, o clique único e a distinção entre toque curto e arraste. Tratar cancelamento, perda de foco, bordas e redimensionamento. Pressão do toque fica fora do gesto. |
-| 3 | VIS / QA — Validação em janela | Verificar arraste curto, rápido, cancelado e nos extremos, sequência de cliques rápidos, fade após encaixe e movimento reduzido. Compilar a prévia para aceite em janela horizontal e vertical, com teste de mouse. Calibrar toque físico na etapa mobile. |
-| 4 | VIS / AUD / ENG — Apresentação de combate | Rever os eventos já expostos por AUT-13 e ligar som e animação provisórios ao início, impacto e fim da ação, sem reaplicar efeitos de combate. Arte, rig e áudio finais podem chegar em paralelo. |
-| 5 | HUB — Tela do Terminal | Integrar a composição visual quando o material chegar. Reusar as rotas existentes para laboratório, tutorial padrão e demais encontros. O trabalho de apresentação pode avançar enquanto a arte do Terminal está pendente. |
+| Validado | HUB / VIS — Fade do panorama | Fazer os letreiros da área atual desaparecerem na saída. Exibir por fade apenas os destinos visíveis depois do encaixe. Reutilizar o comportamento para botões e arraste. Retomar cliques dos letreiros quando a vista estiver estável e legível. Movimento reduzido usa troca imediata. |
+| Validado | HUB / VIS — Arraste e encaixe | Permitir arraste horizontal com mouse e toque, usando o recorte atual. A imagem acompanha o gesto. Ao soltar, distância e velocidade horizontal determinam encaixe na área vizinha ou retorno à área atual. Preservar os três botões, o clique único e a distinção entre toque curto e arraste. Tratar cancelamento, perda de foco, bordas e redimensionamento. Pressão do toque fica fora do gesto. |
+| Reteste pontual | VIS / QA — Validação em janela | Verificar arraste curto, rápido, cancelado e nos extremos, sequência de cliques rápidos, fade após encaixe e movimento reduzido. Compilar a prévia para aceite em janela horizontal e vertical, com teste de mouse. Calibrar toque físico na etapa mobile. |
+| 1 | VIS / AUD / ENG — Apresentação de combate | Rever os eventos já expostos por AUT-13 e ligar som e animação provisórios ao início, impacto e fim da ação, sem reaplicar efeitos de combate. Arte, rig e áudio finais podem chegar em paralelo. |
+| Com entrega de arte | HUB — Tela do Terminal | Integrar a composição visual quando o material chegar. Reusar as rotas existentes para laboratório, tutorial padrão e demais encontros. O trabalho de apresentação pode avançar enquanto a arte do Terminal está pendente. |
 
 ## Aceites em paralelo
 
@@ -25,11 +25,11 @@ Conferir os dois tutoriais, os novos modos PvE do Terminal, a navegação, a HUD
 - Validar o enquadramento com a Praça e Games mais ao centro, fachadas voltadas para o meio, trilho direito baixo e grosso, monotrilho à esquerda e Pub rebaixado à direita.
 - Após validar os materiais provisórios e decidir o formato editável, preparar uma cena separada. O mapa passa a guardar as posições, rotações e escalas das peças, os pontos dos letreiros e as referências da câmera. O código usa identificadores estáveis para associar cada destino à rota existente. Os pontos de cada fachada acompanham a movimentação do respectivo grupo. O carregamento passa a usar os elementos salvos para evitar peças duplicadas.
 - Depois de definir o mapa, avaliar a câmera 3D entre esquerda, centro e direita, com percurso e enquadramento por ponto de vista, aproximação do Terminal e movimento reduzido. Coordenar edições simultâneas no mesmo mapa binário.
-- A edição do mapa e a câmera lateral 3D dependem da avaliação do usuário. As etapas 1 a 4 podem avançar em paralelo a essa decisão.
+- A câmera lateral já desliza entre as áreas. A edição do mapa e o acabamento do percurso dependem da avaliação do usuário. A apresentação de combate pode avançar em paralelo.
 
 ## Mobile e distribuição
 
-Android permanece adiado. Quando retomado, verificar gesto de toque e sua sensibilidade, proporções e áreas seguras, vídeo e áudio real no dispositivo e empacotamento. Shipping, lojas, serviços e MCP seguem frentes próprias. Progresso geral mantido em aproximadamente 28%.
+APK de desenvolvimento validado no Pixel 7 virtual. Próximo teste Android em aparelho físico: persistência, áudio, áreas seguras, sensibilidade do gesto e desempenho. Panorama mobile experimental. Shipping, lojas, serviços e MCP seguem frentes próprias. [Resultados Android](ANDROID-DEPENDENCIAS.md).
 
 ---
 

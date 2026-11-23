@@ -126,7 +126,8 @@ const rpg::presentation::HubHotspot* AProbeArenaHUD::DrawHub3DScene(const rpg::p
 {
     using namespace rpg::presentation;
     if(Flow.screen()!=UiScreen::Hub || Hub3DApproach>0.01){return nullptr;}
-    for(const auto& link:HubLinks){
+    for(std::size_t index=0;index<HubLinks.size();++index){
+        const auto& link=HubLinks[index];
         const DestinationAnchor* anchor=nullptr;
         for(const auto& candidate:DestinationAnchors){
             if(candidate.id==link.id){anchor=&candidate;break;}
@@ -137,18 +138,10 @@ const rpg::presentation::HubHotspot* AProbeArenaHUD::DrawHub3DScene(const rpg::p
         const auto upper=hub_uppercase(link.label);
         const FString label=UTF8_TO_TCHAR(upper.c_str());
         float width=0,height=0;
-        GetTextSize(label,width,height,HubLabelFont);
+        GetTextSize(label,width,height,HubLabelFont?HubLabelFont.Get():HubTitleFont.Get());
         const Rect target{point.X-width/2-12,point.Y-24,width+24,48};
         const bool hover=InputWindowActive && contains(target,Input.x,Input.y);
-        const FString haloId=TEXT("halo_label_")+FString(UTF8_TO_TCHAR(link.id.c_str()));
-        const auto* geometry=LabelGlowGeometry.Find(haloId);
-        if(auto* halo=UiTexture(haloId);halo && geometry && LabelGlowText.FindRef(haloId)==label){
-            const float sx=width/geometry->X,sy=height/geometry->Y;
-            DrawTexture(halo,point.X-width/2-geometry->Z*sx,point.Y-height/2-geometry->W*sy,
-                halo->GetSizeX()*sx,halo->GetSizeY()*sy,0,0,1,1,
-                FLinearColor(0.15f,0.75f,1.f,hover?0.85f:0.28f),BLEND_Translucent);
-        }
-        DrawText(label,hover?FColor::White:FColor(155,225,245),point.X-width/2,point.Y-height/2,HubLabelFont);
+        DrawAnimatedHubLabel(link,index,label,point.X-width/2,point.Y-height/2,1.f,width,height,hover);
         if(pointer_clicked(Input,target)){return &link;}
     }
     return nullptr;

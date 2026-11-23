@@ -134,6 +134,7 @@ private:
     int32 TeamMenuPage=0;
     void LoadHubCatalog();
     void DrawHub();
+    void DrawAnimatedHubLabel(const rpg::presentation::HubHotspot& link,std::size_t index,const FString& labelText,float tx,float ty,float ts,float tw,float th,bool hover);
     bool UpdateHub3D();
     const rpg::presentation::HubHotspot* DrawHub3DScene(const rpg::presentation::Rect& scene);
     void RestoreHub3DCamera();

@@ -298,6 +298,28 @@ void AProbeArenaHUD::SelectLabScenario(bool felipe){
     Message=felipe?TEXT("Piloto Felipe — teste local, sem PvP online."):TEXT("Laboratorio de referencia.");
     UE_LOG(LogTemp,Display,TEXT("HUB_LAB_SCENARIO felipe=%d"),felipe?1:0);
 }
+void AProbeArenaHUD::DrawAnimatedHubLabel(const rpg::presentation::HubHotspot& link,std::size_t index,const FString& labelText,float tx,float ty,float ts,float tw,float th,bool hover)
+{
+    using namespace rpg::presentation;
+    const bool future=link.route==HubRoute::Unavailable && link.id!="arena-pvp";
+    float& hoverAmount=HubLabelHover.FindOrAdd(Text(link.id));
+    hoverAmount=HubReducedMotion?(hover?1.f:0.f):FMath::FInterpTo(hoverAmount,hover?1.f:0.f,FMath::Min(GetWorld()->GetDeltaSeconds(),0.1f),8.f);
+    const auto motion=label_motion(GetWorld()->GetTimeSeconds(),HubReducedMotion,static_cast<double>(index)*0.65);
+    ty+=static_cast<float>(motion.offset_y);
+    auto* font=HubLabelFont?HubLabelFont.Get():HubTitleFont.Get();
+    const FLinearColor idleInk=((future?FLinearColor(0.32f,0.55f,0.67f):FLinearColor(0.38f,0.72f,0.84f))*1.3f).GetClamped();
+    const FColor ink=FMath::Lerp(idleInk,FLinearColor(0.82f,0.98f,1.f),hoverAmount).ToFColorSRGB();
+    const FString glowId=TEXT("halo_label_")+Text(link.id);
+    const auto* geometry=LabelGlowGeometry.Find(glowId);
+    if(auto* texture=UiTexture(glowId);texture && geometry && LabelGlowText.FindRef(glowId)==labelText){
+        const float sx=tw*ts/static_cast<float>(geometry->X),sy=th*ts/static_cast<float>(geometry->Y);
+        const FLinearColor glowColor(0.18f,0.75f,1.f,FMath::Lerp(0.28f,0.85f,hoverAmount));
+        DrawTexture(texture,tx-static_cast<float>(geometry->Z)*sx,ty-static_cast<float>(geometry->W)*sy,
+            texture->GetSizeX()*sx,texture->GetSizeY()*sy,0,0,1,1,glowColor,BLEND_Translucent);
+    }
+    DrawText(labelText,ink,tx,ty,font,ts);
+}
+
 void AProbeArenaHUD::DrawHub(){
     if(Canvas->SizeX<1 || Canvas->SizeY<1){return;}
     const bool preview3D=UpdateHub3D();
@@ -437,7 +459,6 @@ void AProbeArenaHUD::DrawHub(){
     if(!preview3D) for(std::size_t index=0;index<HubLinks.size();++index){
         const auto& link=HubLinks[index];
         const auto projected=project_hotspot(plan,link);if(!projected){continue;}
-        const bool future=link.route==HubRoute::Unavailable && link.id!="arena-pvp";
         const FString labelText=Text(rpg::presentation::hub_uppercase(link.label));
         float tw=0,th=0;GetTextSize(labelText,tw,th,HubLabelFont?HubLabelFont.Get():HubTitleFont.Get());
         const double scale=std::min(0.9,(r.width-24)/std::max(1.0,static_cast<double>(tw)));
@@ -446,24 +467,9 @@ void AProbeArenaHUD::DrawHub(){
             std::clamp(projected->label_y-height/2,r.y,r.y+r.height-height),width,height};
         const auto hit=minimum_target(label,r,48);if(!hit){continue;}
         const bool hover=InputWindowActive && contains(*hit,mx,my);
-        float& hoverAmount=HubLabelHover.FindOrAdd(Text(link.id));
-        hoverAmount=HubReducedMotion?(hover?1.f:0.f):FMath::FInterpTo(hoverAmount,hover?1.f:0.f,FMath::Min(GetWorld()->GetDeltaSeconds(),0.1f),8.f);
-        const auto motion=label_motion(GetWorld()->GetTimeSeconds(),HubReducedMotion,static_cast<double>(index)*0.65);
         if(Preferences.high_contrast){DrawRect(HubPanel,static_cast<float>(label.x),static_cast<float>(label.y-3),static_cast<float>(label.width),static_cast<float>(label.height+6));}
         if(Preferences.high_contrast){line(label.x+5,label.y+label.height,label.x+label.width-5,label.y+label.height,HubCyan,1);}
-        const float tx=static_cast<float>(label.x+12),ty=static_cast<float>(label.y+6+motion.offset_y),ts=static_cast<float>(scale);
-        auto* font=HubLabelFont?HubLabelFont.Get():HubTitleFont.Get();
-        const FLinearColor idleInk=((future?FLinearColor(0.32f,0.55f,0.67f):FLinearColor(0.38f,0.72f,0.84f))*1.3f).GetClamped();
-        const FColor ink=FMath::Lerp(idleInk,FLinearColor(0.82f,0.98f,1.f),hoverAmount).ToFColorSRGB();
-        const FString glowId=TEXT("halo_label_")+Text(link.id);
-        const auto* geometry=LabelGlowGeometry.Find(glowId);
-        if(auto* texture=UiTexture(glowId);texture && geometry && LabelGlowText.FindRef(glowId)==labelText){
-            const float sx=tw*ts/static_cast<float>(geometry->X),sy=th*ts/static_cast<float>(geometry->Y);
-            const FLinearColor glowColor(0.18f,0.75f,1.f,FMath::Lerp(0.28f,0.85f,hoverAmount));
-            DrawTexture(texture,tx-static_cast<float>(geometry->Z)*sx,ty-static_cast<float>(geometry->W)*sy,
-                texture->GetSizeX()*sx,texture->GetSizeY()*sy,0,0,1,1,glowColor,BLEND_Translucent);
-        }
-        DrawText(labelText,ink,tx,ty,font,ts);
+        DrawAnimatedHubLabel(link,index,labelText,label.x+12,label.y+6,scale,tw,th,hover);
         if(pointer_clicked(Input,*hit)){openDestination(link);return;}
     }
     // Fixed dock keeps every destination reachable when its source region is cropped.

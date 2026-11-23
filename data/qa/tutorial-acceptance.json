@@ -8,9 +8,9 @@
       "area": "Hub",
       "route": "Hub",
       "status": "ProvisionalUser",
-      "steps": "Retestar nomes com ganho nominal de30% e halo suave no hover; logo/PRAÇA/direcao ja confirmados",
+      "steps": "Conferir halo Gaussiano atras dos glifos, texto nitido e brilho/hover sem caixa",
       "expected": "Letreiro leve, menor e luminoso; sem caixa de hover no modo padrao; importacao Presentation excluida",
-      "evidence": "Segundo relato23/11: melhor e hover acende; visibilidade insuficiente motivou reforco de brilho/halo ainda sem novo aceite"
+      "evidence": "Usuario autorizou halo difuso em vez de copias deslocadas; nova aparencia aguardando reteste"
     },
     {
       "id": "IT-02",
@@ -49,8 +49,8 @@
       "area": "Navigation",
       "route": "Hub/Terminal/Lab-Exp",
       "status": "Pending",
-      "steps": "Pausar, abandonar, retornar, trocar modo e reiniciar",
-      "expected": "Nenhum input atravessa transicao; sessoes independentes"
+      "steps": "Mouse sai da janela ao iniciar/apos clicar, recuperar foco, clique unico, hold e arrasto para fora; depois pausa/abandono/troca de modo",
+      "expected": "Cursor nao confinado; sem duplo clique exigido nem input atravessando transicoes"
     },
     {
       "id": "IT-07",

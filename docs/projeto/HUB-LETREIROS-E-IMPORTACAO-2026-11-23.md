@@ -31,3 +31,5 @@ Demo~28% mantida. Registros: HUB-LETREIROS-2026-11-23.json e UI-INTEGRACAO-2026-
 ## Segundo reteste — luminosidade
 
 Usuário relatou melhora e confirmou que o hover acende; pediu nomes cerca de30%mais visíveis e um glow leve atrás das letras. Aplicado ganho nominal1,3na cor em repouso, limitado ao intervalo válido; a aparência percebida depende do fundo e aguarda reteste. Halo próximo ligeiramente reforçado e halo externo azul/ciano de baixa opacidade somente no hover. Fonte, tamanho, caixa de clique, ausência de caixa preta padrão e configuração de importação preservados. Movimento reduzido continua sem fade animado. Sem mudança de combate ou mídias; validação por compilação e stage, sem abrir telas.
+
+> Continuidade: HUB-HALO-E-MOUSE-2026-11-23.md substitui o halo por máscara Gaussiana dos glifos e revê GameOnly, que solicitava trava Slate. Brilho nominal1,3 e tipografia preservados; aparência e mouse livre aguardam reteste.

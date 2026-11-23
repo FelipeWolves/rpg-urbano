@@ -1,8 +1,8 @@
 "id","area","route","status","steps","expected","evidence"
-"IT-01","Hub","Hub","ProvisionalUser","Retestar nomes com ganho nominal de30% e halo suave no hover; logo/PRAÇA/direcao ja confirmados","Letreiro leve, menor e luminoso; sem caixa de hover no modo padrao; importacao Presentation excluida","Segundo relato23/11: melhor e hover acende; visibilidade insuficiente motivou reforco de brilho/halo ainda sem novo aceite"
+"IT-01","Hub","Hub","ProvisionalUser","Conferir halo Gaussiano atras dos glifos, texto nitido e brilho/hover sem caixa","Letreiro leve, menor e luminoso; sem caixa de hover no modo padrao; importacao Presentation excluida","Usuario autorizou halo difuso em vez de copias deslocadas; nova aparencia aguardando reteste"
 "IT-02","HUD","Arena piloto e Terminal","Pending","Usar A1/A3, provocar A2, abrir efeitos e manter habilidade pressionada","Sprites, cargas, recargas e detalhes coerentes com eventos reais",
 "IT-03","Tutorial","Terminal > Tutorial A Bola Perdida","Pending","Continuar, A1 inicial, duas ondas, orientacoes e resultado","Sem acao por tras de painel; tutorial vencivel e resultado correto",
 "IT-04","Search","Lab - Exp > Iniciar busca classica","Pending","Buscar, concentrar, avancar, dialogo50%, vencer e perder","Valores aprovados, pausa e encerramento causais, sem moeda",
 "IT-05","Save","Conclusoes dos dois tutoriais","Pending","Vencer, fechar/reabrir e conferir arquivo proprio","Flags distintas em Saved/Tutorials; LocalProgress e saves dos laboratorios preservados",
-"IT-06","Navigation","Hub/Terminal/Lab-Exp","Pending","Pausar, abandonar, retornar, trocar modo e reiniciar","Nenhum input atravessa transicao; sessoes independentes",
+"IT-06","Navigation","Hub/Terminal/Lab-Exp","Pending","Mouse sai da janela ao iniciar/apos clicar, recuperar foco, clique unico, hold e arrasto para fora; depois pausa/abandono/troca de modo","Cursor nao confinado; sem duplo clique exigido nem input atravessando transicoes",
 "IT-07","Layout","Janelas Windows horizontais e verticais","Pending","Conferir icones, retrato, selecao, nomes e descricoes","Sem distorcao, sobreposicao ou perda de alvo; nao constitui aceite Android",

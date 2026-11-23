@@ -446,13 +446,14 @@ void AProbeArenaHUD::DrawHub(){
         auto* font=HubLabelFont?HubLabelFont.Get():HubTitleFont.Get();
         const FLinearColor idleInk=((future?FLinearColor(0.32f,0.55f,0.67f):FLinearColor(0.38f,0.72f,0.84f))*1.3f).GetClamped();
         const FColor ink=FMath::Lerp(idleInk,FLinearColor(0.82f,0.98f,1.f),hoverAmount).ToFColorSRGB();
-        const float haloStrength=FMath::Lerp(static_cast<float>(motion.glow_opacity)*0.15f,0.22f,hoverAmount);
-        const FColor halo(30,155,220,static_cast<uint8>(FMath::Clamp(haloStrength*255.f,0.f,255.f)));
-        const float radius=FMath::Lerp(0.6f,1.6f,hoverAmount);
-        const float outerRadius=2.8f;
-        const FColor outerGlow(40,170,235,static_cast<uint8>(hoverAmount*18.f));
-        if(hoverAmount>0.01f){for(const auto offset:{FVector2D(-outerRadius,0),FVector2D(outerRadius,0),FVector2D(0,-outerRadius),FVector2D(0,outerRadius),FVector2D(-2,-2),FVector2D(2,-2),FVector2D(-2,2),FVector2D(2,2)}){DrawText(labelText,outerGlow,tx+offset.X,ty+offset.Y,font,ts);}}
-        for(const auto offset:{FVector2D(-radius,0),FVector2D(radius,0),FVector2D(0,-radius),FVector2D(0,radius)}){DrawText(labelText,halo,tx+offset.X,ty+offset.Y,font,ts);}
+        const FString glowId=TEXT("halo_label_")+Text(link.id);
+        const auto* geometry=LabelGlowGeometry.Find(glowId);
+        if(auto* texture=UiTexture(glowId);texture && geometry && LabelGlowText.FindRef(glowId)==labelText){
+            const float sx=tw*ts/static_cast<float>(geometry->X),sy=th*ts/static_cast<float>(geometry->Y);
+            const FLinearColor glowColor(0.18f,0.75f,1.f,FMath::Lerp(0.28f,0.85f,hoverAmount));
+            DrawTexture(texture,tx-static_cast<float>(geometry->Z)*sx,ty-static_cast<float>(geometry->W)*sy,
+                texture->GetSizeX()*sx,texture->GetSizeY()*sy,0,0,1,1,glowColor,BLEND_Additive);
+        }
         DrawText(labelText,ink,tx,ty,font,ts);
         if(pointer_clicked(Input,*hit)){openDestination(link);return;}
     }

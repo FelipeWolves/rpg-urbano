@@ -1,0 +1,22 @@
+{
+  "Date": "2026-11-23",
+  "GlowMethod": "Gaussian alpha glyph masks behind sharp text, additive cyan",
+  "HaloMasks": 7,
+  "RuntimeTextures": 26,
+  "CursorInputMode": "GameAndUI",
+  "MouseLock": "DoNotLock",
+  "CaptureOnLaunch": false,
+  "TemporaryCapture": "CaptureDuringMouseDown",
+  "PointerModelPassed": true,
+  "PhysicalCursorTested": false,
+  "GlowVisuallyAccepted": false,
+  "Build": "Succeeded",
+  "StageVerified": 101,
+  "EditorOpened": false,
+  "GameExecuted": false,
+  "OSSettingsChanged": false,
+  "NormalSavesTouched": false,
+  "ProgressPercent": 28,
+  "BinarySHA256": "8A4BBD3870869CE5B889D7C664F76D27BAF9759B21496B2304C66FA9699071FA",
+  "PointerModelGroups": 10
+}

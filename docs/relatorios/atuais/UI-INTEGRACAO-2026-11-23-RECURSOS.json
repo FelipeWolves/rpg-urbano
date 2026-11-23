@@ -1,8 +1,8 @@
 {
   "Date": "2026-11-23",
   "Passed": true,
-  "Textures": 19,
-  "RuntimeRawRGBABytes": 9502720,
+  "Textures": 26,
+  "RuntimeRawRGBABytes": 10220128,
   "LabelFont": "Engine Roboto Light",
   "FontSHA256": "A6D343D425BC38DB90152FA06058B1C7391ECA9264F334EF65C1CE175085C6F6",
   "Glyphs": [

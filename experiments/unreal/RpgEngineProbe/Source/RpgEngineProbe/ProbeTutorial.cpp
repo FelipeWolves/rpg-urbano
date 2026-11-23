@@ -13,7 +13,7 @@
 #include "Serialization/JsonSerializer.h"
 UTexture2D* AProbeArenaHUD::UiTexture(const FString& id)const{const auto* entry=UiTextures.Find(id);return entry?entry->Get():nullptr;}
 void AProbeArenaHUD::LoadUiResources(){
- UiTextures.Empty();HubLabelHover.Empty();
+ UiTextures.Empty();HubLabelHover.Empty();LabelGlowGeometry.Empty();LabelGlowText.Empty();
  HubLabelFont=NewObject<UFont>(this);HubLabelFont->FontCacheType=EFontCacheType::Runtime;HubLabelFont->LegacyFontSize=20;
  const FString font=FPaths::EngineContentDir()/TEXT("Slate/Fonts/Roboto-Light.ttf");
  HubLabelFont->GetMutableInternalCompositeFont()=FCompositeFont(FName(TEXT("Regular")),font,EFontHinting::Default,EFontLoadingPolicy::LazyLoad);
@@ -23,7 +23,8 @@ void AProbeArenaHUD::LoadUiResources(){
  const TArray<TSharedPtr<FJsonValue>>* resources=nullptr;if(!json->TryGetArrayField(TEXT("Resources"),resources)||!resources||resources->Num()>32){return;}
  for(const auto& value:*resources){const auto item=value->AsObject();if(!item){continue;}FString id,path;double width=0,height=0;if(!item->TryGetStringField(TEXT("Id"),id)||!item->TryGetStringField(TEXT("Path"),path)||!item->TryGetNumberField(TEXT("Width"),width)||!item->TryGetNumberField(TEXT("Height"),height)){continue;}
   const FString full=FPaths::ConvertRelativePathToFull(root/path);if(!FPaths::IsUnderDirectory(full,root)||width<1||height<1||width>512||height>512){continue;}
-  const int64 bytes=IFileManager::Get().FileSize(*full);if(bytes<1||bytes>4*1024*1024){continue;}auto* texture=FImageUtils::ImportFileAsTexture2D(full);if(texture&&texture->GetSizeX()==width&&texture->GetSizeY()==height){UiTextures.Add(id,texture);}
+  const int64 bytes=IFileManager::Get().FileSize(*full);if(bytes<1||bytes>4*1024*1024){continue;}auto* texture=FImageUtils::ImportFileAsTexture2D(full);if(texture&&texture->GetSizeX()==width&&texture->GetSizeY()==height){UiTextures.Add(id,texture);
+   if(id.StartsWith(TEXT("halo_label_"))){double lw=0,lh=0,padding=0;if(item->TryGetNumberField(TEXT("LayoutWidth"),lw)&&item->TryGetNumberField(TEXT("LayoutHeight"),lh)&&item->TryGetNumberField(TEXT("Padding"),padding)&&lw>0&&lh>0&&padding>=0&&lw+2*padding==width&&lh+2*padding==height){FString label;if(item->TryGetStringField(TEXT("Text"),label)){LabelGlowGeometry.Add(id,FVector4(lw,lh,padding,padding));LabelGlowText.Add(id,label);}}}}
  }
  if(auto* logo=UiTexture(TEXT("logo-lobo-v01"))){HubLogo=logo;}
 }

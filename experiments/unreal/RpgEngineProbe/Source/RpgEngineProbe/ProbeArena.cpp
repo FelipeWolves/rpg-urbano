@@ -8,6 +8,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "Materials/MaterialInterface.h"
 #include "Engine/Canvas.h"
+#include "Widgets/SViewport.h"
 #include "Engine/Texture2D.h"
 #include "CanvasTypes.h"
 
@@ -41,9 +42,12 @@ void AProbeArenaMode::BeginPlay()
         auto* camera=GetWorld()->SpawnActor<ACameraActor>(location,rotation);
         if(camera){pc->SetViewTarget(camera);}
         pc->bShowMouseCursor=true;
-        // This prototype uses Canvas controls, not Slate/UMG focusable widgets.
-        // Forward the initial capture click instead of consuming it for focus.
-        FInputModeGameOnly inputMode;inputMode.SetConsumeCaptureMouseDown(false);
+        // GameOnly queues a Slate lock/high-precision capture even if the viewport enum is changed later.
+        // GameAndUI releases that lock, and temporary mouse-down capture forwards the first click.
+        FInputModeGameAndUI inputMode;
+        inputMode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
+        inputMode.SetHideCursorDuringCapture(false);
+        if(auto* viewport=GetWorld()->GetGameViewport()){inputMode.SetWidgetToFocus(viewport->GetGameViewportWidget());}
         pc->SetInputMode(inputMode);
         if(auto* viewport=GetWorld()->GetGameViewport()){viewport->SetMouseCaptureMode(EMouseCaptureMode::CaptureDuringMouseDown);viewport->SetMouseLockMode(EMouseLockMode::DoNotLock);viewport->SetHideCursorDuringCapture(false);}
     }

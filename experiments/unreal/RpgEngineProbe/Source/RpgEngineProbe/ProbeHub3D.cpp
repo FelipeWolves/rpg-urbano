@@ -21,11 +21,11 @@ struct DestinationAnchor {
 };
 const DestinationAnchor DestinationAnchors[]={
     {"terminal",{820,-55,555}},
-    {"library",{945,-950,540}},
-    {"lab-exp",{595,-1230,320}},
-    {"plaza",{-300,-580,165}},
-    {"games",{470,195,225}},
-    {"arena-pvp",{655,900,275}},
+    {"library",{955,-890,540}},
+    {"lab-exp",{600,-1130,330}},
+    {"plaza",{-425,-345,175}},
+    {"games",{165,105,225}},
+    {"arena-pvp",{690,825,280}},
     {"pub",{-160,880,52}},
 };
 }
@@ -62,28 +62,32 @@ bool AProbeArenaHUD::UpdateHub3D()
         for(double y:{-430.,-220.,220.,430.}){
             volume(cube,{900,y,225},{0.45,0.45,4.5});
         }
-        volume(cylinder,{-300,-580,35},{2.6,2.6,0.7});
-        volume(cylinder,{-300,-580,94},{0.75,0.75,1.18});
-        volume(cylinder,{-300,-580,160},{1.5,1.5,0.22});
+        volume(cylinder,{-425,-345,35},{2.6,2.6,0.7});
+        volume(cylinder,{-425,-345,94},{0.75,0.75,1.18});
+        volume(cylinder,{-425,-345,160},{1.5,1.5,0.22});
         volume(cube,{-170,-330,35},{0.6,2,0.65});
-        // Library and Lab occupy the left wing. Games is a low pavilion near the square.
-        volume(cube,{1120,-995,240},{3.5,5.8,4.8});
-        volume(cube,{1010,-995,492},{2.8,6.4,0.38});
-        for(double y:{-1110.,-930.,-750.}){
-            volume(cylinder,{935,y,213},{0.44,0.44,4.2});
+        const auto facade=[&](UStaticMesh* mesh,FVector origin,float yaw,FVector local,FVector scale){
+            const FRotator rotation(0,yaw,0);
+            volume(mesh,origin+rotation.RotateVector(local),scale,rotation);
+        };
+        const FVector library(1120,-995,0),lab(680,-1230,0),arena(835,935,0);
+        facade(cube,library,-35,{0,0,240},{3.5,5.8,4.8});
+        facade(cube,library,-35,{-110,0,492},{2.8,6.4,0.38});
+        for(double y:{-180.,0.,180.}){
+            facade(cylinder,library,-35,{-185,y,213},{0.44,0.44,4.2});
         }
-        volume(cube,{680,-1230,140},{2.4,4.2,2.8});
-        volume(cube,{559,-1230,294},{2.8,4.8,0.28});
-        volume(cylinder,{510,195,100},{3.2,4.3,2.0});
-        volume(cylinder,{510,195,204},{3.7,4.7,0.3});
-        volume(cube,{835,935,135},{3.5,5.3,2.7});
-        volume(cube,{735,935,267},{2.4,5.7,0.18});
+        facade(cube,lab,-48,{0,0,140},{2.4,4.2,2.8});
+        facade(cube,lab,-48,{-121,0,294},{2.8,4.8,0.28});
+        facade(cube,arena,42,{0,0,135},{3.5,5.3,2.7});
+        facade(cube,arena,42,{-100,0,267},{2.4,5.7,0.18});
+        volume(cylinder,{205,105,100},{3.2,4.3,2.0});
+        volume(cylinder,{205,105,204},{3.7,4.7,0.3});
         volume(cube,{-260,1150,-55},{3.0,3.8,1.9});
         volume(cube,{-290,923,31},{2.6,0.7,0.18});
 
         // Track turns out of the Terminal and advances toward the near right edge.
-        const FVector track[]={{930,365,440},{865,610,423},{655,835,405},
-            {355,1045,390},{30,1230,375},{-410,1430,362}};
+        const FVector track[]={{930,365,378},{865,610,369},{655,835,359},
+            {355,1045,350},{30,1230,342},{-410,1430,334}};
         for(int i=1;i<UE_ARRAY_COUNT(track);++i){
             const FVector start=track[i-1],end=track[i];
             const FVector delta=end-start;
@@ -91,14 +95,26 @@ bool AProbeArenaHUD::UpdateHub3D()
             const FVector lateral=FVector::CrossProduct(FVector::UpVector,delta).GetSafeNormal();
             const FRotator heading=delta.Rotation();
             const double length=(delta.Size()+15.0)/100.0;
-            volume(cube,midpoint,{length,1.32,0.22},heading);
+            volume(cube,midpoint,{length,1.78,0.56},heading);
             for(double offset:{-41.,41.}){
-                volume(cube,midpoint+lateral*offset+FVector(0,0,16),{length,0.075,0.075},heading);
+                volume(cube,midpoint+lateral*offset+FVector(0,0,33),{length,0.12,0.10},heading);
             }
             if(i>=2){
                 const double base=midpoint.X<100 && midpoint.Y>630?-150.0:0.0;
                 volume(cube,{midpoint.X,midpoint.Y,(midpoint.Z+base)*0.5},
                     {0.5,0.48,(midpoint.Z-base)/100.0});
+            }
+        }
+        // Lower Terminal annex feeds a separate monorail beam on the left.
+        volume(cube,{1090,-700,157},{2.8,3.4,3.14});
+        volume(cube,{1080,-714,318},{3.0,3.6,0.2});
+        const FVector monorail[]={{1075,-835,316},{1040,-1190,306},{850,-1510,296},{500,-1890,290}};
+        for(int i=1;i<UE_ARRAY_COUNT(monorail);++i){
+            const FVector delta=monorail[i]-monorail[i-1];
+            const FVector midpoint=(monorail[i]+monorail[i-1])*0.5;
+            volume(cube,midpoint,{(delta.Size()+14)/100,0.86,0.48},delta.Rotation());
+            if(i==2){
+                volume(cube,{midpoint.X,midpoint.Y,midpoint.Z*0.5},{0.42,0.42,midpoint.Z/100});
             }
         }
         // Skyline blocks and planters provide depth references during the camera move.

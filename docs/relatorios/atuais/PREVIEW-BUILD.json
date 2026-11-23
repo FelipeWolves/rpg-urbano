@@ -2,10 +2,9 @@
   "Date": "2026-11-23",
   "Passed": true,
   "RuntimeExecuted": false,
-  "VisualAcceptance": "User accepted logo/uppercase/font direction; revised Light size/hover pending",
+  "VisualAcceptance": "Previous font/logo/PRAÇA and working hover confirmed; brightness/glow revision pending",
   "Project": "experiments/unreal/RpgEngineProbe/RpgEngineProbe.uproject",
-  "Log": "build/hub-letreiros-2026-11-23-build.log",
+  "Log": "build/hub-brilho-2026-11-23-build.log",
   "Report": "docs/relatorios/atuais/HUB-LETREIROS-2026-11-23.json",
-  "Scope": "Light label styling and project-only Presentation auto-reimport exclusion",
-  "SourceCommit": "9916dd7"
+  "Scope": "Nominal30percent stronger idle labels and soft hover glow; same font and layout"
 }

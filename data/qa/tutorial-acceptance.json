@@ -8,9 +8,9 @@
       "area": "Hub",
       "route": "Hub",
       "status": "ProvisionalUser",
-      "steps": "Confirmados logo, maiusculas e direcao da fonte/estilo; retestar somente tamanho/peso/hover revisados e aviso de importacao",
+      "steps": "Retestar nomes com ganho nominal de30% e halo suave no hover; logo/PRAÇA/direcao ja confirmados",
       "expected": "Letreiro leve, menor e luminoso; sem caixa de hover no modo padrao; importacao Presentation excluida",
-      "evidence": "Relato e capturas do usuario23/11: logo/fonte/direcao/PRAÇA aceitos; acabamento novo ainda pendente"
+      "evidence": "Segundo relato23/11: melhor e hover acende; visibilidade insuficiente motivou reforco de brilho/halo ainda sem novo aceite"
     },
     {
       "id": "IT-02",

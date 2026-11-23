@@ -27,3 +27,7 @@ Compilação Unreal aprovada; stage93entradas/hash/include verificado. 19textura
 Ao testar: passar e retirar o mouse dos nomes; conferir traço mais fino e menor, luz suave sem bloco preto no modo padrão e caracteres maiúsculos. Conferir o aviso de importação ao reabrir. Logo e família da fonte escolhida não exigem novo aceite por rotina; apenas o acabamento alterado permanece pendente. Opção alto contraste tem aparência própria.
 
 Demo~28% mantida. Registros: HUB-LETREIROS-2026-11-23.json e UI-INTEGRACAO-2026-11-23-RECURSOS.json. Fontes e mídias continuam locais/fora do Git.
+
+## Segundo reteste — luminosidade
+
+Usuário relatou melhora e confirmou que o hover acende; pediu nomes cerca de30%mais visíveis e um glow leve atrás das letras. Aplicado ganho nominal1,3na cor em repouso, limitado ao intervalo válido; a aparência percebida depende do fundo e aguarda reteste. Halo próximo ligeiramente reforçado e halo externo azul/ciano de baixa opacidade somente no hover. Fonte, tamanho, caixa de clique, ausência de caixa preta padrão e configuração de importação preservados. Movimento reduzido continua sem fade animado. Sem mudança de combate ou mídias; validação por compilação e stage, sem abrir telas.

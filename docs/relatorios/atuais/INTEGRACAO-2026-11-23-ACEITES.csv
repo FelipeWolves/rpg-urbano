@@ -1,5 +1,5 @@
 "id","area","route","status","steps","expected","evidence"
-"IT-01","Hub","Hub","ProvisionalUser","Confirmados logo, maiusculas e direcao da fonte/estilo; retestar somente tamanho/peso/hover revisados e aviso de importacao","Letreiro leve, menor e luminoso; sem caixa de hover no modo padrao; importacao Presentation excluida","Relato e capturas do usuario23/11: logo/fonte/direcao/PRAÇA aceitos; acabamento novo ainda pendente"
+"IT-01","Hub","Hub","ProvisionalUser","Retestar nomes com ganho nominal de30% e halo suave no hover; logo/PRAÇA/direcao ja confirmados","Letreiro leve, menor e luminoso; sem caixa de hover no modo padrao; importacao Presentation excluida","Segundo relato23/11: melhor e hover acende; visibilidade insuficiente motivou reforco de brilho/halo ainda sem novo aceite"
 "IT-02","HUD","Arena piloto e Terminal","Pending","Usar A1/A3, provocar A2, abrir efeitos e manter habilidade pressionada","Sprites, cargas, recargas e detalhes coerentes com eventos reais",
 "IT-03","Tutorial","Terminal > Tutorial A Bola Perdida","Pending","Continuar, A1 inicial, duas ondas, orientacoes e resultado","Sem acao por tras de painel; tutorial vencivel e resultado correto",
 "IT-04","Search","Lab - Exp > Iniciar busca classica","Pending","Buscar, concentrar, avancar, dialogo50%, vencer e perder","Valores aprovados, pausa e encerramento causais, sem moeda",

@@ -1,480 +1,480 @@
 {
-  "CheckedUtc": "2026-11-23T12:12:57.7830467Z",
+  "CheckedUtc": "2026-11-23T12:19:55.8552582Z",
   "Status": "prepared_not_built",
   "EngineVersion": "5.8.4",
   "EngineChangelist": 58902052,
-  "Stage": "F:\\Testes de jogos\\Contos de Um Lobo - Jogo\\rpg-urbano\\build\\p\\9e56a471\\RpgEngineProbe",
-  "Archive": "F:\\Testes de jogos\\Contos de Um Lobo - Jogo\\rpg-urbano\\build\\p\\9e56a471\\archive",
-  "Plan": "F:\\Testes de jogos\\Contos de Um Lobo - Jogo\\rpg-urbano\\build\\p\\9e56a471\\package-plan.json",
+  "Stage": "F:\\Testes de jogos\\Contos de Um Lobo - Jogo\\rpg-urbano\\build\\p\\77940727\\RpgEngineProbe",
+  "Archive": "F:\\Testes de jogos\\Contos de Um Lobo - Jogo\\rpg-urbano\\build\\p\\77940727\\archive",
+  "Plan": "F:\\Testes de jogos\\Contos de Um Lobo - Jogo\\rpg-urbano\\build\\p\\77940727\\package-plan.json",
   "Target": "RpgEngineProbe",
   "Platform": "Win64",
   "Configuration": "Development",
   "Map": "/Game/PrototypeHub",
   "SourceManifest": [
     {
-      "SHA256": "407E604C49AFEE6E00581179C6B6DEE9FEDB2373149273C7F5F7D30C5A23521C",
+      "StagedRelative": "RpgEngineProbe.uproject",
       "Original": "experiments/unreal/RpgEngineProbe/RpgEngineProbe.uproject",
-      "StagedRelative": "RpgEngineProbe.uproject"
+      "SHA256": "407E604C49AFEE6E00581179C6B6DEE9FEDB2373149273C7F5F7D30C5A23521C"
     },
     {
-      "SHA256": "1B7A2DF54D5D6C60F0A410A24FFA875411474E49456C1D2DC29DB796E86E89B7",
+      "StagedRelative": "Source/RpgEngineProbeEditor.Target.cs",
       "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbeEditor.Target.cs",
-      "StagedRelative": "Source/RpgEngineProbeEditor.Target.cs"
+      "SHA256": "1B7A2DF54D5D6C60F0A410A24FFA875411474E49456C1D2DC29DB796E86E89B7"
     },
     {
-      "SHA256": "7B996DE773017A6B84F9DD4874ED8216406EF7DAF38378F1FC2F92518D464FB4",
+      "StagedRelative": "Source/RpgEngineProbe.Target.cs",
       "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe.Target.cs",
-      "StagedRelative": "Source/RpgEngineProbe.Target.cs"
+      "SHA256": "7B996DE773017A6B84F9DD4874ED8216406EF7DAF38378F1FC2F92518D464FB4"
     },
     {
-      "SHA256": "76548EBC0FADA36BEEEB09DFF9F4B6C421D7F0E9AA8A424C34F2EAFF4EE59D00",
+      "StagedRelative": "Source/RpgEngineProbe/RpgEngineProbe.Build.cs",
       "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/RpgEngineProbe.Build.cs",
-      "StagedRelative": "Source/RpgEngineProbe/RpgEngineProbe.Build.cs"
+      "SHA256": "76548EBC0FADA36BEEEB09DFF9F4B6C421D7F0E9AA8A424C34F2EAFF4EE59D00"
     },
     {
-      "SHA256": "5B81A612622DE4A51819528132824A0E14AA04E840A89D7F5554F7639D691E96",
+      "StagedRelative": "Source/RpgEngineProbe/RpgEngineProbe.cpp",
       "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/RpgEngineProbe.cpp",
-      "StagedRelative": "Source/RpgEngineProbe/RpgEngineProbe.cpp"
+      "SHA256": "5B81A612622DE4A51819528132824A0E14AA04E840A89D7F5554F7639D691E96"
     },
     {
-      "SHA256": "8EE6E97E2D72F9AD07E8BBDA81EA8F215E543B75101A8C676ED4817E5478CEAF",
+      "StagedRelative": "Source/RpgEngineProbe/ProbeArena.h",
       "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/ProbeArena.h",
-      "StagedRelative": "Source/RpgEngineProbe/ProbeArena.h"
+      "SHA256": "8EE6E97E2D72F9AD07E8BBDA81EA8F215E543B75101A8C676ED4817E5478CEAF"
     },
     {
-      "SHA256": "8B859895C7D7FD918543A8E6850B1807FDA991F4264ABB6B56C0F408447572B6",
+      "StagedRelative": "Source/RpgEngineProbe/ProbeArena.cpp",
       "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/ProbeArena.cpp",
-      "StagedRelative": "Source/RpgEngineProbe/ProbeArena.cpp"
+      "SHA256": "8B859895C7D7FD918543A8E6850B1807FDA991F4264ABB6B56C0F408447572B6"
     },
     {
-      "SHA256": "7901FCE9FD1AE7E9FF99839F1D649D4925737FBF71B3FE0FF083A02BAC67792D",
+      "StagedRelative": "Source/RpgEngineProbe/ProbeHub.cpp",
       "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/ProbeHub.cpp",
-      "StagedRelative": "Source/RpgEngineProbe/ProbeHub.cpp"
+      "SHA256": "72E585DDCEC86306F9722A7ED43E2D1F54E13E69B2BFAAEF963A7BCA8AB57F3E"
     },
     {
-      "SHA256": "8F231596384BFCB530A2E912C24EEEC8409A547B12CF1046BA02077086211E98",
+      "StagedRelative": "Source/RpgEngineProbe/ProbeTutorial.cpp",
       "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/ProbeTutorial.cpp",
-      "StagedRelative": "Source/RpgEngineProbe/ProbeTutorial.cpp"
+      "SHA256": "8F231596384BFCB530A2E912C24EEEC8409A547B12CF1046BA02077086211E98"
     },
     {
-      "SHA256": "F0D4FF8F1CF65C663F54C97FC22E0DD14B428E0621A3DCC1498930E5AE3DFFF5",
+      "StagedRelative": "Source/RpgEngineProbe/ProbeMedia.cpp",
       "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/ProbeMedia.cpp",
-      "StagedRelative": "Source/RpgEngineProbe/ProbeMedia.cpp"
+      "SHA256": "F0D4FF8F1CF65C663F54C97FC22E0DD14B428E0621A3DCC1498930E5AE3DFFF5"
     },
     {
-      "SHA256": "32B669DA0B28432E0DFC998EF64148E648886AF01C81C48EF8D5583028808071",
+      "StagedRelative": "Source/RpgEngineProbe/ProbeMarker.cpp",
       "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/ProbeMarker.cpp",
-      "StagedRelative": "Source/RpgEngineProbe/ProbeMarker.cpp"
+      "SHA256": "32B669DA0B28432E0DFC998EF64148E648886AF01C81C48EF8D5583028808071"
     },
     {
-      "SHA256": "14155E17335DF8522AFCB6B4CBBE26C7329DC4AEB3550F670E3C942D86206F49",
+      "StagedRelative": "Source/RpgEngineProbe/CoreProbe.h",
       "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/CoreProbe.h",
-      "StagedRelative": "Source/RpgEngineProbe/CoreProbe.h"
+      "SHA256": "14155E17335DF8522AFCB6B4CBBE26C7329DC4AEB3550F670E3C942D86206F49"
     },
     {
-      "SHA256": "42748D2E3E684A4DD24076097C02FB3F79AA84B7EA261DAA8F94F4F8DFCBB879",
+      "StagedRelative": "Source/RpgEngineProbe/CoreProbe.cpp",
       "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/CoreProbe.cpp",
-      "StagedRelative": "Source/RpgEngineProbe/CoreProbe.cpp"
+      "SHA256": "42748D2E3E684A4DD24076097C02FB3F79AA84B7EA261DAA8F94F4F8DFCBB879"
     },
     {
-      "SHA256": "056F913617BBAF584D23E26F15A83ADA6C6607F00A8AC64743A154810500B383",
+      "StagedRelative": "Source/RpgEngineProbe/RpgCoreProbeCommandlet.h",
       "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/RpgCoreProbeCommandlet.h",
-      "StagedRelative": "Source/RpgEngineProbe/RpgCoreProbeCommandlet.h"
+      "SHA256": "056F913617BBAF584D23E26F15A83ADA6C6607F00A8AC64743A154810500B383"
     },
     {
-      "SHA256": "582552BF1930569E75508B50E2651F75E4BBA4EE53BA6AF66BB56E655A2206FA",
+      "StagedRelative": "Source/RpgEngineProbe/RpgCoreProbeCommandlet.cpp",
       "Original": "experiments/unreal/RpgEngineProbe/Source/RpgEngineProbe/RpgCoreProbeCommandlet.cpp",
-      "StagedRelative": "Source/RpgEngineProbe/RpgCoreProbeCommandlet.cpp"
+      "SHA256": "582552BF1930569E75508B50E2651F75E4BBA4EE53BA6AF66BB56E655A2206FA"
     },
     {
-      "SHA256": "8D144FA208AE9475202CC27827F165205CACDD2CA5DB371746D1A12F317FDA38",
+      "StagedRelative": "Config/DefaultEngine.ini",
       "Original": "experiments/unreal/RpgEngineProbe/Config/DefaultEngine.ini",
-      "StagedRelative": "Config/DefaultEngine.ini"
+      "SHA256": "8D144FA208AE9475202CC27827F165205CACDD2CA5DB371746D1A12F317FDA38"
     },
     {
-      "SHA256": "AB68B065253E667F37794460068705D04F5D6C13412FFF5544C04B91AD4127F8",
+      "StagedRelative": "Config/DefaultEditorSettings.ini",
       "Original": "experiments/unreal/RpgEngineProbe/Config/DefaultEditorSettings.ini",
-      "StagedRelative": "Config/DefaultEditorSettings.ini"
+      "SHA256": "AB68B065253E667F37794460068705D04F5D6C13412FFF5544C04B91AD4127F8"
     },
     {
-      "SHA256": "EF5DA6A8CC01160B77276418B5958B8B0871F36198D2F68F76A8B152DAC7F619",
+      "StagedRelative": "Config/DefaultEditorPerProjectUserSettings.ini",
       "Original": "experiments/unreal/RpgEngineProbe/Config/DefaultEditorPerProjectUserSettings.ini",
-      "StagedRelative": "Config/DefaultEditorPerProjectUserSettings.ini"
+      "SHA256": "EF5DA6A8CC01160B77276418B5958B8B0871F36198D2F68F76A8B152DAC7F619"
     },
     {
-      "SHA256": "F64E04AE2911794C143FC8C63054A629984AFE819A203478F63604537A08F533",
+      "StagedRelative": "Config/DefaultGame.ini",
       "Original": "experiments/unreal/RpgEngineProbe/Config/DefaultGame.ini",
-      "StagedRelative": "Config/DefaultGame.ini"
+      "SHA256": "F64E04AE2911794C143FC8C63054A629984AFE819A203478F63604537A08F533"
     },
     {
-      "SHA256": "02CF284A3DD7E555260A5695D46B9BD3D8E4EB591830F26145DC419CBA34EC65",
+      "StagedRelative": "Content/PrototypeHub.umap",
       "Original": "experiments/unreal/RpgEngineProbe/Content/PrototypeHub.umap",
-      "StagedRelative": "Content/PrototypeHub.umap"
+      "SHA256": "02CF284A3DD7E555260A5695D46B9BD3D8E4EB591830F26145DC419CBA34EC65"
     },
     {
-      "SHA256": "BC460CB5767AC62DB84380F5D30EA404C03457E91F9BCF8A9973333E169FF766",
+      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/battle.cpp",
       "Original": "src/battle.cpp",
-      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/battle.cpp"
+      "SHA256": "BC460CB5767AC62DB84380F5D30EA404C03457E91F9BCF8A9973333E169FF766"
     },
     {
-      "SHA256": "37D3C157B647A529937688C4295551CC2F79C40A7B0790903A6687D9F8ED02F5",
+      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/battle.hpp",
       "Original": "include/rpg/battle.hpp",
-      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/battle.hpp"
+      "SHA256": "37D3C157B647A529937688C4295551CC2F79C40A7B0790903A6687D9F8ED02F5"
     },
     {
-      "SHA256": "456D689BE2945A1D2D5FA5A2E8782A48B16CDEC0D9BE8F462E6C0418509F1931",
+      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/ability_profile.cpp",
       "Original": "src/ability_profile.cpp",
-      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/ability_profile.cpp"
+      "SHA256": "456D689BE2945A1D2D5FA5A2E8782A48B16CDEC0D9BE8F462E6C0418509F1931"
     },
     {
-      "SHA256": "706A9650BBC049660C57230B72830B80436B49608B38D0987FC65A9719A814DD",
+      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/ability_profile.hpp",
       "Original": "include/rpg/ability_profile.hpp",
-      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/ability_profile.hpp"
+      "SHA256": "706A9650BBC049660C57230B72830B80436B49608B38D0987FC65A9719A814DD"
     },
     {
-      "SHA256": "8FF467AD75D760A742D5C6A46C895B5F998768AD0B7137E7B2F6ED5144C99884",
+      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/local_session.cpp",
       "Original": "src/local_session.cpp",
-      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/local_session.cpp"
+      "SHA256": "8FF467AD75D760A742D5C6A46C895B5F998768AD0B7137E7B2F6ED5144C99884"
     },
     {
-      "SHA256": "7AA7DBA55C6B7E8A6108B474F6C278F2C523A67856CEFE9F638E85432DEAC607",
+      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/local_session.hpp",
       "Original": "include/rpg/local_session.hpp",
-      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/local_session.hpp"
+      "SHA256": "7AA7DBA55C6B7E8A6108B474F6C278F2C523A67856CEFE9F638E85432DEAC607"
     },
     {
-      "SHA256": "9D0259EBB036C003989A676521D75A15A7A92EBF30654E825745CDA22A3FBFA8",
+      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/team_selection.cpp",
       "Original": "src/team_selection.cpp",
-      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/team_selection.cpp"
+      "SHA256": "9D0259EBB036C003989A676521D75A15A7A92EBF30654E825745CDA22A3FBFA8"
     },
     {
-      "SHA256": "A66C4DF2F85B4489074FB0E35245D5E3726003EB07ABCEB067A737AF705D4D39",
+      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/team_selection.hpp",
       "Original": "include/rpg/team_selection.hpp",
-      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/team_selection.hpp"
+      "SHA256": "A66C4DF2F85B4489074FB0E35245D5E3726003EB07ABCEB067A737AF705D4D39"
     },
     {
-      "SHA256": "70A548324307E9D23D67633B13435B8E0CFA79E686F74EF37274C7B2E483464C",
+      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/save_game.cpp",
       "Original": "src/save_game.cpp",
-      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/save_game.cpp"
+      "SHA256": "70A548324307E9D23D67633B13435B8E0CFA79E686F74EF37274C7B2E483464C"
     },
     {
-      "SHA256": "163C153D7B00790FCEEF78A6928B39B74AEED54153E1C49D790F740E549230BB",
+      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/save_game.hpp",
       "Original": "include/rpg/save_game.hpp",
-      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/save_game.hpp"
+      "SHA256": "163C153D7B00790FCEEF78A6928B39B74AEED54153E1C49D790F740E549230BB"
     },
     {
-      "SHA256": "506296714FAA4AA3E26B76177963090E69E9F98D2CCB8B0531E2D1ADDDBC3868",
+      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/reference_encounter.cpp",
       "Original": "src/reference_encounter.cpp",
-      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/reference_encounter.cpp"
+      "SHA256": "506296714FAA4AA3E26B76177963090E69E9F98D2CCB8B0531E2D1ADDDBC3868"
     },
     {
-      "SHA256": "EA88816387FB6BD229C88B910999CE24F6846ABC5AB0BF63A6B1F27129B61727",
+      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/reference_encounter.hpp",
       "Original": "include/rpg/reference_encounter.hpp",
-      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/reference_encounter.hpp"
+      "SHA256": "EA88816387FB6BD229C88B910999CE24F6846ABC5AB0BF63A6B1F27129B61727"
     },
     {
-      "SHA256": "7EE833F1E8ABD7C485982675AB40C555B820D3E073110D808E8F54EE5E0FA003",
+      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/visual_session.cpp",
       "Original": "src/visual_session.cpp",
-      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/visual_session.cpp"
+      "SHA256": "7EE833F1E8ABD7C485982675AB40C555B820D3E073110D808E8F54EE5E0FA003"
     },
     {
-      "SHA256": "ECFB02F7608C325EBF2873292703F8CB69732A1408A1D3B853D52C5D24D235F7",
+      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/visual_session.hpp",
       "Original": "include/rpg/visual_session.hpp",
-      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/visual_session.hpp"
+      "SHA256": "ECFB02F7608C325EBF2873292703F8CB69732A1408A1D3B853D52C5D24D235F7"
     },
     {
-      "SHA256": "6118EAF9CFC5FE3394DB9EDBD8DB1C978EAC0BBA5EDDC33AED898D005A8B44E0",
+      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/arena_layout.cpp",
       "Original": "src/arena_layout.cpp",
-      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/arena_layout.cpp"
+      "SHA256": "6118EAF9CFC5FE3394DB9EDBD8DB1C978EAC0BBA5EDDC33AED898D005A8B44E0"
     },
     {
-      "SHA256": "632F9CEBD43D4877421F5A967C395485A22063BA1BD6C940112D96E83CD0E498",
+      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/arena_layout.hpp",
       "Original": "include/rpg/arena_layout.hpp",
-      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/arena_layout.hpp"
+      "SHA256": "632F9CEBD43D4877421F5A967C395485A22063BA1BD6C940112D96E83CD0E498"
     },
     {
-      "SHA256": "638B96220BEA13ADD6C86750CB6F17114FA83E627492C1A7E051336266B8D699",
+      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/battle_presentation.cpp",
       "Original": "src/battle_presentation.cpp",
-      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/battle_presentation.cpp"
+      "SHA256": "638B96220BEA13ADD6C86750CB6F17114FA83E627492C1A7E051336266B8D699"
     },
     {
-      "SHA256": "933CC37C7424078D8E976806F28BDEC6BEF6619D4771F1EC7C37047BD4326CB9",
+      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/battle_presentation.hpp",
       "Original": "include/rpg/battle_presentation.hpp",
-      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/battle_presentation.hpp"
+      "SHA256": "933CC37C7424078D8E976806F28BDEC6BEF6619D4771F1EC7C37047BD4326CB9"
     },
     {
-      "SHA256": "6A82FFFFA4379A1593357CC0399189DA825B33FA9B5F9488DEBF4064D74CCD7F",
+      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/startup_presentation.cpp",
       "Original": "src/startup_presentation.cpp",
-      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/startup_presentation.cpp"
+      "SHA256": "6A82FFFFA4379A1593357CC0399189DA825B33FA9B5F9488DEBF4064D74CCD7F"
     },
     {
-      "SHA256": "6C46BA24D5AB66C18A6FA801EB8FA6AE91935EABB1A52976260A650F32868C33",
+      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/startup_presentation.hpp",
       "Original": "include/rpg/startup_presentation.hpp",
-      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/startup_presentation.hpp"
+      "SHA256": "6C46BA24D5AB66C18A6FA801EB8FA6AE91935EABB1A52976260A650F32868C33"
     },
     {
-      "SHA256": "9BF8FC3FE1EFE4E29F204E1F8A9D1D76A8F3A657636A17B42A80C00B43845F51",
+      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/hub_style.cpp",
       "Original": "src/hub_style.cpp",
-      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/hub_style.cpp"
+      "SHA256": "9BF8FC3FE1EFE4E29F204E1F8A9D1D76A8F3A657636A17B42A80C00B43845F51"
     },
     {
-      "SHA256": "72E661E3E5088478971D9D4D89E4FE1493C51E31A48EE151191859489CB6EFFE",
+      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/hub_style.hpp",
       "Original": "include/rpg/hub_style.hpp",
-      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/hub_style.hpp"
+      "SHA256": "72E661E3E5088478971D9D4D89E4FE1493C51E31A48EE151191859489CB6EFFE"
     },
     {
-      "SHA256": "6FFDEA7BC78B011F7BCAA6A34BCA453332EC6C79D34406C20611ED1B4DDDAFED",
+      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/stage.cpp",
       "Original": "src/stage.cpp",
-      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/stage.cpp"
+      "SHA256": "6FFDEA7BC78B011F7BCAA6A34BCA453332EC6C79D34406C20611ED1B4DDDAFED"
     },
     {
-      "SHA256": "F23DE1190447EEDA16E195F3B558BB5D55A0F10AD70BF7C45D5237B9D4B873BD",
+      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/stage.hpp",
       "Original": "include/rpg/stage.hpp",
-      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/stage.hpp"
+      "SHA256": "F23DE1190447EEDA16E195F3B558BB5D55A0F10AD70BF7C45D5237B9D4B873BD"
     },
     {
-      "SHA256": "D68DF65D7F86B931A31AD31C5266B3E20545DD056624AD7FD8C4455456039691",
+      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/sequential.cpp",
       "Original": "src/sequential.cpp",
-      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/sequential.cpp"
+      "SHA256": "D68DF65D7F86B931A31AD31C5266B3E20545DD056624AD7FD8C4455456039691"
     },
     {
-      "SHA256": "CA0357EBC10ADBD7C3AD3E8A40043721E5C2BC2CA9A43EC561AB0C1F15F47AEE",
+      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/sequential.hpp",
       "Original": "include/rpg/sequential.hpp",
-      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/sequential.hpp"
+      "SHA256": "CA0357EBC10ADBD7C3AD3E8A40043721E5C2BC2CA9A43EC561AB0C1F15F47AEE"
     },
     {
-      "SHA256": "F5D3C5FDB97D4C2EA63A839C1A5EA2D1CC6E9A5FC381E3B8CB05FB0FF9B51E24",
+      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/shared_boss.cpp",
       "Original": "src/shared_boss.cpp",
-      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/shared_boss.cpp"
+      "SHA256": "F5D3C5FDB97D4C2EA63A839C1A5EA2D1CC6E9A5FC381E3B8CB05FB0FF9B51E24"
     },
     {
-      "SHA256": "FEB8CB6FCEA598A90BC3076117F163EEB5553CFCA093A0B09B0BA577639BE507",
+      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/shared_boss.hpp",
       "Original": "include/rpg/shared_boss.hpp",
-      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/shared_boss.hpp"
+      "SHA256": "FEB8CB6FCEA598A90BC3076117F163EEB5553CFCA093A0B09B0BA577639BE507"
     },
     {
-      "SHA256": "EF8F64728F462A553004A088D1D89757C0A85FA7776781BD31F81FC51F23B519",
+      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/pve.cpp",
       "Original": "src/pve.cpp",
-      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/pve.cpp"
+      "SHA256": "EF8F64728F462A553004A088D1D89757C0A85FA7776781BD31F81FC51F23B519"
     },
     {
-      "SHA256": "AABA40DB59AB3395494A6148D56B26C60F7CA04FF4644CDDE42A4B564C67159D",
+      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/pve.hpp",
       "Original": "include/rpg/pve.hpp",
-      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/pve.hpp"
+      "SHA256": "AABA40DB59AB3395494A6148D56B26C60F7CA04FF4644CDDE42A4B564C67159D"
     },
     {
-      "SHA256": "0521B89442758E1A946E8F0491AD0EC7BDE84195F5F79A7ABDFC751F39EABAF5",
+      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/pve_visual.cpp",
       "Original": "src/pve_visual.cpp",
-      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/pve_visual.cpp"
+      "SHA256": "0521B89442758E1A946E8F0491AD0EC7BDE84195F5F79A7ABDFC751F39EABAF5"
     },
     {
-      "SHA256": "A88711D052025F9ACA6C148FF00414A695A2F11D266E4BF9AFFC7B2D4CB2B165",
+      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/pve_visual.hpp",
       "Original": "include/rpg/pve_visual.hpp",
-      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/pve_visual.hpp"
+      "SHA256": "A88711D052025F9ACA6C148FF00414A695A2F11D266E4BF9AFFC7B2D4CB2B165"
     },
     {
-      "SHA256": "B67D9CD1C650098D40B74A82E8D57FA46EF1080E580B26C6D3B432E0ED737DE0",
+      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/tutorial.cpp",
       "Original": "src/tutorial.cpp",
-      "StagedRelative": "Source/RpgEngineProbe/Private/NativeCore/tutorial.cpp"
+      "SHA256": "B67D9CD1C650098D40B74A82E8D57FA46EF1080E580B26C6D3B432E0ED737DE0"
     },
     {
-      "SHA256": "51D4CB2347B984CC1F782EAED2BF735D120D0530F5F0A467CBF9C372EB4808D7",
+      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/tutorial.hpp",
       "Original": "include/rpg/tutorial.hpp",
-      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/tutorial.hpp"
+      "SHA256": "51D4CB2347B984CC1F782EAED2BF735D120D0530F5F0A467CBF9C372EB4808D7"
     },
     {
-      "SHA256": "83DE0B7BD68E4D98085CF79A130ED50DF6BE2E8B0F8650E55C0100B77496D239",
+      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/persistence.hpp",
       "Original": "include/rpg/persistence.hpp",
-      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/persistence.hpp"
+      "SHA256": "83DE0B7BD68E4D98085CF79A130ED50DF6BE2E8B0F8650E55C0100B77496D239"
     },
     {
-      "SHA256": "37B8A4612EF95499D2AF13089D1C6620D61ADC612D9D7CCB421B6786BCF16873",
+      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/damage_pipeline.hpp",
       "Original": "include/rpg/damage_pipeline.hpp",
-      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/damage_pipeline.hpp"
+      "SHA256": "37B8A4612EF95499D2AF13089D1C6620D61ADC612D9D7CCB421B6786BCF16873"
     },
     {
-      "SHA256": "5012A1ACE45A8FDE1642246CE0A90382ED79DD83541D8FE500DAB90528646705",
+      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/hit_resolution.hpp",
       "Original": "include/rpg/hit_resolution.hpp",
-      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/hit_resolution.hpp"
+      "SHA256": "5012A1ACE45A8FDE1642246CE0A90382ED79DD83541D8FE500DAB90528646705"
     },
     {
-      "SHA256": "FF761D57EFA0BF4DD3FEB4558C3850733A443869880E4301C6A19630E18F6308",
+      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/status_operations.hpp",
       "Original": "include/rpg/status_operations.hpp",
-      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/status_operations.hpp"
+      "SHA256": "FF761D57EFA0BF4DD3FEB4558C3850733A443869880E4301C6A19630E18F6308"
     },
     {
-      "SHA256": "7AEAF867F64505BBEB0E6E6EFE9670F2D32EA229F444834BCF174B02E6E1F798",
+      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/score.hpp",
       "Original": "include/rpg/score.hpp",
-      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/score.hpp"
+      "SHA256": "7AEAF867F64505BBEB0E6E6EFE9670F2D32EA229F444834BCF174B02E6E1F798"
     },
     {
-      "SHA256": "A3A0C282595C2EC24222624710609EAAC42AD9D4BA9707BEA46D351C87F6BB7E",
+      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/numeric.hpp",
       "Original": "include/rpg/numeric.hpp",
-      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/numeric.hpp"
+      "SHA256": "A3A0C282595C2EC24222624710609EAAC42AD9D4BA9707BEA46D351C87F6BB7E"
     },
     {
-      "SHA256": "8C2BC7D213E6A1BCC8E16AAD5A95D7AEB1563A320602A9DE1CCF3EA8521518D0",
+      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/visual_events.hpp",
       "Original": "include/rpg/visual_events.hpp",
-      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/visual_events.hpp"
+      "SHA256": "8C2BC7D213E6A1BCC8E16AAD5A95D7AEB1563A320602A9DE1CCF3EA8521518D0"
     },
     {
-      "SHA256": "25D06F535294791A024D3EB293AA8497665266163454614DB1213A60DDD21B45",
+      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/encounter_manifest.hpp",
       "Original": "include/rpg/encounter_manifest.hpp",
-      "StagedRelative": "Source/RpgEngineProbe/Public/NativeCore/rpg/encounter_manifest.hpp"
+      "SHA256": "25D06F535294791A024D3EB293AA8497665266163454614DB1213A60DDD21B45"
     },
     {
-      "SHA256": "BEB22FAE4211D6DFA2E1B86D032EE7F364D6220D824F6298A6D9B065E493A654",
+      "StagedRelative": "Content/Presentation/data/encounters/team-reference-v1.rpgmanifest",
       "Original": "data/encounters/team-reference-v1.rpgmanifest",
-      "StagedRelative": "Content/Presentation/data/encounters/team-reference-v1.rpgmanifest"
+      "SHA256": "BEB22FAE4211D6DFA2E1B86D032EE7F364D6220D824F6298A6D9B065E493A654"
     },
     {
-      "SHA256": "5DFC0D5C68F99C3231B7CE6134F4E4F4076A5463698987B95A4E9AA3F01980CA",
+      "StagedRelative": "Content/Presentation/data/encounters/classic-reference-v1.rpgmanifest",
       "Original": "data/encounters/classic-reference-v1.rpgmanifest",
-      "StagedRelative": "Content/Presentation/data/encounters/classic-reference-v1.rpgmanifest"
+      "SHA256": "5DFC0D5C68F99C3231B7CE6134F4E4F4076A5463698987B95A4E9AA3F01980CA"
     },
     {
-      "SHA256": "BE9C1C97B9036F14015054568A4E05066AA6B767662A9D9DBD3D851A65693002",
+      "StagedRelative": "Content/Presentation/data/presentation/ui-runtime.json",
       "Original": "data/presentation/ui-runtime.json",
-      "StagedRelative": "Content/Presentation/data/presentation/ui-runtime.json"
+      "SHA256": "BE9C1C97B9036F14015054568A4E05066AA6B767662A9D9DBD3D851A65693002"
     },
     {
-      "SHA256": "60711A3090C90F828BBE15F9DDB96A18350641A448A0C45143F2C0E17E2AC3F7",
+      "StagedRelative": "Content/Presentation/assets/runtime/ui/2026-11-23-runtime-v01/icones-habilidades-felipe-adulto/ico_skill_felipe_a1.png",
       "Original": "assets/runtime/ui/2026-11-23-runtime-v01/icones-habilidades-felipe-adulto/ico_skill_felipe_a1.png",
-      "StagedRelative": "Content/Presentation/assets/runtime/ui/2026-11-23-runtime-v01/icones-habilidades-felipe-adulto/ico_skill_felipe_a1.png"
+      "SHA256": "60711A3090C90F828BBE15F9DDB96A18350641A448A0C45143F2C0E17E2AC3F7"
     },
     {
-      "SHA256": "E37D0F9F41FB8196E40CDE9262BD542839BD6C1B56A3994062C830F865CB316C",
+      "StagedRelative": "Content/Presentation/assets/runtime/ui/2026-11-23-runtime-v01/icones-habilidades-felipe-adulto/ico_skill_felipe_a2.png",
       "Original": "assets/runtime/ui/2026-11-23-runtime-v01/icones-habilidades-felipe-adulto/ico_skill_felipe_a2.png",
-      "StagedRelative": "Content/Presentation/assets/runtime/ui/2026-11-23-runtime-v01/icones-habilidades-felipe-adulto/ico_skill_felipe_a2.png"
+      "SHA256": "E37D0F9F41FB8196E40CDE9262BD542839BD6C1B56A3994062C830F865CB316C"
     },
     {
-      "SHA256": "0DD18477F0454C0E4CD790D649F0FB70D821CE603F3CC5FBE1E12A624BB01DFB",
+      "StagedRelative": "Content/Presentation/assets/runtime/ui/2026-11-23-runtime-v01/icones-habilidades-felipe-adulto/ico_skill_felipe_a2_active.png",
       "Original": "assets/runtime/ui/2026-11-23-runtime-v01/icones-habilidades-felipe-adulto/ico_skill_felipe_a2_active.png",
-      "StagedRelative": "Content/Presentation/assets/runtime/ui/2026-11-23-runtime-v01/icones-habilidades-felipe-adulto/ico_skill_felipe_a2_active.png"
+      "SHA256": "0DD18477F0454C0E4CD790D649F0FB70D821CE603F3CC5FBE1E12A624BB01DFB"
     },
     {
-      "SHA256": "EEC311A4D40E510BBCFD7D108CDF46E8FEA10A03BF79BB4D307710C693927682",
+      "StagedRelative": "Content/Presentation/assets/runtime/ui/2026-11-23-runtime-v01/icones-habilidades-felipe-adulto/ico_skill_felipe_a3.png",
       "Original": "assets/runtime/ui/2026-11-23-runtime-v01/icones-habilidades-felipe-adulto/ico_skill_felipe_a3.png",
-      "StagedRelative": "Content/Presentation/assets/runtime/ui/2026-11-23-runtime-v01/icones-habilidades-felipe-adulto/ico_skill_felipe_a3.png"
+      "SHA256": "EEC311A4D40E510BBCFD7D108CDF46E8FEA10A03BF79BB4D307710C693927682"
     },
     {
-      "SHA256": "1409800F03D70F62EB45B237DB5404E827C908E183C24912E0967974F310381D",
+      "StagedRelative": "Content/Presentation/assets/runtime/ui/2026-11-23-runtime-v01/icones-habilidades-jovem-lobo/ico_skill_jovem_lobo_a1.png",
       "Original": "assets/runtime/ui/2026-11-23-runtime-v01/icones-habilidades-jovem-lobo/ico_skill_jovem_lobo_a1.png",
-      "StagedRelative": "Content/Presentation/assets/runtime/ui/2026-11-23-runtime-v01/icones-habilidades-jovem-lobo/ico_skill_jovem_lobo_a1.png"
+      "SHA256": "1409800F03D70F62EB45B237DB5404E827C908E183C24912E0967974F310381D"
     },
     {
-      "SHA256": "1F8EA1F75344B089E5F5D519A32A621EF26CE18C143868D64459577C2AF8CB29",
+      "StagedRelative": "Content/Presentation/assets/runtime/ui/2026-11-23-runtime-v01/icones-habilidades-jovem-lobo/ico_skill_jovem_lobo_a2.png",
       "Original": "assets/runtime/ui/2026-11-23-runtime-v01/icones-habilidades-jovem-lobo/ico_skill_jovem_lobo_a2.png",
-      "StagedRelative": "Content/Presentation/assets/runtime/ui/2026-11-23-runtime-v01/icones-habilidades-jovem-lobo/ico_skill_jovem_lobo_a2.png"
+      "SHA256": "1F8EA1F75344B089E5F5D519A32A621EF26CE18C143868D64459577C2AF8CB29"
     },
     {
-      "SHA256": "D67CD37591106B380ECBA958B8EE50DA3FCFC969C4E922E538C6BCED33275144",
+      "StagedRelative": "Content/Presentation/assets/runtime/ui/2026-11-23-runtime-v01/icones-habilidades-jovem-lobo/ico_skill_jovem_lobo_a2_active.png",
       "Original": "assets/runtime/ui/2026-11-23-runtime-v01/icones-habilidades-jovem-lobo/ico_skill_jovem_lobo_a2_active.png",
-      "StagedRelative": "Content/Presentation/assets/runtime/ui/2026-11-23-runtime-v01/icones-habilidades-jovem-lobo/ico_skill_jovem_lobo_a2_active.png"
+      "SHA256": "D67CD37591106B380ECBA958B8EE50DA3FCFC969C4E922E538C6BCED33275144"
     },
     {
-      "SHA256": "FE5E619B4E9032B6C3E2B6FCA09B28B356FD619AAEB7C82AEAB15147F18995BC",
+      "StagedRelative": "Content/Presentation/assets/runtime/ui/2026-11-23-runtime-v01/icones-habilidades-jovem-lobo/ico_skill_jovem_lobo_a3.png",
       "Original": "assets/runtime/ui/2026-11-23-runtime-v01/icones-habilidades-jovem-lobo/ico_skill_jovem_lobo_a3.png",
-      "StagedRelative": "Content/Presentation/assets/runtime/ui/2026-11-23-runtime-v01/icones-habilidades-jovem-lobo/ico_skill_jovem_lobo_a3.png"
+      "SHA256": "FE5E619B4E9032B6C3E2B6FCA09B28B356FD619AAEB7C82AEAB15147F18995BC"
     },
     {
-      "SHA256": "AA956BC676C3E1EA73EE7BECBEAB8D9F093AFAF463610B4A067EC4E8E4843059",
+      "StagedRelative": "Content/Presentation/assets/runtime/ui/2026-11-23-runtime-v01/icones-status/buffs-defesas/ico_status_immunity_invincible.png",
       "Original": "assets/runtime/ui/2026-11-23-runtime-v01/icones-status/buffs-defesas/ico_status_immunity_invincible.png",
-      "StagedRelative": "Content/Presentation/assets/runtime/ui/2026-11-23-runtime-v01/icones-status/buffs-defesas/ico_status_immunity_invincible.png"
+      "SHA256": "AA956BC676C3E1EA73EE7BECBEAB8D9F093AFAF463610B4A067EC4E8E4843059"
     },
     {
-      "SHA256": "77067439CEA594F92BAE97B7A52FC7B9ECA743E53896A3C690C276521BFC0BA2",
+      "StagedRelative": "Content/Presentation/assets/runtime/ui/2026-11-23-runtime-v01/icones-status/buffs-defesas/ico_status_shield_silver.png",
       "Original": "assets/runtime/ui/2026-11-23-runtime-v01/icones-status/buffs-defesas/ico_status_shield_silver.png",
-      "StagedRelative": "Content/Presentation/assets/runtime/ui/2026-11-23-runtime-v01/icones-status/buffs-defesas/ico_status_shield_silver.png"
+      "SHA256": "77067439CEA594F92BAE97B7A52FC7B9ECA743E53896A3C690C276521BFC0BA2"
     },
     {
-      "SHA256": "B5F71AE4E20E7BE3A45783EEDA7D209F07FACC5C4AA527F5236EF2271D296AFE",
+      "StagedRelative": "Content/Presentation/assets/runtime/ui/2026-11-23-runtime-v01/icones-status/buffs-defesas/ico_status_shield_standard.png",
       "Original": "assets/runtime/ui/2026-11-23-runtime-v01/icones-status/buffs-defesas/ico_status_shield_standard.png",
-      "StagedRelative": "Content/Presentation/assets/runtime/ui/2026-11-23-runtime-v01/icones-status/buffs-defesas/ico_status_shield_standard.png"
+      "SHA256": "B5F71AE4E20E7BE3A45783EEDA7D209F07FACC5C4AA527F5236EF2271D296AFE"
     },
     {
-      "SHA256": "815D40DF56C563335F83FEB0086DEB40792A3A6FE805037452DAAD3F9B825A30",
+      "StagedRelative": "Content/Presentation/assets/runtime/ui/2026-11-23-runtime-v01/icones-status/debuffs/ico_status_bleed.png",
       "Original": "assets/runtime/ui/2026-11-23-runtime-v01/icones-status/debuffs/ico_status_bleed.png",
-      "StagedRelative": "Content/Presentation/assets/runtime/ui/2026-11-23-runtime-v01/icones-status/debuffs/ico_status_bleed.png"
+      "SHA256": "815D40DF56C563335F83FEB0086DEB40792A3A6FE805037452DAAD3F9B825A30"
     },
     {
-      "SHA256": "ABEFFC1C94E9A5C3E598B3AA8B7013BADEF4560772933C7D31C19DAA9D9C83B6",
+      "StagedRelative": "Content/Presentation/assets/runtime/ui/2026-11-23-runtime-v01/icones-status/debuffs/ico_status_freeze.png",
       "Original": "assets/runtime/ui/2026-11-23-runtime-v01/icones-status/debuffs/ico_status_freeze.png",
-      "StagedRelative": "Content/Presentation/assets/runtime/ui/2026-11-23-runtime-v01/icones-status/debuffs/ico_status_freeze.png"
+      "SHA256": "ABEFFC1C94E9A5C3E598B3AA8B7013BADEF4560772933C7D31C19DAA9D9C83B6"
     },
     {
-      "SHA256": "CD15FD1FA6E600E7DD596D99F29D04CACEEBEA84570054A80BBB6E05EAFCB7DC",
+      "StagedRelative": "Content/Presentation/assets/runtime/ui/2026-11-23-runtime-v01/icones-status/debuffs/ico_status_petrification.png",
       "Original": "assets/runtime/ui/2026-11-23-runtime-v01/icones-status/debuffs/ico_status_petrification.png",
-      "StagedRelative": "Content/Presentation/assets/runtime/ui/2026-11-23-runtime-v01/icones-status/debuffs/ico_status_petrification.png"
+      "SHA256": "CD15FD1FA6E600E7DD596D99F29D04CACEEBEA84570054A80BBB6E05EAFCB7DC"
     },
     {
-      "SHA256": "8F1A0C12ED9313C730614B315115C3C7D14E9449F7858107A312D0038A1C7A8F",
+      "StagedRelative": "Content/Presentation/assets/runtime/ui/2026-11-23-runtime-v01/icones-status/debuffs/ico_status_poison.png",
       "Original": "assets/runtime/ui/2026-11-23-runtime-v01/icones-status/debuffs/ico_status_poison.png",
-      "StagedRelative": "Content/Presentation/assets/runtime/ui/2026-11-23-runtime-v01/icones-status/debuffs/ico_status_poison.png"
+      "SHA256": "8F1A0C12ED9313C730614B315115C3C7D14E9449F7858107A312D0038A1C7A8F"
     },
     {
-      "SHA256": "133833A4144516E276C817E2B2F8819F14FDDE2952EFD61714C9F65066D4201E",
+      "StagedRelative": "Content/Presentation/assets/runtime/ui/2026-11-23-runtime-v01/icones-status/debuffs/ico_status_silence.png",
       "Original": "assets/runtime/ui/2026-11-23-runtime-v01/icones-status/debuffs/ico_status_silence.png",
-      "StagedRelative": "Content/Presentation/assets/runtime/ui/2026-11-23-runtime-v01/icones-status/debuffs/ico_status_silence.png"
+      "SHA256": "133833A4144516E276C817E2B2F8819F14FDDE2952EFD61714C9F65066D4201E"
     },
     {
-      "SHA256": "167FB117A2447DCF84A899ADC26C4947955A233819AFB3DDA524A757B8CC71BB",
+      "StagedRelative": "Content/Presentation/assets/runtime/ui/2026-11-23-runtime-v01/icones-status/debuffs/ico_status_suppression.png",
       "Original": "assets/runtime/ui/2026-11-23-runtime-v01/icones-status/debuffs/ico_status_suppression.png",
-      "StagedRelative": "Content/Presentation/assets/runtime/ui/2026-11-23-runtime-v01/icones-status/debuffs/ico_status_suppression.png"
+      "SHA256": "167FB117A2447DCF84A899ADC26C4947955A233819AFB3DDA524A757B8CC71BB"
     },
     {
-      "SHA256": "00044A643DE6F386F76CC7E5171188FCE25BED010A9A1572C4FBBBC5DD4793A8",
+      "StagedRelative": "Content/Presentation/assets/runtime/ui/2026-11-23-runtime-v01/logo-lobo-v01.png",
       "Original": "assets/runtime/ui/2026-11-23-runtime-v01/logo-lobo-v01.png",
-      "StagedRelative": "Content/Presentation/assets/runtime/ui/2026-11-23-runtime-v01/logo-lobo-v01.png"
+      "SHA256": "00044A643DE6F386F76CC7E5171188FCE25BED010A9A1572C4FBBBC5DD4793A8"
     },
     {
-      "SHA256": "D54149C407C44A7D31EF242A1390986E9C31D03A3728AB0E7374BE1BD310E112",
+      "StagedRelative": "Content/Presentation/assets/runtime/ui/2026-11-23-runtime-v01/avatar-felipe-v01.png",
       "Original": "assets/runtime/ui/2026-11-23-runtime-v01/avatar-felipe-v01.png",
-      "StagedRelative": "Content/Presentation/assets/runtime/ui/2026-11-23-runtime-v01/avatar-felipe-v01.png"
+      "SHA256": "D54149C407C44A7D31EF242A1390986E9C31D03A3728AB0E7374BE1BD310E112"
     },
     {
-      "SHA256": "E1EEE5A4AC33BE08BBA73372DEC3D25E22FED4DCC663B23378722EE8735359F1",
+      "StagedRelative": "Content/Presentation/data/presentation/startup.json",
       "Original": "data/presentation/startup.json",
-      "StagedRelative": "Content/Presentation/data/presentation/startup.json"
+      "SHA256": "E1EEE5A4AC33BE08BBA73372DEC3D25E22FED4DCC663B23378722EE8735359F1"
     },
     {
-      "SHA256": "F0A4FABF2EF619DE05E3AD77C100B354AE837E62CC3573DFBE6075FE14D54049",
+      "StagedRelative": "Content/Presentation/assets/runtime/hub/bg-home-day-sunny.png",
       "Original": "assets/runtime/hub/bg-home-day-sunny.png",
-      "StagedRelative": "Content/Presentation/assets/runtime/hub/bg-home-day-sunny.png"
+      "SHA256": "F0A4FABF2EF619DE05E3AD77C100B354AE837E62CC3573DFBE6075FE14D54049"
     },
     {
-      "SHA256": "C17D0E93A760E1917110609E3D080CC3E67BFD931B7BD30F72EE2B7A47F402B9",
+      "StagedRelative": "Content/Presentation/assets/runtime/hub/logo-lobo.png",
       "Original": "assets/runtime/hub/logo-lobo.png",
-      "StagedRelative": "Content/Presentation/assets/runtime/hub/logo-lobo.png"
+      "SHA256": "C17D0E93A760E1917110609E3D080CC3E67BFD931B7BD30F72EE2B7A47F402B9"
     },
     {
-      "SHA256": "B20B7D9626DD956B2C5E558692AD328B1F19E3275E2782DB4FA07670D83F35E0",
+      "StagedRelative": "Content/Presentation/assets/runtime/fonts/CormorantGaramond.ttf",
       "Original": "assets/runtime/fonts/CormorantGaramond.ttf",
-      "StagedRelative": "Content/Presentation/assets/runtime/fonts/CormorantGaramond.ttf"
+      "SHA256": "B20B7D9626DD956B2C5E558692AD328B1F19E3275E2782DB4FA07670D83F35E0"
     },
     {
-      "SHA256": "60700D351CAC4650C51F3F9DB318D2A420F8B45052DBA2715EB5FEC41F0F6956",
+      "StagedRelative": "Content/Presentation/assets/runtime/fonts/CormorantGaramond-OFL.txt",
       "Original": "assets/runtime/fonts/CormorantGaramond-OFL.txt",
-      "StagedRelative": "Content/Presentation/assets/runtime/fonts/CormorantGaramond-OFL.txt"
+      "SHA256": "60700D351CAC4650C51F3F9DB318D2A420F8B45052DBA2715EB5FEC41F0F6956"
     },
     {
-      "SHA256": "822A6621CCBE8D97D20AC88C1C41F5615C9C2C202EAA75F272CD452AAC6475A7",
+      "StagedRelative": "Content/Presentation/assets/runtime/fonts/Lora.ttf",
       "Original": "assets/runtime/fonts/Lora.ttf",
-      "StagedRelative": "Content/Presentation/assets/runtime/fonts/Lora.ttf"
+      "SHA256": "822A6621CCBE8D97D20AC88C1C41F5615C9C2C202EAA75F272CD452AAC6475A7"
     },
     {
-      "SHA256": "1D9A970809AC804B582A6CE7F0EBC4E7FEFCBFD7FF6299CAD35EE656A21BE716",
+      "StagedRelative": "Content/Presentation/assets/runtime/fonts/Lora-OFL.txt",
       "Original": "assets/runtime/fonts/Lora-OFL.txt",
-      "StagedRelative": "Content/Presentation/assets/runtime/fonts/Lora-OFL.txt"
+      "SHA256": "1D9A970809AC804B582A6CE7F0EBC4E7FEFCBFD7FF6299CAD35EE656A21BE716"
     },
     {
-      "SHA256": "00507FEE3417059F4C909271D09D0C9D1D71E053B2E7103AE78E2DFE772D2ABB",
+      "StagedRelative": "Content/Presentation/assets/runtime/video/intro-desk.mp4",
       "Original": "assets/runtime/video/intro-desk.mp4",
-      "StagedRelative": "Content/Presentation/assets/runtime/video/intro-desk.mp4"
+      "SHA256": "00507FEE3417059F4C909271D09D0C9D1D71E053B2E7103AE78E2DFE772D2ABB"
     },
     {
-      "SHA256": "C6BFE9F1BC89A964B62E98A5DB1B1B10D1640E0A61EA09EDBB3828B375308EB4",
+      "StagedRelative": "Content/Presentation/assets/runtime/video/intro-mobile.mp4",
       "Original": "assets/runtime/video/intro-mobile.mp4",
-      "StagedRelative": "Content/Presentation/assets/runtime/video/intro-mobile.mp4"
+      "SHA256": "C6BFE9F1BC89A964B62E98A5DB1B1B10D1640E0A61EA09EDBB3828B375308EB4"
     }
   ],
   "BuildExecuted": false,

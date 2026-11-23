@@ -6,8 +6,7 @@
     "Font family and style direction"
   ],
   "Pending": [
-    "Revised smaller Light labels",
-    "Luminous hover",
+    "Revised idle brightness and hover glow",
     "Import monitor exclusion on next editor startup"
   ],
   "LabelFont": "Engine Roboto Light",
@@ -28,6 +27,8 @@
   "AndroidExecuted": false,
   "CombatCodeChanged": false,
   "ProgressPercent": 28,
-  "BinarySHA256": "F6FEBC5726802A7EBFA44D85541C5555C083059EFAC1C26F0C2E4954E5FFC98E",
-  "SourceCommit": "9916dd7"
+  "BinarySHA256": "D57D0D63AA30818432895E2FA47AF404FD143806372A8F876DC9701C21495791",
+  "Revision": 2,
+  "IdleBrightnessGain": 1.3,
+  "SoftOuterGlowHover": true
 }

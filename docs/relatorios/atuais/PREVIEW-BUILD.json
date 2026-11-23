@@ -6,5 +6,6 @@
   "Project": "experiments/unreal/RpgEngineProbe/RpgEngineProbe.uproject",
   "Log": "build/hub-letreiros-2026-11-23-build.log",
   "Report": "docs/relatorios/atuais/HUB-LETREIROS-2026-11-23.json",
-  "Scope": "Light label styling and project-only Presentation auto-reimport exclusion"
+  "Scope": "Light label styling and project-only Presentation auto-reimport exclusion",
+  "SourceCommit": "9916dd7"
 }

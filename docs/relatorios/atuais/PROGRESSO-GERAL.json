@@ -94,7 +94,7 @@
       "Base": "Estado reconciliado com commits e aceites; fila por dependência e recebíveis atualizados"
     }
   ],
-  "latest_verified_commit": "a60b7ea",
+  "latest_verified_commit": "9916dd7",
   "user_acceptance": "Previous basic click/video/marker acceptances preserved; 23Nov logo, uppercase PRAÇA and font/style direction accepted; revised weight/size/hover pending",
   "documentation_only_this_update": false,
   "android_used": false,

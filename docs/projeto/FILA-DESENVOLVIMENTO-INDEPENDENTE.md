@@ -14,10 +14,14 @@ Esta ordem substitui as prioridades de execução do histórico abaixo. LAB-PVE-
 
 Conferir os dois tutoriais, os novos modos PvE do Terminal, a navegação, a HUD em outras proporções e o registro local das conclusões pela interface. Revisitar clique, vídeo e cursor conforme regressões relatadas. O teste de falhas do backend Unreal continua planejado em ambiente isolado, separado dos saves normais.
 
-## Hub 3D a decidir
+## Hub 3D — ordem de trabalho
+
+**Antes do mapa editável, aplicar materiais provisórios aos sete destinos do molde atual.** Usar o panorama como referência de paleta e acabamento. Começar com pedra na Biblioteca, metal e vidro no Terminal, ladrilhos na Praça e concreto e metal nos trilhos. Diferenciar também Lab - Exp, Arena PvP, Pub e Games. Conferir a leitura dos materiais no enquadramento geral e na aproximação do Terminal, com a iluminação atual. Preparar os materiais para reaproveitamento no mapa editável.
+
+### Mapa e câmera 3D
 
 - Validar o enquadramento com a Praça e Games mais ao centro, fachadas voltadas para o meio, trilho direito baixo e grosso, monotrilho à esquerda e Pub rebaixado à direita.
-- Quando houver decisão sobre o formato editável, preparar uma cena separada. O mapa passa a guardar as posições, rotações e escalas das peças, os pontos dos letreiros e as referências da câmera. O código usa identificadores estáveis para associar cada destino à rota existente. Os pontos de cada fachada acompanham a movimentação do respectivo grupo. O carregamento passa a usar os elementos salvos para evitar peças duplicadas.
+- Após validar os materiais provisórios e decidir o formato editável, preparar uma cena separada. O mapa passa a guardar as posições, rotações e escalas das peças, os pontos dos letreiros e as referências da câmera. O código usa identificadores estáveis para associar cada destino à rota existente. Os pontos de cada fachada acompanham a movimentação do respectivo grupo. O carregamento passa a usar os elementos salvos para evitar peças duplicadas.
 - Depois de definir o mapa, avaliar a câmera 3D entre esquerda, centro e direita, com percurso e enquadramento por ponto de vista, aproximação do Terminal e movimento reduzido. Coordenar edições simultâneas no mesmo mapa binário.
 - A edição do mapa e a câmera lateral 3D dependem da avaliação do usuário. As etapas 1 a 4 podem avançar em paralelo a essa decisão.
 

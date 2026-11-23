@@ -1,3 +1,5 @@
+> **Fila vigente de 23/11.** Próximo corte: fade dos letreiros e arraste do panorama, seguidos de validação em janela. Mapa editável e deslocamento lateral da câmera 3D aguardam avaliação. A ordem, os aceites e as dependências estão na [fila de desenvolvimento](FILA-DESENVOLVIMENTO-INDEPENDENTE.md).
+
 # Prévia 3D da Praça e do Terminal
 
 Abra Abrir-Preview-Hub3D.cmd para testar a cena em uma janela. O atalho normal continua abrindo o panorama. A prévia usa uma área separada do mesmo mapa, construída em tempo de execução com formas básicas da Unreal. A imagem atual serviu de referência de composição. O panorama e as fachadas detalhadas ficam para outra etapa.

@@ -1,3 +1,33 @@
+# Fila vigente — 23/11/2026
+
+Esta ordem substitui as prioridades de execução do histórico abaixo. LAB-PVE-01 a 06 e LAB-QA-01, 01B e 01C já foram entregues em código. A transição por botões no panorama foi confirmada pelo usuário. O acabamento e o gesto abaixo são novos trabalhos. Esta revisão é de planejamento.
+
+| Ordem | Bloco | Próxima entrega e critério |
+|---|---|---|
+| 1 | HUB / VIS — Fade do panorama | Fazer os letreiros da área atual desaparecerem na saída. Exibir por fade apenas os destinos visíveis depois do encaixe. Reutilizar o comportamento para botões e arraste. Retomar cliques dos letreiros quando a vista estiver estável e legível. Movimento reduzido usa troca imediata. |
+| 2 | HUB / VIS — Arraste e encaixe | Permitir arraste horizontal com mouse e toque, usando o recorte atual. A imagem acompanha o gesto. Ao soltar, distância e velocidade horizontal determinam encaixe na área vizinha ou retorno à área atual. Preservar os três botões, o clique único e a distinção entre toque curto e arraste. Tratar cancelamento, perda de foco, bordas e redimensionamento. Pressão do toque fica fora do gesto. |
+| 3 | VIS / QA — Validação em janela | Verificar arraste curto, rápido, cancelado e nos extremos, sequência de cliques rápidos, fade após encaixe e movimento reduzido. Compilar a prévia para aceite em janela horizontal e vertical, com teste de mouse. Calibrar toque físico na etapa mobile. |
+| 4 | VIS / AUD / ENG — Apresentação de combate | Rever os eventos já expostos por AUT-13 e ligar som e animação provisórios ao início, impacto e fim da ação, sem reaplicar efeitos de combate. Arte, rig e áudio finais podem chegar em paralelo. |
+| 5 | HUB — Tela do Terminal | Integrar a composição visual quando o material chegar. Reusar as rotas existentes para laboratório, tutorial padrão e demais encontros. O trabalho de apresentação pode avançar enquanto a arte do Terminal está pendente. |
+
+## Aceites em paralelo
+
+Conferir os dois tutoriais, os novos modos PvE do Terminal, a navegação, a HUD em outras proporções e o registro local das conclusões pela interface. Revisitar clique, vídeo e cursor conforme regressões relatadas. O teste de falhas do backend Unreal continua planejado em ambiente isolado, separado dos saves normais.
+
+## Hub 3D a decidir
+
+- Validar o enquadramento com a Praça e Games mais ao centro, fachadas voltadas para o meio, trilho direito baixo e grosso, monotrilho à esquerda e Pub rebaixado à direita.
+- Quando houver decisão sobre o formato editável, preparar uma cena separada. O mapa passa a guardar as posições, rotações e escalas das peças, os pontos dos letreiros e as referências da câmera. O código usa identificadores estáveis para associar cada destino à rota existente. Os pontos de cada fachada acompanham a movimentação do respectivo grupo. O carregamento passa a usar os elementos salvos para evitar peças duplicadas.
+- Depois de definir o mapa, avaliar a câmera 3D entre esquerda, centro e direita, com percurso e enquadramento por ponto de vista, aproximação do Terminal e movimento reduzido. Coordenar edições simultâneas no mesmo mapa binário.
+- A edição do mapa e a câmera lateral 3D dependem da avaliação do usuário. As etapas 1 a 4 podem avançar em paralelo a essa decisão.
+
+## Mobile e distribuição
+
+Android permanece adiado. Quando retomado, verificar gesto de toque e sua sensibilidade, proporções e áreas seguras, vídeo e áudio real no dispositivo e empacotamento. Shipping, lojas, serviços e MCP seguem frentes próprias. Progresso geral mantido em aproximadamente 28%.
+
+---
+
+## Histórico da fila
 > **Integração23/11:** recursos ligados à HUD; tutorial padrão no Terminal; busca clássica no Lab - Exp; conclusão local própria, PRAÇA/letreiros corrigidos. Código/testes/build e stage92 aprovados; aceites gráficos/I-O real/mobile separados. Demo~28% mantida. Fonte: docs/projeto/INTEGRACAO-VIS-TUTORIAIS-2026-11-23.md. Próximo: aceite da versão integrada, sem depender da arte futura do Terminal.
 
 > **LAB-QA-01C — 22/11:** persistência compartilhada entre HUD Unreal e QA; 16/16 testes isolados, compilação e stage69 aprovados. Formatos/políticas preservados; saves normais intocados. Aceites LQA-09/10 e runtime Unreal isolado de LQA-14 continuam separados. Demo ~28% mantida. Fonte: docs/projeto/LAB-QA-01C-PERSISTENCIA-COMPARTILHADA.md. Próxima frente independente proposta: revisar contratos de áudio/animação sobre eventos existentes, sem repetir AUT-13.

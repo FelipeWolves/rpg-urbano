@@ -1,3 +1,5 @@
+> **Fila vigente de 23/11.** Próximo corte: fade dos letreiros e arraste do panorama, seguidos de validação em janela. Mapa editável e deslocamento lateral da câmera 3D aguardam avaliação. A ordem, os aceites e as dependências estão na [fila de desenvolvimento](FILA-DESENVOLVIMENTO-INDEPENDENTE.md).
+
 > **Integração23/11:** recursos ligados à HUD; tutorial padrão no Terminal; busca clássica no Lab - Exp; conclusão local própria, PRAÇA/letreiros corrigidos. Código/testes/build e stage92 aprovados; aceites gráficos/I-O real/mobile separados. Demo~28% mantida. Fonte: docs/projeto/INTEGRACAO-VIS-TUTORIAIS-2026-11-23.md. Próximo: aceite da versão integrada, sem depender da arte futura do Terminal.
 
 > **LAB-PVE-06 — 22/11:** [três frentes com chefe único](LAB-PVE-06-FRENTES-COMPARTILHADAS.md) no Terminal, página3, ataques locais e especial global. Contadores por frente e limite global, sem limite local novo. LAB01–06 em código; aceites02–06 pendentes. Próximo recomendado LAB-QA-01/aceites. Demo ~28% mantida.

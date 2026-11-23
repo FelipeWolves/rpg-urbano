@@ -19,9 +19,12 @@
 | Arquivo | Tipo de Ativo | Observação de Uso / Substituição |
 |---|---|---|
 | `logo-lobo-v01.png` | Logo Oficial | Substitui o logo provisório/temporário na identidade e interface do jogo. |
-| `avatar-felipe-v01.png` | Avatar | Compõe a representação de avatar/perfil do personagem na interface/Hub. |
+| `portrait-felipe-v01.png` | Avatar | Compõe a representação de avatar/perfil do personagem na interface/Hub. |
 
 ---
 
 ## 3. Procedimento de Consolidação
 - Os arquivos permanecem em `entregas/05-hub-identidade-e-arte2d/recebidos/` para serem indexados/processados pelo fluxo de recebimento e consolidação da frente `05`, sem necessidade de alterar manualmente o código ou o histórico CSV neste momento.
+## Consolidação técnica autorizada
+
+O retrato recebido permanece como portrait-felipe-v01.png. A cópia de uso está em assets/runtime/ui/2026-11-22-v02/avatar-felipe-v01.png; seu fundo colorido foi preservado. A logo recebeu cópia PNG com alpha preservado. Catálogo: data/presentation/ui-assets-2026-11-22.json. Preparado não significa integrado ao HUD.

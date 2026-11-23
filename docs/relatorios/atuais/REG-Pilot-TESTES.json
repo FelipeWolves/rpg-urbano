@@ -4,7 +4,7 @@
   "Passed": true,
   "ExitCode": 0,
   "Result": [
-    "REG_PILOT_TESTS_RESULT passed=10 total=10"
+    "REG_PILOT_TESTS_RESULT passed=11 total=11"
   ],
   "BigIntegerVectors": 0,
   "EngineExecuted": false,

@@ -56,3 +56,7 @@
 - **Vitória:** Derrotar todos os inimigos das Ondas 1 e 2 (`WaveV2`: limpeza de efeitos comuns e cura de `30%` do HP máximo entre a Onda 1 e a Onda 2).
 - **Derrota / Empate:** HP do Jovem Lobo chegar a `0` ou atingir o limite técnico de `200` ações.
 - **Recompensa de Sessão:** Apenas conclusão local de tutorial (`progress-v1.save`), sem economia real ainda.
+## Decisão posterior — Sangramento inicial no teste
+
+Aprovado pelo usuário: o inimigo da demonstração de A1 já inicia com Sangramento, satisfazendo a condição de debuff preexistente. A regra geral da A1 não muda, nem os inimigos fora desse tutorial passam a iniciar com debuff. O efeito usa as regras normais de Sangramento; a sequência guiada deve garantir sua presença antes da A1 e respeitar ticks, duração e dano. Esta é preparação exclusiva do encontro de teste, não uma aplicação garantida de novo Sangramento pela A1 (acerto, resistência e imunidades continuam válidos). Contrato de preparação: data/encounters/tutorial-bola-perdida-preparation-v1.json. Cenário equivalente aprovado em teste nativo com o kit atual; o novo tutorial narrativo ainda não foi integrado.
+

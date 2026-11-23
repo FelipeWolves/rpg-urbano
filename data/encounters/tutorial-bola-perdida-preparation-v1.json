@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "TUT_BP_INITIAL_BLEED",
+  "status": "ApprovedPreparationNotIntegratedIntoNarrativeTutorial",
+  "scope": "Only the test tutorial; never a universal enemy debuff",
+  "target": "Enemy chosen for the A1 demonstration",
+  "effect": "Bleed",
+  "application": "Initial runtime preparation, before the first A1 demonstration",
+  "damage": "Existing Bleed rule: snapshot 50% of declared source ATK, floor and valid minimum 1",
+  "duration": "Use normal Bleed duration/clock; guided order must ensure it is present at the demonstrated A1",
+  "nativeEvidence": "Pilot test uses current FELIPE/ECO-1 laboratory identities, 2 turns, 1250 points from ATK2500; not the future young-wolf roster",
+  "changesToA1": false,
+  "runtimeEnabled": false,
+  "pending": ["guided sequencing", "young variant and IDs", "temporary SPD/ATK buffs", "isolated tutorial completion/save"]
+}

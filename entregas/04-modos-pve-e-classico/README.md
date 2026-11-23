@@ -1,3 +1,5 @@
+> **Ícones22/11:** 17ícones transparentes preparados em assets/runtime/ui/2026-11-22-v02/, logo/avatar nomeados e catálogo conferido; não integrados à HUD. Sangramento inicial do inimigo aprovado para tutorial e validado no núcleo; sequência guiada/variante/save ainda pendentes. Fonte docs/projeto/VIS-ICONS-PNG-2026-11-22.md. Demo~28% mantida.
+
 > **Recebidos22/11:** 5documentos e19imagens novos revisados; originais preservados, sem integração. Tutorial padrão requer fechar debuff prévio para Sangramento, ordem guiada, variante jovem e persistência isolada. Ícones JPG/caminhos e status353×307 diferem das fichas; avatar recebido chama-se portrait-felipe-v01.png. Ver docs/projeto/RECEBIMENTO-NOVIDADES-2026-11-22.md. Demo~28% mantida.
 
 > **22/11 — LAB-PVE-06:** página3doTerminal com chefe único/três frentes, variantes local/global. Roteiro em docs/projeto/LAB-PVE-06-FRENTES-COMPARTILHADAS.md. Aceites02–06 pendentes; próximo recomendado QA/feedback. Recursos finais podem continuar em paralelo.

@@ -70,3 +70,5 @@ Esta lista é planejamento, não execução nesta atualização. Android, instal
 [Dependências e sua preparação](../../entregas/NECESSIDADES-ATUAIS.md) · [Fila do desenvolvimento](FILA-DESENVOLVIMENTO-INDEPENDENTE.md) · [Famílias e siglas](MAPA-FAMILIAS-E-PRIORIDADES.md) · [Pendências](PENDENCIAS.md).
 
 Histórico de percentuais e estados anteriores permanece no Git e nos relatórios datados. Este painel substitui notas acumuladas que ainda diziam cliques/vídeo reabertos, tutorial inexistente ou AUT por iniciar. Nenhum teste, build ou jogo foi executado nesta revisão documental.
+
+> Recursos22/11 preparados: 17icones transparentes e logo/avatar; fontes preservadas, catálogo e11gruposPilot aprovados. HUD e tutorial narrativo ainda não integrados. Demo~28% mantida; ver VIS-ICONS-PNG-2026-11-22.md.

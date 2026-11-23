@@ -1,0 +1,184 @@
+{
+  "Date": "2026-11-22",
+  "Passed": true,
+  "Count": 19,
+  "TransparentIcons": 17,
+  "OriginalHashesUnchanged": true,
+  "EditorOpened": false,
+  "IntegratedIntoHUD": false,
+  "Checks": [
+    {
+      "Id": "ico_skill_felipe_a1",
+      "ProtectedPixelsChecked": 3313246,
+      "ProtectedPixelsChanged": 0,
+      "TransparentOutputPixels": 873057,
+      "Width": 2048,
+      "Height": 2048,
+      "Passed": true
+    },
+    {
+      "Id": "ico_skill_felipe_a2",
+      "ProtectedPixelsChecked": 3146769,
+      "ProtectedPixelsChanged": 0,
+      "TransparentOutputPixels": 1041898,
+      "Width": 2048,
+      "Height": 2048,
+      "Passed": true
+    },
+    {
+      "Id": "ico_skill_felipe_a2_active",
+      "ProtectedPixelsChecked": 3174194,
+      "ProtectedPixelsChanged": 0,
+      "TransparentOutputPixels": 881000,
+      "Width": 2048,
+      "Height": 2048,
+      "Passed": true
+    },
+    {
+      "Id": "ico_skill_felipe_a3",
+      "ProtectedPixelsChecked": 1825425,
+      "ProtectedPixelsChanged": 0,
+      "TransparentOutputPixels": 2364996,
+      "Width": 2048,
+      "Height": 2048,
+      "Passed": true
+    },
+    {
+      "Id": "ico_skill_jovem_lobo_a1",
+      "ProtectedPixelsChecked": 2096130,
+      "ProtectedPixelsChanged": 0,
+      "TransparentOutputPixels": 1992954,
+      "Width": 2048,
+      "Height": 2048,
+      "Passed": true
+    },
+    {
+      "Id": "ico_skill_jovem_lobo_a2",
+      "ProtectedPixelsChecked": 2121368,
+      "ProtectedPixelsChanged": 0,
+      "TransparentOutputPixels": 1945969,
+      "Width": 2048,
+      "Height": 2048,
+      "Passed": true
+    },
+    {
+      "Id": "ico_skill_jovem_lobo_a2_active",
+      "ProtectedPixelsChecked": 3253699,
+      "ProtectedPixelsChanged": 0,
+      "TransparentOutputPixels": 888538,
+      "Width": 2048,
+      "Height": 2048,
+      "Passed": true
+    },
+    {
+      "Id": "ico_skill_jovem_lobo_a3",
+      "ProtectedPixelsChecked": 2563506,
+      "ProtectedPixelsChanged": 0,
+      "TransparentOutputPixels": 1496032,
+      "Width": 2048,
+      "Height": 2048,
+      "Passed": true
+    },
+    {
+      "Id": "ico_status_immunity_invincible",
+      "ProtectedPixelsChecked": 86034,
+      "ProtectedPixelsChanged": 0,
+      "TransparentOutputPixels": 61082,
+      "Width": 384,
+      "Height": 384,
+      "Passed": true
+    },
+    {
+      "Id": "ico_status_shield_silver",
+      "ProtectedPixelsChecked": 79942,
+      "ProtectedPixelsChanged": 0,
+      "TransparentOutputPixels": 61281,
+      "Width": 384,
+      "Height": 384,
+      "Passed": true
+    },
+    {
+      "Id": "ico_status_shield_standard",
+      "ProtectedPixelsChecked": 85520,
+      "ProtectedPixelsChanged": 0,
+      "TransparentOutputPixels": 61728,
+      "Width": 384,
+      "Height": 384,
+      "Passed": true
+    },
+    {
+      "Id": "ico_status_bleed",
+      "ProtectedPixelsChecked": 82570,
+      "ProtectedPixelsChanged": 0,
+      "TransparentOutputPixels": 64671,
+      "Width": 384,
+      "Height": 384,
+      "Passed": true
+    },
+    {
+      "Id": "ico_status_freeze",
+      "ProtectedPixelsChecked": 82575,
+      "ProtectedPixelsChanged": 0,
+      "TransparentOutputPixels": 64674,
+      "Width": 384,
+      "Height": 384,
+      "Passed": true
+    },
+    {
+      "Id": "ico_status_petrification",
+      "ProtectedPixelsChecked": 82021,
+      "ProtectedPixelsChanged": 0,
+      "TransparentOutputPixels": 65235,
+      "Width": 384,
+      "Height": 384,
+      "Passed": true
+    },
+    {
+      "Id": "ico_status_poison",
+      "ProtectedPixelsChecked": 82685,
+      "ProtectedPixelsChanged": 0,
+      "TransparentOutputPixels": 64543,
+      "Width": 384,
+      "Height": 384,
+      "Passed": true
+    },
+    {
+      "Id": "ico_status_silence",
+      "ProtectedPixelsChecked": 82483,
+      "ProtectedPixelsChanged": 0,
+      "TransparentOutputPixels": 64747,
+      "Width": 384,
+      "Height": 384,
+      "Passed": true
+    },
+    {
+      "Id": "ico_status_suppression",
+      "ProtectedPixelsChecked": 82045,
+      "ProtectedPixelsChanged": 0,
+      "TransparentOutputPixels": 65195,
+      "Width": 384,
+      "Height": 384,
+      "Passed": true
+    },
+    {
+      "Id": "logo-lobo-v01",
+      "ProtectedPixelsChecked": 0,
+      "ProtectedPixelsChanged": 0,
+      "TransparentOutputPixels": 501634,
+      "Width": 1254,
+      "Height": 1254,
+      "Passed": true
+    },
+    {
+      "Id": "avatar-felipe-v01",
+      "ProtectedPixelsChecked": 0,
+      "ProtectedPixelsChanged": 0,
+      "TransparentOutputPixels": 0,
+      "Width": 1254,
+      "Height": 1254,
+      "Passed": true
+    }
+  ],
+  "VisualAcceptanceAutomaticallyGranted": false,
+  "ContactSheetsInspectedThisDelivery": true
+}

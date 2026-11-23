@@ -1,3 +1,7 @@
+> **Prioridades vigentes em 23/11/2026.** Apresentação de combate por AUT-13, preparação dos aceites em janela e refinamento do Hub 3D avançam com o material atual. A tela final do Terminal depende da imagem. O mapa editável segue após o aceite dos materiais provisórios e a decisão de formato. Os [afazeres](FILA-DESENVOLVIMENTO-INDEPENDENTE.md) e a [central de entregas](../../entregas/NECESSIDADES-ATUAIS.md) separam execução, materiais e aceites.
+
+> **Campanha e telas futuras.** Contrato da Campanha e integração do Terminal permanecem abertos. A arte final do Terminal é a dependência visual. As rotas, o registro por livro e linha, as recompensas e a dificuldade estão mapeados nas [diretrizes LOBO](2026-11-23_diretrizes-desenvolvimento-lobo_v01.md).
+
 > **23/11/2026.** Hubs 2D e 3D com deslize validado. APK no Pixel 7 virtual confirmou toque, rotação, vídeo e uma ação de combate. A próxima rodada Android cobre persistência, áudio e desempenho em aparelho físico. Mapa editável e acabamento de combate seguem na [fila de desenvolvimento](FILA-DESENVOLVIMENTO-INDEPENDENTE.md).
 
 > **Halo/mouse23/11:** glow por mascara Gaussiana dos glifos, texto nitido; GameOnly substituido por GameAndUI/DoNotLock e foco explicito. Fonte/brilho anterior preservados. Ponteiro10/10, build e stage101 aprovados; confinamento real/clique/halo aguardam reteste. Fonte docs/projeto/HUB-HALO-E-MOUSE-2026-11-23.md. Demo~28% mantida.

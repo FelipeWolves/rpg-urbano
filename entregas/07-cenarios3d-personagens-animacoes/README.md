@@ -1,3 +1,11 @@
+## Estado e dependências — 23/11/2026
+
+- **O que posso fazer.** Refinar materiais dos sete destinos, movimento ambiental, câmera e presença provisória com fallback leve.
+- **O que você pode entregar.** Uma amostra de personagem com rig, materiais e clips, quando disponível.
+- **Aceite ou condição para avançar.** Aceitar materiais e formato antes do mapa editável. Personagem e animação finais dependem de assets.
+
+[Central de entregas](../NECESSIDADES-ATUAIS.md). As notas abaixo preservam o histórico.
+
 # 3D e animação — guia vigente
 
 Atualizado em **22/11/2026**. Demo **~28%**. Sua preparação e o desenvolvimento são frentes paralelas: entregar amostras é suficiente; nada aqui pede para refazer material já definido.

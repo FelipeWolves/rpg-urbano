@@ -1,3 +1,7 @@
+> **Próxima entrega.** Acabamento de combate sobre AUT-13. O trabalho pode avançar com os recursos atuais. A imagem final do Terminal é a entrega de arte mais imediata. [O que posso fazer e o que depende de você](entregas/NECESSIDADES-ATUAIS.md).
+
+> **Versão oficial atual: v0.28-pre-alpha.** Compilação para desenvolvimento interno, com save técnico local. [Política de versionamento, acesso e saves](docs/projeto/POLITICA-VERSIONAMENTO.md).
+
 > **Integração23/11:** recursos ligados à HUD; tutorial padrão no Terminal; busca clássica no Lab - Exp; conclusão local própria, PRAÇA/letreiros corrigidos. Código/testes/build e stage92 aprovados; aceites gráficos/I-O real/mobile separados. Demo~28% mantida. Fonte: docs/projeto/INTEGRACAO-VIS-TUTORIAIS-2026-11-23.md. Próximo: aceite da versão integrada, sem depender da arte futura do Terminal.
 
 > **LAB-QA-01C — 22/11:** persistência compartilhada entre HUD Unreal e QA; 16/16 testes isolados, compilação e stage69 aprovados. Formatos/políticas preservados; saves normais intocados. Aceites LQA-09/10 e runtime Unreal isolado de LQA-14 continuam separados. Demo ~28% mantida. Fonte: docs/projeto/LAB-QA-01C-PERSISTENCIA-COMPARTILHADA.md. Próxima frente independente proposta: revisar contratos de áudio/animação sobre eventos existentes, sem repetir AUT-13.

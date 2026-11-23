@@ -1,3 +1,11 @@
+## Estado e dependências — 23/11/2026
+
+- **O que posso fazer.** Reaproveitar o APK e o AVD e preparar roteiro de retorno, áudio, áreas seguras, toque e desempenho.
+- **O que você pode entregar.** Disponibilizar um Android físico ou enviar modelo, versão e resultados do APK.
+- **Aceite ou condição para avançar.** O AVD já validou instalação, toque, rotação, vídeo e uma ação. Áudio, persistência e desempenho físico seguem abertos.
+
+[Central de entregas](../NECESSIDADES-ATUAIS.md). As notas abaixo preservam o histórico.
+
 # Mobile e plataformas — guia vigente
 
 Atualizado em **22/11/2026**. Demo **~28%**. Sua preparação e o desenvolvimento são frentes paralelas: entregar amostras é suficiente; nada aqui pede para refazer material já definido.

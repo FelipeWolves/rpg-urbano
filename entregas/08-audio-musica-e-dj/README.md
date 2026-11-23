@@ -1,3 +1,11 @@
+## Estado e dependências — 23/11/2026
+
+- **O que posso fazer.** Ligar som provisório e animação ao início, impacto e fim dos eventos existentes.
+- **O que você pode entregar.** Uma amostra de loop e efeitos de ação, impacto e menu com autoria.
+- **Aceite ou condição para avançar.** Aceitar o resultado audiovisual. Mix e conteúdo finais dependem de recursos. Instrumentos e Games ficam para etapa futura.
+
+[Central de entregas](../NECESSIDADES-ATUAIS.md). As notas abaixo preservam o histórico.
+
 # Áudio e música — guia vigente
 
 Atualizado em **22/11/2026**. Demo **~28%**. Sua preparação e o desenvolvimento são frentes paralelas: entregar amostras é suficiente; nada aqui pede para refazer material já definido.

@@ -1,3 +1,7 @@
+> **Execução e dependências.** O próximo trabalho independente é a apresentação de combate sobre AUT-13. Validação em janela e refinamento dos materiais e do movimento do Hub 3D são frentes paralelas. A arte final libera a tela do Terminal. O usuário valida o visual, a persistência e o aparelho físico depois dos roteiros. [Central de entregas e aceites](../../entregas/NECESSIDADES-ATUAIS.md).
+
+> **Escopo da Pré-Alfa.** A fila preserva AUT-13, LAB-PVE e LAB-QA. Apresentação de combate e validação em janela avançam com os recursos atuais. Os materiais provisórios dos sete destinos antecedem o mapa editável. A tela do Terminal depende da arte final. [Diretrizes de design e execução](2026-11-23_diretrizes-desenvolvimento-lobo_v01.md).
+
 > **Validação de 23/11/2026.** Arraste e fade dos Hubs 2D e 3D entregues e aprovados no Windows no recorte testado. Toque, rotação, vídeo e uma ação de combate validados no Pixel 7 virtual. O mapa editável, materiais finais e acabamento de combate seguem em aberto.
 
 # Fila vigente — 23/11/2026
@@ -26,6 +30,30 @@ Conferir os dois tutoriais, os novos modos PvE do Terminal, a navegação, a HUD
 - Após validar os materiais provisórios e decidir o formato editável, preparar uma cena separada. O mapa passa a guardar as posições, rotações e escalas das peças, os pontos dos letreiros e as referências da câmera. O código usa identificadores estáveis para associar cada destino à rota existente. Os pontos de cada fachada acompanham a movimentação do respectivo grupo. O carregamento passa a usar os elementos salvos para evitar peças duplicadas.
 - Depois de definir o mapa, avaliar a câmera 3D entre esquerda, centro e direita, com percurso e enquadramento por ponto de vista, aproximação do Terminal e movimento reduzido. Coordenar edições simultâneas no mesmo mapa binário.
 - A câmera lateral já desliza entre as áreas. A edição do mapa e o acabamento do percurso dependem da avaliação do usuário. A apresentação de combate pode avançar em paralelo.
+
+### Evolução visual e interativa do Hub 3D — a fazer
+
+- **Cena e câmera.** Partir do molde atual, com a disposição espacial e as cores sólidas já existentes. Animar discretamente luzes, sinais, elementos distantes ou atmosfera. Refinar as transições já implementadas entre alas. Manter o panorama em telas largas e o foco com deslize em telas estreitas, respeitando a orientação vigente. Com Movimento Reduzido, trocar de enquadramento imediatamente e evitar balanço e animações ambientais que prejudiquem a leitura.
+- **Protagonista.** Adicionar presença e animação básica em reação à ala ativa ou ao foco em um destino. Prever uma representação leve para o modo de baixo desempenho.
+- **Leitura e interação.** Usar Dislyte como referência de clareza para uma interface urbana original em azul-noturno, preto e prata. Destacar os destinos do fundo, manter a HUD periférica limpa e dar feedback de hover, foco e clique ou toque. Preservar o cursor livre com GameAndUI e DoNotLock.
+- **Limites.** Preservar as regras de combate e os fluxos vigentes. Customização completa de roupas, clima avançado e mini-player de DJ ficam fora desta etapa.
+- **Aceite da entrega.** Testar navegação por botões e deslize em telas largas e estreitas. Conferir Movimento Reduzido, reação e fallback do protagonista, hover/foco, clique único, toque e saída livre do cursor. Registrar o que foi animado ou ajustado, o que ficou pendente e como reproduzir os testes.
+
+### Modo História — piloto de trilhas a fazer
+
+Preparar para uma etapa futura um capítulo orientado a dados com 6 a 8 nós, partes opcionais e variação entre linhas narrativas. Integrar ao combate existente e ao save isolado de QA após definir o contrato da Campanha. [Contrato proposto e critérios de aceite](2026-11-23_trilhas-modo-historia_v01.md).
+
+### Biblioteca, Atlas e Lab - Exp — frente futura
+
+Ao iniciar a Biblioteca, definir primeiro os contratos do Atlas Geral e das Árvores de Correlação. A Ala Privada entra como módulo experimental. O Lab - Exp mantém uma âncora independente no Hub. [Escopo e critérios de aceite](2026-11-23_arquitetura-biblioteca-atlas-lab-exp_v01.md).
+
+### Pub e Games — frente futura
+
+Planejar Quadro Negro, caçadas com ameaça e requisitos visíveis e instrumentos com efeitos de jogo. A posição dos dois acessos pode mudar no Hub. Balcão e consumíveis seguem em aberto. [Diretriz e aceite](2026-11-23_pub-cacadas-instrumentos-games_v01.md).
+
+### Personagem ativo, equipamentos, Praça e PvP — design futuro
+
+Registrar a seleção livre do personagem obtido e sua moldura no rodapé do Hub. Avaliar a personalização 2D → 3D em etapas. Planejar presets compartilhados de até cinco integrantes no jogo base, equipamentos próprios dos perfis Clássico e Padrão, PvP em tempo real no duelo e assíncrono por equipes. A Praça concentra comércio e trocas. O intervalo de 3 ou 6 horas da Loja de Ouro e os valores de câmbio ficam para calibração. [Consolidação de design v04](2026-11-23_diretrizes-telas-modos-e-evolucao_v04.md).
 
 ## Mobile e distribuição
 

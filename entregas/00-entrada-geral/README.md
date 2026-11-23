@@ -1,3 +1,13 @@
+## Estado e dependências — 23/11/2026
+
+- **O que posso fazer.** Consolidar documentos, contratos e dependências.
+- **O que você pode entregar.** Enviar apenas decisões novas, com versão e o trecho substituído.
+- **Aceite ou condição para avançar.** Confirmar lacunas de design apenas quando afetarem um bloco autorizado.
+
+[Central de entregas](../NECESSIDADES-ATUAIS.md). As notas abaixo preservam o histórico.
+
+> **Recebido em 23/11/2026.** A nota preparatória de Campanha foi lida e consolidada nas [diretrizes LOBO](../../docs/projeto/2026-11-23_diretrizes-desenvolvimento-lobo_v01.md). Os quatro volumes e as três linhas orientam o futuro contrato de Campanha.
+
 # Organização geral — guia vigente
 
 Atualizado em **22/11/2026**. Demo **~28%**. Sua preparação e o desenvolvimento são frentes paralelas: entregar amostras é suficiente; nada aqui pede para refazer material já definido.

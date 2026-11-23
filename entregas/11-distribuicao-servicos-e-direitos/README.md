@@ -1,3 +1,11 @@
+## Estado e dependências — 23/11/2026
+
+- **O que posso fazer.** Manter documentação da pré-alfa interna e dos pacotes Git LFS.
+- **O que você pode entregar.** Confirmar autoria, licença e restrições dos recursos que entrarem na distribuição.
+- **Aceite ou condição para avançar.** Publicação e serviços têm decisão própria. Patreon e BETA_SUPPORTER entram na Beta. PvP online é futuro.
+
+[Central de entregas](../NECESSIDADES-ATUAIS.md). As notas abaixo preservam o histórico.
+
 # Direitos e distribuição — guia vigente
 
 Atualizado em **22/11/2026**. Demo **~28%**. Sua preparação e o desenvolvimento são frentes paralelas: entregar amostras é suficiente; nada aqui pede para refazer material já definido.

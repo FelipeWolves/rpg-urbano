@@ -1,3 +1,11 @@
+## Estado e dependências — 23/11/2026
+
+- **O que posso fazer.** Preparar validação em janela, acessibilidade e QA de navegação, HUD, tutoriais e PvE.
+- **O que você pode entregar.** Depois de receber o roteiro, anotar somente falhas ou resultados do teste.
+- **Aceite ou condição para avançar.** Aceite visual em janela e validação de gravação, reabertura e recuperação.
+
+[Central de entregas](../NECESSIDADES-ATUAIS.md). As notas abaixo preservam o histórico.
+
 > **Halo/mouse23/11:** glow por mascara Gaussiana dos glifos, texto nitido; GameOnly substituido por GameAndUI/DoNotLock e foco explicito. Fonte/brilho anterior preservados. Ponteiro10/10, build e stage101 aprovados; confinamento real/clique/halo aguardam reteste. Fonte docs/projeto/HUB-HALO-E-MOUSE-2026-11-23.md. Demo~28% mantida.
 
 > **Reteste23/11:** usuário aceitou logo, PRAÇA e direção tipográfica. Letreiros agora Light/menores, hover só luminoso no padrão; alto contraste preservado. Content/Presentation excluído da importação automática apenas no projeto. Build/stage93 aprovados; acabamento e supressão do aviso aguardam reteste. Fonte docs/projeto/HUB-LETREIROS-E-IMPORTACAO-2026-11-23.md. Demo~28% mantida.

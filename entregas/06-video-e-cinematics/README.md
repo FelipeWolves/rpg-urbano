@@ -1,3 +1,11 @@
+## Estado e dependências — 23/11/2026
+
+- **O que posso fazer.** Manter o player atual e investigar persistência da marca de vídeo assistido em ambiente de teste.
+- **O que você pode entregar.** Se houver fala, enviar texto e marcações de tempo para legendas.
+- **Aceite ou condição para avançar.** Validar áudio, legendas quando houver e reprodução em aparelho físico.
+
+[Central de entregas](../NECESSIDADES-ATUAIS.md). As notas abaixo preservam o histórico.
+
 # Vídeo e cinematics — guia vigente
 
 Atualizado em **22/11/2026**. Demo **~28%**. Sua preparação e o desenvolvimento são frentes paralelas: entregar amostras é suficiente; nada aqui pede para refazer material já definido.

@@ -1,3 +1,11 @@
+## Estado e dependências — 23/11/2026
+
+- **O que posso fazer.** Manter laboratórios e tutoriais existentes e preparar roteiro por modo.
+- **O que você pode entregar.** Uma ficha final de encontro, quando quiser substituir as fixtures. Enviar objetivo, limite, resultado e composição.
+- **Aceite ou condição para avançar.** Aceites específicos LAB-PVE-02 a 06 e dois tutoriais. Regras novas exigem definição.
+
+[Central de entregas](../NECESSIDADES-ATUAIS.md). As notas abaixo preservam o histórico.
+
 > **Integração23/11:** recursos ligados à HUD; tutorial padrão no Terminal; busca clássica no Lab - Exp; conclusão local própria, PRAÇA/letreiros corrigidos. Código/testes/build e stage92 aprovados; aceites gráficos/I-O real/mobile separados. Demo~28% mantida. Fonte: docs/projeto/INTEGRACAO-VIS-TUTORIAIS-2026-11-23.md. Próximo: aceite da versão integrada, sem depender da arte futura do Terminal.
 
 > **Ícones22/11:** 17ícones transparentes preparados em assets/runtime/ui/2026-11-22-v02/, logo/avatar nomeados e catálogo conferido; não integrados à HUD. Sangramento inicial do inimigo aprovado para tutorial e validado no núcleo; sequência guiada/variante/save ainda pendentes. Fonte docs/projeto/VIS-ICONS-PNG-2026-11-22.md. Demo~28% mantida.

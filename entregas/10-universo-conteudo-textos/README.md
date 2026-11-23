@@ -1,3 +1,11 @@
+## Estado e dependências — 23/11/2026
+
+- **O que posso fazer.** Consolidar a proposta dos 67 capítulos e preparar critérios para trilhas e Atlas quando a frente for autorizada.
+- **O que você pode entregar.** Quando preparar História, entregar um capítulo piloto com 6 a 8 nós, falas, linha narrativa e desbloqueios.
+- **Aceite ou condição para avançar.** Campanha, recompensas, obtenção dos quatro primeiros personagens e fases canônicas exigem contrato e conteúdo.
+
+[Central de entregas](../NECESSIDADES-ATUAIS.md). As notas abaixo preservam o histórico.
+
 > **Integração23/11:** recursos ligados à HUD; tutorial padrão no Terminal; busca clássica no Lab - Exp; conclusão local própria, PRAÇA/letreiros corrigidos. Código/testes/build e stage92 aprovados; aceites gráficos/I-O real/mobile separados. Demo~28% mantida. Fonte: docs/projeto/INTEGRACAO-VIS-TUTORIAIS-2026-11-23.md. Próximo: aceite da versão integrada, sem depender da arte futura do Terminal.
 
 # Narrativa e tutorial — guia vigente

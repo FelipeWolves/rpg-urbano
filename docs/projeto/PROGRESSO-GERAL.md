@@ -1,3 +1,7 @@
+> **Prioridades vigentes em 23/11/2026.** Apresentação de combate por AUT-13, preparação dos aceites em janela e refinamento do Hub 3D avançam com o material atual. A tela final do Terminal depende da imagem. O mapa editável segue após o aceite dos materiais provisórios e a decisão de formato. Os [afazeres](FILA-DESENVOLVIMENTO-INDEPENDENTE.md) e a [central de entregas](../../entregas/NECESSIDADES-ATUAIS.md) separam execução, materiais e aceites.
+
+> **Versão oficial atual: v0.28-pre-alpha.** A estimativa ponderada neste painel é da demo integrada. As versões e mudanças de fase seguem o escopo completo de produção e os critérios da [política oficial](POLITICA-VERSIONAMENTO.md).
+
 > **23/11/2026.** O Hub 3D teve o enquadramento e o deslize aceitos no teste do usuário. O APK abriu no Pixel 7 virtual e confirmou toque, vídeo e rotação. [Testes Android](ANDROID-DEPENDENCIAS.md)
 
 > **Halo/mouse23/11:** glow por mascara Gaussiana dos glifos, texto nitido; GameOnly substituido por GameAndUI/DoNotLock e foco explicito. Fonte/brilho anterior preservados. Ponteiro10/10, build e stage101 aprovados; confinamento real/clique/halo aguardam reteste. Fonte docs/projeto/HUB-HALO-E-MOUSE-2026-11-23.md. Demo~28% mantida.

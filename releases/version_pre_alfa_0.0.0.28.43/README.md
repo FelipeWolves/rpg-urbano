@@ -1,3 +1,5 @@
+> **Versão oficial: v0.28-pre-alpha.** Esta entrega preserva seu identificador histórico de pacote. [Política de versionamento](../../docs/projeto/POLITICA-VERSIONAMENTO.md).
+
 # Pré-alfa 0.0.0.28.43
 
 Compilação de desenvolvimento para testes internos. A numeração acompanha a estimativa de 28,43% de maturidade da demo em 23/11/2026.

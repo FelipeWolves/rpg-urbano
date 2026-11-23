@@ -1,3 +1,11 @@
+## Estado e dependências — 23/11/2026
+
+- **O que posso fazer.** Consumir os eventos AUT-13 na apresentação, com sinais provisórios e regras atuais.
+- **O que você pode entregar.** Enviar novos kits, efeitos ou descrições apenas se houver mudança.
+- **Aceite ou condição para avançar.** Aceitar leitura de ator, alvo, habilidade e impacto. Regras inéditas precisam de contrato.
+
+[Central de entregas](../NECESSIDADES-ATUAIS.md). As notas abaixo preservam o histórico.
+
 > **Integração23/11:** recursos ligados à HUD; tutorial padrão no Terminal; busca clássica no Lab - Exp; conclusão local própria, PRAÇA/letreiros corrigidos. Código/testes/build e stage92 aprovados; aceites gráficos/I-O real/mobile separados. Demo~28% mantida. Fonte: docs/projeto/INTEGRACAO-VIS-TUTORIAIS-2026-11-23.md. Próximo: aceite da versão integrada, sem depender da arte futura do Terminal.
 
 # Combate e habilidades — guia vigente

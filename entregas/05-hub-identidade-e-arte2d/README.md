@@ -1,3 +1,13 @@
+## Estado e dependências — 23/11/2026
+
+- **O que posso fazer.** Preparar integração, manter os acessos atuais e avançar com feedback visual provisório.
+- **O que você pode entregar.** Prioridade de entrega. Enviar a imagem final do Terminal e, se possível, indicar os pontos clicáveis e a autoria.
+- **Aceite ou condição para avançar.** A integração da tela final depende dessa arte. Revisar leitura e toque depois.
+
+[Central de entregas](../NECESSIDADES-ATUAIS.md). As notas abaixo preservam o histórico.
+
+> **Biblioteca e Lab - Exp.** A composição visual deve permitir reposicionar o acesso externo do Lab - Exp sem alterar a Biblioteca. A Ala Geral é definitiva e a Ala Privada é experimental. [Diretriz de arquitetura](../../docs/projeto/2026-11-23_arquitetura-biblioteca-atlas-lab-exp_v01.md).
+
 > **Halo/mouse23/11:** glow por mascara Gaussiana dos glifos, texto nitido; GameOnly substituido por GameAndUI/DoNotLock e foco explicito. Fonte/brilho anterior preservados. Ponteiro10/10, build e stage101 aprovados; confinamento real/clique/halo aguardam reteste. Fonte docs/projeto/HUB-HALO-E-MOUSE-2026-11-23.md. Demo~28% mantida.
 
 > **Reteste23/11:** usuário aceitou logo, PRAÇA e direção tipográfica. Letreiros agora Light/menores, hover só luminoso no padrão; alto contraste preservado. Content/Presentation excluído da importação automática apenas no projeto. Build/stage93 aprovados; acabamento e supressão do aviso aguardam reteste. Fonte docs/projeto/HUB-LETREIROS-E-IMPORTACAO-2026-11-23.md. Demo~28% mantida.

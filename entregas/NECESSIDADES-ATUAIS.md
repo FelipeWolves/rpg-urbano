@@ -1,50 +1,38 @@
-> **22/11 — LAB-PVE-06:** página3doTerminal com chefe único/três frentes, variantes local/global. Roteiro em docs/projeto/LAB-PVE-06-FRENTES-COMPARTILHADAS.md. Aceites02–06 pendentes; próximo recomendado QA/feedback. Recursos finais podem continuar em paralelo.
+# Entregas, execução e aceites
 
-> **22/11 — LAB-PVE-05:** página2doTerminal com duas variantes de3equipes sequenciais. Roteiro em docs/projeto/LAB-PVE-05-EQUIPES-SEQUENCIAIS.md: equipe ativa, HP contínuo, fase fixa/variável, janela e resultado. Aceites02–05 pendentes; próximo06independe de arte final.
+Estado de 23/11/2026. Versão oficial **v0.28-pre-alpha**. A estimativa da demo é **28,43%**. Esta revisão atualiza planejamento e dependências.
 
-> **22/11 — LAB-PVE-04:** Terminal → Mais modos > → Pontuação/Sobrevivência. Roteiro em docs/projeto/LAB-PVE-04-SCORE-SOBREVIVENCIA.md; testar paginação, contadores e consulta de recibo, sem concessão de créditos. Fixtures não esperam conteúdo final; próximo05equipes sequenciais. Aceites02–04 ainda pendentes.
+## O que posso fazer com os recursos atuais
 
-> **22/11 — LAB-PVE-03:** novos testes de Ondas consecutivas e Ritual com fases no Terminal, aguardando seu aceite conforme docs/projeto/LAB-PVE-03-ONDAS-FASES.md. Recursos finais não bloqueiam o próximo LAB-PVE-04. Ritual simples também segue com aceite pendente.
+1. Acabamento da apresentação de combate sobre AUT-13. Melhorar a leitura de quem age, alvo, habilidade e impacto. Usar som e animação provisórios sem recalcular efeitos.
+2. Preparar validação em janela e roteiros de QA para HUD, tutoriais, laboratórios e persistência isolada.
+3. Refinar materiais provisórios dos sete destinos do Hub 3D. Depois, trabalhar movimento ambiental, câmera e presença provisória com Movimento Reduzido e alternativa leve. O mapa editável vem após o aceite dos materiais e a definição do formato.
 
-> **22/11 — LAB-PVE-02:** Ritual disponível pelo Terminal na compilação atual; roteiro em docs/projeto/LAB-PVE-02-RITUAL-TERMINAL.md. Sua próxima avaliação é da nova rota/HUD, resultado, abandono e volta aos outros laboratórios. Conteúdo final pode continuar em paralelo. Próximo desenvolvimento: ondas/fases (LAB-PVE-03).
+## O que mais ajuda você a entregar
 
-# Sua preparação e o desenvolvimento — quadro vigente
+1. **Agora, se disponível.** Imagem final do Terminal. Pode anexar junto um gabarito dos pontos clicáveis e a autoria. Esta é a dependência direta para integrar a tela final.
+2. **Em paralelo.** Uma amostra de personagem/rig e alguns clips, ou um loop e efeitos por evento. Os protótipos de apresentação avançam com os recursos atuais.
+3. **Para uma etapa futura.** Um capítulo piloto de História ou uma ficha de encontro. O roteiro de História inclui 6 a 8 nós, falas, objetivo e desbloqueios. As diretrizes recebidas já servem de referência para o planejamento.
 
-22/11/2026. Demo ~28%. Não precisa concluir todas as entregas antes de eu desenvolver. Pode enviar amostras parciais na pasta recebidos/ de cada grupo; nenhum original recebido foi modificado nesta revisão.
+## Aceites com você
 
-## O que mais ajuda você a priorizar
-
-1. **04 Modos:** uma ficha completa de encontro para substituir os valores provisórios após a integração.
-2. **05 e 03 Interface/kit:** ícones, retratos e descrições por ID, indicando apenas novidades.
-3. **07 e 08 Produção:** uma amostra de personagem/rig/arena e áudio por evento. Não produzir todo o elenco de uma vez.
-4. **10 e 06 Conteúdo:** roteiro curto do piloto e indicação de fala/legendas.
-5. **11 Direitos:** procedência por recurso; resolver/substituir logo externa antes de uso final.
-
-LAB-PVE-01 (observação/HUD) já foi entregue em código. Nenhum item acima bloqueia meu próximo corte LAB-PVE-02: Ritual no Terminal com dados existentes. Ritual, ondas/fases, score e sequências podem avançar com placeholders. Save/reabertura, tutorial e telas novas precisam de seu aceite depois de preparados; não exigem que você crie arte.
+Após eu preparar cada roteiro, os aceites prioritários são leitura do combate e da HUD, tutoriais e modos locais, comportamento do Hub em janela e persistência. No Android físico, testar áudio, áreas seguras, toque, vídeo e desempenho. O Pixel 7 virtual já validou instalação, rotação, toque, vídeo e uma ação de combate.
 
 ## Quadro por grupo
 
-| Pasta | Sua entrega útil | Desenvolvimento independente | Aceite/dependência final |
+| Pasta | Sua entrega útil | Desenvolvimento independente | Aceite ou dependência |
 |---|---|---|---|
-| 00-entrada-geral | Indicar ID, versão, o que mudou e se é decisão/proposta/referência. Não precisa reunir tudo de uma vez. | Consolidar deltas e manter índices/contratos. | Só confirmar decisões novas quando faltarem; nenhuma nova pesquisa geral é pré-requisito. |
-| 01-interface-e-testes | Preparar testes específicos de save/reabertura, tutorial e telas amplas quando houver roteiro. Não repetir clique/vídeo/seletor aceitos. | Integrar HUD PvE e feedback com placeholders; montar roteiros de QA. | Você avalia cada tela nova depois; não depende de arte final. |
-| 02-mobile-e-plataformas | Guardar modelo/Android/GPU/RAM do aparelho-alvo e resultados existentes. Não reinstalar SDK/AVD. | Manter contratos de layout e backend portáveis no código. | APK/backend de vídeo/toque/desempenho precisam etapa futura autorizada; Android adiado. |
-| 03-combate-habilidades | Deltas de fichas, descrições/níveis/ícones por ID; efeitos inéditos com exemplos. Felipe e fórmulas fechadas não precisam reenvio. | Reutilizar base Team para Terminal/Felipe, catálogo e executores; manter kits individuais. | Só regras novas indefinidas dependem de resposta; catálogo inteiro não bloqueia a UI. |
-| 04-modos-pve-e-classico | Prioridade: uma ficha de encontro representativo com objetivo, vitória/derrota/limite, ondas/fases/times, kit e valores finais ou faixas. | LAB-PVE-01–06: adaptadores, Ritual, ondas/fases, score/sobrevivência, sequenciais e frentes locais, com fixtures. | Novas regras só após definição; telas novas pedem aceite. Clássico preservado, fora desta frente. |
-| 05-hub-identidade-e-arte2d | Ícones/retratos/estados de habilidades e efeitos, textos e arquivos por ID; origem/licença. Panorama só se houver mudança real. | Rotas locais, painéis e HUD provisórios com recursos atuais. | Arte final depende de recursos; implementação de navegação não precisa esperar. Logo externa continua provisória até regularização/substituição. |
-| 06-video-e-cinematics | Informar se há fala e se precisa legendas; entregar texto/timecodes se houver. Não reexportar vídeo para corrigir clique, já aceito. | Manter player e marca por binário; preparar interfaces de legendas/áudio e fallback conforme contratos existentes. | Conteúdo de legenda final depende do texto; backend mobile e mixagem não estão aceitos. |
-| 07-cenarios3d-personagens-animacoes | Uma amostra Felipe/Umbra + Terraço: modelo, unidade/escala/pivô, rig, materiais/texturas, lista de clips e origem. Não precisa cidade/elenco inteiro. | Contrato de importação, IDs e cues; placeholders para todos os modos. | Visual final precisa asset/rig/clips; fluidez real de animação pede aceite após integração. |
-| 08-audio-musica-e-dj | Uma amostra de BGM em loop e efeitos por evento (ação, impacto, menu); formato, loop/pontos, volumes relativos e autoria. Voz/stems se disponíveis. | IDs/eventos e arquitetura de áudio provisória sem esperar todas as faixas. | Mix final/vozes exigem recursos e audição; DJ é expansão separada. |
-| 09-progressao-inventario-save | Somente valores/faixas e regras novas de itens/economia ainda indefinidos; uma ficha exemplificada. Não reenviar decisões de save v1. | Roteiro de gravação/reabertura/backup e integração de recibos de score do laboratório. | Persistência real precisa teste seu; economia comercial/cross-save não estão implementados. |
-| 10-universo-conteudo-textos | Roteiro curto final do piloto: ordem de telas/falas, IDs, objetivo e condição de concluir cada passo. Preferível uma sequência pronta a muitos capítulos. | Fluxos provisórios e validação de IDs com tutorial técnico existente. | Texto/voz finais dependem de entrega; tutorial completo ainda precisa aceite específico. |
-| 11-distribuicao-servicos-e-direitos | Tabela de recurso → origem → autoria/licença → usos permitidos/restrições. Atenção à logo externa; não presumir licença comercial. | Separar dependências, documentar procedência e contratos de plataforma. | Publicar/instalar/plugin/rede/lojas exigem etapa própria; nenhum desses itens bloqueia os testes locais com assets autorizados. |
+| 00-entrada-geral | Enviar apenas decisões novas, com versão e o trecho substituído. | Consolidar documentos, contratos e dependências. | Confirmar lacunas de design apenas quando afetarem um bloco autorizado. |
+| 01-interface-e-testes | Depois de receber o roteiro, anotar somente falhas ou resultados do teste. | Preparar validação em janela, acessibilidade e QA de navegação, HUD, tutoriais e PvE. | Aceite visual em janela e validação de gravação, reabertura e recuperação. |
+| 02-mobile-e-plataformas | Disponibilizar um Android físico ou enviar modelo, versão e resultados do APK. | Reaproveitar o APK e o AVD e preparar roteiro de retorno, áudio, áreas seguras, toque e desempenho. | O AVD já validou instalação, toque, rotação, vídeo e uma ação. Áudio, persistência e desempenho físico seguem abertos. |
+| 03-combate-habilidades | Enviar novos kits, efeitos ou descrições apenas se houver mudança. | Consumir os eventos AUT-13 na apresentação, com sinais provisórios e regras atuais. | Aceitar leitura de ator, alvo, habilidade e impacto. Regras inéditas precisam de contrato. |
+| 04-modos-pve-e-classico | Uma ficha final de encontro, quando quiser substituir as fixtures. Enviar objetivo, limite, resultado e composição. | Manter laboratórios e tutoriais existentes e preparar roteiro por modo. | Aceites específicos LAB-PVE-02 a 06 e dois tutoriais. Regras novas exigem definição. |
+| 05-hub-identidade-e-arte2d | Prioridade de entrega. Enviar a imagem final do Terminal e, se possível, indicar os pontos clicáveis e a autoria. | Preparar integração, manter os acessos atuais e avançar com feedback visual provisório. | A integração da tela final depende dessa arte. Revisar leitura e toque depois. |
+| 06-video-e-cinematics | Se houver fala, enviar texto e marcações de tempo para legendas. | Manter o player atual e investigar persistência da marca de vídeo assistido em ambiente de teste. | Validar áudio, legendas quando houver e reprodução em aparelho físico. |
+| 07-cenarios3d-personagens-animacoes | Uma amostra de personagem com rig, materiais e clips, quando disponível. | Refinar materiais dos sete destinos, movimento ambiental, câmera e presença provisória com fallback leve. | Aceitar materiais e formato antes do mapa editável. Personagem e animação finais dependem de assets. |
+| 08-audio-musica-e-dj | Uma amostra de loop e efeitos de ação, impacto e menu com autoria. | Ligar som provisório e animação ao início, impacto e fim dos eventos existentes. | Aceitar o resultado audiovisual. Mix e conteúdo finais dependem de recursos. Instrumentos e Games ficam para etapa futura. |
+| 09-progressao-inventario-save | Enviar exemplos de itens e valores somente quando a economia entrar na fila. | Preparar testes com saves isolados e diagnosticar persistência sem alterar o contrato v1. | Validar reabertura e recuperação. Praça, câmbio, loja, equipamentos e presets aguardam contratos próprios. |
+| 10-universo-conteudo-textos | Quando preparar História, entregar um capítulo piloto com 6 a 8 nós, falas, linha narrativa e desbloqueios. | Consolidar a proposta dos 67 capítulos e preparar critérios para trilhas e Atlas quando a frente for autorizada. | Campanha, recompensas, obtenção dos quatro primeiros personagens e fases canônicas exigem contrato e conteúdo. |
+| 11-distribuicao-servicos-e-direitos | Confirmar autoria, licença e restrições dos recursos que entrarem na distribuição. | Manter documentação da pré-alfa interna e dos pacotes Git LFS. | Publicação e serviços têm decisão própria. Patreon e BETA_SUPPORTER entram na Beta. PvP online é futuro. |
 
-## Não precisa reenviar
-
-Kit Felipe A1/A2/A3, Bleed/Poison, Standard/Silver, fórmulas/relógios fechados, panorama/variantes atuais, vídeos já funcionando ou configuração completa do SDK. Mudanças novas devem indicar o que substituem.
-
-## Estado dos testes
-
-Cliques únicos, vídeo/skip, placeholders, seletor e conclusão da batalha Felipe aceitos no cenário Windows testado. Ainda não comprovados: persistência real após reabrir/backup, tutorial específico, matriz ampla de telas/acessibilidade, APK/desempenho/backend mobile e Shipping. Android e MCP seguem adiados.
-
-[Minha fila e ordem](../docs/projeto/FILA-DESENVOLVIMENTO-INDEPENDENTE.md) · [Progresso e pesos](../docs/projeto/PROGRESSO-GERAL.md) · [Famílias/siglas](../docs/projeto/MAPA-FAMILIAS-E-PRIORIDADES.md). Matrizes CSV/JSON em docs/relatorios/atuais/DEPENDENCIAS-ENTREGAS.
+[Ordem técnica](../docs/projeto/FILA-DESENVOLVIMENTO-INDEPENDENTE.md) · [Progresso](../docs/projeto/PROGRESSO-GERAL.md) · [Visão v04](../docs/projeto/2026-11-23_diretrizes-telas-modos-e-evolucao_v04.md) · [Política de versões](../docs/projeto/POLITICA-VERSIONAMENTO.md).

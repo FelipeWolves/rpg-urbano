@@ -1,3 +1,5 @@
+> **27/11/2026.** A especificação consolidada de 27/11 está em recebidos. A revisão técnica cobre as sete perguntas do documento. [Parecer](../../docs/projeto/2026-11-27_parecer-arquitetura-lobo_v01.md).
+
 ## Estado e dependências — 23/11/2026
 
 - **O que posso fazer.** Consolidar documentos, contratos e dependências.

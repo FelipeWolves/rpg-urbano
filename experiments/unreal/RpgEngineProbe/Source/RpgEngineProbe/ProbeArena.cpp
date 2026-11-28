@@ -148,7 +148,7 @@ void AProbeArenaHUD::ReadPointer()
     const bool focused=InputWindowActive;
     const std::uint8_t screen=SearchActive?180:TutorialActive && Tutorial->awaiting_lesson()?181:IntroActive?128:InspectionMode?(!PopupLines.IsEmpty()?201:200):static_cast<std::uint8_t>(Flow.screen())+(!PopupLines.IsEmpty()?16:0);
     Input=Pointer.update({PlayerOwner->IsInputKeyDown(EKeys::LeftMouseButton),mouseValid && mouse.has_value() && CanvasCoordinatesKnown,mouse?mouse->x:0,mouse?mouse->y:0},
-        {touched,inViewport(LastTouchX,LastTouchY) && touch.has_value() && CanvasCoordinatesKnown,touch?touch->x:0,touch?touch->y:0},focused,GetWorld()->GetTimeSeconds(),{SearchActive?Search.state().revision:InspectionMode?static_cast<std::uint64_t>(InspectionIndex):ActiveState().revision,screen,HubEnabled && !IntroActive && !InspectionMode && PopupLines.IsEmpty() && Flow.screen()==rpg::presentation::UiScreen::Hub});
+        {touched,inViewport(LastTouchX,LastTouchY) && touch.has_value() && CanvasCoordinatesKnown,touch?touch->x:0,touch?touch->y:0},focused,GetWorld()->GetTimeSeconds(),{SearchActive?Search.state().revision:InspectionMode?static_cast<std::uint64_t>(InspectionIndex):ActiveState().revision,screen,HubEnabled && !IntroActive && !InspectionMode && PopupLines.IsEmpty() && (Flow.screen()==rpg::presentation::UiScreen::Hub || (Flow.screen()==rpg::presentation::UiScreen::Location && HubPanelRoute==rpg::presentation::HubRoute::Terminal && !TerminalNav.labs_open()))});
     if(Input.cancelled){Gesture.cancel();}
 }
 void AProbeArenaHUD::DrawHUD()
@@ -424,7 +424,7 @@ void AProbeArenaHUD::DrawHUD()
             Message=classic?TEXT("Choose a valid target."):TEXT("Target suggested. Change it or confirm.");return;
         }
     }
-    if(HubEnabled && PopupLines.IsEmpty() && button(20.f,bottom-42,130,30,running?TEXT("Pausar / Voltar"):TEXT("Voltar ao hub"),true)){if(running){HandleBack();}else{Flow.finish();ReturnToHub();}return;}
+    if(HubEnabled && PopupLines.IsEmpty() && button(20.f,bottom-42,130,30,running?TEXT("Pausar / Voltar"):TerminalNav.labs_open()?TEXT("Voltar ao Terminal"):TEXT("Voltar ao hub"),true)){if(running){HandleBack();}else{Flow.finish();ReturnToHub();}return;}
     const rpg::presentation::Rect messageArea{20,bottom+52,std::max(48.0,static_cast<double>(Canvas->SizeX)-245),48};
     const float messageScale=0.75f;float ellipsisWidth=0,ellipsisHeight=0;GetTextSize(TEXT("..."),ellipsisWidth,ellipsisHeight,HubBodyFont);
     const std::string messageText=TCHAR_TO_UTF8(*Message);
@@ -527,11 +527,21 @@ void AProbeArenaHUD::DrawInspectionControls()
 
 void AProbeArenaHUD::HandleBack()
 {
+    if(Flow.screen()==rpg::presentation::UiScreen::Location && HubPanelRoute==rpg::presentation::HubRoute::Terminal && TerminalNav.labs_open() && PopupLines.IsEmpty()){
+        TerminalNav.close_labs();
+        Pointer.cancel_until_release();
+        return;
+    }
+    if(Flow.screen()==rpg::presentation::UiScreen::Location && HubPanelRoute==rpg::presentation::HubRoute::Terminal
+        && TerminalShortcutOpen && PopupLines.IsEmpty()){
+        ToggleTerminalShortcut();
+        return;
+    }
     BattleMenuPage=0;
     const auto effect=Flow.back(!PopupLines.IsEmpty(),SelectedSlot!=0 || !SelectedTarget.IsEmpty());
     if(effect==rpg::presentation::BackEffect::CloseDetails){PopupLines.Empty();}
     if(effect==rpg::presentation::BackEffect::CancelSelection){SelectedSlot=0;SelectedTarget.Empty();Message=TEXT("Seleção cancelada.");}
-    if(Flow.screen()==rpg::presentation::UiScreen::Hub && (PveActive || WavesActive || SequenceActive || SharedActive || TutorialActive)){ReturnToHub();}
+    if(Flow.screen()==rpg::presentation::UiScreen::Hub && (TerminalNav.labs_open() || PveActive || WavesActive || SequenceActive || SharedActive || TutorialActive)){ReturnToHub();}
     Gesture.cancel();Pointer.cancel_until_release();NextAutomatic=GetWorld()->GetTimeSeconds()+0.5;
 }
 void AProbeArenaHUD::DrawBattleMenu()

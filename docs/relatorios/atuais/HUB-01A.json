@@ -1,9 +1,9 @@
 {
-  "CheckedUtc": "2026-11-22T17:39:08.3439269Z",
+  "CheckedUtc": "2026-11-28T03:33:37.9589269Z",
   "Passed": true,
   "ExitCode": 0,
-  "Groups": 10,
-  "Scope": "Native hub image crop, video contain/orientation request and local metadata; no media playback/window/device execution",
+  "Groups": 11,
+  "Scope": "Native hub and media geometry, local metadata, Terminal catalog and return navigation; no media playback/window/device execution",
   "EngineExecuted": false,
   "DeviceRotationExecuted": false
 }

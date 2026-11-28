@@ -76,8 +76,8 @@ $batchPath=Join-Path $build 'testar.cmd';$batch | Set-Content $batchPath -Encodi
 $output=@(& $env:ComSpec /d /c $batchPath 2>&1 | ForEach-Object {$_.ToString()});$code=$LASTEXITCODE
 $output | Set-Content (Join-Path $build 'resultado.log') -Encoding utf8
 if($code -ne 0){$output | Select-Object -Last 20 | Write-Output;throw "Presentation test executable/build failed: $code"}
-$passed=$code -eq 0 -and $output -contains 'STARTUP_PRESENTATION_TESTS_RESULT passed=10 total=10'
-[ordered]@{CheckedUtc=[DateTime]::UtcNow.ToString('o');Passed=$passed;ExitCode=$code;Groups=10;Scope='Native hub image crop, video contain/orientation request and local metadata; no media playback/window/device execution';EngineExecuted=$false;DeviceRotationExecuted=$false} | ConvertTo-Json | Set-Content (Join-Path $root 'docs/relatorios/atuais/HUB-01A.json') -Encoding utf8
+$passed=$code -eq 0 -and $output -contains 'STARTUP_PRESENTATION_TESTS_RESULT passed=11 total=11'
+[ordered]@{CheckedUtc=[DateTime]::UtcNow.ToString('o');Passed=$passed;ExitCode=$code;Groups=11;Scope='Native hub and media geometry, local metadata, Terminal catalog and return navigation; no media playback/window/device execution';EngineExecuted=$false;DeviceRotationExecuted=$false} | ConvertTo-Json | Set-Content (Join-Path $root 'docs/relatorios/atuais/HUB-01A.json') -Encoding utf8
 $hotspotsPassed=$code -eq 0 -and $output -contains 'HUB_HOTSPOT_TESTS_RESULT passed=5 total=5'
 [ordered]@{CheckedUtc=[DateTime]::UtcNow.ToString('o');Passed=$hotspotsPassed;Groups=5;ExitCode=$code;Scope='Native hotspot projection/clipping/hit bounds; not Unreal UI acceptance';EngineExecuted=$false} | ConvertTo-Json | Set-Content (Join-Path $root 'docs/relatorios/atuais/HUB-01B.json') -Encoding utf8
 $stylePassed=$code -eq 0 -and $output -contains 'HUB_STYLE_TESTS_RESULT passed=5 total=5'

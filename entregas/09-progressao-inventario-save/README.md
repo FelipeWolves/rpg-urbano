@@ -1,3 +1,5 @@
+> **27/11/2026.** Quando a frente entrar na fila, confirmar tipos de moeda, drops, XP, custos, câmbio e capacidade. O saldo de laboratório continua isolado. [Parecer](../../docs/projeto/2026-11-27_parecer-arquitetura-lobo_v01.md).
+
 ## Estado e dependências — 23/11/2026
 
 - **O que posso fazer.** Preparar testes com saves isolados e diagnosticar persistência sem alterar o contrato v1.

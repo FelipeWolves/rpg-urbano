@@ -1,3 +1,9 @@
+> **Terminal — materiais e aceites.** A arte atual sustenta o piloto 2D, e o molde atual sustenta a câmera por setor e o atalho. A arte final em camadas e o mapa editável ficam para as próximas entregas dessas frentes. O aceite visual do piloto e do novo fluxo em jogo segue no [roteiro de pendências](../docs/projeto/PENDENCIAS.md).
+
+> **Terminal 2D — 27/11/2026.** A composição visual já chegou e libera a prévia funcional. Camadas separadas são opcionais para esta etapa e úteis no acabamento. [Recebimento e critérios de teste](../docs/projeto/2026-11-27_terminal-2d-referencia-visual_v01.md).
+
+> **27/11/2026.** A próxima entrega útil continua sendo a arte final do Terminal. Se disponíveis, podem acompanhar a imagem as ilustrações dos cinco modais, moldura de bilhete em camadas, retrato e ícones sem texto. Para o diagnóstico mobile, basta informar o aparelho físico disponível. Economia, conta e cupons exigem decisões futuras. [Parecer](../docs/projeto/2026-11-27_parecer-arquitetura-lobo_v01.md).
+
 # Entregas, execução e aceites
 
 Estado de 23/11/2026. Versão oficial **v0.28-pre-alpha**. A estimativa da demo é **28,43%**. Esta revisão atualiza planejamento e dependências.

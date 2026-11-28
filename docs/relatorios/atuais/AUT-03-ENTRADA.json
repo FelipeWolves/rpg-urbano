@@ -1,7 +1,7 @@
 {
-  "CheckedUtc": "2026-11-22T17:39:08.3653023Z",
+  "CheckedUtc": "2026-11-28T03:33:37.9897901Z",
   "Passed": true,
-  "Groups": 10,
+  "Groups": 11,
   "ExitCode": 0,
   "Scope": "Pointer ownership, touch/mouse deduplication, focus/revision/drag cancellation and tap thresholds; no physical device or visual acceptance",
   "EngineExecuted": false

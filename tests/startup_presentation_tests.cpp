@@ -17,4 +17,31 @@ void resize(){auto a=plan_video({1080,1920},{1920,1080},Device::Desktop);auto b=
 void assets(){Variants v;check(!select_variant(v,Device::Mobile));v.desktop=Asset{"intro-pc","assets/video/intro.mp4",{1920,1080}};validate_asset(*v.desktop);check(select_variant(v,Device::Mobile)->id=="intro-pc");v.mobile=Asset{"intro-mobile","assets/video/intro-mobile.mp4",{1080,1920}};check(select_variant(v,Device::Mobile)->id=="intro-mobile" && select_variant(v,Device::Desktop)->id=="intro-pc");}
 void paths(){for(const auto path:{"../x.png","C:/x.mp4","https://host/x","/x.png","assets//x.png","assets/../x.png","assets\\x.png","assets/x?.png","assets/a./x.png"}){check(!valid_asset_path(path));}check(valid_asset_path("assets/hub/panorama.png"));invalid([]{validate_asset({"x","../x",{1,1}});});}
 void configuration(){validate_display({{1280,720},WindowMode::Windowed});validate_display({{1920,1080},WindowMode::Fullscreen});invalid([]{validate_display({{0,720},WindowMode::Windowed});});invalid([]{auto p=contain({0,1},{1,1});(void)p;});invalid([]{auto p=plan_hub({1,1},{1,1},Device::Desktop,HubArea::Center,HubView::Auto,std::numeric_limits<double>::quiet_NaN());(void)p;});}
-int main(){try{landscape();portrait_desktop();rotate();portrait_mobile();hub_areas();hub_wide();resize();assets();paths();configuration();std::cout<<"STARTUP_PRESENTATION_TESTS_RESULT passed=10 total=10\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}
+void terminal_navigation(){
+    const auto& tickets=terminal_tickets();
+    const std::array expected{TerminalDestination::LocalLabs,TerminalDestination::Story,
+        TerminalDestination::EquipmentBosses,TerminalDestination::ResourcesAndTower,
+        TerminalDestination::Reserved};
+    TerminalNavigation terminal;
+    ScreenFlow flow;
+    check(flow.open_location());
+    for(std::size_t i=0;i<tickets.size();++i){
+        const auto& ticket=tickets[i];
+        check(ticket.destination==expected[i] && ticket.available==(i==0));
+        if(i!=0){check(!terminal_departure(ticket.route) && !terminal.embark(ticket.route));}
+    }
+    check(terminal_departure(TerminalRoute::Monorail)==TerminalDestination::LocalLabs);
+    check(terminal.embark(TerminalRoute::Monorail));
+    terminal.advance_lab_page();
+    check(terminal.lab_page()==1 && !terminal.embark(TerminalRoute::Monorail));
+    check(flow.enter_arena() && flow.finish() && flow.return_hub());
+    check(terminal.return_to_labs(flow) && terminal.lab_page()==1 && flow.screen()==UiScreen::Location);
+    terminal.open_tutorial();
+    check(terminal.lab_page()==3);
+    check(flow.enter_arena() && flow.pause() && flow.request_abandon() && flow.confirm_abandon());
+    check(terminal.return_to_labs(flow) && terminal.lab_page()==3);
+    terminal.close_labs();
+    check(!terminal.return_to_labs(flow) && !terminal.labs_open());
+    check(terminal.embark(TerminalRoute::Monorail) && terminal.lab_page()==0);
+}
+int main(){try{landscape();portrait_desktop();rotate();portrait_mobile();hub_areas();hub_wide();resize();assets();paths();configuration();terminal_navigation();std::cout<<"STARTUP_PRESENTATION_TESTS_RESULT passed=11 total=11\n";return 0;}catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}

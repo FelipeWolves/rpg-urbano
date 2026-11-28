@@ -52,7 +52,7 @@ private:
     std::unique_ptr<rpg::presentation::WaveVisualSession> Waves;
     bool PveActive=false,WavesActive=false;
     rpg::presentation::PveLabKind SelectedPveLab=rpg::presentation::PveLabKind::Ritual;
-    int32 WaveGeometryIndex=-1,TerminalMenuPage=0;
+    int32 WaveGeometryIndex=-1;
     rpg::presentation::PveVisualSession* ActivePve(){return PveLabs[static_cast<std::size_t>(SelectedPveLab)].get();}
     const rpg::presentation::PveVisualSession* ActivePve()const{return PveLabs[static_cast<std::size_t>(SelectedPveLab)].get();}
     rpg::presentation::VisualState ActiveState()const{return TutorialActive?Tutorial->state():SharedActive?ActiveShared()->state():SequenceActive?ActiveSequence()->state():WavesActive?Waves->state():PveActive?ActivePve()->state():Session.state();}
@@ -137,6 +137,20 @@ private:
     int32 TeamMenuPage=0;
     void LoadHubCatalog();
     void DrawHub();
+    void DrawTerminalTickets(const rpg::presentation::Rect& safe, bool worldDock, bool focused3D);
+    void DrawTerminalWorldDock(const rpg::presentation::Rect& dock);
+    void HideTerminalWorldDock();
+    UPROPERTY(Transient) TObjectPtr<class UWidgetComponent> TerminalWorldDock;
+    TSharedPtr<struct FSlateBrush> TerminalPortraitBrush;
+    rpg::presentation::TerminalNavigation TerminalNav;
+    int32 TerminalFirstTicket=0,TerminalShortcutFirstTicket=0;
+    bool TerminalShortcutOpen=false,TerminalShortcutReturned=false;
+    rpg::presentation::HubArea TerminalSector=rpg::presentation::HubArea::Center;
+    double TerminalCameraSide=0;
+    void ToggleTerminalShortcut();
+    bool TerminalArtChecked=false;
+    UPROPERTY(Transient) TObjectPtr<UTexture2D> TerminalArt=nullptr;
+    UPROPERTY(Transient) TArray<TObjectPtr<UTexture2D>> TerminalSignTextures;
     double CombatCueTime=-1;
     bool CombatCueImpact=false;
     std::optional<rpg::presentation::HubPlan> PanoramaFrom, PanoramaTarget;
@@ -151,6 +165,7 @@ private:
     void RestoreHub3DCamera();
     UPROPERTY(Transient) TObjectPtr<class ACameraActor> Hub3DCamera;
     UPROPERTY(Transient) TObjectPtr<AActor> Hub3DOriginalCamera;
+    UPROPERTY(Transient) TArray<TObjectPtr<class UMaterialInstanceDynamic>> Hub3DSignals;
     double Hub3DApproach=0;
     double Hub3DSide=0, Hub3DSideFrom=0, Hub3DSideTarget=0, Hub3DSlideStart=0;
     double Hub3DDragOrigin=0, Hub3DDragLastX=0, Hub3DDragLastTime=0, Hub3DDragVelocity=0;

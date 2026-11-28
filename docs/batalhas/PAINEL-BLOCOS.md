@@ -1,3 +1,5 @@
+> **27/11/2026 — Integração com o Terminal.** O futuro TerminalCore deve acionar as sessões existentes. O parecer mantém os resultados e aceites dos blocos de combate e laboratórios. [Auditoria e próximas etapas](../projeto/2026-11-27_parecer-arquitetura-lobo_v01.md).
+
 > **22/11 — LAB-PVE-06:** chefe compartilhado/três frentes integrados em código; ataques locais e global explícito. Cortes01–06 entregues, aceites02–06 abertos. Não confundir com toda PAR/servidor/3chefes independentes. Próximo recomendado QA/feedback; global~28% mantido.
 
 > **22/11 — LAB-PVE-05:** duas variantes de3equipes sequenciais integradas em código sobre SequentialSquads; HP contínuo e janelas local/global distintas. Aceites02–05 pendentes; próximo06frentes compartilhadas. Global~28% mantido.

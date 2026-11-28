@@ -46,6 +46,16 @@ $manifest+=@{Original=$hubPath;StagedRelative=('Content/Presentation/'+$hubPath)
 foreach($resource in @('assets/runtime/hub/logo-lobo.png','assets/runtime/fonts/CormorantGaramond.ttf','assets/runtime/fonts/CormorantGaramond-OFL.txt','assets/runtime/fonts/Lora.ttf','assets/runtime/fonts/Lora-OFL.txt')){
     $manifest+=@{Original=$resource;StagedRelative=('Content/Presentation/'+$resource)}
 }
+$terminalArt='assets/runtime/hub/terminal-multimodal-2d.png'
+foreach($texture in @('title-face.png','title-halo.png','subtitle-face.png','subtitle-halo.png')){
+    $relative="assets/runtime/hub/terminal-neon/$texture"
+    if(Test-Path -LiteralPath (Join-Path $root $relative)){
+        $manifest+=@{Original=$relative;StagedRelative=('Content/Presentation/'+$relative)}
+    }
+}
+if(Test-Path -LiteralPath (Join-Path $root $terminalArt)){
+    $manifest+=@{Original=$terminalArt;StagedRelative=('Content/Presentation/'+$terminalArt)}
+}
 foreach($resource in @('assets/runtime/video/intro-desk.mp4','assets/runtime/video/intro-mobile.mp4')){$manifest+=@{Original=$resource;StagedRelative=('Content/Presentation/'+$resource)}}
 # Validate all inputs before staging; no generated source is treated as canonical.
 foreach($item in $manifest){if(!(Test-Path -LiteralPath (Join-Path $root $item.Original) -PathType Leaf)){throw 'Missing canonical input'}}

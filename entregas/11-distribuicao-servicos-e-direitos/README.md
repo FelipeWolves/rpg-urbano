@@ -1,3 +1,5 @@
+> **27/11/2026.** Contas, lojas e cupom externo dependem de decisão comercial, revisão jurídica por mercado, canal de distribuição e autorização para infraestrutura. [Parecer](../../docs/projeto/2026-11-27_parecer-arquitetura-lobo_v01.md).
+
 ## Estado e dependências — 23/11/2026
 
 - **O que posso fazer.** Manter documentação da pré-alfa interna e dos pacotes Git LFS.

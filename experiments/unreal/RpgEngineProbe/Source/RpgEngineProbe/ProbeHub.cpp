@@ -243,6 +243,7 @@ void AProbeArenaHUD::DrawPreferences()
 void AProbeArenaHUD::ReturnToHub(){
     if(Flow.screen()!=UiScreen::Hub && !Flow.return_hub()){return;}HasActionFeedback=false;Gesture.cancel();PopupLines.Empty();SelectedSlot=0;SelectedTarget.Empty();
     if(PveActive || WavesActive || SequenceActive || SharedActive || TutorialActive){Flow.acknowledge_new_attempt();PveActive=false;WavesActive=false;SequenceActive=false;SharedActive=false;TutorialActive=false;RefreshArenaActors();}
+    if(HubPanelRoute==HubRoute::Terminal && TerminalNav.return_to_labs(Flow)){Pointer.cancel_until_release();}
     UE_LOG(LogTemp,Display,TEXT("HUB_RETURN attempt=%llu"),static_cast<unsigned long long>(Session.state().progress.attempt));
 }
 int32 AProbeArenaHUD::DrawInfoPanel(const FString& title,const TArray<FString>& paragraphs,int32& page,bool action,const FString& actionLabel,const FString& closeLabel)
@@ -349,6 +350,16 @@ void AProbeArenaHUD::DrawHub(){
         Gesture.cancel();SelectedSlot=0;SelectedTarget.Empty();
         UE_LOG(LogTemp,Display,TEXT("HUB_BATTLE attempt=%llu"),static_cast<unsigned long long>(Session.state().progress.attempt));
     };
+    if(Flow.screen()==UiScreen::Location && HubPanelRoute==HubRoute::Terminal && !TerminalNav.labs_open()){
+        if(preview3D && Hub3DApproach<0.99){return;}
+        if(preview3D && InputWindowActive && PlayerOwner->WasInputKeyJustPressed(EKeys::F2)){
+            ToggleTerminalShortcut();
+            return;
+        }
+        DrawTerminalTickets(layout.safe,preview3D && !TerminalShortcutOpen,focused3D);
+        return;
+    }
+    HideTerminalWorldDock();
     if(!preview3D){DrawRect(FLinearColor(0.015f,0.02f,0.03f),0,0,Canvas->SizeX,Canvas->SizeY);}
     if(Flow.screen()==UiScreen::TeamSetup){DrawTeamSetup();return;}
     if(!HubTexture){
@@ -511,18 +522,18 @@ void AProbeArenaHUD::DrawHub(){
                 if(Flow.new_attempt_required()){Session.reset();}Flow.acknowledge_new_attempt();
                 if(Flow.enter_arena(selected->finished())){TutorialActive=false;PveActive=true;SelectedPveLab=kind;WavesActive=false;SequenceActive=false;SharedActive=false;SelectedSlot=0;SelectedTarget.Empty();Gesture.cancel();Pointer.cancel_until_release();RefreshArenaActors();NextAutomatic=GetWorld()->GetTimeSeconds()+0.5;Message=TEXT("Teste local; consulte objetivo e limites no HUD.");}
             };
-            if(TerminalMenuPage!=3 && button({x,y+290,w,48},TEXT("Tutorial A Bola Perdida >"))){TerminalMenuPage=3;Pointer.cancel_until_release();return;}
-            DrawText(FString::Printf(TEXT("TERMINAL — TESTES LOCAIS %d/4"),TerminalMenuPage+1),FColor::Cyan,static_cast<float>(x),static_cast<float>(y-35),HubBodyFont,0.8f);
-            if(TerminalMenuPage==3){
+            if(TerminalNav.lab_page()!=3 && button({x,y+290,w,48},TEXT("Tutorial A Bola Perdida >"))){TerminalNav.open_tutorial();Pointer.cancel_until_release();return;}
+            DrawText(FString::Printf(TEXT("TERMINAL — TESTES LOCAIS %d/4"),TerminalNav.lab_page()+1),FColor::Cyan,static_cast<float>(x),static_cast<float>(y-35),HubBodyFont,0.8f);
+            if(TerminalNav.lab_page()==3){
                 if(button({x,y,w,48},TEXT("Tutorial padrao — A Bola Perdida"))){
                     if(!Tutorial){Tutorial=std::make_unique<rpg::presentation::TutorialSession>();}else{Tutorial->reset();}
                     Flow.acknowledge_new_attempt();
                     if(Flow.enter_arena(false)){TutorialActive=true;PveActive=false;WavesActive=false;SequenceActive=false;SharedActive=false;HasActionFeedback=false;SelectedSlot=0;SelectedTarget.Empty();HubPanelPage=0;Gesture.cancel();Pointer.cancel_until_release();RefreshArenaActors();NextAutomatic=GetWorld()->GetTimeSeconds()+0.5;Message=TEXT("Tutorial padrao de teste; conclusao local separada, sem moedas.");}return;
                 }
-                if(button({x,y+54,w,48},TEXT("< Outros laboratorios"))){TerminalMenuPage=0;Pointer.cancel_until_release();return;}
-                if(button({x,y+108,w,48},TEXT("Voltar ao hub"))){Flow.back(false,false);Pointer.cancel_until_release();return;}return;
+                if(button({x,y+54,w,48},TEXT("< Outros laboratorios"))){TerminalNav.show_first_lab_page();Pointer.cancel_until_release();return;}
+                if(button({x,y+108,w,48},TEXT("Voltar aos bilhetes"))){TerminalNav.close_labs();Pointer.cancel_until_release();return;}return;
             }
-            if(TerminalMenuPage==0){
+            if(TerminalNav.lab_page()==0){
                 if(button({x,y,w,48},TEXT("Laboratorio de equipe"))){SelectLabScenario(false);enterBattle();return;}
                 if(button({x,y+54,w,48},TEXT("Ritual local — Felipe e ecos"))){enterPve(rpg::presentation::PveLabKind::Ritual);return;}
                 if(button({x,y+108,w,48},TEXT("Ritual — fases do chefe"))){enterPve(rpg::presentation::PveLabKind::Phased);return;}
@@ -531,11 +542,11 @@ void AProbeArenaHUD::DrawHub(){
                     if(Flow.new_attempt_required()){Session.reset();}Flow.acknowledge_new_attempt();
                     if(Flow.enter_arena(Waves->finished())){TutorialActive=false;WavesActive=true;PveActive=false;SequenceActive=false;SharedActive=false;SelectedSlot=0;SelectedTarget.Empty();Gesture.cancel();Pointer.cancel_until_release();RefreshArenaActors();NextAutomatic=GetWorld()->GetTimeSeconds()+0.5;Message=TEXT("Conclua as duas ondas; transicoes seguem WaveV2.");}return;
                 }
-            }else if(TerminalMenuPage==1){
+            }else if(TerminalNav.lab_page()==1){
                 if(button({x,y,w,48},TEXT("Pontuacao — janela de 12 acoes"))){enterPve(rpg::presentation::PveLabKind::Score);return;}
                 if(button({x,y+54,w,48},TEXT("Sobrevivencia — 3 turnos do chefe"))){enterPve(rpg::presentation::PveLabKind::Survival);return;}
             }
-            if(TerminalMenuPage==1){
+            if(TerminalNav.lab_page()==1){
                 const auto enterSequence=[&](bool phases){
                     auto& selected=SequenceLabs[phases?1:0];
                     if(!selected){selected=std::make_unique<rpg::presentation::SequentialVisualSession>(rpg::presentation::sequential_lab_definition(phases));}else if(selected->finished() || selected->state().stopped){selected->reset();}
@@ -545,7 +556,7 @@ void AProbeArenaHUD::DrawHub(){
                 if(button({x,y+108,w,48},TEXT("3 equipes — fases do chefe"))){enterSequence(true);return;}
                 if(button({x,y+162,w,48},TEXT("3 equipes — kit fixo do chefe"))){enterSequence(false);return;}
             }
-            if(TerminalMenuPage==2){
+            if(TerminalNav.lab_page()==2){
                 const auto enterShared=[&](bool global){
                     auto& selected=SharedLabs[global?1:0];
                     if(!selected){selected=std::make_unique<rpg::presentation::SharedVisualSession>(rpg::presentation::shared_lab_definition(global));}else if(selected->finished() || selected->state().stopped){selected->reset();}
@@ -556,8 +567,8 @@ void AProbeArenaHUD::DrawHub(){
                 if(button({x,y+54,w,48},TEXT("3 frentes — especial global"))){enterShared(true);return;}
             }
             const double nav=(w-8)/2;
-            if(button({x,y+216,nav,48},TerminalMenuPage==0?TEXT("Mais modos >"):TerminalMenuPage==1?TEXT("Frentes locais >"):TEXT("< Primeiros modos"))){TerminalMenuPage=(TerminalMenuPage+1)%3;Pointer.cancel_until_release();return;}
-            if(button({x+nav+8,y+216,nav,48},TEXT("Voltar"))){Flow.back(false,false);return;}return;
+            if(button({x,y+216,nav,48},TerminalNav.lab_page()==0?TEXT("Mais modos >"):TerminalNav.lab_page()==1?TEXT("Frentes locais >"):TEXT("< Primeiros modos"))){TerminalNav.advance_lab_page();Pointer.cancel_until_release();return;}
+            if(button({x+nav+8,y+216,nav,48},TEXT("Voltar"))){TerminalNav.close_labs();Pointer.cancel_until_release();return;}return;
         }
         TArray<FString> paragraphs;paragraphs.Add(HubPanelBody);
         const int32 result=DrawInfoPanel(HubPanelTitle,paragraphs,HubPanelPage,HubPanelRoute==HubRoute::Terminal || HubPanelRoute==HubRoute::Battle,HubPanelRoute==HubRoute::Battle?TEXT("Testar Felipe (local)"):TEXT("Abrir batalha"));
@@ -571,7 +582,10 @@ void AProbeArenaHUD::DrawHub(){
             HubPanelBody=TEXT("Terminal de destinos. Os modais de transporte e seus destinos serão definidos em outro bloco. Você pode acessar abaixo a batalha de laboratório atual; ela não representa História, PvP ou viagem já implementados.");
         }else if(link.route==HubRoute::SpecialEvent){HubPanelTitle=HubEventTitle;HubPanelBody=HubEventBody;}
         else{HubPanelBody=TEXT("Em breve. Este local está mapeado no panorama, mas seu sistema ainda não foi implementado. Nenhuma compra, recompensa, partida online ou alteração de progresso será executada aqui.");}
-        HubPanelPage=0;TerminalMenuPage=0;Flow.open_location();
+        TerminalShortcutOpen=TerminalShortcutReturned=false;
+        TerminalSector=HubArea;
+        TerminalCameraSide=TerminalSector==HubArea::Left?-1.0:TerminalSector==HubArea::Right?1.0:0.0;
+        HubPanelPage=0;TerminalNav.show_first_lab_page();TerminalFirstTicket=0;TerminalNav.close_labs();Flow.open_location();
     };
     if(preview3D){
         auto visibleScene=layout.scene;

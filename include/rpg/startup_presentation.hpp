@@ -1,4 +1,5 @@
 #pragma once
+#include <array>
 #include <cstdint>
 #include <optional>
 #include <string>
@@ -40,6 +41,33 @@ public:
 private:
     UiScreen screen_;
     bool new_attempt_=false;
+};
+enum class TerminalRoute { Monorail, RegionalTrain, Bus, Metro, ConvenienceStore };
+enum class TerminalDestination { LocalLabs, Story, EquipmentBosses, ResourcesAndTower, Reserved };
+struct TerminalTicket {
+    TerminalRoute route;
+    const char8_t* title;
+    const char8_t* subtitle;
+    TerminalDestination destination;
+    bool available;
+};
+[[nodiscard]] const std::array<TerminalTicket,5>& terminal_tickets() noexcept;
+[[nodiscard]] std::optional<TerminalDestination> terminal_departure(TerminalRoute route) noexcept;
+
+class TerminalNavigation {
+public:
+    [[nodiscard]] bool labs_open() const noexcept {return labs_open_;}
+    [[nodiscard]] int lab_page() const noexcept {return lab_page_;}
+    bool embark(TerminalRoute route) noexcept;
+    void close_labs() noexcept {labs_open_=false;}
+    void open_tutorial() noexcept;
+    void show_first_lab_page() noexcept {lab_page_=0;}
+    void advance_lab_page() noexcept;
+    // Sessions leave this selection intact so the adapter can reopen Location.
+    bool return_to_labs(ScreenFlow& flow) const noexcept;
+private:
+    bool labs_open_=false;
+    int lab_page_=0;
 };
 enum class PointerSource { None, Mouse, Touch };
 struct PointerSample { bool down=false; bool valid=false; double x=0; double y=0; };

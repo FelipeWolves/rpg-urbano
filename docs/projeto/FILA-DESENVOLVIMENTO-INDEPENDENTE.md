@@ -1,3 +1,11 @@
+> **Mapa editável do Hub 3D — adiado em 28/11/2026.** Retomar quando solicitado. O molde com acabamentos e sinalização ambiental aprovados serve de base. O primeiro corte do TerminalCore está integrado e aguarda reteste em jogo.
+
+> **Prioridade vigente — 27/11/2026.** Retomar mais adiante os pacotes Windows/Android com o Terminal 2D, o reteste de navegação e toque do Terminal e o acabamento de apresentação do combate sobre AUT-13. O aceite de enquadramento do Terminal no RpgEngineProbe segue registrado. Os acabamentos provisórios dos sete destinos do Hub 3D foram compilados e receberam aceite visual. [Registro do Hub 3D](HUB-PREVIA-3D.md). A sinalização ambiental do Hub 3D recebeu aceite visual em 28/11/2026. A presença 3D do Felipe, inclusive o placeholder, foi adiada. Para o mapa editável, falta definir o formato. O catálogo e o retorno do Monotrilho já estão integrados no TerminalCore.
+
+> **Terminal 2D — 27/11/2026.** A prévia funcional dos cinco bilhetes está implementada. Monotrilho abre os laboratórios e o tutorial já disponíveis. A seleção do layout conforme o parâmetro de apresentação foi aceita no RpgEngineProbe. O reteste de toque em um novo APK segue pendente. Camadas separadas, retrato dinâmico e economia ficam para o acabamento. [Recebimento e critérios de teste](2026-11-27_terminal-2d-referencia-visual_v01.md).
+
+> **27/11/2026 — Terminal e arquitetura.** A [revisão técnica](2026-11-27_parecer-arquitetura-lobo_v01.md) separa o código existente das novas frentes. AUT-13, QA em janela e Hub 3D provisório seguem disponíveis com os recursos atuais. A revisão orientou os primeiros cortes do Terminal. Os novos pacotes seguem em etapa futura. A interface final do Terminal depende da arte. Hardware mínimo, regras comerciais, provedor, dados de conta e cupons ainda precisam de validação ou decisão. A estimativa da demo segue em 28,43%.
+
 > **Execução e dependências.** O próximo trabalho independente é a apresentação de combate sobre AUT-13. Validação em janela e refinamento dos materiais e do movimento do Hub 3D são frentes paralelas. A arte final libera a tela do Terminal. O usuário valida o visual, a persistência e o aparelho físico depois dos roteiros. [Central de entregas e aceites](../../entregas/NECESSIDADES-ATUAIS.md).
 
 > **Escopo da Pré-Alfa.** A fila preserva AUT-13, LAB-PVE e LAB-QA. Apresentação de combate e validação em janela avançam com os recursos atuais. Os materiais provisórios dos sete destinos antecedem o mapa editável. A tela do Terminal depende da arte final. [Diretrizes de design e execução](2026-11-23_diretrizes-desenvolvimento-lobo_v01.md).
@@ -34,7 +42,7 @@ Conferir os dois tutoriais, os novos modos PvE do Terminal, a navegação, a HUD
 ### Evolução visual e interativa do Hub 3D — a fazer
 
 - **Cena e câmera.** Partir do molde atual, com a disposição espacial e as cores sólidas já existentes. Animar discretamente luzes, sinais, elementos distantes ou atmosfera. Refinar as transições já implementadas entre alas. Manter o panorama em telas largas e o foco com deslize em telas estreitas, respeitando a orientação vigente. Com Movimento Reduzido, trocar de enquadramento imediatamente e evitar balanço e animações ambientais que prejudiquem a leitura.
-- **Protagonista.** Adicionar presença e animação básica em reação à ala ativa ou ao foco em um destino. Prever uma representação leve para o modo de baixo desempenho.
+- **Protagonista — adiado.** Quando retomado, adicionar presença e animação básica em reação à ala ativa ou ao foco em um destino. Prever uma representação leve para o modo de baixo desempenho.
 - **Leitura e interação.** Usar Dislyte como referência de clareza para uma interface urbana original em azul-noturno, preto e prata. Destacar os destinos do fundo, manter a HUD periférica limpa e dar feedback de hover, foco e clique ou toque. Preservar o cursor livre com GameAndUI e DoNotLock.
 - **Limites.** Preservar as regras de combate e os fluxos vigentes. Customização completa de roupas, clima avançado e mini-player de DJ ficam fora desta etapa.
 - **Aceite da entrega.** Testar navegação por botões e deslize em telas largas e estreitas. Conferir Movimento Reduzido, reação e fallback do protagonista, hover/foco, clique único, toque e saída livre do cursor. Registrar o que foi animado ou ajustado, o que ficou pendente e como reproduzir os testes.
@@ -54,6 +62,20 @@ Planejar Quadro Negro, caçadas com ameaça e requisitos visíveis e instrumento
 ### Personagem ativo, equipamentos, Praça e PvP — design futuro
 
 Registrar a seleção livre do personagem obtido e sua moldura no rodapé do Hub. Avaliar a personalização 2D → 3D em etapas. Planejar presets compartilhados de até cinco integrantes no jogo base, equipamentos próprios dos perfis Clássico e Padrão, PvP em tempo real no duelo e assíncrono por equipes. A Praça concentra comércio e trocas. O intervalo de 3 ou 6 horas da Loja de Ouro e os valores de câmbio ficam para calibração. [Consolidação de design v04](2026-11-23_diretrizes-telas-modos-e-evolucao_v04.md).
+
+## Terminal e arquitetura — próximos cortes condicionados
+
+| Frente | Preparação possível com os recursos atuais | Dependência para execução ou aceite |
+|---|---|---|
+| TerminalCore | [Catálogo compartilhado e retorno de sessões integrados](2026-11-28_terminalcore-mapa-navegacao_v01.md) | Reteste de navegação em jogo e toque. Trilhas e Expedição terão telas próprias em etapa futura. |
+| Terminal 2D | [Piloto de QA com arte atual e dados simulados compilado em Win64](2026-11-28_terminal-2d-piloto-qa_v01.md). Aceite visual em jogo pendente. | Arte final para integração visual; economia real para valores e drops |
+| Terminal 3D | [Câmera por setor e atalho 2D integrados no molde](2026-11-28_terminal-3d-setores-atalho_v01.md) | Reteste em jogo. Mapa editável e cena autoral seguem em outra etapa. |
+| Pacote opcional e hardware | Definir manifesto, fluxo e matriz de testes | Prova por plataforma, aparelho físico e canal de distribuição |
+| Economia e História | Modelar catálogos, conclusão por revisão e migrações | Regras de moeda e drops, capítulo piloto e critérios de conclusão do livro |
+| Backend e segurança | Preparar arquitetura e casos de teste com dados sintéticos | Autorização para infraestrutura, mercado inicial, provedor e revisão de privacidade |
+| Cupons externos | Definir elegibilidade, idempotência e testes usando emissor fictício | Termos de parceria e canais de resgate aprovados |
+
+[Auditoria, critérios técnicos e ordem até a Stable](2026-11-27_parecer-arquitetura-lobo_v01.md).
 
 ## Mobile e distribuição
 

@@ -1,3 +1,9 @@
+> **Terminal 2D.** A arte provisória está integrada no [piloto de QA](../../docs/projeto/2026-11-28_terminal-2d-piloto-qa_v01.md). A arte final em camadas é uma entrega de acabamento. Os aceites em jogo e por toque seguem no roteiro.
+
+> **Terminal 2D — 27/11/2026.** A composição visual já chegou e libera a prévia funcional. Camadas separadas são opcionais para esta etapa e úteis no acabamento. [Recebimento e critérios de teste](../../docs/projeto/2026-11-27_terminal-2d-referencia-visual_v01.md).
+
+> **27/11/2026.** A arte final do Terminal libera a integração visual. Quando disponíveis, incluir fundo, modais, moldura de bilhete, retrato, ícones sem texto e autoria. Os pontos clicáveis podem ser indicados separadamente. [Parecer](../../docs/projeto/2026-11-27_parecer-arquitetura-lobo_v01.md).
+
 ## Estado e dependências — 23/11/2026
 
 - **O que posso fazer.** Preparar integração, manter os acessos atuais e avançar com feedback visual provisório.

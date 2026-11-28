@@ -1,5 +1,5 @@
 # Generate blurred alpha masks of the actual label glyphs, locally; no source images altered.
-param([string]$EngineRoot='D:/Unreal Engine/UE_5.8')
+param([string]$EngineRoot='D:/Unreal Engine/UE_5.8',[switch]$Terminal)
 $ErrorActionPreference='Stop'
 Add-Type -AssemblyName System.Drawing
 $root=Split-Path $PSScriptRoot -Parent
@@ -13,6 +13,9 @@ using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 public static class LabelBlurMask {
  public static int[] Create(string fontPath,string text,string destination){
+ return Create(fontPath,text,destination,null,false);
+ }
+ public static int[] Create(string fontPath,string text,string destination,string face,bool outline){
  using(var collection=new PrivateFontCollection()){
  collection.AddFontFile(fontPath);
  using(var font=new Font(collection.Families[0],48,FontStyle.Regular,GraphicsUnit.Pixel))
@@ -20,9 +23,23 @@ public static class LabelBlurMask {
  using(var format=(StringFormat)StringFormat.GenericTypographic.Clone()){
  format.FormatFlags|=StringFormatFlags.NoWrap;
  var bounds=measure.MeasureString(text,font,4096,format);int lw=(int)Math.Ceiling(bounds.Width),lh=(int)Math.Ceiling(font.GetHeight(measure)),pad=24,w=lw+pad*2,h=lh+pad*2;
- if(w>512||h>512||lw<1||lh<1)throw new Exception("Invalid halo geometry");
+ if(w>(face==null?512:1024)||h>512||lw<1||lh<1)throw new Exception("Invalid halo geometry");
  using(var image=new Bitmap(w,h,PixelFormat.Format32bppArgb)){
- using(var g=Graphics.FromImage(image)){g.Clear(Color.Transparent);g.TextRenderingHint=TextRenderingHint.AntiAliasGridFit;g.DrawString(text,font,Brushes.White,new PointF(pad,pad),format);}
+ using(var g=Graphics.FromImage(image)){
+ g.Clear(Color.Transparent);
+ if(face==null){g.TextRenderingHint=TextRenderingHint.AntiAliasGridFit;g.DrawString(text,font,Brushes.White,new PointF(pad,pad),format);}
+ else{
+ g.SmoothingMode=System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+ using(var path=new System.Drawing.Drawing2D.GraphicsPath())
+ using(var ink=new SolidBrush(outline?Color.FromArgb(29,25,79):Color.FromArgb(124,248,247)))
+ using(var stroke=new Pen(Color.FromArgb(201,180,255),2.2f)){
+ path.AddString(text,font.FontFamily,(int)FontStyle.Regular,48,new PointF(pad,pad),format);
+ g.FillPath(ink,path);
+ if(outline){g.DrawPath(stroke,path);}
+ image.Save(face,ImageFormat.Png);
+ }
+ }
+ }
  var locked=image.LockBits(new Rectangle(0,0,w,h),ImageLockMode.ReadWrite,PixelFormat.Format32bppArgb);byte[] pixels=new byte[locked.Stride*h];Marshal.Copy(locked.Scan0,pixels,0,pixels.Length);
  int radius=18;double sigma=6,sum=0;double[] kernel=new double[2*radius+1];for(int i=-radius;i<=radius;i++){double value=Math.Exp(-i*i/(2*sigma*sigma));kernel[i+radius]=value;sum+=value;}for(int i=0;i<kernel.Length;i++)kernel[i]/=sum;
  float[] temp=new float[w*h];for(int y=0;y<h;y++)for(int x=0;x<w;x++){double value=0;for(int i=-radius;i<=radius;i++){int xx=x+i;if(xx>=0&&xx<w)value+=pixels[y*locked.Stride+xx*4+3]*kernel[i+radius];}temp[y*w+x]=(float)value;}
@@ -35,6 +52,23 @@ public static class LabelBlurMask {
  }
 }
 "@
+if($Terminal){
+    $font=Join-Path $EngineRoot 'Engine/Content/Slate/Fonts/Roboto-BoldCondensed.ttf'
+    $relative='assets/runtime/hub/terminal-neon'
+    $local=Join-Path $root $relative
+    $presentation=Join-Path $root "experiments/unreal/RpgEngineProbe/Content/Presentation/$relative"
+    New-Item -ItemType Directory -Force -Path $local,$presentation | Out-Null
+    foreach($sign in @(
+        @{Id='title';Text='TERMINAL URBANO';Outline=$true},
+        @{Id='subtitle';Text='Destinos e Modos Internos';Outline=$false}
+    )){
+        $face=$sign.Id+'-face.png'
+        $halo=$sign.Id+'-halo.png'
+        [LabelBlurMask]::Create($font,$sign.Text,(Join-Path $local $halo),(Join-Path $local $face),$sign.Outline) | Out-Null
+        foreach($file in $face,$halo){Copy-Item -LiteralPath (Join-Path $local $file) -Destination (Join-Path $presentation $file)}
+    }
+    return
+}
 $startup=Get-Content (Join-Path $root 'data/presentation/startup.json') -Raw | ConvertFrom-Json
 $catalog=Get-Content (Join-Path $root 'data/presentation/ui-runtime.json') -Raw | ConvertFrom-Json
 if(@($catalog.Resources | Where-Object Id -like 'halo_label_*').Count){throw 'Label halo catalog already exists; preserve version'}

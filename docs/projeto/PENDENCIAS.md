@@ -1,3 +1,13 @@
+> **Terminal 3D — reteste pendente.** Conferir câmera por setor, atalho 2D, retorno e Movimento Reduzido. [Roteiro](2026-11-28_terminal-3d-setores-atalho_v01.md).
+
+> **Piloto do Terminal 2D — aceite pendente.** A variante com arte atual e dados simulados compilou em Win64. Em jogo, conferir janela focada e lista larga, com saldo de QA e com saldo oculto. Navegação completa e toque continuam no roteiro de reteste. [Cenários e comando de abertura](2026-11-28_terminal-2d-piloto-qa_v01.md).
+
+> **Mapa editável do Hub 3D — adiado em 28/11/2026.** Retomar quando solicitado. O molde com acabamentos e sinalização ambiental aprovados serve de base. O catálogo e o retorno de sessões do TerminalCore estão integrados. O reteste do percurso completo e do toque permanece adiado. A seta Voltar com mouse foi aceita nos moldes 2D e 3D. [Mapa do TerminalCore](2026-11-28_terminalcore-mapa-navegacao_v01.md).
+
+> **Adiados em 27/11/2026.** Gerar novos pacotes Windows e Android com o Terminal 2D; testar o percurso Hub → Terminal → Monotrilho → batalha ou tutorial → Terminal, incluindo toque no Android; melhorar leitura do ator, alvo e habilidades no combate por AUT-13. Reabrir esses trabalhos na retomada. O aceite de seleção de layout do Terminal permanece registrado.
+
+> **27/11/2026 — Terminal e arquitetura.** A [revisão técnica](2026-11-27_parecer-arquitetura-lobo_v01.md) separa o código existente das novas frentes. AUT-13, QA em janela e Hub 3D provisório seguem disponíveis com os recursos atuais. A revisão orientou os primeiros cortes do Terminal. Os novos pacotes seguem em etapa futura. A interface final do Terminal depende da arte. Hardware mínimo, regras comerciais, provedor, dados de conta e cupons ainda precisam de validação ou decisão. A estimativa da demo segue em 28,43%.
+
 > **Prioridades vigentes em 23/11/2026.** Apresentação de combate por AUT-13, preparação dos aceites em janela e refinamento do Hub 3D avançam com o material atual. A tela final do Terminal depende da imagem. O mapa editável segue após o aceite dos materiais provisórios e a decisão de formato. Os [afazeres](FILA-DESENVOLVIMENTO-INDEPENDENTE.md) e a [central de entregas](../../entregas/NECESSIDADES-ATUAIS.md) separam execução, materiais e aceites.
 
 > **Campanha e telas futuras.** Contrato da Campanha e integração do Terminal permanecem abertos. A arte final do Terminal é a dependência visual. As rotas, o registro por livro e linha, as recompensas e a dificuldade estão mapeados nas [diretrizes LOBO](2026-11-23_diretrizes-desenvolvimento-lobo_v01.md).
@@ -688,3 +698,5 @@ Bleed (22/11): fórmula/relógio/classificação recebidos em BLEED-FELIPE-CONTR
 REG-03 (22/11): base executável e testes entregues; ver REG-03-CONTROLES.md. Permanecem as integrações de consequências nativas da A2 e efeitos contínuos. Poison e Bleed são contratos distintos; Poison não recebeu duração global, fornecida pela habilidade aplicadora. Não reabrir fórmulas aprovadas.
 
 </details>
+
+**Hub 3D — adiado.** Presença provisória do Felipe, incluindo modelo de teste ou placeholder e reação à ala em foco. Retomar em etapa própria. O movimento ambiental pode seguir de forma independente.

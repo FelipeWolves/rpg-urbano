@@ -20,6 +20,43 @@ Rect fit(double width,double height,PixelSize viewport){
     return {(viewport.width-w)/2,(viewport.height-h)/2,w,h};
 }
 }
+const std::array<TerminalTicket,5>& terminal_tickets() noexcept {
+    static constexpr std::array<TerminalTicket,5> tickets{{
+        {TerminalRoute::Monorail,u8"Monotrilho",u8"Laboratórios e tutorial",TerminalDestination::LocalLabs,true},
+        {TerminalRoute::RegionalTrain,u8"Trem Regional",u8"Modo História",TerminalDestination::Story,false},
+        {TerminalRoute::Bus,u8"Ônibus",u8"Chefes de equipamentos",TerminalDestination::EquipmentBosses,false},
+        {TerminalRoute::Metro,u8"Metrô",u8"Recursos e Torre",TerminalDestination::ResourcesAndTower,false},
+        {TerminalRoute::ConvenienceStore,u8"Loja de Conveniência",u8"Utilidades",TerminalDestination::Reserved,false},
+    }};
+    return tickets;
+}
+
+std::optional<TerminalDestination> terminal_departure(TerminalRoute route) noexcept {
+    for(const auto& ticket:terminal_tickets()){
+        if(ticket.route==route && ticket.available){return ticket.destination;}
+    }
+    return std::nullopt;
+}
+
+bool TerminalNavigation::embark(TerminalRoute route) noexcept {
+    if(labs_open_ || terminal_departure(route)!=TerminalDestination::LocalLabs){return false;}
+    labs_open_=true;
+    lab_page_=0;
+    return true;
+}
+
+void TerminalNavigation::open_tutorial() noexcept {
+    if(labs_open_){lab_page_=3;}
+}
+
+void TerminalNavigation::advance_lab_page() noexcept {
+    if(labs_open_ && lab_page_<3){lab_page_=(lab_page_+1)%3;}
+}
+
+bool TerminalNavigation::return_to_labs(ScreenFlow& flow) const noexcept {
+    return labs_open_ && flow.open_location();
+}
+
 ScreenFlow::ScreenFlow(UiScreen start):screen_(start){if(start!=UiScreen::Hub && start!=UiScreen::Arena){throw std::invalid_argument("Invalid initial screen");}}
 bool ScreenFlow::in_hub() const noexcept {return screen_==UiScreen::Hub || screen_==UiScreen::Location || screen_==UiScreen::Options || screen_==UiScreen::TeamSetup;}
 bool ScreenFlow::open_location() noexcept {if(screen_!=UiScreen::Hub){return false;}screen_=UiScreen::Location;return true;}

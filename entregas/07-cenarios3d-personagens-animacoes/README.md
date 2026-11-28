@@ -1,3 +1,7 @@
+> **Terminal 3D.** O molde atual já tem [câmera por setor e atalho 2D](../../docs/projeto/2026-11-28_terminal-3d-setores-atalho_v01.md), compilados em Win64. Reteste em jogo pendente. Modelo do Felipe e mapa editável continuam adiados.
+
+> **27/11/2026.** O refinamento provisório do Hub pode avançar. Para o Terminal futuro, avaliar câmeras por setor e um atalho para os bilhetes. Cena final e pacote opcional ficam para prova de conceito. [Parecer](../../docs/projeto/2026-11-27_parecer-arquitetura-lobo_v01.md).
+
 ## Estado e dependências — 23/11/2026
 
 - **O que posso fazer.** Refinar materiais dos sete destinos, movimento ambiental, câmera e presença provisória com fallback leve.

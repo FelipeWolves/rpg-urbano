@@ -1,3 +1,7 @@
+> **28/11/2026 — Terminal.** Catálogo compartilhado, piloto 2D de QA e câmera 3D por setor com atalho 2D disponíveis no RpgEngineProbe. Consulte a [fila vigente](docs/projeto/FILA-DESENVOLVIMENTO-INDEPENDENTE.md) e os [retestes pendentes](docs/projeto/PENDENCIAS.md).
+
+> **27/11/2026 — Planejamento.** A especificação consolidada foi reconciliada com a Pré-Alfa em um [parecer de arquitetura e UX](docs/projeto/2026-11-27_parecer-arquitetura-lobo_v01.md).
+
 > **Próxima entrega.** Acabamento de combate sobre AUT-13. O trabalho pode avançar com os recursos atuais. A imagem final do Terminal é a entrega de arte mais imediata. [O que posso fazer e o que depende de você](entregas/NECESSIDADES-ATUAIS.md).
 
 > **Versão oficial atual: v0.28-pre-alpha.** Compilação para desenvolvimento interno, com save técnico local. [Política de versionamento, acesso e saves](docs/projeto/POLITICA-VERSIONAMENTO.md).

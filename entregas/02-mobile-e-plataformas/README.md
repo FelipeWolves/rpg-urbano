@@ -1,3 +1,7 @@
+> **Terminal no Android.** O toque da versão com catálogo compartilhado, piloto 2D e atalho 3D continua pendente. Ver [Pendências](../../docs/projeto/PENDENCIAS.md).
+
+> **27/11/2026.** Para a próxima rodada, indicar os aparelhos físicos disponíveis. Os limites de RAM, API gráfica e espaço são alvos a validar antes de declarar requisitos. [Parecer](../../docs/projeto/2026-11-27_parecer-arquitetura-lobo_v01.md).
+
 ## Estado e dependências — 23/11/2026
 
 - **O que posso fazer.** Reaproveitar o APK e o AVD e preparar roteiro de retorno, áudio, áreas seguras, toque e desempenho.

@@ -25,7 +25,7 @@ public class RpgEngineProbe : ModuleRules
         {
             PublicIncludePaths.Add(Path.Combine(ModuleDirectory, "Public", "NativeCore"));
         }
-        PrivateDependencyModuleNames.AddRange(new string[] { "Json", "Slate", "SlateCore", "MediaAssets", "AudioMixer" });
+        PrivateDependencyModuleNames.AddRange(new string[] { "Json", "Slate", "SlateCore", "MediaAssets", "AudioMixer", "UMG" });
         PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore" });
     }
 }

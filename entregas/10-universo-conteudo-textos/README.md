@@ -1,3 +1,5 @@
+> **27/11/2026.** Para o piloto, enviar um capítulo e indicar o que conta para a conclusão do livro, incluindo secundários elegíveis. Termos narrativos continuam em avaliação. [Parecer](../../docs/projeto/2026-11-27_parecer-arquitetura-lobo_v01.md).
+
 ## Estado e dependências — 23/11/2026
 
 - **O que posso fazer.** Consolidar a proposta dos 67 capítulos e preparar critérios para trilhas e Atlas quando a frente for autorizada.

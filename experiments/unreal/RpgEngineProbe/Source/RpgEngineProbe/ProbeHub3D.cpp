@@ -16,6 +16,17 @@
 
 namespace {
 const FVector PlazaOrigin(18000,0,0);
+struct AmbientSignal {
+    FVector position;
+    FLinearColor color;
+    double period;
+};
+const AmbientSignal AmbientSignals[]={
+    {{520,-1000,325},{0.59f,0.27f,0.90f,1.f},6.5},
+    {{900,-550,450},{0.27f,0.72f,0.94f,1.f},8.0},
+    {{120,105,220},{0.22f,0.82f,0.66f,1.f},7.2},
+    {{385,1010,392},{0.88f,0.52f,0.21f,1.f},9.0},
+};
 struct DestinationAnchor {
     std::string_view id;
     FVector point;
@@ -69,6 +80,15 @@ bool AProbeArenaHUD::UpdateHub3D(bool focused)
         auto* gamesMaterial=finish({0.08f,0.44f,0.39f,1},0.47f);
         auto* rail=finish({0.24f,0.26f,0.29f,1},0.63f);
         auto* foliage=finish({0.11f,0.32f,0.14f,1},0.88f);
+        auto* glass=finish({0.12f,0.33f,0.48f,1},0.22f);
+        auto* silver=finish({0.39f,0.47f,0.55f,1},0.42f);
+        auto* stoneTrim=finish({0.83f,0.72f,0.53f,1},0.80f);
+        auto* tile=finish({0.46f,0.51f,0.54f,1},0.80f);
+        auto* tealTrim=finish({0.24f,0.67f,0.64f,1},0.40f);
+        auto* labTrim=finish({0.52f,0.32f,0.68f,1},0.54f);
+        auto* arenaTrim=finish({0.59f,0.33f,0.43f,1},0.62f);
+        auto* pubTrim=finish({0.70f,0.47f,0.22f,1},0.66f);
+        auto* darkFrame=finish({0.115f,0.14f,0.19f,1},0.69f);
         UMaterialInterface* current=pavement;
         const auto volume=[&](UStaticMesh* mesh,FVector center,FVector scale,FRotator rotation=FRotator::ZeroRotator){
             auto* actor=GetWorld()->SpawnActor<AStaticMeshActor>(PlazaOrigin+center,rotation);
@@ -121,6 +141,68 @@ bool AProbeArenaHUD::UpdateHub3D(bool focused)
         volume(cube,{-260,1150,-55},{3.0,3.8,1.9});
         volume(cube,{-290,923,31},{2.6,0.7,0.18});
 
+        // Surface panels give each destination a readable finish from both camera views.
+        current=glass;
+        for(double y:{-440.,-220.,0.,220.,440.}){
+            volume(cube,{924,y,315},{0.10,1.9,2.38});
+        }
+        current=silver;
+        volume(cube,{914,0,194},{0.22,11.0,0.16});
+        volume(cube,{914,0,437},{0.22,11.0,0.13});
+        for(double y:{-550.,-330.,-110.,110.,330.,550.}){
+            volume(cube,{916,y,314},{0.16,0.10,2.39});
+        }
+        current=darkFrame;
+        volume(cube,{923,0,82},{0.16,1.34,1.62});
+
+        current=stoneTrim;
+        facade(cube,library,-35,{-176,0,404},{0.18,5.65,0.20});
+        facade(cube,library,-35,{-176,0,42},{0.18,5.65,0.18});
+        for(double y:{-180.,0.,180.}){
+            facade(cylinder,library,-35,{-185,y,412},{0.57,0.57,0.17});
+            facade(cylinder,library,-35,{-185,y,16},{0.57,0.57,0.23});
+        }
+        current=darkFrame;
+        facade(cube,library,-35,{-177,0,122},{0.12,1.25,2.02});
+
+        current=labTrim;
+        facade(cube,lab,-48,{-125,0,233},{0.14,3.85,0.19});
+        facade(cube,lab,-48,{-124,-170,137},{0.12,0.14,1.65});
+        facade(cube,lab,-48,{-124,170,137},{0.12,0.14,1.65});
+        current=glass;
+        facade(cube,lab,-48,{-125,0,134},{0.14,2.65,1.35});
+
+        current=darkFrame;
+        facade(cube,arena,42,{-178,0,124},{0.12,4.65,1.8});
+        current=arenaTrim;
+        for(double y:{-220.,-110.,0.,110.,220.}){
+            facade(cube,arena,42,{-186,y,126},{0.10,0.12,1.94});
+        }
+        facade(cube,arena,42,{-187,0,222},{0.09,4.65,0.13});
+
+        current=tealTrim;
+        volume(cylinder,{205,105,181},{3.24,4.34,0.10});
+        volume(cylinder,{205,105,37},{3.24,4.34,0.15});
+        current=darkFrame;
+        volume(cube,{43,105,109},{0.12,1.6,1.22});
+
+        current=pubTrim;
+        volume(cube,{-417,1150,-7},{0.16,3.46,0.18});
+        volume(cube,{-416,1035,-59},{0.12,0.84,0.66});
+        volume(cube,{-416,1265,-59},{0.12,0.84,0.66});
+        current=darkFrame;
+        volume(cube,{-420,1150,-70},{0.16,0.78,1.22});
+
+        current=tile;
+        for(int row=0;row<3;++row){
+            for(int col=0;col<5;++col){
+                volume(cube,{-575+row*75.0,-495+col*75.0,0},{0.69,0.69,0.08});
+            }
+        }
+        current=stoneTrim;
+        volume(cylinder,{-425,-345,68},{2.62,2.62,0.09});
+        volume(cylinder,{-425,-345,172},{1.52,1.52,0.08});
+
         // Track turns out of the Terminal and advances toward the near right edge.
         current=rail;
         const FVector track[]={{930,365,378},{865,610,369},{655,835,359},
@@ -134,7 +216,9 @@ bool AProbeArenaHUD::UpdateHub3D(bool focused)
             const double length=(delta.Size()+15.0)/100.0;
             volume(cube,midpoint,{length,1.78,0.56},heading);
             for(double offset:{-41.,41.}){
+                current=silver;
                 volume(cube,midpoint+lateral*offset+FVector(0,0,33),{length,0.12,0.10},heading);
+                current=rail;
             }
             if(i>=2){
                 const double base=midpoint.X<100 && midpoint.Y>630?-150.0:0.0;
@@ -169,6 +253,14 @@ bool AProbeArenaHUD::UpdateHub3D(bool focused)
             volume(cylinder,{145,y,205},{1.3,1.3,0.85});
         }
         volume(cube,{1600,980,360},{4,5,7.2});
+        for(const auto& signal:AmbientSignals){
+            auto* material=finish(signal.color,0.58f);
+            Hub3DSignals.Add(material);
+            if(material){
+                current=material;
+                volume(cube,signal.position,{0.13,0.22,0.14});
+            }
+        }
         if(auto* light=GetWorld()->SpawnActor<APointLight>(PlazaOrigin+FVector(100,-450,800),FRotator::ZeroRotator)){
             if(auto* component=light->FindComponentByClass<UPointLightComponent>()){
                 component->SetMobility(EComponentMobility::Movable);
@@ -187,6 +279,18 @@ bool AProbeArenaHUD::UpdateHub3D(bool focused)
         PlayerOwner->SetViewTarget(Hub3DCamera);
     }
     using namespace rpg::presentation;
+    const bool animateAmbient=!HubReducedMotion && Flow.screen()==UiScreen::Hub;
+    const double ambientTime=GetWorld()->GetTimeSeconds();
+    static const FName SignalColor(TEXT("Color"));
+    for(int32 index=0;index<Hub3DSignals.Num();++index){
+        if(auto* material=Hub3DSignals[index].Get()){
+            const auto& signal=AmbientSignals[index];
+            const double wave=animateAmbient?FMath::Sin(ambientTime*2.0*UE_PI/signal.period+index*1.4):0.0;
+            const float intensity=0.80f+0.20f*static_cast<float>(wave);
+            material->SetVectorParameterValue(SignalColor,{
+                signal.color.R*intensity,signal.color.G*intensity,signal.color.B*intensity,signal.color.A});
+        }
+    }
     const bool approaching=Flow.screen()==UiScreen::Location && HubPanelRoute==HubRoute::Terminal;
     const double target=approaching?1.0:0.0;
     Hub3DApproach=HubReducedMotion?target:FMath::FInterpConstantTo(Hub3DApproach,target,static_cast<double>(GetWorld()->GetDeltaSeconds()),1.35);
@@ -260,14 +364,18 @@ bool AProbeArenaHUD::UpdateHub3D(bool focused)
     const bool sliding=Hub3DDragging || !FMath::IsNearlyEqual(Hub3DSide,sideTarget,0.001);
     Hub3DLabelOpacity=HubReducedMotion?1.f:FMath::FInterpConstantTo(
         Hub3DLabelOpacity,sliding?0.f:1.f,GetWorld()->GetDeltaSeconds(),8.f);
-    const FVector eye=FMath::Lerp(FVector(focused?-1160:-1360,Hub3DSide*470,715),FVector(390,-82,318),blend);
-    const FVector look=FMath::Lerp(FVector(660,Hub3DSide*850,focused?250:130),FVector(960,0,275),blend);
+    const double terminalSide=TerminalSector==HubArea::Left?-1.0:TerminalSector==HubArea::Right?1.0:0.0;
+    TerminalCameraSide=HubReducedMotion?terminalSide:FMath::FInterpTo(
+        TerminalCameraSide,terminalSide,static_cast<double>(GetWorld()->GetDeltaSeconds()),6.0);
+    const FVector eye=FMath::Lerp(FVector(focused?-1160:-1360,Hub3DSide*470,715),FVector(390,-82+TerminalCameraSide*125,318),blend);
+    const FVector look=FMath::Lerp(FVector(660,Hub3DSide*850,focused?250:130),FVector(960,TerminalCameraSide*180,275),blend);
     Hub3DCamera->SetActorLocationAndRotation(PlazaOrigin+eye,(look-eye).Rotation());
     return true;
 }
 
 void AProbeArenaHUD::RestoreHub3DCamera()
 {
+    HideTerminalWorldDock();
     if(Hub3DCamera && PlayerOwner->GetViewTarget()==Hub3DCamera && IsValid(Hub3DOriginalCamera)){
         PlayerOwner->SetViewTarget(Hub3DOriginalCamera);
         Hub3DApproach=0;
